@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UI Moods · Gallery</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #f6f7f4;
+      color: #1f2937;
+      font-family: system-ui, -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+    header {
+      background: linear-gradient(135deg, #23473a, #2e7d5b);
+      color: #f4faf6;
+      padding: 28px 32px;
+    }
+    header h1 { margin: 0; font-size: 24px; }
+    header p { margin: 6px 0 0; opacity: 0.85; font-size: 13px; }
+    #grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+      padding: 24px 32px;
+    }
+    .card {
+      background: #fff;
+      border: 1px solid #e3e7df;
+      border-radius: 14px;
+      padding: 18px 20px;
+      cursor: pointer;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(30,50,40,0.1); }
+    .card-name { font-size: 17px; font-weight: 700; }
+    .card-zh { font-size: 12px; color: #8b9385; margin: 2px 0 10px; }
+    .card-tags { font-size: 11px; color: #5c6b5e; line-height: 1.5; }
+    .pill {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 1px 8px;
+      border-radius: 999px;
+      margin-right: 6px;
+      background: #e7f2ea;
+      color: #1d5c42;
+    }
+    .hidden { display: none !important; }
+    #viewer { position: fixed; inset: 0; background: #f6f7f4; z-index: 10; display: flex; flex-direction: column; }
+    .viewer-head {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 20px;
+      background: #fff;
+      border-bottom: 1px solid #e3e7df;
+    }
+    .viewer-head h2 { margin: 0; flex: 1; font-size: 16px; }
+    .viewer-head button {
+      font: inherit;
+      font-size: 13px;
+      padding: 7px 14px;
+      border: 1px solid #c9d2c2;
+      border-radius: 9px;
+      background: #fff;
+      color: #1f2937;
+      cursor: pointer;
+    }
+    .viewer-head button.primary { background: #2e7d5b; border-color: #2e7d5b; color: #fff; }
+    #frame { flex: 1; width: 100%; border: 0; }
+    #copied { font-size: 12px; color: #2e7d5b; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>UI Moods · Gallery</h1>
+    <p>Style Specimen Registry — 浏览标本、切换主题、复制 tokens</p>
+  </header>
+
+  <main id="grid"></main>
+
+  <div id="viewer" class="hidden">
+    <div class="viewer-head">
+      <button id="back" type="button">← 返回</button>
+      <h2 id="viewer-title"></h2>
+      <span id="copied"></span>
+      <button id="copy-tokens" class="primary" type="button">复制 tokens.json</button>
+    </div>
+    <iframe id="frame" title="specimen preview"></iframe>
+  </div>
+
+  <script>
+    const grid = document.getElementById("grid");
+    const viewer = document.getElementById("viewer");
+    const title = document.getElementById("viewer-title");
+    const frame = document.getElementById("frame");
+    const copyBtn = document.getElementById("copy-tokens");
+    const copied = document.getElementById("copied");
+    const back = document.getElementById("back");
+
+    function addText(parent, text) {
+      parent.appendChild(document.createTextNode(text));
+    }
+
+    (async () => {
+      const index = await (await fetch("/moods.json")).json();
+      for (const mood of index.moods) {
+        const card = document.createElement("div");
+        card.className = "card";
+
+        const name = document.createElement("div");
+        name.className = "card-name";
+        addText(name, mood.name);
+        const zh = document.createElement("div");
+        zh.className = "card-zh";
+        addText(zh, mood.nameZh);
+        const tags = document.createElement("div");
+        tags.className = "card-tags";
+        const pill = document.createElement("span");
+        pill.className = "pill";
+        addText(pill, mood.appearance);
+        tags.appendChild(pill);
+        addText(tags, (mood.keywords || []).join(" / "));
+
+        card.append(name, zh, tags);
+        card.addEventListener("click", () => openMood(mood));
+        grid.appendChild(card);
+      }
+    })();
+
+    function openMood(mood) {
+      grid.classList.add("hidden");
+      viewer.classList.remove("hidden");
+      title.textContent = `${mood.name} · ${mood.nameZh}`;
+      frame.src = `/moods/${mood.id}/specimen.html`;
+      copied.textContent = "";
+      copyBtn.onclick = async () => {
+        try {
+          const tokens = await (await fetch(`/moods/${mood.id}/tokens.json`)).json();
+          await navigator.clipboard.writeText(JSON.stringify(tokens, null, 2));
+          copied.textContent = "已复制 ✓";
+        } catch {
+          copied.textContent = "复制失败（请手动打开 tokens.json）";
+        }
+      };
+    }
+
+    back.addEventListener("click", () => {
+      viewer.classList.add("hidden");
+      grid.classList.remove("hidden");
+      frame.src = "about:blank";
+    });
+  </script>
+</body>
+</html>

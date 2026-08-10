@@ -1,0 +1,37 @@
+# instrument · acceptance checklist
+
+- id: instrument-radius-card
+  type: value
+  description: Card radius must equal tokens.radii.card
+  assert:
+    path: radii.card
+    eq: "2px"
+
+- id: instrument-token-only-colors
+  type: token-only
+  description: No color literals outside tokens.colors / resolved components
+  scope: colors
+
+- id: instrument-token-only-components
+  type: token-only
+  description: Component semantic layer must only reference tokens, no new literals
+  scope: components
+
+- id: instrument-contrast-text
+  type: contrast
+  description: Body text on bg contrast >= 4.5:1
+  foreground: colors.text
+  background: colors.bg
+  minRatio: 4.5
+
+- id: instrument-monospace
+  type: value
+  description: Body font must be the monospace family from tokens
+  assert:
+    path: typography.family
+    eq: "JetBrains Mono, ui-monospace, monospace"
+
+- id: instrument-feel
+  type: subjective
+  description: Controls read as precise lab instruments with hairline borders
+  required: false

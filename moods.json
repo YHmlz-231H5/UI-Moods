@@ -1,0 +1,152 @@
+{
+  "moods": [
+    {
+      "id": "anime",
+      "version": "1.0.0",
+      "name": "Anime",
+      "nameZh": "动漫",
+      "appearance": "light",
+      "keywords": [
+        "kawaii",
+        "sticker",
+        "halftone",
+        "sparkle"
+      ]
+    },
+    {
+      "id": "archive",
+      "version": "1.0.0",
+      "name": "Archive",
+      "nameZh": "档案",
+      "appearance": "light",
+      "keywords": [
+        "archive",
+        "paper",
+        "serif",
+        "stamp",
+        "ink"
+      ]
+    },
+    {
+      "id": "blueprint",
+      "version": "1.0.0",
+      "name": "Blueprint",
+      "nameZh": "蓝图",
+      "appearance": "dark",
+      "keywords": [
+        "blueprint",
+        "drafting",
+        "uppercase",
+        "technical"
+      ]
+    },
+    {
+      "id": "clay",
+      "version": "1.0.0",
+      "name": "Clay",
+      "nameZh": "陶土",
+      "appearance": "light",
+      "keywords": [
+        "clay",
+        "matte",
+        "ceramic",
+        "organic",
+        "soft"
+      ]
+    },
+    {
+      "id": "forest",
+      "version": "1.0.0",
+      "name": "Forest",
+      "nameZh": "森系",
+      "appearance": "light",
+      "keywords": [
+        "moss",
+        "wood",
+        "botanical",
+        "organic"
+      ]
+    },
+    {
+      "id": "glass",
+      "version": "1.0.0",
+      "name": "Glass",
+      "nameZh": "毛玻璃",
+      "appearance": "dark",
+      "keywords": [
+        "frosted",
+        "backdrop-blur",
+        "translucent",
+        "glassmorphism"
+      ]
+    },
+    {
+      "id": "instrument",
+      "version": "1.0.0",
+      "name": "Instrument",
+      "nameZh": "仪表",
+      "appearance": "dark",
+      "keywords": [
+        "precision",
+        "monospace",
+        "hairline",
+        "readout"
+      ]
+    },
+    {
+      "id": "ios",
+      "version": "1.0.0",
+      "name": "iOS",
+      "nameZh": "苹果风",
+      "appearance": "light",
+      "keywords": [
+        "sf-pro",
+        "rounded",
+        "grouped",
+        "system-blue"
+      ]
+    },
+    {
+      "id": "luxury",
+      "version": "1.0.0",
+      "name": "Luxury",
+      "nameZh": "奢雅",
+      "appearance": "light",
+      "keywords": [
+        "luxury",
+        "editorial",
+        "serif",
+        "hairline",
+        "minimal"
+      ]
+    },
+    {
+      "id": "night",
+      "version": "1.0.0",
+      "name": "Night",
+      "nameZh": "夜航",
+      "appearance": "dark",
+      "keywords": [
+        "night",
+        "blue",
+        "glow",
+        "monospace",
+        "dark"
+      ]
+    },
+    {
+      "id": "verdant",
+      "version": "1.0.0",
+      "name": "Verdant",
+      "nameZh": "磷光",
+      "appearance": "dark",
+      "keywords": [
+        "phosphor",
+        "crt",
+        "terminal",
+        "mono",
+        "green"
+      ]
+    }
+  ]
+}

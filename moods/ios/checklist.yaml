@@ -1,0 +1,37 @@
+# ios · acceptance checklist
+
+- id: ios-radius-card
+  type: value
+  description: Card radius must equal tokens.radii.card
+  assert:
+    path: radii.card
+    eq: "18px"
+
+- id: ios-font
+  type: value
+  description: Body font must be the system stack from tokens
+  assert:
+    path: typography.family
+    eq: "-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC', 'Helvetica Neue', sans-serif"
+
+- id: ios-token-only-colors
+  type: token-only
+  description: No color literals outside tokens.colors / resolved components
+  scope: colors
+
+- id: ios-token-only-components
+  type: token-only
+  description: Component semantic layer must only reference tokens, no new literals
+  scope: components
+
+- id: ios-contrast-text
+  type: contrast
+  description: Body text on bg contrast >= 4.5:1
+  foreground: colors.text
+  background: colors.bg
+  minRatio: 4.5
+
+- id: ios-feel
+  type: subjective
+  description: Panels read as native iOS grouped cards with system type
+  required: false

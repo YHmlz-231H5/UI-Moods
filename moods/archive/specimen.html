@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mood Specimen · archive</title>
+  <!--
+    Mood specimen template.
+    - Fixed component matrix: Palette / Typography / Logo / Buttons / Badges /
+      Inputs / Progress / Cards / Table / Toggles / List / Alerts.
+    - CSS uses var(--mood-*) only. The style block with id "mood-tokens" is
+      the single injection point: build-specimen replaces it from tokens.json.
+    - Placeholders archive / Archive / archive · paper · serif · stamp · ink are filled by build-specimen.
+    - No inline executable scripts (community mood safety).
+  -->
+  <style id="mood-tokens">
+    :root {
+      --mood-colors-bg: #e8e0d4;
+      --mood-colors-panel: #f4eee4;
+      --mood-colors-surface: #fffaf3;
+      --mood-colors-text: #3a3228;
+      --mood-colors-text-strong: #2c241c;
+      --mood-colors-muted: #7a6a58;
+      --mood-colors-border: #d8cbb6;
+      --mood-colors-accent: #305070;
+      --mood-colors-on-accent: #f4eee4;
+      --mood-colors-ok: #4a6a38;
+      --mood-colors-warn: #9a6a30;
+      --mood-colors-danger: #8a4038;
+      --mood-colors-danger-soft: #f0e0dc;
+      --mood-colors-danger-border: #d0a8a0;
+      --mood-typography-family: Newsreader, Georgia, serif;
+      --mood-typography-display-size: 42px;
+      --mood-typography-title-size: 17px;
+      --mood-typography-body-size: 14px;
+      --mood-typography-label-size: 10px;
+      --mood-radii-block: 3px;
+      --mood-radii-button: 2px;
+      --mood-radii-card: 3px;
+      --mood-radii-badge: 2px;
+      --mood-radii-input: 2px;
+      --mood-borders-width: 1px;
+      --mood-borders-style: solid;
+      --mood-effects-backdrop-filter: none;
+      --mood-shadows-card: 0 1px 0 #efe6d8, 0 8px 20px rgba(80,60,30,0.05);
+      --mood-shadows-button: none;
+      --mood-spacing-section: 28px;
+      --mood-spacing-block: 18px;
+      --mood-spacing-gap: 16px;
+      --mood-motion-duration: 0.2s;
+      --mood-motion-easing: ease;
+    }
+    </style>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--mood-colors-bg);
+      color: var(--mood-colors-text);
+      font-family: var(--mood-typography-family);
+      font-size: var(--mood-typography-body-size);
+      line-height: 1.65;
+    }
+    .hero {
+      padding: 48px 36px;
+      border-bottom: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+      background: var(--mood-colors-panel);
+    }
+    .hero .label {
+      font-size: var(--mood-typography-label-size);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mood-colors-accent);
+      margin-bottom: 8px;
+    }
+    .hero h1 {
+      margin: 0;
+      font-size: var(--mood-typography-display-size);
+      color: var(--mood-colors-text-strong);
+    }
+    .hero p { max-width: 640px; color: var(--mood-colors-muted); }
+    .kit { padding: 28px 36px 48px; display: flex; flex-direction: column; gap: 28px; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--mood-spacing-gap); }
+    .row.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .section-label {
+      font-size: var(--mood-typography-label-size);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mood-colors-muted);
+      margin-bottom: 10px;
+    }
+    .block {
+      padding: var(--mood-spacing-block);
+      background: var(--mood-colors-surface);
+      border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+      border-radius: var(--mood-radii-block);
+      backdrop-filter: var(--mood-effects-backdrop-filter, none);
+    }
+    .swatches { display: flex; flex-wrap: wrap; gap: 10px; }
+    .swatch { width: 72px; }
+    .chip { height: 44px; border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); border-radius: var(--mood-radii-input); margin-bottom: 6px; }
+    .swatch .name { font-size: 10px; opacity: 0.75; }
+    .swatch .hex { font-size: 10px; opacity: 0.45; }
+    .type-stack { display: flex; flex-direction: column; gap: 10px; }
+    .type-row { display: grid; grid-template-columns: 76px 1fr; gap: 10px; align-items: baseline; }
+    .type-row .spec { font-size: 10px; opacity: 0.45; }
+    .type-row .display { font-size: var(--mood-typography-display-size); color: var(--mood-colors-text-strong); }
+    .type-row .title { font-size: var(--mood-typography-title-size); color: var(--mood-colors-text-strong); font-weight: 600; }
+    .logo-row { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; }
+    .logo-mark { display: flex; align-items: center; gap: 10px; }
+    .logo-mark .glyph {
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--mood-colors-accent);
+      color: var(--mood-colors-on-accent, var(--mood-colors-surface));
+      border-radius: var(--mood-radii-button);
+      font-weight: 700;
+    }
+    .btn-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    button {
+      font: inherit;
+      padding: 8px 16px;
+      border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+      border-radius: var(--mood-radii-button);
+      background: var(--mood-colors-surface);
+      color: var(--mood-colors-accent);
+      box-shadow: var(--mood-shadows-button);
+      cursor: default;
+    }
+    button.primary { background: var(--mood-colors-accent); border-color: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); }
+    button.ok { background: var(--mood-colors-ok); border-color: var(--mood-colors-ok); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); }
+    button.danger { background: var(--mood-colors-danger); border-color: var(--mood-colors-danger); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); }
+    button:disabled { opacity: 0.4; }
+    .badge {
+      display: inline-flex; align-items: center;
+      font-size: 11px; padding: 3px 10px;
+      border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+      border-radius: var(--mood-radii-badge);
+      background: var(--mood-colors-surface);
+      color: var(--mood-colors-text);
+    }
+    .badge.live { background: var(--mood-colors-accent); border-color: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); box-shadow: var(--mood-effects-glow, none); }
+    .field-row { display: flex; flex-direction: column; gap: 12px; }
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field label { font-size: var(--mood-typography-label-size); color: var(--mood-colors-muted); }
+    .field input, .field select, .field textarea {
+      font: inherit; padding: 8px 10px;
+      background: var(--mood-colors-bg);
+      border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+      border-radius: var(--mood-radii-input);
+      color: var(--mood-colors-text-strong);
+      outline: none;
+    }
+    .field textarea { min-height: 72px; resize: vertical; }
+    .bar { height: 8px; border-radius: 999px; background: var(--mood-colors-border); overflow: hidden; }
+    .bar > i { display: block; height: 100%; background: var(--mood-colors-accent); }
+    .bar.ok > i { background: var(--mood-colors-ok); }
+    .bar.warn > i { background: var(--mood-colors-warn); }
+    .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .card-demo {
+      padding: 16px;
+      background: var(--mood-colors-surface);
+      border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+      border-radius: var(--mood-radii-card);
+      box-shadow: var(--mood-shadows-card);
+      backdrop-filter: var(--mood-effects-backdrop-filter, none);
+    }
+    .card-demo .ct { font-size: var(--mood-typography-title-size); color: var(--mood-colors-text-strong); font-weight: 600; margin-bottom: 4px; }
+    .card-demo .cm { font-size: 12px; color: var(--mood-colors-muted); margin-bottom: 12px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { text-align: left; padding: 9px 12px; border-bottom: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
+    th { color: var(--mood-colors-muted); text-transform: uppercase; font-size: 11px; }
+    .toggle-row { display: flex; flex-direction: column; gap: 12px; }
+    .toggle { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .switch { position: relative; width: 42px; height: 24px; flex-shrink: 0; }
+    .switch i { position: absolute; inset: 0; border-radius: 999px; background: var(--mood-colors-border); transition: background var(--mood-motion-duration) var(--mood-motion-easing); }
+    .switch i::after { content: ""; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: var(--mood-colors-surface); transition: left var(--mood-motion-duration) var(--mood-motion-easing); }
+    .switch.on i { background: var(--mood-colors-ok); }
+    .switch.on i::after { left: 21px; }
+    .list { display: flex; flex-direction: column; }
+    .list-item { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
+    .list-item .name { color: var(--mood-colors-text-strong); font-weight: 600; }
+    .list-item .sub { font-size: 11px; color: var(--mood-colors-muted); }
+    .alerts { display: flex; flex-direction: column; gap: 8px; }
+    .alert { display: flex; gap: 10px; padding: 12px 14px; border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); border-radius: var(--mood-radii-block); background: var(--mood-colors-surface); backdrop-filter: var(--mood-effects-backdrop-filter, none); }
+    .alert .mark { font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.7; }
+    .alert.ok { border-color: var(--mood-colors-ok); color: var(--mood-colors-ok); }
+    .alert.warn { border-color: var(--mood-colors-warn); color: var(--mood-colors-warn); }
+    .alert.danger { border-color: var(--mood-colors-danger); color: var(--mood-colors-danger); }
+    @media (max-width: 860px) {
+      .row, .row.cols-3, .card-grid { grid-template-columns: 1fr; }
+      .hero, .kit { padding-left: 20px; padding-right: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <div class="label">Mood Specimen · archive</div>
+    <h1>Archive</h1>
+    <p>Keywords: archive · paper · serif · stamp · ink</p>
+  </div>
+
+  <div class="kit">
+    <div class="row">
+      <div>
+        <div class="section-label">Palette</div>
+        <div class="block">
+          <div class="swatches">
+            <div class="swatch"><div class="chip" style="background:var(--mood-colors-bg)"></div><div class="name">Background</div><div class="hex">var(--mood-colors-bg)</div></div>
+            <div class="swatch"><div class="chip" style="background:var(--mood-colors-panel)"></div><div class="name">Panel</div><div class="hex">var(--mood-colors-panel)</div></div>
+            <div class="swatch"><div class="chip" style="background:var(--mood-colors-accent)"></div><div class="name">Accent</div><div class="hex">var(--mood-colors-accent)</div></div>
+            <div class="swatch"><div class="chip" style="background:var(--mood-colors-text-strong)"></div><div class="name">Ink</div><div class="hex">var(--mood-colors-text-strong)</div></div>
+            <div class="swatch"><div class="chip" style="background:var(--mood-colors-ok)"></div><div class="name">OK</div><div class="hex">var(--mood-colors-ok)</div></div>
+            <div class="swatch"><div class="chip" style="background:var(--mood-colors-warn)"></div><div class="name">Warn</div><div class="hex">var(--mood-colors-warn)</div></div>
+            <div class="swatch"><div class="chip" style="background:var(--mood-colors-danger)"></div><div class="name">Danger</div><div class="hex">var(--mood-colors-danger)</div></div>
+            <div class="swatch"><div class="chip" style="background:var(--mood-colors-muted)"></div><div class="name">Muted</div><div class="hex">var(--mood-colors-muted)</div></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="section-label">Typography</div>
+        <div class="block">
+          <div class="type-stack">
+            <div class="type-row"><span class="spec">DISPLAY</span><span class="display">Your Mood</span></div>
+            <div class="type-row"><span class="spec">TITLE</span><span class="title">Workspace Settings</span></div>
+            <div class="type-row"><span class="spec">BODY</span><span class="body">Body copy at var(--mood-typography-body-size)</span></div>
+            <div class="type-row"><span class="spec">META</span><span class="body" style="font-size:var(--mood-typography-label-size);opacity:0.6">Label text at var(--mood-typography-label-size)</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-label">Logo</div>
+      <div class="block">
+        <div class="logo-row">
+          <div class="logo-mark"><div class="glyph">M</div><div><strong>Mood</strong><br /><small>Specimen</small></div></div>
+          <div class="logo-mark"><div class="glyph">U</div><div><strong>UI</strong><br /><small>Moods</small></div></div>
+          <div class="logo-mark"><div class="glyph">★</div><div><strong>Example</strong><br /><small>Mark</small></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <div class="section-label">Buttons</div>
+        <div class="block">
+          <div class="btn-row">
+            <button type="button" class="primary">Primary</button>
+            <button type="button">Secondary</button>
+            <button type="button" class="ok">Success</button>
+            <button type="button" class="danger">Danger</button>
+            <button type="button" disabled>Disabled</button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="section-label">Badges</div>
+        <div class="block">
+          <span class="badge live">Active</span>
+          <span class="badge">Draft</span>
+          <span class="badge ok">Ready</span>
+          <span class="badge warn">Review</span>
+          <span class="badge danger">Blocked</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <div class="section-label">Inputs</div>
+        <div class="block">
+          <div class="field-row">
+            <div class="field"><label>Project</label><input value="Example Project" readonly /></div>
+            <div class="field"><label>Type</label><select><option>Option A</option><option>Option B</option></select></div>
+            <div class="field"><label>Notes</label><textarea readonly>Sample notes area</textarea></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="section-label">Progress</div>
+        <div class="block">
+          <div class="bar" style="margin-bottom:8px"><i style="width:19%"></i></div>
+          <div class="bar ok" style="margin-bottom:8px"><i style="width:62%"></i></div>
+          <div class="bar warn"><i style="width:88%"></i></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-label">Cards</div>
+      <div class="card-grid">
+        <div class="card-demo">
+          <div class="ct">Example Card</div>
+          <span class="badge ok" style="margin-bottom:8px;display:inline-block">Ready</span>
+          <div class="cm">Sample meta · 42 items</div>
+          <div class="bar ok" style="margin-bottom:10px"><i style="width:100%"></i></div>
+          <div class="btn-row"><button type="button" class="primary">Open</button><button type="button">Share</button></div>
+        </div>
+        <div class="card-demo">
+          <div class="ct">Another Card</div>
+          <span class="badge live" style="margin-bottom:8px;display:inline-block">Active</span>
+          <div class="cm">Sample meta · in progress</div>
+          <div class="bar" style="margin-bottom:10px"><i style="width:19%"></i></div>
+          <div class="btn-row"><button type="button">Pause</button><button type="button" class="danger">Stop</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row cols-3">
+      <div>
+        <div class="section-label">Table</div>
+        <div class="block">
+          <table>
+            <thead><tr><th>ID</th><th>Name</th><th>State</th><th>%</th></tr></thead>
+            <tbody>
+              <tr><td>01</td><td>Alpha</td><td>Active</td><td>19</td></tr>
+              <tr><td>02</td><td>Beta</td><td>Ready</td><td>100</td></tr>
+              <tr><td>03</td><td>Gamma</td><td>Queued</td><td>0</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="section-label">Toggles / List</div>
+        <div class="block">
+          <div class="toggle-row">
+            <div class="toggle"><span>Setting A</span><div class="switch on"><i></i></div></div>
+            <div class="toggle"><span>Setting B</span><div class="switch"><i></i></div></div>
+          </div>
+          <div class="list" style="margin-top:8px">
+            <div class="list-item"><div><div class="name">Alpha</div><div class="sub">Active · 19%</div></div><span class="badge live">On</span></div>
+            <div class="list-item"><div><div class="name">Beta</div><div class="sub">Ready</div></div><span class="badge ok">Done</span></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="section-label">Alerts</div>
+        <div class="block alerts">
+          <div class="alert"><span class="mark">INFO</span><span>Theme tokens loaded</span></div>
+          <div class="alert ok"><span class="mark">READY</span><span>All set</span></div>
+          <div class="alert warn"><span class="mark">REVIEW</span><span>Something to check</span></div>
+          <div class="alert danger"><span class="mark">STOP</span><span>Action needed</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

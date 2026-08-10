@@ -1,0 +1,26 @@
+# Acceptance checklist template.
+# Replace <mood-id> with the actual mood id; keep paths consistent with tokens.json.
+
+- id: <mood-id>-radius-card
+  type: value
+  description: Card radius must equal tokens.radii.card
+  assert:
+    path: radii.card
+    eq: "16px"
+
+- id: <mood-id>-token-only-colors
+  type: token-only
+  description: No color literals outside tokens.colors / resolved components
+  scope: colors
+
+- id: <mood-id>-contrast-text
+  type: contrast
+  description: Body text on bg contrast >= 4.5:1
+  foreground: colors.text
+  background: colors.bg
+  minRatio: 4.5
+
+- id: <mood-id>-feel
+  type: subjective
+  description: <one sentence about the vibe, e.g. panels feel soft and quiet>
+  required: false

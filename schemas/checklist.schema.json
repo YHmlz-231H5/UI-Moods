@@ -1,0 +1,129 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ui-moods.dev/schemas/checklist.schema.json",
+  "title": "UI Moods · Acceptance Checklist",
+  "description": "Machine-readable acceptance criteria for a mood. validate.mjs executes the value/contrast items.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "id",
+      "type",
+      "description"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+      },
+      "type": {
+        "type": "string",
+        "enum": [
+          "value",
+          "token-only",
+          "contrast",
+          "subjective"
+        ]
+      },
+      "description": {
+        "type": "string"
+      },
+      "assert": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "eq"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9._-]*$"
+          },
+          "eq": {
+            "type": [
+              "string",
+              "number",
+              "boolean"
+            ]
+          }
+        }
+      },
+      "scope": {
+        "type": "string",
+        "enum": [
+          "colors",
+          "radii",
+          "borders",
+          "effects",
+          "shadows",
+          "spacing",
+          "typography",
+          "motion",
+          "components"
+        ]
+      },
+      "foreground": {
+        "type": "string"
+      },
+      "background": {
+        "type": "string"
+      },
+      "minRatio": {
+        "type": "number",
+        "exclusiveMinimum": 0
+      },
+      "required": {
+        "type": "boolean",
+        "default": true
+      }
+    },
+    "allOf": [
+      {
+        "if": {
+          "properties": {
+            "type": {
+              "const": "value"
+            }
+          }
+        },
+        "then": {
+          "required": [
+            "assert"
+          ]
+        }
+      },
+      {
+        "if": {
+          "properties": {
+            "type": {
+              "const": "contrast"
+            }
+          }
+        },
+        "then": {
+          "required": [
+            "foreground",
+            "background",
+            "minRatio"
+          ]
+        }
+      },
+      {
+        "if": {
+          "properties": {
+            "type": {
+              "const": "token-only"
+            }
+          }
+        },
+        "then": {
+          "required": [
+            "scope"
+          ]
+        }
+      }
+    ]
+  }
+}

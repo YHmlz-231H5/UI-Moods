@@ -1,0 +1,37 @@
+# anime · acceptance checklist
+
+- id: anime-radius-card
+  type: value
+  description: Card radius must equal tokens.radii.card
+  assert:
+    path: radii.card
+    eq: "18px"
+
+- id: anime-font
+  type: value
+  description: Body font must be the rounded family from tokens
+  assert:
+    path: typography.family
+    eq: "'M PLUS Rounded 1c', 'PingFang SC', 'Microsoft YaHei', sans-serif"
+
+- id: anime-token-only-colors
+  type: token-only
+  description: No color literals outside tokens.colors / resolved components
+  scope: colors
+
+- id: anime-token-only-components
+  type: token-only
+  description: Component semantic layer must only reference tokens, no new literals
+  scope: components
+
+- id: anime-contrast-text
+  type: contrast
+  description: Body text on bg contrast >= 4.5:1
+  foreground: colors.text
+  background: colors.bg
+  minRatio: 4.5
+
+- id: anime-feel
+  type: subjective
+  description: Panels read as sticker-cute with hard candy shadows
+  required: false

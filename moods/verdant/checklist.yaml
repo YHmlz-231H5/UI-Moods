@@ -1,0 +1,37 @@
+# verdant · acceptance checklist
+
+- id: verdant-radius-card
+  type: value
+  description: Card radius must equal tokens.radii.card
+  assert:
+    path: radii.card
+    eq: "0"
+
+- id: verdant-font
+  type: value
+  description: Body font must be the mono family from tokens
+  assert:
+    path: typography.family
+    eq: "Share Tech Mono, 'JetBrains Mono', ui-monospace, monospace"
+
+- id: verdant-token-only-colors
+  type: token-only
+  description: No color literals outside tokens.colors / resolved components
+  scope: colors
+
+- id: verdant-token-only-components
+  type: token-only
+  description: Component semantic layer must only reference tokens, no new literals
+  scope: components
+
+- id: verdant-contrast-text
+  type: contrast
+  description: Body text on bg contrast >= 4.5:1
+  foreground: colors.text
+  background: colors.bg
+  minRatio: 4.5
+
+- id: verdant-feel
+  type: subjective
+  description: Panels glow like a phosphor terminal with scanline energy
+  required: false

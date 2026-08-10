@@ -1,0 +1,37 @@
+# glass · acceptance checklist
+
+- id: glass-radius-card
+  type: value
+  description: Card radius must equal tokens.radii.card
+  assert:
+    path: radii.card
+    eq: "20px"
+
+- id: glass-token-only-colors
+  type: token-only
+  description: No color literals outside tokens.colors / resolved components
+  scope: colors
+
+- id: glass-token-only-components
+  type: token-only
+  description: Component semantic layer must only reference tokens, no new literals
+  scope: components
+
+- id: glass-contrast-text
+  type: contrast
+  description: Body text on bg contrast >= 4.5:1
+  foreground: colors.text
+  background: colors.bg
+  minRatio: 4.5
+
+- id: glass-backdrop
+  type: value
+  description: Panels use frosted blur
+  assert:
+    path: effects.backdropFilter
+    eq: "blur(16px)"
+
+- id: glass-feel
+  type: subjective
+  description: Panels read as frosted glass with subtle inner highlight
+  required: false

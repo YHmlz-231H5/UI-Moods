@@ -1,0 +1,230 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ui-moods.dev/schemas/tokens.schema.json",
+  "title": "UI Moods · Design Tokens",
+  "description": "Source of truth for a mood's visual parameters. specimen.html CSS variables are generated from this file.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "version",
+    "meta",
+    "colors",
+    "typography",
+    "radii",
+    "borders",
+    "effects",
+    "shadows",
+    "spacing",
+    "motion"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "nameZh",
+        "appearance",
+        "surfaceFamily",
+        "keywords",
+        "fonts"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "nameZh": {
+          "type": "string"
+        },
+        "appearance": {
+          "type": "string",
+          "enum": [
+            "light",
+            "dark"
+          ]
+        },
+        "surfaceFamily": {
+          "type": "string"
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "fonts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "preferred",
+            "fallbacks"
+          ],
+          "properties": {
+            "preferred": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "fallbacks": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "colors": {
+      "type": "object",
+      "required": [
+        "bg",
+        "panel",
+        "surface",
+        "text",
+        "textStrong",
+        "muted",
+        "border",
+        "accent",
+        "ok",
+        "warn",
+        "danger"
+      ],
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "typography": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "family",
+        "displaySize",
+        "titleSize",
+        "bodySize",
+        "labelSize",
+        "weights"
+      ],
+      "properties": {
+        "family": {
+          "type": "string"
+        },
+        "displaySize": {
+          "type": "string"
+        },
+        "titleSize": {
+          "type": "string"
+        },
+        "bodySize": {
+          "type": "string"
+        },
+        "labelSize": {
+          "type": "string"
+        },
+        "weights": {
+          "type": "object",
+          "required": [
+            "regular",
+            "medium",
+            "semibold"
+          ],
+          "additionalProperties": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "radii": {
+      "type": "object",
+      "required": [
+        "block",
+        "button",
+        "card",
+        "badge",
+        "input"
+      ],
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "borders": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "width",
+        "style"
+      ],
+      "properties": {
+        "width": {
+          "type": "string"
+        },
+        "style": {
+          "type": "string"
+        }
+      }
+    },
+    "effects": {
+      "type": "object",
+      "description": "Per-mood effect set. No key is forced here: a mood may declare e.g. backdropFilter/panelOpacity/glow, or an empty object. Magic numbers in specimens must resolve to this group.",
+      "additionalProperties": {
+        "type": [
+          "string",
+          "number"
+        ]
+      }
+    },
+    "shadows": {
+      "type": "object",
+      "description": "The fixed specimen matrix depends on card and button shadows (used by .card-demo and buttons). See docs/css-var-mapping.md.",
+      "required": [
+        "card",
+        "button"
+      ],
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "spacing": {
+      "type": "object",
+      "required": [
+        "section",
+        "block",
+        "gap"
+      ],
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "motion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "duration",
+        "easing"
+      ],
+      "properties": {
+        "duration": {
+          "type": "string"
+        },
+        "easing": {
+          "type": "string"
+        }
+      }
+    },
+    "components": {
+      "type": "object",
+      "description": "Optional semantic layer with flexible nesting (v0.2 6.2 example mixes depths: button.primary.bg vs card.bg). Leaf values must be string/number/boolean; string values may reference tokens via {group.key} (e.g. {colors.accent}). Depth, leaf types and reference resolution are enforced by validate.mjs at runtime, not by this schema.",
+      "additionalProperties": true
+    }
+  }
+}

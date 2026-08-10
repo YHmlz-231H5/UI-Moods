@@ -1,0 +1,30 @@
+{
+  "name": "ui-moods",
+  "version": "1.0.0",
+  "description": "Style Specimen Registry — reusable UI style specimens plus an agent consumption protocol.",
+  "type": "module",
+  "bin": {
+    "ui-moods": "./tools/cli.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "js-yaml": "^4.1.0"
+  },
+  "scripts": {
+    "build-specimen": "node tools/build-specimen.mjs",
+    "validate": "node tools/validate.mjs",
+    "bundle": "node tools/bundle.mjs",
+    "serve": "node tools/serve.mjs"
+  },
+  "keywords": [
+    "ui",
+    "design-tokens",
+    "style-guide",
+    "ai-agents",
+    "specimen"
+  ]
+}
