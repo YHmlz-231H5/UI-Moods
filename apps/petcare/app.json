@@ -23,6 +23,10 @@
       "chrome": { "navbar": { "icon": "heart", "title": "毛孩子档案", "action": "编辑" } },
       "blocks": [
         { "type": "profile", "initials": "豆", "name": "豆豆 · 柯基", "meta": "公 · 3 岁 2 个月 · 11.8 kg · 已绝育 · 亲狗", "tags": ["柯基", "已绝育", "亲狗"] },
+        { "type": "card", "media": true, "artSeed": "豆豆 柯基 滨江公园 野餐 2026-10-18", "artVariant": "petal", "mediaTag": "成长相册 · 共 68 张", "title": "2026-10-18 · 滨江公园野餐", "sub": "和布丁家的豆豆第一次接住飞盘", "actions": [
+          { "label": "查看相册", "primary": false },
+          { "label": "设为封面", "primary": true }
+        ] },
         { "type": "statGrid", "cols": 3, "items": [
           { "label": "体重", "value": "11.8 kg", "delta": "+0.3 kg", "deltaTone": "warn" },
           { "label": "疫苗", "value": "3 / 4" },
@@ -39,15 +43,21 @@
         ] },
         { "type": "sectionHead", "title": "成长相册", "action": "共 68 张" },
         { "type": "mediaGrid", "cols": 3, "items": [
-          { "icon": "camera", "title": "2026-10-18", "sub": "公园野餐" },
-          { "icon": "image", "title": "2026-08-02", "sub": "第一次剪指甲" },
-          { "icon": "video", "title": "2026-05-21", "sub": "学会了接球" }
+          { "art": "豆豆 公园野餐 2026-10-18", "artVariant": "mesh", "title": "2026-10-18", "sub": "公园野餐" },
+          { "art": "豆豆 第一次剪指甲 2026-08-02", "artVariant": "orbit", "title": "2026-08-02", "sub": "第一次剪指甲" },
+          { "art": "豆豆 学会接球 2026-05-21", "artVariant": "waves", "title": "2026-05-21", "sub": "学会了接球" }
+        ] },
+        { "type": "sectionHead", "title": "我的毛孩子", "action": "添加" },
+        { "type": "list", "items": [
+          { "art": "豆豆 柯基 头像", "artVariant": "petal", "title": "豆豆", "sub": "柯基 · 3 岁 2 个月 · 亲狗", "badge": "档案完整", "badgeTone": "ok", "chev": true },
+          { "art": "布丁 英短 头像", "artVariant": "arch", "title": "布丁", "sub": "英短 · 2 岁 5 个月 · 4.1 kg", "chev": true },
+          { "art": "奶糖 金毛 头像", "artVariant": "dots", "title": "奶糖", "sub": "金毛 · 6 岁 · 待绝育", "badge": "待提醒", "badgeTone": "warn", "chev": true }
         ] },
         { "type": "card", "tint": true, "title": "最近一次体检", "sub": "2026-10-18 · 城西宠物医院 · 主治医师 吴医生", "body": "血常规与生化全项正常，建议 3 个月后复查", "actions": [
           { "label": "查看报告", "primary": true },
           { "label": "预约复查", "primary": false }
         ] },
-        { "type": "notice", "tone": "info", "mark": "提醒", "text": "豆豆的年度体检已到期，可在健康页一键预约。" }
+        { "type": "notice", "tone": "warn", "mark": "提醒", "text": "豆豆的体外驱虫已到期 2 天，社区药房可当天自取。" }
       ]
     },
     {
@@ -57,16 +67,17 @@
       "chrome": { "navbar": { "back": true, "title": "健康档案", "action": "记录" } },
       "blocks": [
         { "type": "calendar", "days": [
-          { "n": 3, "label": "周一" },
-          { "n": 4, "label": "周二" },
-          { "n": 5, "label": "周三", "active": true },
-          { "n": 6, "label": "周四", "dot": true },
-          { "n": 7, "label": "周五" },
-          { "n": 8, "label": "周六" },
-          { "n": 9, "label": "周日" }
+          { "n": 9, "label": "周一" },
+          { "n": 10, "label": "周二", "active": true },
+          { "n": 11, "label": "周三" },
+          { "n": 12, "label": "周四", "dot": true },
+          { "n": 13, "label": "周五" },
+          { "n": 14, "label": "周六" },
+          { "n": 15, "label": "周日" }
         ] },
+        { "type": "card", "media": true, "artSeed": "豆豆 健康档案 城西宠物医院", "artVariant": "orbit", "mediaTag": "健康指数 88", "title": "豆豆 · 健康档案", "sub": "上次体检 2026-10-18 · 城西宠物医院 · 全项正常", "badge": "良好", "badgeTone": "ok" },
         { "type": "scoreRing", "pct": 88, "value": "88", "label": "健康指数" },
-        { "type": "notice", "tone": "warn", "mark": "提醒", "text": "狂犬疫苗将于 11 月 22 日到期，还剩 12 天，请提前预约。" },
+        { "type": "banner", "art": "狂犬疫苗 11 月 22 日 到期提醒", "artVariant": "strata", "title": "狂犬疫苗 11 月 22 日到期", "sub": "还剩 12 天 · 城西宠物医院周六上午余 3 个号", "cta": "预约接种" },
         { "type": "sectionHead", "title": "免疫与驱虫计划" },
         { "type": "timeline", "items": [
           { "title": "狂犬疫苗 · 第 4 针", "sub": "城西宠物医院 · 需提前预约", "time": "11-22 到期", "state": "pending" },
@@ -77,9 +88,9 @@
         ] },
         { "type": "sectionHead", "title": "体检记录", "action": "全部 6 次" },
         { "type": "list", "items": [
-          { "icon": "stethoscope", "title": "年度体检 · 全项", "sub": "2026-10-18 · 各项指标正常", "value": "良好", "valueTone": "ok", "chev": true },
-          { "icon": "stethoscope", "title": "半年体检 · 基础", "sub": "2026-04-20 · 轻微牙结石", "value": "已处理", "valueTone": "ok", "chev": true },
-          { "icon": "pill", "title": "皮肤病复查", "sub": "2025-12-08 · 真菌感染", "value": "已痊愈", "valueTone": "up", "chev": true }
+          { "art": "年度体检 全项报告封面", "artVariant": "arch", "title": "年度体检 · 全项", "sub": "2026-10-18 · 各项指标正常", "value": "良好", "valueTone": "ok", "chev": true },
+          { "art": "半年体检 基础报告封面", "artVariant": "mesh", "title": "半年体检 · 基础", "sub": "2026-04-20 · 轻微牙结石", "value": "已处理", "valueTone": "ok", "chev": true },
+          { "art": "皮肤病复查 化验单封面", "artVariant": "dots", "title": "皮肤病复查", "sub": "2025-12-08 · 真菌感染", "value": "已痊愈", "valueTone": "up", "chev": true }
         ] },
         { "type": "formGroup", "label": "提醒设置", "rows": [
           { "label": "疫苗到期提醒", "hint": "提前 14 天", "type": "switch", "on": true },
@@ -108,21 +119,21 @@
           { "label": "清洁" },
           { "label": "日用" }
         ] },
-        { "type": "banner", "title": "新用户首单立减 30 元", "sub": "满 99 元包邮 · 会员再享 95 折", "cta": "去领券" },
+        { "type": "banner", "art": "毛孩子商城 新客首单礼 海报", "artVariant": "mesh", "title": "新用户首单立减 30 元", "sub": "满 99 元包邮 · 会员再享 95 折", "cta": "去领券" },
         { "type": "sectionHead", "title": "为你精选", "action": "更多" },
         { "type": "mediaGrid", "cols": 3, "items": [
-          { "icon": "fork", "title": "无谷冻干犬粮", "sub": "2 kg · ¥ 168" },
-          { "icon": "gift", "title": "洁齿骨零食", "sub": "12 支 · ¥ 39" },
-          { "icon": "dumbbell", "title": "耐咬橡胶球", "sub": "3 颗装 · ¥ 45" },
-          { "icon": "pill", "title": "关节保健片", "sub": "60 片 · ¥ 128" },
-          { "icon": "shop", "title": "吸水脚垫", "sub": "4 片 · ¥ 59" },
-          { "icon": "heart", "title": "宠物背包", "sub": "透气款 · ¥ 199" }
+          { "art": "无谷冻干犬粮 2kg 商品图", "artVariant": "arch", "icon": "fork", "title": "无谷冻干犬粮", "sub": "2 kg · ¥ 168" },
+          { "art": "洁齿骨零食 12 支 商品图", "artVariant": "dots", "icon": "gift", "title": "洁齿骨零食", "sub": "12 支 · ¥ 39" },
+          { "art": "耐咬橡胶球 3 颗 商品图", "artVariant": "orbit", "icon": "dumbbell", "title": "耐咬橡胶球", "sub": "3 颗装 · ¥ 45" },
+          { "art": "关节保健片 60 片 商品图", "artVariant": "waves", "icon": "pill", "title": "关节保健片", "sub": "60 片 · ¥ 128" },
+          { "art": "吸水脚垫 4 片 商品图", "artVariant": "strata", "icon": "shop", "title": "吸水脚垫", "sub": "4 片 · ¥ 59" },
+          { "art": "宠物背包 透气款 商品图", "artVariant": "rings", "icon": "heart", "title": "宠物背包", "sub": "透气款 · ¥ 199" }
         ] },
         { "type": "sectionHead", "title": "为你选中的商品", "action": "共 3 件" },
         { "type": "list", "items": [
-          { "icon": "fork", "title": "无谷冻干犬粮 2 kg", "sub": "已选 1 袋 · 适口性 4.9 分", "value": "¥ 168", "chev": true },
-          { "icon": "gift", "title": "洁齿骨零食 12 支", "sub": "已选 2 盒", "value": "¥ 78", "chev": true },
-          { "icon": "dumbbell", "title": "耐咬橡胶球 3 颗", "sub": "已选 1 套", "value": "¥ 45", "chev": true }
+          { "art": "无谷冻干犬粮 2kg 缩略图", "artVariant": "arch", "title": "无谷冻干犬粮 2 kg", "sub": "已选 1 袋 · 适口性 4.9 分", "value": "¥ 168", "chev": true },
+          { "art": "洁齿骨零食 12 支 缩略图", "artVariant": "dots", "title": "洁齿骨零食 12 支", "sub": "已选 2 盒", "value": "¥ 78", "chev": true },
+          { "art": "耐咬橡胶球 3 颗 缩略图", "artVariant": "orbit", "title": "耐咬橡胶球 3 颗", "sub": "已选 1 套", "value": "¥ 45", "chev": true }
         ] },
         { "type": "prices", "items": [
           { "label": "商品小计", "value": "¥ 291.00" },
@@ -155,17 +166,18 @@
           { "initials": "奶" },
           { "initials": "+9" }
         ] },
+        { "type": "banner", "art": "周六滨江柯基聚会 活动海报", "artVariant": "petal", "title": "周六滨江柯基聚会", "sub": "15:00 东门集合 · 已报名 9 人 · 仅限柯基", "cta": "报名参加" },
         { "type": "sectionHead", "title": "今日热议", "action": "更多" },
         { "type": "mediaGrid", "cols": 3, "items": [
-          { "icon": "camera", "title": "周末遛狗地图", "sub": "12 人参与 · 城市公园" },
-          { "icon": "image", "title": "柯基换毛季护理", "sub": "38 条回复" },
-          { "icon": "video", "title": "学会接球全过程", "sub": "豆豆 · 播放 2.4 万" }
+          { "art": "周末遛狗地图 帖子配图", "artVariant": "waves", "title": "周末遛狗地图", "sub": "12 人参与 · 城市公园" },
+          { "art": "柯基换毛季护理 帖子配图", "artVariant": "strata", "title": "柯基换毛季护理", "sub": "38 条回复" },
+          { "art": "学会接球全过程 帖子配图", "artVariant": "rays", "title": "学会接球全过程", "sub": "豆豆 · 播放 2.4 万" }
         ] },
         { "type": "sectionHead", "title": "热门帖子", "action": "换一批" },
         { "type": "list", "items": [
-          { "avatar": "糖", "title": "楼下柯基组聚会", "sub": "周六 15:00 滨江步道 · 已报名 9 人", "value": "128 回复", "chev": true },
-          { "avatar": "布", "title": "求助：狗狗频繁软便", "sub": "3 天前 · 城西宠物医院已回复", "value": "42 回复", "chev": true },
-          { "avatar": "奶", "title": "猫粮测评第 6 期", "sub": "横向对比 9 款进口猫粮", "value": "216 回复", "chev": true }
+          { "art": "楼下柯基组聚会 帖子配图", "artVariant": "petal", "title": "楼下柯基组聚会", "sub": "周六 15:00 滨江步道 · 已报名 9 人", "value": "128 回复", "chev": true },
+          { "art": "狗狗频繁软便 求助帖配图", "artVariant": "dots", "title": "求助：狗狗频繁软便", "sub": "3 天前 · 城西宠物医院已回复", "value": "42 回复", "chev": true },
+          { "art": "猫粮测评第 6 期 帖子配图", "artVariant": "arch", "title": "猫粮测评第 6 期", "sub": "横向对比 9 款进口猫粮", "value": "216 回复", "chev": true }
         ] },
         { "type": "chat", "messages": [
           { "text": "明天滨江步道下午场还缺 2 个遛狗搭子，柯基优先。", "time": "14:02" },

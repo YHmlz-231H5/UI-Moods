@@ -34,26 +34,27 @@
           { "label": "免签" }
         ] },
         { "type": "carousel", "items": [
-          { "title": "京都 · 红叶季 11 月中下旬", "sub": "人均 ¥ 6,800 · 航班直飞 4h20m", "tag": "当季" },
-          { "title": "大理 · 苍山洱海慢生活", "sub": "人均 ¥ 3,200 · 直飞 3h05m", "tag": "热门" },
-          { "title": "北海道 · 冬季滑雪季", "sub": "人均 ¥ 12,400 · 含雪具租赁", "tag": "滑雪" }
+          { "art": "travel-slide-kyoto", "artVariant": "arch", "tag": "当季", "title": "京都 · 红叶季 11 月中下旬", "sub": "人均 ¥ 6,800 · 航班直飞 4h20m" },
+          { "art": "travel-slide-dali", "artVariant": "waves", "tag": "热门", "title": "大理 · 苍山洱海慢生活", "sub": "人均 ¥ 3,200 · 直飞 3h05m" },
+          { "art": "travel-slide-hokkaido", "artVariant": "strata", "tag": "滑雪", "title": "北海道 · 冬季滑雪季", "sub": "人均 ¥ 12,400 · 含雪具租赁" }
         ] },
         { "type": "sectionHead", "title": "当季推荐", "action": "查看全部" },
         { "type": "mediaGrid", "cols": 3, "items": [
-          { "icon": "plane", "title": "上海 → 京都", "sub": "¥ 2,180 往返" },
-          { "icon": "hotel", "title": "海岛酒店", "sub": "¥ 480 起/晚" },
-          { "icon": "camera", "title": "旅拍跟拍", "sub": "¥ 399/组" },
-          { "icon": "ticket", "title": "景点门票", "sub": "¥ 68 起" },
-          { "icon": "truck", "title": "接送机", "sub": "¥ 128 起" },
-          { "icon": "fork", "title": "美食推荐", "sub": "¥ 45 起" }
+          { "art": "travel-svc-flight", "artVariant": "mesh", "icon": "plane", "title": "上海 → 京都", "sub": "¥ 2,180 往返" },
+          { "art": "travel-svc-hotel", "artVariant": "arch", "icon": "hotel", "title": "海岛酒店", "sub": "¥ 480 起/晚" },
+          { "art": "travel-svc-photo", "artVariant": "petal", "icon": "camera", "title": "旅拍跟拍", "sub": "¥ 399/组" },
+          { "art": "travel-svc-ticket", "artVariant": "orbit", "icon": "ticket", "title": "景点门票", "sub": "¥ 68 起" },
+          { "art": "travel-svc-pickup", "artVariant": "strata", "icon": "truck", "title": "接送机", "sub": "¥ 128 起" },
+          { "art": "travel-svc-food", "artVariant": "waves", "icon": "fork", "title": "美食推荐", "sub": "¥ 45 起" }
         ] },
         { "type": "sectionHead", "title": "热门城市", "action": "更多" },
         { "type": "list", "items": [
-          { "icon": "location", "title": "上海", "sub": "秋日 21°C · 3,204 条攻略", "value": "¥ 890 起", "chev": true },
-          { "icon": "location", "title": "成都", "sub": "晴 24°C · 2,880 条攻略", "value": "¥ 660 起", "chev": true },
-          { "icon": "location", "title": "厦门", "sub": "多云 22°C · 1,560 条攻略", "value": "¥ 720 起", "chev": true }
+          { "art": "travel-city-shanghai", "artVariant": "strata", "title": "上海", "sub": "秋日 21°C · 3,204 条攻略", "value": "¥ 890 起", "chev": true },
+          { "art": "travel-city-chengdu", "artVariant": "waves", "title": "成都", "sub": "晴 24°C · 2,880 条攻略", "value": "¥ 660 起", "chev": true },
+          { "art": "travel-city-xiamen", "artVariant": "petal", "title": "厦门", "sub": "多云 22°C · 1,560 条攻略", "value": "¥ 720 起", "chev": true }
         ] },
-        { "type": "banner", "title": "双十一旅行大促 · 机票 2 折起", "sub": "11 月 11 日 - 11 月 13 日 · 限量 2,000 张", "cta": "去抢" }
+        { "type": "banner", "title": "双十一旅行大促 · 机票 2 折起", "sub": "11 月 11 日 - 11 月 13 日 · 限量 2,000 张", "cta": "去抢", "art": "travel-discover-promo", "artVariant": "rays" },
+        { "type": "notice", "tone": "info", "mark": "签证", "text": "持普通护照可办日本三年多次签证，材料在线预审约 3 个工作日出签。" }
       ]
     },
     {
@@ -64,7 +65,7 @@
         "navbar": { "back": true, "title": "酒店列表", "action": "地图" }
       },
       "blocks": [
-        { "type": "filterbar", "icon": "tag", "label": "价格", "value": "¥ 400 - ¥ 900" },
+        { "type": "filterbar", "icon": "sort", "label": "价格", "value": "¥ 400 - ¥ 900" },
         { "type": "filterbar", "icon": "star", "label": "星级", "value": "4 星及以上" },
         { "type": "chips", "items": [
           { "label": "推荐", "active": true },
@@ -73,13 +74,17 @@
           { "label": "亲子房" },
           { "label": "有泳池" }
         ] },
-        { "type": "sectionHead", "title": "共 248 家酒店 · 京都 11 月 15 - 17 日" },
-        { "type": "list", "items": [
-          { "icon": "hotel", "title": "京都 · 鸭川畔和风旅宿", "sub": "评分 4.8 · 距离地铁 320m · 含双早", "badge": "剩 2 间", "badgeTone": "warn", "value": "¥ 688", "chev": true },
-          { "icon": "hotel", "title": "祇园 · 京町屋酒店", "sub": "评分 4.7 · 步行至八坂神社 6 分钟", "value": "¥ 1,120", "chev": true },
-          { "icon": "hotel", "title": "四条乌丸 · 商务连锁", "sub": "评分 4.5 · 近 JR 京都站 · 不含早", "value": "¥ 428", "chev": true },
-          { "icon": "hotel", "title": "岚山 · 温泉旅馆", "sub": "评分 4.9 · 私汤 · 怀石晚餐", "badge": "含早", "badgeTone": "ok", "value": "¥ 1,880", "chev": true }
+        { "type": "card", "media": true, "artSeed": "travel-hotels-member", "artVariant": "waves", "mediaTag": "会员专享", "title": "连住 2 晚立减 ¥ 120", "sub": "京都红叶季 · 含双早 + 免费取消", "actions": [
+          { "label": "查看房型", "primary": true }
         ] },
+        { "type": "sectionHead", "title": "共 248 家酒店 · 京都 11 月 15 - 17 日", "action": "综合排序" },
+        { "type": "list", "items": [
+          { "art": "travel-hotel-kamogawa", "artVariant": "arch", "title": "京都 · 鸭川畔和风旅宿", "sub": "评分 4.8 · 距离地铁 320m · 含双早", "badge": "剩 2 间", "badgeTone": "warn", "value": "¥ 688", "chev": true },
+          { "art": "travel-hotel-gion", "artVariant": "petal", "title": "祇园 · 京町屋酒店", "sub": "评分 4.7 · 步行至八坂神社 6 分钟", "value": "¥ 1,120", "chev": true },
+          { "art": "travel-hotel-shijo", "artVariant": "strata", "title": "四条乌丸 · 商务连锁", "sub": "评分 4.5 · 近 JR 京都站 · 不含早", "value": "¥ 428", "chev": true },
+          { "art": "travel-hotel-arashiyama", "artVariant": "orbit", "title": "岚山 · 温泉旅馆", "sub": "评分 4.9 · 私汤 · 怀石晚餐", "badge": "含早", "badgeTone": "ok", "value": "¥ 1,880", "chev": true }
+        ] },
+        { "type": "sectionHead", "title": "地图找房", "action": "全屏" },
         { "type": "map", "icon": "location", "pin": true, "label": "地图已加载 248 个住宿点，拖动查看周边" },
         { "type": "card", "flat": true, "title": "换一种思路", "body": "试试住在四条通或京都站附近，夜生活与交通都更方便。", "actions": [
           { "label": "忽略", "primary": false },
@@ -97,9 +102,9 @@
       },
       "blocks": [
         { "type": "carousel", "items": [
-          { "title": "房型 · 和洋室", "sub": "3 / 12", "tag": "实拍" },
-          { "title": "公共浴场", "sub": "5 / 12", "tag": "环境" },
-          { "title": "早餐 · 怀石膳", "sub": "7 / 12", "tag": "餐食" }
+          { "art": "travel-room-wayo", "artVariant": "arch", "tag": "房型", "title": "和洋室 · 28㎡", "sub": "3 / 12" },
+          { "art": "travel-hotel-bath", "artVariant": "waves", "tag": "环境", "title": "公共浴场", "sub": "5 / 12" },
+          { "art": "travel-hotel-breakfast", "artVariant": "strata", "tag": "餐食", "title": "早餐 · 怀石膳", "sub": "7 / 12" }
         ] },
         { "type": "header", "title": "京都 · 鸭川畔和风旅宿", "subtitle": "4 星 · 开业 2016 年 · 距京都站 1.2km", "meta": [
           { "label": "评分 4.8", "tone": "ok" },
@@ -108,15 +113,21 @@
         { "type": "rating", "value": 5, "count": "2,160 条点评 · 好评率 94%" },
         { "type": "sectionHead", "title": "可订房型", "action": "4 个房型" },
         { "type": "list", "items": [
-          { "icon": "hotel", "title": "和洋室 · 双人房 28㎡", "sub": "含双早 · 免费取消 · 2 张大床", "badge": "仅剩 1 间", "badgeTone": "danger", "value": "¥ 688", "chev": true },
-          { "icon": "hotel", "title": "町屋庭院房 · 家庭四人", "sub": "含 4 早 · 可加床 · 需爬楼", "value": "¥ 1,260", "chev": true },
-          { "icon": "hotel", "title": "鸭川景观套房 · 42㎡", "sub": "含双早 · 免费取消 · 浴缸", "value": "¥ 1,580", "chev": true }
+          { "art": "travel-room-wayo", "artVariant": "arch", "title": "和洋室 · 双人房 28㎡", "sub": "含双早 · 免费取消 · 2 张大床", "badge": "仅剩 1 间", "badgeTone": "danger", "value": "¥ 688", "chev": true },
+          { "art": "travel-room-machiya", "artVariant": "petal", "title": "町屋庭院房 · 家庭四人", "sub": "含 4 早 · 可加床 · 需爬楼", "value": "¥ 1,260", "chev": true },
+          { "art": "travel-room-suite", "artVariant": "orbit", "title": "鸭川景观套房 · 42㎡", "sub": "含双早 · 免费取消 · 浴缸", "value": "¥ 1,580", "chev": true }
         ] },
         { "type": "kv", "items": [
           { "label": "早餐", "value": "07:00 - 10:00 日式和洋风自助" },
           { "label": "设施", "value": "大浴场、Wi-Fi、行李寄存、停车场" },
           { "label": "入住政策", "value": "15:00 后入住 / 11:00 前退房" },
           { "label": "取消政策", "value": "11 月 13 日 18:00 前免费取消" }
+        ] },
+        { "type": "sectionHead", "title": "周边玩乐", "action": "全部" },
+        { "type": "mediaGrid", "cols": 3, "items": [
+          { "art": "travel-around-kamo", "artVariant": "waves", "title": "鸭川晨散步", "sub": "步行 3 分钟" },
+          { "art": "travel-around-nishiki", "artVariant": "strata", "title": "锦市场觅食", "sub": "步行 8 分钟" },
+          { "art": "travel-around-yasaka", "artVariant": "petal", "title": "八坂神社", "sub": "步行 12 分钟" }
         ] },
         { "type": "map", "icon": "location", "pin": true, "label": "京都市东京区祇园町南侧 570-1" },
         { "type": "notice", "tone": "ok", "mark": "推荐", "text": "住客最常提到：位置安静、榻榻米房间舒适，早餐现做现上。" },
@@ -134,14 +145,26 @@
         "navbar": { "back": true, "title": "确认预订", "action": "客服" }
       },
       "blocks": [
-        { "type": "card", "media": true, "mediaTag": "已选房型", "title": "京都 · 鸭川畔和风旅宿", "sub": "和洋室 · 双人房 28㎡ · 2 位成人 · 2 晚", "price": "¥ 1,376.00" },
-        { "type": "formGroup", "label": "入住信息", "rows": [
+        { "type": "card", "media": true, "artSeed": "travel-booking-room", "artVariant": "arch", "mediaTag": "已选房型", "title": "京都 · 鸭川畔和风旅宿", "sub": "和洋室 · 双人房 28㎡ · 2 位成人 · 2 晚", "price": "¥ 1,376.00" },
+        { "type": "sectionHead", "title": "选择日期", "action": "11 月" },
+        { "type": "calendar", "days": [
+          { "label": "日", "n": 14 },
+          { "label": "一", "n": 15, "active": true },
+          { "label": "二", "n": 16 },
+          { "label": "三", "n": 17, "dot": true },
+          { "label": "四", "n": 18 },
+          { "label": "五", "n": 19 },
+          { "label": "六", "n": 20 }
+        ] },
+        { "type": "sectionHead", "title": "入住信息" },
+        { "type": "formGroup", "rows": [
           { "icon": "calendar", "label": "入住 / 退房", "value": "11 月 15 日 15:00 → 11 月 17 日 11:00" },
           { "icon": "user", "label": "房间数量", "type": "qty", "value": "1" },
           { "icon": "user", "label": "入住人", "value": "林知远 / 苏念" },
           { "icon": "message", "label": "特殊需求", "value": "高楼层、安静房间" }
         ] },
-        { "type": "formGroup", "label": "价格方案", "rows": [
+        { "type": "sectionHead", "title": "价格方案" },
+        { "type": "formGroup", "rows": [
           { "label": "灵活取消 · 含双早", "hint": "¥ 688/晚", "type": "radio", "checked": true },
           { "label": "不可取消 · 含双早", "hint": "¥ 598/晚", "type": "radio" },
           { "label": "灵活取消 · 不含早", "hint": "¥ 628/晚", "type": "radio" }

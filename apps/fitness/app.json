@@ -25,24 +25,34 @@
         "navbar": { "icon": "dumbbell", "title": "燃动 Fit", "action": "消息" }
       },
       "blocks": [
-        { "type": "scoreRing", "pct": 60, "value": "3/5", "label": "今日完成" },
-        { "type": "card", "tint": true, "title": "推日 · 胸肩三头", "sub": "预计 58 分钟 · 6 个动作 · 中等强度", "body": "已完成热身与 3 个动作，还剩 3 个", "badge": "进行中", "badgeTone": "warn", "actions": [
+        { "type": "card", "media": true, "artSeed": "推日 胸肩三头 训练封面", "artVariant": "rays", "mediaTag": "推日 · 进行中", "title": "推日 · 胸肩三头", "sub": "预计 58 分钟 · 6 个动作 · 中等强度", "body": "已完成热身与 3 个动作，还剩 3 个", "badge": "进行中", "badgeTone": "warn", "actions": [
           { "label": "查看计划", "primary": false },
           { "label": "继续训练", "primary": true }
         ] },
+        { "type": "scoreRing", "pct": 50, "value": "3/6", "label": "今日完成" },
         { "type": "statGrid", "cols": 3, "items": [
-          { "label": "训练时长", "value": "34 分钟", "delta": "+6 分钟", "deltaTone": "up" },
+          { "label": "训练时长", "value": "26 分钟", "delta": "+6 分钟", "deltaTone": "up" },
           { "label": "消耗", "value": "386 千卡", "delta": "目标 520", "deltaTone": "warn" },
           { "label": "平均心率", "value": "132 次/分", "delta": "燃脂区间", "deltaTone": "ok" }
         ] },
         { "type": "sectionHead", "title": "今日动作", "action": "6 个动作" },
         { "type": "list", "items": [
-          { "icon": "check", "title": "动态热身", "sub": "5 分钟 · 关节活动度", "value": "已完成", "valueTone": "ok" },
-          { "icon": "check", "title": "哑铃卧推", "sub": "4 组 × 10 次 · 12 kg", "value": "已完成", "valueTone": "ok" },
-          { "icon": "check", "title": "上斜哑铃推举", "sub": "4 组 × 12 次 · 8 kg", "value": "已完成", "valueTone": "ok" },
-          { "icon": "play", "title": "绳索夹胸", "sub": "3 组 × 15 次 · 15 kg", "value": "进行中", "valueTone": "warn", "chev": true },
-          { "icon": "clock", "title": "坐姿肩推", "sub": "3 组 × 12 次 · 6 kg", "value": "待开始", "chev": true },
-          { "icon": "clock", "title": "绳索下压", "sub": "3 组 × 15 次 · 18 kg", "value": "待开始", "chev": true }
+          { "art": "动态热身 关节活动度 演示", "artVariant": "waves", "title": "动态热身", "sub": "5 分钟 · 关节活动度", "value": "已完成", "valueTone": "ok" },
+          { "art": "哑铃卧推 12 公斤 演示", "artVariant": "arch", "title": "哑铃卧推", "sub": "4 组 × 10 次 · 12 kg", "value": "已完成", "valueTone": "ok" },
+          { "art": "上斜哑铃推举 8 公斤 演示", "artVariant": "dots", "title": "上斜哑铃推举", "sub": "4 组 × 12 次 · 8 kg", "value": "已完成", "valueTone": "ok" },
+          { "art": "绳索夹胸 15 公斤 演示", "artVariant": "orbit", "title": "绳索夹胸", "sub": "3 组 × 15 次 · 15 kg", "value": "进行中", "valueTone": "warn", "chev": true },
+          { "art": "坐姿肩推 6 公斤 演示", "artVariant": "petal", "title": "坐姿肩推", "sub": "3 组 × 12 次 · 6 kg", "value": "待开始", "chev": true },
+          { "art": "绳索下压 18 公斤 演示", "artVariant": "strata", "title": "绳索下压", "sub": "3 组 × 15 次 · 18 kg", "value": "待开始", "chev": true }
+        ] },
+        { "type": "sectionHead", "title": "本周训练", "action": "查看计划" },
+        { "type": "calendar", "days": [
+          { "n": 9, "label": "周一", "dot": true },
+          { "n": 10, "label": "周二", "active": true },
+          { "n": 11, "label": "周三" },
+          { "n": 12, "label": "周四", "dot": true },
+          { "n": 13, "label": "周五" },
+          { "n": 14, "label": "周六", "dot": true },
+          { "n": 15, "label": "周日" }
         ] },
         { "type": "notice", "tone": "info", "mark": "天气", "text": "今日 14 - 22°C 多云，适合户外有氧；室内训练记得通风。" },
         { "type": "card", "flat": true, "actions": [
@@ -60,7 +70,7 @@
         "navbar": { "back": true, "title": "动作详情", "action": "收藏" }
       },
       "blocks": [
-        { "type": "card", "media": true, "mediaTag": "视频演示 · 0:36", "title": "杠铃卧推 · 平板", "sub": "复合动作 · 胸大肌 / 三角肌前束 / 肱三头肌" },
+        { "type": "card", "media": true, "artSeed": "杠铃卧推 平板 演示视频", "artVariant": "waves", "mediaTag": "视频演示 · 0:36", "title": "杠铃卧推 · 平板", "sub": "复合动作 · 胸大肌 / 三角肌前束 / 肱三头肌" },
         { "type": "header", "title": "杠铃卧推 · 平板", "subtitle": "难度 中级 · 器械 杠铃 + 卧推凳", "meta": [
           { "label": "胸部", "tone": "accent" },
           { "label": "推" }
@@ -69,6 +79,12 @@
           { "n": 1, "label": "肩胛后缩下沉", "state": "done" },
           { "n": 2, "label": "控制下放到胸骨", "state": "active" },
           { "n": 3, "label": "蹬腿发力推起" }
+        ] },
+        { "type": "sectionHead", "title": "动作图解", "action": "3 张" },
+        { "type": "mediaGrid", "cols": 3, "items": [
+          { "art": "杠铃卧推 起始站姿 图解", "artVariant": "arch", "title": "1 起始站姿", "sub": "握距略宽于肩" },
+          { "art": "杠铃卧推 下放阶段 图解", "artVariant": "strata", "title": "2 控制下放", "sub": "下放 2 秒到乳头线" },
+          { "art": "杠铃卧推 推起锁定 图解", "artVariant": "rays", "title": "3 推起锁定", "sub": "蹬腿发力不塌腰" }
         ] },
         { "type": "sectionHead", "title": "动作要点" },
         { "type": "list", "items": [
@@ -98,23 +114,21 @@
       },
       "blocks": [
         { "type": "tabs", "items": [
-          { "label": "本周", "active": true },
-          { "label": "本月" },
+          { "label": "本月", "active": true },
+          { "label": "本周" },
           { "label": "本年" }
         ] },
+        { "type": "card", "media": true, "artSeed": "训练热力 本月 5 次 252 分钟", "artVariant": "tiles", "mediaTag": "训练热力", "title": "本月 5 次 · 4 小时 12 分", "sub": "覆盖胸 / 背 / 腿 3 个部位 · 平均强度 中", "badge": "+2 次", "badgeTone": "up" },
         { "type": "statGrid", "cols": 3, "items": [
           { "label": "训练次数", "value": "5 次", "delta": "+2", "deltaTone": "up" },
           { "label": "总时长", "value": "4 小时 12 分", "delta": "+48 分", "deltaTone": "up" },
           { "label": "累计消耗", "value": "2,860 千卡", "delta": "+620", "deltaTone": "up" }
         ] },
-        { "type": "bars", "title": "本周训练时长", "sub": "每日分钟数 · 共 252 分钟", "items": [
-          { "label": "周一", "value": 52 },
-          { "label": "周二", "value": 0 },
-          { "label": "周三", "value": 46 },
-          { "label": "周四", "value": 38 },
-          { "label": "周五", "value": 58 },
-          { "label": "周六", "value": 0 },
-          { "label": "周日", "value": 58 }
+        { "type": "bars", "title": "近 4 周训练时长", "sub": "每周分钟数 · 本周累计 86 分钟", "items": [
+          { "label": "第 1 周", "value": 212 },
+          { "label": "第 2 周", "value": 248 },
+          { "label": "第 3 周", "value": 286 },
+          { "label": "本周", "value": 86 }
         ], "legend": [
           { "label": "力量训练" },
           { "label": "有氧", "alt": true }
@@ -126,20 +140,20 @@
           { "label": "肩臂", "value": 7 },
           { "label": "核心", "value": 3 }
         ] },
+        { "type": "calendar", "days": [
+          { "n": 9, "label": "周一", "dot": true },
+          { "n": 10, "label": "周二", "active": true },
+          { "n": 11, "label": "周三" },
+          { "n": 12, "label": "周四", "dot": true },
+          { "n": 13, "label": "周五" },
+          { "n": 14, "label": "周六", "dot": true },
+          { "n": 15, "label": "周日" }
+        ] },
         { "type": "sectionHead", "title": "个人最佳", "action": "全部记录" },
         { "type": "list", "items": [
-          { "icon": "trend", "title": "杠铃卧推 1RM", "sub": "2024-10-28 · 60 kg", "value": "+5 kg", "valueTone": "up" },
-          { "icon": "trend", "title": "硬拉 1RM", "sub": "2024-10-19 · 92.5 kg", "value": "+7.5 kg", "valueTone": "up" },
-          { "icon": "trend", "title": "5 公里跑步", "sub": "2024-11-02 · 浦东世纪公园", "value": "24:38", "valueTone": "down" }
-        ] },
-        { "type": "calendar", "days": [
-          { "n": 4, "label": "周一" },
-          { "n": 5, "label": "周二", "dot": true },
-          { "n": 6, "label": "周三", "dot": true },
-          { "n": 7, "label": "周四" },
-          { "n": 8, "label": "周五", "dot": true },
-          { "n": 9, "label": "周六", "active": true },
-          { "n": 10, "label": "周日" }
+          { "art": "杠铃卧推 1RM 记录", "artVariant": "arch", "title": "杠铃卧推 1RM", "sub": "2026-10-28 · 60 kg", "value": "+5 kg", "valueTone": "up" },
+          { "art": "硬拉 1RM 记录", "artVariant": "strata", "title": "硬拉 1RM", "sub": "2026-10-19 · 92.5 kg", "value": "+7.5 kg", "valueTone": "up" },
+          { "art": "5 公里 跑步 记录", "artVariant": "waves", "title": "5 公里跑步", "sub": "2026-11-02 · 浦东世纪公园", "value": "24:38", "valueTone": "down" }
         ] },
         { "type": "notice", "tone": "ok", "mark": "达成", "text": "本月已达成 14 次训练，超过 92% 的同水平用户。" }
       ]
@@ -152,28 +166,34 @@
         "navbar": { "back": true, "title": "训练计划", "action": "编辑" }
       },
       "blocks": [
-        { "type": "card", "media": true, "mediaTag": "第 3 周 / 共 8 周", "title": "推拉腿 · 八周增肌周期", "sub": "中级 · 每周 4 练 · 每次约 60 分钟", "body": "进阶目标：卧推 1RM 达到 65 kg", "badge": "进行中", "badgeTone": "accent", "actions": [
+        { "type": "card", "media": true, "artSeed": "推拉腿 八周增肌周期 封面", "artVariant": "orbit", "mediaTag": "第 7 周 / 共 8 周", "title": "推拉腿 · 八周增肌周期", "sub": "中级 · 每周 4 练 · 每次约 60 分钟", "body": "进阶目标：卧推 1RM 达到 65 kg", "badge": "进行中", "badgeTone": "accent", "actions": [
           { "label": "教练说明", "primary": false },
           { "label": "开始训练", "primary": true }
         ] },
-        { "type": "progress", "label": "本周计划完成度", "value": "3 / 4 次训练", "pct": 75, "tone": "ok" },
+        { "type": "progress", "label": "本周计划完成度", "value": "1 / 4 次训练", "pct": 25, "tone": "ok" },
         { "type": "steps", "items": [
           { "n": 1, "label": "适应期", "state": "done" },
           { "n": 2, "label": "强化期", "state": "done" },
           { "n": 3, "label": "增肌期", "state": "active" },
-          { "n": 4, "label": "强化巩固" }
+          { "n": 4, "label": "巩固期" }
         ] },
         { "type": "sectionHead", "title": "本周安排", "action": "调整" },
         { "type": "list", "items": [
-          { "icon": "check", "title": "周一 · 推日（胸肩三头）", "sub": "58 分钟 · 6 个动作", "value": "已完成", "valueTone": "ok" },
-          { "icon": "check", "title": "周三 · 拉日（背二头）", "sub": "62 分钟 · 7 个动作", "value": "已完成", "valueTone": "ok" },
-          { "icon": "check", "title": "周五 · 腿日（股四头后链）", "sub": "66 分钟 · 8 个动作", "value": "已完成", "valueTone": "ok" },
-          { "icon": "play", "title": "周日 · 上肢补强 + 有氧", "sub": "45 分钟 · 5 个动作", "value": "今天", "valueTone": "warn", "chev": true }
+          { "icon": "check", "title": "周一 · 恢复跑", "sub": "40 分钟 · 慢跑 6 km", "value": "已完成", "valueTone": "ok" },
+          { "icon": "play", "title": "周二 · 推日（胸肩三头）", "sub": "58 分钟 · 6 个动作", "value": "进行中", "valueTone": "warn", "chev": true },
+          { "icon": "clock", "title": "周四 · 拉日（背二头）", "sub": "62 分钟 · 7 个动作", "value": "待开始", "chev": true },
+          { "icon": "clock", "title": "周六 · 腿日（股四头后链）", "sub": "66 分钟 · 8 个动作", "value": "待开始", "chev": true }
+        ] },
+        { "type": "sectionHead", "title": "教练动作库", "action": "全部 24 个" },
+        { "type": "mediaGrid", "cols": 3, "items": [
+          { "art": "杠铃卧推 动作库 缩略", "artVariant": "arch", "title": "杠铃卧推", "sub": "胸 · 中级" },
+          { "art": "硬拉 动作库 缩略", "artVariant": "strata", "title": "硬拉", "sub": "腿后链 · 高级" },
+          { "art": "绳索下压 动作库 缩略", "artVariant": "dots", "title": "绳索下压", "sub": "三头 · 初级" }
         ] },
         { "type": "timeline", "items": [
-          { "title": "第 1 周 · 适应期", "sub": "重量 60% 1RM，每组 12 次 × 3 组", "time": "9 月 2 日 - 9 月 8 日", "state": "done" },
-          { "title": "第 2 周 · 强化期", "sub": "重量 70% 1RM，加入组间休息计时", "time": "9 月 9 日 - 9 月 15 日", "state": "done" },
-          { "title": "第 3 周 · 增肌期（当前）", "sub": "重量 75% 1RM，容量 +20%", "time": "9 月 16 日 - 9 月 22 日", "state": "pending" }
+          { "title": "第 5 周 · 强化巩固", "sub": "重量 80% 1RM，加入组间休息计时", "time": "10 月 26 日 - 11 月 1 日", "state": "done" },
+          { "title": "第 6 周 · 增肌期", "sub": "重量 80% 1RM，训练容量 +20%", "time": "11 月 2 日 - 11 月 8 日", "state": "done" },
+          { "title": "第 7 周 · 增肌期（当前）", "sub": "重量 85% 1RM，卧推加一组三头", "time": "11 月 9 日 - 11 月 15 日", "state": "pending" }
         ] },
         { "type": "kv", "items": [
           { "label": "每周频次", "value": "4 次" },

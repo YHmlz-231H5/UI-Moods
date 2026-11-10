@@ -184,6 +184,20 @@
     }
     .card-demo .ct { font-size: var(--mood-typography-title-size); color: var(--mood-colors-text-strong); font-weight: 600; margin-bottom: 4px; }
     .card-demo .cm { font-size: 12px; color: var(--mood-colors-muted); margin-bottom: 12px; }
+    /* A generated thumbnail — the specimen ships no image assets. */
+    .demo-thumb {
+      display: block;
+      width: 100%;
+      height: 96px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      border-radius: var(--mood-radii-block);
+      border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+      background: var(--mood-colors-panel);
+    }
+    .demo-thumb svg { display: block; width: 100%; height: 100%; }
+    .demo-row { display: flex; gap: 14px; align-items: flex-start; }
+    .demo-row .demo-thumb { width: 96px; height: 96px; margin-bottom: 0; flex: none; }
     table { width: 100%; border-collapse: collapse; font-size: 13px; }
     th, td { text-align: left; padding: 9px 12px; border-bottom: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
     th { color: var(--mood-colors-muted); text-transform: uppercase; font-size: 11px; }
@@ -1573,15 +1587,12 @@
     box-shadow: var(--mood-shadows-card);
   }
   .s-media-art {
-    height: 144px; position: relative;
-    background:
-      radial-gradient(circle at 24% 30%, var(--mood-colors-accent), transparent 60%),
-      linear-gradient(135deg, var(--mood-colors-panel), var(--mood-colors-bg));
+    height: 144px; position: relative; overflow: hidden;
+    background: var(--mood-colors-panel);
   }
-  .s-media-art::after {
-    content: ""; position: absolute; inset: 0;
-    background: repeating-linear-gradient(90deg, var(--mood-colors-border) 0 1px, transparent 1px 26px);
-    opacity: 0.4;
+  /* The picture inside the card is generated from the mood's own tokens. */
+  .s-media-art .demo-thumb {
+    height: 144px; margin-bottom: 0; border-radius: 0; border: 0;
   }
   .s-media-tag {
     position: absolute; top: 12px; left: 12px; z-index: 1;
@@ -1643,6 +1654,11 @@
   .s-list-row .s-row-name { flex: 1; min-width: 0; }
   .s-list-row .s-row-name b { display: block; font-size: 13px; font-weight: 600; color: var(--mood-colors-text-strong); }
   .s-list-row .s-row-name small { font-size: 11px; color: var(--mood-colors-muted); }
+  /* Rows can carry a generated thumbnail, like a real report list would. */
+  .s-list-row .demo-thumb {
+    width: 44px; height: 44px; flex: none; margin-bottom: 0;
+    border-radius: var(--mood-radii-block);
+  }
   .s-avatar-stack { display: inline-flex; align-items: center; }
   .s-avatar-stack .s-mini-avatar {
     width: 26px; height: 26px; border-radius: 50%;
@@ -1665,7 +1681,7 @@
 
 <div class="row">
   <div class="s-media-card">
-    <div class="s-media-art"><span class="s-media-tag">Featured</span></div>
+    <div class="s-media-art"><span class="s-media-tag">Featured</span><span class="demo-thumb"><svg class="gen-svg" viewBox="0 0 240 160" preserveAspectRatio="xMidYMid slice" role="img" aria-hidden="true" focusable="false"><rect x="0" y="0" width="75.2" height="48" rx="11.52" style="fill:var(--mood-colors-accent)" opacity="0.49"/><rect x="82.4" y="0" width="75.2" height="48" rx="11.52" style="fill:var(--mood-colors-ok)" opacity="0.69"/><rect x="164.8" y="0" width="75.2" height="48" rx="11.52" style="fill:var(--mood-colors-ok)" opacity="0.62"/><rect x="0" y="56" width="75.2" height="48" rx="11.52" style="fill:var(--mood-colors-accent)" opacity="0.61"/><rect x="82.4" y="56" width="75.2" height="48" rx="11.52" style="fill:var(--mood-colors-warn)" opacity="0.42"/><rect x="164.8" y="56" width="75.2" height="48" rx="11.52" style="fill:var(--mood-colors-ok)" opacity="0.58"/><rect x="0" y="112" width="75.2" height="48" rx="11.52" style="fill:var(--mood-colors-surface)" opacity="0.45"/><rect x="82.4" y="112" width="75.2" height="48" rx="11.52" style="fill:var(--mood-colors-accent)" opacity="0.41"/><rect x="164.8" y="112" width="75.2" height="48" rx="11.52" style="fill:var(--mood-colors-accent)" opacity="0.7"/></svg></span></div>
     <div class="s-media-body">
       <b>Warehouse margin, by region</b>
       <p>Margin expanded 4.2 points after the Q1 freight renegotiation, driven by the Rotterdam hub.</p>
@@ -1727,16 +1743,19 @@
       </div>
       <div class="s-list-card-body">
         <div class="s-list-row">
+          <span class="demo-thumb"><svg class="gen-svg" viewBox="0 0 240 160" preserveAspectRatio="xMidYMid slice" role="img" aria-hidden="true" focusable="false"><path d="M-0.1 0 L240.1 6.39 L240.1 40 L-0.1 40 Z" style="fill:var(--mood-colors-accent)" opacity="0.28"/><path d="M10.72 40 L229.28 43.08 L229.28 80 L10.72 80 Z" style="fill:var(--mood-colors-panel)" opacity="0.41"/><path d="M-14.64 80 L254.64 77.27 L254.64 120 L-14.64 120 Z" style="fill:var(--mood-colors-ok)" opacity="0.53"/><path d="M-0.33 120 L240.33 121.32 L240.33 160 L-0.33 160 Z" style="fill:var(--mood-colors-warn)" opacity="0.66"/></svg></span>
           <div class="s-row-name"><b>Checkout funnel</b><small>Updated 12 minutes ago</small></div>
           <span class="badge live">Live</span>
           <button type="button" class="s-icon-btn">Open</button>
         </div>
         <div class="s-list-row">
+          <span class="demo-thumb"><svg class="gen-svg" viewBox="0 0 240 160" preserveAspectRatio="xMidYMid slice" role="img" aria-hidden="true" focusable="false"><rect x="0" y="51.85" width="30.58" height="108.15" rx="12.74" style="fill:var(--mood-colors-accent)" opacity="0.9"/><rect x="34.9" y="106.97" width="30.58" height="53.03" rx="12.74" style="fill:var(--mood-colors-accent)" opacity="0.9"/><rect x="69.8" y="103.75" width="30.58" height="56.25" rx="12.74" style="fill:var(--mood-colors-warn)" opacity="0.45"/><rect x="104.7" y="17.1" width="30.58" height="142.9" rx="12.74" style="fill:var(--mood-colors-ok)" opacity="0.9"/><rect x="139.6" y="65.69" width="30.58" height="94.31" rx="12.74" style="fill:var(--mood-colors-accent)" opacity="0.9"/><rect x="174.5" y="87.86" width="30.58" height="72.14" rx="12.74" style="fill:var(--mood-colors-accent)" opacity="0.45"/><rect x="209.4" y="119.2" width="30.58" height="40.8" rx="12.74" style="fill:var(--mood-colors-warn)" opacity="0.9"/></svg></span>
           <div class="s-row-name"><b>Return rate by cohort</b><small>Updated 3 hours ago</small></div>
           <span class="badge">Draft</span>
           <button type="button" class="s-icon-btn">Open</button>
         </div>
         <div class="s-list-row">
+          <span class="demo-thumb"><svg class="gen-svg" viewBox="0 0 240 160" preserveAspectRatio="xMidYMid slice" role="img" aria-hidden="true" focusable="false"><path d="M0 54.4 C 18 39.4 42 39.4 60 54.4 C 78 69.4 102 69.4 120 54.4 C 138 39.4 162 39.4 180 54.4 C 198 69.4 222 69.4 240 54.4 L 240 160 L 0 160 Z" style="fill:var(--mood-colors-accent)" opacity="0.75"/><path d="M0 92.8 C 18 79.9 42 79.9 60 92.8 C 78 105.7 102 105.7 120 92.8 C 138 79.9 162 79.9 180 92.8 C 198 105.7 222 105.7 240 92.8 L 240 160 L 0 160 Z" style="fill:var(--mood-colors-ok)" opacity="0.59"/><path d="M0 131.2 C 18 108.89 42 108.89 60 131.2 C 78 153.51 102 153.51 120 131.2 C 138 108.89 162 108.89 180 131.2 C 198 153.51 222 153.51 240 131.2 L 240 160 L 0 160 Z" style="fill:var(--mood-colors-warn)" opacity="0.43"/></svg></span>
           <div class="s-row-name"><b>Ad spend efficiency</b><small>Updated yesterday</small></div>
           <span class="badge">Archived</span>
           <button type="button" class="s-icon-btn">Open</button>
@@ -2897,8 +2916,10 @@
 .s-ec-fbt-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
 .s-ec-fbt-head p { margin: 0; font-size: 12px; color: var(--mood-colors-muted); }
 .s-ec-fbt-card { display: flex; gap: 12px; align-items: flex-start; }
-.s-ec-fbt-art { width: 56px; height: 56px; flex: none; border-radius: var(--mood-radii-input); background: var(--mood-colors-bg); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); display: flex; align-items: center; justify-content: center; color: var(--mood-colors-muted); }
+.s-ec-fbt-art { width: 56px; height: 56px; flex: none; border-radius: var(--mood-radii-input); background: var(--mood-colors-bg); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); display: flex; align-items: center; justify-content: center; color: var(--mood-colors-muted); overflow: hidden; }
 .s-ec-fbt-art svg { width: 26px; height: 26px; }
+/* Product thumbnails are generated from the mood's tokens. */
+.s-ec-fbt-art .demo-thumb { width: 56px; height: 56px; margin-bottom: 0; border: 0; border-radius: inherit; }
 .s-ec-fbt-name { font-size: 13px; font-weight: 600; color: var(--mood-colors-text-strong); }
 .s-ec-fbt-meta { font-size: 11px; color: var(--mood-colors-muted); }
 .s-ec-fbt-price { font-size: 13px; font-weight: 600; color: var(--mood-colors-text-strong); }
@@ -3006,7 +3027,7 @@
     </div>
     <div class="row cols-3">
       <div class="card-demo s-ec-fbt-card">
-        <div class="s-ec-fbt-art"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3.5h10v17H7z"/><path d="M10 7h4M10 11h4"/></svg></div>
+        <div class="s-ec-fbt-art"><span class="demo-thumb"><svg class="gen-svg" viewBox="0 0 240 160" preserveAspectRatio="xMidYMid slice" role="img" aria-hidden="true" focusable="false"><ellipse cx="116.07" cy="92.43" rx="57.21" ry="29.29" transform="rotate(94.23 116.07 92.43)" style="stroke:var(--mood-colors-accent)" stroke-width="2.96" fill="none" opacity="0.65"/><ellipse cx="116.07" cy="92.43" rx="42.34" ry="30.56" transform="rotate(152.31 116.07 92.43)" style="stroke:var(--mood-colors-accent)" stroke-width="3.46" fill="none" opacity="0.53"/><ellipse cx="116.07" cy="92.43" rx="27.46" ry="12.66" transform="rotate(50.66 116.07 92.43)" style="stroke:var(--mood-colors-accent)" stroke-width="3.14" fill="none" opacity="0.41"/><circle cx="116.07" cy="92.43" r="11.44" style="fill:var(--mood-colors-accent)" opacity="0.85"/></svg></span></div>
         <div>
           <div class="s-ec-fbt-name">Beacon Gateway G1</div>
           <div class="s-ec-fbt-meta">Wi-Fi and LoRa bridge</div>
@@ -3014,7 +3035,7 @@
         </div>
       </div>
       <div class="card-demo s-ec-fbt-card">
-        <div class="s-ec-fbt-art"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v16M7 8l10 8M17 8L7 16"/></svg></div>
+        <div class="s-ec-fbt-art"><span class="demo-thumb"><svg class="gen-svg" viewBox="0 0 240 160" preserveAspectRatio="xMidYMid slice" role="img" aria-hidden="true" focusable="false"><rect x="0" y="0" width="240" height="160" style="fill:var(--mood-colors-panel)"/><rect x="36.47" y="22.74" width="125.4" height="137.26" rx="62.7" style="fill:var(--mood-colors-accent)" opacity="0.85"/><circle cx="123.45" cy="121.94" r="25.6" style="fill:var(--mood-colors-on-accent, var(--mood-colors-surface))" opacity="0.35"/><rect x="19.2" y="131.2" width="63.85" height="8" rx="4" style="fill:var(--mood-colors-text)" opacity="0.28"/></svg></span></div>
         <div>
           <div class="s-ec-fbt-name">Wall mount bracket</div>
           <div class="s-ec-fbt-meta">Stainless, 10 per pack</div>
@@ -3022,7 +3043,7 @@
         </div>
       </div>
       <div class="card-demo s-ec-fbt-card">
-        <div class="s-ec-fbt-art"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="7" width="16" height="11" rx="2"/><path d="M8 11h8M8 14.5h5"/></svg></div>
+        <div class="s-ec-fbt-art"><span class="demo-thumb"><svg class="gen-svg" viewBox="0 0 240 160" preserveAspectRatio="xMidYMid slice" role="img" aria-hidden="true" focusable="false"><path d="M240 0 L528.44 0 L511.04 98.65 Z" style="fill:var(--mood-colors-accent)" opacity="0.38"/><path d="M240 0 L460.96 185.41 L384.22 249.8 Z" style="fill:var(--mood-colors-accent)" opacity="0.12"/><path d="M240 0 L290.09 284.06 L189.91 284.06 Z" style="fill:var(--mood-colors-accent)" opacity="0.12"/><path d="M240 0 L95.78 249.8 L19.04 185.41 Z" style="fill:var(--mood-colors-accent)" opacity="0.38"/><path d="M240 0 L-31.04 98.65 L-48.44 0 Z" style="fill:var(--mood-colors-accent)" opacity="0.12"/><path d="M240 0 L-31.04 -98.65 L19.04 -185.41 Z" style="fill:var(--mood-colors-accent)" opacity="0.12"/><path d="M240 0 L95.78 -249.8 L189.91 -284.06 Z" style="fill:var(--mood-colors-accent)" opacity="0.38"/><path d="M240 0 L290.09 -284.06 L384.22 -249.8 Z" style="fill:var(--mood-colors-accent)" opacity="0.12"/><path d="M240 0 L460.96 -185.41 L511.04 -98.65 Z" style="fill:var(--mood-colors-accent)" opacity="0.12"/></svg></span></div>
         <div>
           <div class="s-ec-fbt-name">Calibration case</div>
           <div class="s-ec-fbt-meta">Field kit with reference probe</div>

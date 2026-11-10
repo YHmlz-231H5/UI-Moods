@@ -29,7 +29,7 @@
           { "label": "健康状态 良好", "tone": "ok" },
           { "label": "连续打卡 46 天" }
         ] },
-        { "type": "card", "tint": true, "title": "今日健康分", "sub": "较昨日 +3 分，主要得益于昨夜睡眠质量提升", "body": "82 / 100", "actions": [
+        { "type": "card", "media": true, "artSeed": "今日健康分 82 睡眠 心率", "artVariant": "mesh", "mediaTag": "今日健康分 82 / 100", "title": "较昨日 +3 分", "sub": "昨夜睡眠 7 小时 12 分，深睡占比 21%", "badge": "良好", "badgeTone": "ok", "actions": [
           { "label": "查看详情", "primary": false },
           { "label": "预约挂号", "primary": true }
         ] },
@@ -40,9 +40,28 @@
         ] },
         { "type": "sectionHead", "title": "今日提醒", "action": "全部" },
         { "type": "list", "items": [
-          { "icon": "pill", "title": "二甲双胍缓释片", "sub": "早餐后 1 粒 · 每日 2 次", "badge": "待服药", "badgeTone": "warn" },
-          { "icon": "calendar", "title": "心内科复诊", "sub": "11 月 14 日 周五 09:30 · 市立医院", "chev": true },
+          { "icon": "pill", "title": "苯磺酸氨氯地平片", "sub": "早餐后 1 片 · 每日 1 次 · 5mg", "badge": "待服药", "badgeTone": "warn" },
+          { "icon": "calendar", "title": "心内科复诊", "sub": "11 月 12 日 周四 09:30 · 市立医院", "chev": true },
           { "icon": "file", "title": "年度体检报告已出", "sub": "点击查看 12 项指标解读", "chev": true }
+        ] },
+        { "type": "sectionHead", "title": "近 7 日静息心率", "action": "全部记录" },
+        { "type": "bars", "title": "静息心率", "sub": "单位 次/分 · 参考区间 60 - 100", "items": [
+          { "label": "周一", "value": 68 },
+          { "label": "周二", "value": 71 },
+          { "label": "周三", "value": 65 },
+          { "label": "周四", "value": 69 },
+          { "label": "周五", "value": 72 },
+          { "label": "周六", "value": 66 },
+          { "label": "周日", "value": 64 }
+        ], "legend": [
+          { "label": "静息心率" },
+          { "label": "参考上限", "alt": true }
+        ] },
+        { "type": "sectionHead", "title": "健康科普", "action": "全部" },
+        { "type": "mediaGrid", "cols": 3, "items": [
+          { "art": "秋冬血压波动 科普封面", "artVariant": "strata", "title": "秋冬血压波动", "sub": "3 分钟读完" },
+          { "art": "咖啡因与心率 科普封面", "artVariant": "orbit", "title": "咖啡因与心率", "sub": "2 分钟读完" },
+          { "art": "家用血压计选购 科普封面", "artVariant": "petal", "title": "血压计怎么选", "sub": "4 分钟读完" }
         ] },
         { "type": "promo", "icon": "shield", "title": "流感疫苗可预约接种", "sub": "本周六 08:30 - 11:00，社区卫生中心余 24 剂" },
         { "type": "notice", "tone": "info", "mark": "TIP", "text": "连续 3 天静息心率高于 90 次/分时，系统会主动提醒您复诊。" }
@@ -56,6 +75,10 @@
         "navbar": { "back": true, "title": "预约挂号", "action": "我的预约" }
       },
       "blocks": [
+        { "type": "card", "media": true, "artSeed": "郑文博 主任医师 心血管内科 头像", "artVariant": "rings", "mediaTag": "今日 3 个号", "title": "郑文博 · 主任医师", "sub": "心血管内科 · 从业 22 年 · 市立医院中心院区", "body": "擅长冠心病、高血压综合管理", "badge": "评分 4.9", "badgeTone": "ok", "actions": [
+          { "label": "查看主页", "primary": false },
+          { "label": "选时段", "primary": true }
+        ] },
         { "type": "search", "placeholder": "搜索科室、医生或病症" },
         { "type": "chips", "items": [
           { "label": "推荐", "active": true },
@@ -73,10 +96,11 @@
           { "icon": "pill", "title": "呼吸内科", "sub": "明日可约 · 剩 23 个号", "value": "¥ 40", "chev": true },
           { "icon": "user", "title": "皮肤科", "sub": "今日可约 · 剩 5 个号", "value": "¥ 30", "chev": true }
         ] },
-        { "type": "sectionHead", "title": "推荐医生" },
-        { "type": "card", "title": "郑文博 · 主任医师", "sub": "心血管内科 · 从业 22 年 · 三甲医院认证", "body": "擅长冠心病、高血压综合管理", "badge": "今日 3 个号", "badgeTone": "ok", "actions": [
-          { "label": "查看主页", "primary": false },
-          { "label": "选时段", "primary": true }
+        { "type": "sectionHead", "title": "更多医生", "action": "换一批" },
+        { "type": "mediaGrid", "cols": 2, "items": [
+          { "art": "林若曦 副主任医师 呼吸内科 头像", "artVariant": "petal", "title": "林若曦 副主任医师", "sub": "呼吸内科 · 今日 5 个号 · ¥ 40" },
+          { "art": "周立 主任医师 骨科 头像", "artVariant": "arch", "title": "周立 主任医师", "sub": "骨科 · 周六 2 个号 · ¥ 80" },
+          { "art": "苏婉 主任医师 皮肤科 头像", "artVariant": "dots", "title": "苏婉 主任医师", "sub": "皮肤科 · 明日 7 个号 · ¥ 30" }
         ] },
         { "type": "notice", "tone": "warn", "mark": "NOTICE", "text": "医保卡未绑定，挂号时需到窗口补录医保信息。" }
       ]
@@ -89,17 +113,29 @@
         "navbar": { "back": true, "title": "医生主页", "action": "收藏" }
       },
       "blocks": [
-        { "type": "profile", "initials": "郑", "name": "郑文博 主任医师", "meta": "心血管内科 · 市立医院中心院区 12 楼", "tags": ["教授级", "医保定点", "擅长冠心病的介入与保守治疗"] },
+        { "type": "card", "media": true, "artSeed": "郑文博 主任医师 门诊头像", "artVariant": "petal", "mediaTag": "本周可约", "title": "郑文博 主任医师", "sub": "心血管内科 · 市立医院中心院区 12 楼 · 医保定点", "badge": "教授级", "badgeTone": "accent", "actions": [
+          { "label": "在线咨询", "primary": false },
+          { "label": "立即预约", "primary": true }
+        ] },
         { "type": "header", "title": "从业 22 年 · 接诊 12,480 人次", "subtitle": "本月好评率 98.6%", "meta": [
           { "label": "评分 4.9", "tone": "ok" },
           { "label": "回复较快" }
         ] },
         { "type": "rating", "value": 5, "count": "1,284 条评价" },
         { "type": "sectionHead", "title": "本周出诊", "action": "全部日历" },
+        { "type": "calendar", "days": [
+          { "n": 9, "label": "周一" },
+          { "n": 10, "label": "周二", "active": true },
+          { "n": 11, "label": "周三" },
+          { "n": 12, "label": "周四", "dot": true },
+          { "n": 13, "label": "周五", "dot": true },
+          { "n": 14, "label": "周六", "dot": true },
+          { "n": 15, "label": "周日" }
+        ] },
         { "type": "list", "items": [
-          { "icon": "calendar", "title": "11 月 12 日 周三 · 上午", "sub": "普通门诊 · 剩 2 个号", "value": "¥ 50", "chev": true },
-          { "icon": "calendar", "title": "11 月 13 日 周四 · 下午", "sub": "专家门诊 · 剩 1 个号", "value": "¥ 120", "chev": true },
-          { "icon": "calendar", "title": "11 月 15 日 周六 · 全天", "sub": "特需门诊 · 号满", "value": "¥ 200", "valueTone": "danger" }
+          { "icon": "calendar", "title": "11 月 12 日 周四 · 上午", "sub": "普通门诊 · 剩 2 个号", "value": "¥ 50", "chev": true },
+          { "icon": "calendar", "title": "11 月 13 日 周五 · 下午", "sub": "专家门诊 · 剩 1 个号", "value": "¥ 120", "chev": true },
+          { "icon": "calendar", "title": "11 月 14 日 周六 · 全天", "sub": "特需门诊 · 号满", "value": "¥ 200", "valueTone": "danger" }
         ] },
         { "type": "kv", "items": [
           { "label": "所在科室", "value": "心血管内科 3 诊室" },
@@ -108,6 +144,11 @@
           { "label": "服务患者", "value": "线上咨询 3,120 人" }
         ] },
         { "type": "map", "icon": "location", "pin": true, "label": "市立医院中心院区 · 门诊楼 1 号口" },
+        { "type": "sectionHead", "title": "同科室医生", "action": "更多" },
+        { "type": "mediaGrid", "cols": 2, "items": [
+          { "art": "林若曦 副主任医师 心内科 头像", "artVariant": "petal", "title": "林若曦 副主任医师", "sub": "心血管内科 · 今日 4 个号 · ¥ 50" },
+          { "art": "何立 主任医师 心内科 头像", "artVariant": "dots", "title": "何立 主任医师", "sub": "心血管内科 · 周六 3 个号 · ¥ 80" }
+        ] },
         { "type": "notice", "tone": "info", "mark": "TIP", "text": "建议就诊前携带近 3 个月的血压监测记录与在服药物清单。" },
         { "type": "card", "flat": true, "actions": [
           { "label": "在线咨询", "primary": false },
@@ -123,19 +164,20 @@
         "navbar": { "back": true, "title": "体检报告解读", "action": "分享" }
       },
       "blocks": [
-        { "type": "header", "title": "2024 年度健康体检", "subtitle": "市立医院体检中心 · 2024-11-08", "meta": [
+        { "type": "header", "title": "2026 年度健康体检", "subtitle": "市立医院体检中心 · 2026-11-08", "meta": [
           { "label": "3 项异常", "tone": "danger" },
           { "label": "9 项正常", "tone": "ok" }
         ] },
+        { "type": "card", "media": true, "artSeed": "2026 体检报告 封面 市立医院", "artVariant": "arch", "mediaTag": "体检报告 · 12 项指标", "title": "2026 年度健康体检", "sub": "市立医院体检中心 · 2026-11-08 · 报告编号 TJ-2026-110842", "badge": "已解读", "badgeTone": "ok" },
         { "type": "statGrid", "cols": 3, "items": [
           { "label": "总胆固醇", "value": "5.9 mmol/L", "delta": "偏高", "deltaTone": "warn" },
           { "label": "低密度脂蛋白", "value": "3.6 mmol/L", "delta": "偏高", "deltaTone": "warn" },
           { "label": "甘油三酯", "value": "1.3 mmol/L", "delta": "正常", "deltaTone": "ok" }
         ] },
         { "type": "bars", "title": "近三次血脂变化", "sub": "单位 mmol/L · 参考值 5.2 以内", "items": [
-          { "label": "2022", "value": 5.1 },
-          { "label": "2023", "value": 5.4 },
-          { "label": "2024", "value": 5.9 }
+          { "label": "2024", "value": 5.1 },
+          { "label": "2025", "value": 5.4 },
+          { "label": "2026", "value": 5.9 }
         ], "legend": [
           { "label": "总胆固醇" },
           { "label": "参考上限", "alt": true }
@@ -150,6 +192,12 @@
           { "label": "血脂异常", "value": 2, "tone": "warn" },
           { "label": "代谢异常", "value": 1, "tone": "danger" },
           { "label": "结果正常", "value": 9, "tone": "ok" }
+        ] },
+        { "type": "sectionHead", "title": "复查与科普", "action": "更多" },
+        { "type": "mediaGrid", "cols": 3, "items": [
+          { "art": "血脂复查项目 解读封面", "artVariant": "strata", "title": "复查项目清单", "sub": "3 个月后查什么" },
+          { "art": "低脂饮食 科普封面", "artVariant": "orbit", "title": "低脂饮食要点", "sub": "4 分钟读完" },
+          { "art": "有氧运动处方 封面", "artVariant": "rays", "title": "有氧运动处方", "sub": "每周 150 分钟" }
         ] },
         { "type": "notice", "tone": "ok", "mark": "结论", "text": "医生结论：血脂轻度升高，建议控制精制碳水与动物脂肪摄入，3 个月后复查。" },
         { "type": "card", "flat": true, "actions": [
@@ -167,6 +215,15 @@
       },
       "blocks": [
         { "type": "profile", "initials": "陈", "name": "陈曦", "meta": "32 岁 · 女 · 血型 A · 身高 165 cm", "tags": ["医保卡已绑定", "家属 2 人"] },
+        { "type": "statGrid", "cols": 3, "items": [
+          { "label": "就诊记录", "value": "18 次" },
+          { "label": "检查报告", "value": "9 份" },
+          { "label": "在用药物", "value": "2 种" }
+        ] },
+        { "type": "card", "media": true, "artSeed": "电子健康卡 医保 3101 0912", "artVariant": "tiles", "mediaTag": "电子健康卡", "title": "医保卡 · 3101 **** **** 0912", "sub": "上海市医保 · 有效期至 2027-04-30", "badge": "已实名", "badgeTone": "ok", "actions": [
+          { "label": "出示医保码", "primary": true },
+          { "label": "挂失补办", "primary": false }
+        ] },
         { "type": "tabs", "items": [
           { "label": "病历", "active": true },
           { "label": "检查" },
@@ -175,10 +232,10 @@
         ] },
         { "type": "sectionHead", "title": "就诊记录", "action": "全部" },
         { "type": "timeline", "items": [
-          { "title": "市立医院 · 心血管内科", "sub": "诊断：原发性高血压 I 级；处方：苯磺酸氨氯地平片 5mg", "time": "2024-11-14", "state": "done" },
-          { "title": "市立医院 · 体检中心", "sub": "年度体检报告已生成，含 3 项异常指标", "time": "2024-11-08", "state": "done" },
-          { "title": "社区门诊 · 内科", "sub": "上呼吸道感染，续方 3 天", "time": "2024-09-26", "state": "done" },
-          { "title": "市立医院 · 内分泌科", "sub": "复查糖化血红蛋白（待完成）", "time": "2024-12-03 09:30", "state": "pending" }
+          { "title": "市立医院 · 心血管内科", "sub": "诊断：原发性高血压 I 级；处方：苯磺酸氨氯地平片 5mg", "time": "2026-11-05", "state": "done" },
+          { "title": "市立医院 · 体检中心", "sub": "年度体检报告已生成，含 3 项异常指标", "time": "2026-11-08", "state": "done" },
+          { "title": "社区门诊 · 内科", "sub": "上呼吸道感染，续方 3 天", "time": "2026-09-24", "state": "done" },
+          { "title": "市立医院 · 心血管内科", "sub": "复查动态血压（待完成）", "time": "2026-12-03 09:30", "state": "pending" }
         ] },
         { "type": "kv", "items": [
           { "label": "过敏史", "value": "青霉素（皮试阳性）" },
@@ -186,11 +243,11 @@
           { "label": "家族史", "value": "父亲有冠心病史" },
           { "label": "紧急联系人", "value": "陈建国（父亲）138 **** 6021" }
         ] },
-        { "type": "sectionHead", "title": "家庭成员" },
+        { "type": "sectionHead", "title": "家庭成员", "action": "管理" },
         { "type": "list", "items": [
-          { "avatar": "陈", "title": "陈建国", "sub": "父亲 · 58 岁", "badge": "有报告", "badgeTone": "ok", "chev": true },
-          { "avatar": "李", "title": "李慧", "sub": "母亲 · 55 岁", "chev": true },
-          { "avatar": "小", "title": "陈小满", "sub": "女儿 · 6 岁", "badge": "待接种", "badgeTone": "warn", "chev": true }
+          { "art": "陈建国 头像", "artVariant": "arch", "title": "陈建国", "sub": "父亲 · 58 岁", "badge": "有报告", "badgeTone": "ok", "chev": true },
+          { "art": "李慧 头像", "artVariant": "rings", "title": "李慧", "sub": "母亲 · 55 岁", "chev": true },
+          { "art": "陈小满 头像", "artVariant": "petal", "title": "陈小满", "sub": "女儿 · 6 岁", "badge": "待接种", "badgeTone": "warn", "chev": true }
         ] },
         { "type": "notice", "tone": "info", "mark": "隐私", "text": "档案默认仅本人与授权家属可见，可在设置中调整授权范围。" }
       ]

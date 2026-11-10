@@ -14,6 +14,8 @@ const port = Number(process.argv[2] || process.env.PORT || 4173);
 const MIME = {
   ".html": "text/html; charset=utf-8",
   ".json": "application/json; charset=utf-8",
+  ".mjs": "text/javascript; charset=utf-8",
+  ".js": "text/javascript; charset=utf-8",
   ".png": "image/png",
   ".svg": "image/svg+xml",
   ".md": "text/markdown; charset=utf-8",
@@ -30,6 +32,10 @@ function resolveFile(pathname) {
     filePath = join(root, "moods.json");
   } else if (pathname === "/apps.json") {
     filePath = join(root, "apps.json");
+  } else if (pathname.startsWith("/lib/")) {
+    // The gallery imports the artwork generator as an ES module, so the
+    // thumbnails it draws come from the same code the app screens use.
+    filePath = join(root, "tools", pathname.replace(/^\/lib\//, "lib/"));
   } else if (pathname.startsWith("/moods/") || pathname.startsWith("/apps/")) {
     filePath = join(root, pathname);
   } else {

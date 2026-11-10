@@ -8,12 +8,34 @@
 // full visual language of whichever mood it is rendered with.
 
 import { icon, escapeAttr } from "./icons.mjs";
+import { renderArtwork, tokenPalette } from "./artwork.mjs";
 
 const esc = (value) =>
   String(value ?? "")
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;");
+
+/* ---------------------------------------------------- generated artwork */
+
+// The library ships no raster images. "Pictures" are drawn from the mood's own
+// tokens by tools/lib/artwork.mjs — deterministic, seeded, token-only.
+const PALETTE = tokenPalette();
+
+/** Height classes available to the artwork block (all in the px allowlist). */
+const ART_HEIGHTS = [120, 144, 160, 180, 200, 240];
+
+/**
+ * A generated artwork layer. `seed` decides the composition, so the same
+ * screen always renders the same picture.
+ */
+function art(seed, variant, width = 360, height = 180) {
+  return (
+    `<div class="gen">` +
+    renderArtwork(PALETTE, seed ?? "art", { width, height, variant }) +
+    `</div>`
+  );
+}
 
 /* ------------------------------------------------------------ helpers */
 
@@ -95,7 +117,8 @@ const BLOCKS = {
 
   card: (b) => {
     const media = b.media
-      ? `<div class="card-media">${b.mediaTag ? `<span class="cm-tag">${esc(b.mediaTag)}</span>` : ""}</div>`
+      ? `<div class="card-media">${art(b.artSeed ?? b.title ?? "card", b.artVariant, 360, 132)}` +
+        (b.mediaTag ? `<span class="cm-tag">${esc(b.mediaTag)}</span>` : "") + `</div>`
       : "";
     const badge = b.badge
       ? `<span class="badge${toneAttr(b.badgeTone)}">${esc(b.badge)}</span>`
@@ -127,11 +150,13 @@ const BLOCKS = {
   list: (b) => {
     const items = (b.items ?? [])
       .map((it) => {
-        const lead = it.icon
-          ? `<span class="li-icon">${icon(it.icon)}</span>`
-          : it.avatar
-            ? `<span class="avatar sm">${esc(it.avatar)}</span>`
-            : "";
+        const lead = it.art
+          ? `<span class="li-thumb">${art(it.art, it.artVariant, 44, 44)}</span>`
+          : it.icon
+            ? `<span class="li-icon">${icon(it.icon)}</span>`
+            : it.avatar
+              ? `<span class="avatar sm">${esc(it.avatar)}</span>`
+              : "";
         const body =
           `<span class="li-body">` +
           `<span class="li-title">${esc(it.title ?? "")}</span>` +
@@ -321,9 +346,13 @@ const BLOCKS = {
   /* --- promotion --- */
 
   banner: (b) =>
-    `<div class="banner"><span class="bn-title">${esc(b.title ?? "")}</span>` +
+    `<div class="banner${b.art ? " has-art" : ""}">` +
+    (b.art ? art(b.art, b.artVariant, 360, 220) : "") +
+    `<span class="bn-body">` +
+    `<span class="bn-title">${esc(b.title ?? "")}</span>` +
     (b.sub ? `<span class="bn-sub">${esc(b.sub)}</span>` : "") +
-    (b.cta ? `<span class="bn-cta">${esc(b.cta)}</span>` : "") + `</div>`,
+    (b.cta ? `<span class="bn-cta">${esc(b.cta)}</span>` : "") +
+    `</span></div>`,
 
   promo: (b) =>
     `<div class="promo"><span class="pr-icon">${icon(b.icon ?? "bolt")}</span>` +
@@ -336,11 +365,26 @@ const BLOCKS = {
 
   /* --- media --- */
 
+  // A standalone generated picture — the block that replaces stock photography.
+  artwork: (b) => {
+    const h = ART_HEIGHTS.includes(Number(b.height)) ? Number(b.height) : 160;
+    return `<div class="gen art-frame art-h${h}">` +
+      renderArtwork(PALETTE, b.seed ?? "art", {
+        width: 360,
+        height: h,
+        variant: b.variant,
+      }) +
+      `</div>`;
+  },
+
   mediaGrid: (b) =>
     `<div class="media-grid${b.cols === 3 ? " cols-3" : ""}">${(b.items ?? [])
       .map(
         (it) =>
-          `<div class="media-cell"><div class="media-thumb">${icon(it.icon ?? "image")}</div>` +
+          `<div class="media-cell"><div class="media-thumb">` +
+          art(it.art ?? it.title ?? "media", it.artVariant, 168, 96) +
+          (it.icon ? `<span class="mt-icon">${icon(it.icon)}</span>` : "") +
+          `</div>` +
           `<span class="media-cap">${esc(it.title ?? "")}</span>` +
           (it.sub ? `<span class="media-sub">${esc(it.sub)}</span>` : "") + `</div>`,
       )
@@ -351,6 +395,7 @@ const BLOCKS = {
       .map(
         (it) =>
           `<div class="slide"><div class="card"><div class="card-media">` +
+          art(it.art ?? it.title ?? "slide", it.artVariant, 264, 132) +
           (it.tag ? `<span class="cm-tag">${esc(it.tag)}</span>` : "") +
           `</div><div class="card-body"><span class="card-title">${esc(it.title ?? "")}</span>` +
           `<span class="card-sub">${esc(it.sub ?? "")}</span></div></div></div>`,

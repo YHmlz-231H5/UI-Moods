@@ -104,6 +104,45 @@ apply: no color literals outside the token block, no raw `border-radius`
 literals, no `<script>`, and every visual parameter comes from the referenced
 mood's tokens.
 
+### 5.3 Code-generated artwork
+
+The library ships **no image assets**. Every "picture" — a product shot, a
+cover, a banner, a gallery thumbnail — is drawn at render time by
+`tools/lib/artwork.mjs` from the mood's own tokens.
+
+- `renderArtwork(palette, seed, opts)` draws one generated region. The seed
+  selects a composition family and a deterministic pseudo-random layout, so the
+  same seed always produces the same picture and different seeds produce
+  different ones.
+- Composition families: `mesh`, `arch`, `rings`, `bars`, `tiles`, `dots`,
+  `waves`, `rays`, `steps`, `petal`, `strata`, `orbit`. Small canvases
+  (under 140 units on the short side) draw only from the soft subset
+  (`mesh`, `strata`, `orbit`, `waves`).
+- `renderMoodThumb` and `renderAppThumb` draw a miniature UI scene for the
+  gallery cards.
+
+Two rules keep the output inside the token contract:
+
+1. Colour is never written in the generator. The caller passes a palette whose
+   values are either `var(--mood-colors-*)` references (inside a mood artifact)
+   or concrete values read from `tokens.json` (in the gallery chrome, which is
+   not itself a mood artifact).
+2. SVG presentation attributes do not accept `var()`, so every paint goes
+   through `style="fill:…"`. Opacity rides on its own attribute
+   (`opacity="0.5"`, `stop-opacity="0.5"`) rather than a CSS declaration, so it
+   never collides with the stylesheet opacity allowlist.
+
+Everything in the markup is unitless — no `px` appears — so generated artwork
+cannot trip the pixel allowlist. Gradient ids always begin with a non-hex
+letter, so `url(#…)` can never be mistaken for a colour literal.
+
+App screens reach the generator through the `artwork` block and the `art` /
+`artSeed` props on `card`, `mediaGrid`, `carousel`, `list` and `banner`.
+Specimen sections use the `{{art:seed}}` marker, replaced by `build-specimen`.
+Each app pack's generated `screens/index.html` draws a cover plus one
+miniature phone per screen, so the pack directory page is a gallery rather than
+a bare list of links.
+
 ## 6. Extension note (v0.2.1)
 
 - `colors.onAccent` added as a **recommended extended color key** (text/icon

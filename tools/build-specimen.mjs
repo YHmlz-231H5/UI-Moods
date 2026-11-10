@@ -14,6 +14,7 @@ import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { MAPPED_GROUPS, SKIP_FIELDS, kebabCase } from "./lib/mapping.mjs";
+import { renderArtwork, tokenPalette } from "./lib/artwork.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -84,6 +85,27 @@ function injectSections(shell, sections) {
   return shell.slice(0, idx) + sections + shell.slice(idx + SECTION_MARKER.length);
 }
 
+/**
+ * Replace `{{art:seed}}` markers with a generated picture.
+ *
+ * The seed decides the composition, so every mood draws its own variant of
+ * the same layout. The artwork is rendered with the token palette, so it
+ * inherits the specimen's colours exactly like the rest of the page.
+ *
+ * `{{art:seed:variant}}` pins the composition family.
+ */
+function injectArtwork(html) {
+  return html.replace(/\{\{art:([^}:]+)(?::([^}]+))?\}\}/g, (_m, seed, variant) => {
+    const s = String(seed).trim();
+    const v = variant ? String(variant).trim() : undefined;
+    return (
+      `<span class="demo-thumb">` +
+      renderArtwork(tokenPalette(), s, { width: 240, height: 160, variant: v }) +
+      `</span>`
+    );
+  });
+}
+
 const args = process.argv.slice(2);
 const ids = args.filter((a) => !a.startsWith("--"));
 
@@ -106,7 +128,7 @@ for (const id of ids) {
     continue;
   }
   const tokens = JSON.parse(readFileSync(tokensPath, "utf8").replace(/^\uFEFF/, ""));
-  const html = buildSpecimen(tokens, injectSections(shell, sections));
+  const html = injectArtwork(buildSpecimen(tokens, injectSections(shell, sections)));
   writeFileSync(join(moodDir, "specimen.html"), html, "utf8");
   console.log(`moods/${id}/specimen.html: written`);
 }

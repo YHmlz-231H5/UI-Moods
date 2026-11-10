@@ -18,8 +18,10 @@ A task may contain `style: mood/<id>@<version>` (for example
 2. **Load** that mood's `prompt.md`, `tokens.json` and `checklist.yaml` — or
    the equivalent single-file prompt package produced by
    `ui-moods bundle <id>`.
-3. **Visual channel (optional)**: if you support vision, you may also read
-   `preview.png` or a relevant fragment of `specimen.html`.
+3. **Visual channel (optional)**: if you support vision, you may also read a
+   relevant fragment of `specimen.html`. The library ships **no image assets** —
+   every picture in it is inline SVG generated from the tokens — so there is no
+   `preview.png` to read.
 
 ## When a task references an app pack
 

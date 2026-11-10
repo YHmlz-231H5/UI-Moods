@@ -108,3 +108,13 @@ from the specimen's:
 - **Contrast is inherited, not re-checked** — an app pack inherits its mood's
   contrast guarantees. A block that composes two surfaces in a new way (for
   example a badge on an accent fill) is not automatically re-validated.
+- **No photography — generated covers instead** — the library ships no image
+  assets, so product shots, dish photos and album covers are replaced by
+  abstract compositions drawn from the mood's tokens
+  (`tools/lib/artwork.mjs`). They read as a consistent set of cover art, but
+  they are not the subject of the product. A mood that wants real imagery
+  would need an external asset pipeline, which the token-only contract
+  deliberately excludes.
+- **One frame size, no motion** — a screen is a static 390 × 844 composition.
+  There is no carousel physics, no scroll-linked parallax and no gesture
+  handling; the contract is markup without scripts.

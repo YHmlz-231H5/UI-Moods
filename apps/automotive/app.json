@@ -22,17 +22,18 @@
       "titleZh": "车况",
       "chrome": { "navbar": { "back": true, "title": "极氪 001 · 车况", "action": "更多" } },
       "blocks": [
-        { "type": "header", "title": "极氪 001 · 长续航版", "subtitle": "已行驶 18,420 km · 本月 1,286 km · 平均能耗 16.8 kWh/100km", "meta": [
-          { "label": "车辆在线", "tone": "ok" },
-          { "label": "无故障码", "tone": "accent" }
+        { "type": "card", "media": true, "artSeed": "auto-vehicle-body", "artVariant": "arch", "mediaTag": "长续航版", "title": "极氪 001 · 长续航版", "sub": "冰川银 · 沪A·7F2C9 · 已行驶 18,420 km", "body": "本月 1,286 km · 平均能耗 16.8 kWh/100km" },
+        { "type": "header", "title": "车辆在线", "subtitle": "车机已连接 · 4 个传感器正常工作 · 上次同步 2 分钟前", "meta": [
+          { "label": "无故障码", "tone": "ok" },
+          { "label": "哨兵模式开启", "tone": "accent" }
         ] },
-        { "type": "scoreRing", "pct": 92, "value": "92", "label": "车况评分" },
         { "type": "statGrid", "cols": 3, "items": [
           { "label": "剩余电量", "value": "76%" },
           { "label": "续航里程", "value": "428 km" },
           { "label": "胎压", "value": "2.5 bar" }
         ] },
         { "type": "progress", "label": "电池电量", "value": "76% · 可行驶 428 km", "pct": 76, "tone": "ok" },
+        { "type": "scoreRing", "pct": 92, "value": "92", "label": "车况评分" },
         { "type": "bars", "title": "近 7 日能耗", "sub": "单位：kWh/100km", "items": [
           { "label": "周一", "value": 21 },
           { "label": "周二", "value": 18 },
@@ -48,8 +49,8 @@
         { "type": "map", "icon": "location", "pin": true, "label": "当前位置 · 上海市浦东新区张江科技园 · 地库 B2" },
         { "type": "list", "items": [
           { "icon": "sun", "title": "空调", "sub": "已关闭", "value": "22℃", "chev": true },
-          { "icon": "lock", "title": "车门已上锁", "sub": "4 门全部锁定", "value": "已锁", "valueTone": "ok", "chev": true },
-          { "icon": "signal", "title": "哨兵模式", "sub": "录像上传至车机", "value": "开启", "valueTone": "ok", "chev": true },
+          { "icon": "lock", "title": "车门已上锁", "sub": "4 门全部锁定", "value": "已锁", "valueTone": "up", "chev": true },
+          { "icon": "signal", "title": "哨兵模式", "sub": "录像上传至车机", "value": "开启", "valueTone": "up", "chev": true },
           { "icon": "refresh", "title": "寻车", "sub": "地库 B2 · 车位 128", "value": "2 分钟", "chev": true }
         ] },
         { "type": "notice", "tone": "warn", "mark": "提醒", "text": "左前轮胎压 2.3 bar，低于建议值 2.5 bar，建议尽快检查。" }
@@ -61,6 +62,7 @@
       "titleZh": "补能",
       "chrome": { "navbar": { "back": true, "title": "充电与保养", "action": "筛选" } },
       "blocks": [
+        { "type": "banner", "art": "auto-charge-hero", "artVariant": "waves", "title": "本月已充电 486 kWh · 花费 ¥ 328", "sub": "谷电时段充电可省 ¥ 96 · 平均 0.68 元/kWh", "cta": "查看充电账单" },
         { "type": "map", "icon": "bolt", "pin": true, "label": "附近 3 个充电站 · 最近 800 m" },
         { "type": "statGrid", "cols": 3, "items": [
           { "label": "本月充电", "value": "486 kWh" },
@@ -69,9 +71,9 @@
         ] },
         { "type": "sectionHead", "title": "附近充电站", "action": "查看全部 12" },
         { "type": "list", "items": [
-          { "icon": "bolt", "title": "国网 张江科学会堂站", "sub": "120kW 直流 · 步行 6 分钟", "value": "空闲 4/12", "valueTone": "ok", "chev": true },
-          { "icon": "bolt", "title": "特来电 张江地铁站", "sub": "60kW 直流 · 步行 12 分钟", "value": "空闲 0/6", "valueTone": "warn", "chev": true },
-          { "icon": "bolt", "title": "星星充电 科苑路店", "sub": "60kW 直流 · 步行 15 分钟", "value": "空闲 9/16", "valueTone": "ok", "chev": true }
+          { "icon": "bolt", "title": "国网 张江科学会堂站", "sub": "120kW 直流 · 步行 6 分钟", "value": "空闲 4/12", "valueTone": "up", "chev": true },
+          { "icon": "bolt", "title": "特来电 张江地铁站", "sub": "60kW 直流 · 步行 12 分钟", "value": "空闲 0/6", "valueTone": "down", "chev": true },
+          { "icon": "bolt", "title": "星星充电 科苑路店", "sub": "60kW 直流 · 步行 15 分钟", "value": "空闲 9/16", "valueTone": "up", "chev": true }
         ] },
         { "type": "sectionHead", "title": "保养计划", "action": "预约" },
         { "type": "timeline", "items": [
@@ -82,8 +84,8 @@
         ] },
         { "type": "progress", "label": "距下次保养", "value": "1,580 / 2,000 km", "pct": 79, "tone": "warn" },
         { "type": "list", "items": [
-          { "icon": "dumbbell", "title": "易损件提醒", "sub": "雨刮片 · 预计剩余 1,200 km", "value": "待更换", "valueTone": "warn", "chev": true },
-          { "icon": "wallet", "title": "保养套餐余额", "sub": "剩余 ¥ 1,280 · 有效期至 2027-06", "value": "¥ 1,280", "valueTone": "ok", "chev": true }
+          { "icon": "dumbbell", "title": "易损件提醒", "sub": "雨刮片 · 预计剩余 1,200 km", "value": "待更换", "valueTone": "down", "chev": true },
+          { "icon": "wallet", "title": "保养套餐余额", "sub": "剩余 ¥ 1,280 · 有效期至 2027-06", "value": "¥ 1,280", "valueTone": "up", "chev": true }
         ] }
       ]
     },
@@ -93,6 +95,7 @@
       "titleZh": "行程",
       "chrome": { "navbar": { "back": true, "title": "行程记录", "action": "导出" } },
       "blocks": [
+        { "type": "artwork", "seed": "auto-trip-highway", "height": 160, "variant": "rays" },
         { "type": "statGrid", "cols": 3, "items": [
           { "label": "本月里程", "value": "1,286 km", "delta": "+12%", "deltaTone": "up" },
           { "label": "行程次数", "value": "18" },
@@ -118,10 +121,10 @@
         ] },
         { "type": "sectionHead", "title": "最近行程", "action": "全部" },
         { "type": "list", "items": [
-          { "icon": "location", "title": "公司 → 浦东机场 T2", "sub": "11-05 18:12 · 用时 46 分钟", "value": "52 km", "chev": true },
-          { "icon": "location", "title": "家 → 公司", "sub": "11-05 08:21 · 用时 38 分钟 · 早高峰", "value": "31 km", "chev": true },
-          { "icon": "location", "title": "公司 → 虹桥商务区", "sub": "11-04 19:05 · 用时 54 分钟", "value": "44 km", "chev": true },
-          { "icon": "location", "title": "家 → 奥特莱斯", "sub": "11-03 14:30 · 用时 1 小时 22 分钟", "value": "78 km", "chev": true }
+          { "art": "auto-trip-airport", "artVariant": "waves", "title": "公司 → 浦东机场 T2", "sub": "11-05 18:12 · 用时 46 分钟", "value": "52 km", "chev": true },
+          { "art": "auto-trip-home", "artVariant": "mesh", "title": "家 → 公司", "sub": "11-05 08:21 · 用时 38 分钟 · 早高峰", "value": "31 km", "chev": true },
+          { "art": "auto-trip-hongqiao", "artVariant": "strata", "title": "公司 → 虹桥商务区", "sub": "11-04 19:05 · 用时 54 分钟", "value": "44 km", "chev": true },
+          { "art": "auto-trip-outlet", "artVariant": "orbit", "title": "家 → 奥特莱斯", "sub": "11-03 14:30 · 用时 1 小时 22 分钟", "value": "78 km", "chev": true }
         ] },
         { "type": "kv", "items": [
           { "label": "累计里程", "value": "18,420 km" },
@@ -143,6 +146,8 @@
       "titleZh": "设置",
       "chrome": { "navbar": { "back": true, "title": "车辆设置", "action": "保存" } },
       "blocks": [
+        { "type": "card", "media": true, "artSeed": "auto-settings-profile", "artVariant": "tiles", "mediaTag": "我的座驾", "title": "极氪 001 长续航版", "sub": "冰川银 · 沪A·7F2C9 · 车架号 LZK0 *** ** 4827", "body": "软件版本 v3.2.1 · 2026-10-28 · 电池 86 kWh" },
+        { "type": "sectionHead", "title": "车辆信息", "action": "更多" },
         { "type": "kv", "items": [
           { "label": "车型版本", "value": "极氪 001 长续航版" },
           { "label": "车辆识别码", "value": "LZK0 *** ** 4827" },

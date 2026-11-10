@@ -25,7 +25,7 @@
         "navbar": { "icon": "book", "title": "拾课", "action": "搜索" }
       },
       "blocks": [
-        { "type": "banner", "title": "新学期 · 编程启蒙季", "sub": "32 门课平均 4.9 分，前 100 名赠实体教材", "cta": "去看看" },
+        { "type": "banner", "title": "新学期 · 编程启蒙季", "sub": "32 门课平均 4.9 分，前 100 名赠实体教材", "cta": "去看看", "art": "education-plaza-campaign", "artVariant": "petal" },
         { "type": "search", "placeholder": "搜索课程、老师或知识点" },
         { "type": "chips", "items": [
           { "label": "推荐", "active": true },
@@ -37,18 +37,21 @@
         ] },
         { "type": "sectionHead", "title": "本周热播", "action": "换一批" },
         { "type": "mediaGrid", "cols": 3, "items": [
-          { "icon": "code", "title": "Python 趣味入门", "sub": "32 讲 · 8.6 万人学过" },
-          { "icon": "book", "title": "雅思口语 7 分", "sub": "24 讲 · 4.1 万人学过" },
-          { "icon": "video", "title": "手机摄影构图课", "sub": "18 讲 · 2.8 万人学过" },
-          { "icon": "chart", "title": "Excel 数据分析", "sub": "40 讲 · 12.3 万人学过" },
-          { "icon": "globe", "title": "雅思写作批改", "sub": "12 讲 · 3.6 万人学过" },
-          { "icon": "cpu", "title": "人工智能导论", "sub": "28 讲 · 5.2 万人学过" }
+          { "art": "edu-course-python", "artVariant": "mesh", "icon": "code", "title": "Python 趣味入门", "sub": "32 讲 · 8.6 万人学过" },
+          { "art": "edu-course-ielts", "artVariant": "strata", "icon": "book", "title": "雅思口语 7 分", "sub": "24 讲 · 4.1 万人学过" },
+          { "art": "edu-course-photo", "artVariant": "petal", "icon": "video", "title": "手机摄影构图课", "sub": "18 讲 · 2.8 万人学过" },
+          { "art": "edu-course-excel", "artVariant": "orbit", "icon": "chart", "title": "Excel 数据分析", "sub": "40 讲 · 12.3 万人学过" },
+          { "art": "edu-course-writing", "artVariant": "waves", "icon": "globe", "title": "雅思写作批改", "sub": "12 讲 · 3.6 万人学过" },
+          { "art": "edu-course-ai", "artVariant": "arch", "icon": "cpu", "title": "人工智能导论", "sub": "28 讲 · 5.2 万人学过" }
         ] },
         { "type": "sectionHead", "title": "正在直播", "action": "全部" },
         { "type": "list", "items": [
           { "icon": "mic", "title": "今晚 20:00 · 高考数学压轴题拆解", "sub": "王雨老师 · 已有 3,862 人预约", "badge": "直播中", "badgeTone": "danger", "chev": true },
           { "icon": "mic", "title": "周六 10:00 · 四六级写作提分公开课", "sub": "Anna 老师 · 已有 1,204 人预约", "badge": "可预约", "badgeTone": "ok", "chev": true },
           { "icon": "mic", "title": "周日 14:30 · 简历与面试一对一答疑", "sub": "职业规划公开课 · 已有 864 人预约", "chev": true }
+        ] },
+        { "type": "card", "media": true, "artSeed": "education-plaza-trial", "artVariant": "rays", "mediaTag": "免费试听", "title": "0 元试听 · 32 门编程入门课", "sub": "含 12 场直播答疑 · 学完返现 20%", "actions": [
+          { "label": "去试听", "primary": true }
         ] },
         { "type": "promo", "icon": "gift", "title": "学完返现 20%", "sub": "购买指定课程包，完成 80% 学习进度可返现" },
         { "type": "notice", "tone": "info", "mark": "提示", "text": "你收藏的「Python 趣味入门」今天更新了第 13 讲。" }
@@ -62,7 +65,7 @@
         "navbar": { "back": true, "title": "课程播放", "action": "收藏" }
       },
       "blocks": [
-        { "type": "card", "media": true, "mediaTag": "正在播放 · 第 12 讲", "title": "Python 趣味入门 · 从零写一个贪吃蛇", "sub": "讲师 李知遥 · 时长 42 分 18 秒 · 已学 28 分 40 秒" },
+        { "type": "card", "media": true, "artSeed": "education-lesson-stage", "artVariant": "rays", "mediaTag": "正在播放 · 第 12 讲", "title": "Python 趣味入门 · 从零写一个贪吃蛇", "sub": "讲师 李知遥 · 时长 42 分 18 秒 · 已学 28 分 40 秒" },
         { "type": "header", "title": "第 12 讲 · 列表与元组的区别", "subtitle": "本讲要点：可变与不可变对象、切片语法、常见坑", "meta": [
           { "label": "难度 中等", "tone": "accent" },
           { "label": "配套习题 6 道" }
@@ -74,16 +77,24 @@
           { "label": "讨论" },
           { "label": "资料" }
         ] },
+        { "type": "sectionHead", "title": "课程目录", "action": "32 讲" },
         { "type": "list", "items": [
           { "icon": "check", "title": "第 10 讲 · 环境搭建与第一行代码", "sub": "时长 26 分 · 已完成", "value": "100%", "valueTone": "ok" },
           { "icon": "play", "title": "第 11 讲 · 变量与数据类型", "sub": "时长 35 分 · 已完成", "value": "100%", "valueTone": "ok" },
           { "icon": "pause", "title": "第 12 讲 · 列表与元组的区别", "sub": "时长 42 分 · 学习中", "value": "68%", "valueTone": "warn" },
           { "icon": "lock", "title": "第 13 讲 · 字典与集合", "sub": "时长 38 分 · 未解锁", "value": "试看 5 分" }
         ] },
+        { "type": "sectionHead", "title": "讲师答疑" },
         { "type": "chat", "messages": [
           { "out": false, "text": "讲师：元组一旦创建就不能修改，这是它和列表最大的区别。", "time": "20:41" },
           { "out": true, "text": "那把列表转成元组是用 tuple() 吗？", "time": "20:42" },
           { "out": false, "text": "对，tuple([1,2,3])，也可以用星号解包。", "time": "20:42" }
+        ] },
+        { "type": "sectionHead", "title": "配套资料", "action": "全部" },
+        { "type": "mediaGrid", "cols": 3, "items": [
+          { "art": "edu-mat-handout", "artVariant": "strata", "icon": "file", "title": "第 12 讲讲义", "sub": "PDF · 2.4 MB" },
+          { "art": "edu-mat-mindmap", "artVariant": "petal", "icon": "image", "title": "思维导图", "sub": "列表 vs 元组" },
+          { "art": "edu-mat-repo", "artVariant": "mesh", "icon": "code", "title": "课程源码", "sub": "Python · GitHub" }
         ] },
         { "type": "card", "flat": true, "actions": [
           { "label": "上一讲", "primary": false },
@@ -99,13 +110,17 @@
         "navbar": { "back": true, "title": "学习进度", "action": "导出" }
       },
       "blocks": [
+        { "type": "card", "media": true, "artSeed": "education-report-cover", "artVariant": "arch", "mediaTag": "第 3 季 · 学习报告", "title": "秋季学习报告已生成", "sub": "累计 128 小时 · 连续打卡 46 天 · 领先 82% 的同学", "actions": [
+          { "label": "查看完整报告", "primary": true }
+        ] },
         { "type": "scoreRing", "pct": 68, "value": "68%", "label": "本季完成度" },
         { "type": "statGrid", "cols": 3, "items": [
           { "label": "累计学习", "value": "128 小时", "delta": "+14 小时", "deltaTone": "up" },
           { "label": "连续打卡", "value": "46 天", "delta": "最佳 62 天", "deltaTone": "ok" },
           { "label": "获得学分", "value": "1,260", "delta": "+180", "deltaTone": "up" }
         ] },
-        { "type": "bars", "title": "本周学习时长", "sub": "每日分钟数 · 目标 60 分钟", "items": [
+        { "type": "sectionHead", "title": "本周学习时长", "action": "目标 60 分钟/天" },
+        { "type": "bars", "title": "每日分钟数", "sub": "11 月 4 日 - 11 月 10 日", "items": [
           { "label": "周一", "value": 42 },
           { "label": "周二", "value": 68 },
           { "label": "周三", "value": 35 },
@@ -114,7 +129,8 @@
           { "label": "周六", "value": 118 },
           { "label": "周日", "value": 74 }
         ] },
-        { "type": "donut", "title": "学分分布", "sub": "本季共获得 1,260 学分", "segments": [
+        { "type": "sectionHead", "title": "学分分布" },
+        { "type": "donut", "title": "本季学分构成", "sub": "本季共获得 1,260 学分", "segments": [
           { "label": "编程开发", "value": 520 },
           { "label": "语言考试", "value": 380 },
           { "label": "设计创意", "value": 240 },
@@ -141,19 +157,28 @@
         "navbar": { "back": true, "title": "作业提交", "action": "存草稿" }
       },
       "blocks": [
-        { "type": "card", "tint": true, "title": "第 3 次作业 · 列表数据处理实战", "sub": "课程：Python 趣味入门 · 讲师：李知遥", "body": "截止时间 2024-11-12 23:59 · 剩余 2 天 3 小时", "badge": "待提交", "badgeTone": "warn" },
+        { "type": "card", "media": true, "artSeed": "education-homework-brief", "artVariant": "tiles", "mediaTag": "第 3 次作业", "title": "列表数据处理实战", "sub": "Python 趣味入门 · 讲师 李知遥", "body": "截止时间 2024-11-12 23:59 · 剩余 2 天 3 小时", "badge": "待提交", "badgeTone": "warn" },
         { "type": "steps", "items": [
           { "n": 1, "label": "填写答案", "state": "done" },
           { "n": 2, "label": "上传附件", "state": "active" },
           { "n": 3, "label": "提交确认" }
         ] },
-        { "type": "field", "label": "解题思路（选填）", "input": "textarea", "value": "使用字典统计每个标签出现的次数，再用列表推导式排序输出前 10 条。", "placeholder": "简要说明你的思路" },
-        { "type": "field", "label": "代码提交", "input": "textarea", "value": "from collections import Counter\n\ndef top_tags(rows, n=10):\n    counter = Counter(r['tag'] for r in rows)\n    return counter.most_common(n)\n", "placeholder": "粘贴你的代码" },
+        { "type": "sectionHead", "title": "解题思路", "action": "选填" },
+        { "type": "field", "label": "思路说明", "input": "textarea", "value": "使用字典统计每个标签出现的次数，再用列表推导式排序输出前 10 条。", "placeholder": "简要说明你的思路" },
+        { "type": "sectionHead", "title": "代码提交", "action": "已提交" },
+        { "type": "code", "lines": [
+          { "text": "from collections import Counter", "kind": "key" },
+          { "text": "" },
+          { "text": "def top_tags(rows, n=10):", "kind": "key" },
+          { "text": "    counter = Counter(r['tag'] for r in rows)", "kind": "str" },
+          { "text": "    return counter.most_common(n)", "kind": "str" },
+          { "text": "# 5 个测试用例全部通过", "kind": "cmt" }
+        ] },
         { "type": "sectionHead", "title": "上传附件", "action": "最多 3 个" },
         { "type": "mediaGrid", "cols": 3, "items": [
-          { "icon": "file", "title": "solution.py", "sub": "4 KB · 已上传" },
-          { "icon": "image", "title": "运行结果截图", "sub": "312 KB · 已上传" },
-          { "icon": "upload", "title": "添加附件", "sub": "支持 py / zip / png" }
+          { "art": "edu-file-py", "artVariant": "mesh", "icon": "file", "title": "solution.py", "sub": "4 KB · 已上传" },
+          { "art": "edu-file-shot", "artVariant": "strata", "icon": "image", "title": "运行结果截图", "sub": "312 KB · 已上传" },
+          { "art": "edu-file-add", "artVariant": "waves", "icon": "upload", "title": "添加附件", "sub": "支持 py / zip / png" }
         ] },
         { "type": "sectionHead", "title": "评分标准" },
         { "type": "list", "items": [

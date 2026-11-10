@@ -238,6 +238,19 @@
   display: flex;
   align-items: flex-end;
   padding: 12px;
+  overflow: hidden;
+}
+
+/* The generated picture fills the media area; the tag floats above it. */
+.card-media .gen {
+  position: absolute;
+  inset: 0;
+  border-radius: 0;
+}
+
+.card-media .cm-tag {
+  position: relative;
+  z-index: 1;
 }
 
 .card-media .cm-tag {
@@ -810,6 +823,31 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* A banner may carry a generated picture behind its copy. */
+.banner.has-art .gen {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.banner.has-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--mood-colors-accent);
+  opacity: 0.6;
+}
+
+.banner .bn-body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .banner .bn-title {
@@ -912,7 +950,33 @@
   align-items: center;
   justify-content: center;
   color: var(--mood-colors-muted);
+  position: relative;
+  overflow: hidden;
 }
+
+.media-thumb .gen {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+/* An icon badge that sits on top of the generated picture. */
+.media-thumb .mt-icon {
+  position: relative;
+  z-index: 1;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--mood-radii-button);
+  background: var(--mood-colors-surface);
+  border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+  color: var(--mood-colors-text-strong);
+  backdrop-filter: var(--mood-effects-backdrop-filter, none);
+}
+
+.media-thumb .mt-icon svg { width: 15px; height: 15px; }
 
 .media-thumb svg { width: 26px; height: 26px; }
 .media-cap { font-size: var(--mood-typography-label-size); color: var(--mood-colors-text); font-weight: 600; }
@@ -1459,3 +1523,47 @@
 
 .filterbar svg { width: 15px; height: 15px; color: var(--mood-colors-muted); }
 .filterbar .fb-val { margin-left: auto; color: var(--mood-colors-accent); font-weight: 600; }
+
+/* --------------------------------------------------- generated artwork */
+/* Every "picture" in a screen is drawn from the mood's tokens by
+   tools/lib/artwork.mjs — there are no image assets in this library. */
+
+.gen {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--mood-radii-block);
+  background: var(--mood-colors-panel);
+  border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+}
+
+.gen .gen-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.art-frame { width: 100%; }
+.art-h120 { height: 120px; }
+.art-h144 { height: 144px; }
+.art-h160 { height: 160px; }
+.art-h180 { height: 180px; }
+.art-h200 { height: 200px; }
+.art-h240 { height: 240px; }
+
+/* A small generated thumbnail that leads a list row. */
+.li-thumb {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  display: block;
+  overflow: hidden;
+  border-radius: var(--mood-radii-block);
+  border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+}
+
+.li-thumb .gen {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  border: none;
+}

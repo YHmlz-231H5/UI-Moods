@@ -25,6 +25,7 @@
         "navbar": { "icon": "shop", "title": "云集优选", "action": "搜索" }
       },
       "blocks": [
+        { "type": "banner", "title": "双十一 · 冬装全场 5 折起", "sub": "11 月 11 日 00:00 开抢 · 满 300 减 80", "cta": "去抢", "art": "commerce-home-campaign", "artVariant": "rays" },
         { "type": "search", "placeholder": "搜索商品、品牌或店铺" },
         { "type": "chips", "items": [
           { "label": "推荐", "active": true },
@@ -34,22 +35,22 @@
           { "label": "家居" },
           { "label": "母婴" }
         ] },
-        { "type": "carousel", "items": [
-          { "title": "秋冬新品季 满 300 减 80", "sub": "服饰专场 · 2,400 件新品", "tag": "限时" },
-          { "title": "大牌美妆 满赠正装", "sub": "精选 120 款 · 官方直营", "tag": "直降" },
-          { "title": "数码焕新 以旧换新至高 800", "sub": "手机 · 影音 · 智能硬件", "tag": "补贴" }
-        ] },
         { "type": "sectionHead", "title": "分类导航", "action": "全部" },
         { "type": "mediaGrid", "cols": 3, "items": [
-          { "icon": "cpu", "title": "手机数码", "sub": "1.2万 件" },
-          { "icon": "tag", "title": "女装", "sub": "8,600 件" },
-          { "icon": "star", "title": "美妆个护", "sub": "5,400 件" },
-          { "icon": "home", "title": "家居家装", "sub": "3,900 件" },
-          { "icon": "book", "title": "图书文娱", "sub": "2,700 件" },
-          { "icon": "dumbbell", "title": "运动户外", "sub": "4,500 件" }
+          { "art": "commerce-cat-digital", "artVariant": "mesh", "icon": "cpu", "title": "手机数码", "sub": "1.2万 件" },
+          { "art": "commerce-cat-women", "artVariant": "petal", "icon": "tag", "title": "女装", "sub": "8,600 件" },
+          { "art": "commerce-cat-beauty", "artVariant": "orbit", "icon": "star", "title": "美妆个护", "sub": "5,400 件" },
+          { "art": "commerce-cat-home", "artVariant": "arch", "icon": "home", "title": "家居家装", "sub": "3,900 件" },
+          { "art": "commerce-cat-book", "artVariant": "strata", "icon": "book", "title": "图书文娱", "sub": "2,700 件" },
+          { "art": "commerce-cat-sport", "artVariant": "waves", "icon": "dumbbell", "title": "运动户外", "sub": "4,500 件" }
         ] },
         { "type": "sectionHead", "title": "限时秒杀", "action": "距结束 02:14:38" },
-        { "type": "card", "media": true, "mediaTag": "秒杀", "title": "轻薄羽绒服 · 云感系列（藏青 / L）", "sub": "原价 ¥ 1,299 · 已有 3,812 人购买", "price": "¥ 799.00", "actions": [
+        { "type": "carousel", "items": [
+          { "art": "commerce-slide-apparel", "artVariant": "arch", "tag": "限时", "title": "秋冬新品季 满 300 减 80", "sub": "服饰专场 · 2,400 件新品" },
+          { "art": "commerce-slide-beauty", "artVariant": "petal", "tag": "直降", "title": "大牌美妆 满赠正装", "sub": "精选 120 款 · 官方直营" },
+          { "art": "commerce-slide-digital", "artVariant": "mesh", "tag": "补贴", "title": "数码焕新 以旧换新至高 800", "sub": "手机 · 影音 · 智能硬件" }
+        ] },
+        { "type": "card", "media": true, "artSeed": "commerce-home-flash-sale", "artVariant": "mesh", "mediaTag": "秒杀", "title": "轻薄羽绒服 · 云感系列（藏青 / L）", "sub": "原价 ¥ 1,299 · 已有 3,812 人购买", "price": "¥ 799.00", "actions": [
           { "label": "只看折扣", "primary": false },
           { "label": "立即抢购", "primary": true }
         ] },
@@ -65,27 +66,31 @@
       },
       "blocks": [
         { "type": "search", "placeholder": "搜索商品、品牌或店铺" },
-        { "type": "chips", "items": [
+        { "type": "card", "media": true, "artSeed": "commerce-search-rank", "artVariant": "waves", "mediaTag": "热榜", "title": "冬装热卖榜 · 羽绒服销量 TOP 20", "sub": "近 7 天加购 8,940 次 · 榜单每小时更新", "actions": [
+          { "label": "查看完整榜单", "primary": true }
+        ] },
+        { "type": "segmented", "items": [
           { "label": "综合", "active": true },
           { "label": "销量" },
           { "label": "新品" },
           { "label": "价格" },
           { "label": "评价" }
         ] },
-        { "type": "filterbar", "icon": "tag", "label": "品牌", "value": "全部品牌" },
         { "type": "filterbar", "icon": "sort", "label": "价格区间", "value": "¥ 200 - ¥ 800" },
+        { "type": "filterbar", "icon": "shop", "label": "品牌", "value": "全部品牌" },
         { "type": "sectionHead", "title": "共 1,286 件相关商品", "action": "综合排序" },
         { "type": "mediaGrid", "cols": 3, "items": [
-          { "icon": "image", "title": "轻量羽绒服 藏青 L", "sub": "¥ 799" },
-          { "icon": "image", "title": "加绒卫衣 米白 M", "sub": "¥ 289" },
-          { "icon": "image", "title": "防风冲锋衣 黑 XL", "sub": "¥ 649" },
-          { "icon": "image", "title": "针织开衫 燕麦 L", "sub": "¥ 219" },
-          { "icon": "image", "title": "直筒牛仔裤 深蓝 28", "sub": "¥ 359" },
-          { "icon": "image", "title": "羊毛围巾 灰蓝", "sub": "¥ 199" }
+          { "art": "commerce-p-jacket", "artVariant": "mesh", "title": "轻量羽绒服 藏青 L", "sub": "¥ 799" },
+          { "art": "commerce-p-hoodie", "artVariant": "strata", "title": "加绒卫衣 米白 M", "sub": "¥ 289" },
+          { "art": "commerce-p-coat", "artVariant": "waves", "title": "防风冲锋衣 黑 XL", "sub": "¥ 649" },
+          { "art": "commerce-p-knit", "artVariant": "petal", "title": "针织开衫 燕麦 L", "sub": "¥ 219" },
+          { "art": "commerce-p-jeans", "artVariant": "orbit", "title": "直筒牛仔裤 深蓝 28", "sub": "¥ 359" },
+          { "art": "commerce-p-scarf", "artVariant": "arch", "title": "羊毛围巾 灰蓝", "sub": "¥ 199" }
         ] },
+        { "type": "sectionHead", "title": "优选店铺", "action": "2 家" },
         { "type": "list", "items": [
-          { "icon": "shop", "title": "优选服饰旗舰店", "sub": "正品保障 · 48 小时内发货", "badge": "自营", "badgeTone": "ok", "chev": true },
-          { "icon": "shop", "title": "轻潮服饰专营店", "sub": "好评率 96.2% · 退换 15 天", "chev": true }
+          { "art": "commerce-shop-flagship", "artVariant": "orbit", "title": "优选服饰旗舰店", "sub": "正品保障 · 48 小时内发货", "badge": "自营", "badgeTone": "ok", "chev": true },
+          { "art": "commerce-shop-trendy", "artVariant": "arch", "title": "轻潮服饰专营店", "sub": "好评率 96.2% · 退换 15 天", "chev": true }
         ] },
         { "type": "notice", "tone": "info", "mark": "TIP", "text": "已按你的浏览记录「冬装」筛选，可切换到全部 3.2 万件商品。" }
       ]
@@ -99,15 +104,14 @@
       },
       "blocks": [
         { "type": "carousel", "items": [
-          { "title": "主图 · 藏青色正面", "sub": "1 / 6", "tag": "实拍" },
-          { "title": "细节 · 填充与面料", "sub": "2 / 6", "tag": "细节" },
-          { "title": "上身 · 175cm / 68kg", "sub": "3 / 6", "tag": "试穿" }
+          { "art": "commerce-detail-front", "artVariant": "arch", "tag": "实拍", "title": "主图 · 藏青色正面", "sub": "1 / 6" },
+          { "art": "commerce-detail-fabric", "artVariant": "strata", "tag": "细节", "title": "细节 · 填充与面料", "sub": "2 / 6" },
+          { "art": "commerce-detail-tryon", "artVariant": "waves", "tag": "试穿", "title": "上身 · 175cm / 68kg", "sub": "3 / 6" }
         ] },
         { "type": "card", "tint": true, "title": "云感轻薄羽绒服 · 藏青色", "sub": "90 白鸭绒填充｜防泼水面料｜可机洗", "price": "¥ 799.00", "badge": "限时秒杀", "badgeTone": "danger" },
         { "type": "prices", "items": [
           { "label": "日常价", "value": "¥ 1,299.00", "muted": true },
-          { "label": "活动价", "value": "¥ 799.00" },
-          { "label": "已优惠", "value": "-¥ 500.00", "muted": true }
+          { "label": "限时立减", "value": "-¥ 500.00", "muted": true }
         ] },
         { "type": "sectionHead", "title": "选择规格", "action": "共 4 种" },
         { "type": "chips", "items": [
@@ -122,11 +126,19 @@
           { "label": "L (175-180cm)", "type": "radio" },
           { "label": "XL (180-185cm)", "type": "radio", "value": "无货" }
         ] },
+        { "type": "sectionHead", "title": "配送与服务" },
         { "type": "list", "items": [
           { "icon": "truck", "title": "配送至", "sub": "上海市浦东新区 张江路 88 号", "chev": true },
           { "icon": "shield", "title": "服务保障", "sub": "7 天无理由退换 · 运费险 · 假一赔十", "chev": true },
           { "icon": "clock", "title": "配送时效", "sub": "明日 18:00 前送达（预售 11 月 20 日发出）", "chev": true }
         ] },
+        { "type": "sectionHead", "title": "搭配购", "action": "3 件" },
+        { "type": "mediaGrid", "cols": 3, "items": [
+          { "art": "commerce-match-scarf", "artVariant": "orbit", "title": "羊毛围巾 灰蓝", "sub": "¥ 199" },
+          { "art": "commerce-match-hat", "artVariant": "petal", "title": "羊毛贝雷帽 黑", "sub": "¥ 129" },
+          { "art": "commerce-match-gloves", "artVariant": "strata", "title": "皮质手套 棕", "sub": "¥ 169" }
+        ] },
+        { "type": "sectionHead", "title": "用户评价", "action": "3,812 条" },
         { "type": "rating", "value": 4, "count": "3,812 条评价 · 好评率 96.8%" },
         { "type": "list", "items": [
           { "avatar": "王", "title": "王***", "sub": "藏青 L · 偏大一码", "value": "2024-11-06", "valueTone": "down" },
@@ -146,13 +158,21 @@
         "navbar": { "back": true, "title": "购物车", "action": "管理" }
       },
       "blocks": [
-        { "type": "notice", "tone": "warn", "mark": "满减", "text": "再购 ¥ 45 可享跨店满 199 减 30，当前已享店铺券 ¥ 20。" },
+        { "type": "card", "media": true, "artSeed": "commerce-cart-deal", "artVariant": "arch", "mediaTag": "凑单", "title": "再购 ¥ 45 可享跨店满 199 减 30", "sub": "已挑好 3 件低价好物，加购即凑单", "actions": [
+          { "label": "去凑单", "primary": true }
+        ] },
         { "type": "formGroup", "label": "优选服饰旗舰店", "rows": [
           { "icon": "tag", "label": "云感轻薄羽绒服 · 藏青 L", "hint": "¥ 799.00", "type": "qty", "value": "1" },
           { "icon": "tag", "label": "加绒卫衣 · 米白 M", "hint": "¥ 289.00", "type": "qty", "value": "2" }
         ] },
         { "type": "formGroup", "label": "轻潮服饰专营店", "rows": [
           { "icon": "tag", "label": "直筒牛仔裤 · 深蓝 28", "hint": "¥ 359.00", "type": "qty", "value": "1" }
+        ] },
+        { "type": "sectionHead", "title": "猜你想买", "action": "换一批" },
+        { "type": "mediaGrid", "cols": 3, "items": [
+          { "art": "commerce-rec-jacket", "artVariant": "mesh", "title": "短款面包服 米白 M", "sub": "¥ 459" },
+          { "art": "commerce-rec-cup", "artVariant": "orbit", "title": "焖烧杯 480ml 灰", "sub": "¥ 89" },
+          { "art": "commerce-rec-socks", "artVariant": "waves", "title": "羊毛中筒袜 3 双装", "sub": "¥ 59" }
         ] },
         { "type": "sectionHead", "title": "优惠与配送", "action": "3 项可用" },
         { "type": "list", "items": [
@@ -185,24 +205,26 @@
         "navbar": { "back": true, "title": "确认订单", "action": "客服" }
       },
       "blocks": [
-        { "type": "formGroup", "label": "收货地址", "rows": [
-          { "icon": "location", "label": "陈曦 138 **** 6021", "value": "上海市浦东新区张江路 88 号 3 号楼 1502 室" },
-          { "icon": "edit", "label": "更换地址", "value": "3 个地址" }
+        { "type": "card", "media": true, "artSeed": "commerce-checkout-address", "artVariant": "tiles", "mediaTag": "默认地址", "title": "陈曦 138 **** 6021", "sub": "上海市浦东新区张江路 88 号 3 号楼 1502 室", "actions": [
+          { "label": "更换地址", "primary": true }
         ] },
-        { "type": "formGroup", "label": "配送方式", "rows": [
+        { "type": "sectionHead", "title": "配送方式" },
+        { "type": "formGroup", "rows": [
           { "label": "标准快递 · 11 月 13 日达", "hint": "免运费", "type": "radio", "checked": true },
           { "label": "次日达 · 11 月 12 日达", "hint": "+¥ 15", "type": "radio" },
           { "label": "门店自提 · 当天可取", "hint": "-¥ 20", "type": "radio" }
         ] },
-        { "type": "formGroup", "label": "支付方式", "rows": [
+        { "type": "sectionHead", "title": "支付方式" },
+        { "type": "formGroup", "rows": [
           { "icon": "wallet", "label": "余额支付", "hint": "可用 ¥ 2,180.00", "type": "radio", "checked": true },
           { "icon": "card", "label": "招商银行储蓄卡 (8832)", "hint": "尾号 8832", "type": "radio" },
           { "icon": "gift", "label": "花呗分期 · 3 期免息", "hint": "可用额度 ¥ 8,000", "type": "radio" }
         ] },
+        { "type": "sectionHead", "title": "商品清单", "action": "3 件" },
         { "type": "list", "items": [
-          { "icon": "image", "title": "云感轻薄羽绒服 · 藏青 L", "sub": "¥ 799.00 × 1", "value": "¥ 799.00" },
-          { "icon": "image", "title": "加绒卫衣 · 米白 M", "sub": "¥ 289.00 × 2", "value": "¥ 578.00" },
-          { "icon": "image", "title": "直筒牛仔裤 · 深蓝 28", "sub": "¥ 359.00 × 1", "value": "¥ 359.00" }
+          { "art": "commerce-order-jacket", "artVariant": "arch", "title": "云感轻薄羽绒服 · 藏青 L", "sub": "¥ 799.00 × 1", "value": "¥ 799.00" },
+          { "art": "commerce-order-hoodie", "artVariant": "petal", "title": "加绒卫衣 · 米白 M", "sub": "¥ 289.00 × 2", "value": "¥ 578.00" },
+          { "art": "commerce-order-jeans", "artVariant": "strata", "title": "直筒牛仔裤 · 深蓝 28", "sub": "¥ 359.00 × 1", "value": "¥ 359.00" }
         ] },
         { "type": "prices", "items": [
           { "label": "商品金额", "value": "¥ 1,736.00" },

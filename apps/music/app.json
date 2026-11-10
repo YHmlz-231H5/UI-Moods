@@ -32,25 +32,26 @@
           { "label": "MV" }
         ] },
         { "type": "carousel", "items": [
-          { "title": "每日 30 首", "sub": "根据你的口味每日更新 · 已有 1,204 人订阅", "tag": "推荐" },
-          { "title": "深夜霓虹电台", "sub": "City Pop 与合成器浪潮 · 24 小时不间断", "tag": "电台" },
-          { "title": "城市漫游计划", "sub": "跟着音乐走过 12 座城市", "tag": "专题" }
+          { "art": "每日 30 首 推荐封面", "artVariant": "petal", "title": "每日 30 首", "sub": "根据你的口味每日更新 · 已有 1,204 人订阅", "tag": "推荐" },
+          { "art": "深夜霓虹电台 封面", "artVariant": "waves", "title": "深夜霓虹电台", "sub": "City Pop 与合成器浪潮 · 24 小时不间断", "tag": "电台" },
+          { "art": "城市漫游计划 封面", "artVariant": "arch", "title": "城市漫游计划", "sub": "跟着音乐走过 12 座城市", "tag": "专题" }
         ] },
+        { "type": "banner", "art": "新专辑 潮汐电台 首发海报", "artVariant": "rays", "title": "新专辑 · 潮汐电台", "sub": "Vivid Ray《Sunset Boulevard》今日 10:00 首发", "cta": "立即收听" },
         { "type": "sectionHead", "title": "编辑精选歌单", "action": "全部" },
         { "type": "mediaGrid", "cols": 3, "items": [
-          { "icon": "music", "title": "霓虹夜车", "sub": "42 首 · 2.1 万人收藏" },
-          { "icon": "moon", "title": "深夜情绪出口", "sub": "28 首 · 1.4 万人收藏" },
-          { "icon": "grid", "title": "通勤加速带", "sub": "36 首 · 8,900 人收藏" },
-          { "icon": "star", "title": "1984 城市回声", "sub": "51 首 · 3.2 万人收藏" },
-          { "icon": "bolt", "title": "合成器浪潮", "sub": "19 首 · 5,600 人收藏" },
-          { "icon": "globe", "title": "世界低音速", "sub": "24 首 · 7,200 人收藏" }
+          { "art": "霓虹夜车 歌单封面", "artVariant": "mesh", "title": "霓虹夜车", "sub": "42 首 · 2.1 万人收藏" },
+          { "art": "深夜情绪出口 歌单封面", "artVariant": "orbit", "title": "深夜情绪出口", "sub": "28 首 · 1.4 万人收藏" },
+          { "art": "通勤加速带 歌单封面", "artVariant": "waves", "title": "通勤加速带", "sub": "36 首 · 8,900 人收藏" },
+          { "art": "1984 城市回声 歌单封面", "artVariant": "rings", "title": "1984 城市回声", "sub": "51 首 · 3.2 万人收藏" },
+          { "art": "合成器浪潮 歌单封面", "artVariant": "strata", "title": "合成器浪潮", "sub": "19 首 · 5,600 人收藏" },
+          { "art": "世界低音速 歌单封面", "artVariant": "dots", "title": "世界低音速", "sub": "24 首 · 7,200 人收藏" }
         ] },
         { "type": "sectionHead", "title": "为你推荐 · 深夜循环", "action": "播放全部" },
         { "type": "list", "items": [
-          { "icon": "play", "title": "Neon Drive", "sub": "Kira Yuki · 梦回霓虹 1984", "value": "3:48" },
-          { "icon": "play", "title": "午夜高速公路", "sub": "Vivid Ray · Sunset Boulevard", "value": "4:12" },
-          { "icon": "play", "title": "玻璃海", "sub": "夏川遥 · Tropical Static", "value": "3:26" },
-          { "icon": "play", "title": "Last Drive Home", "sub": "Marin Blue · After Hours", "value": "5:02" }
+          { "art": "Neon Drive 单曲封面", "artVariant": "petal", "title": "Neon Drive", "sub": "Kira Yuki · 梦回霓虹 1984", "value": "3:48" },
+          { "art": "午夜高速公路 单曲封面", "artVariant": "arch", "title": "午夜高速公路", "sub": "Vivid Ray · Sunset Boulevard", "value": "4:12" },
+          { "art": "玻璃海 单曲封面", "artVariant": "waves", "title": "玻璃海", "sub": "夏川遥 · Tropical Static", "value": "3:26" },
+          { "art": "Last Drive Home 单曲封面", "artVariant": "orbit", "title": "Last Drive Home", "sub": "Marin Blue · After Hours", "value": "5:02" }
         ] },
         { "type": "promo", "icon": "bolt", "title": "会员畅听 7 天", "sub": "首月 ¥ 8 解锁无损与离线下载，可随时取消" },
         { "type": "notice", "tone": "info", "mark": "TIP", "text": "根据你常听的 City Pop，为你更新了 12 首新歌。" }
@@ -62,7 +63,7 @@
       "titleZh": "正在播放",
       "chrome": { "navbar": { "back": true, "title": "正在播放", "action": "歌单" } },
       "blocks": [
-        { "type": "card", "media": true, "mediaTag": "深夜循环 · 24h", "tint": true, "title": "Neon Drive", "sub": "Kira Yuki · 梦回霓虹 1984", "body": "Hi-Res 无损 · FLAC 24bit / 96kHz" },
+        { "type": "card", "media": true, "artSeed": "Neon Drive 专辑封面 梦回霓虹 1984", "artVariant": "petal", "mediaTag": "深夜循环 · 24h", "tint": true, "title": "Neon Drive", "sub": "Kira Yuki · 梦回霓虹 1984", "body": "Hi-Res 无损 · FLAC 24bit / 96kHz" },
         { "type": "slider", "pct": 42, "min": "01:36", "max": "03:48" },
         { "type": "kv", "items": [
           { "label": "音质", "value": "Hi-Res 无损" },
@@ -77,9 +78,15 @@
         ] },
         { "type": "sectionHead", "title": "接下来播放", "action": "查看歌单" },
         { "type": "list", "items": [
-          { "icon": "music", "title": "午夜高速公路", "sub": "Vivid Ray", "value": "4:12", "chev": true },
-          { "icon": "music", "title": "玻璃海", "sub": "夏川遥", "value": "3:26", "chev": true },
-          { "icon": "music", "title": "Last Drive Home", "sub": "Marin Blue", "value": "5:02", "chev": true }
+          { "art": "午夜高速公路 单曲封面", "artVariant": "arch", "title": "午夜高速公路", "sub": "Vivid Ray", "value": "4:12", "chev": true },
+          { "art": "玻璃海 单曲封面", "artVariant": "waves", "title": "玻璃海", "sub": "夏川遥", "value": "3:26", "chev": true },
+          { "art": "Last Drive Home 单曲封面", "artVariant": "orbit", "title": "Last Drive Home", "sub": "Marin Blue", "value": "5:02", "chev": true }
+        ] },
+        { "type": "sectionHead", "title": "今晚电台", "action": "全部电台" },
+        { "type": "mediaGrid", "cols": 3, "items": [
+          { "art": "霓虹港湾电台 封面", "artVariant": "strata", "title": "霓虹港湾", "sub": "4.2 万人在听" },
+          { "art": "凌晨三点的 City Pop 封面", "artVariant": "mesh", "title": "凌晨三点", "sub": "2.8 万人在听" },
+          { "art": "雨夜合成器 封面", "artVariant": "rings", "title": "雨夜合成器", "sub": "1.9 万人在听" }
         ] },
         { "type": "notice", "tone": "info", "mark": "INFO", "text": "当前歌曲已加入「深夜循环」歌单第 3 首。" },
         { "type": "toast", "icon": "check", "text": "已切换至高音质播放" },
@@ -97,13 +104,13 @@
       "titleZh": "专辑",
       "chrome": { "navbar": { "back": true, "title": "梦回霓虹 1984", "action": "更多" } },
       "blocks": [
-        { "type": "header", "title": "梦回霓虹 1984", "subtitle": "Kira Yuki · 2024 · 幻听录音室", "meta": [
-          { "label": "12 首曲目", "tone": "accent" },
-          { "label": "收藏 8.7 万", "tone": "ok" }
-        ] },
-        { "type": "card", "media": true, "mediaTag": "Hi-Res", "title": "梦回霓虹 1984", "sub": "总时长 42 分 18 秒", "body": "2024 年独立厂牌「幻听录音室」发行", "actions": [
+        { "type": "card", "media": true, "artSeed": "梦回霓虹 1984 专辑封面", "artVariant": "waves", "mediaTag": "Hi-Res", "title": "梦回霓虹 1984", "sub": "总时长 42 分 18 秒", "body": "2026 年独立厂牌「幻听录音室」发行", "actions": [
           { "label": "播放全部", "primary": true },
           { "label": "收藏", "primary": false }
+        ] },
+        { "type": "header", "title": "梦回霓虹 1984", "subtitle": "Kira Yuki · 2026 · 幻听录音室", "meta": [
+          { "label": "12 首曲目", "tone": "accent" },
+          { "label": "收藏 8.7 万", "tone": "ok" }
         ] },
         { "type": "rating", "value": 4, "count": "9.2 万条评价" },
         { "type": "sectionHead", "title": "曲目列表", "action": "按时长排序" },
@@ -113,13 +120,20 @@
           { "icon": "play", "title": "03 午夜高速公路", "sub": "4:12", "value": "会员抢先听" },
           { "icon": "play", "title": "04 Last Drive Home", "sub": "5:02", "value": "98 万次播放" }
         ] },
-        { "type": "notice", "tone": "warn", "mark": "VIP", "text": "专辑含 1 首会员独家曲，升级会员后即可完整播放。" },
         { "type": "sectionHead", "title": "相似专辑", "action": "更多" },
         { "type": "mediaGrid", "cols": 3, "items": [
-          { "icon": "music", "title": "Sunset Boulevard", "sub": "Vivid Ray" },
-          { "icon": "music", "title": "Tropical Static", "sub": "夏川遥" },
-          { "icon": "music", "title": "After Hours", "sub": "Marin Blue" }
-        ] }
+          { "art": "Sunset Boulevard 专辑封面", "artVariant": "arch", "title": "Sunset Boulevard", "sub": "Vivid Ray" },
+          { "art": "Tropical Static 专辑封面", "artVariant": "orbit", "title": "Tropical Static", "sub": "夏川遥" },
+          { "art": "After Hours 专辑封面", "artVariant": "strata", "title": "After Hours", "sub": "Marin Blue" }
+        ] },
+        { "type": "sectionHead", "title": "听友评论", "action": "全部 9,204 条" },
+        { "type": "list", "items": [
+          { "avatar": "柚", "title": "柚子汽水", "sub": "凌晨循环第 47 遍，副歌一出来就像车窗外那排霓虹", "value": "3 天前" },
+          { "avatar": "汽", "title": "汽水少女", "sub": "1984 的质感真的做出来了，希望多出几首", "value": "5 天前" },
+          { "avatar": "陆", "title": "陆行鸟", "sub": "降噪耳机听鼓点层次很足，戴上就出不来了", "value": "1 周前" }
+        ] },
+        { "type": "promo", "icon": "gift", "title": "新专辑《潮汐回路》预售", "sub": "12 月 3 日全平台同步 · 预购赠黑胶小卡" },
+        { "type": "notice", "tone": "warn", "mark": "VIP", "text": "专辑含 1 首会员独家曲，升级会员后即可完整播放。" }
       ]
     },
     {
@@ -129,12 +143,15 @@
       "chrome": { "navbar": { "back": true, "title": "Kira Yuki", "action": "关注" } },
       "blocks": [
         { "type": "profile", "initials": "KY", "name": "Kira Yuki", "meta": "霓虹港湾 · 关注 82.4 万 · 粉丝 218 万", "tags": ["City Pop", "合成器浪潮", "电子"] },
+        { "type": "card", "media": true, "artSeed": "Neon Drive 单曲封面 梦回霓虹", "artVariant": "rays", "mediaTag": "新歌 · 2026-10-18", "title": "Neon Drive", "sub": "Kira Yuki · 梦回霓虹 1984 · 3:48", "badge": "新歌", "badgeTone": "accent", "actions": [
+          { "label": "播放", "primary": true },
+          { "label": "收藏", "primary": false }
+        ] },
         { "type": "segmented", "items": [
           { "label": "歌词", "active": true },
           { "label": "歌手" },
           { "label": "评论" }
         ] },
-        { "type": "card", "tint": true, "title": "Neon Drive", "sub": "来自专辑《梦回霓虹 1984》 · 3:48" },
         { "type": "code", "lines": [
           { "kind": "cmt", "text": "[00:00] 主歌" },
           { "kind": "str", "text": "街灯把雨切成霓虹的碎片" },
@@ -144,15 +161,23 @@
           { "kind": "cmt", "text": "[02:10] 副歌" },
           { "kind": "str", "text": "Neon Drive, don't let go" }
         ] },
+        { "type": "sectionHead", "title": "歌手其他作品", "action": "全部 42 首" },
         { "type": "list", "items": [
-          { "icon": "music", "title": "玻璃海", "sub": "夏川遥 · 128 万次播放", "value": "3:26", "chev": true },
-          { "icon": "music", "title": "Sunset Drive", "sub": "Kira Yuki · 76 万次播放", "value": "4:04", "chev": true }
+          { "art": "玻璃海 单曲封面", "artVariant": "waves", "title": "玻璃海", "sub": "夏川遥 · 128 万次播放", "value": "3:26", "chev": true },
+          { "art": "Sunset Drive 单曲封面", "artVariant": "arch", "title": "Sunset Drive", "sub": "Kira Yuki · 76 万次播放", "value": "4:04", "chev": true },
+          { "art": "Paper Moon 单曲封面", "artVariant": "mesh", "title": "Paper Moon", "sub": "Kira Yuki · 41 万次播放", "value": "3:58", "chev": true }
         ] },
         { "type": "sectionHead", "title": "相似歌手", "action": "更多" },
         { "type": "mediaGrid", "cols": 3, "items": [
-          { "icon": "user", "title": "Vivid Ray", "sub": "听众 142 万" },
-          { "icon": "user", "title": "夏川遥", "sub": "听众 98 万" },
-          { "icon": "user", "title": "Marin Blue", "sub": "听众 76 万" }
+          { "art": "Vivid Ray 歌手头像", "artVariant": "orbit", "title": "Vivid Ray", "sub": "听众 142 万" },
+          { "art": "夏川遥 歌手头像", "artVariant": "petal", "title": "夏川遥", "sub": "听众 98 万" },
+          { "art": "Marin Blue 歌手头像", "artVariant": "dots", "title": "Marin Blue", "sub": "听众 76 万" }
+        ] },
+        { "type": "artwork", "seed": "Kira Yuki 2027 霓虹港湾巡演 海报", "height": 200, "variant": "rays" },
+        { "type": "list", "items": [
+          { "icon": "location", "title": "上海站", "sub": "12 月 19 日 19:30 · 梅赛德斯奔驰文化中心", "chev": true },
+          { "icon": "ticket", "title": "票档", "sub": "看台 ¥ 480 / 内场 ¥ 880 / VIP ¥ 1,280", "chev": true },
+          { "icon": "calendar", "title": "深圳站", "sub": "12 月 26 日 20:00 · 湾区体育中心", "chev": true }
         ] },
         { "type": "notice", "tone": "info", "mark": "TIP", "text": "歌词由社区用户贡献，如有错漏可点击右上角反馈。" }
       ]

@@ -185,6 +185,20 @@
     }
     .card-demo .ct { font-size: var(--mood-typography-title-size); color: var(--mood-colors-text-strong); font-weight: 600; margin-bottom: 4px; }
     .card-demo .cm { font-size: 12px; color: var(--mood-colors-muted); margin-bottom: 12px; }
+    /* A generated thumbnail — the specimen ships no image assets. */
+    .demo-thumb {
+      display: block;
+      width: 100%;
+      height: 96px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      border-radius: var(--mood-radii-block);
+      border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+      background: var(--mood-colors-panel);
+    }
+    .demo-thumb svg { display: block; width: 100%; height: 100%; }
+    .demo-row { display: flex; gap: 14px; align-items: flex-start; }
+    .demo-row .demo-thumb { width: 96px; height: 96px; margin-bottom: 0; flex: none; }
     table { width: 100%; border-collapse: collapse; font-size: 13px; }
     th, td { text-align: left; padding: 9px 12px; border-bottom: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
     th { color: var(--mood-colors-muted); text-transform: uppercase; font-size: 11px; }

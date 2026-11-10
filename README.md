@@ -125,6 +125,8 @@ ui-moods/
   navigation, hero, forms, data display, charts, stats, feedback, layouts,
   tabs, timeline, user, media, pricing, testimonials, FAQ, footer, ecommerce,
   dashboard, settings, onboarding, chat, content, calendar, kanban).
+  A section can ask for a picture with `{{art:seed}}` — it is drawn from the
+  mood's tokens at build time.
 - `tokens.json` — the single source of truth for colors, type, radii, borders,
   effects, shadows, spacing and motion.
 - `prompt.md` — short semantic description (English first).
@@ -138,6 +140,23 @@ ui-moods/
 - `screens/*.html` — the rendered result (generated; run
   `ui-moods build-apps <id>`). Each screen is a self-contained HTML file with
   the mood's tokens inlined.
+- `screens/index.html` — the pack's own cover page (generated): a cover
+  artwork plus one card per screen, each with a code-drawn miniature phone.
+
+### There are no image assets
+
+The library ships no photographs. Every picture — a product shot, a dish, an
+album cover, a gallery thumbnail — is **drawn by code** from the mood's own
+tokens, by `tools/lib/artwork.mjs`. A seed picks a composition family
+(`mesh`, `strata`, `orbit`, `waves`, `arch`, `rings`, `petal`, …) and a
+deterministic layout, so the same screen always renders the same picture and
+every mood gets its own set of covers.
+
+App screens reach it through the `artwork` block and the `art` / `artSeed`
+props on `card`, `mediaGrid`, `carousel`, `list` and `banner`. The gallery
+draws a miniature UI scene for each mood card and a miniature phone for each
+app card — live in the browser, not a stored image — and each app pack's
+`index.html` repeats the miniature phone per screen.
 
 ## Validation guarantees
 

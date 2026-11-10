@@ -80,6 +80,22 @@
     .card-zh { font-size: 12px; color: #8b9385; margin: 2px 0 10px; }
     .card-tags { font-size: 11px; color: #5c6b5e; line-height: 1.5; }
     .card-desc { font-size: 12px; color: #6b7a6c; line-height: 1.6; margin-top: 8px; }
+
+    /* A card thumbnail is drawn by code from the mood's own tokens — the
+       gallery ships no images. */
+    .card.has-thumb { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+    .card-thumb {
+      display: block;
+      width: 100%;
+      aspect-ratio: 320 / 190;
+      background: #eef0ec;
+      border-bottom: 1px solid #e3e7df;
+      overflow: hidden;
+    }
+    .card.app-card .card-thumb { aspect-ratio: 200 / 240; background: #f2f4f0; }
+    .card-thumb svg { display: block; width: 100%; height: 100%; }
+    .card-body { display: flex; flex-direction: column; padding: 14px 18px 16px; flex: 1; }
+    .card-body .card-zh { margin-bottom: 8px; }
     .pill {
       display: inline-block;
       font-size: 10px;
@@ -172,7 +188,9 @@
     <iframe id="frame" title="specimen preview"></iframe>
   </div>
 
-  <script>
+  <script type="module">
+    import { renderMoodThumb, renderAppThumb, paletteFromTokens } from "/lib/artwork.mjs";
+
     const grid = document.getElementById("grid");
     const appList = document.getElementById("app-list");
     const screensView = document.getElementById("screens-view");
@@ -195,6 +213,38 @@
     function appearanceOf(item) {
       if (mode === "apps") return MOOD_APPEARANCE[item.mood] || "light";
       return item.appearance;
+    }
+
+    /* ---------------------------------------------------------- thumbnails */
+    // Card thumbnails are generated at runtime by the same artwork module the
+    // app screens use — nothing here is an image file.
+    const PALETTES = new Map();
+
+    function paletteFor(moodId) {
+      if (!PALETTES.has(moodId)) {
+        PALETTES.set(
+          moodId,
+          (async () => {
+            try {
+              const t = await (await fetch(`/moods/${moodId}/tokens.json`)).json();
+              return paletteFromTokens(t);
+            } catch {
+              return paletteFromTokens({});
+            }
+          })(),
+        );
+      }
+      return PALETTES.get(moodId);
+    }
+
+    function paintThumb(slot, moodId, kind, seed) {
+      paletteFor(moodId).then((palette) => {
+        if (!slot.isConnected) return;
+        slot.innerHTML =
+          kind === "app"
+            ? renderAppThumb(palette, { seed, uid: `a${moodId}` })
+            : renderMoodThumb(palette, { seed, uid: `m${moodId}` });
+      });
     }
 
     function el(tag, cls, text) {
@@ -227,17 +277,22 @@
         matches(m, needle, ["name", "nameZh", "keywords", "id"]));
       if (!list.length) { grid.appendChild(el("div", "empty-state", "没有匹配的风格。")); return; }
       for (const mood of list) {
-        const card = el("button", "card");
+        const card = el("button", "card has-thumb");
         card.type = "button";
-        card.appendChild(el("div", "card-name", mood.name));
-        card.appendChild(el("div", "card-zh", mood.nameZh));
-        const tags = el("div", "card-tags");
+        const thumb = el("span", "card-thumb");
+        card.appendChild(thumb);
+        const body = el("span", "card-body");
+        body.appendChild(el("span", "card-name", mood.name));
+        body.appendChild(el("span", "card-zh", mood.nameZh));
+        const tags = el("span", "card-tags");
         const pill = el("span", "pill" + (mood.appearance === "dark" ? " dark" : ""), mood.appearance);
         tags.appendChild(pill);
         tags.appendChild(document.createTextNode((mood.keywords || []).join(" / ")));
-        card.appendChild(tags);
+        body.appendChild(tags);
+        card.appendChild(body);
         card.addEventListener("click", () => openMood(mood));
         grid.appendChild(card);
+        paintThumb(thumb, mood.id, "mood", mood.id);
       }
     }
 
@@ -247,17 +302,22 @@
         matches(a, needle, ["name", "nameZh", "description", "id"]));
       if (!list.length) { appList.appendChild(el("div", "empty-state", "没有匹配的行业应用包。")); return; }
       for (const app of list) {
-        const card = el("button", "card");
+        const card = el("button", "card has-thumb app-card");
         card.type = "button";
-        card.appendChild(el("div", "card-name", app.name));
-        card.appendChild(el("div", "card-zh", app.nameZh));
-        const tags = el("div", "card-tags");
+        const thumb = el("span", "card-thumb");
+        card.appendChild(thumb);
+        const body = el("span", "card-body");
+        body.appendChild(el("span", "card-name", app.name));
+        body.appendChild(el("span", "card-zh", app.nameZh));
+        const tags = el("span", "card-tags");
         tags.appendChild(el("span", "pill app", app.mood));
         tags.appendChild(document.createTextNode(`${app.screens || 0} 个界面`));
-        card.appendChild(tags);
-        card.appendChild(el("div", "card-desc", app.description || ""));
+        body.appendChild(tags);
+        body.appendChild(el("span", "card-desc", app.description || ""));
+        card.appendChild(body);
         card.addEventListener("click", () => openApp(app));
         appList.appendChild(card);
+        paintThumb(thumb, app.mood, "app", app.id);
       }
     }
 

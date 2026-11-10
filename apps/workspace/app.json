@@ -22,10 +22,16 @@
       "titleZh": "任务",
       "chrome": { "navbar": { "icon": "grid", "title": "产品设计组", "action": "新建" } },
       "blocks": [
-        { "type": "header", "title": "Q4 迭代看板", "subtitle": "本周 18 项任务 · 3 项已逾期", "meta": [
+        { "type": "banner", "art": "ws-sprint-banner", "artVariant": "rays", "title": "冲刺季 · 上线倒计时 9 天", "sub": "本周已完成 12 / 18 项任务", "cta": "查看燃尽图" },
+        { "type": "header", "title": "Q4 迭代看板", "subtitle": "产品设计组 · 11 月 4 日 - 11 月 8 日", "meta": [
           { "label": "进行中 9", "tone": "accent" },
           { "label": "已完成 24", "tone": "ok" },
           { "label": "逾期 3", "tone": "danger" }
+        ] },
+        { "type": "statGrid", "cols": 3, "items": [
+          { "label": "进行中", "value": "9", "delta": "+2", "deltaTone": "up" },
+          { "label": "本周完成", "value": "12", "delta": "+18%", "deltaTone": "up" },
+          { "label": "逾期任务", "value": "3", "delta": "+1", "deltaTone": "down" }
         ] },
         { "type": "segmented", "items": [
           { "label": "我的任务", "active": true },
@@ -47,7 +53,7 @@
         ] },
         { "type": "sectionHead", "title": "本周重点", "action": "查看全部" },
         { "type": "list", "items": [
-          { "avatar": "王", "title": "结算页埋点复核", "sub": "王岚 · 优先级 高", "value": "今天", "valueTone": "warn" },
+          { "avatar": "王", "title": "结算页埋点复核", "sub": "王岚 · 优先级 高", "value": "今天", "valueTone": "down" },
           { "avatar": "陈", "title": "设计走查（线上版本）", "sub": "陈屿 · 与前端联合评审", "value": "明天" },
           { "avatar": "李", "title": "导出报告性能压测", "sub": "李牧 · 待排期", "value": "本周五", "chev": true }
         ] },
@@ -77,6 +83,10 @@
           { "n": 8, "label": "周六" },
           { "n": 9, "label": "周日" }
         ] },
+        { "type": "card", "media": true, "artSeed": "ws-cal-today", "artVariant": "arch", "mediaTag": "今日", "title": "今天 4 场会议 · 占用 3 小时 20 分", "sub": "下一场 09:30 产品评审会 · 会议室 A", "body": "本周最忙的一天是 11 月 6 日 · 共 6 场", "actions": [
+          { "label": "查看日程", "primary": true },
+          { "label": "新建日程", "primary": false }
+        ] },
         { "type": "filterbar", "icon": "filter", "label": "视图", "value": "周视图" },
         { "type": "sectionHead", "title": "11 月 5 日 · 周三", "action": "全屏" },
         { "type": "timeline", "items": [
@@ -90,9 +100,9 @@
           { "label": "忽略", "primary": false }
         ] },
         { "type": "list", "items": [
-          { "icon": "user", "title": "王岚", "sub": "产品 · 主讲", "value": "已接受", "valueTone": "ok" },
-          { "icon": "user", "title": "陈屿", "sub": "设计 · 参会", "value": "待回复", "valueTone": "warn" },
-          { "icon": "building", "title": "会议室 A", "sub": "三楼 · 投影 1080P", "value": "已预订", "valueTone": "ok" }
+          { "avatar": "王", "title": "王岚", "sub": "产品 · 主讲", "value": "已接受", "valueTone": "up" },
+          { "avatar": "陈", "title": "陈屿", "sub": "设计 · 参会", "value": "待回复", "valueTone": "down" },
+          { "icon": "building", "title": "会议室 A", "sub": "三楼 · 投影 1080P", "value": "已预订", "valueTone": "up" }
         ] },
         { "type": "formGroup", "label": "日程偏好", "rows": [
           { "label": "提前提醒", "hint": "提前 10 分钟", "type": "switch", "on": true },
@@ -108,6 +118,12 @@
       "titleZh": "文档",
       "chrome": { "navbar": { "back": true, "title": "协作空间", "action": "上传" } },
       "blocks": [
+        { "type": "carousel", "items": [
+          { "title": "Q4 迭代方案 v3.2", "sub": "陈屿 · 12 分钟前 · 8 条评论", "tag": "协作中", "art": "ws-doc-plan", "artVariant": "mesh" },
+          { "title": "会员等级规则", "sub": "周舟 · 今天 09:41 · 3 处待确认", "tag": "待审阅", "art": "ws-doc-rule", "artVariant": "strata" },
+          { "title": "竞品分析 · 霓虹计划", "sub": "李牧 · 昨天 18:20", "tag": "已归档", "art": "ws-doc-bench", "artVariant": "orbit" }
+        ] },
+        { "type": "sectionHead", "title": "空间目录", "action": "全部文件" },
         { "type": "tree", "items": [
           { "icon": "folder", "name": "产品设计组", "meta": "24 个文件" },
           { "icon": "file", "name": "Q4 迭代方案 v3.2.md", "meta": "陈屿 · 12 分钟前" },
@@ -116,8 +132,8 @@
         ] },
         { "type": "sectionHead", "title": "与我协作的人", "action": "全部" },
         { "type": "list", "items": [
-          { "avatar": "陈", "title": "陈屿", "sub": "正在编辑《Q4 迭代方案 v3.2》", "value": "在线", "valueTone": "ok" },
-          { "avatar": "周", "title": "周舟", "sub": "在《会员等级规则》中 @ 了你", "value": "3 分钟前", "valueTone": "warn" },
+          { "avatar": "陈", "title": "陈屿", "sub": "正在编辑《Q4 迭代方案 v3.2》", "value": "在线", "valueTone": "up" },
+          { "avatar": "周", "title": "周舟", "sub": "在《会员等级规则》中 @ 了你", "value": "3 分钟前", "valueTone": "down" },
           { "avatar": "李", "title": "李牧", "sub": "上传了 3 份竞品截图", "value": "昨天" }
         ] },
         { "type": "card", "title": "Q4 迭代方案 v3.2", "sub": "陈屿 · 12 分钟前 · 8 条评论", "body": "自动保存已开启 · 版本历史保留 90 天", "actions": [
@@ -147,6 +163,7 @@
       "titleZh": "数据",
       "chrome": { "navbar": { "back": true, "title": "团队效能", "action": "导出" } },
       "blocks": [
+        { "type": "banner", "art": "ws-team-report", "artVariant": "bars", "title": "第 46 周 · 团队周报已生成", "sub": "完成任务 24 项 · 协作健康度 86 分", "cta": "导出周报" },
         { "type": "statGrid", "cols": 3, "items": [
           { "label": "完成任务", "value": "24", "delta": "+18%", "deltaTone": "up" },
           { "label": "代码评审", "value": "9", "delta": "+2", "deltaTone": "up" },
@@ -174,9 +191,9 @@
         { "type": "progress", "label": "本迭代进度", "value": "24 / 32 项", "pct": 75, "tone": "ok" },
         { "type": "sectionHead", "title": "成员负载", "action": "调整分配" },
         { "type": "list", "items": [
-          { "avatar": "王", "title": "王岚", "sub": "在途任务 6 项", "value": "128%", "valueTone": "warn" },
-          { "avatar": "陈", "title": "陈屿", "sub": "在途任务 4 项", "value": "96%", "valueTone": "ok" },
-          { "avatar": "李", "title": "李牧", "sub": "在途任务 7 项", "value": "134%", "valueTone": "danger" }
+          { "avatar": "王", "title": "王岚", "sub": "在途任务 6 项", "value": "128%", "valueTone": "down" },
+          { "avatar": "陈", "title": "陈屿", "sub": "在途任务 4 项", "value": "96%", "valueTone": "up" },
+          { "avatar": "李", "title": "李牧", "sub": "在途任务 7 项", "value": "134%", "valueTone": "down" }
         ] },
         { "type": "notice", "tone": "warn", "mark": "负载", "text": "2 位成员本周负载超过 130%，建议调整任务分配。" }
       ]
@@ -187,6 +204,10 @@
       "titleZh": "消息",
       "chrome": { "navbar": { "back": true, "title": "消息", "action": "全部已读" } },
       "blocks": [
+        { "type": "card", "media": true, "artSeed": "ws-inbox-briefing", "artVariant": "dots", "mediaTag": "每日简报", "title": "11 月 5 日 · 团队简报", "sub": "3 条待审批 · 2 个日程变更 · 1 个文档待确认", "body": "昨天你处理了 9 条消息 · 待办清零率 92%", "actions": [
+          { "label": "查看全部", "primary": true },
+          { "label": "稍后处理", "primary": false }
+        ] },
         { "type": "segmented", "items": [
           { "label": "未读 5", "active": true },
           { "label": "系统" },
@@ -203,7 +224,12 @@
           { "label": "同意", "primary": true },
           { "label": "驳回", "primary": false }
         ] },
-        { "type": "empty", "icon": "inbox", "title": "没有更多未读消息", "sub": "新的提醒会实时出现在这里" },
+        { "type": "avatars", "items": [
+          { "initials": "王" },
+          { "initials": "陈" },
+          { "initials": "周" },
+          { "initials": "李" }
+        ] },
         { "type": "notice", "tone": "info", "mark": "免打扰", "text": "今晚 22:00 - 次日 08:00 已开启免打扰，期间仅推送加急消息。" },
         { "type": "sheet", "title": "通知设置", "items": [
           { "icon": "bell", "label": "任务指派提醒" },

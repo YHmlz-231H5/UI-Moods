@@ -127,7 +127,7 @@ function cssOnly(html) {
  * `{{sections}}` renders as raw template text at the end of the page.
  */
 function checkNoUnreplacedPlaceholders(html, label, errors) {
-  for (const m of html.matchAll(/\{\{\s*[a-zA-Z][a-zA-Z0-9_-]*\s*\}\}/g)) {
+  for (const m of html.matchAll(/\{\{\s*[a-zA-Z][a-zA-Z0-9_:.-]*\s*\}\}/g)) {
     errors.push(`${label} contains an unreplaced placeholder ${m[0]}`);
   }
 }

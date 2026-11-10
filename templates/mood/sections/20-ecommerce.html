@@ -50,8 +50,10 @@
 .s-ec-fbt-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
 .s-ec-fbt-head p { margin: 0; font-size: 12px; color: var(--mood-colors-muted); }
 .s-ec-fbt-card { display: flex; gap: 12px; align-items: flex-start; }
-.s-ec-fbt-art { width: 56px; height: 56px; flex: none; border-radius: var(--mood-radii-input); background: var(--mood-colors-bg); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); display: flex; align-items: center; justify-content: center; color: var(--mood-colors-muted); }
+.s-ec-fbt-art { width: 56px; height: 56px; flex: none; border-radius: var(--mood-radii-input); background: var(--mood-colors-bg); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); display: flex; align-items: center; justify-content: center; color: var(--mood-colors-muted); overflow: hidden; }
 .s-ec-fbt-art svg { width: 26px; height: 26px; }
+/* Product thumbnails are generated from the mood's tokens. */
+.s-ec-fbt-art .demo-thumb { width: 56px; height: 56px; margin-bottom: 0; border: 0; border-radius: inherit; }
 .s-ec-fbt-name { font-size: 13px; font-weight: 600; color: var(--mood-colors-text-strong); }
 .s-ec-fbt-meta { font-size: 11px; color: var(--mood-colors-muted); }
 .s-ec-fbt-price { font-size: 13px; font-weight: 600; color: var(--mood-colors-text-strong); }
@@ -159,7 +161,7 @@
     </div>
     <div class="row cols-3">
       <div class="card-demo s-ec-fbt-card">
-        <div class="s-ec-fbt-art"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3.5h10v17H7z"/><path d="M10 7h4M10 11h4"/></svg></div>
+        <div class="s-ec-fbt-art">{{art:product-gateway}}</div>
         <div>
           <div class="s-ec-fbt-name">Beacon Gateway G1</div>
           <div class="s-ec-fbt-meta">Wi-Fi and LoRa bridge</div>
@@ -167,7 +169,7 @@
         </div>
       </div>
       <div class="card-demo s-ec-fbt-card">
-        <div class="s-ec-fbt-art"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v16M7 8l10 8M17 8L7 16"/></svg></div>
+        <div class="s-ec-fbt-art">{{art:product-bracket}}</div>
         <div>
           <div class="s-ec-fbt-name">Wall mount bracket</div>
           <div class="s-ec-fbt-meta">Stainless, 10 per pack</div>
@@ -175,7 +177,7 @@
         </div>
       </div>
       <div class="card-demo s-ec-fbt-card">
-        <div class="s-ec-fbt-art"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="7" width="16" height="11" rx="2"/><path d="M8 11h8M8 14.5h5"/></svg></div>
+        <div class="s-ec-fbt-art">{{art:product-case}}</div>
         <div>
           <div class="s-ec-fbt-name">Calibration case</div>
           <div class="s-ec-fbt-meta">Field kit with reference probe</div>

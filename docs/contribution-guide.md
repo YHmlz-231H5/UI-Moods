@@ -47,6 +47,11 @@ is merged and registered in `moods.json`.
   `build-specimen` injects at the *last* occurrence, so a stray copy in the
   shell's leading comment or footer would capture every section. Likewise, do
   not write the marker inside a section partial.
+- A section partial can ask for a **generated picture** with
+  `{{art:seed}}` (or `{{art:seed:variant}}` to pin the composition family).
+  `build-specimen` replaces it with inline SVG drawn from the mood's tokens —
+  the library ships no image assets. Use it wherever a real product screen
+  would show a thumbnail.
 - `validate` rejects a generated file that still contains an unreplaced
   `{{placeholder}}`, or that has block-level content inside `<head>` — both
   are signs the shell and the build script drifted apart.
@@ -104,3 +109,22 @@ An app pack describes a set of mobile screens for one industry, as data.
   humans and for the gallery.
 - Shared screen styling lives in `templates/app/app.css`. If you add a
   visual pattern that needs new CSS, add it there — not inline in a block.
+
+## Giving a screen a picture
+
+The library ships no image assets, so every "photo" is drawn by code from the
+mood's tokens (`tools/lib/artwork.mjs`). A screen asks for one by prop, not by
+file path:
+
+| Where | Prop | Notes |
+| --- | --- | --- |
+| `card` | `media: true` + `artSeed` | 360×132 media band; `artVariant` pins the composition |
+| `mediaGrid` / `carousel` | `art` on each item | 168×96 / 264×132 |
+| `list` | `art` on the item | 44×44 leading thumbnail (mutually exclusive with `icon`/`avatar`) |
+| `banner` | `art` | 360×220 cover behind the banner copy |
+| `artwork` block | `seed` + `height` + `variant` | a standalone band; `height` must be one of 120/144/160/180/200/240 |
+
+The seed decides the picture, so the same screen always renders the same one.
+Omitting the seed lets the renderer pick one from the screen's own context —
+good enough for a reference screen, but name the seed whenever the picture
+means something ("recipe-cover", not "img1").

@@ -22,6 +22,7 @@
       "titleZh": "查件",
       "chrome": { "navbar": { "icon": "truck", "title": "速达物流", "action": "扫码" } },
       "blocks": [
+        { "type": "banner", "art": "lg-home-hero", "artVariant": "waves", "title": "今日 12,480 单在途", "sub": "全国 218 个分拨中心 · 准时率 96.4%", "cta": "寄件下单" },
         { "type": "search", "placeholder": "输入运单号或手机号后四位" },
         { "type": "statGrid", "cols": 3, "items": [
           { "label": "在途", "value": "3" },
@@ -35,9 +36,9 @@
           { "label": "预计送达", "value": "11-06 18:00 前" }
         ], "foot": { "text": "最新轨迹 14:22 已到达 苏州转运中心", "action": "查看" } },
         { "type": "list", "items": [
-          { "icon": "card", "title": "顺丰 SF1120438876", "sub": "北京 朝阳 · 电商小件", "value": "待揽收", "valueTone": "warn", "chev": true },
-          { "icon": "truck", "title": "德邦 DB66510293", "sub": "武汉 汉口 · 120 kg 家具", "value": "运输中", "valueTone": "ok", "chev": true },
-          { "icon": "file", "title": "京东 JDVA009283716", "sub": "广州 天河 · 合同文件", "value": "已签收", "valueTone": "up", "chev": true }
+          { "art": "lg-carrier-sf", "artVariant": "mesh", "title": "顺丰 SF1120438876", "sub": "北京 朝阳 · 电商小件", "value": "待揽收", "valueTone": "down", "chev": true },
+          { "art": "lg-carrier-db", "artVariant": "strata", "title": "德邦 DB66510293", "sub": "武汉 汉口 · 120 kg 家具", "value": "运输中", "valueTone": "up", "chev": true },
+          { "art": "lg-carrier-jd", "artVariant": "orbit", "title": "京东 JDVA009283716", "sub": "广州 天河 · 合同文件", "value": "已签收", "valueTone": "up", "chev": true }
         ] },
         { "type": "progress", "label": "运输进度", "value": "62% · 剩余 1,140 km", "pct": 62, "tone": "ok" },
         { "type": "notice", "tone": "info", "mark": "通知", "text": "已开启签收短信通知，包裹签收后 5 分钟内推送结果。" },
@@ -50,6 +51,7 @@
       "titleZh": "轨迹",
       "chrome": { "navbar": { "back": true, "title": "运输轨迹", "action": "分享" } },
       "blocks": [
+        { "type": "card", "media": true, "artSeed": "lg-route-truck", "artVariant": "arch", "mediaTag": "在途", "title": "沪A·7F2C9 · 12 米厢式货车", "sub": "司机 李伟 · 冷链温控 2-8℃ · 已行驶 1,140 km", "body": "载重 3,200 kg · 剩余容积 40%" },
         { "type": "map", "icon": "truck", "pin": true, "label": "当前位置：苏州转运中心 · 距上海 186 km" },
         { "type": "statGrid", "cols": 3, "items": [
           { "label": "剩余里程", "value": "186 km" },
@@ -77,7 +79,7 @@
         ] },
         { "type": "list", "items": [
           { "icon": "building", "title": "下一站 · 上海浦东分部", "sub": "预计 17:40 到达 · 派送员待接单", "value": "186 km", "chev": true },
-          { "icon": "user", "title": "收件人 张先生", "sub": "联系电话 138****6021", "value": "已验真", "valueTone": "ok" }
+          { "art": "lg-driver-liwei", "artVariant": "mesh", "title": "派送员 李伟", "sub": "沪A·7F2C9 · 4.9 分 · 服务 486 单", "value": "已验真", "valueTone": "up" }
         ] },
         { "type": "notice", "tone": "warn", "mark": "拥堵", "text": "当前路段 G2 京沪高速拥堵，预计延误 25 分钟，已同步告知收件人。" }
       ]
@@ -88,8 +90,9 @@
       "titleZh": "签收",
       "chrome": { "navbar": { "back": true, "title": "签收确认", "action": "帮助" } },
       "blocks": [
-        { "type": "card", "media": true, "mediaTag": "冷链", "tint": true, "title": "待签收包裹", "sub": "运单 SF7283910456", "body": "1 件 · 保温箱 12.4 kg · 温区 2-8℃" },
-        { "type": "formGroup", "label": "签收方式", "rows": [
+        { "type": "card", "media": true, "artSeed": "lg-parcel-cold", "artVariant": "tiles", "mediaTag": "冷链", "tint": true, "title": "待签收包裹", "sub": "运单 SF7283910456", "body": "1 件 · 保温箱 12.4 kg · 温区 2-8℃" },
+        { "type": "sectionHead", "title": "签收方式", "action": "需本人验货" },
+        { "type": "formGroup", "label": "选择签收方式", "rows": [
           { "label": "本人签收", "hint": "需当面验货", "type": "radio", "checked": true },
           { "label": "代收点自提", "hint": "虹桥代收点 · 步行 6 分钟", "type": "radio" },
           { "label": "放前台", "hint": "需上传门牌照片", "type": "radio" }
@@ -118,6 +121,7 @@
       "titleZh": "异常",
       "chrome": { "navbar": { "back": true, "title": "异常工单", "action": "进度" } },
       "blocks": [
+        { "type": "card", "media": true, "artSeed": "lg-damage-photo", "artVariant": "rays", "mediaTag": "现场照片", "title": "外箱挤压变形 · 右侧塌陷 8 cm", "sub": "李伟 于 11-05 14:40 上传 · 共 2 张", "body": "封条编号 7743 完整未破 · 内件无外露" },
         { "type": "notice", "tone": "danger", "mark": "异常", "text": "运单 SF7283910456 在苏州转运中心滞留，已超出约定时效 6 小时。" },
         { "type": "order", "title": "异常工单 EX-20241105-0271", "status": "处理中", "statusTone": "warn", "body": [
           { "label": "异常类型", "value": "中转滞留 / 温控波动" },
@@ -127,7 +131,7 @@
         { "type": "statGrid", "cols": 3, "items": [
           { "label": "滞留时长", "value": "6h 12m", "delta": "+2h", "deltaTone": "down" },
           { "label": "温控区间", "value": "9.4℃", "delta": "+3.2℃", "deltaTone": "down" },
-          { "label": "赔付预估", "value": "¥ 180", "delta": "待定", "deltaTone": "warn" }
+          { "label": "赔付预估", "value": "¥ 180", "delta": "待定", "deltaTone": "down" }
         ] },
         { "type": "sectionHead", "title": "工单处理进度", "action": "联系客服" },
         { "type": "timeline", "items": [
@@ -145,8 +149,7 @@
           { "icon": "building", "title": "苏州吴中转运场", "sub": "值班主管 张涛 · 138****4102", "value": "可致电", "chev": true },
           { "icon": "chat", "title": "在线客服", "sub": "客服小满 · 平均 30 秒响应", "value": "可留言", "chev": true }
         ] },
-        { "type": "notice", "tone": "info", "mark": "理赔", "text": "理赔申请需在签收后 48 小时内提交，逾期将按保价上限赔付。" },
-        { "type": "empty", "icon": "file", "title": "暂无更多历史工单", "sub": "你的异常处理记录会保留 90 天" }
+        { "type": "notice", "tone": "info", "mark": "理赔", "text": "理赔申请需在签收后 48 小时内提交，逾期将按保价上限赔付。" }
       ]
     }
   ]

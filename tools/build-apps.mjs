@@ -15,9 +15,17 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { renderBlocks } from "./lib/blocks.mjs";
+import { renderAppThumb, renderArtwork, tokenPalette } from "./lib/artwork.mjs";
 import { MAPPED_GROUPS, SKIP_FIELDS, kebabCase } from "./lib/mapping.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
+
+const esc = (value) =>
+  String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
 
 function loadJson(path) {
   return JSON.parse(readFileSync(path, "utf8").replace(/^\uFEFF/, ""));
@@ -143,46 +151,87 @@ function buildApp(appId, opts = {}) {
     files.push(outPath);
   }
 
-  // A small index that links every screen of the app.
-  const indexRows = (app.screens ?? [])
-    .map(
-      (s) =>
-        `<li><a href="./${s.id}.html">${s.title ?? s.id}</a>` +
-        (s.titleZh ? ` <span>${s.titleZh}</span>` : "") +
-        (s.note ? ` <em>${s.note}</em>` : "") +
-        `</li>`,
-    )
+  // The pack index is a small gallery. Every screen gets a code-generated
+  // miniature phone instead of a missing picture — the library ships no image
+  // assets, so every thumbnail is drawn from the mood's own tokens.
+  const ART_PALETTE = tokenPalette();
+  const indexCards = (app.screens ?? [])
+    .map((s) => {
+      const uid = `i${String(s.id).replace(/[^a-z0-9_-]/gi, "")}`;
+      return (
+        `<a class="card" href="./${esc(s.id)}.html">` +
+        `<span class="thumb">${renderAppThumb(ART_PALETTE, { seed: `${app.id}:${s.id}`, uid })}</span>` +
+        `<span class="body">` +
+        `<span class="title">${esc(s.title ?? s.id)}</span>` +
+        `<span class="tag">${esc(s.titleZh ?? s.id)}</span>` +
+        (s.note ? `<span class="note">${esc(s.note)}</span>` : "") +
+        `</span></a>`
+      );
+    })
     .join("\n");
+  const heroArt = renderArtwork(ART_PALETTE, `${app.id}:cover`, { width: 920, height: 220 });
+  const screenCount = (app.screens ?? []).length;
   const indexHtml = `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>${app.name} · ${app.nameZh} — UI Moods App Reference</title>
+  <title>${esc(app.name)} · ${esc(app.nameZh)} — UI Moods App Reference</title>
   <style>
     body {
       margin: 0;
-      padding: 32px;
+      padding: 40px;
       background: var(--mood-colors-bg);
       color: var(--mood-colors-text);
       font-family: var(--mood-typography-family);
       font-size: var(--mood-typography-body-size);
-      line-height: 1.7;
+      line-height: 1.6;
     }
+    .wrap { max-width: 920px; margin: 0 auto; }
+    .cover {
+      display: block;
+      height: 220px;
+      overflow: hidden;
+      border-radius: var(--mood-radii-card);
+      border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+      background: var(--mood-colors-panel);
+      margin-bottom: 28px;
+    }
+    .cover .gen-svg { display: block; width: 100%; height: 100%; }
     h1 { font-size: var(--mood-typography-display-size); color: var(--mood-colors-text-strong); margin: 0 0 6px; }
-    p.lead { color: var(--mood-colors-muted); margin: 0 0 24px; max-width: 640px; }
-    ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; max-width: 640px; }
-    li {
-      padding: 14px 18px;
+    p.lead { color: var(--mood-colors-muted); margin: 0 0 8px; max-width: 640px; }
+    p.meta { color: var(--mood-colors-muted); font-size: var(--mood-typography-label-size); margin: 0 0 28px; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      display: block;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
       border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
       border-radius: var(--mood-radii-card);
       background: var(--mood-colors-surface);
       box-shadow: var(--mood-shadows-card);
     }
-    a { color: var(--mood-colors-accent); font-weight: 600; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    li span { color: var(--mood-colors-muted); margin-left: 6px; }
-    li em { display: block; font-style: normal; font-size: var(--mood-typography-label-size); color: var(--mood-colors-muted); margin-top: 4px; }
+    .thumb { display: block; padding: 16px; background: var(--mood-colors-panel); }
+    .thumb svg { display: block; width: 100%; height: auto; }
+    .body { display: block; padding: 14px 16px 16px; }
+    .title { display: block; font-weight: 600; color: var(--mood-colors-text-strong); }
+    .tag {
+      display: inline-block;
+      margin-top: 6px;
+      padding: 2px 8px;
+      border-radius: var(--mood-radii-badge);
+      background: var(--mood-colors-accent);
+      color: var(--mood-colors-onAccent);
+      font-size: var(--mood-typography-label-size);
+      font-weight: 500;
+    }
+    .note { display: block; font-size: var(--mood-typography-label-size); color: var(--mood-colors-muted); margin-top: 6px; }
+    .card:hover { border-color: var(--mood-colors-accent); }
   </style>
   <style id="mood-tokens">
     :root {
@@ -191,11 +240,15 @@ ${buildVars(tokens)}
   </style>
 </head>
 <body>
-  <h1>${app.name} · ${app.nameZh}</h1>
-  <p class="lead">${app.description ?? ""}</p>
-  <ul>
-${indexRows}
-  </ul>
+  <div class="wrap">
+    <div class="cover">${heroArt}</div>
+    <h1>${esc(app.name)} · ${esc(app.nameZh)}</h1>
+    <p class="lead">${esc(app.description ?? "")}</p>
+    <p class="meta">${esc(tokens.meta?.name ?? "")} ${esc(tokens.meta?.nameZh ?? "")} · mood ${esc(tokens.id)}@${esc(tokens.version)} · ${screenCount} screens</p>
+    <div class="grid">
+${indexCards}
+    </div>
+  </div>
 </body>
 </html>
 `;
