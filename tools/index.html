@@ -352,7 +352,10 @@
       };
     }
 
+    let appToken = 0;
+
     async function openApp(app) {
+      const token = ++appToken;
       viewer.classList.remove("hidden");
       title.textContent = `${app.name} · ${app.nameZh}`;
       copied.textContent = "";
@@ -367,16 +370,31 @@
       wrap.innerHTML = "";
       const gridEl = el("div", "screens-grid");
       wrap.appendChild(gridEl);
-      const idx = await (await fetch(`/apps/${app.id}/screens/index.html`)).text();
-      const doc = new DOMParser().parseFromString(idx, "text/html");
-      const links = Array.from(doc.querySelectorAll("ul li a")).map((a) => ({ href: a.getAttribute("href"), label: a.textContent }));
-      for (const l of links) {
+
+      // app.json is the authoritative screen list. The pack's generated
+      // index.html is only a human-facing cover of the same thing, so the
+      // gallery never parses generated markup.
+      let screens = [];
+      try {
+        const data = await (await fetch(`/apps/${app.id}/app.json`)).json();
+        screens = (data.screens || []).map((s) => ({
+          id: s.id,
+          label: s.title || s.id,
+        }));
+      } catch {
+        if (token !== appToken) return;
+        gridEl.appendChild(el("div", "empty-state", "无法读取该应用包的屏幕列表。"));
+        return;
+      }
+      // A slow fetch must not overwrite the pack the user actually opened.
+      if (token !== appToken) return;
+      for (const s of screens) {
         const item = el("div", "screen-item");
         const ifr = el("iframe");
-        ifr.setAttribute("src", `/apps/${app.id}/screens/${l.href.replace("./", "")}`);
+        ifr.setAttribute("src", `/apps/${app.id}/screens/${s.id}.html`);
         ifr.setAttribute("loading", "lazy");
         item.appendChild(ifr);
-        item.appendChild(el("span", "", l.label));
+        item.appendChild(el("span", "", s.label));
         gridEl.appendChild(item);
       }
     }
@@ -388,6 +406,10 @@
       document.getElementById("frame").style.display = "";
       copyBtn.style.display = "";
       frame.src = "about:blank";
+      // Release the screen previews and invalidate any pack still loading.
+      const wrap = document.getElementById("screens-wrap");
+      if (wrap) wrap.innerHTML = "";
+      appToken++;
       render();
     });
 
