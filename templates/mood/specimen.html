@@ -5,9 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mood Specimen · {{id}}</title>
   <!--
-    Mood specimen template.
-    - Fixed component matrix: Palette / Typography / Logo / Buttons / Badges /
-      Inputs / Progress / Cards / Table / Toggles / List / Alerts.
+    Mood specimen template — SHELL.
+    - Section content lives in templates/mood/sections/*.html and is injected
+      at the sections marker inside the body below, ordered by filename.
+      (The marker token is deliberately not spelled out here: build-specimen
+      targets the last occurrence, and a literal copy in this comment would
+      be an easy way to inject the sections into <head> by mistake.)
     - CSS uses var(--mood-*) only. The style block with id "mood-tokens" is
       the single injection point: build-specimen replaces it from tokens.json.
     - Placeholders {{id}} / {{name}} / {{keywords}} are filled by build-specimen.
@@ -78,9 +81,23 @@
       color: var(--mood-colors-text-strong);
     }
     .hero p { max-width: 640px; color: var(--mood-colors-muted); }
+    .hero .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .hero .hero-meta span {
+      font-size: var(--mood-typography-label-size);
+      padding: 3px 10px;
+      border-radius: var(--mood-radii-badge);
+      border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+      color: var(--mood-colors-muted);
+    }
     .kit { padding: 28px 36px 48px; display: flex; flex-direction: column; gap: 28px; }
     .row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--mood-spacing-gap); }
     .row.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .row.cols-4 { grid-template-columns: repeat(4, 1fr); }
     .section-label {
       font-size: var(--mood-typography-label-size);
       letter-spacing: 0.1em;
@@ -95,6 +112,8 @@
       border-radius: var(--mood-radii-block);
       backdrop-filter: var(--mood-effects-backdrop-filter, none);
     }
+    .block.tint { background: var(--mood-colors-panel); }
+    .block.flush { padding: 0; overflow: hidden; }
     .swatches { display: flex; flex-wrap: wrap; gap: 10px; }
     .swatch { width: 72px; }
     .chip { height: 44px; border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); border-radius: var(--mood-radii-input); margin-bottom: 6px; }
@@ -187,7 +206,7 @@
     .alert.warn { border-color: var(--mood-colors-warn); color: var(--mood-colors-warn); }
     .alert.danger { border-color: var(--mood-colors-danger); color: var(--mood-colors-danger); }
     @media (max-width: 860px) {
-      .row, .row.cols-3, .card-grid { grid-template-columns: 1fr; }
+      .row, .row.cols-3, .row.cols-4, .card-grid { grid-template-columns: 1fr; }
       .hero, .kit { padding-left: 20px; padding-right: 20px; }
     }
   </style>
@@ -197,152 +216,15 @@
     <div class="label">Mood Specimen · {{id}}</div>
     <h1>{{name}}</h1>
     <p>Keywords: {{keywords}}</p>
+    <div class="hero-meta">
+      <span>Specimen v1</span>
+      <span>Tokens only</span>
+      <span>Agent-consumable</span>
+    </div>
   </div>
 
   <div class="kit">
-    <div class="row">
-      <div>
-        <div class="section-label">Palette</div>
-        <div class="block">
-          <div class="swatches">
-            <div class="swatch"><div class="chip" style="background:var(--mood-colors-bg)"></div><div class="name">Background</div><div class="hex">var(--mood-colors-bg)</div></div>
-            <div class="swatch"><div class="chip" style="background:var(--mood-colors-panel)"></div><div class="name">Panel</div><div class="hex">var(--mood-colors-panel)</div></div>
-            <div class="swatch"><div class="chip" style="background:var(--mood-colors-accent)"></div><div class="name">Accent</div><div class="hex">var(--mood-colors-accent)</div></div>
-            <div class="swatch"><div class="chip" style="background:var(--mood-colors-text-strong)"></div><div class="name">Ink</div><div class="hex">var(--mood-colors-text-strong)</div></div>
-            <div class="swatch"><div class="chip" style="background:var(--mood-colors-ok)"></div><div class="name">OK</div><div class="hex">var(--mood-colors-ok)</div></div>
-            <div class="swatch"><div class="chip" style="background:var(--mood-colors-warn)"></div><div class="name">Warn</div><div class="hex">var(--mood-colors-warn)</div></div>
-            <div class="swatch"><div class="chip" style="background:var(--mood-colors-danger)"></div><div class="name">Danger</div><div class="hex">var(--mood-colors-danger)</div></div>
-            <div class="swatch"><div class="chip" style="background:var(--mood-colors-muted)"></div><div class="name">Muted</div><div class="hex">var(--mood-colors-muted)</div></div>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div class="section-label">Typography</div>
-        <div class="block">
-          <div class="type-stack">
-            <div class="type-row"><span class="spec">DISPLAY</span><span class="display">Your Mood</span></div>
-            <div class="type-row"><span class="spec">TITLE</span><span class="title">Workspace Settings</span></div>
-            <div class="type-row"><span class="spec">BODY</span><span class="body">Body copy at var(--mood-typography-body-size)</span></div>
-            <div class="type-row"><span class="spec">META</span><span class="body" style="font-size:var(--mood-typography-label-size);opacity:0.6">Label text at var(--mood-typography-label-size)</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div>
-      <div class="section-label">Logo</div>
-      <div class="block">
-        <div class="logo-row">
-          <div class="logo-mark"><div class="glyph">M</div><div><strong>Mood</strong><br /><small>Specimen</small></div></div>
-          <div class="logo-mark"><div class="glyph">U</div><div><strong>UI</strong><br /><small>Moods</small></div></div>
-          <div class="logo-mark"><div class="glyph">★</div><div><strong>Example</strong><br /><small>Mark</small></div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div>
-        <div class="section-label">Buttons</div>
-        <div class="block">
-          <div class="btn-row">
-            <button type="button" class="primary">Primary</button>
-            <button type="button">Secondary</button>
-            <button type="button" class="ok">Success</button>
-            <button type="button" class="danger">Danger</button>
-            <button type="button" disabled>Disabled</button>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div class="section-label">Badges</div>
-        <div class="block">
-          <span class="badge live">Active</span>
-          <span class="badge">Draft</span>
-          <span class="badge ok">Ready</span>
-          <span class="badge warn">Review</span>
-          <span class="badge danger">Blocked</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div>
-        <div class="section-label">Inputs</div>
-        <div class="block">
-          <div class="field-row">
-            <div class="field"><label>Project</label><input value="Example Project" readonly /></div>
-            <div class="field"><label>Type</label><select><option>Option A</option><option>Option B</option></select></div>
-            <div class="field"><label>Notes</label><textarea readonly>Sample notes area</textarea></div>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div class="section-label">Progress</div>
-        <div class="block">
-          <div class="bar" style="margin-bottom:8px"><i style="width:19%"></i></div>
-          <div class="bar ok" style="margin-bottom:8px"><i style="width:62%"></i></div>
-          <div class="bar warn"><i style="width:88%"></i></div>
-        </div>
-      </div>
-    </div>
-
-    <div>
-      <div class="section-label">Cards</div>
-      <div class="card-grid">
-        <div class="card-demo">
-          <div class="ct">Example Card</div>
-          <span class="badge ok" style="margin-bottom:8px;display:inline-block">Ready</span>
-          <div class="cm">Sample meta · 42 items</div>
-          <div class="bar ok" style="margin-bottom:10px"><i style="width:100%"></i></div>
-          <div class="btn-row"><button type="button" class="primary">Open</button><button type="button">Share</button></div>
-        </div>
-        <div class="card-demo">
-          <div class="ct">Another Card</div>
-          <span class="badge live" style="margin-bottom:8px;display:inline-block">Active</span>
-          <div class="cm">Sample meta · in progress</div>
-          <div class="bar" style="margin-bottom:10px"><i style="width:19%"></i></div>
-          <div class="btn-row"><button type="button">Pause</button><button type="button" class="danger">Stop</button></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row cols-3">
-      <div>
-        <div class="section-label">Table</div>
-        <div class="block">
-          <table>
-            <thead><tr><th>ID</th><th>Name</th><th>State</th><th>%</th></tr></thead>
-            <tbody>
-              <tr><td>01</td><td>Alpha</td><td>Active</td><td>19</td></tr>
-              <tr><td>02</td><td>Beta</td><td>Ready</td><td>100</td></tr>
-              <tr><td>03</td><td>Gamma</td><td>Queued</td><td>0</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div>
-        <div class="section-label">Toggles / List</div>
-        <div class="block">
-          <div class="toggle-row">
-            <div class="toggle"><span>Setting A</span><div class="switch on"><i></i></div></div>
-            <div class="toggle"><span>Setting B</span><div class="switch"><i></i></div></div>
-          </div>
-          <div class="list" style="margin-top:8px">
-            <div class="list-item"><div><div class="name">Alpha</div><div class="sub">Active · 19%</div></div><span class="badge live">On</span></div>
-            <div class="list-item"><div><div class="name">Beta</div><div class="sub">Ready</div></div><span class="badge ok">Done</span></div>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div class="section-label">Alerts</div>
-        <div class="block alerts">
-          <div class="alert"><span class="mark">INFO</span><span>Theme tokens loaded</span></div>
-          <div class="alert ok"><span class="mark">READY</span><span>All set</span></div>
-          <div class="alert warn"><span class="mark">REVIEW</span><span>Something to check</span></div>
-          <div class="alert danger"><span class="mark">STOP</span><span>Action needed</span></div>
-        </div>
-      </div>
-    </div>
+{{sections}}
   </div>
 </body>
 </html>

@@ -1,0 +1,181 @@
+{
+  "id": "social",
+  "name": "Social",
+  "nameZh": "社交社区",
+  "mood": "pastel",
+  "description": "兴趣社区应用参考：动态信息流与话题互动、话题详情与讨论、私信会话列表以及个人主页与作品集。",
+  "chrome": {
+    "statusbar": { "time": "21:38" },
+    "tabbar": {
+      "items": [
+        { "icon": "home", "label": "首页", "active": true },
+        { "icon": "search", "label": "发现" },
+        { "icon": "plus", "label": "发布" },
+        { "icon": "chat", "label": "消息", "badge": "3" },
+        { "icon": "user", "label": "我" }
+      ]
+    }
+  },
+  "screens": [
+    {
+      "id": "feed",
+      "title": "动态信息流",
+      "titleZh": "首页",
+      "chrome": {
+        "navbar": { "icon": "home", "title": "拾光", "action": "搜索" }
+      },
+      "blocks": [
+        { "type": "tabs", "items": [
+          { "label": "关注", "active": true },
+          { "label": "推荐" },
+          { "label": "同城" }
+        ] },
+        { "type": "card", "media": true, "mediaTag": "编辑精选", "title": "周末去郊外捡栗子，捡了一整兜 🌰", "sub": "林阿吱 · 2 小时前 · 上海 佘山", "badge": "精华", "badgeTone": "accent", "actions": [
+          { "label": "点赞 2,418", "primary": false },
+          { "label": "评论 186", "primary": false }
+        ] },
+        { "type": "avatars", "items": [
+          { "initials": "周" },
+          { "initials": "苏" },
+          { "initials": "陈" },
+          { "initials": "沈" },
+          { "initials": "+86" }
+        ] },
+        { "type": "sectionHead", "title": "正在热议", "action": "换一换" },
+        { "type": "list", "items": [
+          { "icon": "tag", "title": "#秋日散步指南", "sub": "1.2 万条讨论 · 参与人数 8.6 万", "chev": true },
+          { "icon": "tag", "title": "#今天穿什么", "sub": "6,240 条讨论 · 参与人数 3.2 万", "chev": true },
+          { "icon": "tag", "title": "#城市角落咖啡地图", "sub": "3,180 条讨论 · 参与人数 1.9 万", "chev": true }
+        ] },
+        { "type": "card", "media": true, "mediaTag": "摄影", "title": "雨后的老弄堂，光斑落在青石板上", "sub": "阿陆 · 5 小时前 · 上海 静安", "actions": [
+          { "label": "点赞 1,032", "primary": false },
+          { "label": "收藏", "primary": false }
+        ] },
+        { "type": "notice", "tone": "info", "mark": "社区", "text": "请友善发言，不发布广告与不实信息，违规内容将被折叠。" },
+        { "type": "fab", "icon": "camera" }
+      ]
+    },
+    {
+      "id": "topic",
+      "title": "话题详情",
+      "titleZh": "话题",
+      "chrome": {
+        "navbar": { "back": true, "title": "话题详情", "action": "分享" }
+      },
+      "blocks": [
+        { "type": "header", "title": "#秋日散步指南", "subtitle": "把秋天装进鞋里 · 8.6 万人参与 · 1.2 万条讨论", "meta": [
+          { "label": "上升中", "tone": "accent" },
+          { "label": "推荐" }
+        ] },
+        { "type": "tabs", "items": [
+          { "label": "精选", "active": true },
+          { "label": "最新" },
+          { "label": "未读" }
+        ] },
+        { "type": "notice", "tone": "info", "mark": "话题", "text": "参与话题请带 #秋日散步指南 标签，并附上你走过的那条路。" },
+        { "type": "card", "media": true, "mediaTag": "周末路线", "title": "从武康路走到安福路，1.8 公里全是落叶", "sub": "沈亦然 · 昨天 17:40 · 216 条评论", "badge": "已加入话题", "badgeTone": "ok" },
+        { "type": "avatars", "items": [
+          { "initials": "顾" },
+          { "initials": "许" },
+          { "initials": "何" },
+          { "initials": "罗" },
+          { "initials": "+312" }
+        ] },
+        { "type": "sectionHead", "title": "热门评论", "action": "查看全部" },
+        { "type": "list", "items": [
+          { "avatar": "周", "title": "周小满", "sub": "上周走的是梧桐区，安静又好看", "value": "1,204 赞", "valueTone": "up" },
+          { "avatar": "苏", "title": "苏念", "sub": "求一份完整路线，冬天也想走走", "value": "862 赞", "valueTone": "up" },
+          { "avatar": "陈", "title": "陈曦", "sub": "带娃去过，树下面有片空地可以野餐", "value": "437 赞", "valueTone": "up" }
+        ] },
+        { "type": "sectionHead", "title": "相关话题", "action": "更多" },
+        { "type": "mediaGrid", "cols": 3, "items": [
+          { "icon": "tag", "title": "#城市落叶地图", "sub": "4.2 万讨论" },
+          { "icon": "tag", "title": "#周末徒步路线", "sub": "2.8 万讨论" },
+          { "icon": "tag", "title": "#城市咖啡地图", "sub": "1.6 万讨论" }
+        ] }
+      ]
+    },
+    {
+      "id": "messages",
+      "title": "消息会话",
+      "titleZh": "消息",
+      "chrome": {
+        "navbar": { "icon": "chat", "title": "消息", "action": "搜索" }
+      },
+      "blocks": [
+        { "type": "search", "placeholder": "搜索联系人或聊天记录" },
+        { "type": "chips", "items": [
+          { "label": "全部", "active": true },
+          { "label": "未读" },
+          { "label": "群聊" },
+          { "label": "官方" }
+        ] },
+        { "type": "list", "items": [
+          { "avatar": "林", "title": "林阿吱", "sub": "栗子给你留了一半 🫂", "badge": "2", "badgeTone": "danger", "chev": true },
+          { "avatar": "沈", "title": "沈亦然", "sub": "图片：那家咖啡店在思南路", "chev": true },
+          { "avatar": "拾", "title": "拾光小助手", "sub": "你的话题 #秋日散步指南 上热榜了", "badge": "1", "badgeTone": "danger", "chev": true },
+          { "avatar": "周", "title": "周小满", "sub": "周末爬山还去吗？", "chev": true }
+        ] },
+        { "type": "sectionHead", "title": "最近联系人", "action": "全部" },
+        { "type": "avatars", "items": [
+          { "initials": "苏" },
+          { "initials": "陈" },
+          { "initials": "何" },
+          { "initials": "罗" },
+          { "initials": "顾" },
+          { "initials": "许" },
+          { "initials": "+21" }
+        ] },
+        { "type": "card", "media": true, "mediaTag": "话题直播", "title": "周六 20:00 · 城市漫步直播连线", "sub": "拾光话题直播 · 已有 1,280 人预约", "actions": [
+          { "label": "不感兴趣", "primary": false },
+          { "label": "预约提醒", "primary": true }
+        ] },
+        { "type": "toast", "icon": "bell", "text": "林阿吱 给你发来 2 条新消息" },
+        { "type": "sheet", "title": "消息设置", "items": [
+          { "icon": "bell", "label": "消息免打扰" },
+          { "icon": "trash", "label": "清空聊天记录", "danger": true }
+        ] }
+      ]
+    },
+    {
+      "id": "profile",
+      "title": "个人主页",
+      "titleZh": "我的",
+      "chrome": {
+        "navbar": { "back": true, "title": "个人主页", "action": "设置" }
+      },
+      "blocks": [
+        { "type": "profile", "initials": "林", "name": "林阿吱", "meta": "上海 · 拾光号 882 314 · 记录城市与四季", "tags": ["城市漫步", "胶片摄影", "小院咖啡"] },
+        { "type": "statGrid", "cols": 3, "items": [
+          { "label": "获赞", "value": "2.4 万", "delta": "+1,206", "deltaTone": "up" },
+          { "label": "关注", "value": "328", "delta": "本月 +12", "deltaTone": "up" },
+          { "label": "粉丝", "value": "1.2 万", "delta": "+368", "deltaTone": "up" }
+        ] },
+        { "type": "tabs", "items": [
+          { "label": "作品", "active": true },
+          { "label": "喜欢" },
+          { "label": "收藏" },
+          { "label": "草稿" }
+        ] },
+        { "type": "mediaGrid", "cols": 3, "items": [
+          { "icon": "image", "title": "郊外的栗子", "sub": "11 月 8 日 · 2,418 赞" },
+          { "icon": "image", "title": "雨后弄堂", "sub": "11 月 6 日 · 1,032 赞" },
+          { "icon": "image", "title": "窗台的第一场雾", "sub": "11 月 3 日 · 876 赞" },
+          { "icon": "image", "title": "巷口的老面包房", "sub": "10 月 29 日 · 654 赞" },
+          { "icon": "image", "title": "夜骑外滩", "sub": "10 月 25 日 · 512 赞" },
+          { "icon": "image", "title": "秋天的第一杯桂花", "sub": "10 月 21 日 · 398 赞" }
+        ] },
+        { "type": "sectionHead", "title": "最近获赞", "action": "全部" },
+        { "type": "list", "items": [
+          { "icon": "heart", "title": "周末去郊外捡栗子", "sub": "今天 09:12 · 收到 218 个赞", "chev": true },
+          { "icon": "heart", "title": "雨后的老弄堂", "sub": "昨天 21:40 · 收到 96 个赞", "chev": true }
+        ] },
+        { "type": "card", "media": true, "mediaTag": "会员", "title": "拾光创作者 · 年度权益", "sub": "自定义主页背景、优先流量与专属徽章", "actions": [
+          { "label": "查看权益", "primary": false },
+          { "label": "开通", "primary": true }
+        ] },
+        { "type": "notice", "tone": "info", "mark": "隐私", "text": "你的位置信息仅对互关好友可见，可在设置 - 隐私中调整。" }
+      ]
+    }
+  ]
+}

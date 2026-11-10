@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pet Care · 宠物生活 — UI Moods App Reference</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 32px;
+      background: var(--mood-colors-bg);
+      color: var(--mood-colors-text);
+      font-family: var(--mood-typography-family);
+      font-size: var(--mood-typography-body-size);
+      line-height: 1.7;
+    }
+    h1 { font-size: var(--mood-typography-display-size); color: var(--mood-colors-text-strong); margin: 0 0 6px; }
+    p.lead { color: var(--mood-colors-muted); margin: 0 0 24px; max-width: 640px; }
+    ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; max-width: 640px; }
+    li {
+      padding: 14px 18px;
+      border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+      border-radius: var(--mood-radii-card);
+      background: var(--mood-colors-surface);
+      box-shadow: var(--mood-shadows-card);
+    }
+    a { color: var(--mood-colors-accent); font-weight: 600; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    li span { color: var(--mood-colors-muted); margin-left: 6px; }
+    li em { display: block; font-style: normal; font-size: var(--mood-typography-label-size); color: var(--mood-colors-muted); margin-top: 4px; }
+  </style>
+  <style id="mood-tokens">
+    :root {
+      --mood-colors-bg: #fdf5f7;
+      --mood-colors-panel: #ffffff;
+      --mood-colors-surface: #fbe9ee;
+      --mood-colors-text: #5b4750;
+      --mood-colors-text-strong: #38262e;
+      --mood-colors-muted: #a2858f;
+      --mood-colors-border: #f0d8e0;
+      --mood-colors-accent: #e0607e;
+      --mood-colors-on-accent: #ffffff;
+      --mood-colors-ok: #7fa87f;
+      --mood-colors-warn: #d9a441;
+      --mood-colors-danger: #c0392b;
+      --mood-typography-family: Hiragino Sans, PingFang SC, Microsoft YaHei, sans-serif;
+      --mood-typography-display-size: 38px;
+      --mood-typography-title-size: 16px;
+      --mood-typography-body-size: 14px;
+      --mood-typography-label-size: 12px;
+      --mood-radii-block: 12px;
+      --mood-radii-button: 999px;
+      --mood-radii-card: 16px;
+      --mood-radii-badge: 999px;
+      --mood-radii-input: 10px;
+      --mood-borders-width: 1px;
+      --mood-borders-style: solid;
+      --mood-effects-backdrop-filter: blur(10px);
+      --mood-effects-glow: none;
+      --mood-shadows-card: 0 8px 28px rgba(224,96,126,0.14);
+      --mood-shadows-button: 0 3px 10px rgba(224,96,126,0.16);
+      --mood-spacing-section: 28px;
+      --mood-spacing-block: 18px;
+      --mood-spacing-gap: 12px;
+      --mood-motion-duration: 0.3s;
+      --mood-motion-easing: ease-out;
+    }
+  </style>
+</head>
+<body>
+  <h1>Pet Care · 宠物生活</h1>
+  <p class="lead">宠物服务与健康参考：宠物档案、健康与疫苗提醒、宠物商城与宠物社区。</p>
+  <ul>
+<li><a href="./profile.html">宠物档案</a> <span>档案</span></li>
+<li><a href="./health.html">健康与疫苗提醒</a> <span>健康</span></li>
+<li><a href="./shop.html">宠物商城</a> <span>商城</span></li>
+<li><a href="./community.html">宠物社区</a> <span>社区</span></li>
+  </ul>
+</body>
+</html>

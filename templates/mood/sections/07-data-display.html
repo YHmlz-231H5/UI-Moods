@@ -1,0 +1,235 @@
+<style>
+  .s-toolbar {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+    padding: 14px 16px;
+    border-bottom: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+    background: var(--mood-colors-panel);
+  }
+  .s-tool-search {
+    display: flex; align-items: center; gap: 8px; height: 34px; min-width: 220px;
+    padding: 0 12px;
+    background: var(--mood-colors-bg);
+    border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+    border-radius: var(--mood-radii-input);
+  }
+  .s-tool-search input {
+    flex: 1; min-width: 0; font: inherit; font-size: 12px;
+    background: transparent; border: 0; outline: none; color: var(--mood-colors-text-strong);
+  }
+  .s-select {
+    height: 34px; padding: 0 10px; font: inherit; font-size: 12px;
+    color: var(--mood-colors-text-strong);
+    background: var(--mood-colors-bg);
+    border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+    border-radius: var(--mood-radii-input);
+  }
+  .s-range {
+    display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 12px;
+    font-size: 12px; color: var(--mood-colors-text-strong);
+    background: var(--mood-colors-bg);
+    border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+    border-radius: var(--mood-radii-input);
+  }
+  .s-range span { color: var(--mood-colors-muted); }
+  .s-tool-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+  .s-table-wrap { overflow-x: auto; }
+  .s-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .s-table th { white-space: nowrap; }
+  .s-table td { vertical-align: middle; }
+  .s-table .s-num { text-align: right; font-variant-numeric: tabular-nums; }
+  .s-sort { display: inline-flex; align-items: center; gap: 6px; color: var(--mood-colors-muted); }
+  .s-sort.s-active { color: var(--mood-colors-text-strong); }
+  .s-sort-ind { font-size: 10px; opacity: 0.6; }
+  .s-run { display: flex; flex-direction: column; gap: 2px; }
+  .s-run b { font-weight: 600; color: var(--mood-colors-text-strong); }
+  .s-run small { font-size: 11px; color: var(--mood-colors-muted); }
+  .s-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 3px 10px; border-radius: var(--mood-radii-badge);
+    font-size: 11px; font-weight: 500;
+    border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+    color: var(--mood-colors-text);
+  }
+  .s-pill::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+  .s-pill.s-ok { color: var(--mood-colors-ok); border-color: var(--mood-colors-ok); }
+  .s-pill.s-warn { color: var(--mood-colors-warn); border-color: var(--mood-colors-warn); }
+  .s-pill.s-danger { color: var(--mood-colors-danger); border-color: var(--mood-colors-danger); }
+  .s-pill.s-muted { color: var(--mood-colors-muted); }
+  .s-prog { display: flex; align-items: center; gap: 8px; }
+  .s-prog .bar { width: 88px; flex-shrink: 0; }
+  .s-prog span { font-size: 12px; color: var(--mood-colors-muted); font-variant-numeric: tabular-nums; }
+  .s-actions { display: flex; align-items: center; gap: 6px; justify-content: flex-end; }
+  .s-icon-btn {
+    padding: 4px 10px; font-size: 12px;
+    border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+    border-radius: var(--mood-radii-button);
+    background: var(--mood-colors-surface); color: var(--mood-colors-text);
+  }
+  .s-table tfoot td {
+    background: var(--mood-colors-panel);
+    color: var(--mood-colors-text-strong); font-weight: 600;
+  }
+  .s-pager {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 12px 16px; font-size: 12px; color: var(--mood-colors-muted);
+    border-top: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+    background: var(--mood-colors-panel);
+  }
+  .s-pages { display: flex; align-items: center; gap: 4px; }
+  .s-page-btn {
+    min-width: 30px; padding: 4px 8px; text-align: center;
+    border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+    border-radius: var(--mood-radii-button);
+    background: var(--mood-colors-surface); color: var(--mood-colors-text); font-size: 12px;
+  }
+  .s-page-btn.s-active {
+    background: var(--mood-colors-accent); border-color: var(--mood-colors-accent);
+    color: var(--mood-colors-on-accent, var(--mood-colors-surface)); font-weight: 600;
+  }
+</style>
+
+<div class="section-label">Data Display</div>
+
+<div class="block flush">
+  <div class="s-toolbar">
+    <div class="s-tool-search">
+      <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true">
+        <circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="1.6" />
+        <line x1="11" y1="11" x2="15" y2="15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+      </svg>
+      <input type="text" placeholder="Search run name or query id" />
+    </div>
+    <select class="s-select" aria-label="Filter by status">
+      <option>All statuses</option>
+      <option>Success</option>
+      <option>Running</option>
+      <option>Queued</option>
+      <option>Failed</option>
+    </select>
+    <select class="s-select" aria-label="Filter by connector">
+      <option>All connectors</option>
+      <option>Snowflake</option>
+      <option>Postgres</option>
+      <option>Stripe</option>
+    </select>
+    <div class="s-range"><span>From</span> 1 Mar 2026 <span>to</span> 31 Mar 2026</div>
+    <div class="s-tool-right">
+      <button type="button">Columns</button>
+      <button type="button" class="primary">Export CSV</button>
+    </div>
+  </div>
+
+  <div class="s-table-wrap">
+    <table class="s-table">
+      <thead>
+        <tr>
+          <th><span class="s-sort s-active">Run <span class="s-sort-ind">▼</span></span></th>
+          <th><span class="s-sort">Connector <span class="s-sort-ind">↕</span></span></th>
+          <th><span class="s-sort">Owner <span class="s-sort-ind">↕</span></span></th>
+          <th><span class="s-sort">Status <span class="s-sort-ind">↕</span></span></th>
+          <th><span class="s-sort">Duration <span class="s-sort-ind">↕</span></span></th>
+          <th><span class="s-sort">Progress <span class="s-sort-ind">↕</span></span></th>
+          <th style="text-align:right">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="s-run"><b>revenue_daily_rollup</b><small>run_88412 · 03:14 UTC</small></div></td>
+          <td>Snowflake</td>
+          <td>Priya Raman</td>
+          <td><span class="s-pill s-ok">Success</span></td>
+          <td class="s-num">4m 12s</td>
+          <td><div class="s-prog"><div class="bar ok"><i style="width:100%"></i></div><span>100%</span></div></td>
+          <td><div class="s-actions"><span class="s-icon-btn">View</span><span class="s-icon-btn">Retry</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="s-run"><b>stripe_payouts_sync</b><small>run_88411 · 03:09 UTC</small></div></td>
+          <td>Stripe</td>
+          <td>Marco Silva</td>
+          <td><span class="s-pill s-ok">Success</span></td>
+          <td class="s-num">58s</td>
+          <td><div class="s-prog"><div class="bar ok"><i style="width:100%"></i></div><span>100%</span></div></td>
+          <td><div class="s-actions"><span class="s-icon-btn">View</span><span class="s-icon-btn">Retry</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="s-run"><b>churn_features_daily</b><small>run_88410 · 03:02 UTC</small></div></td>
+          <td>Postgres</td>
+          <td>Dana Whitfield</td>
+          <td><span class="s-pill s-warn">Running</span></td>
+          <td class="s-num">11m 03s</td>
+          <td><div class="s-prog"><div class="bar warn"><i style="width:72%"></i></div><span>72%</span></div></td>
+          <td><div class="s-actions"><span class="s-icon-btn">View</span><span class="s-icon-btn">Stop</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="s-run"><b>marketing_spend_import</b><small>run_88409 · 02:55 UTC</small></div></td>
+          <td>Snowflake</td>
+          <td>Ivan Petrov</td>
+          <td><span class="s-pill s-ok">Success</span></td>
+          <td class="s-num">2m 47s</td>
+          <td><div class="s-prog"><div class="bar ok"><i style="width:100%"></i></div><span>100%</span></div></td>
+          <td><div class="s-actions"><span class="s-icon-btn">View</span><span class="s-icon-btn">Retry</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="s-run"><b>warehouse_margin_q1</b><small>run_88408 · 02:41 UTC</small></div></td>
+          <td>Postgres</td>
+          <td>Marco Silva</td>
+          <td><span class="s-pill s-danger">Failed</span></td>
+          <td class="s-num">1m 09s</td>
+          <td><div class="s-prog"><div class="bar"><i style="width:34%"></i></div><span>34%</span></div></td>
+          <td><div class="s-actions"><span class="s-icon-btn">Logs</span><span class="s-icon-btn">Retry</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="s-run"><b>session_events_backfill</b><small>run_88407 · 02:30 UTC</small></div></td>
+          <td>Snowflake</td>
+          <td>Priya Raman</td>
+          <td><span class="s-pill s-muted">Queued</span></td>
+          <td class="s-num">—</td>
+          <td><div class="s-prog"><div class="bar"><i style="width:0%"></i></div><span>0%</span></div></td>
+          <td><div class="s-actions"><span class="s-icon-btn">View</span><span class="s-icon-btn">Cancel</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="s-run"><b>product_taxonomy_join</b><small>run_88406 · 02:18 UTC</small></div></td>
+          <td>Postgres</td>
+          <td>Dana Whitfield</td>
+          <td><span class="s-pill s-ok">Success</span></td>
+          <td class="s-num">3m 22s</td>
+          <td><div class="s-prog"><div class="bar ok"><i style="width:100%"></i></div><span>100%</span></div></td>
+          <td><div class="s-actions"><span class="s-icon-btn">View</span><span class="s-icon-btn">Retry</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="s-run"><b>lifetime_value_model</b><small>run_88405 · 02:04 UTC</small></div></td>
+          <td>Snowflake</td>
+          <td>Ivan Petrov</td>
+          <td><span class="s-pill s-warn">Running</span></td>
+          <td class="s-num">6m 41s</td>
+          <td><div class="s-prog"><div class="bar warn"><i style="width:88%"></i></div><span>88%</span></div></td>
+          <td><div class="s-actions"><span class="s-icon-btn">View</span><span class="s-icon-btn">Stop</span></div></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td>Totals</td>
+          <td>3 connectors</td>
+          <td>4 owners</td>
+          <td>5 succeeded</td>
+          <td class="s-num">29m 46s</td>
+          <td><div class="s-prog"><span>63% avg</span></div></td>
+          <td></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <div class="s-pager">
+    <span>Showing 1–8 of 428 runs · 1,204 GB scanned this month</span>
+    <div class="s-pages">
+      <span class="s-page-btn">Prev</span>
+      <span class="s-page-btn s-active">1</span>
+      <span class="s-page-btn">2</span>
+      <span class="s-page-btn">3</span>
+      <span class="s-page-btn">…</span>
+      <span class="s-page-btn">54</span>
+      <span class="s-page-btn">Next</span>
+    </div>
+  </div>
+</div>

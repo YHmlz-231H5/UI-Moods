@@ -1,0 +1,139 @@
+<style>
+  .s-timeline { display: flex; flex-direction: column; }
+  .s-tl-item { display: grid; grid-template-columns: 20px 1fr; gap: 14px; }
+  .s-tl-rail { display: flex; flex-direction: column; align-items: center; }
+  .s-tl-dot {
+    width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0;
+    background: var(--mood-colors-surface);
+    border: 2px solid var(--mood-colors-border);
+  }
+  .s-tl-item.s-done .s-tl-dot { background: var(--mood-colors-ok); border-color: var(--mood-colors-ok); }
+  .s-tl-item.s-active .s-tl-dot {
+    background: var(--mood-colors-accent); border-color: var(--mood-colors-accent);
+    box-shadow: var(--mood-effects-glow, none);
+  }
+  .s-tl-line { flex: 1; width: 2px; background: var(--mood-colors-border); min-height: 26px; }
+  .s-tl-item.s-done .s-tl-line { background: var(--mood-colors-ok); }
+  .s-tl-body { padding-bottom: 22px; }
+  .s-tl-title { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .s-tl-title b { font-size: 13px; font-weight: 600; color: var(--mood-colors-text-strong); }
+  .s-tl-time { font-size: 11px; color: var(--mood-colors-muted); }
+  .s-tl-desc { margin: 4px 0 0; font-size: 12px; color: var(--mood-colors-muted); }
+  .s-steps { display: flex; align-items: flex-start; }
+  .s-step { flex: 1; position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+  .s-step-rail { position: absolute; top: 13px; left: 50%; right: -50%; height: 2px; background: var(--mood-colors-border); }
+  .s-step:last-child .s-step-rail { display: none; }
+  .s-step.s-done .s-step-rail { background: var(--mood-colors-ok); }
+  .s-step-num {
+    position: relative; z-index: 1;
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--mood-colors-bg); color: var(--mood-colors-muted);
+    border: 2px solid var(--mood-colors-border);
+    font-size: 12px; font-weight: 600;
+  }
+  .s-step.s-done .s-step-num { background: var(--mood-colors-ok); border-color: var(--mood-colors-ok); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); }
+  .s-step.s-active .s-step-num { background: var(--mood-colors-accent); border-color: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); }
+  .s-step b { font-size: 12px; font-weight: 600; color: var(--mood-colors-text-strong); }
+  .s-step small { font-size: 11px; color: var(--mood-colors-muted); }
+  .s-stepper { display: flex; flex-direction: column; }
+  .s-st-item { display: grid; grid-template-columns: 26px 1fr; gap: 12px; }
+  .s-st-num {
+    width: 26px; height: 26px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--mood-colors-bg); color: var(--mood-colors-muted);
+    border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+    font-size: 12px; font-weight: 600;
+  }
+  .s-st-item.s-done .s-st-num { background: var(--mood-colors-accent); border-color: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); }
+  .s-st-item.s-active .s-st-num { background: var(--mood-colors-surface); border-color: var(--mood-colors-accent); color: var(--mood-colors-accent); }
+  .s-st-body { padding-bottom: 18px; }
+  .s-st-body b { font-size: 13px; font-weight: 600; color: var(--mood-colors-text-strong); }
+  .s-st-body p { margin: 3px 0 0; font-size: 12px; color: var(--mood-colors-muted); }
+</style>
+
+<div class="section-label">Timeline &amp; Steps</div>
+
+<div class="row">
+  <div class="block">
+    <div class="s-timeline">
+      <div class="s-tl-item s-done">
+        <div class="s-tl-rail"><span class="s-tl-dot"></span><span class="s-tl-line"></span></div>
+        <div class="s-tl-body">
+          <div class="s-tl-title"><b>Connector credentials verified</b><span class="s-tl-time">03 Mar · 09:12</span></div>
+          <p class="s-tl-desc">Snowflake key pair rotated. Old key revoked after a 24 hour overlap window.</p>
+        </div>
+      </div>
+      <div class="s-tl-item s-done">
+        <div class="s-tl-rail"><span class="s-tl-dot"></span><span class="s-tl-line"></span></div>
+        <div class="s-tl-body">
+          <div class="s-tl-title"><b>Historical data backfilled</b><span class="s-tl-time">04 Mar · 22:40</span></div>
+          <p class="s-tl-desc">18.4M rows loaded from the archive bucket into the events schema.</p>
+        </div>
+      </div>
+      <div class="s-tl-item s-active">
+        <div class="s-tl-rail"><span class="s-tl-dot"></span><span class="s-tl-line"></span></div>
+        <div class="s-tl-body">
+          <div class="s-tl-title"><b>Semantic layer validation</b><span class="badge live">In progress</span><span class="s-tl-time">running 4 min</span></div>
+          <p class="s-tl-desc">1,284 metric definitions are checked against the source columns. 62% complete.</p>
+          <div class="bar" style="margin-top:8px"><i style="width:62%"></i></div>
+        </div>
+      </div>
+      <div class="s-tl-item">
+        <div class="s-tl-rail"><span class="s-tl-dot"></span></div>
+        <div class="s-tl-body">
+          <div class="s-tl-title"><b>Publish to production</b><span class="badge">Pending</span></div>
+          <p class="s-tl-desc">Starts automatically once validation passes. Old dashboards stay live until then.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block tint">
+    <div class="s-steps">
+      <div class="s-step s-done">
+        <span class="s-step-rail"></span>
+        <span class="s-step-num">✓</span>
+        <b>Request</b>
+        <small>Access review</small>
+      </div>
+      <div class="s-step s-done">
+        <span class="s-step-rail"></span>
+        <span class="s-step-num">✓</span>
+        <b>Approval</b>
+        <small>Signed by Dana</small>
+      </div>
+      <div class="s-step s-active">
+        <span class="s-step-rail"></span>
+        <span class="s-step-num">3</span>
+        <b>Provisioning</b>
+        <small>Running now</small>
+      </div>
+      <div class="s-step">
+        <span class="s-step-rail"></span>
+        <span class="s-step-num">4</span>
+        <b>Handover</b>
+        <small>Not started</small>
+      </div>
+    </div>
+
+    <div class="s-stepper" style="margin-top:24px">
+      <div class="s-st-item s-done">
+        <span class="s-st-num">✓</span>
+        <div class="s-st-body"><b>Provision workspace</b><p>Schema and semantic models created in 42 seconds.</p></div>
+      </div>
+      <div class="s-st-item s-done">
+        <span class="s-st-num">✓</span>
+        <div class="s-st-body"><b>Connect data sources</b><p>Snowflake and Stripe verified, 2 pending.</p></div>
+      </div>
+      <div class="s-st-item s-active">
+        <span class="s-st-num">3</span>
+        <div class="s-st-body"><b>Invite the team</b><p>4 invitations sent, 2 accepted so far.</p></div>
+      </div>
+      <div class="s-st-item">
+        <span class="s-st-num">4</span>
+        <div class="s-st-body"><b>Publish first dashboard</b><p>Unlocks once two teammates have signed in.</p></div>
+      </div>
+    </div>
+  </div>
+</div>

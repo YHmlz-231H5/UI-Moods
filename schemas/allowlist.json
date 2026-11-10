@@ -1,0 +1,32 @@
+{
+  "$comment": "UI Moods · validate allowlist. Values here may appear as raw literals in a specimen body or app screen. Theme parameters (color, radius, shadow, font family) are NEVER allowlisted — they must resolve to var(--mood-*). See docs/css-var-mapping.md §5.",
+  "fontSize": {
+    "$comment": "Auxiliary text only (labels, meta, captions). Primary type sizes come from var(--mood-typography-*).",
+    "values": [10, 11, 12, 13]
+  },
+  "letterSpacing": {
+    "$comment": "Labels and marks only.",
+    "values": [0.06, 0.08, 0.1, 0.12]
+  },
+  "opacity": {
+    "$comment": "Disabled and meta-hint states only.",
+    "values": [0.4, 0.45, 0.6, 0.7, 0.75]
+  },
+  "fontWeight": {
+    "$comment": "Weights are not injected as CSS variables; these are the values tokens.typography.weights may declare.",
+    "values": [400, 500, 600, 700]
+  },
+  "radius": {
+    "$comment": "Raw border-radius px literals are FORBIDDEN — a radius must resolve to var(--mood-radii-*). The values below are the only documented exceptions.",
+    "exceptions": [999]
+  },
+  "px": {
+    "$comment": "Layout rhythm only: box geometry, offsets, grid tracks, media sizes. Radii/colors/shadows/fonts are protected by separate rules.",
+    "buckets": {
+      "small": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100],
+      "step": [104, 112, 120, 128, 144, 160, 180, 200, 220, 240, 260, 280, 300, 320, 360, 400, 420, 440],
+      "page": [480, 520, 560, 600, 640, 680, 720, 760, 800, 860, 880, 920],
+      "pill": [999]
+    }
+  }
+}

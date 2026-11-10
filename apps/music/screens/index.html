@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Music · 音乐娱乐 — UI Moods App Reference</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 32px;
+      background: var(--mood-colors-bg);
+      color: var(--mood-colors-text);
+      font-family: var(--mood-typography-family);
+      font-size: var(--mood-typography-body-size);
+      line-height: 1.7;
+    }
+    h1 { font-size: var(--mood-typography-display-size); color: var(--mood-colors-text-strong); margin: 0 0 6px; }
+    p.lead { color: var(--mood-colors-muted); margin: 0 0 24px; max-width: 640px; }
+    ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; max-width: 640px; }
+    li {
+      padding: 14px 18px;
+      border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+      border-radius: var(--mood-radii-card);
+      background: var(--mood-colors-surface);
+      box-shadow: var(--mood-shadows-card);
+    }
+    a { color: var(--mood-colors-accent); font-weight: 600; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    li span { color: var(--mood-colors-muted); margin-left: 6px; }
+    li em { display: block; font-style: normal; font-size: var(--mood-typography-label-size); color: var(--mood-colors-muted); margin-top: 4px; }
+  </style>
+  <style id="mood-tokens">
+    :root {
+      --mood-colors-bg: #2b1b47;
+      --mood-colors-panel: rgba(255,255,255,0.06);
+      --mood-colors-surface: rgba(255,120,220,0.10);
+      --mood-colors-text: #d9d0ff;
+      --mood-colors-text-strong: #ffffff;
+      --mood-colors-muted: #9a8fc4;
+      --mood-colors-border: rgba(255,255,255,0.18);
+      --mood-colors-accent: #ff71ce;
+      --mood-colors-on-accent: #2b1b47;
+      --mood-colors-ok: #05d9e8;
+      --mood-colors-warn: #fff95a;
+      --mood-colors-danger: #ff2e63;
+      --mood-typography-family: VT323, Courier New, monospace;
+      --mood-typography-display-size: 46px;
+      --mood-typography-title-size: 16px;
+      --mood-typography-body-size: 14px;
+      --mood-typography-label-size: 11px;
+      --mood-radii-block: 8px;
+      --mood-radii-button: 6px;
+      --mood-radii-card: 12px;
+      --mood-radii-badge: 999px;
+      --mood-radii-input: 6px;
+      --mood-borders-width: 1px;
+      --mood-borders-style: solid;
+      --mood-effects-backdrop-filter: blur(10px);
+      --mood-effects-glow: 0 0 26px rgba(255,113,206,0.55);
+      --mood-shadows-card: 0 10px 36px rgba(20,5,50,0.6);
+      --mood-shadows-button: 0 0 18px rgba(255,113,206,0.4);
+      --mood-spacing-section: 28px;
+      --mood-spacing-block: 18px;
+      --mood-spacing-gap: 12px;
+      --mood-motion-duration: 0.3s;
+      --mood-motion-easing: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+  </style>
+</head>
+<body>
+  <h1>Music · 音乐娱乐</h1>
+  <p class="lead">流媒体音乐应用参考：推荐歌单、播放页、专辑详情与歌词歌手页。</p>
+  <ul>
+<li><a href="./home.html">推荐歌单</a> <span>首页</span></li>
+<li><a href="./player.html">播放页</a> <span>正在播放</span></li>
+<li><a href="./album.html">专辑详情</a> <span>专辑</span></li>
+<li><a href="./lyrics.html">歌词与歌手</a> <span>歌词</span></li>
+  </ul>
+</body>
+</html>

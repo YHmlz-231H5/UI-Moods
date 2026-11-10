@@ -23,5 +23,12 @@ jobs:
       - name: Install
         run: npm ci
 
+      # Generated artifacts must be committed together with their source, so
+      # a stale specimen or screen is a hard failure rather than a warning.
+      - name: Verify generated artifacts are up to date
+        run: |
+          npm run build:all
+          git diff --exit-code --stat -- moods apps
+
       - name: Validate registry
         run: npm run validate

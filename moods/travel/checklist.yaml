@@ -1,0 +1,37 @@
+# travel · acceptance checklist
+
+- id: travel-radius-card
+  type: value
+  description: Card radius must equal tokens.radii.card
+  assert:
+    path: radii.card
+    eq: "16px"
+
+- id: travel-token-only-colors
+  type: token-only
+  description: No color literals outside tokens.colors / resolved components
+  scope: colors
+
+- id: travel-token-only-components
+  type: token-only
+  description: Component semantic layer must only reference tokens, no new literals
+  scope: components
+
+- id: travel-contrast-text
+  type: contrast
+  description: Body text on bg contrast >= 4.5:1
+  foreground: colors.text
+  background: colors.bg
+  minRatio: 4.5
+
+- id: travel-backdrop
+  type: value
+  description: Panels use a soft sky blur
+  assert:
+    path: effects.backdropFilter
+    eq: "blur(8px)"
+
+- id: travel-feel
+  type: subjective
+  description: Interface reads as an airy booking page with pale sky-blue canvas, white panels and a deep teal accent
+  required: false

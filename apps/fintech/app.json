@@ -1,0 +1,181 @@
+{
+  "id": "fintech",
+  "name": "Fintech",
+  "nameZh": "金融理财",
+  "mood": "finance",
+  "description": "移动银行与理财应用参考：资产总览、行情走势、交易明细、转账支付与银行卡管理。",
+  "chrome": {
+    "statusbar": { "time": "9:41" },
+    "tabbar": {
+      "items": [
+        { "icon": "home", "label": "首页", "active": true },
+        { "icon": "chart", "label": "行情" },
+        { "icon": "card", "label": "卡片" },
+        { "icon": "bell", "label": "消息", "badge": "3" },
+        { "icon": "user", "label": "我的" }
+      ]
+    }
+  },
+  "screens": [
+    {
+      "id": "home",
+      "title": "资产总览",
+      "titleZh": "首页",
+      "chrome": {
+        "navbar": { "icon": "layers", "title": "Fluent Bank", "action": "转账" }
+      },
+      "blocks": [
+        { "type": "card", "tint": true, "title": "总资产 (CNY)", "sub": "较昨日 +2.34%", "body": "¥ 286,430.55" },
+        { "type": "statGrid", "cols": 3, "items": [
+          { "label": "可用余额", "value": "¥ 82,140" },
+          { "label": "理财市值", "value": "¥ 156,280", "delta": "+1.2%", "deltaTone": "up" },
+          { "label": "本月收益", "value": "¥ 4,210", "delta": "+8.6%", "deltaTone": "up" }
+        ] },
+        { "type": "search", "placeholder": "搜索理财、基金、转账对象" },
+        { "type": "sectionHead", "title": "快捷操作", "action": "全部" },
+        { "type": "list", "items": [
+          { "icon": "send", "title": "转账", "sub": "实时到账", "chev": true },
+          { "icon": "card", "title": "刷卡支付", "sub": "绑定 3 张卡", "chev": true },
+          { "icon": "coins", "title": "买理财", "sub": "新客专享 6.2%", "chev": true },
+          { "icon": "file", "title": "缴费", "sub": "水电煤话费", "chev": true }
+        ] },
+        { "type": "sectionHead", "title": "持仓概览", "action": "查看明细" },
+        { "type": "bars", "title": "资产走势", "sub": "近 7 日 · 单位千元", "items": [
+          { "label": "周一", "value": 242 },
+          { "label": "周二", "value": 251 },
+          { "label": "周三", "value": 248 },
+          { "label": "周四", "value": 263 },
+          { "label": "周五", "value": 271 },
+          { "label": "周六", "value": 278 },
+          { "label": "周日", "value": 286 }
+        ], "legend": [
+          { "label": "总资产" },
+          { "label": "基准", "alt": true }
+        ] },
+        { "type": "notice", "tone": "warn", "mark": "RISK", "text": "组合中股票型基金占比 42%，高于你的目标 30%。" }
+      ]
+    },
+    {
+      "id": "markets",
+      "title": "行情",
+      "titleZh": "市场行情",
+      "chrome": {
+        "navbar": { "back": true, "title": "行情", "action": "搜索" }
+      },
+      "blocks": [
+        { "type": "chips", "items": [
+          { "label": "自选", "active": true },
+          { "label": "基金" },
+          { "label": "股票" },
+          { "label": "债券" },
+          { "label": "贵金属" }
+        ] },
+        { "type": "header", "title": "沪深 300", "subtitle": "3,842.61", "meta": [
+          { "label": "+1.82%", "tone": "ok" },
+          { "label": "今日" }
+        ] },
+        { "type": "bars", "title": "分时", "sub": "09:30 — 15:00", "items": [
+          { "label": "09:30", "value": 42 },
+          { "label": "10:00", "value": 58 },
+          { "label": "11:00", "value": 51 },
+          { "label": "13:00", "value": 67 },
+          { "label": "14:00", "value": 74 },
+          { "label": "15:00", "value": 82 }
+        ] },
+        { "type": "sectionHead", "title": "我的自选" },
+        { "type": "list", "items": [
+          { "title": "中证白酒", "sub": "512690", "value": "+2.14%", "valueTone": "up" },
+          { "title": "新能源车", "sub": "515030", "value": "-0.86%", "valueTone": "down" },
+          { "title": "恒生科技", "sub": "513130", "value": "+3.47%", "valueTone": "up" },
+          { "title": "红利低波", "sub": "512890", "value": "+0.32%", "valueTone": "up" }
+        ] },
+        { "type": "card", "tint": true, "title": "市场速览", "body": "上涨 2841 · 平盘 112 · 下跌 2160" }
+      ]
+    },
+    {
+      "id": "transactions",
+      "title": "交易明细",
+      "titleZh": "账单",
+      "chrome": {
+        "navbar": { "back": true, "title": "账单", "action": "筛选" }
+      },
+      "blocks": [
+        { "type": "filterbar", "icon": "calendar", "label": "全部账期", "value": "近 3 个月" },
+        { "type": "donut", "title": "支出结构", "sub": "近 3 个月合计 ¥ 18,240", "segments": [
+          { "label": "餐饮", "value": 6840 },
+          { "label": "交通", "value": 3120 },
+          { "label": "购物", "value": 5280 },
+          { "label": "其他", "value": 3000 }
+        ] },
+        { "type": "sectionHead", "title": "今天" },
+        { "type": "list", "items": [
+          { "icon": "shop", "title": "盒马鲜生", "sub": "12:04 · 支付方式 储蓄卡", "value": "-¥ 328.50" },
+          { "icon": "chat", "title": "转账 · 张明", "sub": "09:12 · 已到账", "value": "+¥ 2,000.00", "valueTone": "up" },
+          { "icon": "shop", "title": "滴滴出行", "sub": "08:30 · 行程", "value": "-¥ 46.80" }
+        ] },
+        { "type": "sectionHead", "title": "昨天" },
+        { "type": "list", "items": [
+          { "icon": "coins", "title": "基金分红", "sub": "自动入账", "value": "+¥ 186.20", "valueTone": "up" },
+          { "icon": "file", "title": "电费缴纳", "sub": "国网电力", "value": "-¥ 210.00" }
+        ] },
+        { "type": "sheet", "title": "导出账单", "items": [
+          { "icon": "download", "label": "导出 PDF 对账单" },
+          { "icon": "share", "label": "分享明细" },
+          { "icon": "trash", "label": "清除缓存", "danger": true }
+        ] }
+      ]
+    },
+    {
+      "id": "transfer",
+      "title": "转账支付",
+      "titleZh": "转账",
+      "chrome": {
+        "navbar": { "back": true, "title": "转账", "action": "转账记录" }
+      },
+      "blocks": [
+        { "type": "card", "tint": true, "title": "转账金额", "body": "¥ 0.00" },
+        { "type": "form", "blocks": [] },
+        { "type": "formGroup", "label": "收款信息", "rows": [
+          { "icon": "user", "label": "收款人", "value": "张明 (6214 **** 8832)" },
+          { "icon": "building", "label": "开户行", "value": "招商银行 上海分行" }
+        ] },
+        { "type": "formGroup", "label": "转账方式", "rows": [
+          { "label": "实时到账", "hint": "免费", "type": "radio", "checked": true },
+          { "label": "普通到账", "hint": "次日 09:00 前", "type": "radio" },
+          { "label": "免密转出", "hint": "单笔 ¥ 50,000 以内", "type": "switch", "on": true }
+        ] },
+        { "type": "field", "label": "转账备注", "input": "text", "value": "项目首款", "placeholder": "选填" },
+        { "type": "notice", "tone": "info", "mark": "TIP", "text": "转账后 2 小时内可在「转账记录」中撤回。" },
+        { "type": "card", "flat": true, "actions": [
+          { "label": "取消", "primary": false },
+          { "label": "确认转账", "primary": true }
+        ] }
+      ]
+    },
+    {
+      "id": "cards",
+      "title": "卡片管理",
+      "titleZh": "我的卡",
+      "chrome": {
+        "navbar": { "back": true, "title": "我的卡", "action": "添加" }
+      },
+      "blocks": [
+        { "type": "card", "tint": true, "title": "Fluent · 储蓄卡", "sub": "6222 **** **** 4417", "body": "可用 ¥ 82,140.32", "actions": [
+          { "label": "转出", "primary": true },
+          { "label": "明细", "primary": false }
+        ] },
+        { "type": "card", "title": "Fluent · 信用卡", "sub": "5200 **** **** 9034", "body": "本期账单 ¥ 6,280.00 · 还款日 12 日" },
+        { "type": "sectionHead", "title": "卡片服务" },
+        { "type": "list", "items": [
+          { "icon": "lock", "title": "锁卡与挂失", "chev": true },
+          { "icon": "settings", "title": "交易限额", "value": "¥ 100,000", "chev": true },
+          { "icon": "eye", "title": "安全设置", "chev": true },
+          { "icon": "share", "title": "分享卡片", "chev": true }
+        ] },
+        { "type": "sectionHead", "title": "本月额度" },
+        { "type": "progress", "label": "已用额度", "value": "¥ 6,280 / ¥ 40,000", "pct": 16, "tone": "ok" },
+        { "type": "promo", "icon": "bolt", "title": "分期免息", "sub": "本期账单可分 12 期，手续费 ¥ 0" }
+      ]
+    }
+  ]
+}

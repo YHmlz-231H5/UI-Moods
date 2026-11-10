@@ -1,0 +1,153 @@
+{
+  "id": "logistics",
+  "name": "Logistics",
+  "nameZh": "物流快递",
+  "mood": "aurora",
+  "description": "货运与快递服务参考：运单查询、路线跟踪、签收确认与异常处理。",
+  "chrome": {
+    "statusbar": { "time": "9:41" },
+    "tabbar": {
+      "items": [
+        { "icon": "home", "label": "首页", "active": true },
+        { "icon": "truck", "label": "运单" },
+        { "icon": "location", "label": "轨迹" },
+        { "icon": "user", "label": "我的" }
+      ]
+    }
+  },
+  "screens": [
+    {
+      "id": "track",
+      "title": "运单查询",
+      "titleZh": "查件",
+      "chrome": { "navbar": { "icon": "truck", "title": "速达物流", "action": "扫码" } },
+      "blocks": [
+        { "type": "search", "placeholder": "输入运单号或手机号后四位" },
+        { "type": "statGrid", "cols": 3, "items": [
+          { "label": "在途", "value": "3" },
+          { "label": "待揽收", "value": "1" },
+          { "label": "本月已签收", "value": "128" }
+        ] },
+        { "type": "sectionHead", "title": "在途运单", "action": "全部 4 单" },
+        { "type": "order", "title": "SF7283910456", "status": "运输中", "statusTone": "accent", "body": [
+          { "label": "发货地", "value": "深圳市宝安区 · 仓库 A3" },
+          { "label": "目的地", "value": "上海市浦东新区 · 张江" },
+          { "label": "预计送达", "value": "11-06 18:00 前" }
+        ], "foot": { "text": "最新轨迹 14:22 已到达 苏州转运中心", "action": "查看" } },
+        { "type": "list", "items": [
+          { "icon": "card", "title": "顺丰 SF1120438876", "sub": "北京 朝阳 · 电商小件", "value": "待揽收", "valueTone": "warn", "chev": true },
+          { "icon": "truck", "title": "德邦 DB66510293", "sub": "武汉 汉口 · 120 kg 家具", "value": "运输中", "valueTone": "ok", "chev": true },
+          { "icon": "file", "title": "京东 JDVA009283716", "sub": "广州 天河 · 合同文件", "value": "已签收", "valueTone": "up", "chev": true }
+        ] },
+        { "type": "progress", "label": "运输进度", "value": "62% · 剩余 1,140 km", "pct": 62, "tone": "ok" },
+        { "type": "notice", "tone": "info", "mark": "通知", "text": "已开启签收短信通知，包裹签收后 5 分钟内推送结果。" },
+        { "type": "promo", "icon": "gift", "title": "邀请寄件返 20 元券", "sub": "每邀请一位好友首单，返还 20 元寄件券" }
+      ]
+    },
+    {
+      "id": "route",
+      "title": "路线跟踪",
+      "titleZh": "轨迹",
+      "chrome": { "navbar": { "back": true, "title": "运输轨迹", "action": "分享" } },
+      "blocks": [
+        { "type": "map", "icon": "truck", "pin": true, "label": "当前位置：苏州转运中心 · 距上海 186 km" },
+        { "type": "statGrid", "cols": 3, "items": [
+          { "label": "剩余里程", "value": "186 km" },
+          { "label": "预计用时", "value": "2h 40m" },
+          { "label": "当前车速", "value": "78 km/h" }
+        ] },
+        { "type": "sectionHead", "title": "站点轨迹", "action": "全部节点" },
+        { "type": "timeline", "items": [
+          { "title": "已到达 苏州转运中心", "sub": "分拣完成，等待发往上海", "time": "11-05 14:22", "state": "done" },
+          { "title": "已离开 南京集散中心", "sub": "装车 42 件 · 配载正常", "time": "11-05 09:05", "state": "done" },
+          { "title": "已到达 南京集散中心", "sub": "中转耗时 3 小时 12 分", "time": "11-05 05:53", "state": "done" },
+          { "title": "已发出 深圳市宝安仓库 A3", "sub": "揽收人 李伟 · 联系电话已隐去", "time": "11-04 21:47", "state": "done" },
+          { "title": "预计到达 上海浦东分部", "sub": "预计 11-05 17:40 前", "time": "预计", "state": "pending" }
+        ] },
+        { "type": "bars", "title": "近期时效达成率", "sub": "近 6 单 · 单位：%", "items": [
+          { "label": "第 1 单", "value": 98 },
+          { "label": "第 2 单", "value": 92 },
+          { "label": "第 3 单", "value": 86 },
+          { "label": "第 4 单", "value": 95 },
+          { "label": "第 5 单", "value": 74 },
+          { "label": "第 6 单", "value": 90 }
+        ], "legend": [
+          { "label": "准时率" },
+          { "label": "承运商均值", "alt": true }
+        ] },
+        { "type": "list", "items": [
+          { "icon": "building", "title": "下一站 · 上海浦东分部", "sub": "预计 17:40 到达 · 派送员待接单", "value": "186 km", "chev": true },
+          { "icon": "user", "title": "收件人 张先生", "sub": "联系电话 138****6021", "value": "已验真", "valueTone": "ok" }
+        ] },
+        { "type": "notice", "tone": "warn", "mark": "拥堵", "text": "当前路段 G2 京沪高速拥堵，预计延误 25 分钟，已同步告知收件人。" }
+      ]
+    },
+    {
+      "id": "delivery",
+      "title": "签收确认",
+      "titleZh": "签收",
+      "chrome": { "navbar": { "back": true, "title": "签收确认", "action": "帮助" } },
+      "blocks": [
+        { "type": "card", "media": true, "mediaTag": "冷链", "tint": true, "title": "待签收包裹", "sub": "运单 SF7283910456", "body": "1 件 · 保温箱 12.4 kg · 温区 2-8℃" },
+        { "type": "formGroup", "label": "签收方式", "rows": [
+          { "label": "本人签收", "hint": "需当面验货", "type": "radio", "checked": true },
+          { "label": "代收点自提", "hint": "虹桥代收点 · 步行 6 分钟", "type": "radio" },
+          { "label": "放前台", "hint": "需上传门牌照片", "type": "radio" }
+        ] },
+        { "type": "field", "label": "签收人姓名", "input": "text", "value": "张明", "placeholder": "请输入签收人姓名" },
+        { "type": "field", "label": "签收验证码", "input": "number", "value": "428 913", "placeholder": "6 位数字验证码", "help": "已发送至 138****6021，校验通过", "state": "ok" },
+        { "type": "formGroup", "label": "拍照留证", "rows": [
+          { "icon": "camera", "label": "上传开箱照片", "hint": "最多 3 张", "value": "已上传 2 张" },
+          { "icon": "file", "label": "上传面单照片", "hint": "可选", "value": "未上传" }
+        ] },
+        { "type": "prices", "items": [
+          { "label": "运费", "value": "¥ 18.00", "muted": true },
+          { "label": "保价服务", "value": "¥ 2.00", "muted": true },
+          { "label": "签收合计", "value": "¥ 20.00", "total": true }
+        ] },
+        { "type": "notice", "tone": "warn", "mark": "验货", "text": "冷链包裹请在 30 分钟内完成验货，签收后不再受理质量异议。" },
+        { "type": "card", "flat": true, "actions": [
+          { "label": "取消", "primary": false },
+          { "label": "确认签收", "primary": true }
+        ] }
+      ]
+    },
+    {
+      "id": "exception",
+      "title": "异常处理",
+      "titleZh": "异常",
+      "chrome": { "navbar": { "back": true, "title": "异常工单", "action": "进度" } },
+      "blocks": [
+        { "type": "notice", "tone": "danger", "mark": "异常", "text": "运单 SF7283910456 在苏州转运中心滞留，已超出约定时效 6 小时。" },
+        { "type": "order", "title": "异常工单 EX-20241105-0271", "status": "处理中", "statusTone": "warn", "body": [
+          { "label": "异常类型", "value": "中转滞留 / 温控波动" },
+          { "label": "责任网点", "value": "苏州吴中转运场" },
+          { "label": "承诺回复", "value": "11-05 17:30 前" }
+        ] },
+        { "type": "statGrid", "cols": 3, "items": [
+          { "label": "滞留时长", "value": "6h 12m", "delta": "+2h", "deltaTone": "down" },
+          { "label": "温控区间", "value": "9.4℃", "delta": "+3.2℃", "deltaTone": "down" },
+          { "label": "赔付预估", "value": "¥ 180", "delta": "待定", "deltaTone": "warn" }
+        ] },
+        { "type": "sectionHead", "title": "工单处理进度", "action": "联系客服" },
+        { "type": "timeline", "items": [
+          { "title": "系统已识别异常并生成工单", "sub": "触发规则：中转停留超过 4 小时", "time": "11-05 14:35", "state": "done" },
+          { "title": "已联系责任网点核实原因", "sub": "值班主管 张涛 · 已回电", "time": "11-05 15:02", "state": "done" },
+          { "title": "滞留原因为爆仓积压", "sub": "已协调加派 1 趟班车", "time": "11-05 15:40", "state": "pending" },
+          { "title": "赔付方案确认", "sub": "预计 11-05 17:30 前给出结论", "time": "预计", "state": "pending" }
+        ] },
+        { "type": "form", "blocks": [
+          { "type": "field", "label": "异常类型", "input": "select", "value": "长时间滞留", "options": ["长时间滞留", "温控异常", "包裹破损", "地址信息错误"] },
+          { "type": "field", "label": "补充说明", "input": "textarea", "value": "外箱封条完好，内部温度显示 12℃，已拍照留证。", "placeholder": "描述异常情况" },
+          { "type": "field", "label": "异常照片", "input": "text", "value": "", "placeholder": "上传照片支持 PNG / JPG" }
+        ] },
+        { "type": "list", "items": [
+          { "icon": "building", "title": "苏州吴中转运场", "sub": "值班主管 张涛 · 138****4102", "value": "可致电", "chev": true },
+          { "icon": "chat", "title": "在线客服", "sub": "客服小满 · 平均 30 秒响应", "value": "可留言", "chev": true }
+        ] },
+        { "type": "notice", "tone": "info", "mark": "理赔", "text": "理赔申请需在签收后 48 小时内提交，逾期将按保价上限赔付。" },
+        { "type": "empty", "icon": "file", "title": "暂无更多历史工单", "sub": "你的异常处理记录会保留 90 天" }
+      ]
+    }
+  ]
+}

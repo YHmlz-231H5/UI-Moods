@@ -5,7 +5,10 @@ is merged and registered in `moods.json`.
 
 ## Steps
 
-1. **Scaffold** — copy `templates/mood/` to `moods/<your-id>/`.
+1. **Scaffold** — `npx ui-moods scaffold mood <id> --name "Name" --name-zh "名称"`.
+   This writes `tokens.json`, `prompt.md` and `checklist.yaml` from the
+   template. Add `--from <existing-id>` to start from another mood's palette.
+   (You can also copy `templates/mood/` by hand.)
 2. **tokens.json** — fill every required field (`id`, `version`, `meta`,
    `colors`, `typography`, `radii`, `borders`, `effects`, `shadows`,
    `spacing`, `motion`). Schema: `schemas/tokens.schema.json`.
@@ -32,16 +35,32 @@ is merged and registered in `moods.json`.
 ## Rules
 
 - `specimen.html` is generated output. Changes to the matrix go into
-  `templates/mood/specimen.html`, then regenerate every mood.
+  `templates/mood/sections/*.html`, then regenerate every mood.
+- Section partials prefix their classes with `s-` so they cannot collide
+  with the shell or with another partial.
+- A partial may carry its own `<style>` block (scoped to its `s-` classes) and
+  should wrap its markup in one root element. Partial order is filename order,
+  so name them `NN-topic.html`.
 - HTML comments must not contain the literal `<style id="mood-tokens">`
   opening tag (it breaks `build-specimen`).
+- The shell must contain the sections marker **exactly once**, inside `<body>`.
+  `build-specimen` injects at the *last* occurrence, so a stray copy in the
+  shell's leading comment or footer would capture every section. Likewise, do
+  not write the marker inside a section partial.
+- `validate` rejects a generated file that still contains an unreplaced
+  `{{placeholder}}`, or that has block-level content inside `<head>` — both
+  are signs the shell and the build script drifted apart.
 - Optional token usages in the template need CSS fallbacks
   (`var(--mood-effects-glow, none)`), see `docs/css-var-mapping.md` §8.
 - New hardcoded layout literals must be added to the allowlist in
-  `docs/css-var-mapping.md` §5 before `validate` will pass.
+  `schemas/allowlist.json` (documented in `docs/css-var-mapping.md` §5)
+  before `validate` will pass.
 - Fractional lengths are fine **in tokens** (`borders.width`, shadows), but
   never as raw literals in specimen body CSS — token values travel through
   `var(--mood-*)` into the exempt `style#mood-tokens` block.
+- Radii must resolve to `var(--mood-radii-*)`. A raw `border-radius: 12px` in
+  the specimen is a validation error even when `12px` is a legal layout
+  metric — radii are theme parameters, not layout mechanics.
 - Keep tokens the source of truth: colors, radii, shadows, spacing-scale,
   fonts, effects and motion never get hardcoded in the specimen.
 
@@ -49,3 +68,39 @@ is merged and registered in `moods.json`.
 
 See `docs/schema-checklist.md` — only `colors` and `components` scopes drive a
 dedicated scan in v1; other scopes are reserved and warn when used.
+
+---
+
+# Contributing a new app pack
+
+An app pack describes a set of mobile screens for one industry, as data.
+
+## Steps
+
+1. **Scaffold** — `npx ui-moods scaffold app <id> --name "Name" --name-zh "名称" --mood glass`.
+2. **app.json** — edit the screen definitions:
+   - `mood` — which mood's tokens the screens inherit. **Required.**
+   - `chrome` — app-wide `statusbar` and `tabbar`. Every screen inherits them.
+   - `screens[]` — each screen has an `id`, a `title`, an optional
+     `chrome.navbar` override, and a `blocks` array.
+3. **Render** — `npx ui-moods build-apps <id>`.
+4. **Validate** — `npx ui-moods validate --app <id>` must print PASS.
+5. **Register** — add the app to `apps.json`, then run the full
+   `npx ui-moods validate`.
+
+## Rules
+
+- `apps/<id>/screens/*.html` is generated output. Never hand-edit it — edit
+  `app.json` and re-render.
+- Block types and their exact props are defined in `tools/lib/blocks.mjs`.
+  Only those names are valid; an unknown type fails the renderer.
+- Icon names come from `tools/lib/icons.mjs`. Only those names are valid.
+- Blocks describe **content**, not markup. A block never carries a color,
+  radius, shadow or font of its own — the renderer only emits
+  `var(--mood-*)` references.
+- Semantic tones are names, not colors: `ok` / `warn` / `danger` / `accent` /
+  `up` / `down`. The stylesheet maps them onto the mood's palette.
+- `app.json` is the authoritative form for agents. The rendered HTML is for
+  humans and for the gallery.
+- Shared screen styling lives in `templates/app/app.css`. If you add a
+  visual pattern that needs new CSS, add it there — not inline in a block.

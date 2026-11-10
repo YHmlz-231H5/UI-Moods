@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Health · 医疗健康 — UI Moods App Reference</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 32px;
+      background: var(--mood-colors-bg);
+      color: var(--mood-colors-text);
+      font-family: var(--mood-typography-family);
+      font-size: var(--mood-typography-body-size);
+      line-height: 1.7;
+    }
+    h1 { font-size: var(--mood-typography-display-size); color: var(--mood-colors-text-strong); margin: 0 0 6px; }
+    p.lead { color: var(--mood-colors-muted); margin: 0 0 24px; max-width: 640px; }
+    ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; max-width: 640px; }
+    li {
+      padding: 14px 18px;
+      border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+      border-radius: var(--mood-radii-card);
+      background: var(--mood-colors-surface);
+      box-shadow: var(--mood-shadows-card);
+    }
+    a { color: var(--mood-colors-accent); font-weight: 600; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    li span { color: var(--mood-colors-muted); margin-left: 6px; }
+    li em { display: block; font-style: normal; font-size: var(--mood-typography-label-size); color: var(--mood-colors-muted); margin-top: 4px; }
+  </style>
+  <style id="mood-tokens">
+    :root {
+      --mood-colors-bg: #f0f7f8;
+      --mood-colors-panel: #ffffff;
+      --mood-colors-surface: #ffffff;
+      --mood-colors-text: #2c4a4e;
+      --mood-colors-text-strong: #14343a;
+      --mood-colors-muted: #6d8b90;
+      --mood-colors-border: #d3e5e7;
+      --mood-colors-accent: #0e7c86;
+      --mood-colors-on-accent: #ffffff;
+      --mood-colors-ok: #2f9e44;
+      --mood-colors-warn: #f08c00;
+      --mood-colors-danger: #e03131;
+      --mood-typography-family: Source Sans 3, Inter, system-ui, sans-serif;
+      --mood-typography-display-size: 34px;
+      --mood-typography-title-size: 16px;
+      --mood-typography-body-size: 14px;
+      --mood-typography-label-size: 12px;
+      --mood-radii-block: 8px;
+      --mood-radii-button: 8px;
+      --mood-radii-card: 14px;
+      --mood-radii-badge: 999px;
+      --mood-radii-input: 8px;
+      --mood-borders-width: 1px;
+      --mood-borders-style: solid;
+      --mood-effects-backdrop-filter: none;
+      --mood-effects-glow: none;
+      --mood-shadows-card: 0 4px 16px rgba(20,52,58,0.08);
+      --mood-shadows-button: 0 1px 3px rgba(20,52,58,0.10);
+      --mood-spacing-section: 24px;
+      --mood-spacing-block: 16px;
+      --mood-spacing-gap: 12px;
+      --mood-motion-duration: 0.2s;
+      --mood-motion-easing: ease;
+    }
+  </style>
+</head>
+<body>
+  <h1>Health · 医疗健康</h1>
+  <p class="lead">互联网医院与健康管理应用参考：健康指标总览、预约挂号、医生详情、报告解读与个人健康档案。</p>
+  <ul>
+<li><a href="./home.html">健康首页</a> <span>首页</span></li>
+<li><a href="./booking.html">预约挂号</a> <span>挂号</span></li>
+<li><a href="./doctor.html">医生详情</a> <span>医生</span></li>
+<li><a href="./report.html">报告解读</a> <span>报告</span></li>
+<li><a href="./records.html">健康档案</a> <span>档案</span></li>
+  </ul>
+</body>
+</html>

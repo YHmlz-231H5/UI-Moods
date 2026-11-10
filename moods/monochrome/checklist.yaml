@@ -1,0 +1,30 @@
+# monochrome · acceptance checklist
+
+- id: monochrome-radius-card
+  type: value
+  description: Card radius must equal tokens.radii.card
+  assert:
+    path: radii.card
+    eq: "2px"
+
+- id: monochrome-token-only-colors
+  type: token-only
+  description: No color literals outside tokens.colors / resolved components
+  scope: colors
+
+- id: monochrome-token-only-components
+  type: token-only
+  description: Component semantic layer must only reference tokens, no new literals
+  scope: components
+
+- id: monochrome-contrast-text
+  type: contrast
+  description: Body text on bg contrast >= 4.5:1
+  foreground: colors.text
+  background: colors.bg
+  minRatio: 4.5
+
+- id: monochrome-feel
+  type: subjective
+  description: Greyscale-only surfaces read as clinical and deliberately stripped back
+  required: false

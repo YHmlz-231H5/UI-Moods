@@ -1,0 +1,185 @@
+<style>
+  .s-media-card {
+    position: relative; overflow: hidden;
+    border-radius: var(--mood-radii-card);
+    border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+    background: var(--mood-colors-surface);
+    box-shadow: var(--mood-shadows-card);
+  }
+  .s-media-art {
+    height: 144px; position: relative;
+    background:
+      radial-gradient(circle at 24% 30%, var(--mood-colors-accent), transparent 60%),
+      linear-gradient(135deg, var(--mood-colors-panel), var(--mood-colors-bg));
+  }
+  .s-media-art::after {
+    content: ""; position: absolute; inset: 0;
+    background: repeating-linear-gradient(90deg, var(--mood-colors-border) 0 1px, transparent 1px 26px);
+    opacity: 0.4;
+  }
+  .s-media-tag {
+    position: absolute; top: 12px; left: 12px; z-index: 1;
+    padding: 3px 10px; border-radius: var(--mood-radii-badge);
+    background: var(--mood-colors-accent);
+    color: var(--mood-colors-on-accent, var(--mood-colors-surface));
+    font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .s-media-body { padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+  .s-media-body b { font-size: var(--mood-typography-title-size); font-weight: 600; color: var(--mood-colors-text-strong); }
+  .s-media-body p { margin: 0; font-size: 12px; color: var(--mood-colors-muted); }
+  .s-meta-row { display: flex; align-items: center; gap: 10px; font-size: 11px; color: var(--mood-colors-muted); }
+  .s-stat-card { padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+  .s-stat-ring {
+    width: 64px; height: 64px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--mood-colors-bg); color: var(--mood-colors-accent);
+    font-size: var(--mood-typography-title-size); font-weight: 700;
+  }
+  .s-price-card { padding: 20px; display: flex; flex-direction: column; gap: 14px; position: relative; }
+  .s-price-card.s-featured {
+    border-color: var(--mood-colors-accent);
+    box-shadow: var(--mood-shadows-card);
+    background: var(--mood-colors-panel);
+  }
+  .s-price-badge {
+    align-self: flex-end;
+    padding: 3px 10px; border-radius: var(--mood-radii-badge);
+    background: var(--mood-colors-accent);
+    color: var(--mood-colors-on-accent, var(--mood-colors-surface));
+    font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600;
+  }
+  .s-price { display: flex; align-items: baseline; gap: 6px; }
+  .s-price b { font-size: var(--mood-typography-display-size); line-height: 1; color: var(--mood-colors-text-strong); font-weight: 700; }
+  .s-price span { font-size: 12px; color: var(--mood-colors-muted); }
+  .s-feature-list { display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 0; list-style: none; }
+  .s-feature-list li { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; color: var(--mood-colors-text); }
+  .s-feature-list li::before { content: "✓"; color: var(--mood-colors-ok); font-size: 12px; }
+  .s-feature-list li.s-off { color: var(--mood-colors-muted); opacity: 0.6; }
+  .s-feature-list li.s-off::before { content: "—"; color: var(--mood-colors-muted); }
+  .s-list-card { display: flex; flex-direction: column; }
+  .s-list-card-head {
+    display: flex; align-items: center; gap: 14px; padding: 16px;
+    border-bottom: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+  }
+  .s-list-avatar {
+    width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface));
+    font-size: 13px; font-weight: 700;
+  }
+  .s-list-card-body { padding: 12px 16px; display: flex; flex-direction: column; }
+  .s-list-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 0;
+    border-bottom: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+  }
+  .s-list-row:last-child { border-bottom: 0; }
+  .s-list-row .s-row-name { flex: 1; min-width: 0; }
+  .s-list-row .s-row-name b { display: block; font-size: 13px; font-weight: 600; color: var(--mood-colors-text-strong); }
+  .s-list-row .s-row-name small { font-size: 11px; color: var(--mood-colors-muted); }
+  .s-avatar-stack { display: inline-flex; align-items: center; }
+  .s-avatar-stack .s-mini-avatar {
+    width: 26px; height: 26px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 600;
+    background: var(--mood-colors-surface); color: var(--mood-colors-text-strong);
+    border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+  }
+  .s-avatar-stack .s-mini-avatar + .s-mini-avatar { transform: translateX(-35%); }
+  .s-avatar-stack .s-mini-avatar.s-more { background: var(--mood-colors-bg); color: var(--mood-colors-muted); }
+  .s-icon-btn {
+    padding: 4px 10px; font-size: 12px;
+    border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+    border-radius: var(--mood-radii-button);
+    background: var(--mood-colors-surface); color: var(--mood-colors-text);
+  }
+</style>
+
+<div class="section-label">Card Layouts</div>
+
+<div class="row">
+  <div class="s-media-card">
+    <div class="s-media-art"><span class="s-media-tag">Featured</span></div>
+    <div class="s-media-body">
+      <b>Warehouse margin, by region</b>
+      <p>Margin expanded 4.2 points after the Q1 freight renegotiation, driven by the Rotterdam hub.</p>
+      <div class="s-meta-row"><span>8 min read</span><span>·</span><span>Priya Raman</span></div>
+      <div class="btn-row" style="margin-top:4px">
+        <button type="button" class="primary">Open report</button>
+        <button type="button">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="s-stat-card">
+      <div class="s-stat-ring">92%</div>
+      <div>
+        <b style="font-size:var(--mood-typography-title-size);color:var(--mood-colors-text-strong);display:block">Pipeline coverage</b>
+        <p style="margin:4px 0 0;font-size:12px;color:var(--mood-colors-muted)">Q3 target is 4.1×. Coverage has been above 3× for six consecutive weeks.</p>
+      </div>
+      <div class="bar ok"><i style="width:92%"></i></div>
+      <div class="s-meta-row"><span class="badge ok">Healthy</span><span>Updated 2 hours ago</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="block">
+    <div class="s-price-card s-featured">
+      <span class="s-price-badge">Most popular</span>
+      <div>
+        <div class="s-kpi-label">Growth plan</div>
+        <div class="s-price"><b>$240</b><span>per month, billed annually</span></div>
+      </div>
+      <ul class="s-feature-list">
+        <li>5 connectors, unlimited dashboards</li>
+        <li>Row-level access rules</li>
+        <li>Scheduled email delivery</li>
+        <li>Priority support, 4 hour response</li>
+        <li class="s-off">On-premise deployment</li>
+      </ul>
+      <div class="btn-row"><button type="button" class="primary">Start free trial</button></div>
+      <p class="s-chart-sub" style="margin:0">Cancel any time. No data is deleted for 30 days.</p>
+    </div>
+  </div>
+
+  <div class="block flush">
+    <div class="s-list-card">
+      <div class="s-list-card-head">
+        <div class="s-list-avatar">PR</div>
+        <div>
+          <b style="font-size:var(--mood-typography-title-size);color:var(--mood-colors-text-strong);display:block">Priya Raman</b>
+          <span style="font-size:12px;color:var(--mood-colors-muted)">Shared a report with 4 teammates</span>
+        </div>
+        <div class="s-avatar-stack" style="margin-left:auto">
+          <span class="s-mini-avatar">MS</span>
+          <span class="s-mini-avatar">DW</span>
+          <span class="s-mini-avatar">IP</span>
+          <span class="s-mini-avatar s-more">+1</span>
+        </div>
+      </div>
+      <div class="s-list-card-body">
+        <div class="s-list-row">
+          <div class="s-row-name"><b>Checkout funnel</b><small>Updated 12 minutes ago</small></div>
+          <span class="badge live">Live</span>
+          <button type="button" class="s-icon-btn">Open</button>
+        </div>
+        <div class="s-list-row">
+          <div class="s-row-name"><b>Return rate by cohort</b><small>Updated 3 hours ago</small></div>
+          <span class="badge">Draft</span>
+          <button type="button" class="s-icon-btn">Open</button>
+        </div>
+        <div class="s-list-row">
+          <div class="s-row-name"><b>Ad spend efficiency</b><small>Updated yesterday</small></div>
+          <span class="badge">Archived</span>
+          <button type="button" class="s-icon-btn">Open</button>
+        </div>
+      </div>
+      <div class="s-list-card-head" style="border-bottom:0;border-top:var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);justify-content:space-between">
+        <span style="font-size:11px;color:var(--mood-colors-muted)">3 of 12 reports</span>
+        <button type="button">View all</button>
+      </div>
+    </div>
+  </div>
+</div>

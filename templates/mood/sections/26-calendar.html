@@ -1,0 +1,184 @@
+<style>
+.s-cal-top { display: grid; grid-template-columns: 1.6fr 1fr; gap: var(--mood-spacing-gap); align-items: start; }
+.s-cal-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+.s-cal-head h3 { margin: 0; font-size: var(--mood-typography-title-size); font-weight: 600; color: var(--mood-colors-text-strong); }
+.s-cal-nav { display: flex; align-items: center; gap: 6px; }
+.s-cal-nav button { width: 30px; height: 30px; padding: 0; display: flex; align-items: center; justify-content: center; }
+.s-cal-nav svg { width: 15px; height: 15px; }
+.s-cal-views { display: inline-flex; gap: 2px; padding: 3px; background: var(--mood-colors-bg); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); border-radius: var(--mood-radii-input); }
+.s-cal-views span { padding: 5px 10px; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mood-colors-muted); border-radius: var(--mood-radii-badge); }
+.s-cal-views span.on { background: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); }
+.s-cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); border-top: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); border-left: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); border-radius: var(--mood-radii-input); overflow: hidden; }
+.s-cal-dow { padding: 8px 10px; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mood-colors-muted); background: var(--mood-colors-panel); border-right: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); border-bottom: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
+.s-cal-cell { min-height: 88px; padding: 6px; border-right: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); border-bottom: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); background: var(--mood-colors-surface); }
+.s-cal-cell.out { background: var(--mood-colors-panel); }
+.s-cal-num { display: flex; align-items: center; justify-content: space-between; font-size: 11px; color: var(--mood-colors-text); margin-bottom: 4px; }
+.s-cal-cell.out .s-cal-num { color: var(--mood-colors-muted); opacity: 0.6; }
+.s-cal-today { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; background: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); font-weight: 700; }
+.s-cal-ev { display: block; font-size: 10px; padding: 3px 6px; margin-bottom: 3px; border-radius: var(--mood-radii-badge); border-left: 2px solid var(--mood-colors-accent); background: var(--mood-colors-panel); color: var(--mood-colors-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.s-cal-ev.ok { border-left-color: var(--mood-colors-ok); }
+.s-cal-ev.warn { border-left-color: var(--mood-colors-warn); }
+.s-cal-ev.danger { border-left-color: var(--mood-colors-danger); }
+.s-cal-more { font-size: 10px; color: var(--mood-colors-muted); }
+.s-cal-pop { padding: 14px; border-radius: var(--mood-radii-card); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); background: var(--mood-colors-surface); box-shadow: var(--mood-shadows-card); }
+.s-cal-pop-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.s-cal-pop-head b { font-size: var(--mood-typography-title-size); font-weight: 600; color: var(--mood-colors-text-strong); }
+.s-cal-pop-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+.s-cal-pop-grid span { font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mood-colors-muted); text-align: center; padding-bottom: 4px; }
+.s-cal-pd { display: flex; align-items: center; justify-content: center; height: 30px; font-size: 12px; border-radius: var(--mood-radii-button); color: var(--mood-colors-text); }
+.s-cal-pd.out { color: var(--mood-colors-muted); opacity: 0.6; }
+.s-cal-pd.today { border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-accent); color: var(--mood-colors-accent); }
+.s-cal-pd.on { background: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); }
+.s-cal-pop-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; padding-top: 10px; border-top: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); font-size: 11px; color: var(--mood-colors-muted); }
+.s-cal-week { margin-top: var(--mood-spacing-gap); }
+.s-cal-week-head { display: grid; grid-template-columns: 56px repeat(7, 1fr); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); border-bottom: 0; border-radius: var(--mood-radii-input) var(--mood-radii-input) 0 0; overflow: hidden; }
+.s-cal-dayhead { padding: 8px; text-align: center; border-left: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); background: var(--mood-colors-panel); }
+.s-cal-dayhead b { display: block; font-size: 11px; font-weight: 600; color: var(--mood-colors-text-strong); }
+.s-cal-dayhead span { font-size: 10px; color: var(--mood-colors-muted); }
+.s-cal-week-body { display: grid; grid-template-columns: 56px repeat(7, 1fr); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); border-radius: 0 0 var(--mood-radii-input) var(--mood-radii-input); overflow: hidden; }
+.s-cal-hours { border-right: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); background: var(--mood-colors-panel); }
+.s-cal-hours span { display: block; height: 40px; padding: 2px 8px 0 0; text-align: right; font-size: 10px; color: var(--mood-colors-muted); border-bottom: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
+.s-cal-hours span:last-child { border-bottom: 0; }
+.s-cal-col { position: relative; height: 280px; border-left: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
+.s-cal-wev { position: absolute; left: 4px; right: 4px; height: 36px; padding: 4px 6px; border-radius: var(--mood-radii-badge); background: var(--mood-colors-panel); border-left: 2px solid var(--mood-colors-accent); }
+.s-cal-wev b { display: block; font-size: 11px; font-weight: 600; color: var(--mood-colors-text-strong); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.s-cal-wev span { font-size: 10px; color: var(--mood-colors-muted); }
+.s-cal-wev.ok { border-left-color: var(--mood-colors-ok); }
+.s-cal-wev.warn { border-left-color: var(--mood-colors-warn); }
+.s-cal-wev.now { background: var(--mood-colors-accent); border-left-color: var(--mood-colors-accent); }
+.s-cal-wev.now b, .s-cal-wev.now span { color: var(--mood-colors-on-accent, var(--mood-colors-surface)); }
+@media (max-width: 860px) { .s-cal-top { grid-template-columns: 1fr; } }
+</style>
+
+<div>
+  <div class="section-label">Calendar &amp; Scheduling</div>
+  <div class="s-cal-top">
+    <div class="block">
+      <div class="s-cal-head">
+        <h3>November 2026</h3>
+        <div class="s-cal-nav">
+          <button type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 6l-6 6 6 6"/></svg></button>
+          <button type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 6l6 6-6 6"/></svg></button>
+          <button type="button">Today</button>
+        </div>
+        <div class="s-cal-views"><span>Month</span><span class="on">Agenda</span><span>Week</span></div>
+      </div>
+
+      <div class="s-cal-grid">
+        <div class="s-cal-dow">Mon</div><div class="s-cal-dow">Tue</div><div class="s-cal-dow">Wed</div><div class="s-cal-dow">Thu</div><div class="s-cal-dow">Fri</div><div class="s-cal-dow">Sat</div><div class="s-cal-dow">Sun</div>
+
+        <div class="s-cal-cell out"><div class="s-cal-num"><span>26</span></div></div>
+        <div class="s-cal-cell out"><div class="s-cal-num"><span>27</span></div></div>
+        <div class="s-cal-cell out"><div class="s-cal-num"><span>28</span></div></div>
+        <div class="s-cal-cell out"><div class="s-cal-num"><span>29</span></div></div>
+        <div class="s-cal-cell out"><div class="s-cal-num"><span>30</span></div></div>
+        <div class="s-cal-cell out"><div class="s-cal-num"><span>31</span></div></div>
+        <div class="s-cal-cell"><div class="s-cal-num"><span>1</span></div></div>
+
+        <div class="s-cal-cell"><div class="s-cal-num"><span>2</span></div><span class="s-cal-ev">Pipeline sync check</span></div>
+        <div class="s-cal-cell"><div class="s-cal-num"><span>3</span></div><span class="s-cal-ev ok">Sprint planning</span><span class="s-cal-ev">Retro notes</span></div>
+        <div class="s-cal-cell"><div class="s-cal-num"><span>4</span></div></div>
+        <div class="s-cal-cell"><div class="s-cal-num"><span>5</span></div><span class="s-cal-ev warn">Cartwheel demo</span></div>
+        <div class="s-cal-cell"><div class="s-cal-num"><span>6</span></div><span class="s-cal-ev">Product review</span></div>
+        <div class="s-cal-cell"><div class="s-cal-num"><span>7</span></div></div>
+        <div class="s-cal-cell"><div class="s-cal-num"><span>8</span></div></div>
+
+        <div class="s-cal-cell"><div class="s-cal-num"><span>9</span></div><span class="s-cal-ev">Incident review</span></div>
+        <div class="s-cal-cell"><div class="s-cal-num"><span class="s-cal-today">10</span></div><span class="s-cal-ev ok">Growth review</span><span class="s-cal-ev">1:1 Rosa</span><span class="s-cal-more">+2 more</span></div>
+        <div class="s-cal-cell"><div class="s-cal-num"><span>11</span></div></div>
+        <div class="s-cal-cell"><div class="s-cal-num"><span>12</span></div><span class="s-cal-ev danger">Release freeze</span></div>
+        <div class="s-cal-cell"><div class="s-cal-num"><span>13</span></div><span class="s-cal-ev">Board demo</span></div>
+        <div class="s-cal-cell"><div class="s-cal-num"><span>14</span></div></div>
+        <div class="s-cal-cell"><div class="s-cal-num"><span>15</span></div></div>
+
+        <div class="s-cal-cell"><div class="s-cal-num"><span>16</span></div></div>
+        <div class="s-cal-cell"><div class="s-cal-num"><span>17</span></div><span class="s-cal-ev ok">Roadmap sync</span></div>
+        <div class="s-cal-cell"><div class="s-cal-num"><span>18</span></div><span class="s-cal-ev">Security review</span></div>
+        <div class="s-cal-cell"><div class="s-cal-num"><span>19</span></div></div>
+        <div class="s-cal-cell"><div class="s-cal-num"><span>20</span></div><span class="s-cal-ev">Customer call</span></div>
+        <div class="s-cal-cell"><div class="s-cal-num"><span>21</span></div></div>
+        <div class="s-cal-cell"><div class="s-cal-num"><span>22</span></div></div>
+
+        <div class="s-cal-cell"><div class="s-cal-num"><span>23</span></div><span class="s-cal-ev">Interview panel</span></div>
+        <div class="s-cal-cell"><div class="s-cal-num"><span>24</span></div><span class="s-cal-ev ok">Release 4.2</span></div>
+        <div class="s-cal-cell"><div class="s-cal-num"><span>25</span></div></div>
+        <div class="s-cal-cell"><div class="s-cal-num"><span>26</span></div><span class="s-cal-ev warn">Quarterly planning</span></div>
+        <div class="s-cal-cell"><div class="s-cal-num"><span>27</span></div></div>
+        <div class="s-cal-cell"><div class="s-cal-num"><span>28</span></div></div>
+        <div class="s-cal-cell"><div class="s-cal-num"><span>29</span></div></div>
+
+        <div class="s-cal-cell"><div class="s-cal-num"><span>30</span></div><span class="s-cal-ev">Board demo</span></div>
+        <div class="s-cal-cell out"><div class="s-cal-num"><span>1</span></div></div>
+        <div class="s-cal-cell out"><div class="s-cal-num"><span>2</span></div></div>
+        <div class="s-cal-cell out"><div class="s-cal-num"><span>3</span></div></div>
+        <div class="s-cal-cell out"><div class="s-cal-num"><span>4</span></div></div>
+        <div class="s-cal-cell out"><div class="s-cal-num"><span>5</span></div></div>
+        <div class="s-cal-cell out"><div class="s-cal-num"><span>6</span></div></div>
+      </div>
+    </div>
+
+    <div class="s-cal-pop">
+      <div class="s-cal-pop-head">
+        <b>November 2026</b>
+        <div class="s-cal-nav">
+          <button type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 6l-6 6 6 6"/></svg></button>
+          <button type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 6l6 6-6 6"/></svg></button>
+        </div>
+      </div>
+      <div class="s-cal-pop-grid">
+        <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span>
+        <div class="s-cal-pd out">26</div><div class="s-cal-pd out">27</div><div class="s-cal-pd out">28</div><div class="s-cal-pd out">29</div><div class="s-cal-pd out">30</div><div class="s-cal-pd out">31</div><div class="s-cal-pd">1</div>
+        <div class="s-cal-pd">2</div><div class="s-cal-pd">3</div><div class="s-cal-pd">4</div><div class="s-cal-pd">5</div><div class="s-cal-pd">6</div><div class="s-cal-pd">7</div><div class="s-cal-pd">8</div>
+        <div class="s-cal-pd">9</div><div class="s-cal-pd today">10</div><div class="s-cal-pd">11</div><div class="s-cal-pd">12</div><div class="s-cal-pd">13</div><div class="s-cal-pd">14</div><div class="s-cal-pd">15</div>
+        <div class="s-cal-pd">16</div><div class="s-cal-pd">17</div><div class="s-cal-pd">18</div><div class="s-cal-pd">19</div><div class="s-cal-pd">20</div><div class="s-cal-pd">21</div><div class="s-cal-pd">22</div>
+        <div class="s-cal-pd">23</div><div class="s-cal-pd">24</div><div class="s-cal-pd">25</div><div class="s-cal-pd">26</div><div class="s-cal-pd">27</div><div class="s-cal-pd">28</div><div class="s-cal-pd">29</div>
+        <div class="s-cal-pd">30</div><div class="s-cal-pd out">1</div><div class="s-cal-pd out">2</div><div class="s-cal-pd out">3</div><div class="s-cal-pd out">4</div><div class="s-cal-pd out">5</div><div class="s-cal-pd out">6</div>
+      </div>
+      <div class="s-cal-pop-foot"><span>2 events on 10 Nov</span><span>Europe/Amsterdam</span></div>
+    </div>
+  </div>
+
+  <div class="block s-cal-week">
+    <div class="s-cal-head">
+      <h3>Week of 9 to 15 November</h3>
+      <span style="font-size:11px;color:var(--mood-colors-muted)">All times in Europe/Amsterdam &middot; 23 events</span>
+    </div>
+    <div class="s-cal-week-head">
+      <div class="s-cal-dayhead"></div>
+      <div class="s-cal-dayhead"><b>Mon</b><span>9</span></div>
+      <div class="s-cal-dayhead"><b>Tue</b><span>10</span></div>
+      <div class="s-cal-dayhead"><b>Wed</b><span>11</span></div>
+      <div class="s-cal-dayhead"><b>Thu</b><span>12</span></div>
+      <div class="s-cal-dayhead"><b>Fri</b><span>13</span></div>
+      <div class="s-cal-dayhead"><b>Sat</b><span>14</span></div>
+      <div class="s-cal-dayhead"><b>Sun</b><span>15</span></div>
+    </div>
+    <div class="s-cal-week-body">
+      <div class="s-cal-hours">
+        <span>09:00</span><span>10:00</span><span>11:00</span><span>12:00</span><span>13:00</span><span>14:00</span><span>15:00</span>
+      </div>
+      <div class="s-cal-col">
+        <div class="s-cal-wev" style="top:0px"><b>Incident review</b><span>09:00 - 09:45</span></div>
+        <div class="s-cal-wev ok" style="top:120px"><b>Pipeline sync</b><span>12:00 - 12:30</span></div>
+      </div>
+      <div class="s-cal-col">
+        <div class="s-cal-wev now" style="top:40px"><b>Growth review</b><span>10:00 - 11:00</span></div>
+        <div class="s-cal-wev" style="top:160px"><b>1:1 Rosa</b><span>13:00 - 13:30</span></div>
+      </div>
+      <div class="s-cal-col">
+        <div class="s-cal-wev warn" style="top:80px"><b>Support escalation</b><span>11:00 - 11:30</span></div>
+      </div>
+      <div class="s-cal-col">
+        <div class="s-cal-wev danger" style="top:0px"><b>Release freeze</b><span>09:00 - 10:00</span></div>
+        <div class="s-cal-wev" style="top:200px"><b>Roadmap sync</b><span>14:00 - 15:00</span></div>
+      </div>
+      <div class="s-cal-col">
+        <div class="s-cal-wev ok" style="top:120px"><b>Board demo</b><span>12:00 - 13:00</span></div>
+      </div>
+      <div class="s-cal-col">
+        <div class="s-cal-wev" style="top:240px"><b>On-call handoff</b><span>15:00 - 16:00</span></div>
+      </div>
+      <div class="s-cal-col"></div>
+    </div>
+  </div>
+</div>

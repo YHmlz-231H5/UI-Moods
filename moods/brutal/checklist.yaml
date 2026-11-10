@@ -1,0 +1,30 @@
+# brutal · acceptance checklist
+
+- id: brutal-radius-card
+  type: value
+  description: Card radius must equal tokens.radii.card
+  assert:
+    path: radii.card
+    eq: "0px"
+
+- id: brutal-token-only-colors
+  type: token-only
+  description: No color literals outside tokens.colors / resolved components
+  scope: colors
+
+- id: brutal-token-only-components
+  type: token-only
+  description: Component semantic layer must only reference tokens, no new literals
+  scope: components
+
+- id: brutal-contrast-text
+  type: contrast
+  description: Body text on bg contrast >= 4.5:1
+  foreground: colors.text
+  background: colors.bg
+  minRatio: 4.5
+
+- id: brutal-feel
+  type: subjective
+  description: Hard offset shadows and square edges read as screen-printed and blunt
+  required: false

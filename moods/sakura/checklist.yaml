@@ -1,0 +1,37 @@
+# sakura · acceptance checklist
+
+- id: sakura-radius-card
+  type: value
+  description: Card radius must equal tokens.radii.card
+  assert:
+    path: radii.card
+    eq: "16px"
+
+- id: sakura-token-only-colors
+  type: token-only
+  description: No color literals outside tokens.colors / resolved components
+  scope: colors
+
+- id: sakura-token-only-components
+  type: token-only
+  description: Component semantic layer must only reference tokens, no new literals
+  scope: components
+
+- id: sakura-contrast-text
+  type: contrast
+  description: Body text on bg contrast >= 4.5:1
+  foreground: colors.text
+  background: colors.bg
+  minRatio: 4.5
+
+- id: sakura-backdrop
+  type: value
+  description: Panels use a soft petal blur
+  assert:
+    path: effects.backdropFilter
+    eq: "blur(10px)"
+
+- id: sakura-feel
+  type: subjective
+  description: Panels feel gentle, blooming and soft like falling sakura petals
+  required: false

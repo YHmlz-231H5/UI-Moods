@@ -1,0 +1,37 @@
+# gaming · acceptance checklist
+
+- id: gaming-radius-card
+  type: value
+  description: Card radius must equal tokens.radii.card
+  assert:
+    path: radii.card
+    eq: "6px"
+
+- id: gaming-token-only-colors
+  type: token-only
+  description: No color literals outside tokens.colors / resolved components
+  scope: colors
+
+- id: gaming-token-only-components
+  type: token-only
+  description: Component semantic layer must only reference tokens, no new literals
+  scope: components
+
+- id: gaming-contrast-text
+  type: contrast
+  description: Body text on bg contrast >= 4.5:1
+  foreground: colors.text
+  background: colors.bg
+  minRatio: 4.5
+
+- id: gaming-backdrop
+  type: value
+  description: Panels use HUD blur
+  assert:
+    path: effects.backdropFilter
+    eq: "blur(8px)"
+
+- id: gaming-feel
+  type: subjective
+  description: Interface reads as a hard-edged HUD with cyan glow on black, tight corners and stepped motion
+  required: false

@@ -1,0 +1,175 @@
+{
+  "id": "realestate",
+  "name": "Real Estate",
+  "nameZh": "房产家居",
+  "mood": "nordic",
+  "description": "房产交易与家居参考：房源列表、房屋详情、看房日程与收藏夹。",
+  "chrome": {
+    "statusbar": { "time": "9:41" },
+    "tabbar": {
+      "items": [
+        { "icon": "home", "label": "找房", "active": true },
+        { "icon": "pin", "label": "地图" },
+        { "icon": "heart", "label": "收藏" },
+        { "icon": "user", "label": "我的" }
+      ]
+    }
+  },
+  "screens": [
+    {
+      "id": "listings",
+      "title": "房源列表",
+      "titleZh": "找房",
+      "chrome": { "navbar": { "icon": "home", "title": "栖居 Qiju", "action": "地图" } },
+      "blocks": [
+        { "type": "search", "placeholder": "搜索小区、地铁站或商圈" },
+        { "type": "chips", "items": [
+          { "label": "区域", "active": true },
+          { "label": "总价" },
+          { "label": "户型" },
+          { "label": "朝向" },
+          { "label": "更多" }
+        ] },
+        { "type": "filterbar", "icon": "sort", "label": "排序", "value": "综合推荐" },
+        { "type": "sectionHead", "title": "为你推荐", "action": "共 236 套" },
+        { "type": "list", "items": [
+          { "icon": "building", "title": "仁恒滨江园 2 期 · 3 室 2 厅", "sub": "浦东新区 · 塘桥地铁 620m · 118㎡ · 南", "value": "¥ 1,180 万", "chev": true },
+          { "icon": "building", "title": "翠湖天地 · 2 室 2 厅", "sub": "黄浦区 · 新天地站 300m · 92㎡ · 东南", "value": "¥ 860 万", "chev": true },
+          { "icon": "building", "title": "云庐 · 叠拼上叠", "sub": "青浦区 · 赵巷 · 168㎡ · 花园 40㎡", "value": "¥ 890 万", "chev": true }
+        ] },
+        { "type": "card", "media": true, "mediaTag": "独家", "title": "云庐 · 叠拼上叠", "sub": "青浦 · 赵巷 · 168㎡ · 花园 40㎡ · 精装", "body": "总价 ¥ 890 万 · 满五唯一 · 随时看房", "price": "¥ 890 万", "actions": [
+          { "label": "查看详情", "primary": true },
+          { "label": "收藏", "primary": false }
+        ] },
+        { "type": "statGrid", "cols": 3, "items": [
+          { "label": "在售房源", "value": "236" },
+          { "label": "今日新增", "value": "18" },
+          { "label": "带看量", "value": "42" }
+        ] },
+        { "type": "promo", "icon": "gift", "title": "预约看房立减 500 元", "sub": "周末到访可领取小家电礼包，每户限一次" },
+        { "type": "notice", "tone": "info", "mark": "参考", "text": "当前价格基于同小区近 90 天 12 套成交记录，参考价可能随市场波动。" }
+      ]
+    },
+    {
+      "id": "detail",
+      "title": "房屋详情",
+      "titleZh": "详情",
+      "chrome": { "navbar": { "back": true, "title": "仁恒滨江园 2 期", "action": "分享" } },
+      "blocks": [
+        { "type": "carousel", "items": [
+          { "title": "客厅 · 朝南采光", "sub": "实景拍摄 · 2026-10-28", "tag": "实景" },
+          { "title": "户型图 · 3 室 2 厅", "sub": "建筑面积 118㎡ · 得房率 78%", "tag": "户型" },
+          { "title": "小区与车位", "sub": "地下车位 2 个 · 非使用权", "tag": "视频" }
+        ] },
+        { "type": "header", "title": "仁恒滨江园 2 期 6 号楼", "subtitle": "3 室 2 厅 · 118㎡ · 南 · 精装 · 中楼层", "meta": [
+          { "label": "在售", "tone": "ok" },
+          { "label": "满五唯一", "tone": "accent" },
+          { "label": "近地铁", "tone": "accent" }
+        ] },
+        { "type": "prices", "items": [
+          { "label": "挂牌价", "value": "¥ 1,180 万" },
+          { "label": "挂牌单价", "value": "¥ 100,000 / ㎡" },
+          { "label": "同小区成交参考", "value": "¥ 1,152 万", "muted": true }
+        ] },
+        { "type": "sectionHead", "title": "房源信息", "action": "产权核验" },
+        { "type": "kv", "items": [
+          { "label": "所在楼层", "value": "共 32 层 · 15 层" },
+          { "label": "房屋朝向", "value": "南 / 南北通透" },
+          { "label": "装修情况", "value": "精装修 · 2021 年" },
+          { "label": "电梯配置", "value": "2 部 · 可入户" },
+          { "label": "产权年限", "value": "70 年 · 土地 1998 年" },
+          { "label": "挂牌时间", "value": "已挂牌 42 天" }
+        ] },
+        { "type": "sectionHead", "title": "小区配套", "action": "查看周边" },
+        { "type": "mediaGrid", "cols": 3, "items": [
+          { "icon": "location", "title": "塘桥地铁", "sub": "620m" },
+          { "icon": "book", "title": "实验二小", "sub": "1.2km" },
+          { "icon": "stethoscope", "title": "仁济医院", "sub": "3.4km" },
+          { "icon": "shop", "title": "百联商场", "sub": "860m" },
+          { "icon": "sun", "title": "滨江步道", "sub": "300m" },
+          { "icon": "grid", "title": "地下车库", "sub": "2 个车位" }
+        ] },
+        { "type": "list", "items": [
+          { "avatar": "赵", "title": "赵敏 · 资深置业顾问", "sub": "链家 浦东店 · 服务 218 套", "value": "12 套在售", "chev": true },
+          { "avatar": "孙", "title": "孙浩 · 独家房源", "sub": "从业 5 年 · 带看 380 次", "value": "5 套在售", "chev": true }
+        ] },
+        { "type": "notice", "tone": "warn", "mark": "热度", "text": "该房源今日已有 3 组客户预约看房，最近一组为今天 19:00。" }
+      ]
+    },
+    {
+      "id": "tour",
+      "title": "看房日程",
+      "titleZh": "看房",
+      "chrome": { "navbar": { "back": true, "title": "我的看房", "action": "新建" } },
+      "blocks": [
+        { "type": "calendar", "days": [
+          { "n": 3, "label": "周一" },
+          { "n": 4, "label": "周二", "dot": true },
+          { "n": 5, "label": "周三", "active": true, "dot": true },
+          { "n": 6, "label": "周四" },
+          { "n": 7, "label": "周五", "dot": true },
+          { "n": 8, "label": "周六" },
+          { "n": 9, "label": "周日" }
+        ] },
+        { "type": "steps", "items": [
+          { "n": 1, "label": "预约", "state": "done" },
+          { "n": 2, "label": "到访", "state": "done" },
+          { "n": 3, "label": "议价", "state": "active" }
+        ] },
+        { "type": "card", "title": "今天 19:00 · 仁恒滨江园 2 期", "sub": "看房路线：云庐 → 仁恒滨江园 → 翠湖天地", "badge": "待确认", "badgeTone": "warn", "body": "经纪人 赵敏 · 138****2210 · 预计 90 分钟", "actions": [
+          { "label": "确认行程", "primary": true },
+          { "label": "改期", "primary": false }
+        ] },
+        { "type": "sectionHead", "title": "本周行程", "action": "全部 3 场" },
+        { "type": "timeline", "items": [
+          { "title": "云庐 · 叠拼上叠", "sub": "赵敏 · 14:00 · 已完成", "time": "昨天 14:00", "state": "done" },
+          { "title": "仁恒滨江园 2 期", "sub": "赵敏 · 19:00 · 待确认", "time": "今天 19:00", "state": "pending" },
+          { "title": "翠湖天地 · 2 室 2 厅", "sub": "孙浩 · 10:30 · 已预约", "time": "周六 10:30", "state": "pending" }
+        ] },
+        { "type": "sectionHead", "title": "备选房源", "action": "加入行程" },
+        { "type": "list", "items": [
+          { "icon": "building", "title": "翡翠公园 4 期 · 4 室 2 厅", "sub": "浦东新区 · 156㎡ · 南北通透", "value": "¥ 1,460 万", "chev": true },
+          { "icon": "building", "title": "外滩源 · 复式Loft", "sub": "静安区 · 89㎡ · 6 层", "value": "¥ 720 万", "chev": true }
+        ] },
+        { "type": "formGroup", "label": "看房提醒", "rows": [
+          { "label": "出发前提醒", "hint": "提前 30 分钟", "type": "switch", "on": true },
+          { "label": "经纪人电话提醒", "hint": "看房前 1 小时", "type": "switch", "on": true },
+          { "label": "路线导航", "hint": "自动规划最优路线", "type": "switch", "on": true }
+        ] },
+        { "type": "notice", "tone": "info", "mark": "规则", "text": "看房后 24 小时内可免费取消或改期，超时将计入信用分。" }
+      ]
+    },
+    {
+      "id": "favorites",
+      "title": "收藏夹",
+      "titleZh": "收藏",
+      "chrome": { "navbar": { "back": true, "title": "我的收藏", "action": "管理" } },
+      "blocks": [
+        { "type": "segmented", "items": [
+          { "label": "全部 12", "active": true },
+          { "label": "房源 8" },
+          { "label": "小区 4" }
+        ] },
+        { "type": "list", "items": [
+          { "icon": "building", "title": "仁恒滨江园 2 期 · 3 室 2 厅", "sub": "浦东新区 · 118㎡ · ¥ 1,180 万", "value": "已降价 12 万", "valueTone": "up", "chev": true },
+          { "icon": "building", "title": "翠湖天地 · 2 室 2 厅", "sub": "黄浦区 · 92㎡ · ¥ 860 万", "value": "已收藏", "valueTone": "ok", "chev": true },
+          { "icon": "building", "title": "翡翠公园 4 期 · 4 室 2 厅", "sub": "浦东新区 · 156㎡ · ¥ 1,460 万", "value": "已收藏", "valueTone": "ok", "chev": true }
+        ] },
+        { "type": "sectionHead", "title": "对比清单", "action": "开始对比（2）" },
+        { "type": "kv", "items": [
+          { "label": "建筑面积", "value": "118㎡ / 92㎡" },
+          { "label": "挂牌总价", "value": "¥ 1,180 万 / ¥ 860 万" },
+          { "label": "单价", "value": "¥ 100,000 / ¥ 93,478" },
+          { "label": "距地铁", "value": "620m / 300m" }
+        ] },
+        { "type": "sectionHead", "title": "最近浏览", "action": "清空" },
+        { "type": "empty", "icon": "eye", "title": "暂无最近浏览记录", "sub": "浏览过的房源会在这里保留 30 天" },
+        { "type": "card", "tint": true, "title": "降价提醒", "sub": "仁恒滨江园 2 期 已降价 12 万", "body": "当前挂牌 ¥ 1,180 万，较你收藏时下降 1.0%", "actions": [
+          { "label": "查看详情", "primary": true },
+          { "label": "忽略本次", "primary": false }
+        ] },
+        { "type": "notice", "tone": "info", "mark": "统计", "text": "你收藏的 8 套房源中有 3 套在本周降价，2 套已下架。" }
+      ]
+    }
+  ]
+}

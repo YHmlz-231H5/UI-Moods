@@ -1,0 +1,97 @@
+<style>
+.s-faq-grid { display: grid; grid-template-columns: 1.7fr 1fr; gap: var(--mood-spacing-gap); align-items: start; }
+.s-faq-search { position: relative; margin-bottom: 8px; }
+.s-faq-search svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--mood-colors-muted); pointer-events: none; }
+.s-faq-search input { width: 100%; font: inherit; font-size: 13px; padding: 10px 12px 10px 36px; background: var(--mood-colors-bg); color: var(--mood-colors-text-strong); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); border-radius: var(--mood-radii-input); outline: none; }
+.s-faq-item { border-bottom: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
+.s-faq-item:first-child { border-top: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
+.s-faq-item summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; list-style: none; cursor: default; padding: 14px 0; font-size: var(--mood-typography-title-size); font-weight: 600; color: var(--mood-colors-text-strong); }
+.s-faq-item summary::-webkit-details-marker { display: none; }
+.s-faq-item summary svg { flex: none; width: 16px; height: 16px; color: var(--mood-colors-muted); transition: transform var(--mood-motion-duration) var(--mood-motion-easing); }
+.s-faq-item[open] summary svg { transform: rotate(180deg); }
+.s-faq-item[open] summary { color: var(--mood-colors-accent); }
+.s-faq-answer { margin: 0; padding: 0 0 16px 0; font-size: 13px; color: var(--mood-colors-text); max-width: 640px; }
+.s-faq-answer code { font-family: var(--mood-typography-family); font-size: 12px; padding: 1px 6px; border-radius: var(--mood-radii-badge); background: var(--mood-colors-bg); color: var(--mood-colors-accent); }
+.s-faq-contact { display: flex; flex-direction: column; gap: 14px; }
+.s-faq-contact h3 { margin: 0; font-size: var(--mood-typography-title-size); font-weight: 600; color: var(--mood-colors-text-strong); }
+.s-faq-contact p { margin: 0; font-size: 13px; color: var(--mood-colors-text); }
+.s-faq-contact .s-faq-mail { font-size: 13px; font-weight: 600; color: var(--mood-colors-accent); }
+.s-faq-contact .btn-row { margin-top: 2px; }
+.s-faq-meta { display: flex; flex-direction: column; gap: 6px; padding-top: 12px; border-top: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); font-size: 11px; color: var(--mood-colors-muted); }
+@media (max-width: 860px) { .s-faq-grid { grid-template-columns: 1fr; } }
+</style>
+
+<div>
+  <div class="section-label">FAQ</div>
+  <div class="s-faq-grid">
+    <div class="block">
+      <div class="s-faq-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M15.8 15.8L20.5 20.5"/></svg>
+        <input type="search" placeholder="Search 24 help articles" aria-label="Search help articles" />
+      </div>
+
+      <details class="s-faq-item" open>
+        <summary>
+          How does Beacon bill for event volume?
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </summary>
+        <p class="s-faq-answer">We count billable events after sampling, so server-side heartbeats and debug traffic never reach your invoice. Your dashboard shows the running count for the current cycle and the exact rate applied on the next invoice.</p>
+      </details>
+
+      <details class="s-faq-item" open>
+        <summary>
+          Can we keep raw events in our own cloud account?
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </summary>
+        <p class="s-faq-answer">Yes. The collector writes to your own bucket first, and Beacon only stores the aggregated rows it queries. Point the collector at an S3, GCS or Azure target and switch on the <code>warehouse-sync</code> flag in your workspace settings.</p>
+      </details>
+
+      <details class="s-faq-item" open>
+        <summary>
+          What happens when we cross the event quota?
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </summary>
+        <p class="s-faq-answer">We never drop data and we never surprise you with a bill. At 80% of quota the workspace owner gets an email, at 100% collection continues in low-detail mode and dashboards keep working on the aggregates we already have.</p>
+      </details>
+
+      <details class="s-faq-item">
+        <summary>
+          Do you offer a free trial for Enterprise?
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </summary>
+        <p class="s-faq-answer">Enterprise pilots run for 30 days with the full feature set and a named engineer attached. There is no card on file and no automatic conversion at the end of the pilot.</p>
+      </details>
+
+      <details class="s-faq-item">
+        <summary>
+          Can we self-host the Beacon collector?
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </summary>
+        <p class="s-faq-answer">The collector ships as a signed container and a static binary, both published with checksums. It runs on your edge fleet with no outbound dependency beyond the ingest endpoint.</p>
+      </details>
+
+      <details class="s-faq-item">
+        <summary>
+          How do you handle GDPR deletion requests?
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </summary>
+        <p class="s-faq-answer">Beacon stores pseudonymous identifiers only. A deletion request removes every row for that subject within 24 hours across primary storage, backups and warehouse exports, and the workspace keeps an audit record of the request.</p>
+      </details>
+    </div>
+
+    <div class="block tint s-faq-contact">
+      <h3>Still need help?</h3>
+      <p>Our support engineers answer within four business hours on every plan, including the free tier. Most questions are resolved in the first reply.</p>
+      <div class="s-faq-mail">support@northwind.dev</div>
+      <div class="btn-row">
+        <button type="button" class="primary">Contact support</button>
+        <button type="button">Book a 20-min call</button>
+      </div>
+      <div class="s-faq-meta">
+        <span>Status page: all systems operational</span>
+        <span>Developer Discord: 3,800 members</span>
+        <span>Docs: 24 guides, updated weekly</span>
+      </div>
+    </div>
+  </div>
+</div>

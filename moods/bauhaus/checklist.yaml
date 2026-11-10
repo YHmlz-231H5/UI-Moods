@@ -1,0 +1,30 @@
+# bauhaus · acceptance checklist
+
+- id: bauhaus-radius-card
+  type: value
+  description: Card radius must equal tokens.radii.card
+  assert:
+    path: radii.card
+    eq: "0px"
+
+- id: bauhaus-token-only-colors
+  type: token-only
+  description: No color literals outside tokens.colors / resolved components
+  scope: colors
+
+- id: bauhaus-token-only-components
+  type: token-only
+  description: Component semantic layer must only reference tokens, no new literals
+  scope: components
+
+- id: bauhaus-contrast-text
+  type: contrast
+  description: Body text on bg contrast >= 4.5:1
+  foreground: colors.text
+  background: colors.bg
+  minRatio: 4.5
+
+- id: bauhaus-feel
+  type: subjective
+  description: Flat primary shapes on an oat ground read as cut-paper constructivism
+  required: false

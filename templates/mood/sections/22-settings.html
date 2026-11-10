@@ -1,0 +1,87 @@
+<style>
+.s-st-grid { display: grid; grid-template-columns: 200px 1fr; gap: var(--mood-spacing-gap); align-items: start; }
+.s-st-tabs { display: flex; flex-direction: column; gap: 2px; }
+.s-st-tab { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: var(--mood-radii-button); font-size: 13px; color: var(--mood-colors-muted); }
+.s-st-tab svg { width: 16px; height: 16px; flex: none; }
+.s-st-tab.on { background: var(--mood-colors-surface); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); color: var(--mood-colors-accent); font-weight: 600; }
+.s-st-panel { display: flex; flex-direction: column; gap: 16px; }
+.s-st-panel-head h3 { margin: 0 0 4px; font-size: var(--mood-typography-title-size); font-weight: 600; color: var(--mood-colors-text-strong); }
+.s-st-panel-head p { margin: 0; font-size: 12px; color: var(--mood-colors-muted); }
+.s-st-group { display: flex; flex-direction: column; gap: 10px; }
+.s-st-group-head { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mood-colors-muted); padding-bottom: 8px; border-bottom: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
+.s-st-toggles .toggle { padding: 3px 0; align-items: flex-start; }
+.s-st-toggles .toggle b { display: block; font-size: 13px; font-weight: 600; color: var(--mood-colors-text-strong); }
+.s-st-toggles .toggle small { display: block; font-size: 11px; color: var(--mood-colors-muted); }
+.s-st-toggles .switch { margin-top: 4px; }
+.s-st-upload { display: flex; align-items: center; gap: 16px; padding: 16px; border-radius: var(--mood-radii-card); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); background: var(--mood-colors-panel); }
+.s-st-upload .s-st-av { width: 64px; height: 64px; flex: none; border-radius: 50%; background: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); display: flex; align-items: center; justify-content: center; font-size: var(--mood-typography-title-size); font-weight: 600; letter-spacing: 0.06em; }
+.s-st-upload b { display: block; font-size: 13px; color: var(--mood-colors-text-strong); }
+.s-st-upload p { margin: 2px 0 8px; font-size: 11px; color: var(--mood-colors-muted); }
+.s-st-danger { padding: 16px; border-radius: var(--mood-radii-card); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-danger); background: var(--mood-colors-surface); }
+.s-st-danger h4 { margin: 0 0 4px; font-size: var(--mood-typography-title-size); font-weight: 600; color: var(--mood-colors-danger); }
+.s-st-danger p { margin: 0 0 12px; font-size: 12px; color: var(--mood-colors-muted); }
+.s-st-savebar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; border-radius: var(--mood-radii-block); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); background: var(--mood-colors-panel); }
+.s-st-savebar .s-st-hint { font-size: 11px; color: var(--mood-colors-muted); }
+.s-st-savebar .s-st-hint b { color: var(--mood-colors-warn); font-weight: 600; }
+@media (max-width: 860px) { .s-st-grid { grid-template-columns: 1fr; } }
+</style>
+
+<div>
+  <div class="section-label">Settings &amp; Profile</div>
+  <div class="s-st-grid">
+    <div class="block tint s-st-tabs">
+      <div class="s-st-tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.4"/><path d="M5 19.5c1.4-3.4 4-5 7-5s5.6 1.6 7 5"/></svg><span>Profile</span></div>
+      <div class="s-st-tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10.5" width="14" height="9" rx="2"/><path d="M8.5 10.5V8a3.5 3.5 0 017 0v2.5"/></svg><span>Security</span></div>
+      <div class="s-st-tab on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 16.5v-5a5.5 5.5 0 0111 0v5"/><path d="M4.5 19h15"/></svg><span>Notifications</span></div>
+      <div class="s-st-tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg><span>Billing</span></div>
+    </div>
+
+    <div class="block s-st-panel">
+      <div class="s-st-panel-head">
+        <h3>Notifications</h3>
+        <p>Choose what Beacon sends you and where. Critical security mail always reaches you.</p>
+      </div>
+
+      <div class="s-st-group">
+        <div class="s-st-group-head">Email</div>
+        <div class="toggle-row s-st-toggles">
+          <div class="toggle"><span><b>Weekly digest</b><small>Activation, retention and revenue movement every Monday</small></span><div class="switch on"><i></i></div></div>
+          <div class="toggle"><span><b>Pipeline failures</b><small>Sent when a collector stops reporting for 30 minutes</small></span><div class="switch on"><i></i></div></div>
+          <div class="toggle"><span><b>New teammate joined</b><small>One message whenever someone joins the workspace</small></span><div class="switch"><i></i></div></div>
+        </div>
+      </div>
+
+      <div class="s-st-group">
+        <div class="s-st-group-head">Slack and in-app</div>
+        <div class="toggle-row s-st-toggles">
+          <div class="toggle"><span><b>Mentions in a thread</b><small>Post to #northwind-analytics when you are mentioned</small></span><div class="switch on"><i></i></div></div>
+          <div class="toggle"><span><b>Board changes you follow</b><small>Status changes on boards you watch</small></span><div class="switch on"><i></i></div></div>
+          <div class="toggle"><span><b>Product announcements</b><small>New features, once a month at most</small></span><div class="switch"><i></i></div></div>
+        </div>
+      </div>
+
+      <div class="s-st-group">
+        <div class="s-st-group-head">Profile photo</div>
+        <div class="s-st-upload">
+          <div class="s-st-av">RM</div>
+          <div>
+            <b>Rosa M&aacute;rquez</b>
+            <p>PNG or JPG, square, at least 256 pixels. Stored in your own bucket.</p>
+            <div class="btn-row"><button type="button">Change photo</button><button type="button">Remove</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="s-st-danger">
+        <h4>Danger zone</h4>
+        <p>Deleting the Cartwheel workspace removes 2.1 billion event rows, every dashboard and all shared links. This cannot be undone.</p>
+        <div class="btn-row"><button type="button" class="danger">Delete workspace</button><button type="button">Export everything first</button></div>
+      </div>
+
+      <div class="s-st-savebar">
+        <span class="s-st-hint"><b>Unsaved changes</b> &middot; last saved today at 09:14</span>
+        <div class="btn-row"><button type="button">Discard</button><button type="button" class="primary">Save changes</button></div>
+      </div>
+    </div>
+  </div>
+</div>

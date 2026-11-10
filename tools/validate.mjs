@@ -1,29 +1,36 @@
 #!/usr/bin/env node
 // ui-moods validate — mood package checks (schema, references, token-only,
-// contrast, magic numbers). Semantics documented in docs/schema-checklist.md.
+// contrast, magic numbers) plus app package checks.
+//
+// Semantics documented in docs/schema-checklist.md. The literal allowlist
+// lives in schemas/allowlist.json so it can be reviewed in one place.
 
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import Ajv from "ajv";
 import yaml from "js-yaml";
 import { expectedVars, FALLBACK_ALLOWED } from "./lib/mapping.mjs";
+import { BLOCK_TYPES } from "./lib/blocks.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const ajv = new Ajv({ strict: false, allErrors: true });
 
 const tokensSchema = JSON.parse(readFileSync(join(root, "schemas", "tokens.schema.json"), "utf8"));
 const checklistSchema = JSON.parse(readFileSync(join(root, "schemas", "checklist.schema.json"), "utf8"));
+const allowlist = JSON.parse(readFileSync(join(root, "schemas", "allowlist.json"), "utf8"));
 const validateTokensSchema = ajv.compile(tokensSchema);
 const validateChecklistSchema = ajv.compile(checklistSchema);
 
-// --- allowlists (docs/css-var-mapping.md §5) ---
-const ALLOWED_FONT_SIZES = new Set([10, 11, 12, 13]);
-const ALLOWED_LETTER_SPACING = new Set([0.06, 0.08, 0.1, 0.12]);
-const ALLOWED_OPACITY = new Set([0.4, 0.45, 0.6, 0.7, 0.75]);
-const ALLOWED_PX = new Set([
-  0, 3, 4, 6, 8, 9, 10, 12, 14, 16, 18, 20, 21, 24, 28, 36, 42, 44, 48, 72, 76, 640, 860, 999,
-]);
+// --- allowlists (schemas/allowlist.json) ---
+const ALLOWED_FONT_SIZES = new Set(allowlist.fontSize.values);
+const ALLOWED_LETTER_SPACING = new Set(allowlist.letterSpacing.values);
+const ALLOWED_OPACITY = new Set(allowlist.opacity.values);
+const ALLOWED_FONT_WEIGHT = new Set(allowlist.fontWeight.values);
+const ALLOWED_RADIUS = new Set(allowlist.radius.exceptions);
+const ALLOWED_PX = new Set(
+  Object.values(allowlist.px.buckets).flat(),
+);
 const COLOR_KEYWORDS = new Set(["transparent", "currentColor", "inherit", "none"]);
 const COMPONENT_KEYWORDS = new Set(["transparent", "none", "currentColor", "inherit", "0"]);
 
@@ -87,7 +94,7 @@ function checkComponents(tokens, errors) {
   walk(comp, "components");
 }
 
-// --- specimen checks ---
+// --- specimen / screen checks ---
 function splitSpecimen(html) {
   const m = html.match(/<style id="mood-tokens">([\s\S]*?)<\/style>/);
   if (!m) return { tokenBlock: "", body: html };
@@ -97,10 +104,57 @@ function splitSpecimen(html) {
   };
 }
 
+/**
+ * Reduce a document to the parts where a CSS literal can live: <style> blocks
+ * and attribute values. Visible prose is dropped, because a ticket number like
+ * "#0281" or a price like "12px" in body copy is not a style declaration.
+ */
+function cssOnly(html) {
+  const styles = [];
+  const withPlaceholders = html.replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, (m) => {
+    styles.push(m);
+    return `\u0000S${styles.length - 1}\u0000`;
+  });
+  const stripped = withPlaceholders.replace(/>[^<]*</g, "><");
+  return stripped.replace(/\u0000S(\d+)\u0000/g, (_, i) => styles[Number(i)]);
+}
+
+/**
+ * Guard against unreplaced template placeholders.
+ *
+ * A placeholder that survives the build is not cosmetic: the browser's HTML
+ * parser relocates whatever ends up in the wrong container, so a stray
+ * `{{sections}}` renders as raw template text at the end of the page.
+ */
+function checkNoUnreplacedPlaceholders(html, label, errors) {
+  for (const m of html.matchAll(/\{\{\s*[a-zA-Z][a-zA-Z0-9_-]*\s*\}\}/g)) {
+    errors.push(`${label} contains an unreplaced placeholder ${m[0]}`);
+  }
+}
+
+/**
+ * Guard against block-level content injected into <head>.
+ *
+ * The specimen shell composes head + body; section partials belong to the
+ * body. If a build bug puts them in the head, the parser silently moves them
+ * and the document ends up rendering the raw template as visible text.
+ */
+function checkHeadIsClean(html, label, errors) {
+  const headStart = html.search(/<head\b[^>]*>/i);
+  const headEnd = html.search(/<\/head>/i);
+  if (headStart < 0 || headEnd < 0 || headEnd < headStart) return;
+  const headInner = html.slice(headStart, headEnd);
+  if (/<(?:div|section|article|table|ul|ol|p|h[1-6])\b/i.test(headInner)) {
+    errors.push(`${label} has block-level content inside <head>; injected content must live in <body>`);
+  }
+}
+
 function checkSpecimen(tokens, html, errors) {
   if (/<script/i.test(html)) {
     errors.push("specimen contains <script>, which is forbidden");
   }
+  checkNoUnreplacedPlaceholders(html, "specimen", errors);
+  checkHeadIsClean(html, "specimen", errors);
   const { tokenBlock, body } = splitSpecimen(html);
   if (!tokenBlock) {
     errors.push('specimen is missing <style id="mood-tokens"> block (run build-specimen)');
@@ -122,7 +176,8 @@ function checkSpecimen(tokens, html, errors) {
   // - allowlisted optional vars may carry a fallback and skip declaration;
   // - any other fallback usage is an error (it could mask a missing token);
   // - non-fallback usages must be declared in the token block.
-  for (const m of body.matchAll(/var\((--mood-[a-z0-9-]+)(?:,|\s*\))/g)) {
+  const css = cssOnly(body);
+  for (const m of css.matchAll(/var\((--mood-[a-z0-9-]+)(?:,|\s*\))/g)) {
     const hasFallback = m[0].includes(",");
     if (hasFallback && !FALLBACK_ALLOWED.has(m[1])) {
       errors.push(`specimen uses fallback on ${m[1]}, which is not in the fallback allowlist`);
@@ -133,30 +188,41 @@ function checkSpecimen(tokens, html, errors) {
 
   // color literals outside the token block
   const colorRe = /#[0-9a-fA-F]{3,8}\b|rgba?\([^)]*\)/g;
-  for (const m of body.matchAll(colorRe)) {
+  for (const m of css.matchAll(colorRe)) {
     errors.push(`color literal "${m[0]}" outside token block; use var(--mood-colors-*) or keyword`);
   }
-  if (/(?:hsl|hsla|oklch|lab|lch|color)\(/i.test(body)) {
+  if (/(?:hsl|hsla|oklch|lab|lch|color)\(/i.test(css)) {
     errors.push("unsupported color function in specimen body (only hex/rgb(a) and var() references are allowed in v1)");
   }
 
   // magic numbers
-  for (const m of body.matchAll(/font-size:\s*([\d.]+)px/g)) {
+  for (const m of css.matchAll(/font-size:\s*([\d.]+)px/g)) {
     const v = parseFloat(m[1]);
     if (!ALLOWED_FONT_SIZES.has(v)) errors.push(`font-size ${v}px not in allowlist (see css-var-mapping.md §5)`);
   }
-  for (const m of body.matchAll(/letter-spacing:\s*([\d.]+)em/g)) {
+  for (const m of css.matchAll(/letter-spacing:\s*([\d.]+)em/g)) {
     const v = parseFloat(m[1]);
     if (!ALLOWED_LETTER_SPACING.has(v)) errors.push(`letter-spacing ${v}em not in allowlist`);
   }
-  for (const m of body.matchAll(/opacity:\s*([\d.]+)/g)) {
+  for (const m of css.matchAll(/opacity:\s*([\d.]+)/g)) {
     const v = parseFloat(m[1]);
     if (!ALLOWED_OPACITY.has(v)) errors.push(`opacity ${v} not in allowlist`);
+  }
+  for (const m of css.matchAll(/font-weight:\s*([\d]+)/g)) {
+    const v = parseInt(m[1], 10);
+    if (!ALLOWED_FONT_WEIGHT.has(v)) errors.push(`font-weight ${v} not in allowlist`);
+  }
+  // radius literals must resolve to var(--mood-radii-*)
+  for (const m of css.matchAll(/border-radius:\s*([\d.]+)px/g)) {
+    const v = parseFloat(m[1]);
+    if (!ALLOWED_RADIUS.has(v)) {
+      errors.push(`border-radius ${v}px is a literal; use var(--mood-radii-*)`);
+    }
   }
   // generic pixel scan: font-size declarations are covered by their own
   // allowlist above, so exclude them here to avoid double-reporting.
   // Full numeric token (-?[\d.]+px) so 0.5px is caught as 0.5, not "5".
-  const pxBody = body.replace(/font-size:\s*-?[\d.]+px/g, "");
+  const pxBody = css.replace(/font-size:\s*-?[\d.]+px/g, "");
   for (const m of pxBody.matchAll(/(-?[\d.]+)px/g)) {
     const v = parseFloat(m[1]);
     if (!ALLOWED_PX.has(v)) errors.push(`"${m[0]}" not in pixel allowlist`);
@@ -286,31 +352,182 @@ function validateMood(id) {
   return { id, errors, warnings };
 }
 
-// --- CLI ---
-const args = process.argv.slice(2);
-let moodFilter = null;
-for (let i = 0; i < args.length; i++) {
-  if (args[i] === "--mood") moodFilter = args[i + 1];
+// --- app packages ---
+function validateApp(id) {
+  const dir = join(root, "apps", id);
+  const errors = [];
+  const warnings = [];
+
+  const appPath = join(dir, "app.json");
+  if (!existsSync(appPath)) {
+    return { id, errors: ["app.json missing"], warnings, kind: "app" };
+  }
+  const app = loadJson(appPath);
+
+  if (!app.id || app.id !== id) {
+    errors.push(`app.json id "${app.id}" does not match directory "${id}"`);
+  }
+  if (!app.mood) {
+    errors.push("app.json is missing the mood reference");
+  } else if (!existsSync(join(root, "moods", app.mood, "tokens.json"))) {
+    errors.push(`app.json references unknown mood "${app.mood}"`);
+  }
+  if (!Array.isArray(app.screens) || app.screens.length === 0) {
+    errors.push("app.json must declare a non-empty screens array");
+    return { id, errors, warnings, kind: "app" };
+  }
+
+  const seen = new Set();
+  for (const screen of app.screens) {
+    if (!screen.id) {
+      errors.push("every screen needs an id");
+      continue;
+    }
+    if (seen.has(screen.id)) errors.push(`duplicate screen id "${screen.id}"`);
+    seen.add(screen.id);
+    if (!screen.title) errors.push(`screen "${screen.id}" is missing a title`);
+
+    const walk = (blocks, trail) => {
+      for (const b of blocks ?? []) {
+        if (!b || typeof b !== "object") {
+          errors.push(`${trail}: block must be an object`);
+          continue;
+        }
+        if (!BLOCK_TYPES.includes(b.type)) {
+          errors.push(`${trail}: unknown block type "${b.type}"`);
+          continue;
+        }
+        if (b.type === "form") walk(b.blocks, `${trail}.form`);
+      }
+    };
+    walk(screen.blocks, `screen "${screen.id}"`);
+  }
+
+  // generated screens must exist and stay token-pure
+  const screensDir = join(dir, "screens");
+  if (!existsSync(screensDir)) {
+    errors.push("screens/ missing (run ui-moods build-apps " + id + ")");
+  } else {
+    for (const screen of app.screens) {
+      const p = join(screensDir, `${screen.id}.html`);
+      if (!existsSync(p)) {
+        errors.push(`screen file missing: screens/${screen.id}.html (run ui-moods build-apps ${id})`);
+        continue;
+      }
+      const html = readFileSync(p, "utf8");
+      if (/<script/i.test(html)) {
+        errors.push(`screens/${screen.id}.html contains <script>, which is forbidden`);
+      }
+      checkNoUnreplacedPlaceholders(html, `screens/${screen.id}.html`, errors);
+      checkHeadIsClean(html, `screens/${screen.id}.html`, errors);
+      const { tokenBlock, body } = splitSpecimen(html);
+      if (!tokenBlock) {
+        errors.push(`screens/${screen.id}.html is missing the mood-tokens block`);
+        continue;
+      }
+      const css = cssOnly(body);
+      const colorRe = /#[0-9a-fA-F]{3,8}\b|rgba?\([^)]*\)/g;
+      for (const m of css.matchAll(colorRe)) {
+        errors.push(`screens/${screen.id}.html has color literal "${m[0]}" outside the token block`);
+      }
+      for (const m of css.matchAll(/border-radius:\s*([\d.]+)px/g)) {
+        const v = parseFloat(m[1]);
+        if (!ALLOWED_RADIUS.has(v)) {
+          errors.push(`screens/${screen.id}.html has border-radius ${v}px literal; use var(--mood-radii-*)`);
+        }
+      }
+    }
+  }
+
+  return { id, errors, warnings, kind: "app" };
 }
 
-let ids;
-if (moodFilter) {
-  ids = [moodFilter];
-} else {
+/* --- registry coherence --- */
+function validateRegistry() {
+  const errors = [];
   const index = loadJson(join(root, "moods.json"));
-  ids = (index.moods || []).map((m) => m.id);
+  const ids = (index.moods || []).map((m) => m.id);
+
+  const onDisk = readdirSync(join(root, "moods"), { withFileTypes: true })
+    .filter((d) => d.isDirectory())
+    .map((d) => d.name);
+  for (const id of onDisk) {
+    if (!ids.includes(id)) errors.push(`moods/${id} exists on disk but is not registered in moods.json`);
+  }
+  for (const id of ids) {
+    if (!onDisk.includes(id)) errors.push(`moods.json registers "${id}" but moods/${id} does not exist`);
+  }
+  const seen = new Set();
+  for (const m of index.moods || []) {
+    if (seen.has(m.id)) errors.push(`moods.json lists "${m.id}" more than once`);
+    seen.add(m.id);
+  }
+  return errors;
+}
+
+/* --- CLI --- */
+const args = process.argv.slice(2);
+let moodFilter = null;
+let appFilter = null;
+let registryOnly = false;
+for (let i = 0; i < args.length; i++) {
+  if (args[i] === "--mood") moodFilter = args[++i];
+  else if (args[i] === "--app") appFilter = args[++i];
+  else if (args[i] === "--registry") registryOnly = true;
 }
 
 let failed = 0;
-for (const id of ids) {
-  const result = validateMood(id);
-  if (result.errors.length === 0) {
-    console.log(`moods/${id}: PASS`);
+
+if (!registryOnly) {
+  let ids;
+  if (moodFilter) {
+    ids = [moodFilter];
   } else {
-    failed++;
-    console.log(`moods/${id}: FAIL (${result.errors.length} errors)`);
-    for (const e of result.errors) console.log(`  - ${e}`);
+    const index = loadJson(join(root, "moods.json"));
+    ids = (index.moods || []).map((m) => m.id);
   }
-  for (const w of result.warnings) console.log(`  ! warn: ${w}`);
+
+  for (const id of ids) {
+    const result = validateMood(id);
+    if (result.errors.length === 0) {
+      console.log(`moods/${id}: PASS`);
+    } else {
+      failed++;
+      console.log(`moods/${id}: FAIL (${result.errors.length} errors)`);
+      for (const e of result.errors) console.log(`  - ${e}`);
+    }
+    for (const w of result.warnings) console.log(`  ! warn: ${w}`);
+  }
+
+  // apps
+  let appIds = [];
+  if (appFilter) {
+    appIds = [appFilter];
+  } else if (existsSync(join(root, "apps.json"))) {
+    appIds = (loadJson(join(root, "apps.json")).apps || []).map((a) => a.id);
+  }
+  for (const id of appIds) {
+    if (!existsSync(join(root, "apps", id))) continue;
+    const result = validateApp(id);
+    if (result.errors.length === 0) {
+      console.log(`apps/${id}: PASS`);
+    } else {
+      failed++;
+      console.log(`apps/${id}: FAIL (${result.errors.length} errors)`);
+      for (const e of result.errors) console.log(`  - ${e}`);
+    }
+    for (const w of result.warnings) console.log(`  ! warn: ${w}`);
+  }
 }
+
+// registry coherence
+const registryErrors = validateRegistry();
+if (registryErrors.length > 0) {
+  failed++;
+  console.log(`registry: FAIL (${registryErrors.length} errors)`);
+  for (const e of registryErrors) console.log(`  - ${e}`);
+} else {
+  console.log("registry: PASS");
+}
+
 process.exit(failed ? 1 : 0);

@@ -28,6 +28,32 @@
       ]
     },
     {
+      "id": "aurora",
+      "version": "1.0.0",
+      "name": "Aurora",
+      "nameZh": "极光",
+      "appearance": "dark",
+      "keywords": [
+        "aurora",
+        "gradient",
+        "teal-violet",
+        "deep"
+      ]
+    },
+    {
+      "id": "bauhaus",
+      "version": "1.0.0",
+      "name": "Bauhaus",
+      "nameZh": "包豪斯",
+      "appearance": "light",
+      "keywords": [
+        "bauhaus",
+        "primary-colors",
+        "geometric",
+        "constructivist"
+      ]
+    },
+    {
       "id": "blueprint",
       "version": "1.0.0",
       "name": "Blueprint",
@@ -38,6 +64,19 @@
         "drafting",
         "uppercase",
         "technical"
+      ]
+    },
+    {
+      "id": "brutal",
+      "version": "1.0.0",
+      "name": "Brutal",
+      "nameZh": "粗野派",
+      "appearance": "light",
+      "keywords": [
+        "brutalist",
+        "hard-shadow",
+        "zero-radius",
+        "high-contrast"
       ]
     },
     {
@@ -55,6 +94,84 @@
       ]
     },
     {
+      "id": "corporate",
+      "version": "1.0.0",
+      "name": "Corporate",
+      "nameZh": "企管",
+      "appearance": "light",
+      "keywords": [
+        "saas",
+        "enterprise",
+        "data-dense",
+        "trustworthy"
+      ]
+    },
+    {
+      "id": "crypto",
+      "version": "1.0.0",
+      "name": "Crypto",
+      "nameZh": "加密",
+      "appearance": "dark",
+      "keywords": [
+        "crypto",
+        "terminal",
+        "lime",
+        "monospace"
+      ]
+    },
+    {
+      "id": "eco",
+      "version": "1.0.0",
+      "name": "Eco",
+      "nameZh": "环保",
+      "appearance": "light",
+      "keywords": [
+        "sustainability",
+        "organic",
+        "green",
+        "calm"
+      ]
+    },
+    {
+      "id": "fashion",
+      "version": "1.0.0",
+      "name": "Fashion",
+      "nameZh": "时装",
+      "appearance": "light",
+      "keywords": [
+        "fashion",
+        "editorial",
+        "didot",
+        "asymmetric"
+      ]
+    },
+    {
+      "id": "finance",
+      "version": "1.0.0",
+      "name": "Finance",
+      "nameZh": "金融",
+      "appearance": "dark",
+      "keywords": [
+        "banking",
+        "noir",
+        "gold",
+        "tabular-numbers"
+      ]
+    },
+    {
+      "id": "food",
+      "version": "1.0.0",
+      "name": "Food",
+      "nameZh": "美食",
+      "appearance": "light",
+      "keywords": [
+        "food",
+        "appetizing",
+        "warm",
+        "menu"
+      ]
+    },
+    {
       "id": "forest",
       "version": "1.0.0",
       "name": "Forest",
@@ -65,6 +182,19 @@
         "wood",
         "botanical",
         "organic"
+      ]
+    },
+    {
+      "id": "gaming",
+      "version": "1.0.0",
+      "name": "Gaming",
+      "nameZh": "电竞",
+      "appearance": "dark",
+      "keywords": [
+        "gaming",
+        "hud",
+        "angular",
+        "cyan-on-black"
       ]
     },
     {
@@ -121,6 +251,45 @@
       ]
     },
     {
+      "id": "medical",
+      "version": "1.0.0",
+      "name": "Medical",
+      "nameZh": "医疗",
+      "appearance": "light",
+      "keywords": [
+        "healthcare",
+        "clinical",
+        "calm",
+        "teal"
+      ]
+    },
+    {
+      "id": "monochrome",
+      "version": "1.0.0",
+      "name": "Monochrome",
+      "nameZh": "素白",
+      "appearance": "light",
+      "keywords": [
+        "monochrome",
+        "greyscale",
+        "high-contrast",
+        "minimal"
+      ]
+    },
+    {
+      "id": "neon",
+      "version": "1.0.0",
+      "name": "Neon",
+      "nameZh": "霓虹",
+      "appearance": "dark",
+      "keywords": [
+        "neon",
+        "cyberpunk",
+        "glow",
+        "magenta-cyan"
+      ]
+    },
+    {
       "id": "night",
       "version": "1.0.0",
       "name": "Night",
@@ -135,6 +304,97 @@
       ]
     },
     {
+      "id": "nordic",
+      "version": "1.0.0",
+      "name": "Nordic",
+      "nameZh": "北欧",
+      "appearance": "light",
+      "keywords": [
+        "scandinavian",
+        "muted",
+        "functional",
+        "airy"
+      ]
+    },
+    {
+      "id": "pastel",
+      "version": "1.0.0",
+      "name": "Pastel",
+      "nameZh": "粉彩",
+      "appearance": "light",
+      "keywords": [
+        "pastel",
+        "soft",
+        "low-saturation",
+        "friendly"
+      ]
+    },
+    {
+      "id": "retro",
+      "version": "1.0.0",
+      "name": "Retro",
+      "nameZh": "复古",
+      "appearance": "light",
+      "keywords": [
+        "seventies",
+        "paper",
+        "warm",
+        "chunky"
+      ]
+    },
+    {
+      "id": "sakura",
+      "version": "1.0.0",
+      "name": "Sakura",
+      "nameZh": "樱见",
+      "appearance": "light",
+      "keywords": [
+        "sakura",
+        "japanese",
+        "petal",
+        "gentle"
+      ]
+    },
+    {
+      "id": "swiss",
+      "version": "1.0.0",
+      "name": "Swiss",
+      "nameZh": "瑞士",
+      "appearance": "light",
+      "keywords": [
+        "swiss",
+        "helvetica",
+        "grid",
+        "red-accent"
+      ]
+    },
+    {
+      "id": "travel",
+      "version": "1.0.0",
+      "name": "Travel",
+      "nameZh": "旅行",
+      "appearance": "light",
+      "keywords": [
+        "travel",
+        "booking",
+        "airy",
+        "sky"
+      ]
+    },
+    {
+      "id": "vaporwave",
+      "version": "1.0.0",
+      "name": "Vaporwave",
+      "nameZh": "蒸汽波",
+      "appearance": "dark",
+      "keywords": [
+        "vaporwave",
+        "synthwave",
+        "magenta-cyan",
+        "retro-future"
+      ]
+    },
+    {
       "id": "verdant",
       "version": "1.0.0",
       "name": "Verdant",
@@ -146,6 +406,19 @@
         "terminal",
         "mono",
         "green"
+      ]
+    },
+    {
+      "id": "y2k",
+      "version": "1.0.0",
+      "name": "Y2K",
+      "nameZh": "千禧",
+      "appearance": "light",
+      "keywords": [
+        "y2k",
+        "chrome",
+        "bubble",
+        "gradient"
       ]
     }
   ]

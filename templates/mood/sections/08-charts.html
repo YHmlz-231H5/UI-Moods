@@ -1,0 +1,180 @@
+<style>
+  .s-chart-card { padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+  .s-chart-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+  .s-chart-title { font-size: var(--mood-typography-title-size); font-weight: 600; color: var(--mood-colors-text-strong); }
+  .s-chart-sub { font-size: 11px; color: var(--mood-colors-muted); }
+  .s-chart-legend { display: flex; flex-wrap: wrap; gap: 14px; }
+  .s-legend-item { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; color: var(--mood-colors-muted); }
+  .s-legend-dot { width: 9px; height: 9px; border-radius: 50%; }
+  .s-legend-dot.s-accent { background: var(--mood-colors-accent); }
+  .s-legend-dot.s-ok { background: var(--mood-colors-ok); }
+  .s-legend-dot.s-warn { background: var(--mood-colors-warn); }
+  .s-legend-dot.s-danger { background: var(--mood-colors-danger); }
+  .s-legend-dot.s-muted { background: var(--mood-colors-border); }
+  .s-axis-x { display: flex; justify-content: space-between; font-size: 10px; color: var(--mood-colors-muted); }
+  .s-axis-y { display: flex; flex-direction: column; justify-content: space-between; font-size: 10px; color: var(--mood-colors-muted); text-align: right; }
+  .s-bar-layout { display: grid; grid-template-columns: 28px 1fr; gap: 6px; }
+  .s-donut-wrap { display: flex; align-items: center; gap: 16px; }
+  .s-donut-legend { display: flex; flex-direction: column; gap: 8px; }
+  .s-donut-legend div { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--mood-colors-text); }
+  .s-donut-legend b { margin-left: auto; font-variant-numeric: tabular-nums; color: var(--mood-colors-text-strong); font-weight: 600; }
+  .s-spark-list { display: flex; flex-direction: column; gap: 12px; }
+  .s-spark-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .s-spark-row .s-spark-label { font-size: 12px; color: var(--mood-colors-text); }
+  .s-spark-row .s-spark-label small { display: block; font-size: 10px; color: var(--mood-colors-muted); }
+  .s-spark-row .s-spark-num { font-size: 12px; font-weight: 600; color: var(--mood-colors-text-strong); font-variant-numeric: tabular-nums; }
+</style>
+
+<div class="section-label">Charts</div>
+
+<div class="row">
+  <div class="block">
+    <div class="s-chart-card">
+      <div class="s-chart-head">
+        <div>
+          <div class="s-chart-title">Queries per day</div>
+          <div class="s-chart-sub">All workspaces · last 7 days</div>
+        </div>
+        <span class="badge">14,882 total</span>
+      </div>
+      <div class="s-bar-layout">
+        <div class="s-axis-y"><span>4k</span><span>3k</span><span>2k</span><span>1k</span><span>0</span></div>
+        <div>
+          <svg width="100%" height="160" viewBox="0 0 320 160" preserveAspectRatio="none" aria-hidden="true">
+            <line x1="0" y1="10" x2="320" y2="10" stroke="var(--mood-colors-border)" stroke-width="1" />
+            <line x1="0" y1="45" x2="320" y2="45" stroke="var(--mood-colors-border)" stroke-width="1" />
+            <line x1="0" y1="80" x2="320" y2="80" stroke="var(--mood-colors-border)" stroke-width="1" />
+            <line x1="0" y1="115" x2="320" y2="115" stroke="var(--mood-colors-border)" stroke-width="1" />
+            <rect x="6" y="58" width="26" height="92" rx="4" fill="var(--mood-colors-accent)" />
+            <rect x="52" y="42" width="26" height="108" rx="4" fill="var(--mood-colors-accent)" />
+            <rect x="98" y="70" width="26" height="80" rx="4" fill="var(--mood-colors-accent)" />
+            <rect x="144" y="30" width="26" height="120" rx="4" fill="var(--mood-colors-accent)" />
+            <rect x="190" y="50" width="26" height="100" rx="4" fill="var(--mood-colors-accent)" />
+            <rect x="236" y="24" width="26" height="126" rx="4" fill="var(--mood-colors-ok)" />
+            <rect x="282" y="36" width="26" height="114" rx="4" fill="var(--mood-colors-accent)" />
+          </svg>
+          <div class="s-axis-x"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+        </div>
+      </div>
+      <div class="s-chart-legend">
+        <span class="s-legend-item"><span class="s-legend-dot s-accent"></span>Completed queries</span>
+        <span class="s-legend-item"><span class="s-legend-dot s-ok"></span>Peak day (Saturday)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="s-chart-card">
+      <div class="s-chart-head">
+        <div>
+          <div class="s-chart-title">Rows processed</div>
+          <div class="s-chart-sub">Millions per hour · rolling 24 hours</div>
+        </div>
+        <span class="badge live">Live</span>
+      </div>
+      <svg width="100%" height="160" viewBox="0 0 320 160" preserveAspectRatio="none" aria-hidden="true">
+        <line x1="0" y1="30" x2="320" y2="30" stroke="var(--mood-colors-border)" stroke-width="1" />
+        <line x1="0" y1="75" x2="320" y2="75" stroke="var(--mood-colors-border)" stroke-width="1" />
+        <line x1="0" y1="120" x2="320" y2="120" stroke="var(--mood-colors-border)" stroke-width="1" />
+        <path d="M0 120 L40 104 L80 112 L120 84 L160 92 L200 52 L240 64 L280 30 L320 40 L320 160 L0 160 Z" fill="var(--mood-colors-accent)" fill-opacity="0.25" />
+        <path d="M0 120 L40 104 L80 112 L120 84 L160 92 L200 52 L240 64 L280 30 L320 40" fill="none" stroke="var(--mood-colors-accent)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
+        <path d="M0 142 L80 138 L160 134 L240 130 L320 126" fill="none" stroke="var(--mood-colors-warn)" stroke-width="2" stroke-dasharray="5 4" stroke-linecap="round" />
+        <circle cx="280" cy="30" r="3.5" fill="var(--mood-colors-accent)" />
+      </svg>
+      <div class="s-axis-x"><span>00:00</span><span>04:00</span><span>08:00</span><span>12:00</span><span>16:00</span><span>20:00</span><span>Now</span></div>
+      <div class="s-chart-legend">
+        <span class="s-legend-item"><span class="s-legend-dot s-accent"></span>Rows processed</span>
+        <span class="s-legend-item"><span class="s-legend-dot s-warn"></span>7-day baseline</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row cols-3">
+  <div class="block">
+    <div class="s-chart-card">
+      <div class="s-chart-head">
+        <div>
+          <div class="s-chart-title">Plan mix</div>
+          <div class="s-chart-sub">Share of active workspaces</div>
+        </div>
+      </div>
+      <div class="s-donut-wrap">
+        <svg width="140" height="140" viewBox="0 0 140 140" aria-hidden="true">
+          <circle cx="70" cy="70" r="52" fill="none" stroke="var(--mood-colors-border)" stroke-width="14" />
+          <circle cx="70" cy="70" r="52" fill="none" stroke="var(--mood-colors-accent)" stroke-width="14" stroke-dasharray="150 177" stroke-dashoffset="0" transform="rotate(-90 70 70)" />
+          <circle cx="70" cy="70" r="52" fill="none" stroke="var(--mood-colors-ok)" stroke-width="14" stroke-dasharray="92 235" stroke-dashoffset="-150" transform="rotate(-90 70 70)" />
+          <circle cx="70" cy="70" r="52" fill="none" stroke="var(--mood-colors-warn)" stroke-width="14" stroke-dasharray="48 279" stroke-dashoffset="-242" transform="rotate(-90 70 70)" />
+          <text x="70" y="68" text-anchor="middle" font-size="18" font-weight="700" fill="var(--mood-colors-text-strong)">1,284</text>
+          <text x="70" y="84" text-anchor="middle" font-size="10" fill="var(--mood-colors-muted)">WORKSPACES</text>
+        </svg>
+        <div class="s-donut-legend">
+          <div><span class="s-legend-dot s-accent"></span>Scale<b>47%</b></div>
+          <div><span class="s-legend-dot s-ok"></span>Growth<b>29%</b></div>
+          <div><span class="s-legend-dot s-warn"></span>Starter<b>15%</b></div>
+          <div><span class="s-legend-dot s-muted"></span>Trial<b>9%</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="s-chart-card">
+      <div class="s-chart-head">
+        <div>
+          <div class="s-chart-title">Service health</div>
+          <div class="s-chart-sub">Last 12 hours per connector</div>
+        </div>
+      </div>
+      <div class="s-spark-list">
+        <div class="s-spark-row">
+          <div class="s-spark-label">Snowflake<small>p95 latency 1.2 s</small></div>
+          <svg width="90" height="26" viewBox="0 0 90 26" aria-hidden="true">
+            <polyline points="0,18 12,14 24,16 36,9 48,12 60,6 72,8 90,4" fill="none" stroke="var(--mood-colors-ok)" stroke-width="2" stroke-linejoin="round" />
+          </svg>
+          <span class="s-spark-num">99.98%</span>
+        </div>
+        <div class="s-spark-row">
+          <div class="s-spark-label">Postgres<small>p95 latency 340 ms</small></div>
+          <svg width="90" height="26" viewBox="0 0 90 26" aria-hidden="true">
+            <polyline points="0,12 12,10 24,14 36,11 48,15 60,13 72,17 90,15" fill="none" stroke="var(--mood-colors-accent)" stroke-width="2" stroke-linejoin="round" />
+          </svg>
+          <span class="s-spark-num">99.94%</span>
+        </div>
+        <div class="s-spark-row">
+          <div class="s-spark-label">Stripe<small>p95 latency 210 ms</small></div>
+          <svg width="90" height="26" viewBox="0 0 90 26" aria-hidden="true">
+            <polyline points="0,20 12,19 24,20 36,16 48,18 60,10 72,21 90,19" fill="none" stroke="var(--mood-colors-warn)" stroke-width="2" stroke-linejoin="round" />
+          </svg>
+          <span class="s-spark-num">99.71%</span>
+        </div>
+        <div class="s-spark-row">
+          <div class="s-spark-label">Warehouse API<small>p95 latency 88 ms</small></div>
+          <svg width="90" height="26" viewBox="0 0 90 26" aria-hidden="true">
+            <polyline points="0,14 12,13 24,9 36,11 48,8 60,9 72,7 90,6" fill="none" stroke="var(--mood-colors-accent)" stroke-width="2" stroke-linejoin="round" />
+          </svg>
+          <span class="s-spark-num">99.99%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block tint">
+    <div class="s-chart-card">
+      <div class="s-chart-head">
+        <div>
+          <div class="s-chart-title">Legend</div>
+          <div class="s-chart-sub">Semantic series colours</div>
+        </div>
+      </div>
+      <div class="s-chart-legend" style="flex-direction:column; gap:10px">
+        <span class="s-legend-item"><span class="s-legend-dot s-accent"></span>Primary metric / selected series</span>
+        <span class="s-legend-item"><span class="s-legend-dot s-ok"></span>Healthy / completed</span>
+        <span class="s-legend-item"><span class="s-legend-dot s-warn"></span>Degraded / pending</span>
+        <span class="s-legend-item"><span class="s-legend-dot s-danger"></span>Failed / breaching</span>
+        <span class="s-legend-item"><span class="s-legend-dot s-muted"></span>Baseline / inert</span>
+      </div>
+      <div class="s-axis-x" style="margin-top:auto"><span>Axis labels sit on the muted token at 10 px</span></div>
+    </div>
+  </div>
+</div>

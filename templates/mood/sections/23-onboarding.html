@@ -1,0 +1,108 @@
+<style>
+.s-on-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: var(--mood-spacing-gap); align-items: start; }
+.s-on-steps { display: flex; align-items: flex-start; margin-bottom: 18px; }
+.s-on-step { display: flex; flex-direction: column; align-items: center; gap: 8px; flex: 1; position: relative; }
+.s-on-step .s-on-dot { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; background: var(--mood-colors-bg); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); color: var(--mood-colors-muted); }
+.s-on-step .s-on-dot svg { width: 15px; height: 15px; }
+.s-on-step.done .s-on-dot { background: var(--mood-colors-ok); border-color: var(--mood-colors-ok); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); }
+.s-on-step.now .s-on-dot { background: var(--mood-colors-accent); border-color: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); }
+.s-on-step .s-on-label { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mood-colors-muted); text-align: center; }
+.s-on-step.now .s-on-label { color: var(--mood-colors-text-strong); font-weight: 600; }
+.s-on-step::after { content: ""; position: absolute; top: 16px; left: 50%; width: 100%; height: 1px; background: var(--mood-colors-border); }
+.s-on-step:last-child::after { display: none; }
+.s-on-step.done::after { background: var(--mood-colors-ok); }
+.s-on-form h3 { margin: 0 0 4px; font-size: var(--mood-typography-title-size); font-weight: 600; color: var(--mood-colors-text-strong); }
+.s-on-form > p { margin: 0 0 16px; font-size: 13px; color: var(--mood-colors-text); }
+.s-on-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+.s-on-fields .s-on-full { grid-column: 1 / -1; }
+.s-on-sample { border-radius: var(--mood-radii-input); background: var(--mood-colors-bg); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); padding: 12px; margin-bottom: 16px; }
+.s-on-sample-head { display: flex; align-items: center; justify-content: space-between; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mood-colors-muted); margin-bottom: 8px; }
+.s-on-sample pre { margin: 0; font-family: var(--mood-typography-family); font-size: 12px; line-height: 1.6; color: var(--mood-colors-text); white-space: pre-wrap; }
+.s-on-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 14px; border-top: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
+.s-on-foot span { font-size: 11px; color: var(--mood-colors-muted); }
+.s-on-signin { display: flex; flex-direction: column; gap: 14px; }
+.s-on-signin h3 { margin: 0; font-size: var(--mood-typography-title-size); font-weight: 600; color: var(--mood-colors-text-strong); }
+.s-on-signin p { margin: 0; font-size: 12px; color: var(--mood-colors-muted); }
+.s-on-signin .s-on-fields { grid-template-columns: 1fr; margin-bottom: 0; }
+.s-on-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.s-on-row a { font-size: 12px; color: var(--mood-colors-accent); text-decoration: none; }
+.s-on-check { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--mood-colors-text); }
+.s-on-check svg { width: 14px; height: 14px; color: var(--mood-colors-ok); flex: none; }
+.s-on-divider { display: flex; align-items: center; gap: 12px; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mood-colors-muted); }
+.s-on-divider::before, .s-on-divider::after { content: ""; flex: 1; height: 1px; background: var(--mood-colors-border); }
+.s-on-socials { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.s-on-social { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 9px 8px; border-radius: var(--mood-radii-button); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); background: var(--mood-colors-surface); color: var(--mood-colors-text); font-size: 12px; }
+.s-on-social .s-on-glyph { width: 18px; height: 18px; border-radius: var(--mood-radii-badge); background: var(--mood-colors-bg); color: var(--mood-colors-text-strong); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; }
+.s-on-social svg { width: 15px; height: 15px; }
+@media (max-width: 860px) { .s-on-grid { grid-template-columns: 1fr; } .s-on-fields { grid-template-columns: 1fr; } }
+</style>
+
+<div>
+  <div class="section-label">Onboarding &amp; Auth</div>
+  <div class="s-on-grid">
+    <div class="block">
+      <div class="s-on-steps">
+        <div class="s-on-step done">
+          <div class="s-on-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5L19.5 6.5"/></svg></div>
+          <div class="s-on-label">Create workspace</div>
+        </div>
+        <div class="s-on-step now">
+          <div class="s-on-dot">2</div>
+          <div class="s-on-label">Connect data</div>
+        </div>
+        <div class="s-on-step">
+          <div class="s-on-dot">3</div>
+          <div class="s-on-label">Invite the team</div>
+        </div>
+      </div>
+
+      <div class="s-on-form">
+        <h3>Connect your first source</h3>
+        <p>Beacon reads events from your own infrastructure. Nothing is copied until you confirm the schema below.</p>
+
+        <div class="s-on-fields">
+          <div class="field"><label>Source type</label><select><option>Segment</option><option>Snowflake</option><option>Postgres</option><option>Stripe</option><option>Custom HTTP endpoint</option></select></div>
+          <div class="field"><label>Destination table</label><input value="northwind.events" readonly /></div>
+          <div class="field s-on-full"><label>Display name</label><input value="Cartwheel production" readonly /></div>
+        </div>
+
+        <div class="s-on-sample">
+          <div class="s-on-sample-head"><span>Sample event</span><span>1 of 3 detected</span></div>
+          <pre>{
+  "event": "checkout_completed",
+  "user_id": "usr_8841",
+  "plan": "pro",
+  "amount_cents": 7900,
+  "occurred_at": "2026-11-10T09:41:22Z"
+}</pre>
+        </div>
+
+        <div class="s-on-foot">
+          <span>Step 2 of 3 &middot; usually takes under a minute</span>
+          <div class="btn-row"><button type="button">Back</button><button type="button" class="primary">Continue</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block tint s-on-signin">
+      <h3>Welcome back</h3>
+      <p>Sign in to the Cartwheel workspace.</p>
+      <div class="s-on-fields">
+        <div class="field"><label>Work email</label><input value="rosa@cartwheel.io" readonly /></div>
+        <div class="field"><label>Password</label><input value="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" readonly /></div>
+      </div>
+      <div class="s-on-row">
+        <span class="s-on-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="4.5" width="15" height="15" rx="3"/><path d="M8 12l2.5 2.5L16 9"/></svg>Keep me signed in</span>
+        <a href="/auth/forgot-password">Forgot password?</a>
+      </div>
+      <button type="button" class="primary">Sign in</button>
+      <div class="s-on-divider">or continue with</div>
+      <div class="s-on-socials">
+        <button type="button" class="s-on-social"><span class="s-on-glyph">G</span>Google</button>
+        <button type="button" class="s-on-social"><span class="s-on-glyph">GH</span>GitHub</button>
+        <button type="button" class="s-on-social"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10.5" width="14" height="9" rx="2"/><path d="M8.5 10.5V8a3.5 3.5 0 017 0v2.5"/></svg>SSO</button>
+      </div>
+      <p>New to Beacon? <a href="/signup">Create a workspace</a> &middot; Free for 5 seats, no card.</p>
+    </div>
+  </div>
+</div>

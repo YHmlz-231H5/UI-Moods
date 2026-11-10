@@ -1,0 +1,178 @@
+{
+  "id": "automotive",
+  "name": "Automotive",
+  "nameZh": "汽车出行",
+  "mood": "instrument",
+  "description": "智能车联与出行服务参考：车辆状态仪表盘、充电与保养、行程记录与车辆设置。",
+  "chrome": {
+    "statusbar": { "time": "9:41" },
+    "tabbar": {
+      "items": [
+        { "icon": "truck", "label": "车辆", "active": true },
+        { "icon": "bolt", "label": "补能" },
+        { "icon": "location", "label": "行程" },
+        { "icon": "user", "label": "我的" }
+      ]
+    }
+  },
+  "screens": [
+    {
+      "id": "status",
+      "title": "车辆状态",
+      "titleZh": "车况",
+      "chrome": { "navbar": { "back": true, "title": "极氪 001 · 车况", "action": "更多" } },
+      "blocks": [
+        { "type": "header", "title": "极氪 001 · 长续航版", "subtitle": "已行驶 18,420 km · 本月 1,286 km · 平均能耗 16.8 kWh/100km", "meta": [
+          { "label": "车辆在线", "tone": "ok" },
+          { "label": "无故障码", "tone": "accent" }
+        ] },
+        { "type": "scoreRing", "pct": 92, "value": "92", "label": "车况评分" },
+        { "type": "statGrid", "cols": 3, "items": [
+          { "label": "剩余电量", "value": "76%" },
+          { "label": "续航里程", "value": "428 km" },
+          { "label": "胎压", "value": "2.5 bar" }
+        ] },
+        { "type": "progress", "label": "电池电量", "value": "76% · 可行驶 428 km", "pct": 76, "tone": "ok" },
+        { "type": "bars", "title": "近 7 日能耗", "sub": "单位：kWh/100km", "items": [
+          { "label": "周一", "value": 21 },
+          { "label": "周二", "value": 18 },
+          { "label": "周三", "value": 15 },
+          { "label": "周四", "value": 17 },
+          { "label": "周五", "value": 14 },
+          { "label": "周六", "value": 12 },
+          { "label": "周日", "value": 16 }
+        ], "legend": [
+          { "label": "实际能耗" },
+          { "label": "车型均值", "alt": true }
+        ] },
+        { "type": "map", "icon": "location", "pin": true, "label": "当前位置 · 上海市浦东新区张江科技园 · 地库 B2" },
+        { "type": "list", "items": [
+          { "icon": "sun", "title": "空调", "sub": "已关闭", "value": "22℃", "chev": true },
+          { "icon": "lock", "title": "车门已上锁", "sub": "4 门全部锁定", "value": "已锁", "valueTone": "ok", "chev": true },
+          { "icon": "signal", "title": "哨兵模式", "sub": "录像上传至车机", "value": "开启", "valueTone": "ok", "chev": true },
+          { "icon": "refresh", "title": "寻车", "sub": "地库 B2 · 车位 128", "value": "2 分钟", "chev": true }
+        ] },
+        { "type": "notice", "tone": "warn", "mark": "提醒", "text": "左前轮胎压 2.3 bar，低于建议值 2.5 bar，建议尽快检查。" }
+      ]
+    },
+    {
+      "id": "energy",
+      "title": "充电与保养",
+      "titleZh": "补能",
+      "chrome": { "navbar": { "back": true, "title": "充电与保养", "action": "筛选" } },
+      "blocks": [
+        { "type": "map", "icon": "bolt", "pin": true, "label": "附近 3 个充电站 · 最近 800 m" },
+        { "type": "statGrid", "cols": 3, "items": [
+          { "label": "本月充电", "value": "486 kWh" },
+          { "label": "充电费用", "value": "¥ 328" },
+          { "label": "平均单价", "value": "¥ 0.68/kWh" }
+        ] },
+        { "type": "sectionHead", "title": "附近充电站", "action": "查看全部 12" },
+        { "type": "list", "items": [
+          { "icon": "bolt", "title": "国网 张江科学会堂站", "sub": "120kW 直流 · 步行 6 分钟", "value": "空闲 4/12", "valueTone": "ok", "chev": true },
+          { "icon": "bolt", "title": "特来电 张江地铁站", "sub": "60kW 直流 · 步行 12 分钟", "value": "空闲 0/6", "valueTone": "warn", "chev": true },
+          { "icon": "bolt", "title": "星星充电 科苑路店", "sub": "60kW 直流 · 步行 15 分钟", "value": "空闲 9/16", "valueTone": "ok", "chev": true }
+        ] },
+        { "type": "sectionHead", "title": "保养计划", "action": "预约" },
+        { "type": "timeline", "items": [
+          { "title": "常规保养 · 2 万公里", "sub": "更换机油机滤 · 张江服务中心", "time": "2026-08-16", "state": "done" },
+          { "title": "轮胎换位与动平衡", "sub": "四轮定位检测 · 数值正常", "time": "2026-08-16", "state": "done" },
+          { "title": "制动液与雨刮检查", "sub": "例行项目 · 耗时 0.5 小时", "time": "2026-08-16", "state": "done" },
+          { "title": "下次保养 · 2 万公里", "sub": "当前 18,420 km · 剩余 1,580 km", "time": "预计 2027-02", "state": "pending" }
+        ] },
+        { "type": "progress", "label": "距下次保养", "value": "1,580 / 2,000 km", "pct": 79, "tone": "warn" },
+        { "type": "list", "items": [
+          { "icon": "dumbbell", "title": "易损件提醒", "sub": "雨刮片 · 预计剩余 1,200 km", "value": "待更换", "valueTone": "warn", "chev": true },
+          { "icon": "wallet", "title": "保养套餐余额", "sub": "剩余 ¥ 1,280 · 有效期至 2027-06", "value": "¥ 1,280", "valueTone": "ok", "chev": true }
+        ] }
+      ]
+    },
+    {
+      "id": "trips",
+      "title": "行程记录",
+      "titleZh": "行程",
+      "chrome": { "navbar": { "back": true, "title": "行程记录", "action": "导出" } },
+      "blocks": [
+        { "type": "statGrid", "cols": 3, "items": [
+          { "label": "本月里程", "value": "1,286 km", "delta": "+12%", "deltaTone": "up" },
+          { "label": "行程次数", "value": "18" },
+          { "label": "通勤占比", "value": "72%", "delta": "-4%", "deltaTone": "down" }
+        ] },
+        { "type": "bars", "title": "近 7 日里程", "sub": "单位：km", "items": [
+          { "label": "周一", "value": 42 },
+          { "label": "周二", "value": 68 },
+          { "label": "周三", "value": 25 },
+          { "label": "周四", "value": 74 },
+          { "label": "周五", "value": 51 },
+          { "label": "周六", "value": 96 },
+          { "label": "周日", "value": 18 }
+        ], "legend": [
+          { "label": "实际里程" },
+          { "label": "日均 46 km", "alt": true }
+        ] },
+        { "type": "donut", "title": "行程类型分布", "sub": "近 30 日共 62 次行程", "segments": [
+          { "label": "通勤", "value": 34 },
+          { "label": "长途", "value": 12 },
+          { "label": "接送", "value": 9 },
+          { "label": "其他", "value": 7 }
+        ] },
+        { "type": "sectionHead", "title": "最近行程", "action": "全部" },
+        { "type": "list", "items": [
+          { "icon": "location", "title": "公司 → 浦东机场 T2", "sub": "11-05 18:12 · 用时 46 分钟", "value": "52 km", "chev": true },
+          { "icon": "location", "title": "家 → 公司", "sub": "11-05 08:21 · 用时 38 分钟 · 早高峰", "value": "31 km", "chev": true },
+          { "icon": "location", "title": "公司 → 虹桥商务区", "sub": "11-04 19:05 · 用时 54 分钟", "value": "44 km", "chev": true },
+          { "icon": "location", "title": "家 → 奥特莱斯", "sub": "11-03 14:30 · 用时 1 小时 22 分钟", "value": "78 km", "chev": true }
+        ] },
+        { "type": "kv", "items": [
+          { "label": "累计里程", "value": "18,420 km" },
+          { "label": "累计能耗", "value": "3,092 kWh" },
+          { "label": "平均时速", "value": "42 km/h" },
+          { "label": "最长单程", "value": "186 km · 沪苏方向" }
+        ] },
+        { "type": "notice", "tone": "info", "mark": "记录", "text": "已开启自动行程记录，上车 30 秒后系统自动生成轨迹。" },
+        { "type": "sheet", "title": "行程数据", "items": [
+          { "icon": "download", "label": "导出为 CSV" },
+          { "icon": "share", "label": "分享行程数据" },
+          { "icon": "trash", "label": "清空历史记录", "danger": true }
+        ] }
+      ]
+    },
+    {
+      "id": "settings",
+      "title": "车辆设置",
+      "titleZh": "设置",
+      "chrome": { "navbar": { "back": true, "title": "车辆设置", "action": "保存" } },
+      "blocks": [
+        { "type": "kv", "items": [
+          { "label": "车型版本", "value": "极氪 001 长续航版" },
+          { "label": "车辆识别码", "value": "LZK0 *** ** 4827" },
+          { "label": "绑定手机", "value": "138****6021" },
+          { "label": "软件版本", "value": "v3.2.1 · 2026-10-28" }
+        ] },
+        { "type": "sectionHead", "title": "驾驶辅助" },
+        { "type": "formGroup", "label": "辅助功能", "rows": [
+          { "label": "车道保持", "hint": "偏离时自动修正", "type": "switch", "on": true },
+          { "label": "自适应巡航", "hint": "0 - 120 km/h", "type": "switch", "on": true },
+          { "label": "自动泊车", "hint": "支持侧方与垂直车位", "type": "switch" },
+          { "label": "疲劳监测", "hint": "连续驾驶 4 小时提醒", "type": "switch", "on": true },
+          { "label": "限速识别", "hint": "依据路牌动态提示", "type": "switch", "on": true }
+        ] },
+        { "type": "sectionHead", "title": "能耗与充电" },
+        { "type": "formGroup", "label": "充电策略", "rows": [
+          { "label": "充电上限", "hint": "日常 90% · 长途 100%", "value": "90%" },
+          { "label": "预约充电", "hint": "谷电时段 23:00 - 07:00", "type": "switch", "on": true },
+          { "label": "出发前预热", "hint": "提前 30 分钟", "type": "switch" },
+          { "label": "低电量提醒", "hint": "剩余 20% 时通知", "type": "switch", "on": true }
+        ] },
+        { "type": "field", "label": "充电上限（%）", "input": "number", "value": "90", "placeholder": "80 - 100", "help": "建议日常使用不超过 90%，长途出行可临时调高" },
+        { "type": "list", "items": [
+          { "icon": "dumbbell", "title": "车辆保养记录", "sub": "共 6 次 · 最近 2026-08-16", "chev": true },
+          { "icon": "lock", "title": "钥匙与权限", "sub": "2 把实体钥匙 · 1 个手机钥匙", "chev": true },
+          { "icon": "building", "title": "售后与服务", "sub": "预约维修 · 救援电话 400-888-0019", "chev": true },
+          { "icon": "user", "title": "账户与隐私", "sub": "数据授权 · 定位记录", "chev": true }
+        ] },
+        { "type": "notice", "tone": "info", "mark": "提示", "text": "远程控车需保持手机网络畅通并确认车辆处于在线状态。" }
+      ]
+    }
+  ]
+}

@@ -60,24 +60,78 @@ justification.
 
 ## 4. Magic-number scan (specimen, excluding `style#mood-tokens`)
 
-Scanned categories and allowlists live in `docs/css-var-mapping.md` §5:
-`font-size`, `letter-spacing`, `opacity`, pixel metrics, color literals.
-Off-list values are errors; adding a value requires updating §5 first.
+Scanned categories and allowlists live in `schemas/allowlist.json`, documented
+in `docs/css-var-mapping.md` §5: `font-size`, `letter-spacing`, `opacity`,
+`font-weight`, `border-radius`, pixel metrics, color literals.
+
+The scan is **not** a blanket "no numbers" rule — it separates *layout
+mechanics* (allowed, and allowlisted) from *theme parameters* (never
+allowlisted):
+
+| Theme parameter | Rule |
+| --- | --- |
+| Color | must be `var(--mood-colors-*)` or a keyword |
+| Radius | must be `var(--mood-radii-*)`; raw px is an error except `999px` |
+| Shadow | must be `var(--mood-shadows-*)` |
+| Font family | must be `var(--mood-typography-family)` |
+| Font size | primary sizes come from `var(--mood-typography-*)`; only 10–13px literals are allowed for auxiliary text |
 
 Known scan gaps (accepted for v1, will harden later):
 
 - Color functions beyond `hex` / `rgb(a)` are **errors** when found in the
   specimen body (`hsl` / `hsla` / `oklch` / `lab` / `lch` / `color()`).
 - Unitless values other than `opacity` are not scanned.
+- A raw radius written as a percentage (`50%`) is not caught by the px rule;
+  it is legal because a circle is a shape, not a theme value.
 
 ## 5. Report format
 
-`ui-moods validate` prints one line per mood:
+`ui-moods validate` prints one line per mood and per app:
 
 ```
 moods/<id>: PASS | FAIL (N errors)
+apps/<id>: PASS | FAIL (N errors)
+registry: PASS | FAIL (N errors)
 ```
 
 Errors are listed with a short path, e.g.
 `components.button.primary.fg: literal "#0b0b18" not in keyword whitelist`.
-Exit code is `0` when every recorded mood passes, `1` otherwise.
+Exit code is `0` when every recorded mood, app and the registry pass, `1`
+otherwise.
+
+## 6. App package validation
+
+`ui-moods validate` also checks each registered app pack:
+
+| Check | Rule |
+| --- | --- |
+| `app.json` exists and parses | must be valid JSON |
+| `id` matches the directory | `apps/<id>/app.json` → `id === "<id>"` |
+| `mood` resolves | `moods/<mood>/tokens.json` must exist |
+| screens are well-formed | non-empty array; unique kebab-case ids; every screen has a `title` |
+| block types are known | every `type` must exist in `tools/lib/blocks.mjs`; nested `form.blocks` are walked too |
+| rendered screens exist | `screens/<screen-id>.html` must be present — run `build-apps` |
+| rendered screens are script-free | no `<script>` |
+| rendered screens are token-pure | no color literals outside the token block; no raw `border-radius` px |
+| rendered screens are structurally intact | no unreplaced `{{placeholder}}`; no block-level content inside `<head>` |
+
+The registry check verifies that every directory under `moods/` and `apps/`
+is registered in `moods.json` / `apps.json`, and that every registered id
+exists on disk — so a forgotten registration fails the build.
+
+## 7. Structural integrity of generated artifacts
+
+Generated HTML is checked for two structural failures that a token-only scan
+cannot see, because both produce a document that still *renders* — just wrongly.
+
+| Check | Rule | Why |
+| --- | --- | --- |
+| no unreplaced placeholders | the generated file must not contain `{{name}}`-style tokens | A surviving placeholder means the build did not fill it. The browser's HTML parser relocates whatever sits in the wrong container, so a leftover `{{sections}}` renders as raw template text at the end of the page instead of failing loudly. |
+| `<head>` holds no block-level content | `<head>` may contain only metadata (`meta`, `title`, `style`, `link`) — no `div` / `section` / `p` / `table` / list / heading | Section partials belong to `<body>`. If a build bug injects them into `<head>`, the parser moves them into `<body>` and the original template tail is rendered as visible text. |
+
+Both checks run against `moods/<id>/specimen.html` and every
+`apps/<id>/screens/<screen-id>.html`.
+
+`build-specimen` injects the section partials at the **last** occurrence of the
+sections marker, because the shell's own leading comment mentions the marker
+too. A first-match replacement would put every section inside `<head>`.

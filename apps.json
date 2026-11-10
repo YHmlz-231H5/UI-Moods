@@ -1,0 +1,116 @@
+{
+  "apps": [
+    {
+      "id": "fintech",
+      "name": "Fintech",
+      "nameZh": "金融理财",
+      "mood": "finance",
+      "screens": 5,
+      "description": "移动银行与理财应用：资产总览、行情、交易明细、转账与卡片管理。"
+    },
+    {
+      "id": "health",
+      "name": "Health",
+      "nameZh": "医疗健康",
+      "mood": "medical",
+      "screens": 5,
+      "description": "互联网医院与健康档案：预约挂号、报告解读、用药提醒与问诊记录。"
+    },
+    {
+      "id": "commerce",
+      "name": "Commerce",
+      "nameZh": "电商零售",
+      "mood": "corporate",
+      "screens": 5,
+      "description": "综合购物平台：首页推荐、商品详情、购物车、订单与个人中心。"
+    },
+    {
+      "id": "delivery",
+      "name": "Delivery",
+      "nameZh": "餐饮外卖",
+      "mood": "food",
+      "screens": 4,
+      "description": "本地生活与外卖：商家列表、菜品详情、购物车与订单追踪。"
+    },
+    {
+      "id": "travel",
+      "name": "Travel",
+      "nameZh": "旅行出行",
+      "mood": "travel",
+      "screens": 4,
+      "description": "在线旅行服务：目的地发现、酒店与机票预订、行程行程单。"
+    },
+    {
+      "id": "education",
+      "name": "Education",
+      "nameZh": "在线教育",
+      "mood": "y2k",
+      "screens": 4,
+      "description": "学习平台：课程广场、播放页、进度管理与作业提交。"
+    },
+    {
+      "id": "social",
+      "name": "Social",
+      "nameZh": "社交社区",
+      "mood": "pastel",
+      "screens": 4,
+      "description": "兴趣社区：信息流、话题详情、消息会话与个人主页。"
+    },
+    {
+      "id": "fitness",
+      "name": "Fitness",
+      "nameZh": "运动健身",
+      "mood": "gaming",
+      "screens": 4,
+      "description": "健身与运动记录：今日训练、动作详情、数据统计与计划安排。"
+    },
+    {
+      "id": "music",
+      "name": "Music",
+      "nameZh": "音乐娱乐",
+      "mood": "vaporwave",
+      "screens": 4,
+      "description": "流媒体音乐：推荐歌单、播放页、专辑详情与歌词。"
+    },
+    {
+      "id": "workspace",
+      "name": "Workspace",
+      "nameZh": "效率办公",
+      "mood": "ios",
+      "screens": 5,
+      "description": "协作工作台：任务看板、日历排期、文档协作与团队统计。"
+    },
+    {
+      "id": "logistics",
+      "name": "Logistics",
+      "nameZh": "物流快递",
+      "mood": "aurora",
+      "screens": 4,
+      "description": "货运与快递服务：运单查询、路线跟踪、签收与异常处理。"
+    },
+    {
+      "id": "realestate",
+      "name": "Real Estate",
+      "nameZh": "房产家居",
+      "mood": "nordic",
+      "screens": 4,
+      "description": "房产交易与家居：房源列表、房屋详情、看房日程与收藏夹。"
+    },
+    {
+      "id": "automotive",
+      "name": "Automotive",
+      "nameZh": "汽车出行",
+      "mood": "instrument",
+      "screens": 4,
+      "description": "智能车联与出行服务：车辆状态、充电与保养、行程记录。"
+    },
+    {
+      "id": "petcare",
+      "name": "Pet Care",
+      "nameZh": "宠物生活",
+      "mood": "sakura",
+      "screens": 4,
+      "description": "宠物服务与健康：宠物档案、疫苗提醒、商城与社区。"
+    }
+  ]
+}

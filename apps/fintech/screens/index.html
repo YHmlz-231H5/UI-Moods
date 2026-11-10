@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fintech · 金融理财 — UI Moods App Reference</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 32px;
+      background: var(--mood-colors-bg);
+      color: var(--mood-colors-text);
+      font-family: var(--mood-typography-family);
+      font-size: var(--mood-typography-body-size);
+      line-height: 1.7;
+    }
+    h1 { font-size: var(--mood-typography-display-size); color: var(--mood-colors-text-strong); margin: 0 0 6px; }
+    p.lead { color: var(--mood-colors-muted); margin: 0 0 24px; max-width: 640px; }
+    ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; max-width: 640px; }
+    li {
+      padding: 14px 18px;
+      border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+      border-radius: var(--mood-radii-card);
+      background: var(--mood-colors-surface);
+      box-shadow: var(--mood-shadows-card);
+    }
+    a { color: var(--mood-colors-accent); font-weight: 600; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    li span { color: var(--mood-colors-muted); margin-left: 6px; }
+    li em { display: block; font-style: normal; font-size: var(--mood-typography-label-size); color: var(--mood-colors-muted); margin-top: 4px; }
+  </style>
+  <style id="mood-tokens">
+    :root {
+      --mood-colors-bg: #0e1116;
+      --mood-colors-panel: #141920;
+      --mood-colors-surface: #1a2029;
+      --mood-colors-text: #c7d2e4;
+      --mood-colors-text-strong: #ffffff;
+      --mood-colors-muted: #7e8da6;
+      --mood-colors-border: rgba(255,255,255,0.10);
+      --mood-colors-accent: #d4af37;
+      --mood-colors-on-accent: #0e1116;
+      --mood-colors-ok: #22c55e;
+      --mood-colors-warn: #f59e0b;
+      --mood-colors-danger: #ef4444;
+      --mood-typography-family: IBM Plex Sans, Inter, system-ui, sans-serif;
+      --mood-typography-display-size: 40px;
+      --mood-typography-title-size: 16px;
+      --mood-typography-body-size: 14px;
+      --mood-typography-label-size: 12px;
+      --mood-radii-block: 6px;
+      --mood-radii-button: 6px;
+      --mood-radii-card: 10px;
+      --mood-radii-badge: 999px;
+      --mood-radii-input: 6px;
+      --mood-borders-width: 1px;
+      --mood-borders-style: solid;
+      --mood-effects-backdrop-filter: none;
+      --mood-effects-glow: none;
+      --mood-shadows-card: 0 8px 28px rgba(0,0,0,0.45);
+      --mood-shadows-button: 0 1px 2px rgba(0,0,0,0.4);
+      --mood-spacing-section: 24px;
+      --mood-spacing-block: 16px;
+      --mood-spacing-gap: 12px;
+      --mood-motion-duration: 0.2s;
+      --mood-motion-easing: ease;
+    }
+  </style>
+</head>
+<body>
+  <h1>Fintech · 金融理财</h1>
+  <p class="lead">移动银行与理财应用参考：资产总览、行情走势、交易明细、转账支付与银行卡管理。</p>
+  <ul>
+<li><a href="./home.html">资产总览</a> <span>首页</span></li>
+<li><a href="./markets.html">行情</a> <span>市场行情</span></li>
+<li><a href="./transactions.html">交易明细</a> <span>账单</span></li>
+<li><a href="./transfer.html">转账支付</a> <span>转账</span></li>
+<li><a href="./cards.html">卡片管理</a> <span>我的卡</span></li>
+  </ul>
+</body>
+</html>

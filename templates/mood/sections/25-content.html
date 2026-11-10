@@ -1,0 +1,133 @@
+<style>
+.s-dc-grid { display: grid; grid-template-columns: 220px 1fr 200px; gap: var(--mood-spacing-gap); align-items: start; }
+.s-dc-nav { display: flex; flex-direction: column; gap: 16px; }
+.s-dc-nav-group b { display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mood-colors-muted); margin-bottom: 8px; }
+.s-dc-nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+.s-dc-nav a { display: block; padding: 5px 10px; border-radius: var(--mood-radii-button); font-size: 12px; color: var(--mood-colors-muted); text-decoration: none; }
+.s-dc-nav a:hover { color: var(--mood-colors-text); }
+.s-dc-nav a.on { background: var(--mood-colors-surface); color: var(--mood-colors-accent); font-weight: 600; border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
+.s-dc-nav a.sub { padding-left: 22px; }
+.s-dc-article { display: flex; flex-direction: column; gap: 14px; }
+.s-dc-crumb { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mood-colors-muted); }
+.s-dc-article h2 { margin: 0; font-size: var(--mood-typography-title-size); font-weight: 700; color: var(--mood-colors-text-strong); }
+.s-dc-article h3 { margin: 6px 0 0; font-size: var(--mood-typography-title-size); font-weight: 600; color: var(--mood-colors-text-strong); }
+.s-dc-article p { margin: 0; font-size: 13px; color: var(--mood-colors-text); max-width: 640px; }
+.s-dc-callout { align-items: flex-start; }
+.s-dc-callout .s-dc-callout-body { display: flex; flex-direction: column; gap: 4px; }
+.s-dc-callout .s-dc-callout-body b { font-size: 13px; color: var(--mood-colors-text-strong); }
+.s-dc-callout .s-dc-callout-body span { font-size: 12px; color: var(--mood-colors-text); }
+.s-dc-code { position: relative; border-radius: var(--mood-radii-input); background: var(--mood-colors-bg); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); padding: 14px 16px; }
+.s-dc-code-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mood-colors-muted); }
+.s-dc-code pre { margin: 0; font-family: var(--mood-typography-family); font-size: 12px; line-height: 1.7; color: var(--mood-colors-text); white-space: pre-wrap; }
+.s-dc-table { border-radius: var(--mood-radii-input); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); overflow: hidden; }
+.s-dc-table table { font-size: 12px; }
+.s-dc-table th { background: var(--mood-colors-panel); }
+.s-dc-next { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 14px; border-top: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); font-size: 12px; }
+.s-dc-next a { color: var(--mood-colors-accent); text-decoration: none; font-weight: 600; }
+.s-dc-toc { position: sticky; top: 16px; display: flex; flex-direction: column; gap: 8px; }
+.s-dc-toc b { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mood-colors-muted); }
+.s-dc-toc ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; border-left: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
+.s-dc-toc a { display: block; padding-left: 12px; font-size: 12px; color: var(--mood-colors-muted); text-decoration: none; }
+.s-dc-toc a.on { color: var(--mood-colors-accent); font-weight: 600; }
+.s-dc-toc-meta { font-size: 11px; color: var(--mood-colors-muted); padding-top: 10px; border-top: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
+@media (max-width: 860px) { .s-dc-grid { grid-template-columns: 1fr; } }
+</style>
+
+<div>
+  <div class="section-label">Content &amp; Docs</div>
+  <div class="s-dc-grid">
+    <nav class="s-dc-nav">
+      <div class="s-dc-nav-group">
+        <b>Getting started</b>
+        <ul>
+          <li><a href="/docs/intro">Introduction</a></li>
+          <li><a href="/docs/install">Installation</a></li>
+          <li><a href="/docs/quickstart" class="on">Quickstart</a></li>
+          <li><a href="/docs/config" class="sub">Configuration</a></li>
+        </ul>
+      </div>
+      <div class="s-dc-nav-group">
+        <b>Core concepts</b>
+        <ul>
+          <li><a href="/docs/events">Event model</a></li>
+          <li><a href="/docs/users">Users and identities</a></li>
+          <li><a href="/docs/sessions">Sessions</a></li>
+          <li><a href="/docs/funnels">Funnels</a></li>
+        </ul>
+      </div>
+      <div class="s-dc-nav-group">
+        <b>Reference</b>
+        <ul>
+          <li><a href="/docs/http">HTTP API</a></li>
+          <li><a href="/docs/cli">CLI</a></li>
+          <li><a href="/docs/sdk">SDKs</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <article class="block s-dc-article">
+      <div class="s-dc-crumb">Docs &middot; Getting started &middot; Quickstart</div>
+      <h2>Send your first event</h2>
+      <p>Beacon receives events over a single HTTP endpoint. Everything you need to ship a working integration is one request, one JSON body and one identifier that ties a person to their history.</p>
+
+      <div class="alert warn s-dc-callout">
+        <span class="mark">Note</span>
+        <div class="s-dc-callout-body">
+          <b>Events are sampled after ingestion.</b>
+          <span>The raw payload is written to your bucket first, so nothing is lost even when the workspace applies sampling for reporting.</span>
+        </div>
+      </div>
+
+      <h3>The event envelope</h3>
+      <p>Every event carries a name, a timestamp and a user. Properties are free-form and are queryable within 90 days on every plan.</p>
+
+      <div class="s-dc-code">
+        <div class="s-dc-code-head"><span>JSON</span><span>POST /v1/events</span></div>
+        <pre>{
+  "event": "checkout_completed",
+  "user": { "id": "usr_8841" },
+  "properties": {
+    "plan": "pro",
+    "amount_cents": 7900,
+    "currency": "EUR"
+  },
+  "occurred_at": "2026-11-10T09:41:22Z"
+}</pre>
+      </div>
+
+      <h3>Required properties</h3>
+      <p>Only two fields are mandatory. Everything else has a sensible default so you can ship before the schema is settled.</p>
+
+      <div class="s-dc-table">
+        <table>
+          <thead><tr><th>Field</th><th>Type</th><th>Required</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>event</td><td>string</td><td>Yes</td><td>Lowercase, dots allowed</td></tr>
+            <tr><td>user.id</td><td>string</td><td>Yes</td><td>Pseudonymous, never an email</td></tr>
+            <tr><td>occurred_at</td><td>timestamp</td><td>No</td><td>Defaults to receipt time</td></tr>
+            <tr><td>properties</td><td>object</td><td>No</td><td>Up to 64 keys per event</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Verify from the console</h3>
+      <p>Open the Events tab and watch the first payload arrive. If it does not show up within 30 seconds, check the workspace key and the source allow-list.</p>
+
+      <div class="s-dc-next">
+        <a href="/docs/intro">Back to introduction</a>
+        <a href="/docs/events">Next: event model</a>
+      </div>
+    </article>
+
+    <aside class="s-dc-toc">
+      <b>On this page</b>
+      <ul>
+        <li><a href="/docs/quickstart#envelope" class="on">The event envelope</a></li>
+        <li><a href="/docs/quickstart#required">Required properties</a></li>
+        <li><a href="/docs/quickstart#verify">Verify from the console</a></li>
+        <li><a href="/docs/quickstart#limits">Limits and sampling</a></li>
+      </ul>
+      <div class="s-dc-toc-meta">Last updated 4 Nov 2026 by Priya Raman &middot; 3 min read</div>
+    </aside>
+  </div>
+</div>

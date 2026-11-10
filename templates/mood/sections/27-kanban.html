@@ -1,0 +1,188 @@
+<style>
+.s-kb-grid { display: grid; grid-template-columns: 1fr 320px; gap: var(--mood-spacing-gap); align-items: start; }
+.s-kb-board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.s-kb-col { display: flex; flex-direction: column; gap: 10px; padding: 12px; border-radius: var(--mood-radii-card); background: var(--mood-colors-panel); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
+.s-kb-col-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.s-kb-col-head b { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mood-colors-text-strong); }
+.s-kb-col-head span { font-size: 10px; color: var(--mood-colors-muted); }
+.s-kb-card { display: flex; flex-direction: column; gap: 8px; padding: 12px; border-radius: var(--mood-radii-card); background: var(--mood-colors-surface); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
+.s-kb-card.on { border-color: var(--mood-colors-accent); }
+.s-kb-card-title { font-size: 13px; font-weight: 600; color: var(--mood-colors-text-strong); }
+.s-kb-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.s-kb-tag { font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: var(--mood-radii-badge); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); color: var(--mood-colors-muted); }
+.s-kb-tag.pri { color: var(--mood-colors-danger); border-color: var(--mood-colors-danger); }
+.s-kb-tag.ok { color: var(--mood-colors-ok); border-color: var(--mood-colors-ok); }
+.s-kb-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.s-kb-who { display: flex; align-items: center; gap: 6px; font-size: 10px; color: var(--mood-colors-muted); }
+.s-kb-av { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; letter-spacing: 0.06em; background: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); }
+.s-kb-av.ghost { background: var(--mood-colors-bg); color: var(--mood-colors-text); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
+.s-kb-due { font-size: 10px; color: var(--mood-colors-muted); }
+.s-kb-due.late { color: var(--mood-colors-danger); }
+.s-kb-drawer { display: flex; flex-direction: column; gap: 14px; padding: 16px; border-radius: var(--mood-radii-card); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); background: var(--mood-colors-surface); box-shadow: var(--mood-shadows-card); }
+.s-kb-drawer-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.s-kb-drawer-head span { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mood-colors-muted); }
+.s-kb-drawer-head svg { width: 15px; height: 15px; color: var(--mood-colors-muted); }
+.s-kb-drawer h3 { margin: 0; font-size: var(--mood-typography-title-size); font-weight: 600; color: var(--mood-colors-text-strong); }
+.s-kb-drawer p { margin: 0; font-size: 13px; color: var(--mood-colors-text); }
+.s-kb-meta { display: flex; flex-direction: column; gap: 8px; }
+.s-kb-meta-row { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--mood-colors-text); }
+.s-kb-meta-row span { width: 76px; flex: none; color: var(--mood-colors-muted); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; }
+.s-kb-sub { display: flex; flex-direction: column; gap: 8px; padding-top: 12px; border-top: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
+.s-kb-sub-head { display: flex; align-items: center; justify-content: space-between; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mood-colors-muted); }
+.s-kb-check { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--mood-colors-text); }
+.s-kb-check svg { width: 14px; height: 14px; flex: none; color: var(--mood-colors-ok); }
+.s-kb-check.off svg { color: var(--mood-colors-muted); }
+.s-kb-check.off { color: var(--mood-colors-muted); }
+.s-kb-row { margin-top: var(--mood-spacing-gap); }
+.s-kb-prog { display: flex; flex-direction: column; gap: 10px; }
+.s-kb-prog-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.s-kb-prog-head b { font-size: var(--mood-typography-title-size); font-weight: 600; color: var(--mood-colors-text-strong); }
+.s-kb-prog-head span { font-size: 11px; color: var(--mood-colors-muted); }
+.s-kb-checks { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+.s-kb-burn { display: flex; align-items: flex-end; gap: 8px; height: 88px; padding-top: 8px; }
+.s-kb-burn i { flex: 1; border-radius: var(--mood-radii-badge); background: var(--mood-colors-accent); display: block; }
+.s-kb-burn i.dim { background: var(--mood-colors-border); }
+@media (max-width: 860px) { .s-kb-grid { grid-template-columns: 1fr; } .s-kb-board { grid-template-columns: 1fr 1fr; } }
+</style>
+
+<div>
+  <div class="section-label">Project &amp; Workflow</div>
+  <div class="s-kb-grid">
+    <div class="s-kb-board">
+      <div class="s-kb-col">
+        <div class="s-kb-col-head"><b>Backlog</b><span>3</span></div>
+        <div class="s-kb-card">
+          <div class="s-kb-card-title">Import historical sessions from 2024</div>
+          <div class="s-kb-tags"><span class="s-kb-tag">Data</span><span class="s-kb-tag pri">P2</span></div>
+          <div class="s-kb-foot"><span class="s-kb-who"><span class="s-kb-av ghost">NA</span>NB-118</span><span class="s-kb-due">18 Dec</span></div>
+        </div>
+        <div class="s-kb-card">
+          <div class="s-kb-card-title">Rate limit the public ingest endpoint</div>
+          <div class="s-kb-tags"><span class="s-kb-tag">Platform</span></div>
+          <div class="s-kb-foot"><span class="s-kb-who"><span class="s-kb-av ghost">DO</span>NB-121</span><span class="s-kb-due late">Overdue</span></div>
+        </div>
+        <div class="s-kb-card">
+          <div class="s-kb-card-title">Audit log export for compliance</div>
+          <div class="s-kb-tags"><span class="s-kb-tag">Security</span><span class="s-kb-tag pri">P1</span></div>
+          <div class="s-kb-foot"><span class="s-kb-who"><span class="s-kb-av ghost">JW</span>NB-129</span><span class="s-kb-due">6 Jan</span></div>
+        </div>
+      </div>
+
+      <div class="s-kb-col">
+        <div class="s-kb-col-head"><b>In progress</b><span>2</span></div>
+        <div class="s-kb-card on">
+          <div class="s-kb-card-title">Self-serve onboarding checklist</div>
+          <div class="s-kb-tags"><span class="s-kb-tag">Growth</span><span class="s-kb-tag pri">P1</span></div>
+          <div class="s-kb-foot"><span class="s-kb-who"><span class="s-kb-av">RM</span>NB-142</span><span class="s-kb-due">12 Nov</span></div>
+        </div>
+        <div class="s-kb-card">
+          <div class="s-kb-card-title">Session replay on Safari 26</div>
+          <div class="s-kb-tags"><span class="s-kb-tag">Bug</span></div>
+          <div class="s-kb-foot"><span class="s-kb-who"><span class="s-kb-av ghost">MK</span>NB-137</span><span class="s-kb-due">14 Nov</span></div>
+        </div>
+      </div>
+
+      <div class="s-kb-col">
+        <div class="s-kb-col-head"><b>In review</b><span>2</span></div>
+        <div class="s-kb-card">
+          <div class="s-kb-card-title">Warehouse sync retries with backoff</div>
+          <div class="s-kb-tags"><span class="s-kb-tag">Platform</span><span class="s-kb-tag ok">Ready</span></div>
+          <div class="s-kb-foot"><span class="s-kb-who"><span class="s-kb-av ghost">DO</span>NB-131</span><span class="s-kb-due">11 Nov</span></div>
+        </div>
+        <div class="s-kb-card">
+          <div class="s-kb-card-title">Dark mode for embedded dashboards</div>
+          <div class="s-kb-tags"><span class="s-kb-tag">Design</span></div>
+          <div class="s-kb-foot"><span class="s-kb-who"><span class="s-kb-av ghost">MK</span>NB-140</span><span class="s-kb-due">19 Nov</span></div>
+        </div>
+      </div>
+
+      <div class="s-kb-col">
+        <div class="s-kb-col-head"><b>Done</b><span>3</span></div>
+        <div class="s-kb-card">
+          <div class="s-kb-card-title">CSV export above 100k rows</div>
+          <div class="s-kb-tags"><span class="s-kb-tag ok">Shipped</span></div>
+          <div class="s-kb-foot"><span class="s-kb-who"><span class="s-kb-av ghost">PR</span>NB-112</span><span class="s-kb-due">28 Oct</span></div>
+        </div>
+        <div class="s-kb-card">
+          <div class="s-kb-card-title">SAML role mapping</div>
+          <div class="s-kb-tags"><span class="s-kb-tag ok">Shipped</span></div>
+          <div class="s-kb-foot"><span class="s-kb-who"><span class="s-kb-av ghost">JW</span>NB-119</span><span class="s-kb-due">4 Nov</span></div>
+        </div>
+        <div class="s-kb-card">
+          <div class="s-kb-card-title">Slack unfurl previews</div>
+          <div class="s-kb-tags"><span class="s-kb-tag ok">Shipped</span></div>
+          <div class="s-kb-foot"><span class="s-kb-who"><span class="s-kb-av ghost">TL</span>NB-124</span><span class="s-kb-due">6 Nov</span></div>
+        </div>
+      </div>
+    </div>
+
+    <aside class="s-kb-drawer">
+      <div class="s-kb-drawer-head">
+        <span>NB-142 &middot; Growth</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </div>
+      <h3>Self-serve onboarding checklist</h3>
+      <p>Give every new workspace a guided first dashboard. Four steps, no account manager needed.</p>
+
+      <div class="s-kb-meta">
+        <div class="s-kb-meta-row"><span>Assignee</span><span class="s-kb-av">RM</span>Rosa M&aacute;rquez</div>
+        <div class="s-kb-meta-row"><span>Priority</span><span class="s-kb-tag pri">P1</span></div>
+        <div class="s-kb-meta-row"><span>Sprint</span>32</div>
+        <div class="s-kb-meta-row"><span>Due</span>12 Nov 2026</div>
+      </div>
+
+      <div class="s-kb-sub">
+        <div class="s-kb-sub-head"><span>Subtasks</span><span>3 of 5 done</span></div>
+        <div class="bar ok"><i style="width:60%"></i></div>
+        <div class="s-kb-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5L19.5 6.5"/></svg>Draft the four checklist steps</div>
+        <div class="s-kb-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5L19.5 6.5"/></svg>Build the template dashboard</div>
+        <div class="s-kb-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5L19.5 6.5"/></svg>Add the empty states</div>
+        <div class="s-kb-check off"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5L19.5 6.5"/></svg>Ship behind a 50% flag</div>
+        <div class="s-kb-check off"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5L19.5 6.5"/></svg>Write the release note</div>
+      </div>
+
+      <div class="btn-row"><button type="button" class="primary">Open full task</button><button type="button">Copy link</button></div>
+    </aside>
+  </div>
+
+  <div class="row s-kb-row">
+    <div class="block s-kb-prog">
+      <div class="s-kb-prog-head">
+        <b>Release 4.2 checklist</b>
+        <span>4 of 9 done &middot; freeze on 12 Nov</span>
+      </div>
+      <div class="bar ok"><i style="width:44%"></i></div>
+      <div class="s-kb-checks">
+        <div class="s-kb-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5L19.5 6.5"/></svg>Migration dry run on staging</div>
+        <div class="s-kb-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5L19.5 6.5"/></svg>Load test at 3x peak traffic</div>
+        <div class="s-kb-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5L19.5 6.5"/></svg>Changelog reviewed by support</div>
+        <div class="s-kb-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5L19.5 6.5"/></svg>Rollback script signed off</div>
+        <div class="s-kb-check off"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5L19.5 6.5"/></svg>Customer beta invite sent</div>
+        <div class="s-kb-check off"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5L19.5 6.5"/></svg>Docs updated for 4.2</div>
+        <div class="s-kb-check off"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5L19.5 6.5"/></svg>Status page notice drafted</div>
+        <div class="s-kb-check off"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5L19.5 6.5"/></svg>Sales enablement brief</div>
+        <div class="s-kb-check off"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5L19.5 6.5"/></svg>Retro scheduled for 16 Nov</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="s-kb-prog-head">
+        <b>Sprint 32 burndown</b>
+        <span>41 of 58 points</span>
+      </div>
+      <div class="s-kb-burn">
+        <i style="height:96%"></i>
+        <i style="height:88%"></i>
+        <i style="height:74%"></i>
+        <i style="height:62%"></i>
+        <i style="height:48%"></i>
+        <i class="dim" style="height:36%"></i>
+        <i class="dim" style="height:24%"></i>
+        <i class="dim" style="height:14%"></i>
+        <i class="dim" style="height:8%"></i>
+        <i class="dim" style="height:4%"></i>
+      </div>
+      <div class="s-kb-prog-head" style="margin-top:10px"><span style="font-size:11px;color:var(--mood-colors-muted)">Day 1</span><span style="font-size:11px;color:var(--mood-colors-muted)">Day 10</span></div>
+    </div>
+  </div>
+</div>

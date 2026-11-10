@@ -1,0 +1,164 @@
+{
+  "id": "delivery",
+  "name": "Delivery",
+  "nameZh": "餐饮外卖",
+  "mood": "food",
+  "description": "本地生活与外卖应用参考：附近商家列表、菜品详情与口味选择、购物车结算与订单实时追踪。",
+  "chrome": {
+    "statusbar": { "time": "12:24" },
+    "tabbar": {
+      "items": [
+        { "icon": "fork", "label": "外卖", "active": true },
+        { "icon": "ticket", "label": "团购" },
+        { "icon": "file", "label": "订单" },
+        { "icon": "bell", "label": "消息", "badge": "2" },
+        { "icon": "user", "label": "我的" }
+      ]
+    }
+  },
+  "screens": [
+    {
+      "id": "shops",
+      "title": "附近商家",
+      "titleZh": "商家",
+      "chrome": {
+        "navbar": { "icon": "fork", "title": "饭乎外卖", "action": "搜索" }
+      },
+      "blocks": [
+        { "type": "search", "placeholder": "搜索商家、菜品或口味" },
+        { "type": "chips", "items": [
+          { "label": "全部", "active": true },
+          { "label": "附近" },
+          { "label": "人气" },
+          { "label": "新店" },
+          { "label": "减 5 折" }
+        ] },
+        { "type": "filterbar", "icon": "sort", "label": "综合排序", "value": "距离 / 销量 / 评分" },
+        { "type": "list", "items": [
+          { "icon": "shop", "title": "老陈川味小馆", "sub": "评分 4.8 · 月售 2,136 · 川菜 · 1.2km", "badge": "减 6 元", "badgeTone": "danger", "value": "¥ 22 起送", "chev": true },
+          { "icon": "shop", "title": "黄记烧腊饭", "sub": "评分 4.7 · 月售 1,508 · 粤菜 · 0.8km", "badge": "准时宝", "badgeTone": "ok", "value": "¥ 18 起送", "chev": true },
+          { "icon": "shop", "title": "一寿司·日式料理", "sub": "评分 4.9 · 月售 862 · 日料 · 2.4km", "badge": "新店", "badgeTone": "warn", "value": "¥ 30 起送", "chev": true },
+          { "icon": "shop", "title": "张阿姨奶茶铺", "sub": "评分 4.6 · 月售 3,940 · 饮品 · 0.4km", "value": "¥ 9.9 起送", "chev": true }
+        ] },
+        { "type": "sectionHead", "title": "限时补贴", "action": "更多" },
+        { "type": "card", "media": true, "mediaTag": "补贴", "title": "双人套餐 · 麻辣香锅 + 冰粉", "sub": "原价 ¥ 108.00 · 午市时段再减 ¥ 12", "price": "¥ 79.90", "actions": [
+          { "label": "查看券", "primary": false },
+          { "label": "去下单", "primary": true }
+        ] },
+        { "type": "notice", "tone": "info", "mark": "配送", "text": "当前定位为「张江高科技园 · 园区 C 门」，仅显示 3km 内可配送商家。" }
+      ]
+    },
+    {
+      "id": "dish",
+      "title": "菜品详情",
+      "titleZh": "菜品",
+      "chrome": {
+        "navbar": { "back": true, "title": "菜品详情", "action": "分享" }
+      },
+      "blocks": [
+        { "type": "carousel", "items": [
+          { "title": "主图 · 成品摆盘", "sub": "实拍 1 / 4", "tag": "实拍" },
+          { "title": "食材明细", "sub": "实拍 2 / 4", "tag": "食材" },
+          { "title": "分量参考", "sub": "实拍 3 / 4", "tag": "分量" }
+        ] },
+        { "type": "card", "tint": true, "title": "藤椒鸡 · 藤香微辣", "sub": "去骨鸡腿肉 + 现磨藤椒 + 手工米粉", "price": "¥ 32.00", "badge": "月售 1,860", "badgeTone": "ok" },
+        { "type": "list", "items": [
+          { "icon": "tag", "title": "主料", "sub": "去骨鸡腿肉 180g、时令青菜 80g" },
+          { "icon": "pill", "title": "配料", "sub": "青花椒 3g、藤椒油 8ml、现蒸米粉 120g" },
+          { "icon": "sun", "title": "过敏原", "sub": "含大豆、小麦、乳制品成分" },
+          { "icon": "truck", "title": "出餐时长", "sub": "约 12 分钟 · 保温包装" }
+        ] },
+        { "type": "formGroup", "label": "口味选择", "rows": [
+          { "label": "微辣（推荐）", "type": "radio", "checked": true },
+          { "label": "中辣", "type": "radio" },
+          { "label": "免辣 · 单独盛放藤椒油", "type": "radio" },
+          { "label": "不要香菜", "type": "checkbox" },
+          { "label": "加份米饭", "hint": "+¥ 3", "type": "checkbox" }
+        ] },
+        { "type": "rating", "value": 4, "count": "628 条评价 · 好评率 94%" },
+        { "type": "list", "items": [
+          { "avatar": "刘", "title": "刘***", "sub": "藤椒味足，微辣刚好，汤汁拌饭绝了", "value": "2024-11-09", "valueTone": "down" },
+          { "avatar": "周", "title": "周***", "sub": "分量比想象的多，下次还点", "value": "2024-11-07", "valueTone": "down" }
+        ] },
+        { "type": "notice", "tone": "warn", "mark": "提示", "text": "本店食材当日现备，22:00 后停止售卖藤椒鸡。" },
+        { "type": "card", "flat": true, "actions": [
+          { "label": "加入购物车", "primary": false },
+          { "label": "立即购买", "primary": true }
+        ] }
+      ]
+    },
+    {
+      "id": "cart",
+      "title": "购物车",
+      "titleZh": "购物车",
+      "chrome": {
+        "navbar": { "back": true, "title": "购物车", "action": "清空" }
+      },
+      "blocks": [
+        { "type": "formGroup", "label": "老陈川味小馆 · 出餐中", "rows": [
+          { "icon": "tag", "title": "藤椒鸡 · 藤香微辣", "hint": "¥ 32.00", "type": "qty", "value": "1" },
+          { "icon": "tag", "title": "干锅花菜", "hint": "¥ 26.00", "type": "qty", "value": "1" },
+          { "icon": "tag", "title": "冰粉", "hint": "¥ 8.00", "type": "qty", "value": "2" }
+        ] },
+        { "type": "notice", "tone": "info", "mark": "配送", "text": "预计 12:42 送达 · 配送费 ¥ 3（满 35 免），高峰时段可能顺延。" },
+        { "type": "sectionHead", "title": "再买一单" },
+        { "type": "list", "items": [
+          { "icon": "tag", "title": "红油抄手（12 只）", "sub": "月售 3,204 · 老陈川味小馆", "price": "¥ 16.00", "chev": true },
+          { "icon": "tag", "title": "酸辣土豆丝", "sub": "月售 1,180 · 老陈川味小馆", "price": "¥ 14.00", "chev": true },
+          { "icon": "tag", "title": "桂花冰粉", "sub": "月售 2,660 · 张阿姨奶茶铺", "price": "¥ 9.00", "chev": true }
+        ] },
+        { "type": "prices", "items": [
+          { "label": "小计（4 件）", "value": "¥ 74.00" },
+          { "label": "商家满减", "value": "-¥ 10.00", "muted": true },
+          { "label": "配送费", "value": "¥ 3.00", "muted": true },
+          { "label": "合计", "value": "¥ 67.00", "total": true }
+        ] },
+        { "type": "empty", "icon": "inbox", "title": "其他店铺的购物车是空的", "sub": "切换店铺看看有什么想吃的？" },
+        { "type": "card", "flat": true, "actions": [
+          { "label": "继续购物", "primary": false },
+          { "label": "去结算 ¥ 67.00", "primary": true }
+        ] },
+        { "type": "sheet", "title": "餐具与备注", "items": [
+          { "icon": "fork", "label": "需要餐具 × 2" },
+          { "icon": "message", "label": "备注：少放辣" },
+          { "icon": "trash", "label": "清空购物车", "danger": true }
+        ] }
+      ]
+    },
+    {
+      "id": "tracking",
+      "title": "订单追踪",
+      "titleZh": "追踪",
+      "chrome": {
+        "navbar": { "back": true, "title": "订单追踪", "action": "客服" }
+      },
+      "blocks": [
+        { "type": "card", "tint": true, "title": "骑手已取餐，正在送往你", "sub": "预计 12:42 送达 · 还有约 8 分钟", "body": "订单号 20241110123456" },
+        { "type": "map", "icon": "location", "pin": true, "label": "张江高科技园 7 号楼东侧 · 距你 1.1km" },
+        { "type": "profile", "initials": "赵", "name": "赵师傅 · 骑手编号 8821", "meta": "已跑 1,286 单 · 好评率 98.2% · 金牌骑手" },
+        { "type": "list", "items": [
+          { "icon": "message", "title": "联系骑手", "sub": "虚拟号 138 **** 3308", "chev": true },
+          { "icon": "bell", "title": "到货提醒", "sub": "送达前 3 分钟电话通知", "chev": true }
+        ] },
+        { "type": "timeline", "items": [
+          { "title": "商家已接单", "sub": "老陈川味小馆 · 12:22", "time": "12:22", "state": "done" },
+          { "title": "商家已出餐", "sub": "骑手已取餐，共 4 件商品", "time": "12:29", "state": "done" },
+          { "title": "骑手配送中", "sub": "已取餐 4 件 · 距你 1.1km", "time": "12:34", "state": "done" },
+          { "title": "预计送达", "sub": "张江高科技园 7 号楼东侧", "time": "12:42", "state": "pending" }
+        ] },
+        { "type": "order", "title": "老陈川味小馆", "status": "配送中", "statusTone": "warn", "body": [
+          { "label": "藤椒鸡 · 藤香微辣", "value": "¥ 32.00 × 1" },
+          { "label": "干锅花菜", "value": "¥ 26.00 × 1" },
+          { "label": "冰粉", "value": "¥ 8.00 × 2" },
+          { "label": "实付金额", "value": "¥ 67.00" }
+        ], "foot": { "text": "共 4 件商品", "action": "再来一单" } },
+        { "type": "kv", "items": [
+          { "label": "餐具", "value": "需要餐具 × 2" },
+          { "label": "备注", "value": "少放辣" },
+          { "label": "配送方式", "value": "平台专送" }
+        ] },
+        { "type": "notice", "tone": "danger", "mark": "售后", "text": "餐品有质量问题？送达后 30 分钟内可申请退款或重做。" }
+      ]
+    }
+  ]
+}

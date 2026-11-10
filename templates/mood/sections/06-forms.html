@@ -1,0 +1,178 @@
+<style>
+  .row.s-form-grid { grid-template-columns: 1fr 320px; }
+  .s-form { padding: 22px; display: flex; flex-direction: column; gap: 18px; }
+  .s-form-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+  .s-form-head h3 { margin: 0; font-size: var(--mood-typography-title-size); color: var(--mood-colors-text-strong); font-weight: 600; }
+  .s-form-head p { margin: 4px 0 0; font-size: 12px; color: var(--mood-colors-muted); }
+  .s-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .s-field .field label { color: var(--mood-colors-muted); }
+  .s-hint { font-size: 11px; color: var(--mood-colors-muted); }
+  .s-msg { font-size: 11px; display: flex; align-items: center; gap: 6px; }
+  .s-msg.s-error { color: var(--mood-colors-danger); }
+  .s-msg.s-ok { color: var(--mood-colors-ok); }
+  .s-field.s-error input, .s-field.s-error select, .s-field.s-error textarea { border-color: var(--mood-colors-danger); }
+  .s-field.s-ok input, .s-field.s-ok select { border-color: var(--mood-colors-ok); }
+  .s-check-row { display: flex; flex-direction: column; gap: 10px; }
+  .s-check { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--mood-colors-text); }
+  .s-box {
+    width: 16px; height: 16px; flex-shrink: 0; margin-top: 3px;
+    border-radius: var(--mood-radii-input);
+    border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+    background: var(--mood-colors-bg);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; color: var(--mood-colors-on-accent, var(--mood-colors-surface));
+  }
+  .s-box.s-on { background: var(--mood-colors-accent); border-color: var(--mood-colors-accent); }
+  .s-check small { display: block; font-size: 11px; color: var(--mood-colors-muted); }
+  .s-radio-row { display: flex; flex-wrap: wrap; gap: 18px; }
+  .s-radio-item { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+  .s-radio {
+    width: 16px; height: 16px; border-radius: 50%;
+    border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+    background: var(--mood-colors-bg);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .s-radio.s-on { border-color: var(--mood-colors-accent); }
+  .s-radio.s-on::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--mood-colors-accent); }
+  .s-drop {
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    padding: 26px 18px; text-align: center;
+    border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+    border-radius: var(--mood-radii-block);
+    background: var(--mood-colors-bg);
+    color: var(--mood-colors-muted);
+  }
+  .s-drop b { color: var(--mood-colors-text-strong); font-size: 13px; font-weight: 600; }
+  .s-drop small { font-size: 11px; }
+  .s-form-foot { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 16px; border-top: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
+  .s-form-foot span { font-size: 11px; color: var(--mood-colors-muted); }
+  .s-anatomy { padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+  .s-anatomy-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 10px; border-bottom: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
+  .s-anatomy-row b { font-size: 12px; font-weight: 600; color: var(--mood-colors-text-strong); }
+  .s-anatomy-row small { display: block; font-size: 11px; color: var(--mood-colors-muted); }
+  .s-anatomy-row .s-swatch { width: 26px; height: 26px; border-radius: var(--mood-radii-input); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); background: var(--mood-colors-bg); flex-shrink: 0; }
+  .s-anatomy-row .s-swatch.s-error { border-color: var(--mood-colors-danger); }
+  .s-anatomy-row .s-swatch.s-ok { border-color: var(--mood-colors-ok); }
+</style>
+
+<div class="section-label">Form Patterns</div>
+
+<div class="row s-form-grid">
+  <div class="block flush">
+    <form class="s-form">
+      <div class="s-form-head">
+        <div>
+          <h3>Workspace settings</h3>
+          <p>Configure how Northwind names, syncs and reports on this workspace.</p>
+        </div>
+        <span class="badge live">Active</span>
+      </div>
+
+      <div class="s-grid-2">
+        <div class="field s-field s-error">
+          <label>Workspace name</label>
+          <input type="text" value="N" readonly />
+          <span class="s-msg s-error">Use at least 4 characters — the name appears in every shared report.</span>
+        </div>
+        <div class="field s-field s-ok">
+          <label>Workspace ID</label>
+          <input type="text" value="nw-retail-8842" readonly />
+          <span class="s-msg s-ok">Verified — provisioned 14 Mar 2026.</span>
+        </div>
+      </div>
+
+      <div class="s-grid-2">
+        <div class="field s-field">
+          <label>Primary region</label>
+          <select><option>EU (Frankfurt)</option><option>US (Oregon)</option><option>AP (Singapore)</option></select>
+          <span class="s-hint">Determines where raw data is stored at rest.</span>
+        </div>
+        <div class="field s-field">
+          <label>Default currency</label>
+          <select><option>USD — US Dollar</option><option>EUR — Euro</option><option>GBP — Pound Sterling</option></select>
+          <span class="s-hint">Applied to every dashboard in this workspace.</span>
+        </div>
+      </div>
+
+      <div class="field s-field">
+        <label>Description</label>
+        <textarea readonly>Revenue, margin and retention metrics for the Northwind Retail group. Owners: Priya Raman (Analytics), Marco Silva (Finance).</textarea>
+        <span class="s-hint">Shown in the workspace switcher. 240 characters remaining.</span>
+      </div>
+
+      <div class="field s-field">
+        <label>Delivery</label>
+        <div class="s-check-row">
+          <div class="s-check"><span class="s-box s-on">✓</span><span>Daily digest email<small>Sent at 07:30 in the workspace timezone.</small></span></div>
+          <div class="s-check"><span class="s-box s-on">✓</span><span>Anomaly alerts<small>Triggered when a metric moves more than 15%.</small></span></div>
+          <div class="s-check"><span class="s-box"></span><span>Weekly performance summary<small>Off — enable to receive a Monday recap.</small></span></div>
+        </div>
+      </div>
+
+      <div class="field s-field">
+        <label>Billing cycle</label>
+        <div class="s-radio-row">
+          <div class="s-radio-item"><span class="s-radio s-on"></span>Monthly</div>
+          <div class="s-radio-item"><span class="s-radio"></span>Annual (save 18%)</div>
+          <div class="s-radio-item"><span class="s-radio"></span>Usage based</div>
+        </div>
+      </div>
+
+      <div class="field s-field">
+        <label>Security</label>
+        <div class="toggle-row">
+          <div class="toggle"><span>Require two-factor sign-in</span><div class="switch on"><i></i></div></div>
+          <div class="toggle"><span>Allow row-level access rules</span><div class="switch on"><i></i></div></div>
+          <div class="toggle"><span>Allow public share links</span><div class="switch"><i></i></div></div>
+        </div>
+      </div>
+
+      <div class="field s-field">
+        <label>Workspace logo</label>
+        <div class="s-drop">
+          <span class="s-drop-icon">⬒</span>
+          <b>Drop a logo here</b>
+          <small>PNG or SVG, up to 2 MB, square aspect ratio recommended.</small>
+          <button type="button">Browse files</button>
+        </div>
+      </div>
+
+      <div class="s-form-foot">
+        <span>Unsaved changes are kept for 24 hours.</span>
+        <div class="btn-row">
+          <button type="button">Cancel</button>
+          <button type="button" class="primary">Save settings</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="block tint">
+    <div class="s-anatomy">
+      <div class="s-anatomy-row">
+        <div><b>Default</b><small>Neutral border, muted label</small></div>
+        <span class="s-swatch"></span>
+      </div>
+      <div class="s-anatomy-row">
+        <div><b>Focus</b><small>Accent ring on keyboard focus</small></div>
+        <span class="s-swatch"></span>
+      </div>
+      <div class="s-anatomy-row">
+        <div><b>Error</b><small>Danger border plus inline message</small></div>
+        <span class="s-swatch s-error"></span>
+      </div>
+      <div class="s-anatomy-row">
+        <div><b>Success</b><small>Confirm border plus inline message</small></div>
+        <span class="s-swatch s-ok"></span>
+      </div>
+      <div class="s-anatomy-row">
+        <div><b>Disabled</b><small>Reduced opacity, not editable</small></div>
+        <span class="s-swatch"></span>
+      </div>
+      <p class="s-hint" style="margin:0">
+        Every control below the fold keeps its label visible, so a form stays
+        scannable when values change.
+      </p>
+    </div>
+  </div>
+</div>

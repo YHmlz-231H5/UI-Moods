@@ -20,13 +20,17 @@ const MIME = {
 };
 
 function resolveFile(pathname) {
-  if (pathname === "/") pathname = "/gallery.html";
+  if (pathname === "/") pathname = "/index.html";
   let filePath;
-  if (pathname === "/gallery.html") {
+  if (pathname === "/index.html") {
+    filePath = join(root, "tools", "index.html");
+  } else if (pathname === "/gallery.html") {
     filePath = join(root, "tools", "gallery.html");
   } else if (pathname === "/moods.json") {
     filePath = join(root, "moods.json");
-  } else if (pathname.startsWith("/moods/")) {
+  } else if (pathname === "/apps.json") {
+    filePath = join(root, "apps.json");
+  } else if (pathname.startsWith("/moods/") || pathname.startsWith("/apps/")) {
     filePath = join(root, pathname);
   } else {
     return null;

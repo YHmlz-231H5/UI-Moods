@@ -1,0 +1,113 @@
+<style>
+.s-pr-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+.s-pr-head h3 { margin: 0 0 4px; font-size: var(--mood-typography-title-size); font-weight: 600; color: var(--mood-colors-text-strong); }
+.s-pr-head p { margin: 0; max-width: 440px; font-size: 12px; color: var(--mood-colors-muted); }
+.s-pr-cycle { display: inline-flex; gap: 2px; padding: 3px; background: var(--mood-colors-bg); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); border-radius: var(--mood-radii-input); }
+.s-pr-cycle span { padding: 6px 12px; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mood-colors-muted); border-radius: var(--mood-radii-badge); }
+.s-pr-cycle span.on { background: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); }
+.s-pr-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--mood-spacing-gap); }
+.s-pr-cell { display: flex; flex-direction: column; gap: 10px; }
+.s-pr-tag { min-height: 24px; display: flex; align-items: center; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mood-colors-muted); }
+.s-pr-tier { display: flex; flex-direction: column; gap: 14px; }
+.s-pr-tier.popular { border-color: var(--mood-colors-accent); }
+.s-pr-tier .ct { margin-bottom: 2px; }
+.s-pr-price { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
+.s-pr-price b { font-size: var(--mood-typography-display-size); line-height: 1; font-weight: 700; color: var(--mood-colors-text-strong); }
+.s-pr-price span { font-size: 12px; color: var(--mood-colors-muted); }
+.s-pr-note { font-size: 11px; color: var(--mood-colors-muted); }
+.s-pr-feats { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.s-pr-feats li { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; color: var(--mood-colors-text); }
+.s-pr-feats li.off { color: var(--mood-colors-muted); opacity: 0.6; }
+.s-pr-feats svg { flex: none; width: 14px; height: 14px; margin-top: 3px; }
+.s-pr-feats li:not(.off) svg { color: var(--mood-colors-ok); }
+.s-pr-feats li.off svg { color: var(--mood-colors-muted); }
+.s-pr-tier .btn-row { margin-top: auto; padding-top: 4px; }
+.s-pr-foot { display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; align-items: center; margin-top: 18px; padding-top: 14px; border-top: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); font-size: 11px; color: var(--mood-colors-muted); }
+@media (max-width: 860px) { .s-pr-grid { grid-template-columns: 1fr; } }
+</style>
+
+<div>
+  <div class="section-label">Pricing</div>
+  <div class="block">
+    <div class="s-pr-head">
+      <div>
+        <h3>Plans that scale with your traffic</h3>
+        <p>Every plan ships with unlimited dashboards, one year of event history and a real human on the support channel.</p>
+      </div>
+      <div class="s-pr-cycle">
+        <span>Monthly</span>
+        <span class="on">Annual &minus;20%</span>
+      </div>
+    </div>
+
+    <div class="s-pr-grid">
+      <div class="s-pr-cell">
+        <div class="s-pr-tag">Pay as you go</div>
+        <div class="card-demo s-pr-tier">
+          <div>
+            <div class="ct">Basic</div>
+            <div class="cm">For one team getting serious about product analytics.</div>
+          </div>
+          <div class="s-pr-price"><b>$0</b><span>/ month, up to 5 seats</span></div>
+          <div class="s-pr-note">Free forever &middot; no card required</div>
+          <ul class="s-pr-feats">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5L19.5 6.5"/></svg><span>5,000 events per month</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5L19.5 6.5"/></svg><span>3 dashboards and 1 board</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5L19.5 6.5"/></svg><span>90-day event history</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5L19.5 6.5"/></svg><span>Email support, 24h response</span></li>
+            <li class="off"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg><span>Warehouse sync</span></li>
+            <li class="off"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg><span>SAML SSO and audit log</span></li>
+          </ul>
+          <div class="btn-row"><button type="button">Start for free</button></div>
+        </div>
+      </div>
+
+      <div class="s-pr-cell">
+        <div class="s-pr-tag"><span class="badge live">Most popular</span></div>
+        <div class="card-demo s-pr-tier popular">
+          <div>
+            <div class="ct">Pro</div>
+            <div class="cm">For product teams that ship every week and measure everything.</div>
+          </div>
+          <div class="s-pr-price"><b>$79</b><span>/ seat / month</span></div>
+          <div class="s-pr-note">$63 per seat billed annually &middot; 14-day trial</div>
+          <ul class="s-pr-feats">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5L19.5 6.5"/></svg><span>Everything in Basic, plus</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5L19.5 6.5"/></svg><span>250,000 events per month</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5L19.5 6.5"/></svg><span>Unlimited dashboards, boards and funnels</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5L19.5 6.5"/></svg><span>2-year event history with replay</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5L19.5 6.5"/></svg><span>Warehouse sync for Snowflake and BigQuery</span></li>
+            <li class="off"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg><span>Dedicated success engineer</span></li>
+          </ul>
+          <div class="btn-row"><button type="button" class="primary">Start 14-day trial</button></div>
+        </div>
+      </div>
+
+      <div class="s-pr-cell">
+        <div class="s-pr-tag">Volume pricing</div>
+        <div class="card-demo s-pr-tier">
+          <div>
+            <div class="ct">Enterprise</div>
+            <div class="cm">For regulated teams that need residency, SSO and a named engineer.</div>
+          </div>
+          <div class="s-pr-price"><b>$499</b><span>/ month, from 50 seats</span></div>
+          <div class="s-pr-note">Annual contract &middot; invoiced in USD or EUR</div>
+          <ul class="s-pr-feats">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5L19.5 6.5"/></svg><span>Everything in Pro, plus</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5L19.5 6.5"/></svg><span>5 million events per month</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5L19.5 6.5"/></svg><span>EU and US data residency</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5L19.5 6.5"/></svg><span>SAML SSO, SCIM and audit log</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5L19.5 6.5"/></svg><span>Named success engineer, 99.9% SLA</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5L19.5 6.5"/></svg><span>Custom retention up to 5 years</span></li>
+          </ul>
+          <div class="btn-row"><button type="button">Talk to sales</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="s-pr-foot">
+      <span>Prices in USD, excluding tax. Annual plans are billed once a year.</span>
+      <span>Need on-prem? Enterprise supports private collectors inside your VPC.</span>
+    </div>
+  </div>
+</div>

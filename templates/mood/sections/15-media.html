@@ -1,0 +1,188 @@
+<style>
+  .s-gallery-item {
+    overflow: hidden;
+    border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+    border-radius: var(--mood-radii-card);
+    background: var(--mood-colors-surface);
+    box-shadow: var(--mood-shadows-card);
+  }
+  .s-gallery-art { height: 144px; position: relative; }
+  .s-gallery-art::after {
+    content: ""; position: absolute; inset: 0;
+    background: repeating-linear-gradient(45deg, var(--mood-colors-border) 0 1px, transparent 1px 12px);
+    opacity: 0.4;
+  }
+  .s-art-1 { background: linear-gradient(135deg, var(--mood-colors-accent), var(--mood-colors-panel)); }
+  .s-art-2 { background: linear-gradient(135deg, var(--mood-colors-ok), var(--mood-colors-panel)); }
+  .s-art-3 { background: linear-gradient(135deg, var(--mood-colors-warn), var(--mood-colors-panel)); }
+  .s-art-4 { background: linear-gradient(135deg, var(--mood-colors-danger), var(--mood-colors-panel)); }
+  .s-art-5 { background: linear-gradient(135deg, var(--mood-colors-accent), var(--mood-colors-ok)); }
+  .s-art-6 { background: linear-gradient(135deg, var(--mood-colors-muted), var(--mood-colors-panel)); }
+  .s-gallery-body { padding: 12px; display: flex; flex-direction: column; gap: 5px; }
+  .s-gallery-body b { font-size: 13px; font-weight: 600; color: var(--mood-colors-text-strong); }
+  .s-gallery-body span { font-size: 11px; color: var(--mood-colors-muted); }
+  .s-article { overflow: hidden; }
+  .s-article-art { height: 200px; position: relative; }
+  .s-article-art::after {
+    content: ""; position: absolute; inset: 0;
+    background: repeating-linear-gradient(0deg, var(--mood-colors-border) 0 1px, transparent 1px 24px);
+    opacity: 0.4;
+  }
+  .s-article-body { padding: 18px; display: flex; flex-direction: column; gap: 10px; }
+  .s-article-body h3 { margin: 0; font-size: var(--mood-typography-title-size); font-weight: 600; color: var(--mood-colors-text-strong); }
+  .s-article-body p { margin: 0; font-size: 13px; color: var(--mood-colors-text); }
+  .s-article-by { display: flex; align-items: center; gap: 10px; font-size: 11px; color: var(--mood-colors-muted); }
+  .s-article-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .s-code {
+    margin: 0; padding: 16px; overflow-x: auto;
+    background: var(--mood-colors-bg);
+    border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+    border-radius: var(--mood-radii-block);
+    font-family: var(--mood-typography-family);
+    font-size: 12px; line-height: 1.7; color: var(--mood-colors-text);
+  }
+  .s-code .s-kw { color: var(--mood-colors-accent); }
+  .s-code .s-str { color: var(--mood-colors-ok); }
+  .s-code .s-com { color: var(--mood-colors-muted); font-style: italic; }
+  .s-code .s-fn { color: var(--mood-colors-warn); }
+  .s-code .n { color: var(--mood-colors-text-strong); }
+  .s-code-head {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 10px 14px; font-size: 11px; color: var(--mood-colors-muted);
+    background: var(--mood-colors-panel);
+    border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+    border-bottom: 0;
+    border-radius: var(--mood-radii-block) var(--mood-radii-block) 0 0;
+  }
+  .s-player {
+    position: relative; aspect-ratio: 16 / 9; overflow: hidden;
+    border-radius: var(--mood-radii-card);
+    border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+    background:
+      radial-gradient(circle at 30% 30%, var(--mood-colors-accent), transparent 62%),
+      linear-gradient(140deg, var(--mood-colors-panel), var(--mood-colors-bg));
+  }
+  .s-player-play {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 58px; height: 58px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface));
+    font-size: var(--mood-typography-title-size);
+  }
+  .s-player-bar {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 14px;
+    background: var(--mood-colors-panel);
+    border-top: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+  }
+  .s-player-time { font-size: 11px; color: var(--mood-colors-muted); font-variant-numeric: tabular-nums; }
+  .s-player-scrub { flex: 1; height: 4px; border-radius: 999px; background: var(--mood-colors-border); position: relative; }
+  .s-player-scrub i { position: absolute; left: 0; top: 0; bottom: 0; width: 38%; background: var(--mood-colors-accent); border-radius: 999px; }
+  .s-player-ctrl { font-size: 12px; color: var(--mood-colors-muted); }
+  .s-team-avatar {
+    width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--mood-colors-surface); color: var(--mood-colors-text-strong);
+    border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+    font-size: 12px; font-weight: 600;
+  }
+  .s-team-avatar.s-accent { background: var(--mood-colors-accent); border-color: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); }
+</style>
+
+<div class="section-label">Media &amp; Content</div>
+
+<div class="row cols-3">
+  <div class="s-gallery-item">
+    <div class="s-gallery-art s-art-1"></div>
+    <div class="s-gallery-body"><b>Rotterdam hub, west aisle</b><span>Warehouse photo · 2,400 px wide</span></div>
+  </div>
+  <div class="s-gallery-item">
+    <div class="s-gallery-art s-art-2"></div>
+    <div class="s-gallery-body"><b>Q1 margin bridge</b><span>Chart export · PNG</span></div>
+  </div>
+  <div class="s-gallery-item">
+    <div class="s-gallery-art s-art-3"></div>
+    <div class="s-gallery-body"><b>Freight contract 2026</b><span>Signed PDF · 1.2 MB</span></div>
+  </div>
+  <div class="s-gallery-item">
+    <div class="s-gallery-art s-art-4"></div>
+    <div class="s-gallery-body"><b>Late delivery, lane 14</b><span>Incident photo · flagged</span></div>
+  </div>
+  <div class="s-gallery-item">
+    <div class="s-gallery-art s-art-5"></div>
+    <div class="s-gallery-body"><b>Funnel cohort heatmap</b><span>Chart export · SVG</span></div>
+  </div>
+  <div class="s-gallery-item">
+    <div class="s-gallery-art s-art-6"></div>
+    <div class="s-gallery-body"><b>Team offsite, Porto</b><span>Photo album · 36 items</span></div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="block flush">
+    <div class="s-article">
+      <div class="s-article-art s-art-5"></div>
+      <div class="s-article-body">
+        <div class="s-article-tags">
+          <span class="badge">Engineering</span>
+          <span class="badge">5 min read</span>
+        </div>
+        <h3>How we cut dashboard build time from three days to forty minutes</h3>
+        <div class="s-article-by">
+          <span class="s-team-avatar s-accent">IP</span>
+          <span>Ivan Petrov · 12 March 2026</span>
+        </div>
+        <p>
+          Every Northwind dashboard used to be hand-built: a warehouse query, a spreadsheet
+          export and a slide deck that was stale within a week. We moved the definitions into
+          a semantic layer, and the reporting team now ships from templates instead of queries.
+        </p>
+        <div class="btn-row">
+          <button type="button" class="primary">Read the post</button>
+          <button type="button">Save</button>
+          <button type="button">Share</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block flush">
+    <div class="s-code-head"><span>sync-revenue.ts</span><span>TypeScript · 38 lines</span></div>
+    <pre class="s-code"><span class="s-com">// Pull settled invoices and upsert them into the daily table</span>
+<span class="s-kw">import</span> { createClient } <span class="s-kw">from</span> <span class="s-str">'@northwind/sdk'</span>
+
+<span class="s-kw">const</span> client = createClient({ token: process.env.NW_TOKEN })
+
+<span class="s-kw">export async function</span> <span class="s-fn">syncRevenue</span>(warehouse: <span class="s-kw">string</span>) {
+  <span class="s-kw">const</span> since = <span class="s-fn">lastRun</span>.get(warehouse) ?? <span class="s-str">'30d'</span>
+  <span class="s-kw">const</span> rows = <span class="s-kw">await</span> client.<span class="s-fn">query</span>&lt;<span class="s-kw">string</span>&gt;(warehouse, since)
+
+  <span class="s-kw">for</span> (<span class="s-kw">const</span> row <span class="s-kw">of</span> rows) {
+    <span class="s-kw">await</span> db.<span class="s-fn">upsert</span>(<span class="s-str">'revenue_daily'</span>, row)
+  }
+  <span class="s-fn">lastRun</span>.set(warehouse, <span class="s-kw">new</span> Date())
+  <span class="s-kw">return</span> rows.length
+}</pre>
+  </div>
+</div>
+
+<div class="block tint">
+  <div class="s-player">
+    <div class="s-player-play">▶</div>
+    <div class="s-player-bar">
+      <span class="s-player-ctrl">▶</span>
+      <span class="s-player-time">04:12</span>
+      <div class="s-player-scrub"><i></i></div>
+      <span class="s-player-time">11:00</span>
+      <span class="s-player-ctrl">⚙</span>
+      <span class="s-player-ctrl">⛶</span>
+    </div>
+  </div>
+  <div style="margin-top:14px">
+    <b style="font-size:var(--mood-typography-title-size);color:var(--mood-colors-text-strong);display:block">Onboarding walkthrough — 11 minutes</b>
+    <p style="margin:4px 0 0;font-size:12px;color:var(--mood-colors-muted)">Recorded 04 Mar 2026 · 1080p · captions available in English and Dutch.</p>
+  </div>
+</div>

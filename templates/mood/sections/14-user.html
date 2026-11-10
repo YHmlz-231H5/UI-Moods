@@ -1,0 +1,189 @@
+<style>
+  .s-profile { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+  .s-profile-head { display: flex; align-items: center; gap: 14px; }
+  .s-profile-avatar {
+    width: 56px; height: 56px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--mood-colors-accent);
+    color: var(--mood-colors-on-accent, var(--mood-colors-surface));
+    font-size: var(--mood-typography-title-size); font-weight: 700;
+  }
+  .s-profile-name { font-size: var(--mood-typography-title-size); font-weight: 600; color: var(--mood-colors-text-strong); }
+  .s-profile-role { font-size: 12px; color: var(--mood-colors-muted); }
+  .s-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .s-tag {
+    padding: 3px 10px; border-radius: var(--mood-radii-badge);
+    background: var(--mood-colors-bg); color: var(--mood-colors-muted); font-size: 11px;
+    border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+  }
+  .s-tag.s-accent { background: var(--mood-colors-accent); border-color: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); }
+  .s-profile-stats { display: flex; gap: 22px; padding-top: 14px; border-top: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
+  .s-profile-stats div { display: flex; flex-direction: column; }
+  .s-profile-stats b { font-size: var(--mood-typography-title-size); font-weight: 700; color: var(--mood-colors-text-strong); }
+  .s-profile-stats span { font-size: 11px; color: var(--mood-colors-muted); }
+  .s-team-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 11px 0;
+    border-bottom: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+  }
+  .s-team-row:last-child { border-bottom: 0; }
+  .s-team-avatar {
+    width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--mood-colors-surface); color: var(--mood-colors-text-strong);
+    border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+    font-size: 12px; font-weight: 600;
+  }
+  .s-team-avatar.s-accent { background: var(--mood-colors-accent); border-color: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); }
+  .s-team-name { flex: 1; min-width: 0; }
+  .s-team-name b { display: block; font-size: 13px; font-weight: 600; color: var(--mood-colors-text-strong); }
+  .s-team-name span { font-size: 11px; color: var(--mood-colors-muted); }
+  .s-feed { display: flex; flex-direction: column; }
+  .s-feed-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
+  .s-feed-item:last-child { border-bottom: 0; }
+  .s-feed-body { flex: 1; min-width: 0; }
+  .s-feed-body b { font-size: 13px; font-weight: 600; color: var(--mood-colors-text-strong); }
+  .s-feed-body p { margin: 3px 0 0; font-size: 12px; color: var(--mood-colors-text); }
+  .s-feed-body time { font-size: 11px; color: var(--mood-colors-muted); }
+  .s-rating { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .s-stars { display: inline-flex; gap: 3px; font-size: var(--mood-typography-title-size); color: var(--mood-colors-warn); letter-spacing: 0.06em; }
+  .s-stars .is-empty { color: var(--mood-colors-border); }
+  .s-rating-value { font-size: var(--mood-typography-title-size); font-weight: 700; color: var(--mood-colors-text-strong); }
+  .s-rating-bars { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 200px; }
+  .s-rating-bar { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--mood-colors-muted); }
+  .s-rating-bar .bar { flex: 1; }
+</style>
+
+<div class="section-label">User &amp; Team</div>
+
+<div class="row cols-3">
+  <div class="block">
+    <div class="s-profile">
+      <div class="s-profile-head">
+        <div class="s-profile-avatar">PR</div>
+        <div>
+          <div class="s-profile-name">Priya Raman</div>
+          <div class="s-profile-role">Head of Analytics · Northwind Retail</div>
+        </div>
+      </div>
+      <div class="s-tags">
+        <span class="s-tag s-accent">Workspace owner</span>
+        <span class="s-tag">dbt</span>
+        <span class="s-tag">Snowflake</span>
+        <span class="s-tag">Looker</span>
+        <span class="s-tag">SQL</span>
+      </div>
+      <div class="s-profile-stats">
+        <div><b>1,284</b><span>Dashboards</span></div>
+        <div><b>42</b><span>Reports</span></div>
+        <div><b>18</b><span>Connectors</span></div>
+        <div><b>96%</b><span>On time</span></div>
+      </div>
+      <div class="btn-row">
+        <button type="button" class="primary">Message</button>
+        <button type="button">View profile</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="s-profile">
+      <div class="s-profile-head">
+        <div>
+          <div class="s-profile-name">Workspace team</div>
+          <div class="s-profile-role">6 members · 2 pending invites</div>
+        </div>
+      </div>
+      <div>
+        <div class="s-team-row">
+          <div class="s-team-avatar s-accent">PR</div>
+          <div class="s-team-name"><b>Priya Raman</b><span>Owner · active now</span></div>
+          <span class="badge live">Owner</span>
+        </div>
+        <div class="s-team-row">
+          <div class="s-team-avatar">MS</div>
+          <div class="s-team-name"><b>Marco Silva</b><span>Editor · 2 hours ago</span></div>
+          <span class="badge">Editor</span>
+        </div>
+        <div class="s-team-row">
+          <div class="s-team-avatar">DW</div>
+          <div class="s-team-name"><b>Dana Whitfield</b><span>Analyst · yesterday</span></div>
+          <span class="badge">Analyst</span>
+        </div>
+        <div class="s-team-row">
+          <div class="s-team-avatar">IP</div>
+          <div class="s-team-name"><b>Ivan Petrov</b><span>Viewer · 3 days ago</span></div>
+          <span class="badge">Viewer</span>
+        </div>
+        <div class="s-team-row">
+          <div class="s-team-avatar">AK</div>
+          <div class="s-team-name"><b>Aiko Tanaka</b><span>Invite sent · 2 days ago</span></div>
+          <span class="badge warn">Invited</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block tint">
+    <div class="s-profile">
+      <div class="s-profile-head">
+        <div>
+          <div class="s-profile-name">Activity</div>
+          <div class="s-profile-role">Latest 4 events in Northwind Retail</div>
+        </div>
+      </div>
+      <div class="s-feed">
+        <div class="s-feed-item">
+          <div class="s-team-avatar s-accent">PR</div>
+          <div class="s-feed-body">
+            <b>Priya Raman</b> published <b>Revenue Overview</b> to the Finance folder.
+            <time>12 minutes ago</time>
+          </div>
+        </div>
+        <div class="s-feed-item">
+          <div class="s-team-avatar">MS</div>
+          <div class="s-feed-body">
+            <b>Marco Silva</b> commented on <b>Warehouse margin</b>: “Margins held after the freight change.”
+            <time>1 hour ago</time>
+          </div>
+        </div>
+        <div class="s-feed-item">
+          <div class="s-team-avatar">DW</div>
+          <div class="s-feed-body">
+            <b>Dana Whitfield</b> changed the query behind <b>Churn by cohort</b>.
+            <time>Yesterday at 17:05</time>
+          </div>
+        </div>
+        <div class="s-feed-item">
+          <div class="s-team-avatar">IP</div>
+          <div class="s-feed-body">
+            <b>Ivan Petrov</b> scheduled <b>Marketing spend mix</b> for every Monday at 08:00.
+            <time>2 days ago</time>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="block">
+  <div class="row">
+    <div>
+      <div class="s-rating">
+        <span class="s-stars">★★★★★</span>
+        <span class="s-rating-value">4.6</span>
+        <span style="font-size:12px;color:var(--mood-colors-muted)">from 218 workspace ratings</span>
+      </div>
+      <p style="margin:10px 0 0;font-size:12px;color:var(--mood-colors-muted)">
+        “Set up a semantic layer in an afternoon, and the finance team stopped asking for
+        CSV exports in the first week.”
+      </p>
+    </div>
+    <div class="s-rating-bars">
+      <div class="s-rating-bar"><span>5</span><div class="bar ok"><i style="width:78%"></i></div><span>171</span></div>
+      <div class="s-rating-bar"><span>4</span><div class="bar ok"><i style="width:16%"></i></div><span>35</span></div>
+      <div class="s-rating-bar"><span>3</span><div class="bar warn"><i style="width:6%"></i></div><span>9</span></div>
+      <div class="s-rating-bar"><span>2</span><div class="bar"><i style="width:2%"></i></div><span>3</span></div>
+    </div>
+  </div>
+</div>

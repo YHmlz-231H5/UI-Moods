@@ -1,0 +1,172 @@
+{
+  "id": "education",
+  "name": "Education",
+  "nameZh": "在线教育",
+  "mood": "y2k",
+  "description": "在线学习平台应用参考：课程广场与分类浏览、课程播放与章节进度、学习数据统计以及作业提交。",
+  "chrome": {
+    "statusbar": { "time": "20:15" },
+    "tabbar": {
+      "items": [
+        { "icon": "grid", "label": "广场", "active": true },
+        { "icon": "book", "label": "学习" },
+        { "icon": "bell", "label": "消息", "badge": "4" },
+        { "icon": "star", "label": "收藏" },
+        { "icon": "user", "label": "我的" }
+      ]
+    }
+  },
+  "screens": [
+    {
+      "id": "plaza",
+      "title": "课程广场",
+      "titleZh": "广场",
+      "chrome": {
+        "navbar": { "icon": "book", "title": "拾课", "action": "搜索" }
+      },
+      "blocks": [
+        { "type": "banner", "title": "新学期 · 编程启蒙季", "sub": "32 门课平均 4.9 分，前 100 名赠实体教材", "cta": "去看看" },
+        { "type": "search", "placeholder": "搜索课程、老师或知识点" },
+        { "type": "chips", "items": [
+          { "label": "推荐", "active": true },
+          { "label": "编程" },
+          { "label": "语言" },
+          { "label": "考试" },
+          { "label": "设计" },
+          { "label": "职业" }
+        ] },
+        { "type": "sectionHead", "title": "本周热播", "action": "换一批" },
+        { "type": "mediaGrid", "cols": 3, "items": [
+          { "icon": "code", "title": "Python 趣味入门", "sub": "32 讲 · 8.6 万人学过" },
+          { "icon": "book", "title": "雅思口语 7 分", "sub": "24 讲 · 4.1 万人学过" },
+          { "icon": "video", "title": "手机摄影构图课", "sub": "18 讲 · 2.8 万人学过" },
+          { "icon": "chart", "title": "Excel 数据分析", "sub": "40 讲 · 12.3 万人学过" },
+          { "icon": "globe", "title": "雅思写作批改", "sub": "12 讲 · 3.6 万人学过" },
+          { "icon": "cpu", "title": "人工智能导论", "sub": "28 讲 · 5.2 万人学过" }
+        ] },
+        { "type": "sectionHead", "title": "正在直播", "action": "全部" },
+        { "type": "list", "items": [
+          { "icon": "mic", "title": "今晚 20:00 · 高考数学压轴题拆解", "sub": "王雨老师 · 已有 3,862 人预约", "badge": "直播中", "badgeTone": "danger", "chev": true },
+          { "icon": "mic", "title": "周六 10:00 · 四六级写作提分公开课", "sub": "Anna 老师 · 已有 1,204 人预约", "badge": "可预约", "badgeTone": "ok", "chev": true },
+          { "icon": "mic", "title": "周日 14:30 · 简历与面试一对一答疑", "sub": "职业规划公开课 · 已有 864 人预约", "chev": true }
+        ] },
+        { "type": "promo", "icon": "gift", "title": "学完返现 20%", "sub": "购买指定课程包，完成 80% 学习进度可返现" },
+        { "type": "notice", "tone": "info", "mark": "提示", "text": "你收藏的「Python 趣味入门」今天更新了第 13 讲。" }
+      ]
+    },
+    {
+      "id": "lesson",
+      "title": "课程播放页",
+      "titleZh": "播放",
+      "chrome": {
+        "navbar": { "back": true, "title": "课程播放", "action": "收藏" }
+      },
+      "blocks": [
+        { "type": "card", "media": true, "mediaTag": "正在播放 · 第 12 讲", "title": "Python 趣味入门 · 从零写一个贪吃蛇", "sub": "讲师 李知遥 · 时长 42 分 18 秒 · 已学 28 分 40 秒" },
+        { "type": "header", "title": "第 12 讲 · 列表与元组的区别", "subtitle": "本讲要点：可变与不可变对象、切片语法、常见坑", "meta": [
+          { "label": "难度 中等", "tone": "accent" },
+          { "label": "配套习题 6 道" }
+        ] },
+        { "type": "progress", "label": "本节学习进度", "value": "28:40 / 42:18", "pct": 68, "tone": "ok" },
+        { "type": "tabs", "items": [
+          { "label": "目录", "active": true },
+          { "label": "笔记" },
+          { "label": "讨论" },
+          { "label": "资料" }
+        ] },
+        { "type": "list", "items": [
+          { "icon": "check", "title": "第 10 讲 · 环境搭建与第一行代码", "sub": "时长 26 分 · 已完成", "value": "100%", "valueTone": "ok" },
+          { "icon": "play", "title": "第 11 讲 · 变量与数据类型", "sub": "时长 35 分 · 已完成", "value": "100%", "valueTone": "ok" },
+          { "icon": "pause", "title": "第 12 讲 · 列表与元组的区别", "sub": "时长 42 分 · 学习中", "value": "68%", "valueTone": "warn" },
+          { "icon": "lock", "title": "第 13 讲 · 字典与集合", "sub": "时长 38 分 · 未解锁", "value": "试看 5 分" }
+        ] },
+        { "type": "chat", "messages": [
+          { "out": false, "text": "讲师：元组一旦创建就不能修改，这是它和列表最大的区别。", "time": "20:41" },
+          { "out": true, "text": "那把列表转成元组是用 tuple() 吗？", "time": "20:42" },
+          { "out": false, "text": "对，tuple([1,2,3])，也可以用星号解包。", "time": "20:42" }
+        ] },
+        { "type": "card", "flat": true, "actions": [
+          { "label": "上一讲", "primary": false },
+          { "label": "下一讲", "primary": true }
+        ] }
+      ]
+    },
+    {
+      "id": "progress",
+      "title": "学习进度",
+      "titleZh": "进度",
+      "chrome": {
+        "navbar": { "back": true, "title": "学习进度", "action": "导出" }
+      },
+      "blocks": [
+        { "type": "scoreRing", "pct": 68, "value": "68%", "label": "本季完成度" },
+        { "type": "statGrid", "cols": 3, "items": [
+          { "label": "累计学习", "value": "128 小时", "delta": "+14 小时", "deltaTone": "up" },
+          { "label": "连续打卡", "value": "46 天", "delta": "最佳 62 天", "deltaTone": "ok" },
+          { "label": "获得学分", "value": "1,260", "delta": "+180", "deltaTone": "up" }
+        ] },
+        { "type": "bars", "title": "本周学习时长", "sub": "每日分钟数 · 目标 60 分钟", "items": [
+          { "label": "周一", "value": 42 },
+          { "label": "周二", "value": 68 },
+          { "label": "周三", "value": 35 },
+          { "label": "周四", "value": 91 },
+          { "label": "周五", "value": 56 },
+          { "label": "周六", "value": 118 },
+          { "label": "周日", "value": 74 }
+        ] },
+        { "type": "donut", "title": "学分分布", "sub": "本季共获得 1,260 学分", "segments": [
+          { "label": "编程开发", "value": 520 },
+          { "label": "语言考试", "value": 380 },
+          { "label": "设计创意", "value": 240 },
+          { "label": "职业素养", "value": 120 }
+        ] },
+        { "type": "sectionHead", "title": "目标达成", "action": "调整目标" },
+        { "type": "list", "items": [
+          { "icon": "check", "title": "每周学习 7 小时", "sub": "本周已学习 8 小时 04 分", "value": "115%", "valueTone": "up" },
+          { "icon": "book", "title": "完成 2 门课程", "sub": "已完成 1 门《Python 趣味入门》", "value": "50%", "valueTone": "warn" },
+          { "icon": "star", "title": "获得 3 张证书", "sub": "已获得 2 张，还差 1 张", "value": "67%", "valueTone": "warn" }
+        ] },
+        { "type": "notice", "tone": "ok", "mark": "连续", "text": "已连续学习 46 天，保持住就能解锁「持久派」徽章。" },
+        { "type": "card", "flat": true, "actions": [
+          { "label": "导出学习报告", "primary": false },
+          { "label": "查看证书", "primary": true }
+        ] }
+      ]
+    },
+    {
+      "id": "homework",
+      "title": "作业提交",
+      "titleZh": "作业",
+      "chrome": {
+        "navbar": { "back": true, "title": "作业提交", "action": "存草稿" }
+      },
+      "blocks": [
+        { "type": "card", "tint": true, "title": "第 3 次作业 · 列表数据处理实战", "sub": "课程：Python 趣味入门 · 讲师：李知遥", "body": "截止时间 2024-11-12 23:59 · 剩余 2 天 3 小时", "badge": "待提交", "badgeTone": "warn" },
+        { "type": "steps", "items": [
+          { "n": 1, "label": "填写答案", "state": "done" },
+          { "n": 2, "label": "上传附件", "state": "active" },
+          { "n": 3, "label": "提交确认" }
+        ] },
+        { "type": "field", "label": "解题思路（选填）", "input": "textarea", "value": "使用字典统计每个标签出现的次数，再用列表推导式排序输出前 10 条。", "placeholder": "简要说明你的思路" },
+        { "type": "field", "label": "代码提交", "input": "textarea", "value": "from collections import Counter\n\ndef top_tags(rows, n=10):\n    counter = Counter(r['tag'] for r in rows)\n    return counter.most_common(n)\n", "placeholder": "粘贴你的代码" },
+        { "type": "sectionHead", "title": "上传附件", "action": "最多 3 个" },
+        { "type": "mediaGrid", "cols": 3, "items": [
+          { "icon": "file", "title": "solution.py", "sub": "4 KB · 已上传" },
+          { "icon": "image", "title": "运行结果截图", "sub": "312 KB · 已上传" },
+          { "icon": "upload", "title": "添加附件", "sub": "支持 py / zip / png" }
+        ] },
+        { "type": "sectionHead", "title": "评分标准" },
+        { "type": "list", "items": [
+          { "icon": "check", "title": "代码可正常运行并通过 5 个测试用例", "value": "40 分" },
+          { "icon": "check", "title": "函数命名与注释符合规范", "value": "30 分" },
+          { "icon": "check", "title": "复杂度分析正确", "value": "30 分" }
+        ] },
+        { "type": "notice", "tone": "danger", "mark": "截止", "text": "逾期提交将按每日 10% 扣分，最多扣至 60 分。" },
+        { "type": "card", "flat": true, "actions": [
+          { "label": "保存草稿", "primary": false },
+          { "label": "提交作业", "primary": true }
+        ] }
+      ]
+    }
+  ]
+}

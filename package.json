@@ -1,7 +1,7 @@
 {
   "name": "ui-moods",
-  "version": "1.0.0",
-  "description": "Style Specimen Registry — reusable UI style specimens plus an agent consumption protocol.",
+  "version": "1.1.0",
+  "description": "Style Specimen Registry + App Reference Library — reusable UI style specimens, industry app screens, and an agent consumption protocol.",
   "type": "module",
   "bin": {
     "ui-moods": "./tools/cli.mjs"
@@ -16,15 +16,19 @@
   },
   "scripts": {
     "build-specimen": "node tools/build-specimen.mjs",
+    "build-apps": "node tools/build-apps.mjs --all",
     "validate": "node tools/validate.mjs",
     "bundle": "node tools/bundle.mjs",
-    "serve": "node tools/serve.mjs"
+    "serve": "node tools/serve.mjs",
+    "scaffold": "node tools/scaffold.mjs",
+    "build:all": "node tools/build-specimen.mjs anime archive aurora bauhaus blueprint brutal clay corporate crypto eco fashion finance food forest gaming glass instrument ios luxury medical monochrome neon night nordic pastel retro sakura swiss travel vaporwave verdant y2k && node tools/build-apps.mjs --all"
   },
   "keywords": [
     "ui",
     "design-tokens",
     "style-guide",
     "ai-agents",
-    "specimen"
+    "specimen",
+    "mobile-ui"
   ]
 }

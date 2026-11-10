@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Education · 在线教育 — UI Moods App Reference</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 32px;
+      background: var(--mood-colors-bg);
+      color: var(--mood-colors-text);
+      font-family: var(--mood-typography-family);
+      font-size: var(--mood-typography-body-size);
+      line-height: 1.7;
+    }
+    h1 { font-size: var(--mood-typography-display-size); color: var(--mood-colors-text-strong); margin: 0 0 6px; }
+    p.lead { color: var(--mood-colors-muted); margin: 0 0 24px; max-width: 640px; }
+    ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; max-width: 640px; }
+    li {
+      padding: 14px 18px;
+      border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+      border-radius: var(--mood-radii-card);
+      background: var(--mood-colors-surface);
+      box-shadow: var(--mood-shadows-card);
+    }
+    a { color: var(--mood-colors-accent); font-weight: 600; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    li span { color: var(--mood-colors-muted); margin-left: 6px; }
+    li em { display: block; font-style: normal; font-size: var(--mood-typography-label-size); color: var(--mood-colors-muted); margin-top: 4px; }
+  </style>
+  <style id="mood-tokens">
+    :root {
+      --mood-colors-bg: #e9f2ff;
+      --mood-colors-panel: #ffffff;
+      --mood-colors-surface: #ffffff;
+      --mood-colors-text: #1a1a2e;
+      --mood-colors-text-strong: #0b0b18;
+      --mood-colors-muted: #6a6a8a;
+      --mood-colors-border: #b8c6ff;
+      --mood-colors-accent: #7b2ff7;
+      --mood-colors-on-accent: #ffffff;
+      --mood-colors-ok: #00c853;
+      --mood-colors-warn: #ffd166;
+      --mood-colors-danger: #ff4d6d;
+      --mood-typography-family: Verdana, Trebuchet MS, system-ui, sans-serif;
+      --mood-typography-display-size: 44px;
+      --mood-typography-title-size: 17px;
+      --mood-typography-body-size: 14px;
+      --mood-typography-label-size: 11px;
+      --mood-radii-block: 16px;
+      --mood-radii-button: 999px;
+      --mood-radii-card: 24px;
+      --mood-radii-badge: 999px;
+      --mood-radii-input: 999px;
+      --mood-borders-width: 1px;
+      --mood-borders-style: solid;
+      --mood-effects-backdrop-filter: blur(10px);
+      --mood-effects-glow: 0 0 24px rgba(123,47,247,0.28);
+      --mood-shadows-card: 0 8px 24px rgba(123,47,247,0.18);
+      --mood-shadows-button: 0 4px 12px rgba(123,47,247,0.22);
+      --mood-spacing-section: 30px;
+      --mood-spacing-block: 18px;
+      --mood-spacing-gap: 12px;
+      --mood-motion-duration: 0.3s;
+      --mood-motion-easing: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+  </style>
+</head>
+<body>
+  <h1>Education · 在线教育</h1>
+  <p class="lead">在线学习平台应用参考：课程广场与分类浏览、课程播放与章节进度、学习数据统计以及作业提交。</p>
+  <ul>
+<li><a href="./plaza.html">课程广场</a> <span>广场</span></li>
+<li><a href="./lesson.html">课程播放页</a> <span>播放</span></li>
+<li><a href="./progress.html">学习进度</a> <span>进度</span></li>
+<li><a href="./homework.html">作业提交</a> <span>作业</span></li>
+  </ul>
+</body>
+</html>

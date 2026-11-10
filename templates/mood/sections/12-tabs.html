@@ -1,0 +1,121 @@
+<style>
+  .s-tabs { display: flex; gap: 2px; border-bottom: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
+  .s-tab {
+    padding: 10px 14px; font-size: 13px; color: var(--mood-colors-muted);
+    border-bottom: 2px solid transparent;
+  }
+  .s-tab.s-active {
+    color: var(--mood-colors-text-strong); font-weight: 600;
+    border-bottom-color: var(--mood-colors-accent);
+  }
+  .s-tab-count {
+    margin-left: 8px; padding: 1px 8px; border-radius: var(--mood-radii-badge);
+    background: var(--mood-colors-bg); color: var(--mood-colors-muted); font-size: 11px;
+  }
+  .s-tab.s-active .s-tab-count { background: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); }
+  .s-tabs-pill {
+    display: inline-flex; gap: 4px; padding: 4px;
+    background: var(--mood-colors-bg);
+    border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+    border-radius: var(--mood-radii-button);
+  }
+  .s-tab-pill { padding: 6px 14px; border-radius: var(--mood-radii-input); font-size: 12px; color: var(--mood-colors-muted); }
+  .s-tab-pill.s-active {
+    background: var(--mood-colors-surface); color: var(--mood-colors-text-strong);
+    font-weight: 600; box-shadow: var(--mood-shadows-button);
+  }
+  .s-accordion { display: flex; flex-direction: column; }
+  .s-acc-item { border-bottom: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
+  .s-acc-item:last-child { border-bottom: 0; }
+  .s-acc-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 14px 2px; }
+  .s-acc-head b { font-size: 13px; font-weight: 600; color: var(--mood-colors-text-strong); }
+  .s-acc-head small { display: block; font-size: 11px; color: var(--mood-colors-muted); font-weight: 400; }
+  .s-acc-mark {
+    width: 20px; height: 20px; flex-shrink: 0; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--mood-colors-bg); color: var(--mood-colors-muted); font-size: 13px;
+  }
+  .s-acc-item.s-open .s-acc-mark { background: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); }
+  .s-acc-body { padding: 0 2px 16px; font-size: 12px; color: var(--mood-colors-muted); }
+  .s-acc-body p { margin: 0 0 8px; }
+  .s-segment {
+    display: inline-flex; padding: 3px; gap: 2px;
+    background: var(--mood-colors-bg);
+    border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+    border-radius: var(--mood-radii-button);
+  }
+  .s-seg-item { padding: 6px 16px; border-radius: var(--mood-radii-input); font-size: 12px; color: var(--mood-colors-muted); }
+  .s-seg-item.s-active {
+    background: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface));
+    font-weight: 600;
+  }
+  .s-seg-item.s-disabled { opacity: 0.4; }
+  .s-chart-sub { font-size: 11px; color: var(--mood-colors-muted); }
+  .s-meta-row { display: flex; align-items: center; gap: 10px; }
+</style>
+
+<div class="section-label">Tabs &amp; Accordion</div>
+
+<div class="block flush">
+  <div class="s-tabs">
+    <span class="s-tab">Overview</span>
+    <span class="s-tab s-active">Dashboards<span class="s-tab-count">12</span></span>
+    <span class="s-tab">Reports<span class="s-tab-count">4</span></span>
+    <span class="s-tab">Alerts<span class="s-tab-count">3</span></span>
+  </div>
+  <div style="padding:18px">
+    <div class="s-chart-sub" style="margin-bottom:12px">Underline tab style — the active tab carries the accent rule.</div>
+    <div class="row cols-3">
+      <div class="s-tabs-pill">
+        <span class="s-tab-pill s-active">Day</span>
+        <span class="s-tab-pill">Week</span>
+        <span class="s-tab-pill">Month</span>
+        <span class="s-tab-pill">Quarter</span>
+      </div>
+      <div class="s-segment">
+        <span class="s-seg-item s-active">Metric</span>
+        <span class="s-seg-item">Revenue</span>
+        <span class="s-seg-item s-disabled">Forecast</span>
+      </div>
+      <div class="s-meta-row" style="font-size:12px;color:var(--mood-colors-muted)">
+        Segmented controls and secondary tabs share the same 12 px label size.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="block">
+  <div class="s-accordion">
+    <div class="s-acc-item s-open">
+      <div class="s-acc-head">
+        <div><b>How is revenue calculated?</b><small>Semantic layer · updated 4 Mar 2026</small></div>
+        <span class="s-acc-mark">−</span>
+      </div>
+      <div class="s-acc-body">
+        <p>Revenue is the sum of settled invoices minus refunds and credits, converted to the workspace currency at the daily reference rate.</p>
+        <p>Only invoices in the settled state are counted, so pending payments never inflate a dashboard.</p>
+      </div>
+    </div>
+    <div class="s-acc-item s-open">
+      <div class="s-acc-head">
+        <div><b>Which connectors are available on this plan?</b><small>Billing · Growth plan</small></div>
+        <span class="s-acc-mark">−</span>
+      </div>
+      <div class="s-acc-body">
+        <p>Growth includes five connectors: Snowflake, Postgres, Stripe, BigQuery and Google Sheets. Additional connectors are billed per month.</p>
+      </div>
+    </div>
+    <div class="s-acc-item">
+      <div class="s-acc-head">
+        <div><b>Can I restore a deleted dashboard?</b><small>Dashboards · 30 day window</small></div>
+        <span class="s-acc-mark">+</span>
+      </div>
+    </div>
+    <div class="s-acc-item">
+      <div class="s-acc-head">
+        <div><b>Who can publish a shared report?</b><small>Permissions · workspace role</small></div>
+        <span class="s-acc-mark">+</span>
+      </div>
+    </div>
+  </div>
+</div>

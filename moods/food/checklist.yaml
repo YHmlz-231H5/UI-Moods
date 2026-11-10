@@ -1,0 +1,30 @@
+# food · acceptance checklist
+
+- id: food-radius-card
+  type: value
+  description: Card radius must equal tokens.radii.card
+  assert:
+    path: radii.card
+    eq: "16px"
+
+- id: food-token-only-colors
+  type: token-only
+  description: No color literals outside tokens.colors / resolved components
+  scope: colors
+
+- id: food-token-only-components
+  type: token-only
+  description: Component semantic layer must only reference tokens, no new literals
+  scope: components
+
+- id: food-contrast-text
+  type: contrast
+  description: Body text on bg contrast >= 4.5:1
+  foreground: colors.text
+  background: colors.bg
+  minRatio: 4.5
+
+- id: food-feel
+  type: subjective
+  description: Interface reads as a warm menu with cream canvas, orange accent and soft rounded cards
+  required: false

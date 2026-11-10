@@ -1,0 +1,168 @@
+<style>
+  .s-toasts { display: flex; flex-direction: column; gap: 10px; }
+  .s-toast {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 12px 14px;
+    background: var(--mood-colors-surface);
+    border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+    border-left-width: 3px;
+    border-radius: var(--mood-radii-block);
+    box-shadow: var(--mood-shadows-card);
+  }
+  .s-toast.s-ok { border-left-color: var(--mood-colors-ok); }
+  .s-toast.s-warn { border-left-color: var(--mood-colors-warn); }
+  .s-toast.s-danger { border-left-color: var(--mood-colors-danger); }
+  .s-toast.s-info { border-left-color: var(--mood-colors-accent); }
+  .s-toast-icon {
+    width: 20px; height: 20px; flex-shrink: 0; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700;
+    background: var(--mood-colors-bg); color: var(--mood-colors-text);
+  }
+  .s-toast.s-ok .s-toast-icon { color: var(--mood-colors-ok); }
+  .s-toast.s-warn .s-toast-icon { color: var(--mood-colors-warn); }
+  .s-toast.s-danger .s-toast-icon { color: var(--mood-colors-danger); }
+  .s-toast.s-info .s-toast-icon { color: var(--mood-colors-accent); }
+  .s-toast-body { flex: 1; min-width: 0; }
+  .s-toast-body b { display: block; font-size: 13px; font-weight: 600; color: var(--mood-colors-text-strong); }
+  .s-toast-body span { font-size: 12px; color: var(--mood-colors-muted); }
+  .s-toast-close {
+    background: none; border: 0; padding: 0 4px; font-size: 13px;
+    color: var(--mood-colors-muted); line-height: 1;
+  }
+  .s-modal-wrap { padding: 20px; background: var(--mood-colors-bg); border-radius: var(--mood-radii-block); }
+  .s-modal {
+    background: var(--mood-colors-surface);
+    border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+    border-radius: var(--mood-radii-card);
+    box-shadow: var(--mood-shadows-card);
+    overflow: hidden;
+  }
+  .s-modal-head { padding: 16px 18px 12px; border-bottom: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
+  .s-modal-head h3 { margin: 0; font-size: var(--mood-typography-title-size); font-weight: 600; color: var(--mood-colors-text-strong); }
+  .s-modal-head p { margin: 4px 0 0; font-size: 12px; color: var(--mood-colors-muted); }
+  .s-modal-body { padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; }
+  .s-modal-body p { margin: 0; font-size: 13px; color: var(--mood-colors-text); }
+  .s-modal-foot {
+    padding: 12px 18px; display: flex; align-items: center; justify-content: flex-end; gap: 8px;
+    background: var(--mood-colors-panel);
+    border-top: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+  }
+  .s-banner {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 14px 16px;
+    border-radius: var(--mood-radii-block);
+    border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-warn);
+    background: var(--mood-colors-panel);
+  }
+  .s-banner-body { flex: 1; }
+  .s-banner-body b { display: block; font-size: 13px; font-weight: 600; color: var(--mood-colors-text-strong); }
+  .s-banner-body span { font-size: 12px; color: var(--mood-colors-muted); }
+  .s-indeterminate {
+    position: relative; height: 6px; border-radius: 999px;
+    background: var(--mood-colors-border); overflow: hidden;
+  }
+  .s-indeterminate > i {
+    position: absolute; top: 0; bottom: 0; width: 38%;
+    background: var(--mood-colors-accent);
+    animation: s-sweep 1.6s var(--mood-motion-easing) infinite;
+  }
+  @keyframes s-sweep {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(300%); }
+  }
+  .s-empty {
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    padding: 30px 20px; text-align: center;
+  }
+  .s-empty-icon {
+    width: 52px; height: 52px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--mood-colors-surface); color: var(--mood-colors-accent); font-size: var(--mood-typography-title-size);
+  }
+  .s-empty h3 { margin: 0; font-size: var(--mood-typography-title-size); font-weight: 600; color: var(--mood-colors-text-strong); }
+  .s-empty p { margin: 0; font-size: 12px; color: var(--mood-colors-muted); max-width: 320px; }
+  .s-kpi-label { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mood-colors-muted); }
+  .s-chart-sub { font-size: 11px; color: var(--mood-colors-muted); }
+</style>
+
+<div class="section-label">Feedback</div>
+
+<div class="row cols-3">
+  <div class="block">
+    <div class="s-toasts">
+      <div class="s-toast s-ok">
+        <span class="s-toast-icon">✓</span>
+        <div class="s-toast-body"><b>Workspace saved</b><span>Northwind Retail now uses the new billing cycle.</span></div>
+        <span class="s-toast-close">✕</span>
+      </div>
+      <div class="s-toast s-warn">
+        <span class="s-toast-icon">!</span>
+        <div class="s-toast-body"><b>Storage at 68%</b><span>Two more connectors will exceed the plan limit.</span></div>
+        <span class="s-toast-close">✕</span>
+      </div>
+      <div class="s-toast s-danger">
+        <span class="s-toast-icon">✕</span>
+        <div class="s-toast-body"><b>Sync failed</b><span>warehouse_margin_q1 could not read the Postgres replica.</span></div>
+        <span class="s-toast-close">✕</span>
+      </div>
+      <div class="s-toast s-info">
+        <span class="s-toast-icon">i</span>
+        <div class="s-toast-body"><b>New version available</b><span>Northwind 4.8 adds row-level access rules.</span></div>
+        <span class="s-toast-close">✕</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="s-modal-wrap">
+      <div class="s-modal">
+        <div class="s-modal-head">
+          <h3>Delete workspace?</h3>
+          <p>This removes 1,284 dashboards and every scheduled report.</p>
+        </div>
+        <div class="s-modal-body">
+          <p>Dashboards are archived for 30 days and can be restored by an administrator from the workspace list.</p>
+          <div class="list">
+            <div class="list-item"><div><div class="name">Dashboards</div><div class="sub">Archived for 30 days</div></div><span class="badge danger">1,284</span></div>
+            <div class="list-item"><div><div class="name">Scheduled reports</div><div class="sub">Stopped immediately</div></div><span class="badge danger">42</span></div>
+          </div>
+        </div>
+        <div class="s-modal-foot">
+          <button type="button">Keep workspace</button>
+          <button type="button" class="danger">Delete workspace</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="s-banner">
+      <span class="s-toast-icon">!</span>
+      <div class="s-banner-body">
+        <b>Trial ends in 4 days</b>
+        <span>Add a payment method to keep 1,284 workspaces running after 14 Mar 2026.</span>
+      </div>
+      <button type="button">Upgrade</button>
+      <span class="s-toast-close">✕</span>
+    </div>
+
+    <div style="margin-top:18px">
+      <div class="s-kpi-label" style="margin-bottom:8px">Reconnecting to Snowflake</div>
+      <div class="s-indeterminate"><i></i></div>
+      <p class="s-chart-sub" style="margin:8px 0 0">Waiting for the warehouse handshake. This can take up to 60 seconds.</p>
+    </div>
+  </div>
+</div>
+
+<div class="block tint">
+  <div class="s-empty">
+    <span class="s-empty-icon">◌</span>
+    <h3>No saved reports yet</h3>
+    <p>Reports you schedule from any dashboard appear here. Build one from the template library to get started in under a minute.</p>
+    <div class="btn-row" style="margin-top:6px">
+      <button type="button" class="primary">Browse templates</button>
+      <button type="button">Import from CSV</button>
+    </div>
+  </div>
+</div>

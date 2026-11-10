@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Automotive · 汽车出行 — UI Moods App Reference</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 32px;
+      background: var(--mood-colors-bg);
+      color: var(--mood-colors-text);
+      font-family: var(--mood-typography-family);
+      font-size: var(--mood-typography-body-size);
+      line-height: 1.7;
+    }
+    h1 { font-size: var(--mood-typography-display-size); color: var(--mood-colors-text-strong); margin: 0 0 6px; }
+    p.lead { color: var(--mood-colors-muted); margin: 0 0 24px; max-width: 640px; }
+    ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; max-width: 640px; }
+    li {
+      padding: 14px 18px;
+      border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+      border-radius: var(--mood-radii-card);
+      background: var(--mood-colors-surface);
+      box-shadow: var(--mood-shadows-card);
+    }
+    a { color: var(--mood-colors-accent); font-weight: 600; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    li span { color: var(--mood-colors-muted); margin-left: 6px; }
+    li em { display: block; font-style: normal; font-size: var(--mood-typography-label-size); color: var(--mood-colors-muted); margin-top: 4px; }
+  </style>
+  <style id="mood-tokens">
+    :root {
+      --mood-colors-bg: #0e1114;
+      --mood-colors-panel: #12161a;
+      --mood-colors-surface: #0f1317;
+      --mood-colors-text: #b8c4ce;
+      --mood-colors-text-strong: #e6eef4;
+      --mood-colors-muted: #6a7a88;
+      --mood-colors-border: #243038;
+      --mood-colors-accent: #7eb8ff;
+      --mood-colors-on-accent: #0a1016;
+      --mood-colors-ok: #6ecf8e;
+      --mood-colors-warn: #e0b060;
+      --mood-colors-danger: #e07080;
+      --mood-typography-family: JetBrains Mono, ui-monospace, monospace;
+      --mood-typography-display-size: 36px;
+      --mood-typography-title-size: 14px;
+      --mood-typography-body-size: 12px;
+      --mood-typography-label-size: 10px;
+      --mood-radii-block: 2px;
+      --mood-radii-button: 0;
+      --mood-radii-card: 2px;
+      --mood-radii-badge: 0;
+      --mood-radii-input: 0;
+      --mood-borders-width: 1px;
+      --mood-borders-style: solid;
+      --mood-effects-backdrop-filter: none;
+      --mood-shadows-card: none;
+      --mood-shadows-button: none;
+      --mood-spacing-section: 28px;
+      --mood-spacing-block: 18px;
+      --mood-spacing-gap: 16px;
+      --mood-motion-duration: 0.15s;
+      --mood-motion-easing: ease;
+    }
+  </style>
+</head>
+<body>
+  <h1>Automotive · 汽车出行</h1>
+  <p class="lead">智能车联与出行服务参考：车辆状态仪表盘、充电与保养、行程记录与车辆设置。</p>
+  <ul>
+<li><a href="./status.html">车辆状态</a> <span>车况</span></li>
+<li><a href="./energy.html">充电与保养</a> <span>补能</span></li>
+<li><a href="./trips.html">行程记录</a> <span>行程</span></li>
+<li><a href="./settings.html">车辆设置</a> <span>设置</span></li>
+  </ul>
+</body>
+</html>

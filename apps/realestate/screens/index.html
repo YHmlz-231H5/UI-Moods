@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Real Estate · 房产家居 — UI Moods App Reference</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 32px;
+      background: var(--mood-colors-bg);
+      color: var(--mood-colors-text);
+      font-family: var(--mood-typography-family);
+      font-size: var(--mood-typography-body-size);
+      line-height: 1.7;
+    }
+    h1 { font-size: var(--mood-typography-display-size); color: var(--mood-colors-text-strong); margin: 0 0 6px; }
+    p.lead { color: var(--mood-colors-muted); margin: 0 0 24px; max-width: 640px; }
+    ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; max-width: 640px; }
+    li {
+      padding: 14px 18px;
+      border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+      border-radius: var(--mood-radii-card);
+      background: var(--mood-colors-surface);
+      box-shadow: var(--mood-shadows-card);
+    }
+    a { color: var(--mood-colors-accent); font-weight: 600; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    li span { color: var(--mood-colors-muted); margin-left: 6px; }
+    li em { display: block; font-style: normal; font-size: var(--mood-typography-label-size); color: var(--mood-colors-muted); margin-top: 4px; }
+  </style>
+  <style id="mood-tokens">
+    :root {
+      --mood-colors-bg: #f7f7f5;
+      --mood-colors-panel: #ffffff;
+      --mood-colors-surface: #f1f1ee;
+      --mood-colors-text: #3a3a38;
+      --mood-colors-text-strong: #161614;
+      --mood-colors-muted: #8a8a86;
+      --mood-colors-border: #e2e2dd;
+      --mood-colors-accent: #2f5d50;
+      --mood-colors-on-accent: #ffffff;
+      --mood-colors-ok: #4f7a52;
+      --mood-colors-warn: #b4874a;
+      --mood-colors-danger: #a4503f;
+      --mood-typography-family: Inter, Helvetica Neue, system-ui, sans-serif;
+      --mood-typography-display-size: 36px;
+      --mood-typography-title-size: 16px;
+      --mood-typography-body-size: 14px;
+      --mood-typography-label-size: 12px;
+      --mood-radii-block: 4px;
+      --mood-radii-button: 4px;
+      --mood-radii-card: 8px;
+      --mood-radii-badge: 999px;
+      --mood-radii-input: 4px;
+      --mood-borders-width: 1px;
+      --mood-borders-style: solid;
+      --mood-effects-backdrop-filter: none;
+      --mood-effects-glow: none;
+      --mood-shadows-card: 0 2px 8px rgba(22,22,20,0.06);
+      --mood-shadows-button: 0 1px 2px rgba(22,22,20,0.08);
+      --mood-spacing-section: 32px;
+      --mood-spacing-block: 20px;
+      --mood-spacing-gap: 12px;
+      --mood-motion-duration: 0.2s;
+      --mood-motion-easing: ease;
+    }
+  </style>
+</head>
+<body>
+  <h1>Real Estate · 房产家居</h1>
+  <p class="lead">房产交易与家居参考：房源列表、房屋详情、看房日程与收藏夹。</p>
+  <ul>
+<li><a href="./listings.html">房源列表</a> <span>找房</span></li>
+<li><a href="./detail.html">房屋详情</a> <span>详情</span></li>
+<li><a href="./tour.html">看房日程</a> <span>看房</span></li>
+<li><a href="./favorites.html">收藏夹</a> <span>收藏</span></li>
+  </ul>
+</body>
+</html>

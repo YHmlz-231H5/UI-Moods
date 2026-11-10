@@ -1,0 +1,172 @@
+<style>
+.s-db-shell { display: flex; flex-direction: column; }
+.s-db-top { display: flex; align-items: center; gap: 16px; padding: 12px 16px; border-bottom: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
+.s-db-brand { display: flex; align-items: center; gap: 10px; }
+.s-db-brand .s-db-mark { width: 28px; height: 28px; border-radius: var(--mood-radii-button); background: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
+.s-db-brand b { font-size: 13px; color: var(--mood-colors-text-strong); }
+.s-db-brand span { font-size: 11px; color: var(--mood-colors-muted); }
+.s-db-search { position: relative; flex: 1; max-width: 320px; }
+.s-db-search svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; color: var(--mood-colors-muted); pointer-events: none; }
+.s-db-search input { width: 100%; font: inherit; font-size: 12px; padding: 7px 10px 7px 30px; background: var(--mood-colors-bg); color: var(--mood-colors-text-strong); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); border-radius: var(--mood-radii-input); outline: none; }
+.s-db-top-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+.s-db-icon-btn { width: 32px; height: 32px; border-radius: var(--mood-radii-button); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); background: var(--mood-colors-surface); color: var(--mood-colors-muted); display: flex; align-items: center; justify-content: center; }
+.s-db-icon-btn svg { width: 15px; height: 15px; }
+.s-db-user { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--mood-colors-text); }
+.s-db-user .s-db-av { width: 26px; height: 26px; border-radius: 50%; background: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; }
+.s-db-main { display: grid; grid-template-columns: 64px 1fr 280px; }
+.s-db-side { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 12px 0; border-right: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
+.s-db-side button { width: 36px; height: 36px; border-radius: var(--mood-radii-button); border: 0; background: none; color: var(--mood-colors-muted); display: flex; align-items: center; justify-content: center; }
+.s-db-side button svg { width: 17px; height: 17px; }
+.s-db-side button.on { background: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); }
+.s-db-body { padding: 16px; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.s-db-kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.s-db-kpi { padding: 12px 14px; border-radius: var(--mood-radii-card); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); background: var(--mood-colors-surface); }
+.s-db-kpi .k { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mood-colors-muted); }
+.s-db-kpi .v { font-size: var(--mood-typography-title-size); font-weight: 700; color: var(--mood-colors-text-strong); margin: 4px 0 2px; }
+.s-db-kpi .d { font-size: 11px; color: var(--mood-colors-muted); }
+.s-db-kpi .d b { font-weight: 600; color: var(--mood-colors-ok); }
+.s-db-kpi .d b.down { color: var(--mood-colors-danger); }
+.s-db-chart-card { padding: 14px 16px 12px; border-radius: var(--mood-radii-card); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); background: var(--mood-colors-surface); }
+.s-db-chart-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+.s-db-chart-head h4 { margin: 0; font-size: var(--mood-typography-title-size); font-weight: 600; color: var(--mood-colors-text-strong); }
+.s-db-chart-head .s-db-legend { display: flex; gap: 14px; font-size: 11px; color: var(--mood-colors-muted); }
+.s-db-chart-head .s-db-legend i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; background: var(--mood-colors-accent); }
+.s-db-chart-head .s-db-legend i.alt { background: var(--mood-colors-muted); }
+.s-db-chart { width: 100%; height: auto; display: block; }
+.s-db-chart .s-db-gridline { stroke: var(--mood-colors-border); stroke-width: 1; }
+.s-db-chart .s-db-area { fill: var(--mood-colors-accent); fill-opacity: 0.4; }
+.s-db-chart .s-db-line { fill: none; stroke: var(--mood-colors-accent); stroke-width: 2; }
+.s-db-chart .s-db-dot { fill: var(--mood-colors-accent); }
+.s-db-axis { display: flex; justify-content: space-between; font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mood-colors-muted); margin-top: 4px; }
+.s-db-rail { padding: 16px 14px; border-left: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); background: var(--mood-colors-panel); }
+.s-db-rail-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.s-db-rail-head h4 { margin: 0; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mood-colors-muted); font-weight: 600; }
+.s-db-feed { display: flex; flex-direction: column; gap: 12px; }
+.s-db-feed-item { display: flex; gap: 10px; align-items: flex-start; font-size: 12px; color: var(--mood-colors-text); }
+.s-db-feed-item .s-db-dotmark { width: 8px; height: 8px; border-radius: 50%; margin-top: 6px; flex: none; background: var(--mood-colors-accent); }
+.s-db-feed-item .s-db-dotmark.ok { background: var(--mood-colors-ok); }
+.s-db-feed-item .s-db-dotmark.warn { background: var(--mood-colors-warn); }
+.s-db-feed-item .s-db-t { font-size: 10px; color: var(--mood-colors-muted); margin-top: 2px; }
+.s-db-tablecard { border-radius: var(--mood-radii-card); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); background: var(--mood-colors-surface); overflow: hidden; }
+.s-db-tablecard table { font-size: 12px; }
+.s-db-tablecard th { background: var(--mood-colors-panel); }
+.s-db-tablecard .s-db-pill { font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: var(--mood-radii-badge); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); color: var(--mood-colors-muted); }
+.s-db-tablecard .s-db-pill.ok { color: var(--mood-colors-ok); border-color: var(--mood-colors-ok); }
+.s-db-tablecard .s-db-pill.warn { color: var(--mood-colors-warn); border-color: var(--mood-colors-warn); }
+@media (max-width: 860px) { .s-db-main { grid-template-columns: 1fr; } .s-db-side { flex-direction: row; justify-content: flex-start; padding-left: 12px; border-right: 0; border-bottom: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); } .s-db-kpis { grid-template-columns: 1fr 1fr; } .s-db-rail { border-left: 0; border-top: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); } }
+</style>
+
+<div>
+  <div class="section-label">Dashboard Layout</div>
+  <div class="block flush s-db-shell">
+    <div class="s-db-top">
+      <div class="s-db-brand">
+        <div class="s-db-mark">B</div>
+        <div><b>Beacon</b><br /><span>Cartwheel workspace</span></div>
+      </div>
+      <div class="s-db-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M15.8 15.8L20.5 20.5"/></svg>
+        <input type="search" placeholder="Search events, boards or users" aria-label="Search workspace" />
+      </div>
+      <div class="s-db-top-right">
+        <div class="s-db-icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 16.5v-5a5.5 5.5 0 0111 0v5"/><path d="M4.5 19h15"/><path d="M10 19a2 2 0 004 0"/></svg></div>
+        <div class="s-db-icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19.5h14M6.5 16V9.5L12 5l5.5 4.5V16"/></svg></div>
+        <div class="s-db-user"><div class="s-db-av">RM</div><span>Rosa M&aacute;rquez</span></div>
+      </div>
+    </div>
+
+    <div class="s-db-main">
+      <nav class="s-db-side">
+        <button type="button" class="on" aria-label="Overview"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5h16"/><path d="M7 19.5v-6M12 19.5v-10M17 19.5v-4"/></svg></button>
+        <button type="button" aria-label="Dashboards"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg></button>
+        <button type="button" aria-label="Funnels"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16l-6 7v6l-4 2v-8z"/></svg></button>
+        <button type="button" aria-label="Sessions"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></button>
+        <button type="button" aria-label="Pipelines"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h6l3 5h7"/><path d="M17 9l3 3-3 3"/></svg></button>
+        <button type="button" aria-label="Alerts"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 16.5v-5a5.5 5.5 0 0111 0v5"/><path d="M4.5 19h15"/></svg></button>
+        <button type="button" aria-label="Settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 4v2.5M12 17.5V20M4 12h2.5M17.5 12H20M6.4 6.4l1.8 1.8M15.8 15.8l1.8 1.8M17.6 6.4l-1.8 1.8M8.2 15.8l-1.8 1.8"/></svg></button>
+      </nav>
+
+      <div class="s-db-body">
+        <div class="s-db-kpis">
+          <div class="s-db-kpi">
+            <div class="k">Weekly active users</div>
+            <div class="v">24,318</div>
+            <div class="d"><b>+12.4%</b> vs last week</div>
+          </div>
+          <div class="s-db-kpi">
+            <div class="k">Activation rate</div>
+            <div class="v">41.6%</div>
+            <div class="d"><b>+2.1%</b> vs last week</div>
+          </div>
+          <div class="s-db-kpi">
+            <div class="k">Median time to value</div>
+            <div class="v">3m 12s</div>
+            <div class="d"><b class="down">+18s</b> slower than target</div>
+          </div>
+          <div class="s-db-kpi">
+            <div class="k">Events ingested</div>
+            <div class="v">8.4M</div>
+            <div class="d">of 10M monthly quota</div>
+          </div>
+        </div>
+
+        <div class="s-db-chart-card">
+          <div class="s-db-chart-head">
+            <h4>Signups per day</h4>
+            <div class="s-db-legend"><span><i></i>This period</span><span><i class="alt"></i>Previous period</span></div>
+          </div>
+          <svg class="s-db-chart" viewBox="0 0 720 240" aria-label="Signups per day over the last 30 days" role="img">
+            <line class="s-db-gridline" x1="0" y1="60" x2="720" y2="60" />
+            <line class="s-db-gridline" x1="0" y1="120" x2="720" y2="120" />
+            <line class="s-db-gridline" x1="0" y1="180" x2="720" y2="180" />
+            <path class="s-db-area" d="M0 186L60 168L120 174L180 132L240 144L300 96L360 108L420 72L480 84L540 54L600 66L660 36L720 42L720 240L0 240Z" />
+            <path class="s-db-line" d="M0 186L60 168L120 174L180 132L240 144L300 96L360 108L420 72L480 84L540 54L600 66L660 36L720 42" />
+            <circle class="s-db-dot" cx="720" cy="42" r="4" />
+          </svg>
+          <div class="s-db-axis"><span>Oct 12</span><span>Oct 19</span><span>Oct 26</span><span>Nov 2</span><span>Nov 9</span></div>
+        </div>
+
+        <div class="s-db-tablecard">
+          <table>
+            <thead><tr><th>Funnel</th><th>Owner</th><th>Users</th><th>Conversion</th><th>State</th></tr></thead>
+            <tbody>
+              <tr><td>Signup to first dashboard</td><td>Rosa M&aacute;rquez</td><td>18,402</td><td>41.6%</td><td><span class="s-db-pill ok">Healthy</span></td></tr>
+              <tr><td>Invite to first teammate</td><td>Devin Osei</td><td>9,118</td><td>22.4%</td><td><span class="s-db-pill ok">Healthy</span></td></tr>
+              <tr><td>Trial to paid</td><td>Priya Raman</td><td>2,740</td><td>8.9%</td><td><span class="s-db-pill warn">Watch</span></td></tr>
+              <tr><td>Replay to shared insight</td><td>Tom&aacute;s Lind</td><td>1,905</td><td>4.2%</td><td><span class="s-db-pill warn">Watch</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <aside class="s-db-rail">
+        <div class="s-db-rail-head">
+          <h4>Activity</h4>
+          <span class="badge live">Live</span>
+        </div>
+        <div class="s-db-feed">
+          <div class="s-db-feed-item">
+            <div class="s-db-dotmark ok"></div>
+            <div><div>Priya published <b>Activation funnel v4</b></div><div class="s-db-t">2 minutes ago</div></div>
+          </div>
+          <div class="s-db-feed-item">
+            <div class="s-db-dotmark"></div>
+            <div><div>Warehouse sync finished for <b>BigQuery</b></div><div class="s-db-t">9 minutes ago, 4.2M rows</div></div>
+          </div>
+          <div class="s-db-feed-item">
+            <div class="s-db-dotmark warn"></div>
+            <div><div>Event quota at <b>84%</b> for November</div><div class="s-db-t">31 minutes ago</div></div>
+          </div>
+          <div class="s-db-feed-item">
+            <div class="s-db-dotmark ok"></div>
+            <div><div>Devin added 3 members to <b>Growth</b></div><div class="s-db-t">1 hour ago</div></div>
+          </div>
+          <div class="s-db-feed-item">
+            <div class="s-db-dotmark"></div>
+            <div><div>Collector <b>v2.8.1</b> deployed to 42 hosts</div><div class="s-db-t">3 hours ago</div></div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>

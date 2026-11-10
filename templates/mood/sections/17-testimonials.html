@@ -1,0 +1,117 @@
+<style>
+.s-ts-feature { position: relative; padding: 24px 24px 24px 64px; }
+.s-ts-mark { position: absolute; left: 20px; top: 20px; width: 40px; height: 40px; fill: currentColor; color: var(--mood-colors-accent); opacity: 0.45; }
+.s-ts-quote { margin: 0 0 18px; font-size: var(--mood-typography-title-size); font-weight: 500; line-height: 1.6; color: var(--mood-colors-text-strong); }
+.s-ts-byline { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.s-ts-av { width: 40px; height: 40px; flex: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); font-size: 12px; font-weight: 600; letter-spacing: 0.06em; }
+.s-ts-av.ghost { background: var(--mood-colors-panel); color: var(--mood-colors-text-strong); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
+.s-ts-who .n { font-size: 13px; font-weight: 600; color: var(--mood-colors-text-strong); }
+.s-ts-who .r { font-size: 11px; color: var(--mood-colors-muted); }
+.s-ts-stars { display: inline-flex; gap: 2px; color: var(--mood-colors-accent); }
+.s-ts-stars svg { width: 13px; height: 13px; fill: currentColor; stroke: none; }
+.s-ts-stars svg.off { fill: none; stroke: currentColor; stroke-width: 1.7; }
+.s-ts-stat { display: flex; flex-direction: column; gap: 2px; padding: 12px 0; border-bottom: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
+.s-ts-stat:last-child { border-bottom: 0; padding-bottom: 0; }
+.s-ts-stat b { font-size: var(--mood-typography-title-size); font-weight: 700; color: var(--mood-colors-text-strong); }
+.s-ts-stat span { font-size: 11px; color: var(--mood-colors-muted); }
+.s-ts-row { margin-top: var(--mood-spacing-gap); }
+.s-ts-card { display: flex; flex-direction: column; gap: 12px; }
+.s-ts-card .q { margin: 0; font-size: 13px; color: var(--mood-colors-text); }
+.s-ts-card-foot { display: flex; align-items: center; gap: 10px; margin-top: auto; padding-top: 4px; }
+.s-ts-logos { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; margin-top: 16px; padding-top: 14px; border-top: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mood-colors-muted); }
+.s-ts-logos span { font-weight: 600; letter-spacing: 0.1em; color: var(--mood-colors-text); }
+</style>
+
+<div>
+  <div class="section-label">Testimonials</div>
+  <div class="row">
+    <div class="block s-ts-feature">
+      <svg class="s-ts-mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.2 4.2C6.4 5.6 4.2 8.8 4.2 12.9v6.9h6.4v-7.2H7.4c.1-2 1-3.6 3.1-4.7l-.3-3.7zm9.6 0C16 5.6 13.8 8.8 13.8 12.9v6.9h6.4v-7.2H17c.1-2 1-3.6 3.1-4.7l-.3-3.7z"/></svg>
+      <p class="s-ts-quote">We replaced four dashboards, a cron job and a spreadsheet nobody trusted with a single Beacon query. Release day went from forty minutes of copy-paste to a two-minute look.</p>
+      <div class="s-ts-byline">
+        <div class="s-ts-av">RM</div>
+        <div class="s-ts-who">
+          <div class="n">Rosa M&aacute;rquez</div>
+          <div class="r">VP Product, Cartwheel</div>
+        </div>
+        <div class="s-ts-stars">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.4l2.9 5.8 6.4.9-4.6 4.5 1.1 6.3L12 18l-5.8 3 1.1-6.3L2.7 10.1l6.4-.9z"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.4l2.9 5.8 6.4.9-4.6 4.5 1.1 6.3L12 18l-5.8 3 1.1-6.3L2.7 10.1l6.4-.9z"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.4l2.9 5.8 6.4.9-4.6 4.5 1.1 6.3L12 18l-5.8 3 1.1-6.3L2.7 10.1l6.4-.9z"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.4l2.9 5.8 6.4.9-4.6 4.5 1.1 6.3L12 18l-5.8 3 1.1-6.3L2.7 10.1l6.4-.9z"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.4l2.9 5.8 6.4.9-4.6 4.5 1.1 6.3L12 18l-5.8 3 1.1-6.3L2.7 10.1l6.4-.9z"/></svg>
+        </div>
+      </div>
+      <div class="s-ts-logos">
+        <span>Cartwheel</span>
+        <span>Loomly</span>
+        <span>Fielder</span>
+        <span>Papertrail</span>
+        <span>Hexa</span>
+      </div>
+    </div>
+
+    <div class="block tint">
+      <div class="section-label">Retention</div>
+      <div class="s-ts-stat"><b>4.8 / 5</b><span>Average rating across 1,240 verified reviews</span></div>
+      <div class="s-ts-stat"><b>98.2%</b><span>Logo retention, trailing twelve months</span></div>
+      <div class="s-ts-stat"><b>11 min</b><span>Median time from signup to first dashboard</span></div>
+    </div>
+  </div>
+
+  <div class="row cols-3 s-ts-row">
+    <div class="card-demo s-ts-card">
+      <div class="s-ts-stars">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.4l2.9 5.8 6.4.9-4.6 4.5 1.1 6.3L12 18l-5.8 3 1.1-6.3L2.7 10.1l6.4-.9z"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.4l2.9 5.8 6.4.9-4.6 4.5 1.1 6.3L12 18l-5.8 3 1.1-6.3L2.7 10.1l6.4-.9z"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.4l2.9 5.8 6.4.9-4.6 4.5 1.1 6.3L12 18l-5.8 3 1.1-6.3L2.7 10.1l6.4-.9z"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.4l2.9 5.8 6.4.9-4.6 4.5 1.1 6.3L12 18l-5.8 3 1.1-6.3L2.7 10.1l6.4-.9z"/></svg>
+        <svg class="off" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.4l2.9 5.8 6.4.9-4.6 4.5 1.1 6.3L12 18l-5.8 3 1.1-6.3L2.7 10.1l6.4-.9z"/></svg>
+      </div>
+      <p class="q">The event schema finally makes sense to the people who did not write it. Our growth team stopped asking engineering for numbers and started asking Beacon.</p>
+      <div class="s-ts-card-foot">
+        <div class="s-ts-av ghost">DO</div>
+        <div class="s-ts-who">
+          <div class="n">Devin Osei</div>
+          <div class="r">Staff Engineer, Loomly</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-demo s-ts-card">
+      <div class="s-ts-stars">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.4l2.9 5.8 6.4.9-4.6 4.5 1.1 6.3L12 18l-5.8 3 1.1-6.3L2.7 10.1l6.4-.9z"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.4l2.9 5.8 6.4.9-4.6 4.5 1.1 6.3L12 18l-5.8 3 1.1-6.3L2.7 10.1l6.4-.9z"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.4l2.9 5.8 6.4.9-4.6 4.5 1.1 6.3L12 18l-5.8 3 1.1-6.3L2.7 10.1l6.4-.9z"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.4l2.9 5.8 6.4.9-4.6 4.5 1.1 6.3L12 18l-5.8 3 1.1-6.3L2.7 10.1l6.4-.9z"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.4l2.9 5.8 6.4.9-4.6 4.5 1.1 6.3L12 18l-5.8 3 1.1-6.3L2.7 10.1l6.4-.9z"/></svg>
+      </div>
+      <p class="q">Migrating 40 dashboards was a two-week job, not a two-month one. The import mapped 38 of them exactly and flagged the other two instead of silently dropping them.</p>
+      <div class="s-ts-card-foot">
+        <div class="s-ts-av ghost">PR</div>
+        <div class="s-ts-who">
+          <div class="n">Priya Raman</div>
+          <div class="r">Data Lead, Fielder</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-demo s-ts-card">
+      <div class="s-ts-stars">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.4l2.9 5.8 6.4.9-4.6 4.5 1.1 6.3L12 18l-5.8 3 1.1-6.3L2.7 10.1l6.4-.9z"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.4l2.9 5.8 6.4.9-4.6 4.5 1.1 6.3L12 18l-5.8 3 1.1-6.3L2.7 10.1l6.4-.9z"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.4l2.9 5.8 6.4.9-4.6 4.5 1.1 6.3L12 18l-5.8 3 1.1-6.3L2.7 10.1l6.4-.9z"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.4l2.9 5.8 6.4.9-4.6 4.5 1.1 6.3L12 18l-5.8 3 1.1-6.3L2.7 10.1l6.4-.9z"/></svg>
+        <svg class="off" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.4l2.9 5.8 6.4.9-4.6 4.5 1.1 6.3L12 18l-5.8 3 1.1-6.3L2.7 10.1l6.4-.9z"/></svg>
+      </div>
+      <p class="q">We ran a full pricing experiment in one week and trusted the result. Beacon flagged the sample-size mistake we would have shipped three days earlier.</p>
+      <div class="s-ts-card-foot">
+        <div class="s-ts-av ghost">TL</div>
+        <div class="s-ts-who">
+          <div class="n">Tom&aacute;s Lind</div>
+          <div class="r">Head of Growth, Papertrail</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

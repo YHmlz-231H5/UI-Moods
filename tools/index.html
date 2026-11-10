@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UI Moods · Library</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #f6f7f4;
+      color: #1f2937;
+      font-family: system-ui, -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+    header {
+      background: linear-gradient(135deg, #23473a, #2e7d5b);
+      color: #f4faf6;
+      padding: 28px 32px 24px;
+    }
+    header h1 { margin: 0; font-size: 24px; }
+    header p { margin: 6px 0 0; opacity: 0.85; font-size: 13px; max-width: 720px; }
+    .stats { display: flex; gap: 20px; margin-top: 18px; flex-wrap: wrap; }
+    .stat { display: flex; flex-direction: column; }
+    .stat b { font-size: 22px; font-weight: 700; }
+    .stat span { font-size: 11px; opacity: 0.8; }
+    .toolbar {
+      position: sticky; top: 0; z-index: 20;
+      display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+      padding: 14px 32px;
+      background: #fff;
+      border-bottom: 1px solid #e3e7df;
+    }
+    .tabs { display: flex; gap: 4px; background: #f0f2ee; padding: 3px; border-radius: 10px; }
+    .tabs button {
+      font: inherit; font-size: 13px; font-weight: 600;
+      padding: 7px 16px; border: none; border-radius: 8px;
+      background: transparent; color: #5c6b5e; cursor: pointer;
+    }
+    .tabs button.active { background: #2e7d5b; color: #fff; }
+    .search { position: relative; flex: 1; min-width: 220px; }
+    .search input {
+      width: 100%; font: inherit; font-size: 13px;
+      padding: 9px 12px 9px 34px;
+      border: 1px solid #dde2d9; border-radius: 9px;
+      background: #fafbf9;
+    }
+    .search svg {
+      position: absolute; left: 11px; top: 50%; transform: translateY(-50%);
+      width: 15px; height: 15px; color: #8b9385; pointer-events: none;
+    }
+    .filters { display: flex; gap: 8px; flex-wrap: wrap; }
+    .filters button {
+      font: inherit; font-size: 12px; font-weight: 600;
+      padding: 7px 13px;
+      border: 1px solid #dde2d9; border-radius: 999px;
+      background: #fff; color: #5c6b5e; cursor: pointer;
+    }
+    .filters button.active { background: #e7f2ea; border-color: #cfe4d7; color: #1d5c42; }
+    main { padding: 24px 32px 56px; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 16px;
+    }
+    .grid.screens { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+    .card {
+      background: #fff;
+      border: 1px solid #e3e7df;
+      border-radius: 14px;
+      padding: 18px 20px;
+      cursor: pointer;
+      text-align: left;
+      font: inherit;
+      color: inherit;
+      width: 100%;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(30,50,40,0.1); }
+    .card-name { font-size: 17px; font-weight: 700; }
+    .card-zh { font-size: 12px; color: #8b9385; margin: 2px 0 10px; }
+    .card-tags { font-size: 11px; color: #5c6b5e; line-height: 1.5; }
+    .card-desc { font-size: 12px; color: #6b7a6c; line-height: 1.6; margin-top: 8px; }
+    .pill {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 1px 8px;
+      border-radius: 999px;
+      margin-right: 6px;
+      background: #e7f2ea;
+      color: #1d5c42;
+    }
+    .pill.dark { background: #22272f; color: #cfe3d8; }
+    .pill.app { background: #e8eef7; color: #2b4a76; }
+    .empty-state { text-align: center; padding: 60px 20px; color: #8b9385; font-size: 14px; }
+    .hidden { display: none !important; }
+    /* viewer — must sit above the sticky toolbar (z-index 20) so the gallery chrome
+       never bleeds through the detail overlay. */
+    #viewer { position: fixed; inset: 0; background: #f6f7f4; z-index: 50; display: flex; flex-direction: column; }
+    .viewer-head {
+      display: flex; align-items: center; gap: 14px;
+      padding: 12px 20px;
+      background: #fff;
+      border-bottom: 1px solid #e3e7df;
+    }
+    .viewer-head h2 { margin: 0; flex: 1; font-size: 16px; }
+    .viewer-head button {
+      font: inherit; font-size: 13px;
+      padding: 7px 14px;
+      border: 1px solid #c9d2c2;
+      border-radius: 9px;
+      background: #fff;
+      color: #1f2937;
+      cursor: pointer;
+    }
+    .viewer-head button.primary { background: #2e7d5b; border-color: #2e7d5b; color: #fff; }
+    #frame { flex: 1; width: 100%; border: 0; background: #eef0ec; }
+    #copied { font-size: 12px; color: #2e7d5b; }
+    /* app screen grid inside viewer */
+    .screens-wrap { flex: 1; overflow: auto; padding: 24px; }
+    .screens-grid { display: flex; gap: 20px; flex-wrap: wrap; }
+    .screen-item { display: flex; flex-direction: column; gap: 8px; align-items: center; }
+    .screen-item iframe {
+      width: 390px; height: 780px;
+      border: 1px solid #dde2d9; border-radius: 16px;
+      background: #fff;
+      transform: scale(0.72);
+      transform-origin: top center;
+      margin-bottom: -210px;
+    }
+    .screen-item span { font-size: 12px; font-weight: 600; color: #4b5a4d; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>UI Moods · Library</h1>
+    <p>风格标本注册表 —— 每套风格是一组精确的设计令牌与组件标本；行业应用包把同一套令牌应用到真实产品界面。</p>
+    <div class="stats">
+      <div class="stat"><b id="s-moods">–</b><span>风格标本 Moods</span></div>
+      <div class="stat"><b id="s-apps">–</b><span>行业应用包 Apps</span></div>
+      <div class="stat"><b id="s-screens">–</b><span>移动界面 Screens</span></div>
+      <div class="stat"><b id="s-tokens">–</b><span>设计令牌 Tokens</span></div>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <div class="tabs">
+      <button id="tab-moods" class="active" type="button">风格标本</button>
+      <button id="tab-apps" type="button">行业应用</button>
+    </div>
+    <div class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="搜索名称、关键词、行业…" />
+    </div>
+    <div class="filters" id="filters"></div>
+  </div>
+
+  <main>
+    <div id="grid" class="grid"></div>
+    <div id="screens-view" class="hidden">
+      <div id="app-list" class="grid" style="margin-bottom:28px"></div>
+    </div>
+  </main>
+
+  <div id="viewer" class="hidden">
+    <div class="viewer-head">
+      <button id="back" type="button">← 返回</button>
+      <h2 id="viewer-title"></h2>
+      <span id="copied"></span>
+      <button id="copy-tokens" class="primary" type="button">复制 tokens.json</button>
+    </div>
+    <iframe id="frame" title="specimen preview"></iframe>
+  </div>
+
+  <script>
+    const grid = document.getElementById("grid");
+    const appList = document.getElementById("app-list");
+    const screensView = document.getElementById("screens-view");
+    const viewer = document.getElementById("viewer");
+    const title = document.getElementById("viewer-title");
+    const frame = document.getElementById("frame");
+    const copyBtn = document.getElementById("copy-tokens");
+    const copied = document.getElementById("copied");
+    const back = document.getElementById("back");
+    const q = document.getElementById("q");
+    const filters = document.getElementById("filters");
+
+    let MOODS = [];
+    let APPS = [];
+    let mode = "moods";
+    let filter = "all";
+    // App packs inherit a mood, so their light/dark appearance comes from that mood.
+    const MOOD_APPEARANCE = {};
+
+    function appearanceOf(item) {
+      if (mode === "apps") return MOOD_APPEARANCE[item.mood] || "light";
+      return item.appearance;
+    }
+
+    function el(tag, cls, text) {
+      const n = document.createElement(tag);
+      if (cls) n.className = cls;
+      if (text !== undefined) n.textContent = text;
+      return n;
+    }
+
+    function matches(item, needle, fields) {
+      if (!needle) return true;
+      const hay = fields.map((f) => (item[f] || []).join ? (item[f] || []).join(" ") : (item[f] || "")).join(" ").toLowerCase();
+      return hay.includes(needle);
+    }
+
+    function renderFilters() {
+      filters.innerHTML = "";
+      const opts = [["all", "全部"], ["light", "浅色"], ["dark", "深色"]];
+      for (const [val, label] of opts) {
+        const b = el("button", val === filter ? "active" : "", label);
+        b.type = "button";
+        b.addEventListener("click", () => { filter = val; renderFilters(); render(); });
+        filters.appendChild(b);
+      }
+    }
+
+    function renderMoods(needle) {
+      grid.innerHTML = "";
+      const list = MOODS.filter((m) => (filter === "all" || m.appearance === filter) &&
+        matches(m, needle, ["name", "nameZh", "keywords", "id"]));
+      if (!list.length) { grid.appendChild(el("div", "empty-state", "没有匹配的风格。")); return; }
+      for (const mood of list) {
+        const card = el("button", "card");
+        card.type = "button";
+        card.appendChild(el("div", "card-name", mood.name));
+        card.appendChild(el("div", "card-zh", mood.nameZh));
+        const tags = el("div", "card-tags");
+        const pill = el("span", "pill" + (mood.appearance === "dark" ? " dark" : ""), mood.appearance);
+        tags.appendChild(pill);
+        tags.appendChild(document.createTextNode((mood.keywords || []).join(" / ")));
+        card.appendChild(tags);
+        card.addEventListener("click", () => openMood(mood));
+        grid.appendChild(card);
+      }
+    }
+
+    function renderApps(needle) {
+      appList.innerHTML = "";
+      const list = APPS.filter((a) => (filter === "all" || appearanceOf(a) === filter) &&
+        matches(a, needle, ["name", "nameZh", "description", "id"]));
+      if (!list.length) { appList.appendChild(el("div", "empty-state", "没有匹配的行业应用包。")); return; }
+      for (const app of list) {
+        const card = el("button", "card");
+        card.type = "button";
+        card.appendChild(el("div", "card-name", app.name));
+        card.appendChild(el("div", "card-zh", app.nameZh));
+        const tags = el("div", "card-tags");
+        tags.appendChild(el("span", "pill app", app.mood));
+        tags.appendChild(document.createTextNode(`${app.screens || 0} 个界面`));
+        card.appendChild(tags);
+        card.appendChild(el("div", "card-desc", app.description || ""));
+        card.addEventListener("click", () => openApp(app));
+        appList.appendChild(card);
+      }
+    }
+
+    function render() {
+      const needle = q.value.trim().toLowerCase();
+      if (mode === "moods") {
+        grid.classList.remove("hidden");
+        screensView.classList.add("hidden");
+        renderMoods(needle);
+      } else {
+        grid.classList.add("hidden");
+        screensView.classList.remove("hidden");
+        renderApps(needle);
+      }
+    }
+
+    function openMood(mood) {
+      grid.classList.add("hidden");
+      screensView.classList.add("hidden");
+      viewer.classList.remove("hidden");
+      title.textContent = `${mood.name} · ${mood.nameZh}`;
+      frame.src = `/moods/${mood.id}/specimen.html`;
+      copied.textContent = "";
+      copyBtn.onclick = async () => {
+        try {
+          const tokens = await (await fetch(`/moods/${mood.id}/tokens.json`)).json();
+          await navigator.clipboard.writeText(JSON.stringify(tokens, null, 2));
+          copied.textContent = "已复制 ✓";
+        } catch {
+          copied.textContent = "复制失败（请手动打开 tokens.json）";
+        }
+      };
+    }
+
+    async function openApp(app) {
+      viewer.classList.remove("hidden");
+      title.textContent = `${app.name} · ${app.nameZh}`;
+      copied.textContent = "";
+      copyBtn.style.display = "none";
+      document.getElementById("frame").style.display = "none";
+      let wrap = document.getElementById("screens-wrap");
+      if (!wrap) {
+        wrap = el("div", "screens-wrap");
+        wrap.id = "screens-wrap";
+        viewer.appendChild(wrap);
+      }
+      wrap.innerHTML = "";
+      const gridEl = el("div", "screens-grid");
+      wrap.appendChild(gridEl);
+      const idx = await (await fetch(`/apps/${app.id}/screens/index.html`)).text();
+      const doc = new DOMParser().parseFromString(idx, "text/html");
+      const links = Array.from(doc.querySelectorAll("ul li a")).map((a) => ({ href: a.getAttribute("href"), label: a.textContent }));
+      for (const l of links) {
+        const item = el("div", "screen-item");
+        const ifr = el("iframe");
+        ifr.setAttribute("src", `/apps/${app.id}/screens/${l.href.replace("./", "")}`);
+        ifr.setAttribute("loading", "lazy");
+        item.appendChild(ifr);
+        item.appendChild(el("span", "", l.label));
+        gridEl.appendChild(item);
+      }
+    }
+
+    back.addEventListener("click", () => {
+      viewer.classList.add("hidden");
+      grid.classList.remove("hidden");
+      screensView.classList.remove("hidden");
+      document.getElementById("frame").style.display = "";
+      copyBtn.style.display = "";
+      frame.src = "about:blank";
+      render();
+    });
+
+    document.getElementById("tab-moods").addEventListener("click", () => {
+      mode = "moods"; filter = "all";
+      document.getElementById("tab-moods").classList.add("active");
+      document.getElementById("tab-apps").classList.remove("active");
+      renderFilters(); render();
+    });
+    document.getElementById("tab-apps").addEventListener("click", () => {
+      mode = "apps"; filter = "all";
+      document.getElementById("tab-apps").classList.add("active");
+      document.getElementById("tab-moods").classList.remove("active");
+      renderFilters(); render();
+    });
+    q.addEventListener("input", render);
+
+    (async () => {
+      const mIdx = await (await fetch("/moods.json")).json();
+      MOODS = mIdx.moods || [];
+      for (const m of MOODS) MOOD_APPEARANCE[m.id] = m.appearance;
+      let aIdx = { apps: [] };
+      try { aIdx = await (await fetch("/apps.json")).json(); } catch { /* apps.json optional */ }
+      APPS = aIdx.apps || [];
+
+      document.getElementById("s-moods").textContent = MOODS.length;
+      document.getElementById("s-apps").textContent = APPS.length;
+      document.getElementById("s-screens").textContent =
+        APPS.reduce((sum, a) => sum + (a.screens || 0), 0);
+
+      renderFilters();
+      render();
+
+      // Token totals are a nicety — compute them without blocking the UI.
+      const counts = await Promise.all(
+        MOODS.map(async (m) => {
+          try {
+            const t = await (await fetch(`/moods/${m.id}/tokens.json`)).json();
+            return Object.keys(t.colors || {}).length + Object.keys(t.radii || {}).length +
+              Object.keys(t.typography || {}).length + Object.keys(t.effects || {}).length;
+          } catch { return 0; }
+        }),
+      );
+      document.getElementById("s-tokens").textContent = counts.reduce((a, b) => a + b, 0);
+    })();
+  </script>
+</body>
+</html>

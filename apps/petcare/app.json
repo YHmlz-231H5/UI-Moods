@@ -1,0 +1,180 @@
+{
+  "id": "petcare",
+  "name": "Pet Care",
+  "nameZh": "宠物生活",
+  "mood": "sakura",
+  "description": "宠物服务与健康参考：宠物档案、健康与疫苗提醒、宠物商城与宠物社区。",
+  "chrome": {
+    "statusbar": { "time": "9:41" },
+    "tabbar": {
+      "items": [
+        { "icon": "home", "label": "首页", "active": true },
+        { "icon": "shop", "label": "商城" },
+        { "icon": "chat", "label": "社区" },
+        { "icon": "user", "label": "我的" }
+      ]
+    }
+  },
+  "screens": [
+    {
+      "id": "profile",
+      "title": "宠物档案",
+      "titleZh": "档案",
+      "chrome": { "navbar": { "icon": "heart", "title": "毛孩子档案", "action": "编辑" } },
+      "blocks": [
+        { "type": "profile", "initials": "豆", "name": "豆豆 · 柯基", "meta": "公 · 3 岁 2 个月 · 11.8 kg · 已绝育 · 亲狗", "tags": ["柯基", "已绝育", "亲狗"] },
+        { "type": "statGrid", "cols": 3, "items": [
+          { "label": "体重", "value": "11.8 kg", "delta": "+0.3 kg", "deltaTone": "warn" },
+          { "label": "疫苗", "value": "3 / 4" },
+          { "label": "距驱虫", "value": "18 天", "delta": "待提醒", "deltaTone": "warn" }
+        ] },
+        { "type": "sectionHead", "title": "基本信息", "action": "编辑" },
+        { "type": "kv", "items": [
+          { "label": "生日", "value": "2023-09-03" },
+          { "label": "品种", "value": "威尔士柯基 · 奶油色" },
+          { "label": "体重", "value": "11.8 kg" },
+          { "label": "血型", "value": "DEA 1.1 阳性" },
+          { "label": "芯片编号", "value": "156 *** *** 2274" },
+          { "label": "常去医院", "value": "城西宠物医院 · 1.2 km" }
+        ] },
+        { "type": "sectionHead", "title": "成长相册", "action": "共 68 张" },
+        { "type": "mediaGrid", "cols": 3, "items": [
+          { "icon": "camera", "title": "2026-10-18", "sub": "公园野餐" },
+          { "icon": "image", "title": "2026-08-02", "sub": "第一次剪指甲" },
+          { "icon": "video", "title": "2026-05-21", "sub": "学会了接球" }
+        ] },
+        { "type": "card", "tint": true, "title": "最近一次体检", "sub": "2026-10-18 · 城西宠物医院 · 主治医师 吴医生", "body": "血常规与生化全项正常，建议 3 个月后复查", "actions": [
+          { "label": "查看报告", "primary": true },
+          { "label": "预约复查", "primary": false }
+        ] },
+        { "type": "notice", "tone": "info", "mark": "提醒", "text": "豆豆的年度体检已到期，可在健康页一键预约。" }
+      ]
+    },
+    {
+      "id": "health",
+      "title": "健康与疫苗提醒",
+      "titleZh": "健康",
+      "chrome": { "navbar": { "back": true, "title": "健康档案", "action": "记录" } },
+      "blocks": [
+        { "type": "calendar", "days": [
+          { "n": 3, "label": "周一" },
+          { "n": 4, "label": "周二" },
+          { "n": 5, "label": "周三", "active": true },
+          { "n": 6, "label": "周四", "dot": true },
+          { "n": 7, "label": "周五" },
+          { "n": 8, "label": "周六" },
+          { "n": 9, "label": "周日" }
+        ] },
+        { "type": "scoreRing", "pct": 88, "value": "88", "label": "健康指数" },
+        { "type": "notice", "tone": "warn", "mark": "提醒", "text": "狂犬疫苗将于 11 月 22 日到期，还剩 12 天，请提前预约。" },
+        { "type": "sectionHead", "title": "免疫与驱虫计划" },
+        { "type": "timeline", "items": [
+          { "title": "狂犬疫苗 · 第 4 针", "sub": "城西宠物医院 · 需提前预约", "time": "11-22 到期", "state": "pending" },
+          { "title": "体内驱虫 · 拜宠清", "sub": "0.5 粒 · 每 3 个月一次", "time": "11-26 到期", "state": "pending" },
+          { "title": "体外驱虫 · 福来恩", "sub": "滴剂 1 支 · 每 30 天一次", "time": "已到期 2 天", "state": "danger" },
+          { "title": "犬四联 · 第 3 针加强", "sub": "城西宠物医院 · 吴医生", "time": "2026-09-03", "state": "done" },
+          { "title": "体内驱虫 · 拜宠清", "sub": "0.5 粒", "time": "2026-08-28", "state": "done" }
+        ] },
+        { "type": "sectionHead", "title": "体检记录", "action": "全部 6 次" },
+        { "type": "list", "items": [
+          { "icon": "stethoscope", "title": "年度体检 · 全项", "sub": "2026-10-18 · 各项指标正常", "value": "良好", "valueTone": "ok", "chev": true },
+          { "icon": "stethoscope", "title": "半年体检 · 基础", "sub": "2026-04-20 · 轻微牙结石", "value": "已处理", "valueTone": "ok", "chev": true },
+          { "icon": "pill", "title": "皮肤病复查", "sub": "2025-12-08 · 真菌感染", "value": "已痊愈", "valueTone": "up", "chev": true }
+        ] },
+        { "type": "formGroup", "label": "提醒设置", "rows": [
+          { "label": "疫苗到期提醒", "hint": "提前 14 天", "type": "switch", "on": true },
+          { "label": "驱虫提醒", "hint": "每月 25 日", "type": "switch", "on": true },
+          { "label": "体检周期提醒", "hint": "每 6 个月", "type": "switch", "on": true },
+          { "label": "称重记录", "hint": "每月一次", "type": "switch", "on": true }
+        ] },
+        { "type": "list", "items": [
+          { "icon": "pill", "title": "在用药品", "sub": "关节保健品 · 每日 1 粒", "value": "剩 18 粒", "valueTone": "ok", "chev": true },
+          { "icon": "folder", "title": "既往病历", "sub": "共 12 份 · 含化验单 8 份", "chev": true }
+        ] }
+      ]
+    },
+    {
+      "id": "shop",
+      "title": "宠物商城",
+      "titleZh": "商城",
+      "chrome": { "navbar": { "icon": "shop", "title": "毛孩子商城", "action": "购物车" } },
+      "blocks": [
+        { "type": "search", "placeholder": "搜索狗粮、零食、玩具或用品" },
+        { "type": "chips", "items": [
+          { "label": "狗粮", "active": true },
+          { "label": "零食" },
+          { "label": "玩具" },
+          { "label": "保健" },
+          { "label": "清洁" },
+          { "label": "日用" }
+        ] },
+        { "type": "banner", "title": "新用户首单立减 30 元", "sub": "满 99 元包邮 · 会员再享 95 折", "cta": "去领券" },
+        { "type": "sectionHead", "title": "为你精选", "action": "更多" },
+        { "type": "mediaGrid", "cols": 3, "items": [
+          { "icon": "fork", "title": "无谷冻干犬粮", "sub": "2 kg · ¥ 168" },
+          { "icon": "gift", "title": "洁齿骨零食", "sub": "12 支 · ¥ 39" },
+          { "icon": "dumbbell", "title": "耐咬橡胶球", "sub": "3 颗装 · ¥ 45" },
+          { "icon": "pill", "title": "关节保健片", "sub": "60 片 · ¥ 128" },
+          { "icon": "shop", "title": "吸水脚垫", "sub": "4 片 · ¥ 59" },
+          { "icon": "heart", "title": "宠物背包", "sub": "透气款 · ¥ 199" }
+        ] },
+        { "type": "sectionHead", "title": "为你选中的商品", "action": "共 3 件" },
+        { "type": "list", "items": [
+          { "icon": "fork", "title": "无谷冻干犬粮 2 kg", "sub": "已选 1 袋 · 适口性 4.9 分", "value": "¥ 168", "chev": true },
+          { "icon": "gift", "title": "洁齿骨零食 12 支", "sub": "已选 2 盒", "value": "¥ 78", "chev": true },
+          { "icon": "dumbbell", "title": "耐咬橡胶球 3 颗", "sub": "已选 1 套", "value": "¥ 45", "chev": true }
+        ] },
+        { "type": "prices", "items": [
+          { "label": "商品小计", "value": "¥ 291.00" },
+          { "label": "运费", "value": "¥ 0.00", "muted": true },
+          { "label": "首单优惠", "value": "- ¥ 30.00" },
+          { "label": "应付合计", "value": "¥ 261.00", "total": true }
+        ] },
+        { "type": "notice", "tone": "info", "mark": "优惠", "text": "犬粮大包装满 3 件减 30 元，结算时自动生效。" },
+        { "type": "promo", "icon": "gift", "title": "订阅月度鲜粮", "sub": "每 4 周配送一次，立减 15% 并享免费冷链配送" }
+      ]
+    },
+    {
+      "id": "community",
+      "title": "宠物社区",
+      "titleZh": "社区",
+      "chrome": { "navbar": { "icon": "chat", "title": "毛孩子社区", "action": "发布" } },
+      "blocks": [
+        { "type": "search", "placeholder": "搜索话题、遛狗地点或养宠经验" },
+        { "type": "chips", "items": [
+          { "label": "关注", "active": true },
+          { "label": "附近" },
+          { "label": "晒娃" },
+          { "label": "求助" },
+          { "label": "测评" }
+        ] },
+        { "type": "avatars", "items": [
+          { "initials": "豆" },
+          { "initials": "糖" },
+          { "initials": "布" },
+          { "initials": "奶" },
+          { "initials": "+9" }
+        ] },
+        { "type": "sectionHead", "title": "今日热议", "action": "更多" },
+        { "type": "mediaGrid", "cols": 3, "items": [
+          { "icon": "camera", "title": "周末遛狗地图", "sub": "12 人参与 · 城市公园" },
+          { "icon": "image", "title": "柯基换毛季护理", "sub": "38 条回复" },
+          { "icon": "video", "title": "学会接球全过程", "sub": "豆豆 · 播放 2.4 万" }
+        ] },
+        { "type": "sectionHead", "title": "热门帖子", "action": "换一批" },
+        { "type": "list", "items": [
+          { "avatar": "糖", "title": "楼下柯基组聚会", "sub": "周六 15:00 滨江步道 · 已报名 9 人", "value": "128 回复", "chev": true },
+          { "avatar": "布", "title": "求助：狗狗频繁软便", "sub": "3 天前 · 城西宠物医院已回复", "value": "42 回复", "chev": true },
+          { "avatar": "奶", "title": "猫粮测评第 6 期", "sub": "横向对比 9 款进口猫粮", "value": "216 回复", "chev": true }
+        ] },
+        { "type": "chat", "messages": [
+          { "text": "明天滨江步道下午场还缺 2 个遛狗搭子，柯基优先。", "time": "14:02" },
+          { "out": true, "text": "算我一个，豆豆见到同类会激动到爆冲。", "time": "14:05" },
+          { "text": "哈哈记得牵好绳，15:00 东门集合。", "time": "14:06" }
+        ] },
+        { "type": "notice", "tone": "warn", "mark": "安全", "text": "社区用户自行发布的线下交易信息不受平台担保，请勿提前转账。" },
+        { "type": "empty", "icon": "inbox", "title": "暂时没有更多帖子了", "sub": "换个分类看看，或发布一条晒娃动态" }
+      ]
+    }
+  ]
+}
