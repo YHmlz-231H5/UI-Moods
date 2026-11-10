@@ -132,3 +132,13 @@ The seed decides the picture, so the same screen always renders the same one.
 Omitting the seed lets the renderer pick one from the screen's own context —
 good enough for a reference screen, but name the seed whenever the picture
 means something ("recipe-cover", not "img1").
+
+Two geometric rules catch most "the picture looks off" bugs — see
+`docs/css-var-mapping.md` §5.3:
+
+- A composition is drawn at the origin, so it must be **moved onto** the clip
+  rect it belongs to. Composing it at the right size but the wrong position
+  leaves only its top-left corner visible.
+- A thumbnail that fills a card must not carry a corner radius of its own;
+  the card's `border-radius` already rounds the corners, and a second radius
+  renders at a different size.
