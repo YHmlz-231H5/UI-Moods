@@ -449,8 +449,9 @@ export function renderMoodThumb(palette, opts = {}) {
     `<clipPath id="${uid}c"><rect x="16" y="52" width="288" height="66" rx="12"/></clipPath>` +
     `</defs>` +
 
-    // page ground
-    `<rect x="0" y="0" width="${width}" height="${height}" rx="14" ${paint(palette.bg)}/>` +
+    // page ground — full bleed. The card that holds this thumbnail owns the
+    // corner radius; a radius of its own would fight it and leave a seam.
+    `<rect x="0" y="0" width="${width}" height="${height}" ${paint(palette.bg)}/>` +
 
     // app bar
     `<circle cx="26" cy="26" r="11" ${paint(palette.accent, 0.28)}` +
@@ -460,10 +461,13 @@ export function renderMoodThumb(palette, opts = {}) {
     `<circle cx="278" cy="26" r="4" ${paint(palette.muted, 0.5)}/>` +
     `<circle cx="292" cy="26" r="4" ${paint(palette.accent, 0.9)}/>` +
 
-    // hero artwork — the panel wash gives transparent compositions a surface
+    // hero artwork — the panel wash gives transparent compositions a surface.
+    // The composition is drawn at the origin, so it has to be moved onto the
+    // clip rect; otherwise only its top-left corner is visible.
     `<g clip-path="url(#${uid}c)">` +
-    `<rect x="16" y="52" width="288" height="66" ${paint(palette.panel)}/>` +
-    `${body}</g>` +
+    `<g transform="translate(16,52)">` +
+    `<rect x="0" y="0" width="288" height="66" ${paint(palette.panel)}/>` +
+    `${body}</g></g>` +
     `<rect x="16" y="52" width="288" height="66" rx="12" fill="none" ` +
     `style="stroke:${palette.border}" stroke-width="1"/>` +
 
@@ -503,6 +507,17 @@ export function renderAppThumb(palette, opts = {}) {
   const heroVariant = heroVariants[hashSeed(`${opts.seed ?? "app"}:hero`) % heroVariants.length];
   const { defs, body } = compose(heroVariant, palette, r, 176, 78, `${uid}h`);
 
+  // "device" draws a phone with its own rounded silhouette and bezel — right
+  // when the thumbnail floats on a panel. "bleed" fills the box edge to edge,
+  // for a card whose own radius already rounds the corners; a second radius
+  // would not match it and would leave a seam in every corner.
+  const bleed = opts.frame === "bleed";
+  const screen = bleed
+    ? `<rect x="0" y="0" width="${width}" height="${height}" ${paint(palette.bg)}/>`
+    : `<rect x="0" y="0" width="${width}" height="${height}" rx="18" ${paint(palette.bg)}/>` +
+      `<rect x="0.5" y="0.5" width="199" height="239" rx="18" fill="none" ` +
+      `style="stroke:${palette.border}" stroke-width="1"/>`;
+
   return (
     `<svg class="thumb-svg" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" ` +
     `role="img" aria-hidden="true" focusable="false">` +
@@ -510,9 +525,7 @@ export function renderAppThumb(palette, opts = {}) {
     `<clipPath id="${uid}c"><rect x="12" y="30" width="176" height="78" rx="12"/></clipPath>` +
     `</defs>` +
 
-    `<rect x="0" y="0" width="${width}" height="${height}" rx="18" ${paint(palette.bg)}/>` +
-    `<rect x="0.5" y="0.5" width="199" height="239" rx="18" fill="none" ` +
-    `style="stroke:${palette.border}" stroke-width="1"/>` +
+    screen +
 
     // status bar
     `<rect x="18" y="12" width="22" height="5" rx="2.5" ${paint(palette.textStrong, 0.85)}/>` +
@@ -524,10 +537,13 @@ export function renderAppThumb(palette, opts = {}) {
     `<rect x="38" y="41" width="46" height="6" rx="3" ${paint(palette.textStrong, 0.9)}/>` +
     `<rect x="38" y="51" width="30" height="4" rx="2" ${paint(palette.muted, 0.6)}/>` +
 
-    // hero artwork — the panel wash gives transparent compositions a surface
+    // hero artwork — the panel wash gives transparent compositions a surface.
+    // The composition is drawn at the origin, so it has to be moved onto the
+    // clip rect; otherwise only its top-left corner is visible.
     `<g clip-path="url(#${uid}c)">` +
-    `<rect x="12" y="30" width="176" height="78" ${paint(palette.panel)}/>` +
-    `${body}</g>` +
+    `<g transform="translate(12,30)">` +
+    `<rect x="0" y="0" width="176" height="78" ${paint(palette.panel)}/>` +
+    `${body}</g></g>` +
     `<rect x="12" y="30" width="176" height="78" rx="12" fill="none" ` +
     `style="stroke:${palette.border}" stroke-width="1"/>` +
 

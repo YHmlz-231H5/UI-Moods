@@ -121,6 +121,19 @@ cover, a banner, a gallery thumbnail — is drawn at render time by
 - `renderMoodThumb` and `renderAppThumb` draw a miniature UI scene for the
   gallery cards.
 
+Two rules keep a thumbnail honest about where its content is:
+
+1. A composition is drawn at the origin, so it must be **moved onto** the clip
+   rect it belongs to (`<g transform="translate(x,y)">`). Composing it at the
+   clip rect's size but not its position leaves only the composition's
+   top-left corner visible — the picture looks offset up and to the left.
+2. A thumbnail that fills a card must not carry a corner radius of its own.
+   The card's `border-radius` already rounds the corners; a second radius
+   renders at a different size and leaves a wedge of background in every
+   corner. `renderAppThumb` therefore takes a `frame` option: `"device"` draws
+   a rounded phone with a bezel (for a thumbnail floating on a panel),
+   `"bleed"` fills the box edge to edge (for a card that owns the radius).
+
 Two rules keep the output inside the token contract:
 
 1. Colour is never written in the generator. The caller passes a palette whose

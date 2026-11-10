@@ -242,7 +242,7 @@
         if (!slot.isConnected) return;
         slot.innerHTML =
           kind === "app"
-            ? renderAppThumb(palette, { seed, uid: `a${moodId}` })
+            ? renderAppThumb(palette, { seed, uid: `a${moodId}`, frame: "bleed" })
             : renderMoodThumb(palette, { seed, uid: `m${moodId}` });
       });
     }
