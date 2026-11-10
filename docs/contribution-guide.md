@@ -52,6 +52,10 @@ is merged and registered in `moods.json`.
   `build-specimen` replaces it with inline SVG drawn from the mood's tokens —
   the library ships no image assets. Use it wherever a real product screen
   would show a thumbnail.
+- The generated SVG is drawn with `preserveAspectRatio="slice"`, so its canvas
+  ratio should match the container it lands in — otherwise the picture gets
+  cropped. `{{art:seed:520x160}}` (or `{{art:seed:variant:520x160}}`) sets
+  the canvas size; the default is 240×160.
 - `validate` rejects a generated file that still contains an unreplaced
   `{{placeholder}}`, or that has block-level content inside `<head>` — both
   are signs the shell and the build script drifted apart.

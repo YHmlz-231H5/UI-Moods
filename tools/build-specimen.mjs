@@ -93,14 +93,34 @@ function injectSections(shell, sections) {
  * inherits the specimen's colours exactly like the rest of the page.
  *
  * `{{art:seed:variant}}` pins the composition family.
+ * `{{art:seed:WxH}}` (or `{{art:seed:variant:WxH}}`) sets the canvas size.
+ *
+ * The size matters: the SVG is drawn with `preserveAspectRatio="slice"`, so a
+ * canvas whose ratio does not match its container gets cropped. Ask for the
+ * ratio the container actually has.
  */
 function injectArtwork(html) {
-  return html.replace(/\{\{art:([^}:]+)(?::([^}]+))?\}\}/g, (_m, seed, variant) => {
-    const s = String(seed).trim();
-    const v = variant ? String(variant).trim() : undefined;
+  return html.replace(/\{\{art:([^}]+)\}\}/g, (_m, spec) => {
+    const parts = String(spec)
+      .split(":")
+      .map((p) => p.trim())
+      .filter(Boolean);
+    const seed = parts[0] ?? "art";
+    let variant;
+    let width = 240;
+    let height = 160;
+    for (const part of parts.slice(1)) {
+      const size = /^(\d+)x(\d+)$/.exec(part);
+      if (size) {
+        width = Number(size[1]);
+        height = Number(size[2]);
+      } else {
+        variant = part;
+      }
+    }
     return (
       `<span class="demo-thumb">` +
-      renderArtwork(tokenPalette(), s, { width: 240, height: 160, variant: v }) +
+      renderArtwork(tokenPalette(), seed, { width, height, variant }) +
       `</span>`
     );
   });
