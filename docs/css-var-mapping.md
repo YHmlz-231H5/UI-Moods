@@ -97,6 +97,14 @@ because pure black gives 4.574 and pure white 4.591. Its shipped pair sits at
 `validate` enforces the contract: every state must exist, its references must
 resolve, and its foreground must reach 4.5:1 against its fill.
 
+`validate` also checks the **rendered** artifact — it resolves the generated
+CSS the way a browser does (merged selector lists, `border` shorthand vs
+`border-color`, later rule wins) and requires that each state is painted by
+its own variables. A template that binds `.badge.warn` to the accent
+variables would otherwise ship unnoticed: the tokens stay valid, the contrast
+assertions stay green, and the page paints the wrong state. See
+`tools/lib/render-check.mjs`.
+
 ## 4. Specimen-dependent keys
 
 The component matrix requires these keys to exist in every mood; `validate`

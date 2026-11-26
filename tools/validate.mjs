@@ -12,6 +12,7 @@ import Ajv from "ajv";
 import yaml from "js-yaml";
 import { expectedVars, FALLBACK_ALLOWED } from "./lib/mapping.mjs";
 import { BLOCK_TYPES } from "./lib/blocks.mjs";
+import { checkRenderedStates } from "./lib/render-check.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const ajv = new Ajv({ strict: false, allErrors: true });
@@ -417,7 +418,26 @@ function validateMood(id) {
   if (!existsSync(specimenPath)) {
     errors.push("specimen.html missing (run ui-moods build-specimen <id>)");
   } else {
-    checkSpecimen(tokens, readFileSync(specimenPath, "utf8"), errors);
+    const html = readFileSync(specimenPath, "utf8");
+    checkSpecimen(tokens, html, errors);
+    // The tokens can be perfect while the page paints the wrong state, so the
+    // generated CSS is checked the way a browser resolves it.
+    errors.push(
+      ...checkRenderedStates(html, `moods/${id}`, [
+        { layer: "badge", base: ".badge" },
+        {
+          layer: "alert",
+          base: ".alert",
+          mark: { base: ".alert .mark", state: (s) => `.alert.${s} .mark` },
+        },
+        { layer: "badge", base: ".s-chip" },
+        {
+          layer: "alert",
+          base: ".s-alert",
+          mark: { base: ".s-alert .mark", state: (s) => `.s-alert.${s} .mark` },
+        },
+      ]),
+    );
   }
 
   return { id, errors, warnings };
@@ -491,6 +511,18 @@ function validateApp(id) {
       }
       checkNoUnreplacedPlaceholders(html, `screens/${screen.id}.html`, errors);
       checkHeadIsClean(html, `screens/${screen.id}.html`, errors);
+      // The tokens can be perfect while the page paints the wrong state, so the
+      // generated CSS is checked the way a browser resolves it.
+      errors.push(
+        ...checkRenderedStates(html, `apps/${id}/screens/${screen.id}.html`, [
+          { layer: "badge", base: ".badge" },
+          {
+            layer: "alert",
+            base: ".notice",
+            mark: { base: ".notice .n-mark", state: (s) => `.notice.${s} .n-mark` },
+          },
+        ]),
+      );
       const { tokenBlock, body } = splitSpecimen(html);
       if (!tokenBlock) {
         errors.push(`screens/${screen.id}.html is missing the mood-tokens block`);

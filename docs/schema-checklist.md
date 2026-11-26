@@ -53,6 +53,24 @@ The shipped pairs are derived to 4.6:1 so they keep a margin over the
 contract; see `docs/css-var-mapping.md` §3.1 for the derivation and for the one
 fill (`forest` `danger`) whose contrast ceiling is 4.591.
 
+### Rendered state layer (v1.1)
+
+`checkStateLayer` proves the **tokens** are right. `checkRenderedStates`
+(`tools/lib/render-check.mjs`) proves the **artifact** is right: it parses the
+generated CSS the way a browser does — merged selector lists, `border`
+shorthand vs `border-color`, later rule wins — and requires that
+
+- every state is painted by **its own** variables
+  (`--mood-components-<component>-<state>-bg` / `-fg` / `-border`), and
+- the pair it paints reaches 4.5:1.
+
+The two checks catch different failures. A template that binds `.badge.warn` to
+the accent variables leaves every token valid and every contrast assertion
+passing — only the rendered check notices that the page paints the wrong
+state. The check is wired into `validate` for all 32 specimens and all 14 app
+packs, and it was verified by injecting a wrong binding into both templates
+and confirming that `validate` fails with the offending selector named.
+
 ### `scope: colors` (specimen source)
 
 - Literals inside the `style#mood-tokens` block are considered "from tokens"
