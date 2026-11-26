@@ -16,7 +16,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { renderBlocks } from "./lib/blocks.mjs";
 import { renderAppThumb, renderArtwork, tokenPalette } from "./lib/artwork.mjs";
-import { MAPPED_GROUPS, SKIP_FIELDS, kebabCase } from "./lib/mapping.mjs";
+import { buildCssVars } from "./lib/mapping.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -29,21 +29,6 @@ const esc = (value) =>
 
 function loadJson(path) {
   return JSON.parse(readFileSync(path, "utf8").replace(/^\uFEFF/, ""));
-}
-
-/** Build the CSS custom property block from a tokens file. */
-function buildVars(tokens) {
-  const lines = [];
-  for (const group of MAPPED_GROUPS) {
-    const obj = tokens[group];
-    if (!obj || typeof obj !== "object") continue;
-    for (const [key, value] of Object.entries(obj)) {
-      if (SKIP_FIELDS.has(key)) continue;
-      if (typeof value !== "string" && typeof value !== "number") continue;
-      lines.push(`      --mood-${group}-${kebabCase(key)}: ${value};`);
-    }
-  }
-  return lines.join("\n");
 }
 
 /**
@@ -82,7 +67,7 @@ function renderScreen(app, screen, tokens, appCss) {
   -->
   <style id="mood-tokens">
     :root {
-${buildVars(tokens)}
+${buildCssVars(tokens)}
     }
   </style>
   <style>
@@ -235,7 +220,7 @@ function buildApp(appId, opts = {}) {
   </style>
   <style id="mood-tokens">
     :root {
-${buildVars(tokens)}
+${buildCssVars(tokens)}
     }
   </style>
 </head>

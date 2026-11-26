@@ -1,0 +1,103 @@
+<style>
+  .s-state-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
+  .s-state-cell {
+    padding: 14px 16px;
+    border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+    border-radius: var(--mood-radii-card);
+    background: var(--mood-colors-surface);
+  }
+  .s-state-name {
+    display: block; margin-bottom: 8px;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--mood-colors-muted);
+  }
+  .s-state-chips { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  /* A chip is exactly the semantic layer: fill, foreground and radius come
+     from --mood-components-badge-*, never from a colour of its own. */
+  .s-chip {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 3px 10px;
+    border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-components-badge-neutral-border);
+    border-radius: var(--mood-components-badge-neutral-radius);
+    background: var(--mood-components-badge-neutral-bg);
+    color: var(--mood-components-badge-neutral-fg);
+    font-size: 11px; font-weight: 600;
+  }
+  .s-chip.accent { background: var(--mood-components-badge-accent-bg); border-color: var(--mood-components-badge-accent-border); color: var(--mood-components-badge-accent-fg); }
+  .s-chip.ok { background: var(--mood-components-badge-ok-bg); border-color: var(--mood-components-badge-ok-border); color: var(--mood-components-badge-ok-fg); }
+  .s-chip.warn { background: var(--mood-components-badge-warn-bg); border-color: var(--mood-components-badge-warn-border); color: var(--mood-components-badge-warn-fg); }
+  .s-chip.danger { background: var(--mood-components-badge-danger-bg); border-color: var(--mood-components-badge-danger-border); color: var(--mood-components-badge-danger-fg); }
+  .s-chip i { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+  .s-alert {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 11px 13px;
+    border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-components-alert-neutral-border);
+    border-radius: var(--mood-radii-block);
+    background: var(--mood-components-alert-neutral-bg);
+    color: var(--mood-components-alert-neutral-fg);
+    font-size: 12px;
+  }
+  .s-alert .mark {
+    flex-shrink: 0; padding: 2px 8px;
+    border-radius: var(--mood-components-badge-neutral-radius);
+    background: var(--mood-components-badge-neutral-bg);
+    color: var(--mood-components-badge-neutral-fg);
+    font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .s-alert.accent { background: var(--mood-components-alert-accent-bg); border-color: var(--mood-components-alert-accent-border); color: var(--mood-components-alert-accent-fg); }
+  .s-alert.accent .mark { background: var(--mood-components-badge-accent-bg); color: var(--mood-components-badge-accent-fg); }
+  .s-alert.ok { background: var(--mood-components-alert-ok-bg); border-color: var(--mood-components-alert-ok-border); color: var(--mood-components-alert-ok-fg); }
+  .s-alert.ok .mark { background: var(--mood-components-badge-ok-bg); color: var(--mood-components-badge-ok-fg); }
+  .s-alert.warn { background: var(--mood-components-alert-warn-bg); border-color: var(--mood-components-alert-warn-border); color: var(--mood-components-alert-warn-fg); }
+  .s-alert.warn .mark { background: var(--mood-components-badge-warn-bg); color: var(--mood-components-badge-warn-fg); }
+  .s-alert.danger { background: var(--mood-components-alert-danger-bg); border-color: var(--mood-components-alert-danger-border); color: var(--mood-components-alert-danger-fg); }
+  .s-alert.danger .mark { background: var(--mood-components-badge-danger-bg); color: var(--mood-components-badge-danger-fg); }
+  .s-state-note { margin: 14px 0 0; font-size: 12px; color: var(--mood-colors-muted); }
+</style>
+
+<div class="section-label">Component States</div>
+
+<div class="block">
+  <div class="s-state-grid">
+    <div class="s-state-cell">
+      <span class="s-state-name">neutral</span>
+      <div class="s-state-chips"><span class="s-chip">Draft</span><span class="s-chip"><i></i>Queued</span></div>
+    </div>
+    <div class="s-state-cell">
+      <span class="s-state-name">accent</span>
+      <div class="s-state-chips"><span class="s-chip accent">New</span><span class="s-chip accent"><i></i>Live</span></div>
+    </div>
+    <div class="s-state-cell">
+      <span class="s-state-name">ok</span>
+      <div class="s-state-chips"><span class="s-chip ok">Passed</span><span class="s-chip ok"><i></i>Healthy</span></div>
+    </div>
+    <div class="s-state-cell">
+      <span class="s-state-name">warn</span>
+      <div class="s-state-chips"><span class="s-chip warn">Review</span><span class="s-chip warn"><i></i>Degraded</span></div>
+    </div>
+    <div class="s-state-cell">
+      <span class="s-state-name">danger</span>
+      <div class="s-state-chips"><span class="s-chip danger">Failed</span><span class="s-chip danger"><i></i>Offline</span></div>
+    </div>
+  </div>
+  <p class="s-state-note">
+    Every chip above is painted by <code>--mood-components-badge-*</code>: the fill, the foreground
+    and the radius are declared once per state in <code>tokens.json</code>. The foreground of a
+    solid state fill is the mood's own <code>on*Solid</code> colour, which is measured to reach
+    4.5:1 against that fill — so an agent copying the pattern cannot produce an unreadable chip.
+    The alerts below read the matching <code>--mood-components-alert-*</code> layer, and their
+    status chip is painted by the badge layer, so all five states stay in step.
+  </p>
+</div>
+
+<div class="row cols-2">
+  <div class="block">
+    <div class="s-alert"><span class="mark">Note</span><span>Informational message. The body text stays in the mood's text colour.</span></div>
+    <div class="s-alert accent" style="margin-top:10px"><span class="mark">Live</span><span>Three operators are watching this deployment as it rolls out.</span></div>
+  </div>
+  <div class="block">
+    <div class="s-alert ok" style="margin-top:0"><span class="mark">Done</span><span>The nightly reconciliation finished with no differences.</span></div>
+    <div class="s-alert warn" style="margin-top:10px"><span class="mark">Review</span><span>Storage reached 68% of the plan limit. Two more connectors will exceed it.</span></div>
+    <div class="s-alert danger" style="margin-top:10px"><span class="mark">Stop</span><span>The replica is unreachable and the last sync failed 12 minutes ago.</span></div>
+  </div>
+</div>

@@ -66,6 +66,40 @@ Both layers share one rule: **visual parameters come only from the mood's
 tokens.** An app pack picks a mood (`app.json → "mood"`) and every screen it
 renders inherits that mood's entire visual language.
 
+## Status states, already solved
+
+A status chip is the easiest thing to get wrong: the natural move is to write
+`rgba(accent, 0.15)` over an accent fill, and then discover the label is
+unreadable in a third of the moods.
+
+Every mood therefore ships a **state layer**. `components.badge` and
+`components.alert` each declare five states — `neutral`, `accent`, `ok`,
+`warn`, `danger` — and each one names the fill, the foreground, the border and
+the radius it is painted with. The layer is emitted as CSS variables, so an
+agent paints a chip by writing a class, not by inventing an alpha:
+
+```html
+<span class="badge warn">Review</span>
+<div class="notice danger"><span class="n-mark">Stop</span>…</div>
+```
+
+```css
+.badge.warn {
+  background: var(--mood-components-badge-warn-bg);
+  border-color: var(--mood-components-badge-warn-border);
+  color: var(--mood-components-badge-warn-fg);
+}
+```
+
+The foreground is not a guess. `tools/lib/state-colors.mjs` derives one per
+state from the mood's own palette and measures it: across the 32 moods, all
+128 state pairs reach **at least 4.5:1**, and the derivation aims at 4.6:1 so
+they keep a margin. `validate` enforces the same bar, so a mood that breaks the
+rule cannot be published.
+
+The full mapping is documented in [`docs/css-var-mapping.md`](docs/css-var-mapping.md)
+§3.1.
+
 ## Using with an AI agent
 
 The shortest path, in four steps:
@@ -120,11 +154,12 @@ ui-moods/
 
 - `specimen.html` — human-facing visual truth, generated from tokens
   (never hand-edit; run `ui-moods build-specimen <id>`). Assembled from
-  `templates/mood/specimen.html` plus the 27 section partials in
+  `templates/mood/specimen.html` plus the 28 section partials in
   `templates/mood/sections/` (palette & type, logo & buttons, cards & table,
   navigation, hero, forms, data display, charts, stats, feedback, layouts,
   tabs, timeline, user, media, pricing, testimonials, FAQ, footer, ecommerce,
-  dashboard, settings, onboarding, chat, content, calendar, kanban).
+  dashboard, settings, onboarding, chat, content, calendar, kanban, component
+  states).
   A section can ask for a picture with `{{art:seed}}` — it is drawn from the
   mood's tokens at build time.
 - `tokens.json` — the single source of truth for colors, type, radii, borders,
@@ -165,6 +200,9 @@ app card — live in the browser, not a stored image — and each app pack's
 - `tokens.json` / `checklist.yaml` conform to the schemas;
 - `components` references resolve and leaves are token refs or allowlisted
   keywords;
+- the **state layer** is complete: `components.badge` and `components.alert`
+  each declare all five states (`neutral` `accent` `ok` `warn` `danger`), and
+  every state's foreground reaches 4.5:1 against its fill;
 - the generated specimen's CSS variables exactly match the tokens;
 - no color literals or off-allowlist magic numbers outside the token block;
 - **no raw `border-radius` literals** — radii must resolve to `var(--mood-radii-*)`;

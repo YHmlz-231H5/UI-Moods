@@ -902,28 +902,36 @@
   gap: 10px;
   padding: 12px 14px;
   border-radius: var(--mood-radii-block);
-  background: var(--mood-colors-panel);
-  border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+  background: var(--mood-components-alert-neutral-bg);
+  border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-components-alert-neutral-border);
   font-size: var(--mood-typography-label-size);
-  color: var(--mood-colors-text);
+  color: var(--mood-components-alert-neutral-fg);
 }
 
+/* The mark is a solid state chip, not coloured text: a state colour on a
+   panel is unreadable in most moods (measured: 79/128 pairs clear 4.5:1),
+   while the chip's own foreground is readable by construction. */
 .notice .n-mark {
+  flex-shrink: 0;
+  padding: 2px 8px;
+  border-radius: var(--mood-components-badge-neutral-radius);
+  background: var(--mood-components-badge-neutral-bg);
+  color: var(--mood-components-badge-neutral-fg);
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--mood-colors-muted);
-  flex-shrink: 0;
 }
 
-.notice.ok { border-color: var(--mood-colors-ok); }
-.notice.ok .n-mark { color: var(--mood-colors-ok); }
-.notice.warn { border-color: var(--mood-colors-warn); }
-.notice.warn .n-mark { color: var(--mood-colors-warn); }
-.notice.danger { border-color: var(--mood-colors-danger); }
-.notice.danger .n-mark { color: var(--mood-colors-danger); }
-.notice.info { border-color: var(--mood-colors-accent); }
-.notice.info .n-mark { color: var(--mood-colors-accent); }
+.notice.ok { background: var(--mood-components-alert-ok-bg); border-color: var(--mood-components-alert-ok-border); color: var(--mood-components-alert-ok-fg); }
+.notice.ok .n-mark { background: var(--mood-components-badge-ok-bg); color: var(--mood-components-badge-ok-fg); }
+.notice.warn { background: var(--mood-components-alert-warn-bg); border-color: var(--mood-components-alert-warn-border); color: var(--mood-components-alert-warn-fg); }
+.notice.warn .n-mark { background: var(--mood-components-badge-warn-bg); color: var(--mood-components-badge-warn-fg); }
+.notice.danger { background: var(--mood-components-alert-danger-bg); border-color: var(--mood-components-alert-danger-border); color: var(--mood-components-alert-danger-fg); }
+.notice.danger .n-mark { background: var(--mood-components-badge-danger-bg); color: var(--mood-components-badge-danger-fg); }
+.notice.accent,
+.notice.info { background: var(--mood-components-alert-accent-bg); border-color: var(--mood-components-alert-accent-border); color: var(--mood-components-alert-accent-fg); }
+.notice.accent .n-mark,
+.notice.info .n-mark { background: var(--mood-components-badge-accent-bg); color: var(--mood-components-badge-accent-fg); }
 
 /* ---------------------------------------------------------------- media */
 
@@ -1121,18 +1129,20 @@
   align-items: center;
   gap: 4px;
   padding: 3px 10px;
-  border-radius: var(--mood-radii-badge);
-  background: var(--mood-colors-panel);
-  border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
-  color: var(--mood-colors-text);
+  border-radius: var(--mood-components-badge-neutral-radius);
+  background: var(--mood-components-badge-neutral-bg);
+  border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-components-badge-neutral-border);
+  color: var(--mood-components-badge-neutral-fg);
   font-size: var(--mood-typography-label-size);
   font-weight: 600;
 }
 
-.badge.accent { background: var(--mood-colors-accent); border-color: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); }
-.badge.ok { background: var(--mood-colors-ok); border-color: var(--mood-colors-ok); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); }
-.badge.warn { background: var(--mood-colors-warn); border-color: var(--mood-colors-warn); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); }
-.badge.danger { background: var(--mood-colors-danger); border-color: var(--mood-colors-danger); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); }
+/* A solid state chip: the fill and its foreground both come from the
+   semantic layer, so the pair is guaranteed to be readable. */
+.badge.accent { background: var(--mood-components-badge-accent-bg); border-color: var(--mood-components-badge-accent-border); color: var(--mood-components-badge-accent-fg); }
+.badge.ok { background: var(--mood-components-badge-ok-bg); border-color: var(--mood-components-badge-ok-border); color: var(--mood-components-badge-ok-fg); }
+.badge.warn { background: var(--mood-components-badge-warn-bg); border-color: var(--mood-components-badge-warn-border); color: var(--mood-components-badge-warn-fg); }
+.badge.danger { background: var(--mood-components-badge-danger-bg); border-color: var(--mood-components-badge-danger-border); color: var(--mood-components-badge-danger-fg); }
 .badge .live-dot { width: 6px; height: 6px; border-radius: var(--mood-radii-badge); background: currentColor; }
 
 /* ------------------------------------------------------------- feedback */

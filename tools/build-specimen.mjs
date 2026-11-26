@@ -13,24 +13,10 @@
 import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { MAPPED_GROUPS, SKIP_FIELDS, kebabCase } from "./lib/mapping.mjs";
+import { buildCssVars } from "./lib/mapping.mjs";
 import { renderArtwork, tokenPalette } from "./lib/artwork.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-
-function buildVars(tokens) {
-  const lines = [];
-  for (const group of MAPPED_GROUPS) {
-    const obj = tokens[group];
-    if (!obj || typeof obj !== "object") continue;
-    for (const [key, value] of Object.entries(obj)) {
-      if (SKIP_FIELDS.has(key)) continue;
-      if (typeof value !== "string" && typeof value !== "number") continue;
-      lines.push(`      --mood-${group}-${kebabCase(key)}: ${value};`);
-    }
-  }
-  return lines.join("\n");
-}
 
 /** Read every section partial, ordered by filename. */
 function readSections(sectionsDir) {
@@ -46,7 +32,7 @@ function readSections(sectionsDir) {
 }
 
 function buildSpecimen(tokens, shell) {
-  const vars = buildVars(tokens);
+  const vars = buildCssVars(tokens);
   const rootBlock = `    :root {\n${vars}\n    }`;
 
   let html = shell

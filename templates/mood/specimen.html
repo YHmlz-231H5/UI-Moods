@@ -152,12 +152,18 @@
     .badge {
       display: inline-flex; align-items: center;
       font-size: 11px; padding: 3px 10px;
-      border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
-      border-radius: var(--mood-radii-badge);
-      background: var(--mood-colors-surface);
-      color: var(--mood-colors-text);
+      border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-components-badge-neutral-border);
+      border-radius: var(--mood-components-badge-neutral-radius);
+      background: var(--mood-components-badge-neutral-bg);
+      color: var(--mood-components-badge-neutral-fg);
     }
-    .badge.live { background: var(--mood-colors-accent); border-color: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); box-shadow: var(--mood-effects-glow, none); }
+    .badge.ok { background: var(--mood-components-badge-ok-bg); border-color: var(--mood-components-badge-ok-border); color: var(--mood-components-badge-ok-fg); }
+    .badge.warn { background: var(--mood-components-badge-warn-bg); border-color: var(--mood-components-badge-warn-border); color: var(--mood-components-badge-warn-fg); }
+    .badge.danger { background: var(--mood-components-badge-danger-bg); border-color: var(--mood-components-badge-danger-border); color: var(--mood-components-badge-danger-fg); }
+    /* The accent state. `.badge.live` stays as an alias so markup copied out of
+       an earlier specimen keeps painting the same chip. */
+    .badge.accent,
+    .badge.live { background: var(--mood-components-badge-accent-bg); border-color: var(--mood-components-badge-accent-border); color: var(--mood-components-badge-accent-fg); box-shadow: var(--mood-effects-glow, none); }
     .field-row { display: flex; flex-direction: column; gap: 12px; }
     .field { display: flex; flex-direction: column; gap: 6px; }
     .field label { font-size: var(--mood-typography-label-size); color: var(--mood-colors-muted); }
@@ -214,11 +220,16 @@
     .list-item .name { color: var(--mood-colors-text-strong); font-weight: 600; }
     .list-item .sub { font-size: 11px; color: var(--mood-colors-muted); }
     .alerts { display: flex; flex-direction: column; gap: 8px; }
-    .alert { display: flex; gap: 10px; padding: 12px 14px; border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); border-radius: var(--mood-radii-block); background: var(--mood-colors-surface); backdrop-filter: var(--mood-effects-backdrop-filter, none); }
-    .alert .mark { font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.7; }
-    .alert.ok { border-color: var(--mood-colors-ok); color: var(--mood-colors-ok); }
-    .alert.warn { border-color: var(--mood-colors-warn); color: var(--mood-colors-warn); }
-    .alert.danger { border-color: var(--mood-colors-danger); color: var(--mood-colors-danger); }
+    .alert { display: flex; gap: 10px; padding: 12px 14px; border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-components-alert-neutral-border); border-radius: var(--mood-radii-block); background: var(--mood-components-alert-neutral-bg); color: var(--mood-components-alert-neutral-fg); backdrop-filter: var(--mood-effects-backdrop-filter, none); }
+    .alert .mark { flex-shrink: 0; padding: 2px 8px; border-radius: var(--mood-components-badge-neutral-radius); background: var(--mood-components-badge-neutral-bg); color: var(--mood-components-badge-neutral-fg); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; }
+    .alert.accent { background: var(--mood-components-alert-accent-bg); border-color: var(--mood-components-alert-accent-border); color: var(--mood-components-alert-accent-fg); }
+    .alert.accent .mark { background: var(--mood-components-badge-accent-bg); color: var(--mood-components-badge-accent-fg); }
+    .alert.ok { background: var(--mood-components-alert-ok-bg); border-color: var(--mood-components-alert-ok-border); color: var(--mood-components-alert-ok-fg); }
+    .alert.ok .mark { background: var(--mood-components-badge-ok-bg); color: var(--mood-components-badge-ok-fg); }
+    .alert.warn { background: var(--mood-components-alert-warn-bg); border-color: var(--mood-components-alert-warn-border); color: var(--mood-components-alert-warn-fg); }
+    .alert.warn .mark { background: var(--mood-components-badge-warn-bg); color: var(--mood-components-badge-warn-fg); }
+    .alert.danger { background: var(--mood-components-alert-danger-bg); border-color: var(--mood-components-alert-danger-border); color: var(--mood-components-alert-danger-fg); }
+    .alert.danger .mark { background: var(--mood-components-badge-danger-bg); color: var(--mood-components-badge-danger-fg); }
     @media (max-width: 860px) {
       .row, .row.cols-3, .row.cols-4, .card-grid { grid-template-columns: 1fr; }
       .hero, .kit { padding-left: 20px; padding-right: 20px; }

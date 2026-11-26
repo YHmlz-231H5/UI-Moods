@@ -13,12 +13,15 @@ consistency and agent-friendliness. Known, accepted gaps:
   `tokens.motion` carries duration/easing for agents to apply.
 - **Contrast model** — nested multi-layer translucency and backdrop gradients
   are not simulated; prefer opaque pairs in `checklist.yaml` contrast items.
-- **Component state colors / derived alpha (deferred to v1.1)** — tokens
-  define core colors but not badge/alert state fills. M3 showed agents tend to
-  derive `rgba(accent, α)` variants; `token-only` checks catch them, but the
-  clean expression belongs to a `components.badge|alert` semantic layer in
-  v1.1. In v1, prefer solid `colors.accent/ok/warn/danger` fills over
-  self-made alpha variants.
+- **Component state colors / derived alpha (closed in v1.1)** — in v1 the tokens
+  defined core colors but no badge/alert state fills, and M3 showed agents tend
+  to derive `rgba(accent, α)` variants; the `token-only` checks catch them, but
+  the clean expression belonged to a semantic layer. v1.1 ships that layer:
+  `components.badge` and `components.alert` each declare five states
+  (`neutral` `accent` `ok` `warn` `danger`), every state is emitted as
+  `--mood-components-*`, and each foreground is derived from the mood's own
+  palette to reach 4.5:1 against its fill (see `docs/css-var-mapping.md`
+  §3.1). Agents no longer need to invent an alpha variant.
 
 ## Per-mood template losses
 
@@ -66,10 +69,10 @@ Dual-font axis affects `instrument` and `night`; v1 exposes only
 
 ## Specimen-layer gaps (v1.1)
 
-The specimen is now a shell plus 27 section partials. The new structure
+The specimen is now a shell plus 28 section partials. The new structure
 changes what the old "single matrix template" caveat means:
 
-- **Every mood renders every section** — the build injects all 27 partials
+- **Every mood renders every section** — the build injects all 28 partials
   into all 32 specimens. There is no per-mood section selection, so a mood
   that has no meaningful calendar content still shows a calendar section.
   Per-mood section opt-out is not modelled.
@@ -106,8 +109,10 @@ from the specimen's:
 - **390 × 844 frame only** — one device size is rendered. The frame is fluid
   in width but the layout does not reflow for tablets or foldables.
 - **Contrast is inherited, not re-checked** — an app pack inherits its mood's
-  contrast guarantees. A block that composes two surfaces in a new way (for
-  example a badge on an accent fill) is not automatically re-validated.
+  contrast guarantees. The *state* fills are re-checked, because the semantic
+  layer ships its own foregrounds (a badge on an accent fill is now measured,
+  not assumed), but a block that composes two surfaces in some other new way is
+  still not automatically re-validated.
 - **No photography — generated covers instead** — the library ships no image
   assets, so product shots, dish photos and album covers are replaced by
   abstract compositions drawn from the mood's tokens

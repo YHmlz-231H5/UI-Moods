@@ -30,6 +30,10 @@
       --mood-colors-ok: #a8d5ba;
       --mood-colors-warn: #f6d6ad;
       --mood-colors-danger: #f2a1a1;
+      --mood-colors-on-accent-solid: #2f2b3d;
+      --mood-colors-on-ok-solid: #2f2b3d;
+      --mood-colors-on-warn-solid: #2f2b3d;
+      --mood-colors-on-danger-solid: #2f2b3d;
       --mood-typography-family: Quicksand, Nunito, system-ui, sans-serif;
       --mood-typography-display-size: 40px;
       --mood-typography-title-size: 17px;
@@ -51,6 +55,51 @@
       --mood-spacing-gap: 12px;
       --mood-motion-duration: 0.3s;
       --mood-motion-easing: ease-out;
+      --mood-components-button-primary-bg: var(--mood-colors-accent);
+      --mood-components-button-primary-fg: var(--mood-colors-on-accent);
+      --mood-components-button-primary-radius: var(--mood-radii-button);
+      --mood-components-button-danger-bg: transparent;
+      --mood-components-button-danger-fg: var(--mood-colors-danger);
+      --mood-components-button-danger-border: var(--mood-colors-danger);
+      --mood-components-card-bg: var(--mood-colors-surface);
+      --mood-components-card-radius: var(--mood-radii-card);
+      --mood-components-card-shadow: var(--mood-shadows-card);
+      --mood-components-card-backdrop-filter: var(--mood-effects-backdrop-filter);
+      --mood-components-badge-neutral-bg: var(--mood-colors-panel);
+      --mood-components-badge-neutral-fg: var(--mood-colors-text);
+      --mood-components-badge-neutral-border: var(--mood-colors-border);
+      --mood-components-badge-neutral-radius: var(--mood-radii-badge);
+      --mood-components-badge-accent-bg: var(--mood-colors-accent);
+      --mood-components-badge-accent-fg: var(--mood-colors-on-accent-solid);
+      --mood-components-badge-accent-border: var(--mood-colors-accent);
+      --mood-components-badge-accent-radius: var(--mood-radii-badge);
+      --mood-components-badge-ok-bg: var(--mood-colors-ok);
+      --mood-components-badge-ok-fg: var(--mood-colors-on-ok-solid);
+      --mood-components-badge-ok-border: var(--mood-colors-ok);
+      --mood-components-badge-ok-radius: var(--mood-radii-badge);
+      --mood-components-badge-warn-bg: var(--mood-colors-warn);
+      --mood-components-badge-warn-fg: var(--mood-colors-on-warn-solid);
+      --mood-components-badge-warn-border: var(--mood-colors-warn);
+      --mood-components-badge-warn-radius: var(--mood-radii-badge);
+      --mood-components-badge-danger-bg: var(--mood-colors-danger);
+      --mood-components-badge-danger-fg: var(--mood-colors-on-danger-solid);
+      --mood-components-badge-danger-border: var(--mood-colors-danger);
+      --mood-components-badge-danger-radius: var(--mood-radii-badge);
+      --mood-components-alert-neutral-bg: var(--mood-colors-panel);
+      --mood-components-alert-neutral-fg: var(--mood-colors-text);
+      --mood-components-alert-neutral-border: var(--mood-colors-border);
+      --mood-components-alert-accent-bg: var(--mood-colors-panel);
+      --mood-components-alert-accent-fg: var(--mood-colors-text);
+      --mood-components-alert-accent-border: var(--mood-colors-accent);
+      --mood-components-alert-ok-bg: var(--mood-colors-panel);
+      --mood-components-alert-ok-fg: var(--mood-colors-text);
+      --mood-components-alert-ok-border: var(--mood-colors-ok);
+      --mood-components-alert-warn-bg: var(--mood-colors-panel);
+      --mood-components-alert-warn-fg: var(--mood-colors-text);
+      --mood-components-alert-warn-border: var(--mood-colors-warn);
+      --mood-components-alert-danger-bg: var(--mood-colors-panel);
+      --mood-components-alert-danger-fg: var(--mood-colors-text);
+      --mood-components-alert-danger-border: var(--mood-colors-danger);
     }
     </style>
   <style>
@@ -152,12 +201,18 @@
     .badge {
       display: inline-flex; align-items: center;
       font-size: 11px; padding: 3px 10px;
-      border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
-      border-radius: var(--mood-radii-badge);
-      background: var(--mood-colors-surface);
-      color: var(--mood-colors-text);
+      border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-components-badge-neutral-border);
+      border-radius: var(--mood-components-badge-neutral-radius);
+      background: var(--mood-components-badge-neutral-bg);
+      color: var(--mood-components-badge-neutral-fg);
     }
-    .badge.live { background: var(--mood-colors-accent); border-color: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); box-shadow: var(--mood-effects-glow, none); }
+    .badge.ok { background: var(--mood-components-badge-ok-bg); border-color: var(--mood-components-badge-ok-border); color: var(--mood-components-badge-ok-fg); }
+    .badge.warn { background: var(--mood-components-badge-warn-bg); border-color: var(--mood-components-badge-warn-border); color: var(--mood-components-badge-warn-fg); }
+    .badge.danger { background: var(--mood-components-badge-danger-bg); border-color: var(--mood-components-badge-danger-border); color: var(--mood-components-badge-danger-fg); }
+    /* The accent state. `.badge.live` stays as an alias so markup copied out of
+       an earlier specimen keeps painting the same chip. */
+    .badge.accent,
+    .badge.live { background: var(--mood-components-badge-accent-bg); border-color: var(--mood-components-badge-accent-border); color: var(--mood-components-badge-accent-fg); box-shadow: var(--mood-effects-glow, none); }
     .field-row { display: flex; flex-direction: column; gap: 12px; }
     .field { display: flex; flex-direction: column; gap: 6px; }
     .field label { font-size: var(--mood-typography-label-size); color: var(--mood-colors-muted); }
@@ -214,11 +269,16 @@
     .list-item .name { color: var(--mood-colors-text-strong); font-weight: 600; }
     .list-item .sub { font-size: 11px; color: var(--mood-colors-muted); }
     .alerts { display: flex; flex-direction: column; gap: 8px; }
-    .alert { display: flex; gap: 10px; padding: 12px 14px; border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); border-radius: var(--mood-radii-block); background: var(--mood-colors-surface); backdrop-filter: var(--mood-effects-backdrop-filter, none); }
-    .alert .mark { font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.7; }
-    .alert.ok { border-color: var(--mood-colors-ok); color: var(--mood-colors-ok); }
-    .alert.warn { border-color: var(--mood-colors-warn); color: var(--mood-colors-warn); }
-    .alert.danger { border-color: var(--mood-colors-danger); color: var(--mood-colors-danger); }
+    .alert { display: flex; gap: 10px; padding: 12px 14px; border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-components-alert-neutral-border); border-radius: var(--mood-radii-block); background: var(--mood-components-alert-neutral-bg); color: var(--mood-components-alert-neutral-fg); backdrop-filter: var(--mood-effects-backdrop-filter, none); }
+    .alert .mark { flex-shrink: 0; padding: 2px 8px; border-radius: var(--mood-components-badge-neutral-radius); background: var(--mood-components-badge-neutral-bg); color: var(--mood-components-badge-neutral-fg); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; }
+    .alert.accent { background: var(--mood-components-alert-accent-bg); border-color: var(--mood-components-alert-accent-border); color: var(--mood-components-alert-accent-fg); }
+    .alert.accent .mark { background: var(--mood-components-badge-accent-bg); color: var(--mood-components-badge-accent-fg); }
+    .alert.ok { background: var(--mood-components-alert-ok-bg); border-color: var(--mood-components-alert-ok-border); color: var(--mood-components-alert-ok-fg); }
+    .alert.ok .mark { background: var(--mood-components-badge-ok-bg); color: var(--mood-components-badge-ok-fg); }
+    .alert.warn { background: var(--mood-components-alert-warn-bg); border-color: var(--mood-components-alert-warn-border); color: var(--mood-components-alert-warn-fg); }
+    .alert.warn .mark { background: var(--mood-components-badge-warn-bg); color: var(--mood-components-badge-warn-fg); }
+    .alert.danger { background: var(--mood-components-alert-danger-bg); border-color: var(--mood-components-alert-danger-border); color: var(--mood-components-alert-danger-fg); }
+    .alert.danger .mark { background: var(--mood-components-badge-danger-bg); color: var(--mood-components-badge-danger-fg); }
     @media (max-width: 860px) {
       .row, .row.cols-3, .row.cols-4, .card-grid { grid-template-columns: 1fr; }
       .hero, .kit { padding-left: 20px; padding-right: 20px; }
@@ -296,7 +356,7 @@
   <div>
     <div class="section-label">Badges</div>
     <div class="block">
-      <span class="badge live">Active</span>
+      <span class="badge accent">Active</span>
       <span class="badge">Draft</span>
       <span class="badge ok">Ready</span>
       <span class="badge warn">Review</span>
@@ -339,7 +399,7 @@
     </div>
     <div class="card-demo">
       <div class="ct">Another Card</div>
-      <span class="badge live" style="margin-bottom:8px;display:inline-block">Active</span>
+      <span class="badge accent" style="margin-bottom:8px;display:inline-block">Active</span>
       <div class="cm">Sample meta · in progress</div>
       <div class="bar" style="margin-bottom:10px"><i style="width:19%"></i></div>
       <div class="btn-row"><button type="button">Pause</button><button type="button" class="danger">Stop</button></div>
@@ -369,7 +429,7 @@
         <div class="toggle"><span>Setting B</span><div class="switch"><i></i></div></div>
       </div>
       <div class="list" style="margin-top:8px">
-        <div class="list-item"><div><div class="name">Alpha</div><div class="sub">Active · 19%</div></div><span class="badge live">On</span></div>
+        <div class="list-item"><div><div class="name">Alpha</div><div class="sub">Active · 19%</div></div><span class="badge accent">On</span></div>
         <div class="list-item"><div><div class="name">Beta</div><div class="sub">Ready</div></div><span class="badge ok">Done</span></div>
       </div>
     </div>
@@ -530,7 +590,7 @@
       <div class="list">
         <div class="list-item">
           <div><div class="name">Checkout funnel</div><div class="sub">Priya Raman · updated 12 minutes ago</div></div>
-          <span class="badge live">Live</span>
+          <span class="badge accent">Live</span>
         </div>
         <div class="list-item">
           <div><div class="name">Warehouse margin</div><div class="sub">Marco Silva · updated 1 hour ago</div></div>
@@ -745,7 +805,7 @@
           <h3>Workspace settings</h3>
           <p>Configure how Northwind names, syncs and reports on this workspace.</p>
         </div>
-        <span class="badge live">Active</span>
+        <span class="badge accent">Active</span>
       </div>
 
       <div class="s-grid-2">
@@ -1167,7 +1227,7 @@
           <div class="s-chart-title">Rows processed</div>
           <div class="s-chart-sub">Millions per hour · rolling 24 hours</div>
         </div>
-        <span class="badge live">Live</span>
+        <span class="badge accent">Live</span>
       </div>
       <svg width="100%" height="160" viewBox="0 0 320 160" preserveAspectRatio="none" aria-hidden="true">
         <line x1="0" y1="30" x2="320" y2="30" stroke="var(--mood-colors-border)" stroke-width="1" />
@@ -1307,7 +1367,7 @@
     <div class="s-kpi">
       <div class="s-kpi-top">
         <span class="s-kpi-label">Monthly recurring revenue</span>
-        <span class="badge live">MRR</span>
+        <span class="badge accent">MRR</span>
       </div>
       <div class="s-kpi-value">$48,290</div>
       <div class="s-kpi-foot">
@@ -1746,7 +1806,7 @@
         <div class="s-list-row">
           <span class="demo-thumb"><svg class="gen-svg" viewBox="0 0 88 88" preserveAspectRatio="xMidYMid slice" role="img" aria-hidden="true" focusable="false"><ellipse cx="64.73" cy="40.42" rx="16.56" ry="5.63" transform="rotate(0 64.73 40.42)" style="fill:var(--mood-colors-accent)" opacity="0.22"/><ellipse cx="62.68" cy="49.42" rx="16.56" ry="5.63" transform="rotate(25.71 62.68 49.42)" style="fill:var(--mood-colors-accent)" opacity="0.34"/><ellipse cx="56.93" cy="56.63" rx="16.56" ry="5.63" transform="rotate(51.43 56.93 56.63)" style="fill:var(--mood-colors-accent)" opacity="0.46"/><ellipse cx="48.61" cy="60.63" rx="16.56" ry="5.63" transform="rotate(77.14 48.61 60.63)" style="fill:var(--mood-colors-accent)" opacity="0.22"/><ellipse cx="39.39" cy="60.63" rx="16.56" ry="5.63" transform="rotate(102.86 39.39 60.63)" style="fill:var(--mood-colors-accent)" opacity="0.34"/><ellipse cx="31.07" cy="56.63" rx="16.56" ry="5.63" transform="rotate(128.57 31.07 56.63)" style="fill:var(--mood-colors-accent)" opacity="0.46"/><ellipse cx="25.32" cy="49.42" rx="16.56" ry="5.63" transform="rotate(154.29 25.32 49.42)" style="fill:var(--mood-colors-accent)" opacity="0.22"/><ellipse cx="23.27" cy="40.42" rx="16.56" ry="5.63" transform="rotate(180 23.27 40.42)" style="fill:var(--mood-colors-accent)" opacity="0.34"/><ellipse cx="25.32" cy="31.42" rx="16.56" ry="5.63" transform="rotate(205.71 25.32 31.42)" style="fill:var(--mood-colors-accent)" opacity="0.46"/><ellipse cx="31.07" cy="24.21" rx="16.56" ry="5.63" transform="rotate(231.43 31.07 24.21)" style="fill:var(--mood-colors-accent)" opacity="0.22"/><ellipse cx="39.39" cy="20.21" rx="16.56" ry="5.63" transform="rotate(257.14 39.39 20.21)" style="fill:var(--mood-colors-accent)" opacity="0.34"/><ellipse cx="48.61" cy="20.21" rx="16.56" ry="5.63" transform="rotate(282.86 48.61 20.21)" style="fill:var(--mood-colors-accent)" opacity="0.46"/><ellipse cx="56.93" cy="24.21" rx="16.56" ry="5.63" transform="rotate(308.57 56.93 24.21)" style="fill:var(--mood-colors-accent)" opacity="0.22"/><ellipse cx="62.68" cy="31.42" rx="16.56" ry="5.63" transform="rotate(334.29 62.68 31.42)" style="fill:var(--mood-colors-accent)" opacity="0.34"/><circle cx="44" cy="40.42" r="6.62" style="fill:var(--mood-colors-on-accent, var(--mood-colors-surface))" opacity="0.8"/></svg></span>
           <div class="s-row-name"><b>Checkout funnel</b><small>Updated 12 minutes ago</small></div>
-          <span class="badge live">Live</span>
+          <span class="badge accent">Live</span>
           <button type="button" class="s-icon-btn">Open</button>
         </div>
         <div class="s-list-row">
@@ -1970,7 +2030,7 @@
       <div class="s-tl-item s-active">
         <div class="s-tl-rail"><span class="s-tl-dot"></span><span class="s-tl-line"></span></div>
         <div class="s-tl-body">
-          <div class="s-tl-title"><b>Semantic layer validation</b><span class="badge live">In progress</span><span class="s-tl-time">running 4 min</span></div>
+          <div class="s-tl-title"><b>Semantic layer validation</b><span class="badge accent">In progress</span><span class="s-tl-time">running 4 min</span></div>
           <p class="s-tl-desc">1,284 metric definitions are checked against the source columns. 62% complete.</p>
           <div class="bar" style="margin-top:8px"><i style="width:62%"></i></div>
         </div>
@@ -2135,7 +2195,7 @@
         <div class="s-team-row">
           <div class="s-team-avatar s-accent">PR</div>
           <div class="s-team-name"><b>Priya Raman</b><span>Owner · active now</span></div>
-          <span class="badge live">Owner</span>
+          <span class="badge accent">Owner</span>
         </div>
         <div class="s-team-row">
           <div class="s-team-avatar">MS</div>
@@ -2481,7 +2541,7 @@
       </div>
 
       <div class="s-pr-cell">
-        <div class="s-pr-tag"><span class="badge live">Most popular</span></div>
+        <div class="s-pr-tag"><span class="badge accent">Most popular</span></div>
         <div class="card-demo s-pr-tier popular">
           <div>
             <div class="ct">Pro</div>
@@ -3200,7 +3260,7 @@
       <aside class="s-db-rail">
         <div class="s-db-rail-head">
           <h4>Activity</h4>
-          <span class="badge live">Live</span>
+          <span class="badge accent">Live</span>
         </div>
         <div class="s-db-feed">
           <div class="s-db-feed-item">
@@ -4102,6 +4162,111 @@
       </div>
       <div class="s-kb-prog-head" style="margin-top:10px"><span style="font-size:11px;color:var(--mood-colors-muted)">Day 1</span><span style="font-size:11px;color:var(--mood-colors-muted)">Day 10</span></div>
     </div>
+  </div>
+</div>
+
+<!-- 28-component-states.html -->
+<style>
+  .s-state-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
+  .s-state-cell {
+    padding: 14px 16px;
+    border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
+    border-radius: var(--mood-radii-card);
+    background: var(--mood-colors-surface);
+  }
+  .s-state-name {
+    display: block; margin-bottom: 8px;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--mood-colors-muted);
+  }
+  .s-state-chips { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  /* A chip is exactly the semantic layer: fill, foreground and radius come
+     from --mood-components-badge-*, never from a colour of its own. */
+  .s-chip {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 3px 10px;
+    border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-components-badge-neutral-border);
+    border-radius: var(--mood-components-badge-neutral-radius);
+    background: var(--mood-components-badge-neutral-bg);
+    color: var(--mood-components-badge-neutral-fg);
+    font-size: 11px; font-weight: 600;
+  }
+  .s-chip.accent { background: var(--mood-components-badge-accent-bg); border-color: var(--mood-components-badge-accent-border); color: var(--mood-components-badge-accent-fg); }
+  .s-chip.ok { background: var(--mood-components-badge-ok-bg); border-color: var(--mood-components-badge-ok-border); color: var(--mood-components-badge-ok-fg); }
+  .s-chip.warn { background: var(--mood-components-badge-warn-bg); border-color: var(--mood-components-badge-warn-border); color: var(--mood-components-badge-warn-fg); }
+  .s-chip.danger { background: var(--mood-components-badge-danger-bg); border-color: var(--mood-components-badge-danger-border); color: var(--mood-components-badge-danger-fg); }
+  .s-chip i { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+  .s-alert {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 11px 13px;
+    border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-components-alert-neutral-border);
+    border-radius: var(--mood-radii-block);
+    background: var(--mood-components-alert-neutral-bg);
+    color: var(--mood-components-alert-neutral-fg);
+    font-size: 12px;
+  }
+  .s-alert .mark {
+    flex-shrink: 0; padding: 2px 8px;
+    border-radius: var(--mood-components-badge-neutral-radius);
+    background: var(--mood-components-badge-neutral-bg);
+    color: var(--mood-components-badge-neutral-fg);
+    font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .s-alert.accent { background: var(--mood-components-alert-accent-bg); border-color: var(--mood-components-alert-accent-border); color: var(--mood-components-alert-accent-fg); }
+  .s-alert.accent .mark { background: var(--mood-components-badge-accent-bg); color: var(--mood-components-badge-accent-fg); }
+  .s-alert.ok { background: var(--mood-components-alert-ok-bg); border-color: var(--mood-components-alert-ok-border); color: var(--mood-components-alert-ok-fg); }
+  .s-alert.ok .mark { background: var(--mood-components-badge-ok-bg); color: var(--mood-components-badge-ok-fg); }
+  .s-alert.warn { background: var(--mood-components-alert-warn-bg); border-color: var(--mood-components-alert-warn-border); color: var(--mood-components-alert-warn-fg); }
+  .s-alert.warn .mark { background: var(--mood-components-badge-warn-bg); color: var(--mood-components-badge-warn-fg); }
+  .s-alert.danger { background: var(--mood-components-alert-danger-bg); border-color: var(--mood-components-alert-danger-border); color: var(--mood-components-alert-danger-fg); }
+  .s-alert.danger .mark { background: var(--mood-components-badge-danger-bg); color: var(--mood-components-badge-danger-fg); }
+  .s-state-note { margin: 14px 0 0; font-size: 12px; color: var(--mood-colors-muted); }
+</style>
+
+<div class="section-label">Component States</div>
+
+<div class="block">
+  <div class="s-state-grid">
+    <div class="s-state-cell">
+      <span class="s-state-name">neutral</span>
+      <div class="s-state-chips"><span class="s-chip">Draft</span><span class="s-chip"><i></i>Queued</span></div>
+    </div>
+    <div class="s-state-cell">
+      <span class="s-state-name">accent</span>
+      <div class="s-state-chips"><span class="s-chip accent">New</span><span class="s-chip accent"><i></i>Live</span></div>
+    </div>
+    <div class="s-state-cell">
+      <span class="s-state-name">ok</span>
+      <div class="s-state-chips"><span class="s-chip ok">Passed</span><span class="s-chip ok"><i></i>Healthy</span></div>
+    </div>
+    <div class="s-state-cell">
+      <span class="s-state-name">warn</span>
+      <div class="s-state-chips"><span class="s-chip warn">Review</span><span class="s-chip warn"><i></i>Degraded</span></div>
+    </div>
+    <div class="s-state-cell">
+      <span class="s-state-name">danger</span>
+      <div class="s-state-chips"><span class="s-chip danger">Failed</span><span class="s-chip danger"><i></i>Offline</span></div>
+    </div>
+  </div>
+  <p class="s-state-note">
+    Every chip above is painted by <code>--mood-components-badge-*</code>: the fill, the foreground
+    and the radius are declared once per state in <code>tokens.json</code>. The foreground of a
+    solid state fill is the mood's own <code>on*Solid</code> colour, which is measured to reach
+    4.5:1 against that fill — so an agent copying the pattern cannot produce an unreadable chip.
+    The alerts below read the matching <code>--mood-components-alert-*</code> layer, and their
+    status chip is painted by the badge layer, so all five states stay in step.
+  </p>
+</div>
+
+<div class="row cols-2">
+  <div class="block">
+    <div class="s-alert"><span class="mark">Note</span><span>Informational message. The body text stays in the mood's text colour.</span></div>
+    <div class="s-alert accent" style="margin-top:10px"><span class="mark">Live</span><span>Three operators are watching this deployment as it rolls out.</span></div>
+  </div>
+  <div class="block">
+    <div class="s-alert ok" style="margin-top:0"><span class="mark">Done</span><span>The nightly reconciliation finished with no differences.</span></div>
+    <div class="s-alert warn" style="margin-top:10px"><span class="mark">Review</span><span>Storage reached 68% of the plan limit. Two more connectors will exceed it.</span></div>
+    <div class="s-alert danger" style="margin-top:10px"><span class="mark">Stop</span><span>The replica is unreachable and the last sync failed 12 minutes ago.</span></div>
   </div>
 </div>
   </div>

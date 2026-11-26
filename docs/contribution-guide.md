@@ -16,14 +16,19 @@ is merged and registered in `moods.json`.
    - Add `colors.onAccent` when your accent/status fills are solid dark or
      solid light (text/icon color on those fills); it is a recommended
      extension, not required.
-   - Add `components` when you want a semantic layer agents can read.
-     Leaves must be `{group.key}` references or allowlisted keywords
+   - The **state layer is required**: `components.badge` and `components.alert`
+     each declare five states — `neutral`, `accent`, `ok`, `warn`, `danger`.
+     `npx ui-moods scaffold` writes it and derives the four state foregrounds
+     (`colors.onAccentSolid` / `onOkSolid` / `onWarnSolid` / `onDangerSolid`)
+     from your palette. If you hand-edit a state fill, re-derive the matching
+     foreground — `validate` requires every pair to reach 4.5:1.
+   - `components` leaves must be `{group.key}` references or allowlisted keywords
      (`transparent | none | currentColor | inherit | 0`).
 3. **prompt.md** — one paragraph (≤ 200 words, English first), keywords, when
    to use / when to avoid.
 4. **checklist.yaml** — include at least: one `value` assertion on a token
    path, a `token-only` item for `colors`, a `token-only` item for
-   `components` (if you ship components), a `contrast` item on an opaque
+   `components`, a `contrast` item on an opaque
    pair, and one `subjective` item for the feel.
 5. **Generate** — `npx ui-moods build-specimen <id>` (never hand-edit
    `specimen.html`; the template's `style#mood-tokens` block is the only

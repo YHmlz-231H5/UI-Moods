@@ -44,12 +44,15 @@ A task may contain `style: app/<id>@<version>`. Resolve it as:
   to verify page structure. The same applies to `apps/<id>/screens/*.html` —
   read `app.json` instead; it is the compact, authoritative form.
 - Colors, radii, shadows, spacing, borders, effects and fonts may come
-  **only** from the mood's tokens — including the optional `components`
-  semantic layer. To change the style, change the tokens; never hard-code new
-  magic values.
-- Prefer solid `colors.accent/ok/warn/danger` fills over self-made alpha
-  variants (e.g. `rgba(accent, 0.28)`). Derived tints are not tokens; the
-  component state-color layer arrives in v1.1.
+  **only** from the mood's tokens — including the `components` semantic
+  layer, which every mood now ships. To change the style, change the tokens;
+  never hard-code new magic values.
+- Paint a status chip from the state layer, never from a derived tint: use
+  `components.badge.<state>` / `components.alert.<state>` (or the
+  `--mood-components-*` variables, or the `.badge.<state>` / `.notice.<state>`
+  classes). Self-made alpha variants (e.g. `rgba(accent, 0.28)`) are not
+  tokens, and a state colour on a panel is unreadable in most moods — the
+  layer's own foreground is measured to reach 4.5:1 against its fill.
 - Radii must resolve to `var(--mood-radii-*)`. A raw `border-radius: 12px` in
   a mood's own UI is a token violation even when `12px` happens to be a legal
   layout metric.

@@ -94,6 +94,76 @@ function checkComponents(tokens, errors) {
   walk(comp, "components");
 }
 
+/* --- token-only: the badge / alert state layer --- */
+
+// The states every mood must expose, and the minimum contrast a chip's text
+// has to reach on its own fill (WCAG AA for normal text).
+const STATE_STATES = ["neutral", "accent", "ok", "warn", "danger"];
+const STATE_MIN_RATIO = 4.5;
+
+/**
+ * The badge and alert layers are the one place a mood states what a solid
+ * state chip looks like. They have to exist, name every state, and their
+ * foreground has to be readable on the fill they sit on — otherwise an agent
+ * copying the pattern re-derives an unreadable pair.
+ */
+function checkStateLayer(tokens, errors) {
+  const comp = tokens.components;
+  if (comp === undefined) {
+    errors.push("components: missing — the badge/alert state layer is required");
+    return;
+  }
+  for (const layer of ["badge", "alert"]) {
+    const group = comp[layer];
+    if (!group || typeof group !== "object") {
+      errors.push(`components.${layer}: missing — the state layer is required`);
+      continue;
+    }
+    for (const state of STATE_STATES) {
+      const slot = group[state];
+      if (!slot || typeof slot !== "object") {
+        errors.push(`components.${layer}.${state}: missing`);
+        continue;
+      }
+      const fg = resolveRef(tokens, slot.fg ?? "");
+      const bg = resolveRef(tokens, slot.bg ?? "");
+      if (!fg.ok) {
+        errors.push(`components.${layer}.${state}.fg: ${fg.reason}`);
+        continue;
+      }
+      if (!bg.ok) {
+        errors.push(`components.${layer}.${state}.bg: ${bg.reason}`);
+        continue;
+      }
+      const fgColor = parseColor(fg.value);
+      const bgColor = parseColor(bg.value);
+      if (!fgColor || !bgColor) {
+        errors.push(
+          `components.${layer}.${state}: cannot parse fg=${fg.value} / bg=${bg.value}`,
+        );
+        continue;
+      }
+      const base = parseColor(tokens.colors?.bg ?? "#ffffff") ?? {
+        r: 255,
+        g: 255,
+        b: 255,
+        a: 1,
+      };
+      const bgOpaque = bgColor.a < 1 ? composite(bgColor, base) : bgColor;
+      const fgOpaque = fgColor.a < 1 ? composite(fgColor, bgOpaque) : fgColor;
+      const l1 = luminance(fgOpaque);
+      const l2 = luminance(bgOpaque);
+      const ratio = (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
+      if (ratio < STATE_MIN_RATIO) {
+        errors.push(
+          `components.${layer}.${state}: contrast ${ratio.toFixed(2)} < ${STATE_MIN_RATIO} ` +
+            `(${slot.fg} on ${slot.bg})`,
+        );
+      }
+    }
+  }
+}
+
 // --- specimen / screen checks ---
 function splitSpecimen(html) {
   const m = html.match(/<style id="mood-tokens">([\s\S]*?)<\/style>/);
@@ -329,6 +399,7 @@ function validateMood(id) {
   if (tokens.components !== undefined) {
     checkComponents(tokens, errors);
   }
+  checkStateLayer(tokens, errors);
 
   const checklistPath = join(dir, "checklist.yaml");
   if (!existsSync(checklistPath)) {

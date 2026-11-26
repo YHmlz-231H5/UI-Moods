@@ -37,7 +37,65 @@ camelCase fields are converted to kebab-case (one `-` per uppercase letter).
 | `meta.*` | metadata (name/keywords/fonts are used for hero text, not CSS vars) |
 | `typography.weights` | specimens hardcode weights; agents read weights from tokens |
 | `effects.panelOpacity` | semantic "panel fill opacity" — compose it into `background-color` alpha (rgba), **never** the CSS `opacity` property (it would fade children, breaking frosted-glass panels) |
-| `components.*` | agent-facing semantic layer; a `--mood-comp-*` CSS mapping is deferred (not in v1) |
+
+`components.*` is **no longer** an exception: since v1.1 the semantic layer is
+injected as `--mood-components-*` (see §3.1).
+
+## 3.1 Component semantic layer (v1.1)
+
+`tokens.components` is the agent-facing layer: it names the *states* a product
+needs (badge, alert) and the values each state is painted with. It maps to one
+custom property per leaf:
+
+```
+--mood-components-<component>-<state>-<slot>
+```
+
+| tokens path | CSS custom property |
+| --- | --- |
+| `components.badge.ok.bg` | `--mood-components-badge-ok-bg` |
+| `components.badge.ok.fg` | `--mood-components-badge-ok-fg` |
+| `components.badge.ok.border` | `--mood-components-badge-ok-border` |
+| `components.badge.ok.radius` | `--mood-components-badge-ok-radius` |
+| `components.alert.warn.bg` | `--mood-components-alert-warn-bg` |
+
+The values stay **references**, not literals: `components.badge.ok.bg` is
+`{colors.ok}`, so the emitted property is
+`--mood-components-badge-ok-bg: var(--mood-colors-ok)`. Colours remain owned by
+`colors`; the component layer only names them. `buildCssVars` in
+`tools/lib/mapping.mjs` emits the block, and both `build-specimen` and
+`build-apps` use it, so the two layers cannot drift.
+
+**States.** `badge` and `alert` each declare five states: `neutral`,
+`accent`, `ok`, `warn`, `danger`. The class vocabulary follows the same names
+— `.badge` (neutral), `.badge.accent`, `.badge.ok`, `.badge.warn`,
+`.badge.danger`, and the matching `.alert.*` in the specimen / `.notice.*` in
+the app layer. `.badge.live` is kept as an alias of `.badge.accent` so markup
+copied from an earlier specimen still paints the same chip.
+
+**Foreground derivation.** A solid state fill needs a foreground that is
+readable on it, and a mood's own palette may not contain one — a light amber
+`warn` with a white `onAccent` is unreadable. `tools/lib/state-colors.mjs`
+derives one per state and stores it as a colour token:
+
+| token | foreground for |
+| --- | --- |
+| `colors.onAccentSolid` | the `accent` fill |
+| `colors.onOkSolid` | the `ok` fill |
+| `colors.onWarnSolid` | the `warn` fill |
+| `colors.onDangerSolid` | the `danger` fill |
+
+The derivation is mechanical: take the mood's opaque palette as candidates,
+keep the best contrast against the fill, and if that still misses the bar,
+move it toward black or white until it passes. It aims at **4.6:1** while the
+contract requires **4.5:1**, so the shipped pairs keep a margin — with one
+exception that is a hard mathematical limit, not a defect: `forest`'s `danger`
+(`#b05f47`, relative luminance 0.179) cannot reach 4.6 on *any* foreground,
+because pure black gives 4.574 and pure white 4.591. Its shipped pair sits at
+4.591, the ceiling of that fill.
+
+`validate` enforces the contract: every state must exist, its references must
+resolve, and its foreground must reach 4.5:1 against its fill.
 
 ## 4. Specimen-dependent keys
 
@@ -164,7 +222,7 @@ a bare list of links.
   absent.
 - `effects.panelOpacity` semantic is documented above and must not be applied
   via the CSS `opacity` property.
-- `effects.glow` is consumed by `.badge.live` (`box-shadow`); moods without a
+- `effects.glow` is consumed by `.badge.accent` (`box-shadow`); moods without a
   glow simply declare no `glow` key.
 - `.card-demo` and `.alert` also consume `effects.backdropFilter` (harmless
   when `none`), so frosted surfaces render consistently with `.block`.

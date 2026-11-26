@@ -10,6 +10,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { applyStateLayer } from "./lib/state-colors.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -64,6 +65,10 @@ if (kind === "mood") {
   tokens.meta.nameZh = opt("--name-zh", id);
   tokens.meta.appearance = opt("--appearance", "light");
   tokens.meta.keywords = ["replace-me"];
+
+  // The state foregrounds and the badge/alert layer are derived from the
+  // colours, so a scaffolded mood is consistent from the start.
+  applyStateLayer(tokens);
 
   writeFileSync(join(dir, "tokens.json"), JSON.stringify(tokens, null, 2) + "\n", "utf8");
 

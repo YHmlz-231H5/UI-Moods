@@ -38,6 +38,21 @@ Anything else (a color literal like `#0b0b18`, a size like `12px`) is an
 error. To allow new structural values, extend the whitelist with
 justification.
 
+### State layer (v1.1)
+
+`checkStateLayer` runs for every mood and every app pack and requires:
+
+- `components.badge` and `components.alert` each declare all five states —
+  `neutral`, `accent`, `ok`, `warn`, `danger`;
+- every `fg` / `bg` reference resolves inside the same tokens file;
+- the resolved foreground reaches **4.5:1** against the resolved background,
+  with translucent colours composited over `colors.bg` (the same rule the
+  general contrast check uses).
+
+The shipped pairs are derived to 4.6:1 so they keep a margin over the
+contract; see `docs/css-var-mapping.md` §3.1 for the derivation and for the one
+fill (`forest` `danger`) whose contrast ceiling is 4.591.
+
 ### `scope: colors` (specimen source)
 
 - Literals inside the `style#mood-tokens` block are considered "from tokens"
