@@ -88,7 +88,7 @@ live switcher over all 32 themes.
   colour and it is not guaranteed to read as text.
 - A muted role (`text-secondary`, `text-placeholder`, `text-disabled`) is
   already derived to be readable. Do not re-derive it, and do not replace it
-  with the mood's raw `colors.muted`, which sits below 4.5:1 as text in 24 of
+  with the mood's raw `colors.muted`, which sits below 4.5:1 as text in 20 of
   the 32 moods.
 - Paint a status chip from the state layer, never from a derived tint: use
   `components.badge.<state>` / `components.alert.<state>` (or the

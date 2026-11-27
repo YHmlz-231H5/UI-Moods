@@ -149,7 +149,7 @@ The component library is new, and the honest limits are these:
   know about (a coloured panel, a photograph) is outside what is measured.
   `surface-control` and `surface-input` name the two stacks the library does
   know, both flattened to one opaque colour.
-- **A mood's own colours are not repaired** — in 24 of the 32 moods
+- **A mood's own colours are not repaired** — in 20 of the 32 moods
   `colors.muted` is below 4.5:1 as text, and `colors.border` is a hairline in
   several more. The library routes around them with derived roles; it does not
   change the mood. A mood that wants its own muted colour to be readable has

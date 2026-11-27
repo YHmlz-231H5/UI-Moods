@@ -178,7 +178,7 @@ readable as a fill and unreadable as text.
 
 ### The library is stricter than the moods
 
-A mood's `colors.muted` is chosen for looks, and in 24 of the 32 moods it sits
+A mood's `colors.muted` is chosen for looks, and in 20 of the 32 moods it sits
 below 4.5:1 as text. The library does not change the mood. It derives
 `text-secondary` from it — moved toward the text colour just far enough to
 read — and every muted role in the component layer uses that instead.
