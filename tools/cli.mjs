@@ -82,7 +82,7 @@ Usage:
   ui-moods check-package                   Check that the package's public names resolve and render
   ui-moods check-v-model                   Check that the bindings actually bind
   ui-moods audit-contrast                  Print the measured contrast of every mood
-  ui-moods audit-render [contrast|geometry|motion|package|apps]
+  ui-moods audit-render [contrast|geometry|motion|package|validity|state|apps]
                                            Measure the rendered result in a headless browser
   ui-moods verify-themes                   Check themes/all.css against the single-file themes
   ui-moods scaffold <id> [--mood <id>]    Create a new mood package from the template

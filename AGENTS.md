@@ -118,7 +118,7 @@ language in every mood, and it is the only path whose contrast is measured.
    rendered pages are measured by `node tools/audit-render.mjs`, which drives
    `tools/probe/contrast.html` in a headless browser, walks every component's
    examples once per mood and reports what the browser actually painted. The
-   current run is **51 008 measurements with zero failures**, and a change that
+   current run is **51 328 measurements with zero failures**, and a change that
    moves it is a change to the library's promise. The same command with the
    word `geometry` measures the *layout* instead — whether the boxes the
    browser laid out are the boxes the markup asked for — and the word `apps`
@@ -189,6 +189,27 @@ language in every mood, and it is the only path whose contrast is measured.
     `type-tests/` for the declaration — a `v-model` needs the prop *and* the
     event, and a declaration with only the prop is a component that cannot be
     bound.
+
+16. If you change a **selector**, check that the browser kept it. A custom
+    property is substituted into a declaration, never into a selector, because
+    a selector is read before any property is known. So a selector that reads
+    one is not a selector the browser can parse: the browser throws the whole
+    rule away without a word, and the state that rule was to paint never gets
+    painted. The rating component did exactly this — its filled stars were
+    drawn by `nth-of-type(-n+var(--um-rate-filled))` — and rendered as a row of
+    empty stars while every other check in this repository passed.
+
+    Three things now watch for it:
+
+    - `validate` fails the build when a selector reads a custom property, so
+      the mistake is caught before it reaches a browser.
+    - `node tools/audit-render.mjs validity` compares the rules the library
+      declares with the rules the browser kept and names the ones it threw
+      away. A selector carrying a vendor prefix is not reported: it is written
+      on purpose for whichever engine owns that prefix.
+    - `node tools/audit-render.mjs state` compares a selected thing with an
+      unselected one of the same kind, and reports a state that paints
+      exactly like every unselected one.
 
 `site/index.html` is the documentation: an overview plus one page per
 component, with the examples, the API tables and the class list, and a live

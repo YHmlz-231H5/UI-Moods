@@ -309,10 +309,10 @@ The rules the component layer obeys, and `validate` enforces:
   measurements**, all green.
 - **The rendered pages hold too.** A probe loads every component's live
   examples, walks the whole document once per mood and measures what the
-  browser actually painted: **51 008 measurements, zero failures**. A second
+  browser actually painted: **51 328 measurements, zero failures**. A second
   probe measures the *geometry* — whether the boxes the browser laid out are
   the boxes the markup asked for — a third measures the app packs, and a
-  fourth measures the *published* package: the same 51 008 measurements against
+  fourth measures the *published* package: the same 51 328 measurements against
   the split stylesheet, so a host that links one file per component is measured
   the same way as one that links the whole sheet.
 - **Motion is a reader's choice.** 371 of the library's elements move when the
@@ -520,7 +520,8 @@ ui-moods/
 │                     # · check-package · check-v-model · audit-contrast
 │                     # · audit-render · verify-themes · serve · scaffold
 │                     # · probe/ (the measuring instruments:
-│                     #   contrast · geometry · motion · package · apps)
+│                     #   contrast · geometry · motion · package · validity
+│                     #   · state · apps)
 ├─ docs/              # mapping convention · checklist semantics · parity checklist
 │                     # · contribution guide · vue-components · known gaps
 ├─ AGENTS.md          # protocol for AI agents
@@ -613,9 +614,29 @@ And for the component library:
 - every Vue wrapper agrees with the manifest it was written from — the props
   are the manifest's props, and every class it paints is a class the
   stylesheet declares;
+- **no custom property inside a selector** — a custom property is substituted
+  into a declaration, never into a selector, so a selector that reads one is
+  a rule the browser throws away whole, and the state it was to paint never
+  appears on the screen;
 - every declaration compiles — `tsc --noEmit` over `types/`, `vue/` and the
   switcher;
 - the component browser lists exactly the themes that exist.
+
+The rendered library is measured in a headless browser by
+`node tools/audit-render.mjs`, one probe per question:
+
+| probe | question | current run |
+| --- | --- | --- |
+| `contrast` | do the colours read? | 51 328 measurements, 0 failures |
+| `geometry` | are the boxes where the markup asked for them? | 115 488 measurements, 0 failures |
+| `package` | does the published split stylesheet measure the same? | 51 328 measurements, 0 failures |
+| `motion` | does the library stop moving when the reader asks? | 3 962 measurements, 0 failures |
+| `validity` | did the browser keep every rule the library declared? | 1 164 rules, 0 failures |
+| `state` | does a selected thing look different from an unselected one? | 37 states, 0 failures |
+
+Every probe exits 0 when it found nothing, 1 when it found something, and 2
+when the run itself went wrong — so it can be a step in a pipeline rather
+than a ritual.
 
 ## Current moods
 

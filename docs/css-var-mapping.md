@@ -298,7 +298,7 @@ browser composites what is really on the page — so the pages are measured too.
 `tools/probe/contrast.html` loads every component's live examples, walks the
 whole document once per mood, and measures the colours the browser actually
 painted: the foreground it resolved, and the background composited through
-every layer between the element and the page. the current run is **51 008
+every layer between the element and the page. the current run is **51 328
 measurements across 74 components and 32 moods, with zero failures**.
 
 Four things the probe had to learn, each of them a false alarm in the first
@@ -360,7 +360,7 @@ for a while, and the contrast probe reported zero failures on every one of
 its sixty examples in all thirty-two moods.
 
 `tools/probe/geometry.html` measures the boxes the browser laid out. The
-current run is **115 168 measurements across 83 components and 32 moods, with
+current run is **115 488 measurements across 83 components and 32 moods, with
 zero failures**, and it is a command in exactly the same way:
 
 ```
@@ -473,12 +473,93 @@ browser the same way the whole sheet is:
 
 ```
 audit-render · the published package · package
-  measurements: 51008
+  measurements: 51328
   failures: 0
 ```
 
-The same 51 008 measurements and the same zero failures. A host that links one
+The same 51 328 measurements and the same zero failures. A host that links one
 file per component gets the library the whole sheet would have given it.
+
+### The fifth instrument: the rules the browser kept
+
+Every instrument above asks a question about the *result*. This one asks about
+the *stylesheet itself*: did the browser keep the rules the library declared?
+
+It has to, because the browser throws a rule away without a word. A rule whose
+selector it cannot parse is simply gone — the state that rule was to paint
+never gets painted, and every other measurement still passes. The rating
+component found this out the hard way. Its filled stars were drawn by
+
+```css
+.um-rate__item:nth-of-type(-n+var(--um-rate-filled)) .um-rate__active { opacity: 1; }
+```
+
+A custom property is substituted into a **declaration**. It is never
+substituted into a selector, because a selector is read before any property
+is known. So that was not a selector the browser could parse: the rule was
+thrown away whole, every one of the twenty-one stars in the documentation
+rendered empty, and the contrast probe, the geometry probe and the token
+checks all passed — because nothing about the colours changed and nothing
+about the boxes moved.
+
+`tools/probe/validity.html` compares the rules the library *declares* with the
+rules the browser *kept*:
+
+```
+audit-render · the rules the browser kept · validity
+  measurements: 1164
+  failures: 0
+```
+
+Two kinds of difference are not defects, and the probe knows them. The browser
+writes a selector back in its own words — `:nth-child(even)` comes back as
+`:nth-child(2n)` — so both sides are read the same way before they are
+compared. And a selector carrying a vendor prefix is written on purpose for
+whichever engine owns that prefix, so the engine that does not own it is
+expected to drop it: `::-moz-range-thumb` is not a broken rule in Chrome, it
+is the rule Firefox needs. A list that mixes a prefixed selector with an
+ordinary one is still reported, because there the ordinary selector is lost
+as well.
+
+The instrument was shown to fail. With the broken rule put back, the same run
+reported one failure and named it:
+
+```
+.um-rate__item:nth-of-type(-n+var(--um-rate-filled)) .um-rate__active
+  — the browser cannot parse this selector, so it threw the whole rule away
+```
+
+### The sixth instrument: the states the reader sees
+
+A rule can be perfectly valid and still paint nothing. It can lose a
+specificity fight, be overridden by a later rule, or be aimed at a class the
+markup does not carry. Nothing in the stylesheet is wrong, so no check of the
+stylesheet can see it.
+
+`tools/probe/state.html` asks the question the reader would answer: does the
+selected thing look different from the unselected one? It compares a selected
+control with its unselected twins — siblings of the same shape carrying no
+state of their own — by the paint of the box and of everything inside it,
+including its pseudo-elements, because the library draws its shapes rather
+than types them. A check mark is a border and a rotation, and there is no
+character anywhere near it.
+
+```
+audit-render · the states the reader sees · state
+  measurements: 37
+  failures: 0
+```
+
+The finding is not that one twin matches. It is that *every* twin matches: the
+reader picks something and nothing on the screen changes. A rating shows why
+the distinction matters — three of its five stars are filled, so the checked
+star looks exactly like the two filled stars beside it, and that is right,
+because what the reader sees there is a count rather than a highlight. The
+rating is broken when the empty stars look like the filled ones too, and then
+every twin matches.
+
+With the broken rule put back, the probe reports six failures — one for each
+group in the rating's own examples.
 
 ### The other half of the library: the app packs
 

@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>ui-moods · validity probe</title>
+
+<!-- The probe is a measuring instrument, not a page anybody looks at. It
+     compares the stylesheet the library *declares* with the stylesheet the
+     browser actually *kept*.
+
+     The browser drops a rule whose selector it cannot parse, and it says
+     nothing. The rule is simply gone: the state it was supposed to paint never
+     gets painted, and every other measurement still passes. A rating whose
+     filled stars are drawn by
+     `.um-rate__item:nth-of-type(-n+var(--um-rate-filled))` is exactly this —
+     a custom property is not substituted inside a selector, so the browser
+     throws the rule away and the rating renders as a row of empty stars. The
+     contrast probe has nothing to say about it, because nothing about the
+     colours changed; the geometry probe has nothing to say about it either,
+     because a star that is not painted is not a box that overflows.
+
+     So this one asks the browser to show its work: which of the declared rules
+     did it throw away.
+
+     Two kinds of difference are not defects, and the probe knows them:
+
+     - The browser writes a selector back in its own words. `:nth-child(even)`
+       comes back as `:nth-child(2n)`, and the spacing around a combinator is
+       tidied. The comparison reads both sides the same way before it decides.
+     - A selector carrying a vendor prefix is written on purpose for whichever
+       engine owns that prefix, so the engine that does not own it is expected
+       to drop it. `::-moz-range-thumb` is not a broken rule in Chrome; it is
+       the rule Firefox needs. A rule whose list mixes a prefixed selector with
+       an ordinary one is still reported, because there the ordinary selector
+       is lost as well. -->
+
+<link rel="stylesheet" href="/components/um-components.css" />
+<link rel="stylesheet" href="/themes/all.css" />
+
+<style>
+  body { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; margin: 0; padding: 16px; background: var(--um-bg-page); color: var(--um-text-regular); }
+  h1 { font-size: 15px; margin: 0 0 8px; color: var(--um-text-primary); }
+  #summary { font-size: 13px; margin: 0 0 12px; white-space: pre-wrap; color: var(--um-text-regular); }
+  #report { font-size: 11px; border-collapse: collapse; width: 100%; }
+  #report th, #report td { border: 1px solid var(--um-border-base); padding: 3px 6px; text-align: left; vertical-align: top; }
+  #report th { background: var(--um-fill-light); color: var(--um-text-primary); position: sticky; top: 0; }
+  .fail { background: var(--um-color-danger-soft-4); }
+</style>
+</head>
+<body>
+
+<h1>ui-moods · validity probe</h1>
+<div id="summary">running…</div>
+<table id="report"><thead><tr><th>sheet</th><th>check</th><th>line</th><th>element</th><th>detail</th></tr></thead><tbody></tbody></table>
+
+<script type="module">
+// --- reading the source ------------------------------------------------------
+
+/**
+ * Blank out the comments, keeping every character.
+ *
+ * The offsets have to survive, because the probe reports the line a rule was
+ * declared on, and a comment replaced by nothing would move every line after
+ * it. Blanking with spaces keeps the line numbers honest.
+ */
+function blankComments(text) {
+  return text.replace(/\/\*[\s\S]*?\*\//g, (m) => m.replace(/[^\n]/g, " "));
+}
+
+/**
+ * The line a character sits on.
+ *
+ * The lines are indexed once and looked up by a binary search, because the
+ * probe asks for the line of every rule in the file and scanning the text
+ * once per rule would be quadratic.
+ */
+function lineIndexer(text) {
+  const starts = [0];
+  for (let i = 0; i < text.length; i++) if (text.charCodeAt(i) === 10) starts.push(i + 1);
+  return (offset) => {
+    let lo = 0;
+    let hi = starts.length - 1;
+    while (lo < hi) {
+      const mid = (lo + hi + 1) >> 1;
+      if (starts[mid] <= offset) lo = mid;
+      else hi = mid - 1;
+    }
+    return lo + 1;
+  };
+}
+
+/** The rules a stylesheet declares, in the order it declares them. */
+function parseSource(text) {
+  const out = [];
+  const lineAt = lineIndexer(text);
+
+  const walk = (start, end, path) => {
+    let i = start;
+    while (i < end) {
+      const open = text.indexOf("{", i);
+      if (open < 0 || open >= end) return;
+      const prelude = text.slice(i, open).trim();
+      let depth = 1;
+      let j = open + 1;
+      while (j < end && depth > 0) {
+        const c = text[j];
+        if (c === "{") depth++;
+        else if (c === "}") depth--;
+        j++;
+      }
+
+      if (prelude.startsWith("@")) {
+        const name = prelude.slice(1).split(/[\s(]/)[0].toLowerCase();
+        // The blocks that hold rules of their own are walked into, because a
+        // rule inside a media block is dropped just as quietly as one outside
+        // it. A keyframes block is not walked into: its steps are percentages,
+        // not selectors, and the browser keeps them as one block.
+        if (name === "media" || name === "supports" || name === "layer" || name === "container" || name === "scope") {
+          walk(open + 1, j - 1, [...path, prelude]);
+        } else {
+          out.push({ kind: "at", prelude, path, line: lineAt(open) });
+        }
+      } else {
+        out.push({ kind: "style", prelude, body: text.slice(open + 1, j - 1), path, line: lineAt(open) });
+      }
+      i = j;
+    }
+  };
+
+  walk(0, text.length, []);
+  return out;
+}
+
+// --- reading the browser -----------------------------------------------------
+
+/**
+ * The rules the browser kept, in the order it kept them.
+ *
+ * The CSSOM is the browser's own account of the stylesheet: a rule that failed
+ * to parse is not in it. A rule that has a selector is a style rule; a rule
+ * that has rules of its own is a block, and is walked into.
+ */
+function parseBrowser(rules, path, out) {
+  for (const rule of rules) {
+    if (rule.selectorText !== undefined) {
+      out.push({ kind: "style", selector: rule.selectorText, path });
+      continue;
+    }
+    const kind = rule.constructor?.name ?? "";
+    if (kind === "CSSKeyframesRule") {
+      out.push({ kind: "at", signature: `@keyframes ${rule.name}`, path });
+      continue;
+    }
+    if (kind === "CSSImportRule") {
+      if (rule.styleSheet) parseBrowser(rule.styleSheet.cssRules, path, out);
+      continue;
+    }
+    if (rule.cssRules) {
+      const condition = rule.conditionText ?? rule.media?.mediaText ?? rule.name ?? "";
+      parseBrowser(rule.cssRules, [...path, condition], out);
+      continue;
+    }
+    // A block with no rules of its own — `@font-face` — is one rule.
+    out.push({ kind: "at", signature: atSignature(rule), path });
+  }
+}
+
+/** The name an at-rule goes by in the browser's own words. */
+function atSignature(rule) {
+  const kind = (rule.constructor?.name ?? "").replace(/^CSS/, "").replace(/Rule$/, "").toLowerCase();
+  if (kind === "fontface") return "@font-face";
+  if (kind === "media" || kind === "supports") return `@${kind} ${rule.conditionText ?? ""}`.trim();
+  if (kind === "layerblock") return `@layer ${rule.name ?? ""}`.trim();
+  if (kind === "container") return `@container ${rule.conditionText ?? rule.containerName ?? ""}`.trim();
+  if (kind === "scope") return "@scope";
+  return `@${kind}`;
+}
+
+// --- comparing ----------------------------------------------------------------
+
+/** The selector as two texts that mean the same thing. */
+function normaliseSelector(s) {
+  return s
+    .replace(/\s+/g, " ")
+    .replace(/\s*([>+~,])\s*/g, "$1")
+    // The browser writes `even` and `odd` as the numbers they stand for.
+    .replace(/:nth-(child|last-child|of-type|last-of-type)\(even\)/g, ":nth-$1(2n)")
+    .replace(/:nth-(child|last-child|of-type|last-of-type)\(odd\)/g, ":nth-$1(2n+1)")
+    .trim();
+}
+
+/** The at-rule a block starts with, as two texts that mean the same thing. */
+function normaliseAt(prelude) {
+  const m = /^@([a-z-]+)\s*([\s\S]*)$/i.exec(prelude);
+  if (!m) return prelude;
+  return `@${m[1].toLowerCase()}${m[2] ? " " + m[2].trim() : ""}`;
+}
+
+/** The block a rule came out of, as two texts that mean the same thing. */
+function normalisePath(path) {
+  return path.map((p) => normaliseSelector(String(p).replace(/^@\w+\s*/, ""))).join(" » ");
+}
+
+/** Do a declared rule and a kept rule say the same thing? */
+function sameRule(src, kept) {
+  if (src.kind !== kept.kind) return false;
+  if (src.kind === "at") return normaliseAt(src.prelude) === kept.signature;
+  if (normalisePath(src.path) !== normalisePath(kept.path)) return false;
+  return normaliseSelector(src.prelude) === normaliseSelector(kept.selector);
+}
+
+// --- the run ------------------------------------------------------------------
+
+const summary = document.getElementById("summary");
+const tbody = document.querySelector("#report tbody");
+
+const rows = [];
+let measurements = 0;
+
+/** A vendor prefix in a selector: the rule is written for the engine that owns it. */
+const VENDOR = /-(moz|webkit|ms|o)-/;
+
+/** The selectors of a list, told apart at the top level only. */
+function splitSelectorList(prelude) {
+  const out = [];
+  let depth = 0;
+  let current = "";
+  for (const ch of prelude) {
+    if (ch === "(" || ch === "[") depth++;
+    else if (ch === ")" || ch === "]") depth--;
+    if (ch === "," && depth === 0) {
+      out.push(current.trim());
+      current = "";
+      continue;
+    }
+    current += ch;
+  }
+  if (current.trim()) out.push(current.trim());
+  return out;
+}
+
+/** Does every selector in the list carry a vendor prefix? */
+function isVendorOnly(prelude) {
+  const parts = splitSelectorList(prelude);
+  return parts.length > 0 && parts.every((p) => VENDOR.test(p));
+}
+
+/** Can the browser parse this selector at all? */
+function browserAccepts(prelude) {
+  const parts = splitSelectorList(prelude);
+  return parts.every((p) => {
+    try {
+      return CSS.supports(`selector(${p})`);
+    } catch {
+      return true;
+    }
+  });
+}
+
+for (const link of [...document.querySelectorAll('link[rel="stylesheet"]')]) {
+  const href = link.getAttribute("href");
+  const sheet = [...document.styleSheets].find((s) => s.href && s.href.endsWith(href));
+  if (!sheet) {
+    rows.push({
+      sheet: href,
+      check: "sheet-missing",
+      line: 0,
+      element: href,
+      detail: "the browser never loaded this stylesheet",
+    });
+    continue;
+  }
+
+  const text = blankComments(await fetch(href).then((r) => r.text()));
+  const src = parseSource(text);
+  const kept = [];
+  parseBrowser(sheet.cssRules, [], kept);
+
+  measurements += src.length;
+
+  // Align the two lists. A rule the browser threw away shifts everything after
+  // it, so the lists are walked together and the two ways they can disagree
+  // are told apart: either the declared rule is missing from the browser's
+  // list, or the browser is holding a rule the source never declared.
+  let si = 0;
+  let bi = 0;
+  while (si < src.length) {
+    if (bi >= kept.length) {
+      rows.push({
+        sheet: href,
+        check: "rule-dropped",
+        line: src[si].line,
+        element: src[si].prelude.slice(0, 120),
+        detail: "the browser dropped this rule and every rule after it",
+      });
+      break;
+    }
+    if (sameRule(src[si], kept[bi])) {
+      si++;
+      bi++;
+      continue;
+    }
+    if (si + 1 < src.length && sameRule(src[si + 1], kept[bi])) {
+      if (src[si].kind === "style" && isVendorOnly(src[si].prelude)) {
+        // Written for the engine that owns the prefix; this one is expected
+        // to drop it, and the rule it would have cost is the other engine's.
+        si++;
+        continue;
+      }
+      const why = src[si].kind === "style" && !browserAccepts(src[si].prelude)
+        ? "the browser cannot parse this selector, so it threw the whole rule away"
+        : "the browser threw this rule away";
+      rows.push({
+        sheet: href,
+        check: "rule-dropped",
+        line: src[si].line,
+        element: src[si].prelude.slice(0, 120),
+        detail: why,
+      });
+      si++;
+      continue;
+    }
+    if (bi + 1 < kept.length && sameRule(src[si], kept[bi + 1])) {
+      rows.push({
+        sheet: href,
+        check: "rule-extra",
+        line: src[si].line,
+        element: kept[bi].selector ?? "(no selector)",
+        detail: "the browser is holding a rule the source does not declare",
+      });
+      bi++;
+      continue;
+    }
+    rows.push({
+      sheet: href,
+      check: "rule-mismatch",
+      line: 0,
+      element: src[si].prelude.slice(0, 120),
+      detail: "this rule and the one the browser kept do not line up",
+    });
+    si++;
+    bi++;
+  }
+}
+
+for (const row of rows) {
+  // The audit groups its findings by component; for this probe the sheet is
+  // the thing that went wrong, so it takes that place.
+  row.component = row.sheet;
+  const tr = document.createElement("tr");
+  tr.className = "fail";
+  for (const key of ["sheet", "check", "line", "element", "detail"]) {
+    const td = document.createElement("td");
+    td.textContent = String(row[key]);
+    tr.append(td);
+  }
+  tbody.append(tr);
+}
+
+summary.textContent =
+  `sheets: ${document.querySelectorAll('link[rel="stylesheet"]').length}\n` +
+  `rules declared: ${measurements}\n` +
+  `failures: ${rows.length}\n` +
+  (rows.length
+    ? "\n" + rows.slice(0, 40).map((r) => `${r.sheet} ${r.check} ${r.element} ${r.detail}`).join("\n")
+    : "");
+
+window.__PROBE__ = { measurements, failures: rows.length, rows };
+document.title = `probe · ${measurements} rules · ${rows.length} failures`;
+</script>
+</body>
+</html>

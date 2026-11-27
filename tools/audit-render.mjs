@@ -40,6 +40,8 @@ const PROBES = {
   geometry: { page: "geometry.html", title: "component layout" },
   motion: { page: "motion.html", title: "the motion contract" },
   package: { page: "package.html", title: "the published package" },
+  validity: { page: "validity.html", title: "the rules the browser kept" },
+  state: { page: "state.html", title: "the states the reader sees" },
   apps: { page: "apps.html", title: "app packs" },
 };
 

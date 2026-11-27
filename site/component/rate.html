@@ -149,7 +149,7 @@
         <span class="tag">form</span>
         <span class="tag">since 1.1.0</span>
       </p>
-      <div class="note">How many stars are filled is read off the checked radio with `:has()`, and written into a variable the items count against — because CSS cannot compare two positions, so the stylesheet carries one rule per star and stops at five. The star itself is a polygon cut out of a square: the library ships no icon font, and a filled star and an empty star are the same shape in two colours, which a glyph font would have had to ship twice.</div>
+      <div class="note">How many stars are filled is read off the checked radio with `:has()`, and the stylesheet carries one rule per star — CSS cannot compare two positions, and a custom property is not substituted inside a selector, so the count has to be written into the selector itself. The stylesheet stops at five. The star itself is a polygon cut out of a square: the library ships no icon font, and a filled star and an empty star are the same shape in two colours, which a glyph font would have had to ship twice.</div>
 
       <h2>Examples</h2>
 <div class="example">

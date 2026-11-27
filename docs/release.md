@@ -41,10 +41,12 @@ npm install
 npm run validate             # expect 32/32 moods PASS, 14/14 apps PASS, registry PASS
 
 # 4. Measure the rendered result
-node tools/audit-render.mjs contrast      # 51 008 measurements, 0 failures
-node tools/audit-render.mjs geometry      # 115 168 measurements, 0 failures
+node tools/audit-render.mjs contrast      # 51 328 measurements, 0 failures
+node tools/audit-render.mjs geometry      # 115 488 measurements, 0 failures
 node tools/audit-render.mjs package       # the split stylesheet, same numbers
 node tools/audit-render.mjs motion --reduced-motion   # the motion contract
+node tools/audit-render.mjs validity      # the rules the browser kept
+node tools/audit-render.mjs state         # the states the reader sees
 
 # 5. Commit and tag
 git add -A

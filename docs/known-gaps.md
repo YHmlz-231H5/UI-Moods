@@ -168,12 +168,12 @@ The component library is new, and the honest limits are these:
   has a hole in it that only shows up on one surface.
 - **The rendered pages are measured, the host's page is not** — the probe
   measures what the library renders on its own documentation pages, across all
-  32 moods: 51 008 measurements, zero failures. A host that puts the library
+  32 moods: 51 328 measurements, zero failures. A host that puts the library
   on a surface the library does not know is outside that measurement.
 - **The package is checked, but it is not published** — the tarball is
   correct: 206 public names resolve through the `exports` map, the Vue package
   imports through those names and renders, and the split stylesheet in `css/`
-  measures the same 51 008 times with the same zero failures as the whole
+  measures the same 51 328 times with the same zero failures as the whole
   sheet. What has not happened is `npm publish`; until it does, the library is
   consumed from the repository or from a local `npm install ./path`.
 - **Motion is reduced, not removed** — when a reader has asked for reduced

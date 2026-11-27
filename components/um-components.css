@@ -3042,23 +3042,22 @@
    Rate
    ========================================================================== */
 
-/* The filled count is read off the checked radio: the container matches the
-   radio's position in the group and writes it into a variable, and the items
-   up to that position are the filled ones. CSS cannot compare two positions,
-   so there is one rule per star. */
+/* The filled count is read off the checked radio: the stylesheet knows which
+   radio is checked, and the items up to that position are the filled ones.
+   CSS cannot compare two positions, so there is one rule per star.
+
+   The count cannot be handed over in a custom property and read back out of
+   it either. A custom property is substituted into a declaration, never into
+   a selector, so `nth-of-type(-n+var(--um-rate-filled))` is not a selector the
+   browser can parse — the browser throws that whole rule away without a word,
+   and every star comes out empty. The count has to be in the selector. */
 .um-rate {
-  --um-rate-filled: 0;
   --um-rate-active-color: var(--um-color-primary);
 
   display: inline-flex;
   align-items: center;
   gap: var(--um-space-xs);
 }
-.um-rate:has(.um-rate__input:nth-of-type(1):checked) { --um-rate-filled: 1; }
-.um-rate:has(.um-rate__input:nth-of-type(2):checked) { --um-rate-filled: 2; }
-.um-rate:has(.um-rate__input:nth-of-type(3):checked) { --um-rate-filled: 3; }
-.um-rate:has(.um-rate__input:nth-of-type(4):checked) { --um-rate-filled: 4; }
-.um-rate:has(.um-rate__input:nth-of-type(5):checked) { --um-rate-filled: 5; }
 
 /* The colour of the filled stars. The filled star is the message — it says
    how many — so it takes the graphic form of the tone rather than the fill
@@ -3111,8 +3110,15 @@
   line-height: 0;
 }
 
-/* The filled stars are the ones up to the checked radio's position. */
-.um-rate__item:nth-of-type(-n+var(--um-rate-filled)) .um-rate__active { opacity: 1; }
+/* The filled stars are the ones up to the checked radio's position. The
+   position is in the selector because that is the only place the browser
+   will read it from: one rule per star, and the rule that matches says how
+   many stars are filled. */
+.um-rate:has(.um-rate__input:nth-of-type(1):checked) .um-rate__item:nth-of-type(-n+1) .um-rate__active,
+.um-rate:has(.um-rate__input:nth-of-type(2):checked) .um-rate__item:nth-of-type(-n+2) .um-rate__active,
+.um-rate:has(.um-rate__input:nth-of-type(3):checked) .um-rate__item:nth-of-type(-n+3) .um-rate__active,
+.um-rate:has(.um-rate__input:nth-of-type(4):checked) .um-rate__item:nth-of-type(-n+4) .um-rate__active,
+.um-rate:has(.um-rate__input:nth-of-type(5):checked) .um-rate__item:nth-of-type(-n+5) .um-rate__active { opacity: 1; }
 
 .um-rate--small .um-rate__icon,
 .um-rate--small .um-rate__active { width: calc(var(--um-height-sm) * 0.75); height: calc(var(--um-height-sm) * 0.75); }

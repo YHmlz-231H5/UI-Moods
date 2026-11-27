@@ -42,6 +42,42 @@ function propertyValues(css, property) {
   return out;
 }
 
+/**
+ * The selectors the stylesheet declares.
+ *
+ * The blocks that hold rules of their own are walked into, because a rule
+ * inside a media query is a rule like any other.
+ */
+function selectorsOf(css) {
+  const out = [];
+  const walk = (start, end) => {
+    let i = start;
+    while (i < end) {
+      const open = css.indexOf("{", i);
+      if (open < 0 || open >= end) return;
+      const prelude = css.slice(i, open).trim();
+      let depth = 1;
+      let j = open + 1;
+      while (j < end && depth > 0) {
+        if (css[j] === "{") depth++;
+        else if (css[j] === "}") depth--;
+        j++;
+      }
+      if (prelude.startsWith("@")) {
+        const name = prelude.slice(1).split(/[\s(]/)[0].toLowerCase();
+        if (["media", "supports", "layer", "container", "scope"].includes(name)) {
+          walk(open + 1, j - 1);
+        }
+      } else if (prelude) {
+        out.push(prelude);
+      }
+      i = j;
+    }
+  };
+  walk(0, css.length);
+  return out;
+}
+
 export function checkComponentLibrary(root) {
   const problems = [];
   const note = (message) => problems.push(message);
@@ -308,6 +344,26 @@ export function checkComponentLibrary(root) {
       if (!motion.includes(`.${cls}`)) {
         note(`the reduced-motion contract does not name ${cls}`);
       }
+    }
+  }
+
+  // --- 12. no custom property in a selector ---------------------------------
+  //
+  // A custom property is substituted into a declaration. It is never
+  // substituted into a selector, because a selector is read before any
+  // property is known. So a selector that reads one is not a selector the
+  // browser can parse: the browser throws the whole rule away without a word,
+  // and the state that rule was to paint never gets painted. A rating whose
+  // filled stars were drawn by
+  // `.um-rate__item:nth-of-type(-n+var(--um-rate-filled))` rendered as a row
+  // of empty stars, and every other check in this repository passed.
+  for (const selector of selectorsOf(css)) {
+    if (/\bvar\s*\(/i.test(selector)) {
+      note(
+        `components/um-components.css reads a custom property in a selector: ` +
+          `${selector.slice(0, 120)}; a custom property is substituted into a ` +
+          `declaration, never into a selector, so the browser drops the rule`,
+      );
     }
   }
 
