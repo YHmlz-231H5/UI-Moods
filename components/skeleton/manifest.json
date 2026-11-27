@@ -21,13 +21,19 @@
   "states": [
     { "id": "animated", "name": "Animated", "nameZh": "微光", "selector": ".um-skeleton--animated", "note": "A shimmer runs over the placeholder — but only when the user has not asked for reduced motion." }
   ],
-  "parts": [],
+  "parts": [
+    { "id": "content", "name": "Content", "nameZh": "内容", "note": "The real content, which takes the placeholder's place once there is nothing left to load." }
+  ],
   "props": [
     { "name": "shape", "type": "enum", "values": ["text", "circle", "block"], "default": "text", "description": "Which placeholder shape to draw.", "descriptionZh": "画哪一种占位形状。" },
+    { "name": "variant", "type": "enum", "values": ["text", "circle", "block"], "since": "1.1.0", "description": "Which placeholder shape to draw, under the name Element Plus gives it. It falls back to the shape prop when it is left out.", "descriptionZh": "画哪一种占位形状,用的是 Element Plus 的叫法。不传的时候用形状属性。" },
     { "name": "animated", "type": "boolean", "default": "false", "description": "Shimmers the placeholder while the content loads. The animation is wrapped in a prefers-reduced-motion query, so a user who asked for less motion gets a still placeholder.", "descriptionZh": "内容加载时让占位块闪动。动画包在 prefers-reduced-motion 查询里,所以要求减弱动效的用户看到的是静止的占位块。" },
+    { "name": "loading", "type": "boolean", "default": "true", "since": "1.1.0", "description": "Shows the placeholder. Turn it off and the default slot — the real content — takes its place.", "descriptionZh": "显示占位块。关掉之后,默认插槽里的真实内容顶上它的位置。" },
     { "name": "width", "type": "number", "default": "100", "description": "How wide the placeholder is, as a percentage of its container. A line of text usually wants a width under 100.", "descriptionZh": "占位块占容器的宽度百分比。一行文字通常不满宽。" }
   ],
-  "slots": [],
+  "slots": [
+    { "name": "default", "description": "The real content. It takes the placeholder's place while nothing is loading.", "descriptionZh": "真实内容。没有东西在加载的时候,它顶上占位块的位置。" }
+  ],
   "events": [],
   "a11y": {
     "keyboard": [],

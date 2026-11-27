@@ -33,6 +33,7 @@
     { "id": "frame", "name": "Frame", "nameZh": "画框", "note": "The box the picture goes in. It owns the shape, the rule and the recessed fill behind the picture." },
     { "id": "image", "name": "Image", "nameZh": "图片", "note": "The picture itself. It fills the frame, and the fill variant decides whether it is cropped, fitted or stretched." },
     { "id": "placeholder", "name": "Placeholder", "nameZh": "占位图", "note": "The mark that stands in for a picture that is not there yet. It is drawn from borders and carries no text of its own." },
+    { "id": "error", "name": "Error", "nameZh": "错误", "note": "What stands in for a picture that failed to load. It is empty until the caller fills it." },
     { "id": "caption", "name": "Caption", "nameZh": "说明", "note": "The line under the frame that says what the picture is." }
   ],
   "props": [
@@ -43,9 +44,14 @@
     { "name": "shape", "type": "enum", "values": ["square", "rounded", "circle"], "default": "square", "description": "The shape of the frame. The square run is the base class on its own; the other two add um-image--rounded and um-image--circle.", "descriptionZh": "画框的形状。方形就是只写基类;另外两种加上 um-image--rounded 和 um-image--circle。" },
     { "name": "bordered", "type": "boolean", "default": "false", "description": "Puts a rule around the frame. It is a class rather than an attribute, because the rule is a picture of the frame and not a state of it.", "descriptionZh": "给画框加一道边。它是一个类而不是属性,因为这道边是画框的样子,不是画框的状态。" },
     { "name": "error", "type": "boolean", "default": "false", "description": "Says the picture failed to load, so the placeholder stands in for it.", "descriptionZh": "说明这张图没加载出来,于是由占位图顶上。" },
-    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The size of the frame.", "descriptionZh": "画框的大小。" }
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The size of the frame.", "descriptionZh": "画框的大小。" },
+    { "name": "loading", "type": "enum", "values": ["eager", "lazy"], "default": "eager", "since": "1.1.0", "description": "How the browser loads the picture. It is the native loading attribute on the img, so the browser decides.", "descriptionZh": "浏览器怎么加载这张图。它是 img 上的原生 loading 属性,所以由浏览器决定。" }
   ],
-  "slots": [],
+  "slots": [
+    { "name": "default", "description": "The picture, as an img element of the caller's own. The class goes on it, so the caller does not have to write it.", "descriptionZh": "图片,用使用方自己的 img 元素。类会加在它身上,所以使用方不用自己写。" },
+    { "name": "placeholder", "description": "What stands in for a picture that is not there yet. It goes in the placeholder part.", "descriptionZh": "还没有图片时顶上来的东西。它放在占位图那一块里。" },
+    { "name": "error", "description": "What stands in for a picture that failed to load. It goes in the error part, and the placeholder gives way to it.", "descriptionZh": "图片没加载出来时顶上来的东西。它放在错误那一块里,占位图会让位给它。" }
+  ],
   "events": [],
   "a11y": {
     "role": "figure",

@@ -18,8 +18,20 @@
     { "id": "warning", "name": "Warning", "nameZh": "警告", "state": "solid", "note": "The node of this entry takes the warning colour." },
     { "id": "danger", "name": "Danger", "nameZh": "危险", "state": "solid", "note": "The node of this entry takes the danger colour." }
   ],
-  "sizes": [],
-  "states": [],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "A smaller node." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default size. The base class is already this size, so it needs no modifier." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "A larger node." }
+  ],
+  "states": [
+    { "id": "reverse", "name": "Reversed", "nameZh": "倒序", "selector": ".um-timeline--reverse", "note": "The entries run the other way: the newest one is at the top." },
+    { "id": "mode-end", "name": "Rail at the end", "nameZh": "轨道在末尾", "selector": ".um-timeline--mode-end", "note": "The rail stands at the end of every row and the text is beside it." },
+    { "id": "mode-alternate", "name": "Alternating", "nameZh": "交替", "selector": ".um-timeline--mode-alternate", "note": "The rows swap sides, one after the other." },
+    { "id": "mode-alternate-reverse", "name": "Alternating, reversed", "nameZh": "交替反向", "selector": ".um-timeline--mode-alternate-reverse", "note": "The rows swap sides the other way round, so the first one is the one with the rail at the end." },
+    { "id": "center", "name": "Centred", "nameZh": "居中", "selector": ".um-timeline__item--center", "note": "The node sits in the middle of the row rather than at the top of it." },
+    { "id": "hollow", "name": "Hollow", "nameZh": "空心", "selector": ".um-timeline__item--hollow", "note": "The node is a ring rather than a filled dot." },
+    { "id": "hide-timestamp", "name": "No timestamp", "nameZh": "隐藏时间", "selector": ".um-timeline__item--hide-timestamp", "note": "The timestamp is not shown." }
+  ],
   "parts": [
     { "id": "item", "name": "Item", "nameZh": "条目", "note": "One entry. It carries the tone modifier, so one timeline can mix states." },
     { "id": "node", "name": "Node", "nameZh": "节点", "note": "The dot. It is drawn in CSS and carries the colour of the entry." },
@@ -28,9 +40,17 @@
   ],
   "props": [
     { "name": "variant", "type": "enum", "values": ["success", "warning", "danger"], "description": "The tone of the entry. It is written on the item, not on the timeline.", "descriptionZh": "这一条的状态。它写在条目上,不写在整个时间线上。" },
-    { "name": "timestamp", "type": "string", "description": "When it happened. It is a time element inside the wrapper, so the machine-readable value and the written one travel together.", "descriptionZh": "发生的时间。它是内容区里的 time 元素,所以机器可读的值和写出来的值在一起。" }
+    { "name": "timestamp", "type": "string", "description": "When it happened. It is a time element inside the wrapper, so the machine-readable value and the written one travel together.", "descriptionZh": "发生的时间。它是内容区里的 time 元素,所以机器可读的值和写出来的值在一起。" },
+    { "name": "reverse", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Runs the entries the other way: the newest one is at the top.", "descriptionZh": "把条目反过来排:最新的在最上面。" },
+    { "name": "mode", "type": "enum", "values": ["start", "end", "alternate", "alternate-reverse"], "default": "start", "since": "1.1.0", "description": "Where the rail stands in relation to the text. The start run is the base class on its own: the rail is at the start of the row.", "descriptionZh": "轨道和文字的相对位置。靠前就是只写基类:轨道在每行的开头。" },
+    { "name": "center", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Puts the node in the middle of the row rather than at the top of it.", "descriptionZh": "把节点放在这一行的中间,而不是顶上。" },
+    { "name": "hollow", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Draws the node as a ring rather than a filled dot.", "descriptionZh": "把节点画成一个圈,而不是一个实心点。" },
+    { "name": "hide-timestamp", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Does not show the timestamp.", "descriptionZh": "不显示时间。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "since": "1.1.0", "description": "The size of the node. The medium size is the base class on its own.", "descriptionZh": "节点的大小。中号就是只写基类。" }
   ],
   "slots": [
+    { "name": "default", "description": "The entries. Each one is the caller's own element, and the tone modifier goes on the entry rather than on the list.", "descriptionZh": "各条条目。每一条都是使用方自己的元素,状态修饰类写在条目上,不是写在整条时间线上。" },
+    { "name": "dot", "description": "The node. It is drawn in CSS and ships empty, and this slot takes a mark of the host's own.", "descriptionZh": "节点。它由 CSS 画出来,本身是空的,这个插槽放使用方自己的标记。" },
     { "name": "wrapper", "description": "The body of the entry: the timestamp and the text.", "descriptionZh": "这一条的内容:时间和文字。" }
   ],
   "events": [],

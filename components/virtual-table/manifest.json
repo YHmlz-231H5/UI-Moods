@@ -19,7 +19,8 @@
     {"id":"lg","name":"Large","nameZh":"大","note":"The rows take the title size."}
   ],
   "states": [
-    {"id":"focus-visible","name":"Focus visible","nameZh":"键盘聚焦","selector":":focus-visible","native":true,"note":"The ring goes on the scrolling box, inside the frame: an outside ring would be cut off by the frame that holds it."}
+    {"id":"focus-visible","name":"Focus visible","nameZh":"键盘聚焦","selector":":focus-visible","native":true,"note":"The ring goes on the scrolling box, inside the frame: an outside ring would be cut off by the frame that holds it."},
+    {"id":"scrollbar-always-on","name":"Scrollbar always on","nameZh":"常驻滚动条","selector":".um-virtual-table--scrollbar-always-on","note":"The scrolling box keeps its scrollbar whether the list needs one or not, so the rows do not move sideways as the list grows."}
   ],
   "parts": [
     {"id":"scroller","name":"Scroller","nameZh":"滚动区","note":"The box that scrolls. It carries the overflow and the surface, and the host gives it a height, because a box that is not given one never scrolls."},
@@ -28,7 +29,9 @@
     {"id":"body","name":"Body","nameZh":"表体","note":"The rows. It is a rowgroup, so a screen reader reads them as one block."},
     {"id":"row","name":"Row","nameZh":"行","note":"One record. It carries the skip: the browser does not lay out a row that is far from the viewport."},
     {"id":"cell","name":"Cell","nameZh":"单元格","note":"One value. It is a gridcell, so the column name is announced with it."},
-    {"id":"empty","name":"Empty","nameZh":"空状态","note":"The cell that says there is nothing. It spans the whole row."}
+    {"id":"empty","name":"Empty","nameZh":"空状态","note":"The cell that says there is nothing. It spans the whole row."},
+    {"id":"footer","name":"Footer","nameZh":"表尾","note":"What stands under the table: the totals, a note. It takes no room when the host has nothing to put in it."},
+    {"id":"overlay","name":"Overlay","nameZh":"浮层","note":"What lies over the table: a mask, a loading bar. It takes no room when the host has nothing to put in it."}
   ],
   "props": [
     {"name":"variant","type":"enum","values":["bordered","plain"],"default":"plain","description":"Which surface the table is drawn on. The plain run is the base class on its own; the bordered run adds a rule around it.","descriptionZh":"表格画在哪种表面上。无边框就是只写基类;带边框再加上 um-virtual-table--bordered。"},
@@ -36,9 +39,18 @@
     {"name":"rows","type":"number","default":"200","description":"How many rows the list has. The wrapper writes one row per record, and the stylesheet skips the ones the reader cannot see.","descriptionZh":"这份清单有多少行。包装器一条记录写一行,样式表跳过读者看不见的那些行。"},
     {"name":"columns","type":"string","default":"Node, Build, State","description":"The column names, separated by commas.","descriptionZh":"列名,用逗号分开。"},
     {"name":"height","type":"string","default":"16em","description":"How tall the scrolling box is. The library cannot guess it: a box that is not given a height never scrolls, because its content is what gives it one.","descriptionZh":"滚动区有多高。库猜不出来:没给高度的盒子不会滚,因为给它高度的是它自己的内容。"},
-    {"name":"empty","type":"boolean","default":"false","description":"That there is nothing to show. The body says so instead of writing the rows.","descriptionZh":"表示没有内容可显示。表体就说这件事,而不是把那些行写出来。"}
+    {"name":"empty","type":"boolean","default":"false","description":"That there is nothing to show. The body says so instead of writing the rows.","descriptionZh":"表示没有内容可显示。表体就说这件事,而不是把那些行写出来。"},
+    {"name":"scrollbar-always-on","type":"boolean","default":"false","since":"1.1.0","description":"Whether the scrolling box keeps its scrollbar whether the list needs one or not, so the rows do not move sideways as the list grows. It adds um-virtual-table--scrollbar-always-on.","descriptionZh":"滚动区是否一直留着滚动条,不管这份清单用不用得上,这样清单变长时行不会横向挪动。它加上 um-virtual-table--scrollbar-always-on。"}
   ],
-  "slots": [],
+  "slots": [
+    {"name":"header","description":"What stands in the row of column names. It is given the column names.","descriptionZh":"列名那一行里放什么。它拿到的是列名本身。"},
+    {"name":"header-cell","description":"What one column name says. It is given the name and the column it is in.","descriptionZh":"某一个列名写什么。它拿到这个名字和它所在的列。"},
+    {"name":"row","description":"What one record holds. It is given the number of the row. Without it the row is written cell by cell.","descriptionZh":"一条记录里放什么。它拿到这一行的序号。不给就一格一格地写出来。"},
+    {"name":"cell","description":"What one value says. It is given the row, the column and the value the wrapper would have written.","descriptionZh":"某一个值写什么。它拿到行号、列号,以及包装器本来会写出来的那个值。"},
+    {"name":"empty","description":"What the empty state says when there is nothing to show.","descriptionZh":"没有内容可显示时,空状态说什么。"},
+    {"name":"footer","description":"What stands under the table: the totals, a note.","descriptionZh":"表格底下放什么:合计,或者一句说明。"},
+    {"name":"overlay","description":"What lies over the table: a mask, a loading bar.","descriptionZh":"盖在表格上的是什么:一层遮罩,或者一条加载条。"}
+  ],
   "events": [],
   "a11y": {
     "role": "grid",

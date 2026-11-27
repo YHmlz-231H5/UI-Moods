@@ -74,7 +74,9 @@
       "descriptionZh": "nav 元素的可访问名称。同一个页面上每条面包屑都要有各自的名称,否则读屏会把它们当成同一个东西。"
     }
   ],
-  "slots": [],
+  "slots": [
+    { "name": "default", "description": "The steps of the trail. Each one is an <a> for a step the reader can go back to and a <span> for the page the reader is on; the wrapper writes the separators between them.", "descriptionZh": "路径上的步骤。每一个要么是 <a>(读者可以退回去的那一步),要么是 <span>(读者所在的那一页);步骤之间的分隔符由包装组件写。" }
+  ],
   "events": [],
   "a11y": {
     "role": "navigation",

@@ -26,7 +26,8 @@
   "states": [
     { "id": "checked", "name": "Checked", "nameZh": "选中", "selector": ":checked", "native": true, "note": "The picked segment. The segment knows it is picked because it holds the radio: :has() is the only way CSS can ask an element what its child is doing." },
     { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "A segment that cannot be picked. Its text takes the derived disabled colour, the way every other disabled control in the library dims." },
-    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the segment rather than on the radio, because the radio is a pixel wide and the segment is what the reader sees." }
+    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the segment rather than on the radio, because the radio is a pixel wide and the segment is what the reader sees." },
+    { "id": "block", "name": "Block", "nameZh": "块级", "selector": ".um-segmented--block", "note": "The row fills the width it is given, and the segments share what is left between them." }
   ],
   "parts": [
     { "id": "option", "name": "Option", "nameZh": "选项", "note": "One segment. It is the label that wraps the real radio, so clicking it ticks the radio it points at." },
@@ -40,7 +41,8 @@
     { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes one segment inert. It uses the real disabled attribute, so it leaves the tab order.", "descriptionZh": "让某一段不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" },
     { "name": "variant", "type": "enum", "values": ["soft", "solid", "ghost"], "default": "soft", "description": "How the picked segment is painted. The soft run is the base class on its own; the other two add um-segmented--solid and um-segmented--ghost.", "descriptionZh": "选中的那一段怎么画。柔和是只写基类;另外两种加上 um-segmented--solid 和 um-segmented--ghost。" },
     { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The size of the segments.", "descriptionZh": "每一段的大小。" },
-    { "name": "label", "type": "string", "description": "The name of the whole row, read out before the segments. A row with no name of its own needs an accessible name from somewhere.", "descriptionZh": "整排的名字,会在各段之前读出来。没有自己名字的一排,得从别处拿到一个可访问名称。" }
+    { "name": "label", "type": "string", "description": "The name of the whole row, read out before the segments. A row with no name of its own needs an accessible name from somewhere.", "descriptionZh": "整排的名字,会在各段之前读出来。没有自己名字的一排,得从别处拿到一个可访问名称。" },
+    { "name": "block", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Whether the row fills the width it is given and the segments share what is left between them. It adds um-segmented--block.", "descriptionZh": "这一排是否撑满给它的宽度,各段平分剩下的地方。它加上 um-segmented--block。" }
   ],
   "slots": [
     { "name": "default", "description": "One segment per option: a label holding the real radio and the text.", "descriptionZh": "一个选项一段:一个包住真正 radio 和文字的 label。" }

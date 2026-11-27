@@ -212,6 +212,7 @@
       <tr><td><code>um-badge--soft-danger</code></td><td>Soft danger</td></tr>
       <tr><td><code>um-badge--soft-info</code></td><td>Soft info</td></tr>
       <tr><td><code>um-badge__dot</code></td><td>Dot</td></tr>
+      <tr><td><code>.um-badge--is-dot</code></td><td>Dot only</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -220,9 +221,19 @@
       <tbody>
       <tr><td><span class="api__name"><code>variant</code></span></td><td><code>enum = primary | success | warning | danger | info | soft-primary | soft-success | soft-warning | soft-danger | soft-info</code></td><td>—</td><td>Which state this badge carries. The base class on its own is the neutral badge.</td></tr>
       <tr><td><span class="api__name"><code>dot</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Puts a dot in front of the label, in the badge's own foreground colour.</td></tr>
+      <tr><td><span class="api__name"><code>is-dot</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Shows the mark on its own: the badge carries the dot and no count beside it.</td></tr>
+      <tr><td><span class="api__name"><code>hidden</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Hides the badge. It is the native hidden attribute, so the badge leaves the page and the reader's eye with it.</td></tr>
+      <tr><td><span class="api__name"><code>show-zero</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Keeps the badge visible when its count is zero. Without it a badge whose count is zero is hidden.</td></tr>
       </tbody>
     </table>
-
+      <h2>Slots</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>The text of the badge.</td></tr>
+      <tr><td><span class="api__name"><code>content</code></span></td><td>The count the badge shows, under the name Element Plus gives it. It fills the same place as the default slot and wins when both are given.</td></tr>
+      </tbody>
+    </table>
 
       <h2>Accessibility</h2>
       <p>The badge is text inside a plain &lt;span&gt;, so it is read where it sits and it is never focusable. When the count changes on its own, put the badge in a live region — role=&quot;status&quot; — or the change is silent for anyone who cannot see it. A badge that only repeats what the label beside it already says can be marked aria-hidden instead.</p>

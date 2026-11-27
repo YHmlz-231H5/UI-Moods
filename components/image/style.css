@@ -82,6 +82,19 @@
   display: none;
 }
 
+/* The error content stands in for a picture that failed: it is shown when the
+   picture is gone and the caller gave something to show, and the placeholder
+   gives way to it. */
+.um-image__error {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.um-image:has(.um-image__image--error) .um-image__error:not([hidden]) { display: flex; }
+.um-image:has(.um-image__image--error) .um-image__error:not([hidden]) ~ .um-image__placeholder { display: none; }
+
 /* The caption is under the frame rather than on top of it: a band of colour
    over a picture is a colour no role names. */
 .um-image__caption {

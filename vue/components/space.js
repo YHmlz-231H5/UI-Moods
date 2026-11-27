@@ -13,6 +13,8 @@ export const UMSpace = defineComponent({
   props: {
     direction: { type: String, default: "horizontal" },
     size: { type: String, default: "md" },
+    wrap: { type: Boolean, default: true },
+    fill: { type: Boolean, default: false },
   },
   setup(props, { slots }) {
     return () => {
@@ -32,6 +34,10 @@ export const UMSpace = defineComponent({
             // The medium size is the base class itself, so it needs no
             // modifier — a class the stylesheet does not have paints nothing.
             props.size !== "md" ? `um-space--${props.size}` : null,
+            // The run wraps unless it is told not to, so the class says what
+            // it does to the run rather than what the run does.
+            props.wrap ? null : "um-space--no-wrap",
+            props.fill ? "um-space--fill" : null,
           ],
         },
         rows,

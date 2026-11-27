@@ -97,3 +97,15 @@
   height: var(--um-height-lg);
   font-size: var(--um-font-size-title);
 }
+
+/* The block run fills the width it is given, and the segments share what is
+   left between them. It comes after the base rule, so a row carrying both
+   classes ends up block. */
+.um-segmented--block {
+  display: flex;
+  width: 100%;
+}
+
+.um-segmented--block .um-segmented__option {
+  flex: 1;
+}

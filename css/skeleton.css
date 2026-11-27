@@ -21,6 +21,11 @@
 .um-skeleton--circle { width: var(--um-height-lg); height: var(--um-height-lg); border-radius: var(--um-radius-circle); }
 .um-skeleton--block { height: var(--um-space-lg); }
 
+/* The real content sits beside the placeholder and takes its place once there
+   is nothing left to load. It is a plain block: the placeholder's fill and
+   shape are not carried over, because the content is not a placeholder. */
+.um-skeleton__content { display: block; }
+
 /* A skeleton that shimmers, but only when the motion contract allows it.
    `prefers-reduced-motion` wins — the library never overrides that. */
 @media (prefers-reduced-motion: no-preference) {

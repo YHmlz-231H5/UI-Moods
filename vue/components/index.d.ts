@@ -66,6 +66,10 @@ export interface UMAvatarProps {
   size?: "sm" | "md" | "lg" | "xl";
   /** The alternative text of the photo. Leave it empty when the name is already written next to the avatar. */
   alt?: string;
+  /** How the photo fills the avatar. The cover run is the base class on its own. */
+  fit?: "cover" | "contain" | "fill";
+  /** Makes this avatar the one that stands in for the avatars that did not fit, so it carries their count instead of a face. */
+  collapseAvatars?: boolean;
 }
 
 export declare const UMAvatar: DefineComponent<UMAvatarProps>;
@@ -92,6 +96,12 @@ export interface UMBadgeProps {
   variant?: "primary" | "success" | "warning" | "danger" | "info" | "soft-primary" | "soft-success" | "soft-warning" | "soft-danger" | "soft-info";
   /** Puts a dot in front of the label, in the badge's own foreground colour. */
   dot?: boolean;
+  /** Shows the mark on its own: the badge carries the dot and no count beside it. */
+  isDot?: boolean;
+  /** Hides the badge. It is the native hidden attribute, so the badge leaves the page and the reader's eye with it. */
+  hidden?: boolean;
+  /** Keeps the badge visible when its count is zero. Without it a badge whose count is zero is hidden. */
+  showZero?: boolean;
 }
 
 export declare const UMBadge: DefineComponent<UMBadgeProps>;
@@ -164,6 +174,12 @@ export declare const UMCalendar: DefineComponent<UMCalendarProps>;
 export interface UMCardProps {
   /** Which surface the card has. Without a variant the card is the mood's plain overlay surface. */
   variant?: "frosted";
+  /** The title of the card. It goes in the title part; the header slot fills the strip around it. */
+  header?: string;
+  /** The text of the footer. */
+  footer?: string;
+  /** When the card shows its shadow. The always run is the base class on its own. */
+  shadow?: "always" | "hover" | "never";
 }
 
 export declare const UMCard: DefineComponent<UMCardProps>;
@@ -178,6 +194,12 @@ export interface UMCarouselProps {
   size?: "sm" | "md" | "lg";
   /** The name of the track, read out before the slides. A scrollable region has to carry a name, or the reader is told about a scroll box and nothing else. */
   label?: string;
+  /** When the buttons that move between the slides are shown. The always run is the base class on its own. */
+  arrow?: "always" | "hover" | "never";
+  /** Whether the slides wrap around: the first slide's previous button points at the last one, and the last slide's next button points at the first. Turn it off and the ends stop. */
+  loop?: boolean;
+  /** How the slides sit next to each other. The card run is the spaced one: the neighbouring slides show at the edges of the track, so the reader can tell there is more than one. */
+  type?: "default" | "card";
 }
 
 export declare const UMCarousel: DefineComponent<UMCarouselProps>;
@@ -254,9 +276,15 @@ export interface UMCollapseProps {
   size?: "sm" | "md" | "lg";
   /** The text of the header. A panel with no text needs an accessible name of its own. */
   title?: string;
+  /** Whether the panel is open, bound with v-model in Vue. Leave it out and the `open` prop is the state; bind it and the panel answers to the binding. */
+  modelValue?: boolean;
+  /** Makes the panel inert: it cannot be opened, and it takes the derived disabled colour. */
+  disabled?: boolean;
+  /** Which end of the header the arrow sits on. The ends are written logically, so a right-to-left reader gets the other side; the end run is the base class on its own. */
+  expandIconPosition?: "start" | "end";
 }
 
-export declare const UMCollapse: DefineComponent<UMCollapseProps>;
+export declare const UMCollapse: DefineComponent<UMCollapseProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: boolean) => void }>;
 
 /** Color · 色板 — The semantic colours of the mood, drawn as a readable palette. Every cell names the role it shows and the address of the value behind it. */
 export interface UMColorProps {
@@ -406,6 +434,12 @@ export interface UMDescriptionsProps {
   columns?: number;
   /** The width of the label column, so the values line up under each other. It is written to the `--um-descriptions-label-width` custom property. */
   labelWidth?: string;
+  /** How the pairs line up in their cells. The ends are written logically, so a right-to-left reader gets the other side; the start run is the base class on its own. */
+  align?: "start" | "center" | "end";
+  /** Whether the list is framed. It falls back to the variant when it is left out. */
+  border?: boolean;
+  /** The size of the pairs. The medium size is the base class on its own. */
+  size?: "sm" | "md" | "lg";
 }
 
 export declare const UMDescriptions: DefineComponent<UMDescriptionsProps>;
@@ -437,7 +471,11 @@ export declare const UMDialog: DefineComponent<UMDialogProps, {}, {}, {}, {}, {}
 /** Divider · 分割线 — A rule between two things. It can carry a label in the middle, drop the rules and keep the label, or stand up as a vertical rule. */
 export interface UMDividerProps {
   /** Which form of the divider this is. The base class on its own is the horizontal rule with a label in the middle. */
-  variant?: "plain" | "vertical";
+  variant?: "plain" | "vertical" | "dashed" | "dotted";
+  /** How the rule is drawn. The solid rule is the base class on its own; the dashed and the dotted rule add um-divider--dashed and um-divider--dotted, the same classes the variant prop adds. */
+  borderStyle?: "solid" | "dashed" | "dotted";
+  /** Where the label sits on the rule. The middle is the base class on its own; the start and the end add um-divider--content-start and um-divider--content-end. */
+  contentPosition?: "start" | "center" | "end";
 }
 
 export declare const UMDivider: DefineComponent<UMDividerProps>;
@@ -530,6 +568,8 @@ export interface UMImageProps {
   error?: boolean;
   /** The size of the frame. */
   size?: "sm" | "md" | "lg";
+  /** How the browser loads the picture. It is the native loading attribute on the img, so the browser decides. */
+  loading?: "eager" | "lazy";
 }
 
 export declare const UMImage: DefineComponent<UMImageProps>;
@@ -876,6 +916,16 @@ export interface UMProgressProps {
   value?: number;
   /** The text under the bar. */
   label?: string;
+  /** Which state the fill paints, under the name Element Plus gives it. It falls back to the variant when it is left out. */
+  status?: "success" | "warning" | "danger";
+  /** Runs the bar along the track without a value to show. The animation is wrapped in the motion contract, so a reader who asked for less motion gets a still bar. */
+  indeterminate?: boolean;
+  /** Writes the percentage under the bar. */
+  showText?: boolean;
+  /** Strips the fill, the way a bar of hazard tape is. */
+  striped?: boolean;
+  /** Lets the stripes travel along the bar. The animation is wrapped in the motion contract. */
+  stripedFlow?: boolean;
 }
 
 export declare const UMProgress: DefineComponent<UMProgressProps>;
@@ -984,6 +1034,8 @@ export interface UMSegmentedProps {
   size?: "sm" | "md" | "lg";
   /** The name of the whole row, read out before the segments. A row with no name of its own needs an accessible name from somewhere. */
   label?: string;
+  /** Whether the row fills the width it is given and the segments share what is left between them. It adds um-segmented--block. */
+  block?: boolean;
 }
 
 export declare const UMSegmented: DefineComponent<UMSegmentedProps>;
@@ -992,8 +1044,12 @@ export declare const UMSegmented: DefineComponent<UMSegmentedProps>;
 export interface UMSkeletonProps {
   /** Which placeholder shape to draw. */
   shape?: "text" | "circle" | "block";
+  /** Which placeholder shape to draw, under the name Element Plus gives it. It falls back to the shape prop when it is left out. */
+  variant?: "text" | "circle" | "block";
   /** Shimmers the placeholder while the content loads. The animation is wrapped in a prefers-reduced-motion query, so a user who asked for less motion gets a still placeholder. */
   animated?: boolean;
+  /** Shows the placeholder. Turn it off and the default slot — the real content — takes its place. */
+  loading?: boolean;
   /** How wide the placeholder is, as a percentage of its container. A line of text usually wants a width under 100. */
   width?: number;
 }
@@ -1026,6 +1082,10 @@ export interface UMSpaceProps {
   direction?: "horizontal" | "vertical";
   /** How much space sits between the items. It is a step of the theme's own spacing scale, so the run is spaced like the rest of the page. */
   size?: "sm" | "md" | "lg";
+  /** Whether the run breaks onto the next line when it runs out of room. Turning it off adds um-space--no-wrap. */
+  wrap?: boolean;
+  /** Whether the items share the width of the run between them. It adds um-space--fill. */
+  fill?: boolean;
 }
 
 export declare const UMSpace: DefineComponent<UMSpaceProps>;
@@ -1098,6 +1158,18 @@ export interface UMTableProps {
   variant?: "striped" | "bordered";
   /** What the empty cell says when there are no records. */
   emptyText?: string;
+  /** Whether every other row takes the lighter fill. It adds um-table--striped, the same class the variant prop adds. */
+  stripe?: boolean;
+  /** Whether a vertical line stands between the columns as well as the horizontal ones. It adds um-table--bordered, the same class the variant prop adds. */
+  border?: boolean;
+  /** How much room a row takes. The middle size needs no modifier class. */
+  size?: "sm" | "md" | "lg";
+  /** Whether the row of column names is drawn. Turning it off adds um-table--no-header. */
+  showHeader?: boolean;
+  /** Whether the row the reader is on takes the highlight fill. That row is marked with um-table__row--current. */
+  highlightCurrentRow?: boolean;
+  /** Whether the summary row at the foot of the table is drawn. Turning it off adds um-table--no-summary. */
+  showSummary?: boolean;
 }
 
 export declare const UMTable: DefineComponent<UMTableProps>;
@@ -1124,6 +1196,18 @@ export declare const UMTabs: DefineComponent<UMTabsProps, {}, {}, {}, {}, {}, {}
 export interface UMTagProps {
   /** Which state this tag carries. The base class on its own is the neutral tag. */
   variant?: "primary" | "success" | "warning" | "danger";
+  /** The size of the tag. The medium size is the base class on its own. */
+  size?: "sm" | "md" | "lg";
+  /** How the tag is filled. The light run tints the fill, the plain run leaves it empty and the dark run fills it solid. */
+  effect?: "light" | "plain" | "dark";
+  /** Shows the close button. */
+  closable?: boolean;
+  /** Makes the tag inert. */
+  disabled?: boolean;
+  /** Gives the tag a heavier bottom edge, the way a struck-through row does. */
+  hit?: boolean;
+  /** Gives the tag the pill shape, whatever height it is. */
+  round?: boolean;
 }
 
 export declare const UMTag: DefineComponent<UMTagProps>;
@@ -1152,6 +1236,18 @@ export interface UMTimelineProps {
   variant?: "success" | "warning" | "danger";
   /** When it happened. It is a time element inside the wrapper, so the machine-readable value and the written one travel together. */
   timestamp?: string;
+  /** Runs the entries the other way: the newest one is at the top. */
+  reverse?: boolean;
+  /** Where the rail stands in relation to the text. The start run is the base class on its own: the rail is at the start of the row. */
+  mode?: "start" | "end" | "alternate" | "alternate-reverse";
+  /** Puts the node in the middle of the row rather than at the top of it. */
+  center?: boolean;
+  /** Draws the node as a ring rather than a filled dot. */
+  hollow?: boolean;
+  /** Does not show the timestamp. */
+  hideTimestamp?: boolean;
+  /** The size of the node. The medium size is the base class on its own. */
+  size?: "sm" | "md" | "lg";
 }
 
 export declare const UMTimeline: DefineComponent<UMTimelineProps>;
@@ -1270,6 +1366,8 @@ export interface UMTreeProps {
   size?: "sm" | "md" | "lg";
   /** The name of the thing the branch holds. A branch with no text needs an accessible name of its own. */
   label?: string;
+  /** Whether the branch the reader is on takes the highlight fill. That branch is marked with um-tree__node--current. */
+  highlightCurrent?: boolean;
 }
 
 export declare const UMTree: DefineComponent<UMTreeProps>;
@@ -1342,6 +1440,12 @@ export interface UMVirtualSelectProps {
   placeholder?: string;
   /** The height of the scroller. It is a length and not a number of pixels: how tall the window onto the list is belongs to the host's page. */
   height?: string;
+  /** How tall a row is and how big the type in it is. The middle size needs no modifier class. */
+  size?: "sm" | "md" | "lg";
+  /** Makes the choice out of reach. It is the real disabled attribute on every radio, so the rows leave the tab order. */
+  disabled?: boolean;
+  /** Whether the scrolling box keeps its scrollbar whether the list needs one or not, so the rows do not move sideways as the list grows. It adds um-virtual-select--scrollbar-always-on. */
+  scrollbarAlwaysOn?: boolean;
 }
 
 export declare const UMVirtualSelect: DefineComponent<UMVirtualSelectProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
@@ -1360,6 +1464,8 @@ export interface UMVirtualTableProps {
   height?: string;
   /** That there is nothing to show. The body says so instead of writing the rows. */
   empty?: boolean;
+  /** Whether the scrolling box keeps its scrollbar whether the list needs one or not, so the rows do not move sideways as the list grows. It adds um-virtual-table--scrollbar-always-on. */
+  scrollbarAlwaysOn?: boolean;
 }
 
 export declare const UMVirtualTable: DefineComponent<UMVirtualTableProps>;
@@ -1372,10 +1478,14 @@ export interface UMVirtualTreeProps {
   size?: "sm" | "md" | "lg";
   /** How deep the tree goes. The wrapper writes that many levels of branches. */
   depth?: number;
-  /** How many branches each level has. The wrapper multiplies them out, so a depth of four and six branches is a thousand leaves. */
+  /** How many branches each level has. The wrapper multiplies them out, so a depth of four and six branches is a thousand leaves. No branches at all is an empty tree, and the empty slot says what it holds. */
   branches?: number;
   /** How tall the scrolling box is. The library cannot guess it: a box that is not given a height never scrolls, because its content is what gives it one. */
   height?: string;
+  /** Whether the branch the reader is on takes the highlight fill. That branch is marked with um-virtual-tree__node--current. */
+  highlightCurrent?: boolean;
+  /** Whether the scrolling box keeps its scrollbar whether the tree needs one or not, so the branches do not move sideways as the tree grows. It adds um-virtual-tree--scrollbar-always-on. */
+  scrollbarAlwaysOn?: boolean;
 }
 
 export declare const UMVirtualTree: DefineComponent<UMVirtualTreeProps>;

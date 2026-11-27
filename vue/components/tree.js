@@ -8,6 +8,9 @@
 // The wrapper draws one branch — the node, its label, the mark that says it
 // holds something and the level below — and the children slot is where the
 // level below goes, written as the node markup the example shows.
+//
+// The default slot is the label slot under the name Element Plus gives it, and
+// the empty slot says what the level below says when there is nothing in it.
 
 import { defineComponent, h } from "vue";
 
@@ -19,6 +22,7 @@ export const UMTree = defineComponent({
     variant: { type: String, default: "plain" },
     size: { type: String, default: "md" },
     label: { type: String, default: "" },
+    highlightCurrent: { type: Boolean, default: false },
   },
   emits: ["toggle"],
   setup(props, { slots, emit }) {
@@ -38,6 +42,7 @@ export const UMTree = defineComponent({
               : props.size === "lg"
                 ? "um-tree--lg"
                 : null,
+            props.highlightCurrent ? "um-tree--highlight-current" : null,
           ],
           role: "group",
         },
@@ -53,17 +58,26 @@ export const UMTree = defineComponent({
               h(
                 "summary",
                 { class: "um-tree__label" },
+                // What the branch says. The named slot says it first, and the
+                // default slot is the same content under the name Element Plus
+                // gives it.
                 slots.label
                   ? slots.label({ label: props.label, open: props.open })
-                  : [
-                      h("span", { class: "um-tree__arrow", "aria-hidden": "true" }),
-                      h("span", { class: "um-tree__text" }, props.label),
-                    ],
+                  : slots.default
+                    ? slots.default({ label: props.label, open: props.open })
+                    : [
+                        h("span", { class: "um-tree__arrow", "aria-hidden": "true" }),
+                        h("span", { class: "um-tree__text" }, props.label),
+                      ],
               ),
               h(
                 "div",
                 { class: "um-tree__children" },
-                slots.children ? slots.children({ label: props.label, open: props.open }) : [],
+                slots.children
+                  ? slots.children({ label: props.label, open: props.open })
+                  : slots.empty
+                    ? slots.empty({ label: props.label, open: props.open })
+                    : [],
               ),
             ],
           ),

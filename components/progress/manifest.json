@@ -19,7 +19,12 @@
     { "id": "danger", "name": "Danger", "nameZh": "危险", "state": "solid", "note": "The fill takes the danger colour." }
   ],
   "sizes": [],
-  "states": [],
+  "states": [
+    { "id": "indeterminate", "name": "Indeterminate", "nameZh": "不定进度", "selector": ".um-progress--indeterminate", "note": "The bar moves along the track without a value to show, so it says that something is happening and not how much of it is done." },
+    { "id": "show-text", "name": "Show the percentage", "nameZh": "显示百分比", "selector": ".um-progress--show-text", "note": "The percentage is written under the bar." },
+    { "id": "striped", "name": "Striped", "nameZh": "条纹", "selector": ".um-progress--striped", "note": "The fill is striped, the way a bar of hazard tape is." },
+    { "id": "striped-flow", "name": "Striped and flowing", "nameZh": "条纹流动", "selector": ".um-progress--striped-flow", "note": "The stripes travel along the bar." }
+  ],
   "parts": [
     { "id": "track", "name": "Track", "nameZh": "轨道", "note": "The groove. It is the full width and hides what is behind the fill." },
     { "id": "bar", "name": "Bar", "nameZh": "填充", "note": "The fill. Its width comes from the host as an inline style, because the value is data and no class can carry a number." },
@@ -28,9 +33,15 @@
   "props": [
     { "name": "variant", "type": "enum", "values": ["success", "warning", "danger"], "description": "Which state the fill paints. The base class is already the primary progress, so a plain um-progress needs no modifier at all.", "descriptionZh": "填充用哪种状态色。基础类本身就是主色进度,所以只写 um-progress 时不需要任何修饰类。" },
     { "name": "value", "type": "number", "default": "0", "description": "How much is done, as a percentage of the track. It is written to the inline width of the bar.", "descriptionZh": "完成了多少,按轨道的百分比算。它写在填充条的内联宽度上。" },
-    { "name": "label", "type": "string", "description": "The text under the bar.", "descriptionZh": "进度条下方的文字。" }
+    { "name": "label", "type": "string", "description": "The text under the bar.", "descriptionZh": "进度条下方的文字。" },
+    { "name": "status", "type": "enum", "values": ["success", "warning", "danger"], "since": "1.1.0", "description": "Which state the fill paints, under the name Element Plus gives it. It falls back to the variant when it is left out.", "descriptionZh": "填充用哪种状态色,用的是 Element Plus 的叫法。不传就以变体为准。" },
+    { "name": "indeterminate", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Runs the bar along the track without a value to show. The animation is wrapped in the motion contract, so a reader who asked for less motion gets a still bar.", "descriptionZh": "让填充条在轨道上走,不给一个具体的量。动画包在动效约定里,所以要求减弱动效的用户看到的是静止的进度条。" },
+    { "name": "show-text", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Writes the percentage under the bar.", "descriptionZh": "在进度条下面写出百分比。" },
+    { "name": "striped", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Strips the fill, the way a bar of hazard tape is.", "descriptionZh": "给填充加上条纹,像警示胶带那样。" },
+    { "name": "striped-flow", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Lets the stripes travel along the bar. The animation is wrapped in the motion contract.", "descriptionZh": "让条纹沿着进度条流动。动画包在动效约定里。" }
   ],
   "slots": [
+    { "name": "default", "description": "The content of the bar. It sits on the fill, so it has to read against it.", "descriptionZh": "进度条里的内容。它压在填充上,所以得在填充上读得清。" },
     { "name": "label", "description": "The text under the bar.", "descriptionZh": "进度条下方的文字。" }
   ],
   "events": [],

@@ -18,14 +18,37 @@
     { "id": "warning", "name": "Warning", "nameZh": "警告", "state": "outline" },
     { "id": "danger", "name": "Danger", "nameZh": "危险", "state": "outline" }
   ],
-  "sizes": [],
-  "states": [],
-  "parts": [],
-  "props": [
-    { "name": "variant", "type": "enum", "values": ["primary", "success", "warning", "danger"], "description": "Which state this tag carries. The base class on its own is the neutral tag.", "descriptionZh": "这个标签表示哪一种状态。只写基类就是中性标签。" }
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "A shorter chip. The label keeps the caption size, so only the padding around it shrinks." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default size. The base class is already this size, so it needs no modifier." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "A taller chip that takes the body size." }
   ],
-  "slots": [],
-  "events": [],
+  "states": [
+    { "id": "closable", "name": "Closable", "nameZh": "可关闭", "selector": ".um-tag--closable", "note": "The tag carries a close button. The button is a real button, so the keyboard reaches it." },
+    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ".um-tag--disabled", "note": "The tag is inert. It takes the derived disabled colour, so its label is still measurable." },
+    { "id": "hit", "name": "Hit", "nameZh": "划线", "selector": ".um-tag--hit", "note": "The tag carries a heavier bottom edge, the way a struck-through row does." },
+    { "id": "round", "name": "Round", "nameZh": "圆角", "selector": ".um-tag--round", "note": "The tag is a pill: the ends are as round as the tag is tall." },
+    { "id": "effect-plain", "name": "Plain effect", "nameZh": "无底色", "selector": ".um-tag--plain", "note": "The fill run that leaves the tag empty and keeps only the outline." },
+    { "id": "effect-dark", "name": "Dark effect", "nameZh": "实底色", "selector": ".um-tag--dark", "note": "The fill run that paints the tag solid, the way the badge does." }
+  ],
+  "parts": [
+    { "id": "close", "name": "Close", "nameZh": "关闭", "note": "The button that removes the tag. It is drawn from two borders, so the library ships no glyph of its own." }
+  ],
+  "props": [
+    { "name": "variant", "type": "enum", "values": ["primary", "success", "warning", "danger"], "description": "Which state this tag carries. The base class on its own is the neutral tag.", "descriptionZh": "这个标签表示哪一种状态。只写基类就是中性标签。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "since": "1.1.0", "description": "The size of the tag. The medium size is the base class on its own.", "descriptionZh": "标签的尺寸。中号就是只写基类。" },
+    { "name": "effect", "type": "enum", "values": ["light", "plain", "dark"], "default": "light", "since": "1.1.0", "description": "How the tag is filled. The light run tints the fill, the plain run leaves it empty and the dark run fills it solid.", "descriptionZh": "标签怎么填色。浅色给底色上淡色,无底色留空,深色填实。" },
+    { "name": "closable", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Shows the close button.", "descriptionZh": "显示关闭按钮。" },
+    { "name": "disabled", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Makes the tag inert.", "descriptionZh": "标签不可用。" },
+    { "name": "hit", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Gives the tag a heavier bottom edge, the way a struck-through row does.", "descriptionZh": "给标签的下边加一道更重的边,像被划掉的那一行。" },
+    { "name": "round", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Gives the tag the pill shape, whatever height it is.", "descriptionZh": "标签变成胶囊形,不论高度多少。" }
+  ],
+  "slots": [
+    { "name": "default", "description": "The label of the tag.", "descriptionZh": "标签上的文字。" }
+  ],
+  "events": [
+    { "name": "close", "description": "Fires when the close button is pressed. The wrapper installs the listener; the stylesheet paints the button.", "descriptionZh": "按下关闭按钮时触发。监听器由包装组件安装,按钮由样式表绘制。" }
+  ],
   "a11y": {
     "notes": "The tag is text inside a plain <span>: it is read where it sits and it is never focusable. If the tag is meant to be clicked or removed, use a real <button> or <a> and keep the class on it — a clickable span is not focusable and is not announced as a control.",
     "notesZh": "标签就是 <span> 里的一段文字,在哪儿就读到哪儿,也永远不进 Tab 顺序。如果这个标签是可以点、可以删的,请用真正的 <button> 或 <a>,把类留在它身上就行 —— 可点的 span 不可聚焦,读屏也不会把它当成控件。"

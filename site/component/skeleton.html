@@ -184,6 +184,7 @@
       <tr><td><code>um-skeleton--text</code></td><td>Text</td></tr>
       <tr><td><code>um-skeleton--circle</code></td><td>Circle</td></tr>
       <tr><td><code>um-skeleton--block</code></td><td>Block</td></tr>
+      <tr><td><code>um-skeleton__content</code></td><td>Content</td></tr>
       <tr><td><code>.um-skeleton--animated</code></td><td>Animated</td></tr>
       </tbody>
     </table>
@@ -192,11 +193,19 @@
       <thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
       <tbody>
       <tr><td><span class="api__name"><code>shape</code></span></td><td><code>enum = text | circle | block</code></td><td><code>text</code></td><td>Which placeholder shape to draw.</td></tr>
+      <tr><td><span class="api__name"><code>variant</code></span></td><td><code>enum = text | circle | block</code></td><td>—</td><td>Which placeholder shape to draw, under the name Element Plus gives it. It falls back to the shape prop when it is left out.</td></tr>
       <tr><td><span class="api__name"><code>animated</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Shimmers the placeholder while the content loads. The animation is wrapped in a prefers-reduced-motion query, so a user who asked for less motion gets a still placeholder.</td></tr>
+      <tr><td><span class="api__name"><code>loading</code></span></td><td><code>boolean</code></td><td><code>true</code></td><td>Shows the placeholder. Turn it off and the default slot — the real content — takes its place.</td></tr>
       <tr><td><span class="api__name"><code>width</code></span></td><td><code>number</code></td><td><code>100</code></td><td>How wide the placeholder is, as a percentage of its container. A line of text usually wants a width under 100.</td></tr>
       </tbody>
     </table>
-
+      <h2>Slots</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>The real content. It takes the placeholder's place while nothing is loading.</td></tr>
+      </tbody>
+    </table>
 
       <h2>Accessibility</h2>
       <p>A skeleton is a placeholder, not content: mark it aria-hidden so a screen reader does not read a row of empty boxes, and put aria-busy=&quot;true&quot; on the region that is loading. The real content replaces it when it arrives — nothing else is needed.</p>

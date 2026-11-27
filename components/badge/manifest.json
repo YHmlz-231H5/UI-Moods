@@ -26,15 +26,23 @@
     { "id": "soft-info", "name": "Soft info", "nameZh": "柔和信息", "state": "soft" }
   ],
   "sizes": [],
-  "states": [],
+  "states": [
+    { "id": "is-dot", "name": "Dot only", "nameZh": "只有圆点", "selector": ".um-badge--is-dot", "note": "The mark is the whole badge: the chip closes around the dot and carries no count." }
+  ],
   "parts": [
     { "id": "dot", "name": "Dot", "nameZh": "圆点", "note": "A small dot in the badge's own foreground colour." }
   ],
   "props": [
     { "name": "variant", "type": "enum", "values": ["primary", "success", "warning", "danger", "info", "soft-primary", "soft-success", "soft-warning", "soft-danger", "soft-info"], "description": "Which state this badge carries. The base class on its own is the neutral badge.", "descriptionZh": "这个徽标表示哪一种状态。只写基类就是中性徽标。" },
-    { "name": "dot", "type": "boolean", "default": "false", "description": "Puts a dot in front of the label, in the badge's own foreground colour.", "descriptionZh": "在文字前放一个圆点,颜色取徽标自己的前景色。" }
+    { "name": "dot", "type": "boolean", "default": "false", "description": "Puts a dot in front of the label, in the badge's own foreground colour.", "descriptionZh": "在文字前放一个圆点,颜色取徽标自己的前景色。" },
+    { "name": "is-dot", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Shows the mark on its own: the badge carries the dot and no count beside it.", "descriptionZh": "只显示圆点:徽标里只有那个圆点,旁边没有计数。" },
+    { "name": "hidden", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Hides the badge. It is the native hidden attribute, so the badge leaves the page and the reader's eye with it.", "descriptionZh": "把徽标藏起来。它是原生 hidden 属性,所以徽标会从页面和读者的视线里一起消失。" },
+    { "name": "show-zero", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Keeps the badge visible when its count is zero. Without it a badge whose count is zero is hidden.", "descriptionZh": "计数为零时仍然显示徽标。不开的话,计数为零的徽标会被藏起来。" }
   ],
-  "slots": [],
+  "slots": [
+    { "name": "default", "description": "The text of the badge.", "descriptionZh": "徽标上的文字。" },
+    { "name": "content", "description": "The count the badge shows, under the name Element Plus gives it. It fills the same place as the default slot and wins when both are given.", "descriptionZh": "徽标显示的计数,用的是 Element Plus 的叫法。它和默认插槽填的是同一块,两个都给时以它为准。" }
+  ],
   "events": [],
   "a11y": {
     "notes": "The badge is text inside a plain <span>, so it is read where it sits and it is never focusable. When the count changes on its own, put the badge in a live region — role=\"status\" — or the change is silent for anyone who cannot see it. A badge that only repeats what the label beside it already says can be marked aria-hidden instead.",

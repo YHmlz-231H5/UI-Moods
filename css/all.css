@@ -1013,6 +1013,18 @@
   gap: var(--um-space-lg);
 }
 
+/* A run that does not wrap keeps every item on one line, so the items shrink
+   instead of the row breaking. */
+.um-space--no-wrap {
+  flex-wrap: nowrap;
+}
+
+/* The items of a filling run share the width of the run between them, so the
+   row ends flush at both ends instead of leaving a gap at the end of it. */
+.um-space--fill .um-space__item {
+  flex: 1 1 0;
+}
+
 /* ============================================================================
    Splitter
    ========================================================================== */
@@ -4246,6 +4258,54 @@
   font-size: var(--um-font-size-caption);
 }
 
+/* The scrollbar is always there: the box keeps its scrollbar whether the list
+   needs one or not, so the rows do not move sideways as the list grows past
+   the box. */
+.um-virtual-select--scrollbar-always-on .um-virtual-select__scroller {
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
+}
+
+/* A row whose choice is out of reach says so: the words take the disabled
+   colour and the pointer says the row cannot be picked. */
+.um-virtual-select__option:has(input:disabled) .um-virtual-select__text {
+  color: var(--um-text-disabled);
+}
+
+.um-virtual-select__option:has(input:disabled) .um-virtual-select__label {
+  cursor: not-allowed;
+}
+
+/* The header and the footer stand above and below the options: a filter, a
+   note, a load-more row. They take no room at all when the host has nothing
+   to put in them, so an empty one is not a strip of nothing. */
+.um-virtual-select__header,
+.um-virtual-select__footer {
+  padding: var(--um-space-xs) var(--um-space-sm);
+  color: var(--um-text-secondary);
+}
+
+.um-virtual-select__header {
+  border-bottom: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+}
+
+.um-virtual-select__footer {
+  border-top: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+}
+
+.um-virtual-select__header:empty,
+.um-virtual-select__footer:empty {
+  display: none;
+}
+
+/* The list with no option in it says so, and leaves the reason to the page
+   that owns the data. */
+.um-virtual-select__empty {
+  padding: var(--um-space-lg) var(--um-space-sm);
+  color: var(--um-text-secondary);
+  text-align: center;
+}
+
 /* ============================================================================
    Avatar
    ========================================================================== */
@@ -4296,6 +4356,21 @@
 .um-avatar--circle { border-radius: var(--um-radius-circle); }
 .um-avatar--square { border-radius: var(--um-radius-base); }
 
+/* How the photo fills the box. The cover run is the base class on its own;
+   the modifier paints the same rule, so the class list can name it. */
+.um-avatar--cover .um-avatar__image { object-fit: cover; }
+.um-avatar--contain .um-avatar__image { object-fit: contain; }
+.um-avatar--fill .um-avatar__image { object-fit: fill; }
+
+/* The collapsed avatar stands in for the ones that did not fit, so it carries
+   a count rather than a face, and the count is set smaller than a face's
+   initials would be. */
+.um-avatar--collapsed {
+  background: var(--um-fill-base);
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+
 /* ============================================================================
    Badge
    ========================================================================== */
@@ -4335,6 +4410,23 @@
 .um-badge--soft-info    { background: var(--um-color-info-soft-8);    color: var(--um-color-info-on-soft); }
 
 .um-badge__dot { width: 6px; height: 6px; border-radius: var(--um-radius-circle); background: currentColor; }
+
+/* The dot-only badge: the mark is the whole badge, so the chip closes around
+   it and takes the circle the badge's own radius gives it. */
+.um-badge--is-dot {
+  width: 6px;
+  height: 6px;
+  padding: 0;
+  border-radius: var(--um-radius-circle);
+}
+
+/* A badge that was not asked for is hidden rather than painted over the page.
+   The rule carries the hidden attribute with the base class beside it,
+   because the base class says `display: inline-flex` and would otherwise
+   win. */
+.um-badge[hidden] {
+  display: none;
+}
 
 /* ============================================================================
    Calendar
@@ -4522,6 +4614,12 @@
   backdrop-filter: var(--um-backdrop, none);
 }
 
+/* The shadow run. The always run is the base class on its own; the never run
+   takes the shadow away and the hover run keeps it for the pointer. */
+.um-card--shadow-never { box-shadow: none; }
+.um-card--shadow-hover { box-shadow: none; }
+.um-card--shadow-hover:hover { box-shadow: var(--um-shadow-base); }
+
 /* ============================================================================
    Carousel
    ========================================================================== */
@@ -4666,6 +4764,21 @@
   width: var(--um-height-lg);
   height: var(--um-height-lg);
 }
+
+/* The arrow run. The always run is the base class on its own: the buttons are
+   there. The never run takes them away, and the hover run keeps them for the
+   pointer and for the keyboard — the buttons stay in the tab order, so a
+   reader who tabs to one sees it. */
+.um-carousel--arrow-never .um-carousel__nav { display: none; }
+.um-carousel--arrow-hover .um-carousel__nav { opacity: 0; }
+.um-carousel--arrow-hover .um-carousel__slide:hover .um-carousel__nav,
+.um-carousel--arrow-hover .um-carousel__slide:focus-within .um-carousel__nav { opacity: 1; }
+
+/* Without the loop the ends stop: the first slide has no slide before it and
+   the last has none after it, so the button that would step past the end is
+   taken away rather than left pointing back at the other end. */
+.um-carousel--no-loop .um-carousel__slide:first-child .um-carousel__prev,
+.um-carousel--no-loop .um-carousel__slide:last-child .um-carousel__next { display: none; }
 
 /* ============================================================================
    Cascader
@@ -4899,6 +5012,18 @@
   padding: 0 var(--um-space-lg) var(--um-space-lg);
 }
 
+/* A panel that cannot be opened says so in the markup: a disclosure is not a
+   form control, so it cannot carry the disabled attribute itself, and the
+   reader has to be told. The pointer is taken off the panel, so it does not
+   open. */
+.um-collapse--disabled { pointer-events: none; cursor: not-allowed; }
+.um-collapse--disabled .um-collapse__header { color: var(--um-text-disabled); }
+
+/* The arrow sits at the end of the header. The start run moves it to the
+   other end, and it moves with the reading direction rather than with the
+   page: `order` is the flow order, not a side. */
+.um-collapse--icon-start .um-collapse__arrow { order: -1; }
+
 /* ============================================================================
    Descriptions
    ========================================================================== */
@@ -4966,6 +5091,39 @@
 .um-descriptions--bordered .um-descriptions__label {
   padding-inline-end: var(--um-space-sm);
   border-inline-end: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+}
+
+/* The alignment run. The start run is the base class on its own: the pair
+   lines up with the start of its cell. The ends are written logically, so a
+   right-to-left reader gets the other side. */
+.um-descriptions--align-center { text-align: center; }
+.um-descriptions--align-end { text-align: end; }
+
+/* The size run. The medium list is the base class on its own: the label takes
+   the caption size and the value takes the body size. */
+.um-descriptions--sm .um-descriptions__content { font-size: var(--um-font-size-caption); }
+.um-descriptions--lg .um-descriptions__label { font-size: var(--um-font-size-body); }
+.um-descriptions--lg .um-descriptions__content { font-size: var(--um-font-size-title); }
+
+/* The header holds the title and the extra: the title at the start, the extra
+   at the end. The header adds no space of its own — the gap under the title
+   is the title's own — so a list with no title is not pushed down by a row
+   that carries nothing. */
+.um-descriptions__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--um-space-xs);
+}
+.um-descriptions__title {
+  margin-bottom: var(--um-space-xs);
+  color: var(--um-text-primary);
+  font-size: var(--um-font-size-title);
+  font-weight: var(--um-font-weight-bold);
+}
+.um-descriptions__extra {
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
 }
 
 /* ============================================================================
@@ -5078,6 +5236,19 @@
 .um-image__image--error {
   display: none;
 }
+
+/* The error content stands in for a picture that failed: it is shown when the
+   picture is gone and the caller gave something to show, and the placeholder
+   gives way to it. */
+.um-image__error {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.um-image:has(.um-image__image--error) .um-image__error:not([hidden]) { display: flex; }
+.um-image:has(.um-image__image--error) .um-image__error:not([hidden]) ~ .um-image__placeholder { display: none; }
 
 /* The caption is under the frame rather than on top of it: a band of colour
    over a picture is a colour no role names. */
@@ -5269,6 +5440,43 @@
   font-weight: var(--um-font-weight-medium);
 }
 
+/* The percentage sits under the bar on a line of its own, so it does not
+   read as part of a label the host wrote beside it. */
+.um-progress--show-text .um-progress__label { display: block; }
+
+/* The striped run: the fill is striped, the way a bar of hazard tape is. The
+   stripe is the track's own colour, so the stripes read as gaps in the fill
+   rather than as a second colour on top of it. */
+.um-progress--striped .um-progress__bar {
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--um-fill-light) 0,
+    var(--um-fill-light) 4px,
+    transparent 4px,
+    transparent 8px
+  );
+}
+
+/* The indeterminate run: the bar moves along the track without a value to
+   show. The animation is wrapped in the motion contract — `prefers-reduced-
+   motion` wins, and the library never overrides that. */
+@media (prefers-reduced-motion: no-preference) {
+  .um-progress--indeterminate .um-progress__bar {
+    animation: um-progress-indeterminate 1.4s ease infinite;
+  }
+  .um-progress--striped-flow .um-progress__bar {
+    animation: um-progress-stripes 1.4s linear infinite;
+  }
+}
+@keyframes um-progress-indeterminate {
+  0% { margin-inline-start: -40%; width: 40%; }
+  100% { margin-inline-start: 100%; width: 40%; }
+}
+@keyframes um-progress-stripes {
+  0% { background-position: 0 0; }
+  100% { background-position: 8px 0; }
+}
+
 /* ============================================================================
    Result
    ========================================================================== */
@@ -5441,6 +5649,18 @@
   font-size: var(--um-font-size-title);
 }
 
+/* The block run fills the width it is given, and the segments share what is
+   left between them. It comes after the base rule, so a row carrying both
+   classes ends up block. */
+.um-segmented--block {
+  display: flex;
+  width: 100%;
+}
+
+.um-segmented--block .um-segmented__option {
+  flex: 1;
+}
+
 /* ============================================================================
    Skeleton
    ========================================================================== */
@@ -5451,6 +5671,11 @@
 .um-skeleton--text { height: var(--um-font-size-body); border-radius: var(--um-radius-small); }
 .um-skeleton--circle { width: var(--um-height-lg); height: var(--um-height-lg); border-radius: var(--um-radius-circle); }
 .um-skeleton--block { height: var(--um-space-lg); }
+
+/* The real content sits beside the placeholder and takes its place once there
+   is nothing left to load. It is a plain block: the placeholder's fill and
+   shape are not carried over, because the content is not a placeholder. */
+.um-skeleton__content { display: block; }
 
 /* A skeleton that shimmers, but only when the motion contract allows it.
    `prefers-reduced-motion` wins — the library never overrides that. */
@@ -5582,6 +5807,41 @@
   text-align: center;
 }
 
+/* The size sets how much room a row takes. The middle size is the base class
+   on its own, so only the two ends need a rule. */
+.um-table--sm .um-table__cell {
+  padding: var(--um-space-xs);
+  font-size: var(--um-font-size-caption);
+}
+.um-table--lg .um-table__cell { padding: var(--um-space-md) var(--um-space-sm); }
+
+/* The current row takes the highlight fill, and only when the table is told
+   to highlight it: the class on the row says which row it is, the class on
+   the table says whether that counts. */
+.um-table--highlight-current .um-table__row--current { background: var(--um-fill-light); }
+
+/* A table with no header does not draw the row of column names. The frame
+   still belongs to the wrapper, so the top edge is still one line. */
+.um-table--no-header .um-table__header { display: none; }
+
+/* The summary row is a band of its own at the foot of the table: it holds
+   totals, not records, so it takes the header's fill and a heavier label. */
+.um-table__summary .um-table__cell {
+  background: var(--um-fill-base);
+  border-top: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  color: var(--um-text-primary);
+  font-weight: var(--um-font-weight-medium);
+}
+.um-table--no-summary .um-table__summary { display: none; }
+
+/* The append row stands under the last record: it is where "load more" and
+   the like live, so it says so quietly rather than looking like a record. */
+.um-table__append {
+  padding: var(--um-space-sm);
+  color: var(--um-text-secondary);
+  text-align: center;
+}
+
 /* ============================================================================
    Tag
    ========================================================================== */
@@ -5610,10 +5870,95 @@
 .um-tag--warning { border-color: var(--um-color-warning-text); color: var(--um-color-warning-on-soft); background: var(--um-color-warning-soft-8); }
 .um-tag--danger  { border-color: var(--um-color-danger-text);  color: var(--um-color-danger-on-soft);  background: var(--um-color-danger-soft-8); }
 
+/* The size run. The tag is a caption-sized chip, so the small run only takes
+   height away and the large run takes the body size. */
+.um-tag--sm { height: calc(var(--um-height-sm) - 4px); }
+.um-tag--lg { height: var(--um-height-md); font-size: var(--um-font-size-body); }
+
+/* The fill run. The light run is the base class on its own: a tint for the
+   variants and the plain fill for the neutral tag. The plain run leaves the
+   tag empty, so its label takes the brand colour that is guaranteed to read
+   on the page rather than the one derived for the tint it no longer has. The
+   dark run fills the tag solid, the way the badge does. */
+.um-tag--plain { background: transparent; }
+.um-tag--plain.um-tag--primary { color: var(--um-color-primary-text); }
+.um-tag--plain.um-tag--success { color: var(--um-color-success-text); }
+.um-tag--plain.um-tag--warning { color: var(--um-color-warning-text); }
+.um-tag--plain.um-tag--danger  { color: var(--um-color-danger-text); }
+.um-tag--dark { background: var(--um-text-primary); border-color: transparent; color: var(--um-fill-blank); }
+.um-tag--dark.um-tag--primary { background: var(--um-color-primary); color: var(--um-color-primary-on); }
+.um-tag--dark.um-tag--success { background: var(--um-color-success); color: var(--um-color-success-on); }
+.um-tag--dark.um-tag--warning { background: var(--um-color-warning); color: var(--um-color-warning-on); }
+.um-tag--dark.um-tag--danger  { background: var(--um-color-danger);  color: var(--um-color-danger-on); }
+
+/* A closable tag tightens the gap, because the close mark is a small thing
+   sitting right beside the label rather than a control of its own. */
+.um-tag--closable { gap: 2px; }
+
+/* The hit run: the tag carries a heavier bottom edge, the way a struck-through
+   row does, so the edge that matters is the one you can see. */
+.um-tag--hit { border-bottom-width: 2px; }
+
+/* The round run: the tag is a pill, the ends as round as the tag is tall. */
+.um-tag--round { border-radius: var(--um-radius-round); }
+
+/* A disabled tag is inert, so it gives up its fill and takes the derived
+   disabled colour — a colour that is still measurable, rather than a label
+   dropped to 45%. The wrapper also marks it aria-disabled, so the state is
+   one a reader can be told about and not only a picture. */
+.um-tag.um-tag--disabled {
+  background: transparent;
+  border-color: var(--um-border-lighter);
+  color: var(--um-text-disabled);
+}
+
+/* The close button is a small mark drawn from two borders, so the library
+   ships no glyph of its own. It is a real button, so it is focusable and the
+   keyboard reaches it. */
+.um-tag__close {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  width: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--um-radius-small);
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+.um-tag__close::before,
+.um-tag__close::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 8px;
+  height: var(--um-border-width);
+  background: currentColor;
+}
+.um-tag__close::before { transform: rotate(45deg); }
+.um-tag__close::after { transform: rotate(-45deg); }
+
+/* The ring goes inside the button, the way the ring on a button in a row goes
+   inside it: an outside ring would be cut off by the tag. */
+.um-tag__close:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: calc(-1 * var(--um-focus-ring-width));
+}
+
 /* ============================================================================
    Timeline
    ========================================================================== */
 .um-timeline {
+  /* The size of the node, in one place: the column it stands in, the dot
+     itself and the rail under it all read it, so the three cannot drift
+     apart. */
+  --um-timeline-node-size: var(--um-space-xs);
+
   display: flex;
   flex-direction: column;
   margin: 0;
@@ -5624,13 +5969,18 @@
   font-size: var(--um-font-size-body);
 }
 
+/* The reversed run: the entries run the other way, so the newest one is at
+   the top. The order is the flow order, not a side, so it turns over with the
+   reading direction. */
+.um-timeline--reverse { flex-direction: column-reverse; }
+
 /* The node column is as wide as the node, so the rail under it is centred by
    arithmetic rather than by a magic number: the line sits half a border to the
    left of the column's midpoint. */
 .um-timeline__item {
   position: relative;
   display: grid;
-  grid-template-columns: var(--um-space-xs) minmax(0, 1fr);
+  grid-template-columns: var(--um-timeline-node-size) minmax(0, 1fr);
   column-gap: var(--um-space-xs);
   padding-bottom: var(--um-space-sm);
 }
@@ -5638,11 +5988,26 @@
 .um-timeline__node {
   position: relative;
   z-index: 1;
-  width: var(--um-space-xs);
-  height: var(--um-space-xs);
+  width: var(--um-timeline-node-size);
+  height: var(--um-timeline-node-size);
   border-radius: var(--um-radius-circle);
   background: var(--um-color-primary-graphic);
 }
+
+/* The centred run: the node sits in the middle of the row rather than at the
+   top of it. */
+.um-timeline__item--center .um-timeline__node { align-self: center; }
+
+/* The hollow run: the node is a ring rather than a filled dot. The ring is
+   drawn in the tone's own graphic colour, and the hole shows the surface the
+   timeline stands on. */
+.um-timeline__item--hollow .um-timeline__node {
+  border: var(--um-border-width) solid var(--um-color-primary-graphic);
+  background: var(--um-bg-page);
+}
+.um-timeline__item--hollow.um-timeline__item--success .um-timeline__node { border-color: var(--um-color-success-graphic); }
+.um-timeline__item--hollow.um-timeline__item--warning .um-timeline__node { border-color: var(--um-color-warning-graphic); }
+.um-timeline__item--hollow.um-timeline__item--danger  .um-timeline__node { border-color: var(--um-color-danger-graphic); }
 
 /* The rail is positioned against the item, not against the text, so the line
    stays under the dots when the text beside it wraps to three lines. */
@@ -5650,7 +6015,7 @@
   position: absolute;
   top: var(--um-space-xs);
   bottom: 0;
-  inset-inline-start: calc(var(--um-space-xs) / 2 - var(--um-border-width) / 2);
+  inset-inline-start: calc(var(--um-timeline-node-size) / 2 - var(--um-border-width) / 2);
   width: var(--um-border-width);
   background: var(--um-border-lighter);
 }
@@ -5678,6 +6043,43 @@
 .um-timeline__item--success .um-timeline__node { background: var(--um-color-success-graphic); }
 .um-timeline__item--warning .um-timeline__node { background: var(--um-color-warning-graphic); }
 .um-timeline__item--danger  .um-timeline__node { background: var(--um-color-danger-graphic); }
+
+/* The size run. The medium node is the base class on its own; the small and
+   the large ones are a step of the mood's own spacing. */
+.um-timeline__item--sm { --um-timeline-node-size: calc(var(--um-space-xs) - 2px); }
+.um-timeline__item--lg { --um-timeline-node-size: var(--um-space-sm); }
+
+/* The timestamp is not shown. */
+.um-timeline__item--hide-timestamp .um-timeline__wrapper time { display: none; }
+
+/* The mode run. The start run is the base class on its own: the rail stands
+   at the start of the row and the text is beside it. The end run puts the
+   rail at the end of every row; the alternate runs swap the sides of the
+   rows, one after the other. The sides are written logically, so a
+   right-to-left reader gets the other end. */
+.um-timeline--mode-end .um-timeline__item,
+.um-timeline--mode-alternate .um-timeline__item:nth-child(even),
+.um-timeline--mode-alternate-reverse .um-timeline__item:nth-child(odd) {
+  grid-template-columns: minmax(0, 1fr) var(--um-timeline-node-size);
+}
+.um-timeline--mode-end .um-timeline__node,
+.um-timeline--mode-alternate .um-timeline__item:nth-child(even) .um-timeline__node,
+.um-timeline--mode-alternate-reverse .um-timeline__item:nth-child(odd) .um-timeline__node {
+  order: 2;
+}
+.um-timeline--mode-end .um-timeline__tail,
+.um-timeline--mode-alternate .um-timeline__item:nth-child(even) .um-timeline__tail,
+.um-timeline--mode-alternate-reverse .um-timeline__item:nth-child(odd) .um-timeline__tail {
+  inset-inline-start: auto;
+  inset-inline-end: calc(var(--um-timeline-node-size) / 2 - var(--um-border-width) / 2);
+}
+
+/* The rows whose rail is at the end carry their text at the end too, so the
+   two read as one block. */
+.um-timeline--mode-alternate .um-timeline__item:nth-child(even) .um-timeline__wrapper,
+.um-timeline--mode-alternate-reverse .um-timeline__item:nth-child(odd) .um-timeline__wrapper {
+  text-align: end;
+}
 
 /* ============================================================================
    Tour
@@ -6168,6 +6570,13 @@
   font-size: var(--um-font-size-title);
 }
 
+/* The current branch takes the highlight fill, and only when the tree is told
+   to highlight it: the class on the branch says which one it is, the class on
+   the tree says whether that counts. */
+.um-tree--highlight-current .um-tree__node--current > .um-tree__label {
+  background: var(--um-fill-light);
+}
+
 /* ============================================================================
    Virtual Table
    ========================================================================== */
@@ -6200,6 +6609,9 @@
      row's own type size, so it grows with the mood's rhythm and with the size
      modifier rather than sitting at a number of its own. */
   --um-virtual-table-row-size: 1.2em;
+
+  /* The overlay lies over the table, so the table is what it is laid against. */
+  position: relative;
 
   font-family: var(--um-font-family);
   font-size: var(--um-font-size-body);
@@ -6332,6 +6744,33 @@
   font-size: var(--um-font-size-title);
 }
 
+/* The scrollbar is always there: the box keeps its scrollbar whether the list
+   needs one or not, so the rows do not move sideways as the list grows past
+   the box. */
+.um-virtual-table--scrollbar-always-on .um-virtual-table__scroller {
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
+}
+
+/* The footer is what stands under the table: the totals, a note. It takes no
+   room at all when the host has nothing to put in it, so an empty footer is
+   not a strip of nothing under every table. */
+.um-virtual-table__footer {
+  padding: var(--um-space-xs) var(--um-space-sm);
+  border-top: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+  color: var(--um-text-secondary);
+}
+.um-virtual-table__footer:empty { display: none; }
+
+/* The overlay lies over the table: a mask, a loading bar. An empty overlay is
+   not drawn at all, because a box over the rows would swallow the clicks
+   meant for them. */
+.um-virtual-table__overlay {
+  position: absolute;
+  inset: 0;
+}
+.um-virtual-table__overlay:empty { display: none; }
+
 /* ============================================================================
    Virtual Tree
    ========================================================================== */
@@ -6463,6 +6902,29 @@
 
 .um-virtual-tree--lg .um-virtual-tree__label {
   font-size: var(--um-font-size-title);
+}
+
+/* The scrollbar is always there: the box keeps its scrollbar whether the tree
+   needs one or not, so the branches do not move sideways as the tree grows
+   past the box. */
+.um-virtual-tree--scrollbar-always-on .um-virtual-tree__scroller {
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
+}
+
+/* The current branch takes the highlight fill, and only when the tree is told
+   to highlight it: the class on the branch says which one it is, the class on
+   the tree says whether that counts. */
+.um-virtual-tree--highlight-current .um-virtual-tree__node--current > .um-virtual-tree__label {
+  background: var(--um-fill-light);
+}
+
+/* The empty tree says so and leaves the reason to the page that owns the data.
+   It stops being a tree, so the message takes the whole width of the box. */
+.um-virtual-tree__empty {
+  padding: var(--um-space-lg) var(--um-space-sm);
+  color: var(--um-text-secondary);
+  text-align: center;
 }
 
 /* ============================================================================
@@ -9146,12 +9608,15 @@
   color: var(--um-text-secondary);
   font-size: var(--um-font-size-caption);
 }
+/* The rules are borders rather than bars of colour, so the line can be drawn
+   in dashes or in dots as well as in one solid piece, and the theme's own
+   border style is what a plain divider draws. */
 .um-divider::before,
 .um-divider::after {
   content: "";
   flex: 1;
-  height: var(--um-border-width);
-  background: var(--um-border-lighter);
+  height: 0;
+  border-top: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
 }
 .um-divider--plain::before,
 .um-divider--plain::after { display: none; }
@@ -9159,10 +9624,35 @@
   flex-direction: column;
   align-self: stretch;
   width: var(--um-border-width);
-  background: var(--um-border-lighter);
+  border-inline-start: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
 }
 .um-divider--vertical::before,
 .um-divider--vertical::after { display: none; }
+
+/* The dashed and the dotted rule are the same rule with another line style. */
+.um-divider--dashed::before,
+.um-divider--dashed::after { border-top-style: dashed; }
+
+.um-divider--dotted::before,
+.um-divider--dotted::after { border-top-style: dotted; }
+
+.um-divider--dashed.um-divider--vertical { border-inline-start-style: dashed; }
+
+.um-divider--dotted.um-divider--vertical { border-inline-start-style: dotted; }
+
+/* The label sits in the middle by default. At the start or at the end, the
+   rule that is not needed goes away and the other one takes the rest of the
+   width. The gap is taken back with the rule, so the label sits flush
+   against the edge it belongs to. */
+.um-divider--content-start::before {
+  flex: 0;
+  margin-inline-start: calc(-1 * var(--um-space-xs));
+}
+
+.um-divider--content-end::after {
+  flex: 0;
+  margin-inline-end: calc(-1 * var(--um-space-xs));
+}
 
 /* ============================================================================
    Watermark

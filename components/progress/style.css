@@ -27,3 +27,40 @@
   font-size: var(--um-font-size-caption);
   font-weight: var(--um-font-weight-medium);
 }
+
+/* The percentage sits under the bar on a line of its own, so it does not
+   read as part of a label the host wrote beside it. */
+.um-progress--show-text .um-progress__label { display: block; }
+
+/* The striped run: the fill is striped, the way a bar of hazard tape is. The
+   stripe is the track's own colour, so the stripes read as gaps in the fill
+   rather than as a second colour on top of it. */
+.um-progress--striped .um-progress__bar {
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--um-fill-light) 0,
+    var(--um-fill-light) 4px,
+    transparent 4px,
+    transparent 8px
+  );
+}
+
+/* The indeterminate run: the bar moves along the track without a value to
+   show. The animation is wrapped in the motion contract — `prefers-reduced-
+   motion` wins, and the library never overrides that. */
+@media (prefers-reduced-motion: no-preference) {
+  .um-progress--indeterminate .um-progress__bar {
+    animation: um-progress-indeterminate 1.4s ease infinite;
+  }
+  .um-progress--striped-flow .um-progress__bar {
+    animation: um-progress-stripes 1.4s linear infinite;
+  }
+}
+@keyframes um-progress-indeterminate {
+  0% { margin-inline-start: -40%; width: 40%; }
+  100% { margin-inline-start: 100%; width: 40%; }
+}
+@keyframes um-progress-stripes {
+  0% { background-position: 0 0; }
+  100% { background-position: 8px 0; }
+}

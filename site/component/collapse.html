@@ -252,6 +252,8 @@
       <tr><td><code>um-collapse__content</code></td><td>Content</td></tr>
       <tr><td><code>[open]</code></td><td>Open</td></tr>
       <tr><td><code>:focus-visible</code></td><td>Focus visible</td></tr>
+      <tr><td><code>.um-collapse--disabled</code></td><td>Disabled</td></tr>
+      <tr><td><code>.um-collapse--icon-start</code></td><td>Arrow at the start</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -262,6 +264,9 @@
       <tr><td><span class="api__name"><code>variant</code></span></td><td><code>enum = plain | card</code></td><td><code>plain</code></td><td>The shape of the panel. The plain run is the base class on its own; the card run adds um-collapse--card.</td></tr>
       <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The size of the title and of the padding around the panel.</td></tr>
       <tr><td><span class="api__name"><code>title</code></span></td><td><code>string</code></td><td>—</td><td>The text of the header. A panel with no text needs an accessible name of its own.</td></tr>
+      <tr><td><span class="api__name"><code>model-value</code></span></td><td><code>boolean</code></td><td>—</td><td>Whether the panel is open, bound with v-model in Vue. Leave it out and the `open` prop is the state; bind it and the panel answers to the binding.</td></tr>
+      <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes the panel inert: it cannot be opened, and it takes the derived disabled colour.</td></tr>
+      <tr><td><span class="api__name"><code>expand-icon-position</code></span></td><td><code>enum = start | end</code></td><td><code>end</code></td><td>Which end of the header the arrow sits on. The ends are written logically, so a right-to-left reader gets the other side; the end run is the base class on its own.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>
@@ -276,6 +281,7 @@
       <thead><tr><th>Name</th><th>Description</th></tr></thead>
       <tbody>
       <tr><td><span class="api__name"><code>toggle</code></span></td><td>Fires when the panel opens or closes. It is the browser's own event on the details — the library installs no listener.</td></tr>
+      <tr><td><span class="api__name"><code>update:modelValue</code></span></td><td>Fires when the panel opens or closes, carrying the new state. This is the event `v-model` listens to.</td></tr>
       </tbody>
     </table>
       <h2>Accessibility</h2>

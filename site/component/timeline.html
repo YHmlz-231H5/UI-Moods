@@ -272,10 +272,20 @@
       <tr><td><code>um-timeline__item--success</code></td><td>Success</td></tr>
       <tr><td><code>um-timeline__item--warning</code></td><td>Warning</td></tr>
       <tr><td><code>um-timeline__item--danger</code></td><td>Danger</td></tr>
+      <tr><td><code>um-timeline__item--sm</code></td><td>Size: sm</td></tr>
+      <tr><td><code>um-timeline__item--md</code></td><td>Size: md</td></tr>
+      <tr><td><code>um-timeline__item--lg</code></td><td>Size: lg</td></tr>
       <tr><td><code>um-timeline__item</code></td><td>Item</td></tr>
       <tr><td><code>um-timeline__node</code></td><td>Node</td></tr>
       <tr><td><code>um-timeline__tail</code></td><td>Tail</td></tr>
       <tr><td><code>um-timeline__wrapper</code></td><td>Wrapper</td></tr>
+      <tr><td><code>.um-timeline--reverse</code></td><td>Reversed</td></tr>
+      <tr><td><code>.um-timeline--mode-end</code></td><td>Rail at the end</td></tr>
+      <tr><td><code>.um-timeline--mode-alternate</code></td><td>Alternating</td></tr>
+      <tr><td><code>.um-timeline--mode-alternate-reverse</code></td><td>Alternating, reversed</td></tr>
+      <tr><td><code>.um-timeline__item--center</code></td><td>Centred</td></tr>
+      <tr><td><code>.um-timeline__item--hollow</code></td><td>Hollow</td></tr>
+      <tr><td><code>.um-timeline__item--hide-timestamp</code></td><td>No timestamp</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -284,12 +294,20 @@
       <tbody>
       <tr><td><span class="api__name"><code>variant</code></span></td><td><code>enum = success | warning | danger</code></td><td>—</td><td>The tone of the entry. It is written on the item, not on the timeline.</td></tr>
       <tr><td><span class="api__name"><code>timestamp</code></span></td><td><code>string</code></td><td>—</td><td>When it happened. It is a time element inside the wrapper, so the machine-readable value and the written one travel together.</td></tr>
+      <tr><td><span class="api__name"><code>reverse</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Runs the entries the other way: the newest one is at the top.</td></tr>
+      <tr><td><span class="api__name"><code>mode</code></span></td><td><code>enum = start | end | alternate | alternate-reverse</code></td><td><code>start</code></td><td>Where the rail stands in relation to the text. The start run is the base class on its own: the rail is at the start of the row.</td></tr>
+      <tr><td><span class="api__name"><code>center</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Puts the node in the middle of the row rather than at the top of it.</td></tr>
+      <tr><td><span class="api__name"><code>hollow</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Draws the node as a ring rather than a filled dot.</td></tr>
+      <tr><td><span class="api__name"><code>hide-timestamp</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Does not show the timestamp.</td></tr>
+      <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The size of the node. The medium size is the base class on its own.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>
 <table class="api">
       <thead><tr><th>Name</th><th>Description</th></tr></thead>
       <tbody>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>The entries. Each one is the caller's own element, and the tone modifier goes on the entry rather than on the list.</td></tr>
+      <tr><td><span class="api__name"><code>dot</code></span></td><td>The node. It is drawn in CSS and ships empty, and this slot takes a mark of the host's own.</td></tr>
       <tr><td><span class="api__name"><code>wrapper</code></span></td><td>The body of the entry: the timestamp and the text.</td></tr>
       </tbody>
     </table>

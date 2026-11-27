@@ -45,6 +45,12 @@
   backdrop-filter: var(--um-backdrop, none);
 }
 
+/* The shadow run. The always run is the base class on its own; the never run
+   takes the shadow away and the hover run keeps it for the pointer. */
+.um-card--shadow-never { box-shadow: none; }
+.um-card--shadow-hover { box-shadow: none; }
+.um-card--shadow-hover:hover { box-shadow: var(--um-shadow-base); }
+
 /* ============================================================================
    Quality hooks
    ----------------------------------------------------------------------------

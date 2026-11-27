@@ -212,6 +212,8 @@
       <tr><td><code>um-card__title</code></td><td>Title</td></tr>
       <tr><td><code>um-card__body</code></td><td>Body</td></tr>
       <tr><td><code>um-card__footer</code></td><td>Footer</td></tr>
+      <tr><td><code>.um-card--shadow-never</code></td><td>No shadow</td></tr>
+      <tr><td><code>.um-card--shadow-hover</code></td><td>Shadow on hover</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -219,9 +221,21 @@
       <thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
       <tbody>
       <tr><td><span class="api__name"><code>variant</code></span></td><td><code>enum = frosted</code></td><td>—</td><td>Which surface the card has. Without a variant the card is the mood's plain overlay surface.</td></tr>
+      <tr><td><span class="api__name"><code>header</code></span></td><td><code>string</code></td><td>—</td><td>The title of the card. It goes in the title part; the header slot fills the strip around it.</td></tr>
+      <tr><td><span class="api__name"><code>footer</code></span></td><td><code>string</code></td><td>—</td><td>The text of the footer.</td></tr>
+      <tr><td><span class="api__name"><code>shadow</code></span></td><td><code>enum = always | hover | never</code></td><td><code>always</code></td><td>When the card shows its shadow. The always run is the base class on its own.</td></tr>
       </tbody>
     </table>
-
+      <h2>Slots</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>The body of the card.</td></tr>
+      <tr><td><span class="api__name"><code>title</code></span></td><td>The title of the card. It fills the same part as the header prop.</td></tr>
+      <tr><td><span class="api__name"><code>header</code></span></td><td>What acts on the card. It sits in the header strip, beside the title.</td></tr>
+      <tr><td><span class="api__name"><code>footer</code></span></td><td>The footer's own content. It sits in the footer strip.</td></tr>
+      </tbody>
+    </table>
 
       <h2>Accessibility</h2>
       <p>The card is a plain container and carries no role. Put a real heading in `.um-card__title` — the class sets the size, so the document outline stays right. If the whole card is meant to be clickable, put a link inside it instead of making the card a button: a clickable div is not focusable and is not announced as a control.</p>

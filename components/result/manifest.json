@@ -36,6 +36,7 @@
     { "name": "icon", "description": "The icon. The slot is empty and takes an SVG from the host.", "descriptionZh": "图标。这个插槽是空的,由使用方放自己的 SVG 进去。" },
     { "name": "title", "description": "The headline.", "descriptionZh": "标题。" },
     { "name": "subtitle", "description": "The line under the headline.", "descriptionZh": "标题下面那一行。" },
+    { "name": "sub-title", "description": "The line under the headline, under the name Element Plus gives it. It fills the same part as the subtitle slot.", "descriptionZh": "标题下面那一行,用的是 Element Plus 的叫法。它和副标题插槽填的是同一块。" },
     { "name": "extra", "description": "The actions.", "descriptionZh": "操作按钮。" }
   ],
   "events": [],

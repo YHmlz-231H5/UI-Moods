@@ -20,7 +20,11 @@
   ],
   "states": [
     {"id":"open","name":"Open","nameZh":"展开","selector":"[open]","native":true,"note":"The branch is open. The browser announces it, and the arrow turns over."},
-    {"id":"focus-visible","name":"Focus visible","nameZh":"键盘聚焦","selector":":focus-visible","native":true,"note":"The ring goes on the label, because the label is what the reader is on."}
+    {"id":"focus-visible","name":"Focus visible","nameZh":"键盘聚焦","selector":":focus-visible","native":true,"note":"The ring goes on the label, because the label is what the reader is on."},
+    {"id":"highlight-current","name":"Highlight current","nameZh":"高亮当前","selector":".um-virtual-tree--highlight-current","note":"The tree is told to mark the branch the reader is on."},
+    {"id":"scrollbar-always-on","name":"Scrollbar always on","nameZh":"常驻滚动条","selector":".um-virtual-tree--scrollbar-always-on","note":"The scrolling box keeps its scrollbar whether the tree needs one or not."},
+    {"id":"current-node","name":"Current node","nameZh":"当前节点","selector":".um-virtual-tree__node--current","note":"The branch the reader is on. It takes the highlight fill when the tree highlights the current branch."},
+    {"id":"empty","name":"Empty","nameZh":"空状态","selector":".um-virtual-tree__empty","note":"The tree holds nothing: there is no branch to read."}
   ],
   "parts": [
     {"id":"scroller","name":"Scroller","nameZh":"滚动区","note":"The box that scrolls. It carries the overflow and the surface, and the host gives it a height, because a box that is not given one never scrolls."},
@@ -35,10 +39,15 @@
     {"name":"variant","type":"enum","values":["plain","lines"],"default":"plain","description":"Whether the guide lines between the levels are drawn.","descriptionZh":"层级之间的引导线画不画。"},
     {"name":"size","type":"enum","values":["sm","md","lg"],"default":"md","description":"How tall a branch is and how big the type in it is.","descriptionZh":"分支有多高,里面的字有多大。"},
     {"name":"depth","type":"number","default":"4","description":"How deep the tree goes. The wrapper writes that many levels of branches.","descriptionZh":"这棵树有多深。包装器照这个层数写分支。"},
-    {"name":"branches","type":"number","default":"6","description":"How many branches each level has. The wrapper multiplies them out, so a depth of four and six branches is a thousand leaves.","descriptionZh":"每一层有几支。包装器把它们乘出来,四层配六支就是一千多个叶子。"},
-    {"name":"height","type":"string","default":"16em","description":"How tall the scrolling box is. The library cannot guess it: a box that is not given a height never scrolls, because its content is what gives it one.","descriptionZh":"滚动区有多高。库猜不出来:没给高度的盒子不会滚,因为给它高度的是它自己的内容。"}
+    {"name":"branches","type":"number","default":"6","description":"How many branches each level has. The wrapper multiplies them out, so a depth of four and six branches is a thousand leaves. No branches at all is an empty tree, and the empty slot says what it holds.","descriptionZh":"每一层有几支。包装器把它们乘出来,四层配六支就是一千多个叶子。一支也没有就是空树,空插槽说它装着什么。"},
+    {"name":"height","type":"string","default":"16em","description":"How tall the scrolling box is. The library cannot guess it: a box that is not given a height never scrolls, because its content is what gives it one.","descriptionZh":"滚动区有多高。库猜不出来:没给高度的盒子不会滚,因为给它高度的是它自己的内容。"},
+    {"name":"highlight-current","type":"boolean","default":"false","since":"1.1.0","description":"Whether the branch the reader is on takes the highlight fill. That branch is marked with um-virtual-tree__node--current.","descriptionZh":"读者所在的那一支是否带上高亮底色。那一支自己用 um-virtual-tree__node--current 标记。"},
+    {"name":"scrollbar-always-on","type":"boolean","default":"false","since":"1.1.0","description":"Whether the scrolling box keeps its scrollbar whether the tree needs one or not, so the branches do not move sideways as the tree grows. It adds um-virtual-tree--scrollbar-always-on.","descriptionZh":"滚动区是否一直留着滚动条,不管这棵树用不用得上,这样树变长时分支不会横向挪动。它加上 um-virtual-tree--scrollbar-always-on。"}
   ],
-  "slots": [],
+  "slots": [
+    {"name":"default","description":"What one branch says. It is given the path to the branch and the level it is on. The arrow stays: it is the mark that says the branch holds something.","descriptionZh":"某一支写什么。它拿到这一支的路径和它所在的层。那个箭头还在:它是说明这一支里还有东西的记号。"},
+    {"name":"empty","description":"What the tree says when it holds nothing at all.","descriptionZh":"这棵树什么都没有的时候说什么。"}
+  ],
   "events": [
     {"name":"toggle","description":"Fires when a branch opens or closes. It is the browser's own event on the details — the library installs no listener.","descriptionZh":"某一支展开或收起时触发。这是 details 上的浏览器原生事件 —— 库没有安装任何监听器。"}
   ],

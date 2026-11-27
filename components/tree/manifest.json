@@ -24,7 +24,9 @@
   ],
   "states": [
     { "id": "open", "name": "Open", "nameZh": "展开", "selector": "[open]", "native": true, "note": "The branch is open. The browser announces it, and the arrow turns over." },
-    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the label, because the label is what the reader is on." }
+    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the label, because the label is what the reader is on." },
+    { "id": "highlight-current", "name": "Highlight current", "nameZh": "高亮当前", "selector": ".um-tree--highlight-current", "note": "The tree is told to mark the branch the reader is on." },
+    { "id": "current-node", "name": "Current node", "nameZh": "当前节点", "selector": ".um-tree__node--current", "note": "The branch the reader is on. It takes the highlight fill when the tree highlights the current branch." }
   ],
   "parts": [
     { "id": "node", "name": "Node", "nameZh": "节点", "note": "One branch. It is a <details>, so it is the element that knows whether it is open." },
@@ -37,10 +39,13 @@
     { "name": "open", "type": "boolean", "default": "false", "description": "Opens the branch. It is the native open attribute on the details, so the browser keeps the state.", "descriptionZh": "展开这一支。它是 details 上的原生 open 属性,所以状态由浏览器记着。" },
     { "name": "variant", "type": "enum", "values": ["plain", "lines"], "default": "plain", "description": "How the levels are held apart. The plain run is the base class on its own; the guided run adds um-tree--lines.", "descriptionZh": "各层之间怎么区分。无辅助线是只写基类;带辅助线再加上 um-tree--lines。" },
     { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The size of the label text.", "descriptionZh": "标签文字的尺寸。" },
-    { "name": "label", "type": "string", "description": "The name of the thing the branch holds. A branch with no text needs an accessible name of its own.", "descriptionZh": "这一支里那个东西的名字。没有文字的分支也得有自己的可访问名称。" }
+    { "name": "label", "type": "string", "description": "The name of the thing the branch holds. A branch with no text needs an accessible name of its own.", "descriptionZh": "这一支里那个东西的名字。没有文字的分支也得有自己的可访问名称。" },
+    { "name": "highlight-current", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Whether the branch the reader is on takes the highlight fill. That branch is marked with um-tree__node--current.", "descriptionZh": "读者所在的那一支是否带上高亮底色。那一支自己用 um-tree__node--current 标记。" }
   ],
   "slots": [
-    { "name": "children", "description": "The level below: one node per branch inside this one.", "descriptionZh": "下面那一层:这一支里的每个分支放一个节点。" }
+    { "name": "children", "description": "The level below: one node per branch inside this one.", "descriptionZh": "下面那一层:这一支里的每个分支放一个节点。" },
+    { "name": "default", "description": "What the branch says. It is the name Element Plus gives the same content the label slot fills.", "descriptionZh": "这一支写什么。它是 Element Plus 给 label 插槽所填的同一份内容起的名字。" },
+    { "name": "empty", "description": "What the level below says when there is nothing in it. Without it the level below is empty.", "descriptionZh": "下面那一层空着时说什么。不给就空着。" }
   ],
   "events": [
     { "name": "toggle", "description": "Fires when a branch opens or closes. It is the browser's own event on the details — the library installs no listener.", "descriptionZh": "某一支展开或收起时触发。这是 details 上的浏览器原生事件 —— 库没有安装任何监听器。" }

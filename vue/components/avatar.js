@@ -15,6 +15,8 @@ export const UMAvatar = defineComponent({
     variant: { type: String, default: "circle" },
     size: { type: String, default: "md" },
     alt: { type: String, default: "" },
+    fit: { type: String, default: "cover" },
+    collapseAvatars: { type: Boolean, default: false },
   },
   setup(props, { slots }) {
     return () => {
@@ -30,6 +32,14 @@ export const UMAvatar = defineComponent({
             // The medium avatar is the base class; the modifier would only
             // repeat it.
             props.size !== "md" ? `um-avatar--${props.size}` : null,
+            props.fit === "contain"
+              ? "um-avatar--contain"
+              : props.fit === "fill"
+                ? "um-avatar--fill"
+                : props.fit === "cover"
+                  ? "um-avatar--cover"
+                  : null,
+            props.collapseAvatars ? "um-avatar--collapsed" : null,
           ],
         },
         [

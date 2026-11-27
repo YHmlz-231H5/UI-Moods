@@ -20,12 +20,15 @@
   color: var(--um-text-secondary);
   font-size: var(--um-font-size-caption);
 }
+/* The rules are borders rather than bars of colour, so the line can be drawn
+   in dashes or in dots as well as in one solid piece, and the theme's own
+   border style is what a plain divider draws. */
 .um-divider::before,
 .um-divider::after {
   content: "";
   flex: 1;
-  height: var(--um-border-width);
-  background: var(--um-border-lighter);
+  height: 0;
+  border-top: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
 }
 .um-divider--plain::before,
 .um-divider--plain::after { display: none; }
@@ -33,10 +36,35 @@
   flex-direction: column;
   align-self: stretch;
   width: var(--um-border-width);
-  background: var(--um-border-lighter);
+  border-inline-start: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
 }
 .um-divider--vertical::before,
 .um-divider--vertical::after { display: none; }
+
+/* The dashed and the dotted rule are the same rule with another line style. */
+.um-divider--dashed::before,
+.um-divider--dashed::after { border-top-style: dashed; }
+
+.um-divider--dotted::before,
+.um-divider--dotted::after { border-top-style: dotted; }
+
+.um-divider--dashed.um-divider--vertical { border-inline-start-style: dashed; }
+
+.um-divider--dotted.um-divider--vertical { border-inline-start-style: dotted; }
+
+/* The label sits in the middle by default. At the start or at the end, the
+   rule that is not needed goes away and the other one takes the rest of the
+   width. The gap is taken back with the rule, so the label sits flush
+   against the edge it belongs to. */
+.um-divider--content-start::before {
+  flex: 0;
+  margin-inline-start: calc(-1 * var(--um-space-xs));
+}
+
+.um-divider--content-end::after {
+  flex: 0;
+  margin-inline-end: calc(-1 * var(--um-space-xs));
+}
 
 /* ============================================================================
    Quality hooks

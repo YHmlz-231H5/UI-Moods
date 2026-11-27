@@ -79,6 +79,41 @@
   text-align: center;
 }
 
+/* The size sets how much room a row takes. The middle size is the base class
+   on its own, so only the two ends need a rule. */
+.um-table--sm .um-table__cell {
+  padding: var(--um-space-xs);
+  font-size: var(--um-font-size-caption);
+}
+.um-table--lg .um-table__cell { padding: var(--um-space-md) var(--um-space-sm); }
+
+/* The current row takes the highlight fill, and only when the table is told
+   to highlight it: the class on the row says which row it is, the class on
+   the table says whether that counts. */
+.um-table--highlight-current .um-table__row--current { background: var(--um-fill-light); }
+
+/* A table with no header does not draw the row of column names. The frame
+   still belongs to the wrapper, so the top edge is still one line. */
+.um-table--no-header .um-table__header { display: none; }
+
+/* The summary row is a band of its own at the foot of the table: it holds
+   totals, not records, so it takes the header's fill and a heavier label. */
+.um-table__summary .um-table__cell {
+  background: var(--um-fill-base);
+  border-top: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  color: var(--um-text-primary);
+  font-weight: var(--um-font-weight-medium);
+}
+.um-table--no-summary .um-table__summary { display: none; }
+
+/* The append row stands under the last record: it is where "load more" and
+   the like live, so it says so quietly rather than looking like a record. */
+.um-table__append {
+  padding: var(--um-space-sm);
+  color: var(--um-text-secondary);
+  text-align: center;
+}
+
 /* ============================================================================
    Quality hooks
    ----------------------------------------------------------------------------

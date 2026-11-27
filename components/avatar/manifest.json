@@ -23,7 +23,12 @@
     { "id": "lg", "name": "Large", "nameZh": "大" },
     { "id": "xl", "name": "Extra large", "nameZh": "特大" }
   ],
-  "states": [],
+  "states": [
+    { "id": "fit-cover", "name": "Fit cover", "nameZh": "裁剪填满", "selector": ".um-avatar--cover", "note": "The photo fills the box and the edges that do not fit are cut off." },
+    { "id": "fit-contain", "name": "Fit contain", "nameZh": "完整显示", "selector": ".um-avatar--contain", "note": "The whole photo fits inside the box, and the box keeps whatever is left over." },
+    { "id": "fit-fill", "name": "Fit fill", "nameZh": "拉伸填满", "selector": ".um-avatar--fill", "note": "The photo is stretched to the box, so it takes the box's shape and loses its own." },
+    { "id": "collapsed", "name": "Collapsed", "nameZh": "收起", "selector": ".um-avatar--collapsed", "note": "The avatar stands in for the ones that did not fit, so it carries a count rather than a face." }
+  ],
   "parts": [
     { "id": "image", "name": "Image", "nameZh": "图片", "note": "The photo. It is an img element, and it is cropped to the shape of the avatar." },
     { "id": "icon", "name": "Icon", "nameZh": "图标", "note": "The slot for an icon. It ships empty and takes an SVG from the host." }
@@ -31,9 +36,12 @@
   "props": [
     { "name": "variant", "type": "enum", "values": ["circle", "square"], "default": "circle", "description": "The shape of the avatar. The base class is already the round one.", "descriptionZh": "头像的形状。基础类本身就是圆的。" },
     { "name": "size", "type": "enum", "values": ["sm", "md", "lg", "xl"], "default": "md", "description": "The width and height of the box, and the size of the initials in it.", "descriptionZh": "盒子的宽和高,以及里面首字母缩写的大小。" },
-    { "name": "alt", "type": "string", "description": "The alternative text of the photo. Leave it empty when the name is already written next to the avatar.", "descriptionZh": "照片的替代文字。如果名字已经写在头像旁边,就留空。" }
+    { "name": "alt", "type": "string", "description": "The alternative text of the photo. Leave it empty when the name is already written next to the avatar.", "descriptionZh": "照片的替代文字。如果名字已经写在头像旁边,就留空。" },
+    { "name": "fit", "type": "enum", "values": ["cover", "contain", "fill"], "default": "cover", "since": "1.1.0", "description": "How the photo fills the avatar. The cover run is the base class on its own.", "descriptionZh": "照片怎么填满头像。裁剪填满就是只写基类。" },
+    { "name": "collapse-avatars", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Makes this avatar the one that stands in for the avatars that did not fit, so it carries their count instead of a face.", "descriptionZh": "让这个头像替那些没放下的头像占位,它带的是它们的计数,不是一张脸。" }
   ],
   "slots": [
+    { "name": "default", "description": "The initials of the person. They stand in for the photo when there is none.", "descriptionZh": "这个人的首字母缩写。没有照片时是它顶上。" },
     { "name": "image", "description": "The photo, as an img element.", "descriptionZh": "照片,用一个 img 元素。" },
     { "name": "icon", "description": "An icon, as an SVG. The slot itself is empty.", "descriptionZh": "图标,用一个 SVG。插槽本身是空的。" }
   ],

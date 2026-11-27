@@ -21,7 +21,14 @@ export const UMResult = defineComponent({
   setup(props, { slots }) {
     return () => {
       const title = slots.title ? slots.title({ title: props.title }) : props.title;
-      const subtitle = slots.subtitle ? slots.subtitle({ subtitle: props.subtitle }) : props.subtitle;
+      // Element Plus calls this slot `sub-title`; the library calls it
+      // `subtitle`. Both fill the same part, and the longer name wins when a
+      // host uses both.
+      const subtitle = slots["sub-title"]
+        ? slots["sub-title"]({ subtitle: props.subtitle })
+        : slots.subtitle
+          ? slots.subtitle({ subtitle: props.subtitle })
+          : props.subtitle;
       const extra = slots.extra ? slots.extra() : [];
 
       return h(

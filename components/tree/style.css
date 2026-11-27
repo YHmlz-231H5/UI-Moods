@@ -85,3 +85,10 @@
 .um-tree--lg .um-tree__label {
   font-size: var(--um-font-size-title);
 }
+
+/* The current branch takes the highlight fill, and only when the tree is told
+   to highlight it: the class on the branch says which one it is, the class on
+   the tree says whether that counts. */
+.um-tree--highlight-current .um-tree__node--current > .um-tree__label {
+  background: var(--um-fill-light);
+}

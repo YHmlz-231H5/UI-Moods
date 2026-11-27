@@ -82,6 +82,11 @@
       "name": "default",
       "description": "The entries. Each one is an <a> to the fragment of a section; the one for the section being read carries aria-current=\"location\".",
       "descriptionZh": "各个条目。每个条目都是指向某一节锚点的 <a>;正在读的那一节带 aria-current=\"location\"。"
+    },
+    {
+      "name": "sub-link",
+      "description": "What one entry says. It is given the entry the host wrote and the entry's number.",
+      "descriptionZh": "某一个条目写什么。它拿到宿主写的那一条和它的序号。"
     }
   ],
   "events": [],

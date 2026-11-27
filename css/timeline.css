@@ -14,6 +14,11 @@
    Timeline
    ========================================================================== */
 .um-timeline {
+  /* The size of the node, in one place: the column it stands in, the dot
+     itself and the rail under it all read it, so the three cannot drift
+     apart. */
+  --um-timeline-node-size: var(--um-space-xs);
+
   display: flex;
   flex-direction: column;
   margin: 0;
@@ -24,13 +29,18 @@
   font-size: var(--um-font-size-body);
 }
 
+/* The reversed run: the entries run the other way, so the newest one is at
+   the top. The order is the flow order, not a side, so it turns over with the
+   reading direction. */
+.um-timeline--reverse { flex-direction: column-reverse; }
+
 /* The node column is as wide as the node, so the rail under it is centred by
    arithmetic rather than by a magic number: the line sits half a border to the
    left of the column's midpoint. */
 .um-timeline__item {
   position: relative;
   display: grid;
-  grid-template-columns: var(--um-space-xs) minmax(0, 1fr);
+  grid-template-columns: var(--um-timeline-node-size) minmax(0, 1fr);
   column-gap: var(--um-space-xs);
   padding-bottom: var(--um-space-sm);
 }
@@ -38,11 +48,26 @@
 .um-timeline__node {
   position: relative;
   z-index: 1;
-  width: var(--um-space-xs);
-  height: var(--um-space-xs);
+  width: var(--um-timeline-node-size);
+  height: var(--um-timeline-node-size);
   border-radius: var(--um-radius-circle);
   background: var(--um-color-primary-graphic);
 }
+
+/* The centred run: the node sits in the middle of the row rather than at the
+   top of it. */
+.um-timeline__item--center .um-timeline__node { align-self: center; }
+
+/* The hollow run: the node is a ring rather than a filled dot. The ring is
+   drawn in the tone's own graphic colour, and the hole shows the surface the
+   timeline stands on. */
+.um-timeline__item--hollow .um-timeline__node {
+  border: var(--um-border-width) solid var(--um-color-primary-graphic);
+  background: var(--um-bg-page);
+}
+.um-timeline__item--hollow.um-timeline__item--success .um-timeline__node { border-color: var(--um-color-success-graphic); }
+.um-timeline__item--hollow.um-timeline__item--warning .um-timeline__node { border-color: var(--um-color-warning-graphic); }
+.um-timeline__item--hollow.um-timeline__item--danger  .um-timeline__node { border-color: var(--um-color-danger-graphic); }
 
 /* The rail is positioned against the item, not against the text, so the line
    stays under the dots when the text beside it wraps to three lines. */
@@ -50,7 +75,7 @@
   position: absolute;
   top: var(--um-space-xs);
   bottom: 0;
-  inset-inline-start: calc(var(--um-space-xs) / 2 - var(--um-border-width) / 2);
+  inset-inline-start: calc(var(--um-timeline-node-size) / 2 - var(--um-border-width) / 2);
   width: var(--um-border-width);
   background: var(--um-border-lighter);
 }
@@ -78,6 +103,43 @@
 .um-timeline__item--success .um-timeline__node { background: var(--um-color-success-graphic); }
 .um-timeline__item--warning .um-timeline__node { background: var(--um-color-warning-graphic); }
 .um-timeline__item--danger  .um-timeline__node { background: var(--um-color-danger-graphic); }
+
+/* The size run. The medium node is the base class on its own; the small and
+   the large ones are a step of the mood's own spacing. */
+.um-timeline__item--sm { --um-timeline-node-size: calc(var(--um-space-xs) - 2px); }
+.um-timeline__item--lg { --um-timeline-node-size: var(--um-space-sm); }
+
+/* The timestamp is not shown. */
+.um-timeline__item--hide-timestamp .um-timeline__wrapper time { display: none; }
+
+/* The mode run. The start run is the base class on its own: the rail stands
+   at the start of the row and the text is beside it. The end run puts the
+   rail at the end of every row; the alternate runs swap the sides of the
+   rows, one after the other. The sides are written logically, so a
+   right-to-left reader gets the other end. */
+.um-timeline--mode-end .um-timeline__item,
+.um-timeline--mode-alternate .um-timeline__item:nth-child(even),
+.um-timeline--mode-alternate-reverse .um-timeline__item:nth-child(odd) {
+  grid-template-columns: minmax(0, 1fr) var(--um-timeline-node-size);
+}
+.um-timeline--mode-end .um-timeline__node,
+.um-timeline--mode-alternate .um-timeline__item:nth-child(even) .um-timeline__node,
+.um-timeline--mode-alternate-reverse .um-timeline__item:nth-child(odd) .um-timeline__node {
+  order: 2;
+}
+.um-timeline--mode-end .um-timeline__tail,
+.um-timeline--mode-alternate .um-timeline__item:nth-child(even) .um-timeline__tail,
+.um-timeline--mode-alternate-reverse .um-timeline__item:nth-child(odd) .um-timeline__tail {
+  inset-inline-start: auto;
+  inset-inline-end: calc(var(--um-timeline-node-size) / 2 - var(--um-border-width) / 2);
+}
+
+/* The rows whose rail is at the end carry their text at the end too, so the
+   two read as one block. */
+.um-timeline--mode-alternate .um-timeline__item:nth-child(even) .um-timeline__wrapper,
+.um-timeline--mode-alternate-reverse .um-timeline__item:nth-child(odd) .um-timeline__wrapper {
+  text-align: end;
+}
 
 /* ============================================================================
    Quality hooks

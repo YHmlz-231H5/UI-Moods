@@ -17,21 +17,44 @@
     { "id": "striped", "name": "Striped", "nameZh": "斑马纹", "state": "soft", "note": "Every other row takes the lighter fill, so a long list can be counted down without reading it." },
     { "id": "bordered", "name": "Bordered", "nameZh": "带竖线", "state": "outline", "note": "A vertical line between the columns as well as the horizontal ones." }
   ],
-  "sizes": [],
-  "states": [],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "The rows are shorter and the text is smaller." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default size needs no modifier class." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "The rows are taller." }
+  ],
+  "states": [
+    { "id": "no-header", "name": "No header", "nameZh": "无表头", "selector": ".um-table--no-header", "note": "The row of column names is not drawn." },
+    { "id": "no-summary", "name": "No summary", "nameZh": "无汇总行", "selector": ".um-table--no-summary", "note": "The summary row at the foot of the table is not drawn." },
+    { "id": "highlight-current", "name": "Highlight current row", "nameZh": "高亮当前行", "selector": ".um-table--highlight-current", "note": "The table is told to mark the row the reader is on." },
+    { "id": "current-row", "name": "Current row", "nameZh": "当前行", "selector": ".um-table__row--current", "note": "The row the reader is on. It takes the highlight fill when the table highlights the current row." },
+    { "id": "append", "name": "Append row", "nameZh": "附加行", "selector": ".um-table__append", "note": "The row under the last record." }
+  ],
   "parts": [
     { "id": "wrapper", "name": "Wrapper", "nameZh": "外框", "note": "The box around the table. It scrolls sideways on a narrow screen and carries the frame." },
     { "id": "header", "name": "Header", "nameZh": "表头", "note": "The thead. It is the row of column names." },
     { "id": "body", "name": "Body", "nameZh": "表体", "note": "The tbody. It holds the records." },
     { "id": "row", "name": "Row", "nameZh": "行", "note": "One record. The stripe and the hover colour are painted on it." },
     { "id": "cell", "name": "Cell", "nameZh": "单元格", "note": "One value. In the header it is a th, in the body a td." },
-    { "id": "empty", "name": "Empty", "nameZh": "空状态", "note": "The cell that says there is nothing. It spans the whole row." }
+    { "id": "empty", "name": "Empty", "nameZh": "空状态", "note": "The cell that says there is nothing. It spans the whole row." },
+    { "id": "summary", "name": "Summary", "nameZh": "汇总行", "note": "The foot of the table. It holds the totals, not the records." }
   ],
   "props": [
     { "name": "variant", "type": "enum", "values": ["striped", "bordered"], "description": "Which extra treatment the table carries. The two modifiers are independent and may be used together.", "descriptionZh": "表格带哪一种额外处理。这两个修饰类是独立的,可以一起用。" },
-    { "name": "emptyText", "type": "string", "default": "No data", "description": "What the empty cell says when there are no records.", "descriptionZh": "没有记录时,空状态那一格写什么。" }
+    { "name": "emptyText", "type": "string", "default": "No data", "description": "What the empty cell says when there are no records.", "descriptionZh": "没有记录时,空状态那一格写什么。" },
+    { "name": "stripe", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Whether every other row takes the lighter fill. It adds um-table--striped, the same class the variant prop adds.", "descriptionZh": "是否隔行加底色。它加上 um-table--striped,和 variant 属性加的是同一个类。" },
+    { "name": "border", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Whether a vertical line stands between the columns as well as the horizontal ones. It adds um-table--bordered, the same class the variant prop adds.", "descriptionZh": "列与列之间是否也画一道竖线。它加上 um-table--bordered,和 variant 属性加的是同一个类。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "since": "1.1.0", "description": "How much room a row takes. The middle size needs no modifier class.", "descriptionZh": "一行有多高。中间那一档不用加修饰类。" },
+    { "name": "show-header", "type": "boolean", "default": "true", "since": "1.1.0", "description": "Whether the row of column names is drawn. Turning it off adds um-table--no-header.", "descriptionZh": "列名那一行是否画出来。关掉它就加上 um-table--no-header。" },
+    { "name": "highlight-current-row", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Whether the row the reader is on takes the highlight fill. That row is marked with um-table__row--current.", "descriptionZh": "读者所在的那一行是否带上高亮底色。那一行自己用 um-table__row--current 标记。" },
+    { "name": "show-summary", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Whether the summary row at the foot of the table is drawn. Turning it off adds um-table--no-summary.", "descriptionZh": "表格底部那一行汇总是否画出来。关掉它就加上 um-table--no-summary。" }
   ],
-  "slots": [],
+  "slots": [
+    { "name": "default", "description": "The rows of the table. Each one is a row of cells.", "descriptionZh": "表格里的行。每一行是一排单元格。" },
+    { "name": "header", "description": "The row of column names. Each one is a heading cell with scope=\"col\".", "descriptionZh": "列名那一行。每一个都是带 scope=\"col\" 的表头单元格。" },
+    { "name": "empty", "description": "What the empty cell says when there are no records. Without it the emptyText prop says it.", "descriptionZh": "没有记录时,空状态那一格写什么。不给就用 emptyText 属性里的文字。" },
+    { "name": "append", "description": "What stands under the last record: a loading row, a load-more button.", "descriptionZh": "最后一条记录下面放什么:一行加载中,或者一个加载更多的按钮。" },
+    { "name": "summary", "description": "What the summary row at the foot of the table says: the totals.", "descriptionZh": "表格底部那一行汇总写什么:合计。" }
+  ],
   "events": [],
   "a11y": {
     "role": "table",

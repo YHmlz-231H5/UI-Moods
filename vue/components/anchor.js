@@ -13,13 +13,19 @@ import { defineComponent, cloneVNode, h } from "vue";
  * The host writes the element — an `<a>` to the fragment of a section — and
  * the wrapper adds the class the stylesheet paints it with. Anything that
  * is not an element (a stray text node) becomes an empty link, so the column
- * always has a shape.
+ * always has a shape. The sub-link slot, when it is given, writes what the
+ * entry says.
  */
-function anchorLink(entry) {
+function anchorLink(entry, index, slots) {
   if (!entry || typeof entry.type !== "string") {
     return h("a", { class: "um-anchor__link", href: "#" });
   }
-  return cloneVNode(entry, { class: "um-anchor__link" });
+  if (!slots["sub-link"]) return cloneVNode(entry, { class: "um-anchor__link" });
+  return h(
+    entry.type,
+    { ...entry.props, class: "um-anchor__link" },
+    slots["sub-link"]({ entry, index }),
+  );
 }
 
 export const UMAnchor = defineComponent({
@@ -46,7 +52,7 @@ export const UMAnchor = defineComponent({
             "ul",
             { class: "um-anchor__list" },
             list.map((entry, i) =>
-              h("li", { class: "um-anchor__item", key: i }, [anchorLink(entry)]),
+              h("li", { class: "um-anchor__item", key: i }, [anchorLink(entry, i, slots)]),
             ),
           ),
         ],

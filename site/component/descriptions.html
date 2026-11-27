@@ -261,9 +261,17 @@
       <tr><td><code>um-descriptions</code></td><td>The base class. Every instance carries it.</td></tr>
       <tr><td><code>um-descriptions--plain</code></td><td>Plain</td></tr>
       <tr><td><code>um-descriptions--bordered</code></td><td>Bordered</td></tr>
+      <tr><td><code>um-descriptions--sm</code></td><td>Size: sm</td></tr>
+      <tr><td><code>um-descriptions--md</code></td><td>Size: md</td></tr>
+      <tr><td><code>um-descriptions--lg</code></td><td>Size: lg</td></tr>
+      <tr><td><code>um-descriptions__header</code></td><td>Header</td></tr>
+      <tr><td><code>um-descriptions__title</code></td><td>Title</td></tr>
+      <tr><td><code>um-descriptions__extra</code></td><td>Extra</td></tr>
       <tr><td><code>um-descriptions__item</code></td><td>Item</td></tr>
       <tr><td><code>um-descriptions__label</code></td><td>Label</td></tr>
       <tr><td><code>um-descriptions__content</code></td><td>Content</td></tr>
+      <tr><td><code>.um-descriptions--align-center</code></td><td>Centred</td></tr>
+      <tr><td><code>.um-descriptions--align-end</code></td><td>Aligned to the end</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -273,12 +281,19 @@
       <tr><td><span class="api__name"><code>variant</code></span></td><td><code>enum = plain | bordered</code></td><td><code>plain</code></td><td>Whether the list is framed. The base class is already the plain form.</td></tr>
       <tr><td><span class="api__name"><code>columns</code></span></td><td><code>number</code></td><td><code>1</code></td><td>How many pairs sit in one row. It is written to the `--um-descriptions-columns` custom property, because a class cannot carry a number.</td></tr>
       <tr><td><span class="api__name"><code>labelWidth</code></span></td><td><code>string</code></td><td><code>6em</code></td><td>The width of the label column, so the values line up under each other. It is written to the `--um-descriptions-label-width` custom property.</td></tr>
+      <tr><td><span class="api__name"><code>align</code></span></td><td><code>enum = start | center | end</code></td><td><code>start</code></td><td>How the pairs line up in their cells. The ends are written logically, so a right-to-left reader gets the other side; the start run is the base class on its own.</td></tr>
+      <tr><td><span class="api__name"><code>border</code></span></td><td><code>boolean</code></td><td>—</td><td>Whether the list is framed. It falls back to the variant when it is left out.</td></tr>
+      <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The size of the pairs. The medium size is the base class on its own.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>
 <table class="api">
       <thead><tr><th>Name</th><th>Description</th></tr></thead>
       <tbody>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>The pairs, one div per pair, each holding a dt and a dd. The classes go on them, so the caller does not have to write them.</td></tr>
+      <tr><td><span class="api__name"><code>title</code></span></td><td>What the list is about. It sits at the start of the header above the list.</td></tr>
+      <tr><td><span class="api__name"><code>extra</code></span></td><td>What acts on the list. It sits at the end of the header above the list.</td></tr>
+      <tr><td><span class="api__name"><code>label</code></span></td><td>The label of the pair the wrapper writes when the caller writes no pair of its own.</td></tr>
       <tr><td><span class="api__name"><code>item</code></span></td><td>One label and its value.</td></tr>
       </tbody>
     </table>

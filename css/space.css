@@ -54,6 +54,18 @@
   gap: var(--um-space-lg);
 }
 
+/* A run that does not wrap keeps every item on one line, so the items shrink
+   instead of the row breaking. */
+.um-space--no-wrap {
+  flex-wrap: nowrap;
+}
+
+/* The items of a filling run share the width of the run between them, so the
+   row ends flush at both ends instead of leaving a gap at the end of it. */
+.um-space--fill .um-space__item {
+  flex: 1 1 0;
+}
+
 /* ============================================================================
    Quality hooks
    ----------------------------------------------------------------------------

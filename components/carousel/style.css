@@ -142,3 +142,18 @@
   width: var(--um-height-lg);
   height: var(--um-height-lg);
 }
+
+/* The arrow run. The always run is the base class on its own: the buttons are
+   there. The never run takes them away, and the hover run keeps them for the
+   pointer and for the keyboard — the buttons stay in the tab order, so a
+   reader who tabs to one sees it. */
+.um-carousel--arrow-never .um-carousel__nav { display: none; }
+.um-carousel--arrow-hover .um-carousel__nav { opacity: 0; }
+.um-carousel--arrow-hover .um-carousel__slide:hover .um-carousel__nav,
+.um-carousel--arrow-hover .um-carousel__slide:focus-within .um-carousel__nav { opacity: 1; }
+
+/* Without the loop the ends stop: the first slide has no slide before it and
+   the last has none after it, so the button that would step past the end is
+   taken away rather than left pointing back at the other end. */
+.um-carousel--no-loop .um-carousel__slide:first-child .um-carousel__prev,
+.um-carousel--no-loop .um-carousel__slide:last-child .um-carousel__next { display: none; }

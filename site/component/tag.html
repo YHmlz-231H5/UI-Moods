@@ -185,6 +185,16 @@
       <tr><td><code>um-tag--success</code></td><td>Success</td></tr>
       <tr><td><code>um-tag--warning</code></td><td>Warning</td></tr>
       <tr><td><code>um-tag--danger</code></td><td>Danger</td></tr>
+      <tr><td><code>um-tag--sm</code></td><td>Size: sm</td></tr>
+      <tr><td><code>um-tag--md</code></td><td>Size: md</td></tr>
+      <tr><td><code>um-tag--lg</code></td><td>Size: lg</td></tr>
+      <tr><td><code>um-tag__close</code></td><td>Close</td></tr>
+      <tr><td><code>.um-tag--closable</code></td><td>Closable</td></tr>
+      <tr><td><code>.um-tag--disabled</code></td><td>Disabled</td></tr>
+      <tr><td><code>.um-tag--hit</code></td><td>Hit</td></tr>
+      <tr><td><code>.um-tag--round</code></td><td>Round</td></tr>
+      <tr><td><code>.um-tag--plain</code></td><td>Plain effect</td></tr>
+      <tr><td><code>.um-tag--dark</code></td><td>Dark effect</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -192,10 +202,28 @@
       <thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
       <tbody>
       <tr><td><span class="api__name"><code>variant</code></span></td><td><code>enum = primary | success | warning | danger</code></td><td>—</td><td>Which state this tag carries. The base class on its own is the neutral tag.</td></tr>
+      <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The size of the tag. The medium size is the base class on its own.</td></tr>
+      <tr><td><span class="api__name"><code>effect</code></span></td><td><code>enum = light | plain | dark</code></td><td><code>light</code></td><td>How the tag is filled. The light run tints the fill, the plain run leaves it empty and the dark run fills it solid.</td></tr>
+      <tr><td><span class="api__name"><code>closable</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Shows the close button.</td></tr>
+      <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes the tag inert.</td></tr>
+      <tr><td><span class="api__name"><code>hit</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Gives the tag a heavier bottom edge, the way a struck-through row does.</td></tr>
+      <tr><td><span class="api__name"><code>round</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Gives the tag the pill shape, whatever height it is.</td></tr>
       </tbody>
     </table>
-
-
+      <h2>Slots</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>The label of the tag.</td></tr>
+      </tbody>
+    </table>
+      <h2>Events</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>close</code></span></td><td>Fires when the close button is pressed. The wrapper installs the listener; the stylesheet paints the button.</td></tr>
+      </tbody>
+    </table>
       <h2>Accessibility</h2>
       <p>The tag is text inside a plain &lt;span&gt;: it is read where it sits and it is never focusable. If the tag is meant to be clicked or removed, use a real &lt;button&gt; or &lt;a&gt; and keep the class on it — a clickable span is not focusable and is not announced as a control.</p>
 

@@ -66,3 +66,36 @@
   padding-inline-end: var(--um-space-sm);
   border-inline-end: var(--um-border-width) var(--um-border-style) var(--um-border-base);
 }
+
+/* The alignment run. The start run is the base class on its own: the pair
+   lines up with the start of its cell. The ends are written logically, so a
+   right-to-left reader gets the other side. */
+.um-descriptions--align-center { text-align: center; }
+.um-descriptions--align-end { text-align: end; }
+
+/* The size run. The medium list is the base class on its own: the label takes
+   the caption size and the value takes the body size. */
+.um-descriptions--sm .um-descriptions__content { font-size: var(--um-font-size-caption); }
+.um-descriptions--lg .um-descriptions__label { font-size: var(--um-font-size-body); }
+.um-descriptions--lg .um-descriptions__content { font-size: var(--um-font-size-title); }
+
+/* The header holds the title and the extra: the title at the start, the extra
+   at the end. The header adds no space of its own — the gap under the title
+   is the title's own — so a list with no title is not pushed down by a row
+   that carries nothing. */
+.um-descriptions__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--um-space-xs);
+}
+.um-descriptions__title {
+  margin-bottom: var(--um-space-xs);
+  color: var(--um-text-primary);
+  font-size: var(--um-font-size-title);
+  font-weight: var(--um-font-weight-bold);
+}
+.um-descriptions__extra {
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}

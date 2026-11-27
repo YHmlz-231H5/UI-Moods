@@ -318,6 +318,9 @@
       <tr><td><code>um-carousel__prev</code></td><td>Previous</td></tr>
       <tr><td><code>um-carousel__next</code></td><td>Next</td></tr>
       <tr><td><code>:target</code></td><td>Current</td></tr>
+      <tr><td><code>.um-carousel--arrow-never</code></td><td>No arrows</td></tr>
+      <tr><td><code>.um-carousel--arrow-hover</code></td><td>Arrows on hover</td></tr>
+      <tr><td><code>.um-carousel--no-loop</code></td><td>No loop</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -328,6 +331,9 @@
       <tr><td><span class="api__name"><code>variant</code></span></td><td><code>enum = plain | spaced</code></td><td><code>plain</code></td><td>Whether the slides are edge to edge or have a gap between them. The plain run is the base class on its own; the spaced run adds um-carousel--spaced.</td></tr>
       <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The size of the caption and of the buttons.</td></tr>
       <tr><td><span class="api__name"><code>label</code></span></td><td><code>string</code></td><td>—</td><td>The name of the track, read out before the slides. A scrollable region has to carry a name, or the reader is told about a scroll box and nothing else.</td></tr>
+      <tr><td><span class="api__name"><code>arrow</code></span></td><td><code>enum = always | hover | never</code></td><td><code>always</code></td><td>When the buttons that move between the slides are shown. The always run is the base class on its own.</td></tr>
+      <tr><td><span class="api__name"><code>loop</code></span></td><td><code>boolean</code></td><td><code>true</code></td><td>Whether the slides wrap around: the first slide's previous button points at the last one, and the last slide's next button points at the first. Turn it off and the ends stop.</td></tr>
+      <tr><td><span class="api__name"><code>type</code></span></td><td><code>enum = default | card</code></td><td><code>default</code></td><td>How the slides sit next to each other. The card run is the spaced one: the neighbouring slides show at the edges of the track, so the reader can tell there is more than one.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>

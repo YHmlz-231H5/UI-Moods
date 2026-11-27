@@ -22,13 +22,18 @@
     { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default size. The base class is already this size, so it needs no modifier." },
     { "id": "lg", "name": "Large", "nameZh": "大", "note": "The gap takes the theme's section step." }
   ],
-  "states": [],
+  "states": [
+    { "id": "no-wrap", "name": "No wrap", "nameZh": "不换行", "selector": ".um-space--no-wrap", "note": "Every item stays on one line, so the items shrink instead of the row breaking." },
+    { "id": "fill", "name": "Fill", "nameZh": "撑满", "selector": ".um-space--fill", "note": "The items share the width of the run between them." }
+  ],
   "parts": [
     { "id": "item", "name": "Item", "nameZh": "子项", "note": "One thing in the run. It carries no size of its own — the space between the items belongs to the container — but it is allowed to shrink, so a long name wraps instead of pushing the row wider than the box it sits in." }
   ],
   "props": [
     { "name": "direction", "type": "enum", "values": ["horizontal", "vertical"], "default": "horizontal", "description": "Which way the run goes. The horizontal run is the base class on its own; the vertical run adds um-space--vertical.", "descriptionZh": "这一排往哪个方向排。横向是只写基础类;纵向再加上 um-space--vertical。" },
-    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "How much space sits between the items. It is a step of the theme's own spacing scale, so the run is spaced like the rest of the page.", "descriptionZh": "子项之间留多少空。它是主题自己间距刻度上的一档,所以这一排的疏密跟页面上其他地方是一致的。" }
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "How much space sits between the items. It is a step of the theme's own spacing scale, so the run is spaced like the rest of the page.", "descriptionZh": "子项之间留多少空。它是主题自己间距刻度上的一档,所以这一排的疏密跟页面上其他地方是一致的。" },
+    { "name": "wrap", "type": "boolean", "default": "true", "since": "1.1.0", "description": "Whether the run breaks onto the next line when it runs out of room. Turning it off adds um-space--no-wrap.", "descriptionZh": "这一排放不下时是否换到下一行。关掉它就加上 um-space--no-wrap。" },
+    { "name": "fill", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Whether the items share the width of the run between them. It adds um-space--fill.", "descriptionZh": "子项是否平分这一排的宽度。它加上 um-space--fill。" }
   ],
   "slots": [
     { "name": "default", "description": "The things in the run. Each one is wrapped in an item, so the gap lands between them and not inside them.", "descriptionZh": "这一排里的东西。每一个都会裹进一个子项里,所以那道空落在它们之间,而不是落在它们自己身上。" }

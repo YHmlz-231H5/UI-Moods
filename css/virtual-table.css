@@ -43,6 +43,9 @@
      modifier rather than sitting at a number of its own. */
   --um-virtual-table-row-size: 1.2em;
 
+  /* The overlay lies over the table, so the table is what it is laid against. */
+  position: relative;
+
   font-family: var(--um-font-family);
   font-size: var(--um-font-size-body);
   color: var(--um-text-regular);
@@ -173,6 +176,33 @@
 .um-virtual-table--lg .um-virtual-table__row {
   font-size: var(--um-font-size-title);
 }
+
+/* The scrollbar is always there: the box keeps its scrollbar whether the list
+   needs one or not, so the rows do not move sideways as the list grows past
+   the box. */
+.um-virtual-table--scrollbar-always-on .um-virtual-table__scroller {
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
+}
+
+/* The footer is what stands under the table: the totals, a note. It takes no
+   room at all when the host has nothing to put in it, so an empty footer is
+   not a strip of nothing under every table. */
+.um-virtual-table__footer {
+  padding: var(--um-space-xs) var(--um-space-sm);
+  border-top: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+  color: var(--um-text-secondary);
+}
+.um-virtual-table__footer:empty { display: none; }
+
+/* The overlay lies over the table: a mask, a loading bar. An empty overlay is
+   not drawn at all, because a box over the rows would swallow the clicks
+   meant for them. */
+.um-virtual-table__overlay {
+  position: absolute;
+  inset: 0;
+}
+.um-virtual-table__overlay:empty { display: none; }
 
 /* ============================================================================
    Quality hooks

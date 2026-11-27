@@ -23,7 +23,10 @@
     { "id": "lg", "name": "Large", "nameZh": "大", "note": "The caption takes the title size and the buttons take the large control height." }
   ],
   "states": [
-    { "id": "current", "name": "Current", "nameZh": "当前", "selector": ":target", "note": "The slide the reader has moved to. Its caption takes the brand colour's text role, so the reader can see which slide is the one they are looking at." }
+    { "id": "current", "name": "Current", "nameZh": "当前", "selector": ":target", "note": "The slide the reader has moved to. Its caption takes the brand colour's text role, so the reader can see which slide is the one they are looking at." },
+    { "id": "arrow-never", "name": "No arrows", "nameZh": "无箭头", "selector": ".um-carousel--arrow-never", "note": "The buttons that move between the slides are taken away." },
+    { "id": "arrow-hover", "name": "Arrows on hover", "nameZh": "悬停显示箭头", "selector": ".um-carousel--arrow-hover", "note": "The buttons are there for the pointer and for the keyboard, and they are shown when the reader is on the slide." },
+    { "id": "no-loop", "name": "No loop", "nameZh": "不循环", "selector": ".um-carousel--no-loop", "note": "The ends stop: the first slide has no slide before it and the last has none after it." }
   ],
   "parts": [
     { "id": "track", "name": "Track", "nameZh": "轨道", "note": "The row of slides. It is the scroller: the browser snaps it from one slide to the next, so the track has to be reachable by keyboard and has to carry a name." },
@@ -38,7 +41,10 @@
     { "name": "name", "type": "string", "description": "The prefix of the ids of the slides. Every slide needs an id of its own, because that id is what the buttons point at, and two carousels on one page cannot share ids.", "descriptionZh": "各张幻灯片 id 的前缀。每张幻灯片都需要自己的 id,因为按钮指的就是这个 id,而同一页上的两个轮播不能共用 id。" },
     { "name": "variant", "type": "enum", "values": ["plain", "spaced"], "default": "plain", "description": "Whether the slides are edge to edge or have a gap between them. The plain run is the base class on its own; the spaced run adds um-carousel--spaced.", "descriptionZh": "幻灯片是紧挨着还是留一道缝。无间隙是只写基类;有间隙再加上 um-carousel--spaced。" },
     { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The size of the caption and of the buttons.", "descriptionZh": "说明文字和按钮的尺寸。" },
-    { "name": "label", "type": "string", "description": "The name of the track, read out before the slides. A scrollable region has to carry a name, or the reader is told about a scroll box and nothing else.", "descriptionZh": "轨道的名字,会在幻灯片之前读出来。一个可滚动区域必须带名字,不然读屏只会说这里有个滚动框,别的什么也说不出来。" }
+    { "name": "label", "type": "string", "description": "The name of the track, read out before the slides. A scrollable region has to carry a name, or the reader is told about a scroll box and nothing else.", "descriptionZh": "轨道的名字,会在幻灯片之前读出来。一个可滚动区域必须带名字,不然读屏只会说这里有个滚动框,别的什么也说不出来。" },
+    { "name": "arrow", "type": "enum", "values": ["always", "hover", "never"], "default": "always", "since": "1.1.0", "description": "When the buttons that move between the slides are shown. The always run is the base class on its own.", "descriptionZh": "在什么时候显示那几个走到相邻幻灯片的按钮。一直显示就是只写基类。" },
+    { "name": "loop", "type": "boolean", "default": "true", "since": "1.1.0", "description": "Whether the slides wrap around: the first slide's previous button points at the last one, and the last slide's next button points at the first. Turn it off and the ends stop.", "descriptionZh": "幻灯片是否循环:第一张的上一张按钮指向最后一张,最后一张的下一张按钮指向第一张。关掉以后两端就停住了。" },
+    { "name": "type", "type": "enum", "values": ["default", "card"], "default": "default", "since": "1.1.0", "description": "How the slides sit next to each other. The card run is the spaced one: the neighbouring slides show at the edges of the track, so the reader can tell there is more than one.", "descriptionZh": "幻灯片怎么并排放。卡片式就是有间隙的那一种:相邻的幻灯片露在轨道两边,读者能看出不止一张。" }
   ],
   "slots": [
     { "name": "default", "description": "The slides, one figure per slide. Each figure holds the body, the caption and, at its foot, the buttons that move to its neighbours.", "descriptionZh": "各张幻灯片,一张一个 figure。每个 figure 里放着内容、说明,以及底部那两个走到相邻幻灯片的按钮。" }

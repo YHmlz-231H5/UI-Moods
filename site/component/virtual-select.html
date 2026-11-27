@@ -1393,12 +1393,17 @@
       <tr><td><code>um-virtual-select--md</code></td><td>Size: md</td></tr>
       <tr><td><code>um-virtual-select--lg</code></td><td>Size: lg</td></tr>
       <tr><td><code>um-virtual-select__scroller</code></td><td>Scroller</td></tr>
+      <tr><td><code>um-virtual-select__header</code></td><td>Header</td></tr>
       <tr><td><code>um-virtual-select__list</code></td><td>List</td></tr>
       <tr><td><code>um-virtual-select__option</code></td><td>Option</td></tr>
       <tr><td><code>um-virtual-select__label</code></td><td>Label</td></tr>
       <tr><td><code>um-virtual-select__text</code></td><td>Text</td></tr>
+      <tr><td><code>um-virtual-select__footer</code></td><td>Footer</td></tr>
       <tr><td><code>:checked</code></td><td>Checked</td></tr>
       <tr><td><code>:focus-visible</code></td><td>Focus visible</td></tr>
+      <tr><td><code>:disabled</code></td><td>Disabled</td></tr>
+      <tr><td><code>.um-virtual-select--scrollbar-always-on</code></td><td>Scrollbar always on</td></tr>
+      <tr><td><code>.um-virtual-select__empty</code></td><td>Empty</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -1410,9 +1415,22 @@
       <tr><td><span class="api__name"><code>options</code></span></td><td><code>string</code></td><td><code>Aardvark,Albatross,Badger,Barracuda,Beetle,Bison,Butterfly,Capybara,Caribou,Chameleon,Cheetah,Chinchilla</code></td><td>The labels in the list, separated by commas. The wrapper draws one option per label; the markup writes the options out.</td></tr>
       <tr><td><span class="api__name"><code>placeholder</code></span></td><td><code>string</code></td><td><code>Choose a species</code></td><td>The text that names the list and stands in for a choice. It is the accessible name of the listbox, so the browser announces it when the reader reaches the list. The library has no field to write a selection into, so the placeholder is what the list is called.</td></tr>
       <tr><td><span class="api__name"><code>height</code></span></td><td><code>string</code></td><td><code>12em</code></td><td>The height of the scroller. It is a length and not a number of pixels: how tall the window onto the list is belongs to the host's page.</td></tr>
+      <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>How tall a row is and how big the type in it is. The middle size needs no modifier class.</td></tr>
+      <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes the choice out of reach. It is the real disabled attribute on every radio, so the rows leave the tab order.</td></tr>
+      <tr><td><span class="api__name"><code>scrollbar-always-on</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the scrolling box keeps its scrollbar whether the list needs one or not, so the rows do not move sideways as the list grows. It adds um-virtual-select--scrollbar-always-on.</td></tr>
       </tbody>
     </table>
-
+      <h2>Slots</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>label</code></span></td><td>What one option says. It is given the label of the option and the option's number.</td></tr>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>What one option holds. It is the name Element Plus gives the same content the label slot fills.</td></tr>
+      <tr><td><span class="api__name"><code>empty</code></span></td><td>What the list says when it holds no option at all.</td></tr>
+      <tr><td><span class="api__name"><code>header</code></span></td><td>What stands above the options: a filter, a note.</td></tr>
+      <tr><td><span class="api__name"><code>footer</code></span></td><td>What stands below the options: a note, a load-more row.</td></tr>
+      </tbody>
+    </table>
       <h2>Events</h2>
 <table class="api">
       <thead><tr><th>Name</th><th>Description</th></tr></thead>

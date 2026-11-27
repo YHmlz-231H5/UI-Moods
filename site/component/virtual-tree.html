@@ -2255,6 +2255,10 @@
       <tr><td><code>um-virtual-tree__children</code></td><td>Children</td></tr>
       <tr><td><code>[open]</code></td><td>Open</td></tr>
       <tr><td><code>:focus-visible</code></td><td>Focus visible</td></tr>
+      <tr><td><code>.um-virtual-tree--highlight-current</code></td><td>Highlight current</td></tr>
+      <tr><td><code>.um-virtual-tree--scrollbar-always-on</code></td><td>Scrollbar always on</td></tr>
+      <tr><td><code>.um-virtual-tree__node--current</code></td><td>Current node</td></tr>
+      <tr><td><code>.um-virtual-tree__empty</code></td><td>Empty</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -2264,11 +2268,20 @@
       <tr><td><span class="api__name"><code>variant</code></span></td><td><code>enum = plain | lines</code></td><td><code>plain</code></td><td>Whether the guide lines between the levels are drawn.</td></tr>
       <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>How tall a branch is and how big the type in it is.</td></tr>
       <tr><td><span class="api__name"><code>depth</code></span></td><td><code>number</code></td><td><code>4</code></td><td>How deep the tree goes. The wrapper writes that many levels of branches.</td></tr>
-      <tr><td><span class="api__name"><code>branches</code></span></td><td><code>number</code></td><td><code>6</code></td><td>How many branches each level has. The wrapper multiplies them out, so a depth of four and six branches is a thousand leaves.</td></tr>
+      <tr><td><span class="api__name"><code>branches</code></span></td><td><code>number</code></td><td><code>6</code></td><td>How many branches each level has. The wrapper multiplies them out, so a depth of four and six branches is a thousand leaves. No branches at all is an empty tree, and the empty slot says what it holds.</td></tr>
       <tr><td><span class="api__name"><code>height</code></span></td><td><code>string</code></td><td><code>16em</code></td><td>How tall the scrolling box is. The library cannot guess it: a box that is not given a height never scrolls, because its content is what gives it one.</td></tr>
+      <tr><td><span class="api__name"><code>highlight-current</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the branch the reader is on takes the highlight fill. That branch is marked with um-virtual-tree__node--current.</td></tr>
+      <tr><td><span class="api__name"><code>scrollbar-always-on</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the scrolling box keeps its scrollbar whether the tree needs one or not, so the branches do not move sideways as the tree grows. It adds um-virtual-tree--scrollbar-always-on.</td></tr>
       </tbody>
     </table>
-
+      <h2>Slots</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>What one branch says. It is given the path to the branch and the level it is on. The arrow stays: it is the mark that says the branch holds something.</td></tr>
+      <tr><td><span class="api__name"><code>empty</code></span></td><td>What the tree says when it holds nothing at all.</td></tr>
+      </tbody>
+    </table>
       <h2>Events</h2>
 <table class="api">
       <thead><tr><th>Name</th><th>Description</th></tr></thead>

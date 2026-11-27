@@ -191,16 +191,28 @@
       <tr><td><code>um-divider</code></td><td>The base class. Every instance carries it.</td></tr>
       <tr><td><code>um-divider--plain</code></td><td>Plain</td></tr>
       <tr><td><code>um-divider--vertical</code></td><td>Vertical</td></tr>
+      <tr><td><code>um-divider--dashed</code></td><td>Dashed</td></tr>
+      <tr><td><code>um-divider--dotted</code></td><td>Dotted</td></tr>
+      <tr><td><code>.um-divider--content-start</code></td><td>Content at the start</td></tr>
+      <tr><td><code>.um-divider--content-end</code></td><td>Content at the end</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
 <table class="api">
       <thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
       <tbody>
-      <tr><td><span class="api__name"><code>variant</code></span></td><td><code>enum = plain | vertical</code></td><td>—</td><td>Which form of the divider this is. The base class on its own is the horizontal rule with a label in the middle.</td></tr>
+      <tr><td><span class="api__name"><code>variant</code></span></td><td><code>enum = plain | vertical | dashed | dotted</code></td><td>—</td><td>Which form of the divider this is. The base class on its own is the horizontal rule with a label in the middle.</td></tr>
+      <tr><td><span class="api__name"><code>border-style</code></span></td><td><code>enum = solid | dashed | dotted</code></td><td><code>solid</code></td><td>How the rule is drawn. The solid rule is the base class on its own; the dashed and the dotted rule add um-divider--dashed and um-divider--dotted, the same classes the variant prop adds.</td></tr>
+      <tr><td><span class="api__name"><code>content-position</code></span></td><td><code>enum = start | center | end</code></td><td><code>center</code></td><td>Where the label sits on the rule. The middle is the base class on its own; the start and the end add um-divider--content-start and um-divider--content-end.</td></tr>
       </tbody>
     </table>
-
+      <h2>Slots</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>The label that sits on the rule. It is ordinary content, so it is read as part of the page.</td></tr>
+      </tbody>
+    </table>
 
       <h2>Accessibility</h2>
       <p><strong>Role:</strong> <code>separator</code></p>

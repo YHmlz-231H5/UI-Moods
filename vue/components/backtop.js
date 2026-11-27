@@ -17,7 +17,7 @@ export const UMBacktop = defineComponent({
     target: { type: String, default: "#top" },
     label: { type: String, default: "Back to top" },
   },
-  setup(props) {
+  setup(props, { slots }) {
     return () =>
       h(
         "a",
@@ -31,7 +31,9 @@ export const UMBacktop = defineComponent({
           href: props.target,
           "aria-label": props.label,
         },
-        [h("span", { class: "um-backtop__icon", "aria-hidden": "true" })],
+        // The arrow is a shape the stylesheet paints. A host that brings its
+        // own mark puts it in the button instead.
+        slots.default ? slots.default() : [h("span", { class: "um-backtop__icon", "aria-hidden": "true" })],
       );
   },
 });

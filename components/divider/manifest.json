@@ -14,15 +14,24 @@
   },
   "variants": [
     { "id": "plain", "name": "Plain", "nameZh": "纯文字", "state": "ghost", "note": "No rules — the label on its own." },
-    { "id": "vertical", "name": "Vertical", "nameZh": "竖线", "state": "solid", "note": "A vertical rule. It stretches to the height of the row it sits in." }
+    { "id": "vertical", "name": "Vertical", "nameZh": "竖线", "state": "solid", "note": "A vertical rule. It stretches to the height of the row it sits in." },
+    { "id": "dashed", "name": "Dashed", "nameZh": "虚线", "note": "The rule is drawn in dashes rather than in one solid line." },
+    { "id": "dotted", "name": "Dotted", "nameZh": "点线", "note": "The rule is drawn in dots rather than in one solid line." }
   ],
   "sizes": [],
-  "states": [],
+  "states": [
+    { "id": "content-start", "name": "Content at the start", "nameZh": "标签靠前", "selector": ".um-divider--content-start", "note": "The label sits at the start of the rule and the rule takes the rest of the width." },
+    { "id": "content-end", "name": "Content at the end", "nameZh": "标签靠后", "selector": ".um-divider--content-end", "note": "The label sits at the end of the rule and the rule takes the rest of the width." }
+  ],
   "parts": [],
   "props": [
-    { "name": "variant", "type": "enum", "values": ["plain", "vertical"], "description": "Which form of the divider this is. The base class on its own is the horizontal rule with a label in the middle.", "descriptionZh": "这条分割线是哪一种形态。只写基类就是中间带标签的横线。" }
+    { "name": "variant", "type": "enum", "values": ["plain", "vertical", "dashed", "dotted"], "description": "Which form of the divider this is. The base class on its own is the horizontal rule with a label in the middle.", "descriptionZh": "这条分割线是哪一种形态。只写基类就是中间带标签的横线。" },
+    { "name": "border-style", "type": "enum", "values": ["solid", "dashed", "dotted"], "default": "solid", "since": "1.1.0", "description": "How the rule is drawn. The solid rule is the base class on its own; the dashed and the dotted rule add um-divider--dashed and um-divider--dotted, the same classes the variant prop adds.", "descriptionZh": "那条线怎么画。实线就是只写基类;虚线和点线加上 um-divider--dashed 和 um-divider--dotted,和 variant 属性加的是同一个类。" },
+    { "name": "content-position", "type": "enum", "values": ["start", "center", "end"], "default": "center", "since": "1.1.0", "description": "Where the label sits on the rule. The middle is the base class on its own; the start and the end add um-divider--content-start and um-divider--content-end.", "descriptionZh": "标签在线上的哪个位置。居中是只写基类;靠前和靠后加上 um-divider--content-start 和 um-divider--content-end。" }
   ],
-  "slots": [],
+  "slots": [
+    { "name": "default", "description": "The label that sits on the rule. It is ordinary content, so it is read as part of the page.", "descriptionZh": "线上那个标签。它是普通内容,所以会跟着页面一起被读到。" }
+  ],
   "events": [],
   "a11y": {
     "role": "separator",

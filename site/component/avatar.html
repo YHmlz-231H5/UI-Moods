@@ -213,6 +213,10 @@
       <tr><td><code>um-avatar--xl</code></td><td>Size: xl</td></tr>
       <tr><td><code>um-avatar__image</code></td><td>Image</td></tr>
       <tr><td><code>um-avatar__icon</code></td><td>Icon</td></tr>
+      <tr><td><code>.um-avatar--cover</code></td><td>Fit cover</td></tr>
+      <tr><td><code>.um-avatar--contain</code></td><td>Fit contain</td></tr>
+      <tr><td><code>.um-avatar--fill</code></td><td>Fit fill</td></tr>
+      <tr><td><code>.um-avatar--collapsed</code></td><td>Collapsed</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -222,12 +226,15 @@
       <tr><td><span class="api__name"><code>variant</code></span></td><td><code>enum = circle | square</code></td><td><code>circle</code></td><td>The shape of the avatar. The base class is already the round one.</td></tr>
       <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg | xl</code></td><td><code>md</code></td><td>The width and height of the box, and the size of the initials in it.</td></tr>
       <tr><td><span class="api__name"><code>alt</code></span></td><td><code>string</code></td><td>—</td><td>The alternative text of the photo. Leave it empty when the name is already written next to the avatar.</td></tr>
+      <tr><td><span class="api__name"><code>fit</code></span></td><td><code>enum = cover | contain | fill</code></td><td><code>cover</code></td><td>How the photo fills the avatar. The cover run is the base class on its own.</td></tr>
+      <tr><td><span class="api__name"><code>collapse-avatars</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes this avatar the one that stands in for the avatars that did not fit, so it carries their count instead of a face.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>
 <table class="api">
       <thead><tr><th>Name</th><th>Description</th></tr></thead>
       <tbody>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>The initials of the person. They stand in for the photo when there is none.</td></tr>
       <tr><td><span class="api__name"><code>image</code></span></td><td>The photo, as an img element.</td></tr>
       <tr><td><span class="api__name"><code>icon</code></span></td><td>An icon, as an SVG. The slot itself is empty.</td></tr>
       </tbody>

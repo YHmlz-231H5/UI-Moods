@@ -33,6 +33,7 @@
     { "name": "value", "type": "string", "description": "The number, written the way it should be read: `9,999` and not `9999.0`.", "descriptionZh": "数字,按该被读出来的样子写:`9,999`,而不是 `9999.0`。" }
   ],
   "slots": [
+    { "name": "title", "description": "What the number counts. It fills the same part as the title prop.", "descriptionZh": "这个数字统计的是什么。它和标题属性填的是同一块。" },
     { "name": "prefix", "description": "What stands in front of the number.", "descriptionZh": "写在数字前面的东西。" },
     { "name": "suffix", "description": "What stands behind the number.", "descriptionZh": "写在数字后面的东西。" }
   ],

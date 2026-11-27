@@ -96,3 +96,15 @@
 .um-collapse--lg .um-collapse__content {
   padding: 0 var(--um-space-lg) var(--um-space-lg);
 }
+
+/* A panel that cannot be opened says so in the markup: a disclosure is not a
+   form control, so it cannot carry the disabled attribute itself, and the
+   reader has to be told. The pointer is taken off the panel, so it does not
+   open. */
+.um-collapse--disabled { pointer-events: none; cursor: not-allowed; }
+.um-collapse--disabled .um-collapse__header { color: var(--um-text-disabled); }
+
+/* The arrow sits at the end of the header. The start run moves it to the
+   other end, and it moves with the reading direction rather than with the
+   page: `order` is the flow order, not a side. */
+.um-collapse--icon-start .um-collapse__arrow { order: -1; }

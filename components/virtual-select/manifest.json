@@ -66,6 +66,28 @@
       "selector": ":focus-visible",
       "native": true,
       "note": "The ring goes inside the row, the way the ring on a button in a row goes inside it: an outside ring would be cut off by the scroller."
+    },
+    {
+      "id": "disabled",
+      "name": "Disabled",
+      "nameZh": "禁用",
+      "selector": ":disabled",
+      "native": true,
+      "note": "The choice is out of reach. It is the real disabled attribute on the radio, so the row leaves the tab order."
+    },
+    {
+      "id": "scrollbar-always-on",
+      "name": "Scrollbar always on",
+      "nameZh": "常驻滚动条",
+      "selector": ".um-virtual-select--scrollbar-always-on",
+      "note": "The scrolling box keeps its scrollbar whether the list needs one or not, so the rows do not move sideways as the list grows."
+    },
+    {
+      "id": "empty",
+      "name": "Empty",
+      "nameZh": "空状态",
+      "selector": ".um-virtual-select__empty",
+      "note": "The list holds no option at all. The list says so and leaves the reason to the page that owns the data."
     }
   ],
   "parts": [
@@ -74,6 +96,12 @@
       "name": "Scroller",
       "nameZh": "滚动区",
       "note": "The bounded box the list scrolls in. How much of a long list fits on a page is the host's business, so its height is the host's."
+    },
+    {
+      "id": "header",
+      "name": "Header",
+      "nameZh": "顶部",
+      "note": "What stands above the options: a filter, a note. It takes no room when the host has nothing to put in it."
     },
     {
       "id": "list",
@@ -98,6 +126,12 @@
       "name": "Text",
       "nameZh": "文字",
       "note": "The words of the option. A long name is cut with an ellipsis rather than wrapped, so every row keeps one height — which is what the placeholder size of a row the browser has not laid out yet has to match."
+    },
+    {
+      "id": "footer",
+      "name": "Footer",
+      "nameZh": "底部",
+      "note": "What stands below the options: a note, a load-more row. It takes no room when the host has nothing to put in it."
     }
   ],
   "props": [
@@ -135,9 +169,60 @@
       "default": "12em",
       "description": "The height of the scroller. It is a length and not a number of pixels: how tall the window onto the list is belongs to the host's page.",
       "descriptionZh": "滚动区的高度。它是一个长度,不是多少像素:这个列表开多大一个窗口,是宿主页面的事。"
+    },
+    {
+      "name": "size",
+      "type": "enum",
+      "values": ["sm", "md", "lg"],
+      "default": "md",
+      "since": "1.1.0",
+      "description": "How tall a row is and how big the type in it is. The middle size needs no modifier class.",
+      "descriptionZh": "一行有多高,里面的字有多大。中间那一档不用加修饰类。"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "since": "1.1.0",
+      "description": "Makes the choice out of reach. It is the real disabled attribute on every radio, so the rows leave the tab order.",
+      "descriptionZh": "让选择不可用。它是每个单选按钮上的原生 disabled 属性,因此这些行会退出 Tab 顺序。"
+    },
+    {
+      "name": "scrollbar-always-on",
+      "type": "boolean",
+      "default": "false",
+      "since": "1.1.0",
+      "description": "Whether the scrolling box keeps its scrollbar whether the list needs one or not, so the rows do not move sideways as the list grows. It adds um-virtual-select--scrollbar-always-on.",
+      "descriptionZh": "滚动区是否一直留着滚动条,不管这份清单用不用得上,这样清单变长时行不会横向挪动。它加上 um-virtual-select--scrollbar-always-on。"
     }
   ],
-  "slots": [],
+  "slots": [
+    {
+      "name": "label",
+      "description": "What one option says. It is given the label of the option and the option's number.",
+      "descriptionZh": "某一个选项写什么。它拿到这个选项的名字和它的序号。"
+    },
+    {
+      "name": "default",
+      "description": "What one option holds. It is the name Element Plus gives the same content the label slot fills.",
+      "descriptionZh": "某一个选项装着什么。它是 Element Plus 给 label 插槽所填的同一份内容起的名字。"
+    },
+    {
+      "name": "empty",
+      "description": "What the list says when it holds no option at all.",
+      "descriptionZh": "这个列表一个选项都没有的时候说什么。"
+    },
+    {
+      "name": "header",
+      "description": "What stands above the options: a filter, a note.",
+      "descriptionZh": "选项上面放什么:一个筛选,或者一句说明。"
+    },
+    {
+      "name": "footer",
+      "description": "What stands below the options: a note, a load-more row.",
+      "descriptionZh": "选项下面放什么:一句说明,或者一行加载更多。"
+    }
+  ],
   "events": [
     {
       "name": "change",

@@ -12,6 +12,11 @@
 //
 // The empty state replaces the rows rather than sitting under them, so a table
 // with nothing in it says so instead of showing a scroll bar over nothing.
+//
+// The slots fill the parts the stylesheet already declares: the header, one
+// head cell, one row, one cell, the empty state, the footer under the table
+// and the overlay over it. A slot that is not given leaves the wrapper's own
+// writing in place.
 
 import { defineComponent, h } from "vue";
 
@@ -37,8 +42,9 @@ export const UMVirtualTable = defineComponent({
     columns: { type: String, default: "Node, Build, State" },
     height: { type: String, default: "16em" },
     empty: { type: Boolean, default: false },
+    scrollbarAlwaysOn: { type: Boolean, default: false },
   },
-  setup(props) {
+  setup(props, { slots }) {
     return () => {
       const names = props.columns
         .split(",")
@@ -49,42 +55,20 @@ export const UMVirtualTable = defineComponent({
       const header = h(
         "div",
         { class: "um-virtual-table__header", role: "row" },
-        names.map((name) =>
-          h("span", { class: "um-virtual-table__head-cell", role: "columnheader" }, name),
-        ),
+        slots.header
+          ? slots.header({ columns: names })
+          : names.map((name, column) =>
+              h(
+                "span",
+                { class: "um-virtual-table__head-cell", role: "columnheader" },
+                slots.headerCell ? slots.headerCell({ name, column }) : name,
+              ),
+            ),
       );
 
       const body = props.empty
-        ? [
-            h(
-              "div",
-              { class: "um-virtual-table__row um-virtual-table__empty", role: "row" },
-              [
-                h(
-                  "span",
-                  {
-                    class: "um-virtual-table__cell",
-                    role: "gridcell",
-                    "aria-colspan": String(Math.max(names.length, 1)),
-                  },
-                  "No data",
-                ),
-              ],
-            ),
-          ]
-        : Array.from({ length: count }, (_, row) =>
-            h(
-              "div",
-              { class: "um-virtual-table__row", role: "row" },
-              names.map((_, column) =>
-                h(
-                  "span",
-                  { class: "um-virtual-table__cell", role: "gridcell" },
-                  cellValue(row, column),
-                ),
-              ),
-            ),
-          );
+        ? [emptyRow(slots, names.length)]
+        : Array.from({ length: count }, (_, row) => rowElement(slots, row, names.length));
 
       return h(
         "div",
@@ -93,6 +77,7 @@ export const UMVirtualTable = defineComponent({
             "um-virtual-table",
             VARIANTS.includes(props.variant) ? `um-virtual-table--${props.variant}` : null,
             sizeClass(props.size),
+            props.scrollbarAlwaysOn ? "um-virtual-table--scrollbar-always-on" : null,
           ],
         },
         [
@@ -109,6 +94,8 @@ export const UMVirtualTable = defineComponent({
             },
             [header, h("div", { class: "um-virtual-table__body", role: "rowgroup" }, body)],
           ),
+          h("div", { class: "um-virtual-table__footer" }, slots.footer ? slots.footer() : []),
+          h("div", { class: "um-virtual-table__overlay" }, slots.overlay ? slots.overlay() : []),
         ],
       );
     };
@@ -120,4 +107,35 @@ function sizeClass(size) {
   if (size === "sm") return "um-virtual-table--sm";
   if (size === "lg") return "um-virtual-table--lg";
   return null;
+}
+
+/** One record. The host may write the whole row, or let the cells be written
+ *  one by one. */
+function rowElement(slots, row, columns) {
+  const children = slots.row
+    ? slots.row({ row })
+    : Array.from({ length: columns }, (_, column) =>
+        h(
+          "span",
+          { class: "um-virtual-table__cell", role: "gridcell" },
+          slots.cell ? slots.cell({ row, column, value: cellValue(row, column) }) : cellValue(row, column),
+        ),
+      );
+
+  return h("div", { class: "um-virtual-table__row", role: "row" }, children);
+}
+
+/** The row that says there is nothing to show. */
+function emptyRow(slots, columns) {
+  return h("div", { class: "um-virtual-table__row um-virtual-table__empty", role: "row" }, [
+    h(
+      "span",
+      {
+        class: "um-virtual-table__cell",
+        role: "gridcell",
+        "aria-colspan": String(Math.max(columns, 1)),
+      },
+      slots.empty ? slots.empty() : "No data",
+    ),
+  ]);
 }

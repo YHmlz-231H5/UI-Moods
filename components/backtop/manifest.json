@@ -90,7 +90,13 @@
       "descriptionZh": "链接的可访问名称。箭头是个形状,什么也没说,所以名字总得有个来源。"
     }
   ],
-  "slots": [],
+  "slots": [
+    {
+      "name": "default",
+      "description": "What the button holds. Without it the button carries the arrow the stylesheet draws, which says nothing of its own and is hidden from the screen reader.",
+      "descriptionZh": "按钮里放什么。不给就带着样式表画的那个箭头 —— 箭头自己不带任何内容,读屏也读不到它。"
+    }
+  ],
   "events": [],
   "a11y": {
     "keyboard": ["Tab", "Enter"],

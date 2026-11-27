@@ -47,3 +47,18 @@
 
 .um-avatar--circle { border-radius: var(--um-radius-circle); }
 .um-avatar--square { border-radius: var(--um-radius-base); }
+
+/* How the photo fills the box. The cover run is the base class on its own;
+   the modifier paints the same rule, so the class list can name it. */
+.um-avatar--cover .um-avatar__image { object-fit: cover; }
+.um-avatar--contain .um-avatar__image { object-fit: contain; }
+.um-avatar--fill .um-avatar__image { object-fit: fill; }
+
+/* The collapsed avatar stands in for the ones that did not fit, so it carries
+   a count rather than a face, and the count is set smaller than a face's
+   initials would be. */
+.um-avatar--collapsed {
+  background: var(--um-fill-base);
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}

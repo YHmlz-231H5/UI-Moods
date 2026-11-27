@@ -329,6 +329,8 @@
       <tr><td><code>um-tree__children</code></td><td>Children</td></tr>
       <tr><td><code>[open]</code></td><td>Open</td></tr>
       <tr><td><code>:focus-visible</code></td><td>Focus visible</td></tr>
+      <tr><td><code>.um-tree--highlight-current</code></td><td>Highlight current</td></tr>
+      <tr><td><code>.um-tree__node--current</code></td><td>Current node</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -339,6 +341,7 @@
       <tr><td><span class="api__name"><code>variant</code></span></td><td><code>enum = plain | lines</code></td><td><code>plain</code></td><td>How the levels are held apart. The plain run is the base class on its own; the guided run adds um-tree--lines.</td></tr>
       <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The size of the label text.</td></tr>
       <tr><td><span class="api__name"><code>label</code></span></td><td><code>string</code></td><td>—</td><td>The name of the thing the branch holds. A branch with no text needs an accessible name of its own.</td></tr>
+      <tr><td><span class="api__name"><code>highlight-current</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the branch the reader is on takes the highlight fill. That branch is marked with um-tree__node--current.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>
@@ -346,6 +349,8 @@
       <thead><tr><th>Name</th><th>Description</th></tr></thead>
       <tbody>
       <tr><td><span class="api__name"><code>children</code></span></td><td>The level below: one node per branch inside this one.</td></tr>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>What the branch says. It is the name Element Plus gives the same content the label slot fills.</td></tr>
+      <tr><td><span class="api__name"><code>empty</code></span></td><td>What the level below says when there is nothing in it. Without it the level below is empty.</td></tr>
       </tbody>
     </table>
       <h2>Events</h2>

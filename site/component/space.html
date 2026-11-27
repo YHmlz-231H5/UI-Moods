@@ -199,6 +199,8 @@
       <tr><td><code>um-space--md</code></td><td>Size: md</td></tr>
       <tr><td><code>um-space--lg</code></td><td>Size: lg</td></tr>
       <tr><td><code>um-space__item</code></td><td>Item</td></tr>
+      <tr><td><code>.um-space--no-wrap</code></td><td>No wrap</td></tr>
+      <tr><td><code>.um-space--fill</code></td><td>Fill</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -207,6 +209,8 @@
       <tbody>
       <tr><td><span class="api__name"><code>direction</code></span></td><td><code>enum = horizontal | vertical</code></td><td><code>horizontal</code></td><td>Which way the run goes. The horizontal run is the base class on its own; the vertical run adds um-space--vertical.</td></tr>
       <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>How much space sits between the items. It is a step of the theme's own spacing scale, so the run is spaced like the rest of the page.</td></tr>
+      <tr><td><span class="api__name"><code>wrap</code></span></td><td><code>boolean</code></td><td><code>true</code></td><td>Whether the run breaks onto the next line when it runs out of room. Turning it off adds um-space--no-wrap.</td></tr>
+      <tr><td><span class="api__name"><code>fill</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the items share the width of the run between them. It adds um-space--fill.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>

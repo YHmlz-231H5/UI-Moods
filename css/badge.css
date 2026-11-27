@@ -50,6 +50,23 @@
 
 .um-badge__dot { width: 6px; height: 6px; border-radius: var(--um-radius-circle); background: currentColor; }
 
+/* The dot-only badge: the mark is the whole badge, so the chip closes around
+   it and takes the circle the badge's own radius gives it. */
+.um-badge--is-dot {
+  width: 6px;
+  height: 6px;
+  padding: 0;
+  border-radius: var(--um-radius-circle);
+}
+
+/* A badge that was not asked for is hidden rather than painted over the page.
+   The rule carries the hidden attribute with the base class beside it,
+   because the base class says `display: inline-flex` and would otherwise
+   win. */
+.um-badge[hidden] {
+  display: none;
+}
+
 /* ============================================================================
    Quality hooks
    ----------------------------------------------------------------------------

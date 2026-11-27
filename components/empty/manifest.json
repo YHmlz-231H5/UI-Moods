@@ -22,7 +22,10 @@
   "props": [],
   "slots": [
     { "name": "art", "description": "The illustration. It goes in `.um-empty__art`; a decorative one is hidden from the screen reader.", "descriptionZh": "插图,放在 `.um-empty__art` 里;纯装饰的插图要对读屏隐藏。" },
-    { "name": "title", "description": "The headline — what is missing.", "descriptionZh": "标题 —— 缺的是什么。" }
+    { "name": "image", "description": "The illustration, under the name Element Plus gives it. It fills the same part as the art slot and wins when both are given.", "descriptionZh": "插图,用的是 Element Plus 的叫法。它和图形插槽填的是同一块,两个都给时以它为准。" },
+    { "name": "title", "description": "The headline — what is missing.", "descriptionZh": "标题 —— 缺的是什么。" },
+    { "name": "description", "description": "The line under the illustration, under the name Element Plus gives it. It fills the same part as the title slot and wins when both are given.", "descriptionZh": "插图下面那一行文字,用的是 Element Plus 的叫法。它和标题插槽填的是同一块,两个都给时以它为准。" },
+    { "name": "default", "description": "The loose text under the headline.", "descriptionZh": "标题下面散着的那段文字。" }
   ],
   "events": [],
   "a11y": {

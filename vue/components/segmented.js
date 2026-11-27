@@ -23,6 +23,7 @@ export const UMSegmented = defineComponent({
     variant: { type: String, default: "soft" },
     size: { type: String, default: "md" },
     label: { type: String, default: "" },
+    block: { type: Boolean, default: false },
   },
   emits: ["change"],
   setup(props, { slots, emit }) {
@@ -45,6 +46,7 @@ export const UMSegmented = defineComponent({
               : props.size === "lg"
                 ? "um-segmented--lg"
                 : null,
+            props.block ? "um-segmented--block" : null,
           ],
           role: "radiogroup",
           "aria-label": props.label || undefined,

@@ -34,9 +34,9 @@
 
 | | 覆盖 | 改名 | 等价 | 跳过 | 差口 | 合计 |
 | --- | --- | --- | --- | --- | --- | --- |
-| 属性 | 243 | 1 | 12 | 996 | 284 | 1536 |
-| 插槽 | 67 | 0 | 0 | 14 | 125 | 206 |
-| 事件 | 30 | 0 | 0 | 81 | 17 | 128 |
+| 属性 | 298 | 1 | 12 | 996 | 229 | 1536 |
+| 插槽 | 114 | 0 | 0 | 14 | 78 | 206 |
+| 事件 | 31 | 0 | 0 | 81 | 16 | 128 |
 
 ## 逐组件
 
@@ -46,19 +46,19 @@
 | `alert` | el-alert | web-types | 8 | 0 | 0 | 1 | 3 | 4 |
 | `anchor` | el-anchor, el-anchor-link | web-types | 0 | 0 | 0 | 0 | 0 | 0 |
 | `autocomplete` | el-autocomplete | web-types | 52 | 6 | 0 | 0 | 36 | 10 |
-| `avatar` | el-avatar, el-avatar-group | web-types | 16 | 2 | 0 | 1 | 10 | 3 |
+| `avatar` | el-avatar, el-avatar-group | web-types | 16 | 4 | 0 | 1 | 10 | 1 |
 | `backtop` | el-backtop | web-types | 4 | 1 | 0 | 0 | 2 | 1 |
-| `badge` | el-badge | web-types | 10 | 0 | 0 | 1 | 6 | 3 |
+| `badge` | el-badge | web-types | 10 | 3 | 0 | 1 | 6 | 0 |
 | `border` | — | none | 0 | 0 | 0 | 0 | 0 | 0 |
 | `breadcrumb` | el-breadcrumb, el-breadcrumb-item | web-types | 4 | 1 | 0 | 0 | 3 | 0 |
 | `button` | el-button, el-button-group | web-types | 20 | 7 | 1 | 2 | 8 | 2 |
 | `calendar` | el-calendar | web-types | 4 | 0 | 0 | 0 | 2 | 2 |
-| `card` | el-card | web-types | 7 | 0 | 0 | 0 | 4 | 3 |
-| `carousel` | el-carousel, el-carousel-item | web-types | 15 | 2 | 0 | 0 | 9 | 4 |
+| `card` | el-card | web-types | 7 | 3 | 0 | 0 | 4 | 0 |
+| `carousel` | el-carousel, el-carousel-item | web-types | 15 | 5 | 0 | 0 | 9 | 1 |
 | `cascader` | el-cascader | web-types | 35 | 2 | 0 | 0 | 22 | 11 |
 | `checkbox` | el-checkbox, el-checkbox-button | web-types | 19 | 8 | 0 | 0 | 11 | 0 |
 | `checkbox-group` | el-checkbox-group | web-types | 14 | 5 | 0 | 0 | 8 | 1 |
-| `collapse` | el-collapse, el-collapse-item | web-types | 8 | 1 | 0 | 0 | 3 | 4 |
+| `collapse` | el-collapse, el-collapse-item | web-types | 8 | 4 | 0 | 0 | 3 | 1 |
 | `color` | — | none | 0 | 0 | 0 | 0 | 0 | 0 |
 | `color-picker` | el-color-picker | web-types | 19 | 4 | 0 | 0 | 13 | 2 |
 | `color-picker-panel` | el-color-picker-panel | web-types | 9 | 2 | 0 | 0 | 4 | 3 |
@@ -67,15 +67,15 @@
 | `date-picker` | el-date-picker | web-types | 37 | 5 | 0 | 0 | 23 | 9 |
 | `date-picker-panel` | el-date-picker-panel | web-types | 19 | 3 | 0 | 0 | 8 | 8 |
 | `date-time-picker` | el-date-picker | web-types | 37 | 5 | 0 | 0 | 23 | 9 |
-| `descriptions` | el-descriptions, el-descriptions-item | web-types | 16 | 0 | 0 | 0 | 13 | 3 |
+| `descriptions` | el-descriptions, el-descriptions-item | web-types | 16 | 3 | 0 | 0 | 13 | 0 |
 | `dialog` | el-dialog | web-types | 30 | 7 | 0 | 0 | 23 | 0 |
-| `divider` | el-divider | web-types | 3 | 0 | 0 | 1 | 0 | 2 |
+| `divider` | el-divider | web-types | 3 | 2 | 0 | 1 | 0 | 0 |
 | `drawer` | el-drawer | web-types | 24 | 6 | 0 | 0 | 17 | 1 |
 | `dropdown` | el-dropdown, el-dropdown-menu, el-dropdown-item | web-types | 27 | 4 | 0 | 0 | 19 | 4 |
 | `empty` | el-empty | web-types | 3 | 0 | 0 | 0 | 3 | 0 |
 | `field` | el-form, el-form-item | web-types | 22 | 5 | 0 | 0 | 16 | 1 |
 | `icon` | el-icon | web-types | 2 | 1 | 0 | 0 | 1 | 0 |
-| `image` | el-image, el-image-viewer | web-types | 22 | 3 | 0 | 0 | 17 | 2 |
+| `image` | el-image, el-image-viewer | web-types | 22 | 4 | 0 | 0 | 17 | 1 |
 | `infinite-scroll` | — | none | 0 | 0 | 0 | 0 | 0 | 0 |
 | `input` | el-input, el-select, el-option, el-option-group | web-types | 75 | 5 | 0 | 0 | 54 | 16 |
 | `input-number` | el-input-number | web-types | 24 | 7 | 0 | 0 | 13 | 4 |
@@ -93,37 +93,37 @@
 | `pagination` | el-pagination | web-types | 22 | 4 | 0 | 0 | 17 | 1 |
 | `popconfirm` | el-popconfirm | web-types | 36 | 8 | 0 | 0 | 26 | 2 |
 | `popover` | el-popover | web-types | 30 | 6 | 0 | 0 | 22 | 2 |
-| `progress` | el-progress | web-types | 14 | 0 | 0 | 1 | 7 | 6 |
+| `progress` | el-progress | web-types | 14 | 5 | 0 | 1 | 7 | 1 |
 | `radio` | el-radio, el-radio-button | web-types | 7 | 6 | 0 | 0 | 1 | 0 |
 | `radio-group` | el-radio-group | web-types | 13 | 6 | 0 | 0 | 6 | 1 |
 | `rate` | el-rate | web-types | 22 | 5 | 0 | 0 | 14 | 3 |
 | `result` | el-result | web-types | 3 | 1 | 0 | 0 | 2 | 0 |
 | `scrollbar` | el-scrollbar | web-types | 18 | 1 | 0 | 0 | 14 | 3 |
-| `segmented` | el-segmented | web-types | 10 | 3 | 0 | 0 | 5 | 2 |
-| `skeleton` | el-skeleton, el-skeleton-item | web-types | 6 | 1 | 0 | 0 | 3 | 2 |
+| `segmented` | el-segmented | web-types | 10 | 4 | 0 | 0 | 5 | 1 |
+| `skeleton` | el-skeleton, el-skeleton-item | web-types | 6 | 3 | 0 | 0 | 3 | 0 |
 | `slider` | el-slider | web-types | 25 | 6 | 0 | 0 | 13 | 6 |
-| `space` | el-space | web-types | 10 | 2 | 0 | 0 | 6 | 2 |
+| `space` | el-space | web-types | 10 | 4 | 0 | 0 | 6 | 0 |
 | `splitter` | el-splitter, el-splitter-panel | web-types | 7 | 2 | 0 | 0 | 4 | 1 |
 | `statistic` | el-statistic, el-countdown | web-types | 0 | 0 | 0 | 0 | 0 | 0 |
 | `steps` | el-steps, el-step | web-types | 11 | 6 | 0 | 0 | 4 | 1 |
 | `switch` | el-switch | web-types | 24 | 6 | 0 | 0 | 18 | 0 |
-| `table` | el-table, el-table-column | web-types | 72 | 0 | 0 | 0 | 53 | 19 |
+| `table` | el-table, el-table-column | web-types | 72 | 6 | 0 | 0 | 53 | 13 |
 | `tabs` | el-tabs, el-tab-pane | web-types | 14 | 5 | 0 | 0 | 5 | 4 |
-| `tag` | el-tag, el-check-tag | web-types | 10 | 0 | 0 | 1 | 3 | 6 |
+| `tag` | el-tag, el-check-tag | web-types | 10 | 6 | 0 | 1 | 3 | 0 |
 | `text` | el-text | web-types | 5 | 5 | 0 | 0 | 0 | 0 |
 | `time-picker` | el-time-picker | web-types | 34 | 4 | 0 | 0 | 25 | 5 |
 | `time-select` | el-time-select | web-types | 21 | 6 | 0 | 0 | 11 | 4 |
-| `timeline` | el-timeline, el-timeline-item | web-types | 11 | 1 | 0 | 1 | 3 | 6 |
+| `timeline` | el-timeline, el-timeline-item | web-types | 11 | 7 | 0 | 1 | 3 | 0 |
 | `tooltip` | el-tooltip | web-types | 27 | 5 | 0 | 0 | 21 | 1 |
 | `tour` | el-tour, el-tour-step | web-types | 0 | 0 | 0 | 0 | 0 | 0 |
 | `transfer` | el-transfer | web-types | 15 | 0 | 0 | 0 | 12 | 3 |
-| `tree` | el-tree | web-types | 25 | 0 | 0 | 0 | 18 | 7 |
+| `tree` | el-tree | web-types | 25 | 1 | 0 | 0 | 18 | 6 |
 | `tree-select` | el-select, el-tree | web-types | 76 | 5 | 0 | 0 | 53 | 18 |
 | `typography` | — | none | 0 | 0 | 0 | 0 | 0 | 0 |
 | `upload` | el-upload | web-types | 27 | 5 | 0 | 0 | 21 | 1 |
-| `virtual-select` | el-virtualized-select | web-types | 55 | 4 | 0 | 0 | 37 | 14 |
-| `virtual-table` | el-table-v2 | web-types | 31 | 2 | 0 | 0 | 27 | 2 |
-| `virtual-tree` | el-tree-v2 | web-types | 17 | 1 | 0 | 0 | 12 | 4 |
+| `virtual-select` | el-virtualized-select | web-types | 55 | 7 | 0 | 0 | 37 | 11 |
+| `virtual-table` | el-table-v2 | web-types | 31 | 3 | 0 | 0 | 27 | 1 |
+| `virtual-tree` | el-tree-v2 | web-types | 17 | 3 | 0 | 0 | 12 | 2 |
 | `watermark` | el-watermark | web-types | 9 | 0 | 0 | 0 | 9 | 0 |
 
 ## 差口清单
@@ -139,10 +139,6 @@
 - slot · `default`
 - slot · `title`
 - event · `close`
-
-### `anchor`
-
-- slot · `sub-link`
 
 ### `autocomplete`
 
@@ -167,27 +163,11 @@
 
 ### `avatar`
 
-- prop · `collapse-avatars` —— whether to collapse avatars
 - prop · `effect` —— tooltip theme, built-in theme: `dark` / `light`
-- prop · `fit` —— set how the image fit its container for an image avatar.
-- slot · `default`
 
 ### `backtop`
 
 - prop · `right` —— right distance.
-- slot · `default`
-
-### `badge`
-
-- prop · `hidden` —— hidden badge.
-- prop · `is-dot` —— if a little dot is displayed.
-- prop · `show-zero` —— Whether to show badge when value is zero.
-- slot · `content`
-- slot · `default`
-
-### `breadcrumb`
-
-- slot · `default`
 
 ### `button`
 
@@ -201,21 +181,9 @@
 - prop · `range` —— time range, including start time and end time. Start time must be start day of week, end time must be end day of week, the time span cannot exceed two months.
 - slot · `header`
 
-### `card`
-
-- prop · `footer` —— footer of the card. Also accepts a DOM passed by `slot#footer`
-- prop · `header` —— title of the card. Also accepts a DOM passed by `slot#header`
-- prop · `shadow` —— when to show card shadows
-- slot · `default`
-- slot · `footer`
-- slot · `header`
-
 ### `carousel`
 
-- prop · `arrow` —— when arrows are shown
 - prop · `indicator-position` —— position of the indicators
-- prop · `loop` —— display the items in loop
-- prop · `type` —— type of the Carousel
 
 ### `cascader`
 
@@ -247,9 +215,6 @@
 ### `collapse`
 
 - prop · `accordion` —— whether to activate accordion mode
-- prop · `disabled` —— disable the collapse item
-- prop · `expand-icon-position` —— set expand icon position
-- prop · `model-value` —— currently active panel, the type is `string` in accordion mode, otherwise it is `array`
 
 ### `color-picker`
 
@@ -321,22 +286,6 @@
 - slot · `prev-year`
 - slot · `range-separator`
 
-### `descriptions`
-
-- prop · `align` —— column content alignment (If no `border`, effective for both label and content)
-- prop · `border` —— with or without border
-- prop · `size` —— size of list
-- slot · `default`
-- slot · `extra`
-- slot · `label`
-- slot · `title`
-
-### `divider`
-
-- prop · `border-style` —— Set the style of divider
-- prop · `content-position` —— The position of the customized content on the divider line
-- slot · `default`
-
 ### `drawer`
 
 - prop · `modal` —— Should show shadowing layer
@@ -349,12 +298,6 @@
 - prop · `split-button` —— whether a button group is displayed
 - prop · `type` —— menu button type, refer to `Button` Component, only works when `split-button` is true
 
-### `empty`
-
-- slot · `default`
-- slot · `description`
-- slot · `image`
-
 ### `field`
 
 - prop · `hide-required-asterisk` —— Whether to hide required fields should have a red asterisk (star) beside their labels.
@@ -363,11 +306,7 @@
 
 ### `image`
 
-- prop · `loading` —— Indicates how the browser should load the image, same as [native](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attr-loading).
 - prop · `show-progress` —— whether to display the preview image progress content.
-- slot · `default`
-- slot · `error`
-- slot · `placeholder`
 - slot · `progress`
 - slot · `toolbar`
 - event · `close`
@@ -499,13 +438,7 @@
 
 ### `progress`
 
-- prop · `indeterminate` —— set indeterminate progress
-- prop · `show-text` —— whether to show percentage
-- prop · `status` —— the current status of progress bar
-- prop · `striped` —— stripe over the progress bar's color
-- prop · `striped-flow` —— get the stripes to flow
 - prop · `text-inside` —— whether to place the percentage inside progress bar, only works when `type` is 'line'
-- slot · `default`
 
 ### `radio-group`
 
@@ -518,10 +451,6 @@
 - prop · `clearable` —— whether value can be reset to `0`
 - prop · `show-text` —— whether to display texts
 
-### `result`
-
-- slot · `sub-title`
-
 ### `scrollbar`
 
 - prop · `mask` —— Gradient masks: `true` for all edges, a direction for one edge, and `false` to disable
@@ -530,14 +459,7 @@
 
 ### `segmented`
 
-- prop · `block` —— fit width of parent content
 - prop · `model-value` —— binding value
-
-### `skeleton`
-
-- prop · `loading` —— whether showing the skeleton, the real DOM is rendered when `false`
-- prop · `variant` —— the current rendering skeleton type
-- slot · `default`
 
 ### `slider`
 
@@ -548,21 +470,12 @@
 - prop · `show-tooltip` —— whether to display tooltip value
 - prop · `size` —— size of the slider wrapper, will not work in vertical mode
 
-### `space`
-
-- prop · `fill` —— Whether to fill the container
-- prop · `wrap` —— Auto wrapping
-
 ### `splitter`
 
 - prop · `collapsible` —— Whether the panel can be collapsed
 - slot · `default`
 - slot · `end-collapsible`
 - slot · `start-collapsible`
-
-### `statistic`
-
-- slot · `title`
 
 ### `steps`
 
@@ -577,28 +490,18 @@
 
 - prop · `align` —— alignment
 - prop · `allow-drag-last-column` —— whether to allow drag the last column
-- prop · `border` —— whether Table has vertical border
 - prop · `default-expand-all` —— whether expand all rows by default, works when the table has a column type="expand" or contains tree structure data
 - prop · `fit` —— whether width of column automatically fits its container
 - prop · `fixed` —— whether column is fixed at left / right. Will be fixed at left if `true`
 - prop · `flexible` —— ensure main axis minimum-size doesn't follow the content
-- prop · `highlight-current-row` —— whether current row is highlighted
 - prop · `native-scrollbar` —— whether to use native scrollbars
 - prop · `scrollbar-always-on` —— always show scrollbar
 - prop · `select-on-indeterminate` —— controls the behavior of master checkbox in multi-select tables when only some rows are selected (but not all). If true, all rows will be selected, else deselected
 - prop · `selectable` —— function that determines if a certain row can be selected, works when `type` is 'selection'
-- prop · `show-header` —— whether Table header is visible
-- prop · `show-summary` —— whether to display a summary row
-- prop · `size` —— size of Table
 - prop · `sortable` —— whether column can be sorted. Remote sorting can be done by setting this attribute to 'custom' and listening to the `sort-change` event of Table
-- prop · `stripe` —— whether Table is striped
 - prop · `tooltip-effect` —— the `effect` of the overflow tooltip
 - prop · `type` —— type of the column. If set to `selection`, the column will display checkbox. If set to `index`, the column will display index of the row (staring from 1). If set to `expand`, the column will display expand icon
-- slot · `append`
-- slot · `default`
-- slot · `empty`
 - slot · `expand`
-- slot · `header`
 
 ### `tabs`
 
@@ -606,17 +509,6 @@
 - prop · `closable` —— whether Tab is closable
 - prop · `disabled` —— whether Tab is disabled
 - prop · `editable` —— whether Tab is addable and closable
-
-### `tag`
-
-- prop · `closable` —— whether Tag can be removed
-- prop · `disabled` —— whether the check-tag is disabled
-- prop · `effect` —— theme of Tag
-- prop · `hit` —— whether Tag has a highlighted border
-- prop · `round` —— whether Tag is rounded
-- prop · `size` —— size of Tag
-- slot · `default`
-- event · `close`
 
 ### `time-picker`
 
@@ -632,17 +524,6 @@
 - prop · `editable` —— whether the input is editable
 - prop · `effect` —— Tooltip theme, built-in theme: `dark` / `light`
 - prop · `placeholder` —— placeholder in non-range mode
-
-### `timeline`
-
-- prop · `center` —— whether vertically centered
-- prop · `hide-timestamp` —— whether to show timestamp
-- prop · `hollow` —— icon is hollow
-- prop · `mode` —— relative position of timeline and content
-- prop · `reverse` —— whether reverse order
-- prop · `size` —— node size
-- slot · `default`
-- slot · `dot`
 
 ### `tooltip`
 
@@ -667,11 +548,8 @@
 - prop · `auto-expand-parent` —— whether to expand father node when a child node is expanded
 - prop · `check-strictly` —— whether checked state of a node not affects its father and child nodes when `show-checkbox` is `true`
 - prop · `default-expand-all` —— whether to expand all nodes by default
-- prop · `highlight-current` —— whether current node is highlighted
 - prop · `render-after-expand` —— whether to render child nodes only after a parent node is expanded for the first time
 - prop · `show-checkbox` —— whether node is selectable
-- slot · `default`
-- slot · `empty`
 - event · `check`
 
 ### `tree-select`
@@ -716,21 +594,13 @@
 - prop · `clearable` —— whether select can be cleared
 - prop · `collapse-tags` —— whether to collapse tags to a text when multiple selecting
 - prop · `default-first-option` —— select first matching option on enter key. Use with `filterable` or `remote`
-- prop · `disabled` —— is disabled
 - prop · `effect` —— tooltip theme, built-in theme: `dark` / `light`
 - prop · `filterable` —— whether Select is filterable
 - prop · `fit-input-width` —— whether the width of the dropdown is the same as the input, if the value is `number`, then the width is fixed
 - prop · `loading` —— whether Select is loading data from server
-- prop · `scrollbar-always-on` —— Controls whether the scrollbar is always displayed
 - prop · `show-arrow` —— whether the dropdown has an arrow
-- prop · `size` —— size of component
 - prop · `tag-effect` —— tag effect
 - prop · `tag-type` —— tag type
-- slot · `default`
-- slot · `empty`
-- slot · `footer`
-- slot · `header`
-- slot · `label`
 - slot · `loading`
 - slot · `prefix`
 - slot · `tag`
@@ -738,23 +608,11 @@
 ### `virtual-table`
 
 - prop · `fixed` —— Flag indicates the table column's width to be fixed or flexible.
-- prop · `scrollbar-always-on` —— If true, the scrollbar will always be shown instead of when mouse is placed above the table
-- slot · `cell`
-- slot · `empty`
-- slot · `footer`
-- slot · `header`
-- slot · `header-cell`
-- slot · `overlay`
-- slot · `row`
 
 ### `virtual-tree`
 
 - prop · `check-strictly` —— whether checked state of a node not affects its father and child nodes when `show-checkbox` is `true`
-- prop · `highlight-current` —— whether current node is highlighted
-- prop · `scrollbar-always-on` —— always show scrollbar
 - prop · `show-checkbox` —— whether node is selectable
-- slot · `default`
-- slot · `empty`
 - event · `check`
 
 ## 没有对应组件的地方

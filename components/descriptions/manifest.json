@@ -17,9 +17,19 @@
     { "id": "plain", "name": "Plain", "nameZh": "无边框", "note": "The plain form: the pairs sit straight on the page with no frame around them. The base class on its own is already this, so the modifier is only needed to name the state." },
     { "id": "bordered", "name": "Bordered", "nameZh": "带边框", "state": "outline", "note": "Every pair gets a cell, and the whole list gets a frame." }
   ],
-  "sizes": [],
-  "states": [],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "The value takes the caption size." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default size. The base class is already this size, so it needs no modifier." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "The label takes the body size and the value takes the title size." }
+  ],
+  "states": [
+    { "id": "align-center", "name": "Centred", "nameZh": "居中", "selector": ".um-descriptions--align-center", "note": "The pairs are centred in their cells." },
+    { "id": "align-end", "name": "Aligned to the end", "nameZh": "末尾对齐", "selector": ".um-descriptions--align-end", "note": "The pairs sit at the end of their cells. The end is the reading end, so a right-to-left reader gets the other side." }
+  ],
   "parts": [
+    { "id": "header", "name": "Header", "nameZh": "标题栏", "note": "The row above the list. It holds the title and the extra, and it adds no space of its own — a list with no title is not pushed down by one." },
+    { "id": "title", "name": "Title", "nameZh": "标题", "note": "What the list is about, on the left of the header." },
+    { "id": "extra", "name": "Extra", "nameZh": "操作区", "note": "What acts on the list, on the right of the header." },
     { "id": "item", "name": "Item", "nameZh": "条目", "note": "One pair. It holds the label and the value." },
     { "id": "label", "name": "Label", "nameZh": "标签", "note": "The name of the field. It is a dt, so it is read before the value." },
     { "id": "content", "name": "Content", "nameZh": "内容", "note": "The value. It is a dd, so it is read as the definition of the label above it." }
@@ -27,9 +37,16 @@
   "props": [
     { "name": "variant", "type": "enum", "values": ["plain", "bordered"], "default": "plain", "description": "Whether the list is framed. The base class is already the plain form.", "descriptionZh": "这份列表要不要加框。基础类本身就是无边框的那一种。" },
     { "name": "columns", "type": "number", "default": "1", "description": "How many pairs sit in one row. It is written to the `--um-descriptions-columns` custom property, because a class cannot carry a number.", "descriptionZh": "一行里放几对。它写进 `--um-descriptions-columns` 这个自定义属性 —— 类带不了数字。" },
-    { "name": "labelWidth", "type": "string", "default": "6em", "description": "The width of the label column, so the values line up under each other. It is written to the `--um-descriptions-label-width` custom property.", "descriptionZh": "标签列的宽度,值才能上下对齐。它写进 `--um-descriptions-label-width` 这个自定义属性。" }
+    { "name": "labelWidth", "type": "string", "default": "6em", "description": "The width of the label column, so the values line up under each other. It is written to the `--um-descriptions-label-width` custom property.", "descriptionZh": "标签列的宽度,值才能上下对齐。它写进 `--um-descriptions-label-width` 这个自定义属性。" },
+    { "name": "align", "type": "enum", "values": ["start", "center", "end"], "default": "start", "since": "1.1.0", "description": "How the pairs line up in their cells. The ends are written logically, so a right-to-left reader gets the other side; the start run is the base class on its own.", "descriptionZh": "每一对在自己的格子里怎么对齐。两端按阅读方向写,所以从右往左读的读者拿到的是另一头;靠前对齐就是只写基类。" },
+    { "name": "border", "type": "boolean", "since": "1.1.0", "description": "Whether the list is framed. It falls back to the variant when it is left out.", "descriptionZh": "这份列表要不要加框。不传就以变体为准。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "since": "1.1.0", "description": "The size of the pairs. The medium size is the base class on its own.", "descriptionZh": "每一对的尺寸。中号就是只写基类。" }
   ],
   "slots": [
+    { "name": "default", "description": "The pairs, one div per pair, each holding a dt and a dd. The classes go on them, so the caller does not have to write them.", "descriptionZh": "各对,一对一个 div,里面放一个 dt 和一个 dd。类会加在它们身上,使用方不用自己写。" },
+    { "name": "title", "description": "What the list is about. It sits at the start of the header above the list.", "descriptionZh": "这份列表讲的是什么。它放在列表上方标题栏的开头。" },
+    { "name": "extra", "description": "What acts on the list. It sits at the end of the header above the list.", "descriptionZh": "对这份列表的操作。它放在列表上方标题栏的末尾。" },
+    { "name": "label", "description": "The label of the pair the wrapper writes when the caller writes no pair of its own.", "descriptionZh": "使用方没有自己写那一对时,包装组件写出的那一对的标签。" },
     { "name": "item", "description": "One label and its value.", "descriptionZh": "一个标签和它对应的值。" }
   ],
   "events": [],

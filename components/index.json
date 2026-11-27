@@ -216,9 +216,9 @@
       "doc": "site/component/space.html",
       "variants": 2,
       "sizes": 3,
-      "states": 0,
+      "states": 2,
       "parts": 1,
-      "props": 2
+      "props": 4
     },
     {
       "id": "splitter",
@@ -692,9 +692,9 @@
       "doc": "site/component/virtual-select.html",
       "variants": 2,
       "sizes": 3,
-      "states": 2,
-      "parts": 5,
-      "props": 5
+      "states": 5,
+      "parts": 7,
+      "props": 8
     },
     {
       "id": "avatar",
@@ -709,9 +709,9 @@
       "doc": "site/component/avatar.html",
       "variants": 2,
       "sizes": 4,
-      "states": 0,
+      "states": 4,
       "parts": 2,
-      "props": 3
+      "props": 5
     },
     {
       "id": "badge",
@@ -726,9 +726,9 @@
       "doc": "site/component/badge.html",
       "variants": 10,
       "sizes": 0,
-      "states": 0,
+      "states": 1,
       "parts": 1,
-      "props": 2
+      "props": 5
     },
     {
       "id": "calendar",
@@ -760,9 +760,9 @@
       "doc": "site/component/card.html",
       "variants": 1,
       "sizes": 0,
-      "states": 0,
+      "states": 2,
       "parts": 4,
-      "props": 1
+      "props": 4
     },
     {
       "id": "carousel",
@@ -777,9 +777,9 @@
       "doc": "site/component/carousel.html",
       "variants": 2,
       "sizes": 3,
-      "states": 1,
+      "states": 4,
       "parts": 7,
-      "props": 4
+      "props": 7
     },
     {
       "id": "cascader",
@@ -811,9 +811,9 @@
       "doc": "site/component/collapse.html",
       "variants": 2,
       "sizes": 3,
-      "states": 2,
+      "states": 4,
       "parts": 4,
-      "props": 4
+      "props": 7
     },
     {
       "id": "descriptions",
@@ -827,10 +827,10 @@
       "style": "components/descriptions/style.css",
       "doc": "site/component/descriptions.html",
       "variants": 2,
-      "sizes": 0,
-      "states": 0,
-      "parts": 3,
-      "props": 3
+      "sizes": 3,
+      "states": 2,
+      "parts": 6,
+      "props": 6
     },
     {
       "id": "empty",
@@ -863,8 +863,8 @@
       "variants": 6,
       "sizes": 3,
       "states": 1,
-      "parts": 4,
-      "props": 8
+      "parts": 5,
+      "props": 9
     },
     {
       "id": "infinite-scroll",
@@ -896,9 +896,9 @@
       "doc": "site/component/progress.html",
       "variants": 3,
       "sizes": 0,
-      "states": 0,
+      "states": 4,
       "parts": 3,
-      "props": 3
+      "props": 8
     },
     {
       "id": "result",
@@ -930,9 +930,9 @@
       "doc": "site/component/segmented.html",
       "variants": 3,
       "sizes": 3,
-      "states": 3,
+      "states": 4,
       "parts": 3,
-      "props": 7
+      "props": 8
     },
     {
       "id": "skeleton",
@@ -948,8 +948,8 @@
       "variants": 3,
       "sizes": 0,
       "states": 1,
-      "parts": 0,
-      "props": 3
+      "parts": 1,
+      "props": 5
     },
     {
       "id": "statistic",
@@ -980,10 +980,10 @@
       "style": "components/table/style.css",
       "doc": "site/component/table.html",
       "variants": 2,
-      "sizes": 0,
-      "states": 0,
-      "parts": 6,
-      "props": 2
+      "sizes": 3,
+      "states": 5,
+      "parts": 7,
+      "props": 8
     },
     {
       "id": "tag",
@@ -997,10 +997,10 @@
       "style": "components/tag/style.css",
       "doc": "site/component/tag.html",
       "variants": 4,
-      "sizes": 0,
-      "states": 0,
-      "parts": 0,
-      "props": 1
+      "sizes": 3,
+      "states": 6,
+      "parts": 1,
+      "props": 7
     },
     {
       "id": "timeline",
@@ -1014,10 +1014,10 @@
       "style": "components/timeline/style.css",
       "doc": "site/component/timeline.html",
       "variants": 3,
-      "sizes": 0,
-      "states": 0,
+      "sizes": 3,
+      "states": 7,
       "parts": 4,
-      "props": 2
+      "props": 8
     },
     {
       "id": "tour",
@@ -1066,9 +1066,9 @@
       "doc": "site/component/tree.html",
       "variants": 2,
       "sizes": 3,
-      "states": 2,
+      "states": 4,
       "parts": 5,
-      "props": 4
+      "props": 5
     },
     {
       "id": "virtual-table",
@@ -1083,9 +1083,9 @@
       "doc": "site/component/virtual-table.html",
       "variants": 2,
       "sizes": 3,
-      "states": 1,
-      "parts": 7,
-      "props": 6
+      "states": 2,
+      "parts": 9,
+      "props": 7
     },
     {
       "id": "virtual-tree",
@@ -1100,9 +1100,9 @@
       "doc": "site/component/virtual-tree.html",
       "variants": 2,
       "sizes": 3,
-      "states": 2,
+      "states": 6,
       "parts": 7,
-      "props": 5
+      "props": 7
     },
     {
       "id": "anchor",
@@ -1421,11 +1421,11 @@
       "file": "components/divider/manifest.json",
       "style": "components/divider/style.css",
       "doc": "site/component/divider.html",
-      "variants": 2,
+      "variants": 4,
       "sizes": 0,
-      "states": 0,
+      "states": 2,
       "parts": 0,
-      "props": 1
+      "props": 3
     },
     {
       "id": "watermark",

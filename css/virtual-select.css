@@ -140,6 +140,54 @@
   font-size: var(--um-font-size-caption);
 }
 
+/* The scrollbar is always there: the box keeps its scrollbar whether the list
+   needs one or not, so the rows do not move sideways as the list grows past
+   the box. */
+.um-virtual-select--scrollbar-always-on .um-virtual-select__scroller {
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
+}
+
+/* A row whose choice is out of reach says so: the words take the disabled
+   colour and the pointer says the row cannot be picked. */
+.um-virtual-select__option:has(input:disabled) .um-virtual-select__text {
+  color: var(--um-text-disabled);
+}
+
+.um-virtual-select__option:has(input:disabled) .um-virtual-select__label {
+  cursor: not-allowed;
+}
+
+/* The header and the footer stand above and below the options: a filter, a
+   note, a load-more row. They take no room at all when the host has nothing
+   to put in them, so an empty one is not a strip of nothing. */
+.um-virtual-select__header,
+.um-virtual-select__footer {
+  padding: var(--um-space-xs) var(--um-space-sm);
+  color: var(--um-text-secondary);
+}
+
+.um-virtual-select__header {
+  border-bottom: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+}
+
+.um-virtual-select__footer {
+  border-top: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+}
+
+.um-virtual-select__header:empty,
+.um-virtual-select__footer:empty {
+  display: none;
+}
+
+/* The list with no option in it says so, and leaves the reason to the page
+   that owns the data. */
+.um-virtual-select__empty {
+  padding: var(--um-space-lg) var(--um-space-sm);
+  color: var(--um-text-secondary);
+  text-align: center;
+}
+
 /* ============================================================================
    Quality hooks
    ----------------------------------------------------------------------------

@@ -207,6 +207,10 @@
       <tr><td><code>um-progress__track</code></td><td>Track</td></tr>
       <tr><td><code>um-progress__bar</code></td><td>Bar</td></tr>
       <tr><td><code>um-progress__label</code></td><td>Label</td></tr>
+      <tr><td><code>.um-progress--indeterminate</code></td><td>Indeterminate</td></tr>
+      <tr><td><code>.um-progress--show-text</code></td><td>Show the percentage</td></tr>
+      <tr><td><code>.um-progress--striped</code></td><td>Striped</td></tr>
+      <tr><td><code>.um-progress--striped-flow</code></td><td>Striped and flowing</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -216,12 +220,18 @@
       <tr><td><span class="api__name"><code>variant</code></span></td><td><code>enum = success | warning | danger</code></td><td>—</td><td>Which state the fill paints. The base class is already the primary progress, so a plain um-progress needs no modifier at all.</td></tr>
       <tr><td><span class="api__name"><code>value</code></span></td><td><code>number</code></td><td><code>0</code></td><td>How much is done, as a percentage of the track. It is written to the inline width of the bar.</td></tr>
       <tr><td><span class="api__name"><code>label</code></span></td><td><code>string</code></td><td>—</td><td>The text under the bar.</td></tr>
+      <tr><td><span class="api__name"><code>status</code></span></td><td><code>enum = success | warning | danger</code></td><td>—</td><td>Which state the fill paints, under the name Element Plus gives it. It falls back to the variant when it is left out.</td></tr>
+      <tr><td><span class="api__name"><code>indeterminate</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Runs the bar along the track without a value to show. The animation is wrapped in the motion contract, so a reader who asked for less motion gets a still bar.</td></tr>
+      <tr><td><span class="api__name"><code>show-text</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Writes the percentage under the bar.</td></tr>
+      <tr><td><span class="api__name"><code>striped</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Strips the fill, the way a bar of hazard tape is.</td></tr>
+      <tr><td><span class="api__name"><code>striped-flow</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Lets the stripes travel along the bar. The animation is wrapped in the motion contract.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>
 <table class="api">
       <thead><tr><th>Name</th><th>Description</th></tr></thead>
       <tbody>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>The content of the bar. It sits on the fill, so it has to read against it.</td></tr>
       <tr><td><span class="api__name"><code>label</code></span></td><td>The text under the bar.</td></tr>
       </tbody>
     </table>

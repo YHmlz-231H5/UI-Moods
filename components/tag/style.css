@@ -25,3 +25,83 @@
 .um-tag--success { border-color: var(--um-color-success-text); color: var(--um-color-success-on-soft); background: var(--um-color-success-soft-8); }
 .um-tag--warning { border-color: var(--um-color-warning-text); color: var(--um-color-warning-on-soft); background: var(--um-color-warning-soft-8); }
 .um-tag--danger  { border-color: var(--um-color-danger-text);  color: var(--um-color-danger-on-soft);  background: var(--um-color-danger-soft-8); }
+
+/* The size run. The tag is a caption-sized chip, so the small run only takes
+   height away and the large run takes the body size. */
+.um-tag--sm { height: calc(var(--um-height-sm) - 4px); }
+.um-tag--lg { height: var(--um-height-md); font-size: var(--um-font-size-body); }
+
+/* The fill run. The light run is the base class on its own: a tint for the
+   variants and the plain fill for the neutral tag. The plain run leaves the
+   tag empty, so its label takes the brand colour that is guaranteed to read
+   on the page rather than the one derived for the tint it no longer has. The
+   dark run fills the tag solid, the way the badge does. */
+.um-tag--plain { background: transparent; }
+.um-tag--plain.um-tag--primary { color: var(--um-color-primary-text); }
+.um-tag--plain.um-tag--success { color: var(--um-color-success-text); }
+.um-tag--plain.um-tag--warning { color: var(--um-color-warning-text); }
+.um-tag--plain.um-tag--danger  { color: var(--um-color-danger-text); }
+.um-tag--dark { background: var(--um-text-primary); border-color: transparent; color: var(--um-fill-blank); }
+.um-tag--dark.um-tag--primary { background: var(--um-color-primary); color: var(--um-color-primary-on); }
+.um-tag--dark.um-tag--success { background: var(--um-color-success); color: var(--um-color-success-on); }
+.um-tag--dark.um-tag--warning { background: var(--um-color-warning); color: var(--um-color-warning-on); }
+.um-tag--dark.um-tag--danger  { background: var(--um-color-danger);  color: var(--um-color-danger-on); }
+
+/* A closable tag tightens the gap, because the close mark is a small thing
+   sitting right beside the label rather than a control of its own. */
+.um-tag--closable { gap: 2px; }
+
+/* The hit run: the tag carries a heavier bottom edge, the way a struck-through
+   row does, so the edge that matters is the one you can see. */
+.um-tag--hit { border-bottom-width: 2px; }
+
+/* The round run: the tag is a pill, the ends as round as the tag is tall. */
+.um-tag--round { border-radius: var(--um-radius-round); }
+
+/* A disabled tag is inert, so it gives up its fill and takes the derived
+   disabled colour — a colour that is still measurable, rather than a label
+   dropped to 45%. The wrapper also marks it aria-disabled, so the state is
+   one a reader can be told about and not only a picture. */
+.um-tag.um-tag--disabled {
+  background: transparent;
+  border-color: var(--um-border-lighter);
+  color: var(--um-text-disabled);
+}
+
+/* The close button is a small mark drawn from two borders, so the library
+   ships no glyph of its own. It is a real button, so it is focusable and the
+   keyboard reaches it. */
+.um-tag__close {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  width: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--um-radius-small);
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+.um-tag__close::before,
+.um-tag__close::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 8px;
+  height: var(--um-border-width);
+  background: currentColor;
+}
+.um-tag__close::before { transform: rotate(45deg); }
+.um-tag__close::after { transform: rotate(-45deg); }
+
+/* The ring goes inside the button, the way the ring on a button in a row goes
+   inside it: an outside ring would be cut off by the tag. */
+.um-tag__close:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: calc(-1 * var(--um-focus-ring-width));
+}

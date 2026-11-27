@@ -208,6 +208,10 @@ export interface SpaceProps {
   size?: SpaceSize;
   /** Which way the run goes. The horizontal run is the base class on its own; the vertical run adds um-space--vertical. */
   direction?: "horizontal" | "vertical";
+  /** Whether the run breaks onto the next line when it runs out of room. Turning it off adds um-space--no-wrap. */
+  wrap?: boolean;
+  /** Whether the items share the width of the run between them. It adds um-space--fill. */
+  fill?: boolean;
 }
 
 /** Splitter · 分割面板 — Two panes with a divider between them. The divider is a line with a grip on it, and the grip says which way the thing can be moved. Moving it is the host's job: the library draws the shape and stops there. */
@@ -853,6 +857,10 @@ export interface VirtualSelectProps {
   placeholder?: string;
   /** The height of the scroller. It is a length and not a number of pixels: how tall the window onto the list is belongs to the host's page. */
   height?: string;
+  /** Makes the choice out of reach. It is the real disabled attribute on every radio, so the rows leave the tab order. */
+  disabled?: boolean;
+  /** Whether the scrolling box keeps its scrollbar whether the list needs one or not, so the rows do not move sideways as the list grows. It adds um-virtual-select--scrollbar-always-on. */
+  scrollbarAlwaysOn?: boolean;
 }
 
 /** Avatar · 头像 — A small picture of a person. It takes a photo, a pair of initials or an icon, and it keeps the shape of whichever mood it is in. */
@@ -866,6 +874,10 @@ export interface AvatarProps {
   size?: AvatarSize;
   /** The alternative text of the photo. Leave it empty when the name is already written next to the avatar. */
   alt?: string;
+  /** How the photo fills the avatar. The cover run is the base class on its own. */
+  fit?: "cover" | "contain" | "fill";
+  /** Makes this avatar the one that stands in for the avatars that did not fit, so it carries their count instead of a face. */
+  collapseAvatars?: boolean;
 }
 
 /** Badge · 徽标 — A small marker that counts or names a state, attached to something else. It comes in a solid fill and a soft tint, so a page can let what matters come forward and the rest recede. */
@@ -876,6 +888,12 @@ export interface BadgeProps {
   variant?: BadgeVariant;
   /** Puts a dot in front of the label, in the badge's own foreground colour. */
   dot?: boolean;
+  /** Shows the mark on its own: the badge carries the dot and no count beside it. */
+  isDot?: boolean;
+  /** Hides the badge. It is the native hidden attribute, so the badge leaves the page and the reader's eye with it. */
+  hidden?: boolean;
+  /** Keeps the badge visible when its count is zero. Without it a badge whose count is zero is hidden. */
+  showZero?: boolean;
 }
 
 /** Calendar · 日历 — One month laid out as a seven-column grid. It draws the month and marks the days; which month to show is the host's business, because a grid cannot know which months exist. */
@@ -905,6 +923,12 @@ export interface CardProps {
   /** The component's own id, so a registry can be keyed by it. */
   id: "card";
   variant?: CardVariant;
+  /** The title of the card. It goes in the title part; the header slot fills the strip around it. */
+  header?: string;
+  /** The text of the footer. */
+  footer?: string;
+  /** When the card shows its shadow. The always run is the base class on its own. */
+  shadow?: "always" | "hover" | "never";
 }
 
 /** Carousel · 轮播图 — Slides the reader scrolls through, with a button at each end of a slide that moves to the neighbouring one. The track is a real scroller, so the browser does the scrolling and the snapping. */
@@ -920,6 +944,12 @@ export interface CarouselProps {
   name?: string;
   /** The name of the track, read out before the slides. A scrollable region has to carry a name, or the reader is told about a scroll box and nothing else. */
   label?: string;
+  /** When the buttons that move between the slides are shown. The always run is the base class on its own. */
+  arrow?: "always" | "hover" | "never";
+  /** Whether the slides wrap around: the first slide's previous button points at the last one, and the last slide's next button points at the first. Turn it off and the ends stop. */
+  loop?: boolean;
+  /** How the slides sit next to each other. The card run is the spaced one: the neighbouring slides show at the edges of the track, so the reader can tell there is more than one. */
+  type?: "default" | "card";
 }
 
 /** Cascader · 级联选择器 — Options in levels, opened one level at a time. Every level is a disclosure, so the browser does the opening and the closing and the state survives a reload. */
@@ -954,18 +984,31 @@ export interface CollapseProps {
   open?: boolean;
   /** The text of the header. A panel with no text needs an accessible name of its own. */
   title?: string;
+  /** Whether the panel is open, bound with v-model in Vue. Leave it out and the `open` prop is the state; bind it and the panel answers to the binding. */
+  modelValue?: boolean;
+  /** Makes the panel inert: it cannot be opened, and it takes the derived disabled colour. */
+  disabled?: boolean;
+  /** Which end of the header the arrow sits on. The ends are written logically, so a right-to-left reader gets the other side; the end run is the base class on its own. */
+  expandIconPosition?: "start" | "end";
 }
 
 /** Descriptions · 描述列表 — The facts about one thing, as label and value pairs. It is a definition list, so a screen reader announces each label before the value it belongs to. */
 export type DescriptionsVariant = "plain" | "bordered";
+/** Descriptions — the sizes it can be rendered at. */
+export type DescriptionsSize = "sm" | "md" | "lg";
 export interface DescriptionsProps {
   /** The component's own id, so a registry can be keyed by it. */
   id: "descriptions";
   variant?: DescriptionsVariant;
+  size?: DescriptionsSize;
   /** How many pairs sit in one row. It is written to the `--um-descriptions-columns` custom property, because a class cannot carry a number. */
   columns?: number;
   /** The width of the label column, so the values line up under each other. It is written to the `--um-descriptions-label-width` custom property. */
   labelWidth?: string;
+  /** How the pairs line up in their cells. The ends are written logically, so a right-to-left reader gets the other side; the start run is the base class on its own. */
+  align?: "start" | "center" | "end";
+  /** Whether the list is framed. It falls back to the variant when it is left out. */
+  border?: boolean;
 }
 
 export interface EmptyProps {
@@ -996,6 +1039,8 @@ export interface ImageProps {
   bordered?: boolean;
   /** Says the picture failed to load, so the placeholder stands in for it. */
   error?: boolean;
+  /** How the browser loads the picture. It is the native loading attribute on the img, so the browser decides. */
+  loading?: "eager" | "lazy";
 }
 
 /** Infinite Scroll · 无限滚动 — A feed the reader can scroll a long way through, and a sentinel at the end of it that says what comes next. The library cannot load anything: it provides the container, the skipped layout and the sentinel, and the host decides what to load. */
@@ -1027,6 +1072,16 @@ export interface ProgressProps {
   value?: number;
   /** The text under the bar. */
   label?: string;
+  /** Which state the fill paints, under the name Element Plus gives it. It falls back to the variant when it is left out. */
+  status?: "success" | "warning" | "danger";
+  /** Runs the bar along the track without a value to show. The animation is wrapped in the motion contract, so a reader who asked for less motion gets a still bar. */
+  indeterminate?: boolean;
+  /** Writes the percentage under the bar. */
+  showText?: boolean;
+  /** Strips the fill, the way a bar of hazard tape is. */
+  striped?: boolean;
+  /** Lets the stripes travel along the bar. The animation is wrapped in the motion contract. */
+  stripedFlow?: boolean;
 }
 
 /** Result · 结果 — The end of a flow: one statement of what happened, a line of explanation, and the way out. It is the whole answer on one screen, not a toast that disappears. */
@@ -1060,6 +1115,8 @@ export interface SegmentedProps {
   disabled?: boolean;
   /** The name of the whole row, read out before the segments. A row with no name of its own needs an accessible name from somewhere. */
   label?: string;
+  /** Whether the row fills the width it is given and the segments share what is left between them. It adds um-segmented--block. */
+  block?: boolean;
 }
 
 /** Skeleton · 骨架屏 — The shape of content that has not arrived yet. Three placeholder shapes and, if the motion is welcome, a shimmer over them. */
@@ -1072,6 +1129,8 @@ export interface SkeletonProps {
   shape?: "text" | "circle" | "block";
   /** Shimmers the placeholder while the content loads. The animation is wrapped in a prefers-reduced-motion query, so a user who asked for less motion gets a still placeholder. */
   animated?: boolean;
+  /** Shows the placeholder. Turn it off and the default slot — the real content — takes its place. */
+  loading?: boolean;
   /** How wide the placeholder is, as a percentage of its container. A line of text usually wants a width under 100. */
   width?: number;
 }
@@ -1090,30 +1149,69 @@ export interface StatisticProps {
 
 /** Table · 表格 — Rows of records in columns. It is a real table, so the column names travel with the cells and a screen reader can read a row across. */
 export type TableVariant = "striped" | "bordered";
+/** Table — the sizes it can be rendered at. */
+export type TableSize = "sm" | "md" | "lg";
 export interface TableProps {
   /** The component's own id, so a registry can be keyed by it. */
   id: "table";
   variant?: TableVariant;
+  size?: TableSize;
   /** What the empty cell says when there are no records. */
   emptyText?: string;
+  /** Whether every other row takes the lighter fill. It adds um-table--striped, the same class the variant prop adds. */
+  stripe?: boolean;
+  /** Whether a vertical line stands between the columns as well as the horizontal ones. It adds um-table--bordered, the same class the variant prop adds. */
+  border?: boolean;
+  /** Whether the row of column names is drawn. Turning it off adds um-table--no-header. */
+  showHeader?: boolean;
+  /** Whether the row the reader is on takes the highlight fill. That row is marked with um-table__row--current. */
+  highlightCurrentRow?: boolean;
+  /** Whether the summary row at the foot of the table is drawn. Turning it off adds um-table--no-summary. */
+  showSummary?: boolean;
 }
 
 /** Tag · 标签 — A label for one piece of data — a category, a state, a filter. The outlined member of the chip family, so it can sit beside a filled badge without either of them winning. */
 export type TagVariant = "primary" | "success" | "warning" | "danger";
+/** Tag — the sizes it can be rendered at. */
+export type TagSize = "sm" | "md" | "lg";
 export interface TagProps {
   /** The component's own id, so a registry can be keyed by it. */
   id: "tag";
   variant?: TagVariant;
+  size?: TagSize;
+  /** How the tag is filled. The light run tints the fill, the plain run leaves it empty and the dark run fills it solid. */
+  effect?: "light" | "plain" | "dark";
+  /** Shows the close button. */
+  closable?: boolean;
+  /** Makes the tag inert. */
+  disabled?: boolean;
+  /** Gives the tag a heavier bottom edge, the way a struck-through row does. */
+  hit?: boolean;
+  /** Gives the tag the pill shape, whatever height it is. */
+  round?: boolean;
 }
 
 /** Timeline · 时间线 — What happened, in order. An ordered list with a rail down one side and a dot at each entry, so the order is in the structure and not only in the picture. */
 export type TimelineVariant = "success" | "warning" | "danger";
+/** Timeline — the sizes it can be rendered at. */
+export type TimelineSize = "sm" | "md" | "lg";
 export interface TimelineProps {
   /** The component's own id, so a registry can be keyed by it. */
   id: "timeline";
   variant?: TimelineVariant;
+  size?: TimelineSize;
   /** When it happened. It is a time element inside the wrapper, so the machine-readable value and the written one travel together. */
   timestamp?: string;
+  /** Runs the entries the other way: the newest one is at the top. */
+  reverse?: boolean;
+  /** Where the rail stands in relation to the text. The start run is the base class on its own: the rail is at the start of the row. */
+  mode?: "start" | "end" | "alternate" | "alternate-reverse";
+  /** Puts the node in the middle of the row rather than at the top of it. */
+  center?: boolean;
+  /** Draws the node as a ring rather than a filled dot. */
+  hollow?: boolean;
+  /** Does not show the timestamp. */
+  hideTimestamp?: boolean;
 }
 
 /** Tour · 引导 — A walkthrough that points at one thing on the page and says what to do with it. The ring is the thing being pointed at, the card is what the tour says, and the dots are how far along the walkthrough is. Moving from one step to the next is the host's job. */
@@ -1171,6 +1269,8 @@ export interface TreeProps {
   open?: boolean;
   /** The name of the thing the branch holds. A branch with no text needs an accessible name of its own. */
   label?: string;
+  /** Whether the branch the reader is on takes the highlight fill. That branch is marked with um-tree__node--current. */
+  highlightCurrent?: boolean;
 }
 
 /** Virtualized Table · 虚拟表格 — A long table the browser is not asked to lay out in full. The rows far from the viewport are skipped and given a placeholder size, so the cost of the list is what is near it. */
@@ -1190,6 +1290,8 @@ export interface VirtualTableProps {
   height?: string;
   /** That there is nothing to show. The body says so instead of writing the rows. */
   empty?: boolean;
+  /** Whether the scrolling box keeps its scrollbar whether the list needs one or not, so the rows do not move sideways as the list grows. It adds um-virtual-table--scrollbar-always-on. */
+  scrollbarAlwaysOn?: boolean;
 }
 
 /** Virtualized Tree · 虚拟树 — A tree so large that the browser is asked to lay out only the branches near the reader. Every branch is still a disclosure, so the browser opens and closes it and the state survives a reload. */
@@ -1203,10 +1305,14 @@ export interface VirtualTreeProps {
   size?: VirtualTreeSize;
   /** How deep the tree goes. The wrapper writes that many levels of branches. */
   depth?: number;
-  /** How many branches each level has. The wrapper multiplies them out, so a depth of four and six branches is a thousand leaves. */
+  /** How many branches each level has. The wrapper multiplies them out, so a depth of four and six branches is a thousand leaves. No branches at all is an empty tree, and the empty slot says what it holds. */
   branches?: number;
   /** How tall the scrolling box is. The library cannot guess it: a box that is not given a height never scrolls, because its content is what gives it one. */
   height?: string;
+  /** Whether the branch the reader is on takes the highlight fill. That branch is marked with um-virtual-tree__node--current. */
+  highlightCurrent?: boolean;
+  /** Whether the scrolling box keeps its scrollbar whether the tree needs one or not, so the branches do not move sideways as the tree grows. It adds um-virtual-tree--scrollbar-always-on. */
+  scrollbarAlwaysOn?: boolean;
 }
 
 /** Anchor · 锚点 — A column of links to the sections of the page, with a rule down the side so the reader can see that they are a list of places rather than a list of links. The section being read is marked with aria-current, because CSS cannot work out what is on screen. */
@@ -1568,11 +1674,15 @@ export interface TooltipProps {
 }
 
 /** Divider · 分割线 — A rule between two things. It can carry a label in the middle, drop the rules and keep the label, or stand up as a vertical rule. */
-export type DividerVariant = "plain" | "vertical";
+export type DividerVariant = "plain" | "vertical" | "dashed" | "dotted";
 export interface DividerProps {
   /** The component's own id, so a registry can be keyed by it. */
   id: "divider";
   variant?: DividerVariant;
+  /** How the rule is drawn. The solid rule is the base class on its own; the dashed and the dotted rule add um-divider--dashed and um-divider--dotted, the same classes the variant prop adds. */
+  borderStyle?: "solid" | "dashed" | "dotted";
+  /** Where the label sits on the rule. The middle is the base class on its own; the start and the end add um-divider--content-start and um-divider--content-end. */
+  contentPosition?: "start" | "center" | "end";
 }
 
 /** Watermark · 水印 — A layer of the same word, repeated across a box, to say that what is underneath is a copy. The word is real text in the markup, tiled by the browser rather than baked into a picture. */

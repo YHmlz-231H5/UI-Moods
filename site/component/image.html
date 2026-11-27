@@ -223,6 +223,7 @@
       <tr><td><code>um-image__frame</code></td><td>Frame</td></tr>
       <tr><td><code>um-image__image</code></td><td>Image</td></tr>
       <tr><td><code>um-image__placeholder</code></td><td>Placeholder</td></tr>
+      <tr><td><code>um-image__error</code></td><td>Error</td></tr>
       <tr><td><code>um-image__caption</code></td><td>Caption</td></tr>
       <tr><td><code>.um-image__image--error</code></td><td>Error</td></tr>
       </tbody>
@@ -239,9 +240,18 @@
       <tr><td><span class="api__name"><code>bordered</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Puts a rule around the frame. It is a class rather than an attribute, because the rule is a picture of the frame and not a state of it.</td></tr>
       <tr><td><span class="api__name"><code>error</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Says the picture failed to load, so the placeholder stands in for it.</td></tr>
       <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The size of the frame.</td></tr>
+      <tr><td><span class="api__name"><code>loading</code></span></td><td><code>enum = eager | lazy</code></td><td><code>eager</code></td><td>How the browser loads the picture. It is the native loading attribute on the img, so the browser decides.</td></tr>
       </tbody>
     </table>
-
+      <h2>Slots</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>The picture, as an img element of the caller's own. The class goes on it, so the caller does not have to write it.</td></tr>
+      <tr><td><span class="api__name"><code>placeholder</code></span></td><td>What stands in for a picture that is not there yet. It goes in the placeholder part.</td></tr>
+      <tr><td><span class="api__name"><code>error</code></span></td><td>What stands in for a picture that failed to load. It goes in the error part, and the placeholder gives way to it.</td></tr>
+      </tbody>
+    </table>
 
       <h2>Accessibility</h2>
       <p><strong>Role:</strong> <code>figure</code></p>

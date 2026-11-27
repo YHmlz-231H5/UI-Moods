@@ -1219,7 +1219,10 @@
       <tr><td><code>um-virtual-table__row</code></td><td>Row</td></tr>
       <tr><td><code>um-virtual-table__cell</code></td><td>Cell</td></tr>
       <tr><td><code>um-virtual-table__empty</code></td><td>Empty</td></tr>
+      <tr><td><code>um-virtual-table__footer</code></td><td>Footer</td></tr>
+      <tr><td><code>um-virtual-table__overlay</code></td><td>Overlay</td></tr>
       <tr><td><code>:focus-visible</code></td><td>Focus visible</td></tr>
+      <tr><td><code>.um-virtual-table--scrollbar-always-on</code></td><td>Scrollbar always on</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -1232,9 +1235,22 @@
       <tr><td><span class="api__name"><code>columns</code></span></td><td><code>string</code></td><td><code>Node, Build, State</code></td><td>The column names, separated by commas.</td></tr>
       <tr><td><span class="api__name"><code>height</code></span></td><td><code>string</code></td><td><code>16em</code></td><td>How tall the scrolling box is. The library cannot guess it: a box that is not given a height never scrolls, because its content is what gives it one.</td></tr>
       <tr><td><span class="api__name"><code>empty</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>That there is nothing to show. The body says so instead of writing the rows.</td></tr>
+      <tr><td><span class="api__name"><code>scrollbar-always-on</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the scrolling box keeps its scrollbar whether the list needs one or not, so the rows do not move sideways as the list grows. It adds um-virtual-table--scrollbar-always-on.</td></tr>
       </tbody>
     </table>
-
+      <h2>Slots</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>header</code></span></td><td>What stands in the row of column names. It is given the column names.</td></tr>
+      <tr><td><span class="api__name"><code>header-cell</code></span></td><td>What one column name says. It is given the name and the column it is in.</td></tr>
+      <tr><td><span class="api__name"><code>row</code></span></td><td>What one record holds. It is given the number of the row. Without it the row is written cell by cell.</td></tr>
+      <tr><td><span class="api__name"><code>cell</code></span></td><td>What one value says. It is given the row, the column and the value the wrapper would have written.</td></tr>
+      <tr><td><span class="api__name"><code>empty</code></span></td><td>What the empty state says when there is nothing to show.</td></tr>
+      <tr><td><span class="api__name"><code>footer</code></span></td><td>What stands under the table: the totals, a note.</td></tr>
+      <tr><td><span class="api__name"><code>overlay</code></span></td><td>What lies over the table: a mask, a loading bar.</td></tr>
+      </tbody>
+    </table>
 
       <h2>Accessibility</h2>
       <p><strong>Role:</strong> <code>grid</code></p>
