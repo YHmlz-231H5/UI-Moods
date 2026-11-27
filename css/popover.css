@@ -52,8 +52,8 @@
   width: 4px;
   height: 4px;
   border-top: var(--um-border-width) var(--um-border-style) var(--um-border-base);
-  border-right: var(--um-border-width) var(--um-border-style) var(--um-border-base);
-  transform: rotate(135deg);
+  border-inline-end: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  transform: rotate(calc(135deg * var(--um-mirror)));
 }
 
 /* The panel is hidden by `display` rather than left to the browser's
@@ -62,7 +62,7 @@
 .um-popover__content {
   position: absolute;
   top: calc(100% + var(--um-space-xs));
-  left: 0;
+  inset-inline-start: 0;
   z-index: 1;
   display: none;
   width: max-content;

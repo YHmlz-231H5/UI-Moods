@@ -53,8 +53,8 @@
   content: "";
   position: absolute;
   top: calc(var(--um-space-sm) / 4);
-  left: 0;
-  right: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
   height: var(--um-border-width);
   background: currentColor;
 }
@@ -65,11 +65,11 @@
   content: "";
   position: absolute;
   top: calc(-1 * var(--um-space-xs) / 4);
-  left: calc(var(--um-space-sm) / 4);
+  inset-inline-start: calc(var(--um-space-sm) / 4);
   width: calc(var(--um-space-sm) / 2);
   height: calc(var(--um-space-xs) / 2);
-  border-left: var(--um-border-width) var(--um-border-style) currentColor;
-  border-right: var(--um-border-width) var(--um-border-style) currentColor;
+  border-inline-start: var(--um-border-width) var(--um-border-style) currentColor;
+  border-inline-end: var(--um-border-width) var(--um-border-style) currentColor;
 }
 
 /* The ring goes on the field, because the field is what the reader is

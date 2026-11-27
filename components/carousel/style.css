@@ -117,11 +117,11 @@
   width: 4px;
   height: 4px;
   border-top: var(--um-border-width) var(--um-border-style) currentColor;
-  border-right: var(--um-border-width) var(--um-border-style) currentColor;
+  border-inline-end: var(--um-border-width) var(--um-border-style) currentColor;
 }
 
-.um-carousel__prev::before { transform: rotate(-135deg); }
-.um-carousel__next::before { transform: rotate(45deg); }
+.um-carousel__prev::before { transform: rotate(calc(-135deg * var(--um-mirror))); }
+.um-carousel__next::before { transform: rotate(calc(45deg * var(--um-mirror))); }
 
 .um-carousel--sm .um-carousel__caption {
   font-size: var(--um-font-size-caption);

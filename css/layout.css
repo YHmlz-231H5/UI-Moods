@@ -44,7 +44,7 @@
 .um-layout__aside {
   flex: 0 0 14em;
   padding: var(--um-space-sm);
-  border-right: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+  border-inline-end: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
 }
 
 .um-layout__main {
@@ -69,7 +69,7 @@
 .um-layout--stacked .um-layout__aside {
   flex: 0 0 auto;
   width: 100%;
-  border-right: none;
+  border-inline-end: none;
   border-bottom: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
 }
 

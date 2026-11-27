@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>ui-moods · rtl probe</title>
+
+<!-- The probe is a measuring instrument, not a page anybody looks at. It
+     renders every component's examples twice — once as the reader reads from
+     the left, once as the reader reads from the right — and asks, of every
+     box in between, whether the inline start is still the inline start.
+
+     A library that claims to fit a reader's system has to work in the
+     reader's direction, and "works" is not a matter of taste. It is two
+     things that can be measured:
+
+     - The inline *start* side. A line on the leading edge of a panel, the
+       padding in front of a label, the margin after an icon — these are
+       written with physical properties, and a physical property does not
+       move when the direction moves. `border-left` is still the left in
+       right-to-left, so the line that was meant to lead now trails.
+     - The inline *position*. An element pinned to `right: 0` stays pinned to
+       the right, which in a right-to-left reader is the end of the line
+       rather than the start of it.
+
+     The browser flips what it can on its own: the order of a flex row, the
+     order of a table's columns, the alignment of `text-align: start`. What
+     it cannot flip is a physical property — so every one of those is a rule
+     the library writes and the reader does not get.
+
+     The measurement is a comparison, not a threshold. Each element is
+     measured in both directions, and the two readings are held against each
+     other: an asymmetry that was on one side has to be on the other side
+     now. -->
+
+<link rel="stylesheet" href="/components/um-components.css" />
+<link rel="stylesheet" href="/themes/all.css" />
+
+<style>
+  body { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; margin: 0; padding: 16px; background: var(--um-bg-page); color: var(--um-text-regular); }
+  h1 { font-size: 15px; margin: 0 0 8px; color: var(--um-text-primary); }
+  #summary { font-size: 13px; margin: 0 0 12px; white-space: pre-wrap; color: var(--um-text-regular); }
+  #report { font-size: 11px; border-collapse: collapse; width: 100%; }
+  #report th, #report td { border: 1px solid var(--um-border-base); padding: 3px 6px; text-align: left; vertical-align: top; }
+  #report th { background: var(--um-fill-light); color: var(--um-text-primary); position: sticky; top: 0; }
+  .fail { background: var(--um-color-danger-soft-4); }
+  #stage { position: absolute; left: -99999px; top: 0; width: 1200px; background: var(--um-bg-page); }
+  #stage * { content-visibility: visible !important; }
+  #stage *, #stage *::before, #stage *::after { transition: none !important; animation: none !important; }
+</style>
+</head>
+<body>
+
+<h1>ui-moods · rtl probe</h1>
+<div id="summary">running…</div>
+<table id="report"><thead><tr><th>component</th><th>check</th><th>element</th><th>detail</th></tr></thead><tbody></tbody></table>
+
+<div id="stage"></div>
+
+<script type="module">
+// --- measuring one direction -------------------------------------------------
+
+/** A tolerance for the rounding the layout engine does. */
+const TOL = 1;
+
+/** The tag and classes of an element, for the report. */
+function label(el) {
+  const cls = (el.className || "").toString().trim().split(/\s+/).filter(Boolean).join(".");
+  return el.tagName.toLowerCase() + (cls ? "." + cls : "");
+}
+
+/** The library's own box, as opposed to the host's. */
+function isLibraryBox(el) {
+  for (const cls of el.classList ?? []) if (cls.startsWith("um-")) return true;
+  return false;
+}
+
+/**
+ * A box the reader cannot see.
+ *
+ * A control the library hides by size and opacity — the radio underneath a
+ * drawn check mark — has no sides to speak of, and a `<datalist>` is not
+ * rendered at all. Measuring them would report the browser's own default
+ * margins as though the library had written them.
+ */
+function isHidden(el) {
+  const style = getComputedStyle(el);
+  if (style.display === "none" || style.visibility === "hidden") return true;
+  if (parseFloat(style.opacity) === 0) return true;
+  const rect = el.getBoundingClientRect();
+  if (rect.width === 0 && rect.height === 0) return true;
+  return false;
+}
+
+/**
+ * What the browser did to one box, in one direction.
+ *
+ * The gaps are measured against the parent's border box rather than its
+ * content box, so that a parent's own asymmetric padding is reported on the
+ * parent instead of being charged to every child inside it.
+ */
+function measure(el, rtl) {
+  const style = getComputedStyle(el);
+  const rect = el.getBoundingClientRect();
+  const parent = el.parentElement;
+  const pr = parent ? parent.getBoundingClientRect() : rect;
+
+  // The frame is the parent's padding box, not its border box: a parent whose
+  // own border is on one side only would otherwise charge that border to
+  // every child inside it, and the children would be reported for a
+  // difference their parent made.
+  const frameLeft = pr.left + (parseFloat(getComputedStyle(parent ?? el).borderLeftWidth) || 0);
+  const frameRight = pr.right - (parseFloat(getComputedStyle(parent ?? el).borderRightWidth) || 0);
+
+  const gapLeft = rect.left - frameLeft;
+  const gapRight = frameRight - rect.right;
+
+  return {
+    borderLeft: parseFloat(style.borderLeftWidth) || 0,
+    borderRight: parseFloat(style.borderRightWidth) || 0,
+    paddingLeft: parseFloat(style.paddingLeft) || 0,
+    paddingRight: parseFloat(style.paddingRight) || 0,
+    marginLeft: parseFloat(style.marginLeft) || 0,
+    marginRight: parseFloat(style.marginRight) || 0,
+    textAlign: style.textAlign,
+    // The gap to the inline start, and the gap to the inline end.
+    gapStart: rtl ? gapRight : gapLeft,
+    gapEnd: rtl ? gapLeft : gapRight,
+    position: style.position,
+    transform: style.transform,
+    // A parent with no box of its own — `display: contents` — has no frame to
+    // measure against, and the gaps against it are the distance to the page.
+    parentHasBox: pr.width > 0 || pr.height > 0,
+  };
+}
+
+// --- the comparison ----------------------------------------------------------
+
+/**
+ * The side pairs whose asymmetry has to travel with the direction.
+ *
+ * `border-left` and `padding-right` are the same line of thought: one names
+ * the leading edge of a box, the other the trailing one. In a right-to-left
+ * reader the leading edge is on the right, so the pair has to swap.
+ */
+const SIDES = [
+  { name: "border", left: "borderLeft", right: "borderRight", hint: "border-inline-start" },
+  { name: "padding", left: "paddingLeft", right: "paddingRight", hint: "padding-inline-start" },
+  { name: "margin", left: "marginLeft", right: "marginRight", hint: "margin-inline-start" },
+];
+
+/**
+ * One box, read in two directions.
+ *
+ * The finding is not that the two readings differ — they differ by
+ * definition. The finding is that an asymmetry which was on one side is
+ * still on that side, or that a box which was at the inline start is now at
+ * the inline end.
+ */
+function compare(el, ltr, rtl, component, rows) {
+  const name = label(el);
+  const where = `in ${label(el.parentElement ?? el)}`;
+
+  // A modifier that names a physical side means that side: a drawer placed
+  // "left" is placed on the left, whatever the reader's direction is, because
+  // the name is the contract. Its sides are physical on purpose — and so are
+  // the sides of everything inside it, because the modifier decides where
+  // that is: the controls of an input-number that names the left sit on the
+  // left in either direction.
+  const namesAPhysicalSide = (node) =>
+    [...(node?.classList ?? [])].some((c) => /--(left|right)$/.test(c));
+  const physical = (() => {
+    for (let node = el; node && node !== stage; node = node.parentElement) {
+      if (namesAPhysicalSide(node)) return true;
+    }
+    return false;
+  })();
+
+  if (!physical) {
+    for (const side of SIDES) {
+      const a = ltr[side.left];
+      const b = ltr[side.right];
+      if (Math.abs(a - b) < 0.5) continue; // symmetric: there is nothing to mirror
+      const rA = rtl[side.left];
+      const rB = rtl[side.right];
+      if (Math.abs(rA - b) <= TOL && Math.abs(rB - a) <= TOL) continue; // it mirrored
+      rows.push({
+        component,
+        check: "physical-side",
+        element: name,
+        detail:
+          `the ${side.name} is ${a} on the left and ${b} on the right, and in a ` +
+          `right-to-left reader it is still ${rA} on the left and ${rB} on the right ` +
+          `(use ${side.hint}; ${where})`,
+      });
+    }
+  }
+
+  // The box itself: nearer the inline start before, nearer the inline end
+  // after. Only a box the author placed by hand can get this wrong — a box in
+  // the flow is placed by the browser, which turns the flow over by itself.
+  // A box with a transform of its own is placed by hand too, but on purpose:
+  // a panel centred on its target follows the target, wherever the target is.
+  if (!physical && ltr.parentHasBox && rtl.parentHasBox) {
+    const placed = ltr.position === "absolute" || ltr.position === "fixed";
+    const turned = ltr.transform !== "none";
+    if (placed && !turned) {
+      const ltrGap = ltr.gapStart - ltr.gapEnd;
+      const rtlGap = rtl.gapStart - rtl.gapEnd;
+      if (Math.abs(ltrGap) > TOL && Math.abs(rtlGap) > TOL && Math.sign(ltrGap) !== Math.sign(rtlGap)) {
+        rows.push({
+          component,
+          check: "physical-position",
+          element: name,
+          detail:
+            `the box sits at the inline start (${Math.round(Math.abs(ltrGap))}px ` +
+            `nearer it than the end) and in a right-to-left reader it sits at the ` +
+            `inline end instead (use inset-inline-start; ${where})`,
+        });
+      }
+    }
+  }
+}
+
+// --- the run ------------------------------------------------------------------
+
+const stage = document.getElementById("stage");
+const summary = document.getElementById("summary");
+const tbody = document.querySelector("#report tbody");
+
+const rows = [];
+let measurements = 0;
+
+const catalogue = await fetch("/components/index.json").then((r) => r.json());
+const themeIndex = await fetch("/themes/index.json").then((r) => r.json());
+document.documentElement.setAttribute("data-um-theme", themeIndex.themes[0].id);
+
+for (const c of catalogue.components) {
+  const html = await fetch(`/site/component/${c.id}.html`).then((r) => r.text());
+  const doc = new DOMParser().parseFromString(html, "text/html");
+  const section = document.createElement("section");
+  for (const demo of doc.querySelectorAll(".example__demo")) {
+    const box = document.createElement("div");
+    box.append(...demo.cloneNode(true).childNodes);
+    section.append(box);
+  }
+  stage.replaceChildren(section);
+
+  const elements = [...section.querySelectorAll("*")].filter(
+    (el) =>
+      isLibraryBox(el) &&
+      getComputedStyle(el).position !== "fixed" &&
+      !isHidden(el),
+  );
+
+  const readings = [];
+  for (const dir of ["ltr", "rtl"]) {
+    document.documentElement.setAttribute("dir", dir);
+    void document.body.offsetHeight;
+    readings.push(elements.map((el) => measure(el, dir === "rtl")));
+  }
+  document.documentElement.setAttribute("dir", "ltr");
+
+  measurements += elements.length;
+  for (let i = 0; i < elements.length; i++) {
+    compare(elements[i], readings[0][i], readings[1][i], c.id, rows);
+  }
+}
+
+stage.replaceChildren();
+
+for (const row of rows) {
+  const tr = document.createElement("tr");
+  tr.className = "fail";
+  for (const key of ["component", "check", "element", "detail"]) {
+    const td = document.createElement("td");
+    td.textContent = String(row[key]);
+    tr.append(td);
+  }
+  tbody.append(tr);
+}
+
+summary.textContent =
+  `components: ${catalogue.components.length}\n` +
+  `boxes read in two directions: ${measurements}\n` +
+  `failures: ${rows.length}\n` +
+  (rows.length
+    ? "\n" + rows.slice(0, 40).map((r) => `${r.component} ${r.check} ${r.element} ${r.detail}`).join("\n")
+    : "");
+
+window.__PROBE__ = { measurements, failures: rows.length, rows };
+document.title = `probe · ${measurements} boxes · ${rows.length} failures`;
+</script>
+</body>
+</html>

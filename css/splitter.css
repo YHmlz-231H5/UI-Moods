@@ -61,9 +61,9 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 50%;
+  inset-inline-start: 50%;
   width: var(--um-border-width);
-  margin-left: calc(-1 * var(--um-border-width) / 2);
+  margin-inline-start: calc(-1 * var(--um-border-width) / 2);
   background: var(--um-border-base);
 }
 
@@ -77,12 +77,12 @@
 .um-splitter--vertical .um-splitter__bar::before {
   top: 50%;
   bottom: auto;
-  left: 0;
-  right: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
   width: auto;
   height: var(--um-border-width);
   margin-top: calc(-1 * var(--um-border-width) / 2);
-  margin-left: 0;
+  margin-inline-start: 0;
 }
 
 /* The grip is a shape with no label of its own, so it takes the muted-shape

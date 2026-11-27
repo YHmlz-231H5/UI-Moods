@@ -74,15 +74,15 @@
   width: 4px;
   height: 4px;
   border-top: var(--um-border-width) var(--um-border-style) currentColor;
-  border-right: var(--um-border-width) var(--um-border-style) currentColor;
-  transform: rotate(135deg);
+  border-inline-end: var(--um-border-width) var(--um-border-style) currentColor;
+  transform: rotate(calc(45deg * var(--um-mirror)));
   transition: transform var(--um-motion);
 }
 
 /* An open panel turns its arrow over, so the reader can see that the body is
    already there. */
 .um-collapse[open] .um-collapse__arrow {
-  transform: rotate(-45deg);
+  transform: rotate(calc(135deg * var(--um-mirror)));
 }
 
 .um-collapse__content {

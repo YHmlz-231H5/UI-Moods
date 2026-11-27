@@ -45,7 +45,7 @@
 .um-input-number__controls {
   display: flex;
   flex-direction: column;
-  border-left: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-inline-start: var(--um-border-width) var(--um-border-style) var(--um-border-base);
 }
 .um-input-number__increase,
 .um-input-number__decrease {

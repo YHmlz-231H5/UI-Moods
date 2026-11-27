@@ -211,6 +211,34 @@ language in every mood, and it is the only path whose contrast is measured.
       unselected one of the same kind, and reports a state that paints
       exactly like every unselected one.
 
+17. If you change a **side**, write it logically. The component layer states its
+    sides in logical terms — `border-inline-start`, `inset-inline-start`,
+    `margin-inline-start`, `text-align: start` — so a right-to-left reader gets
+    the other side. A physical property (`border-left`, `left`, `padding-right`,
+    `text-align: right`) is a rule the library writes and the reader does not
+    get: it does not move when the direction moves. `validate` fails the build
+    on one, so the mistake never reaches a browser.
+
+    Two things are allowed to stay physical, and both are contracts rather than
+    habits. A modifier class that *names* a side — `.um-drawer--left`,
+    `.um-input-number--left`, `.um-tooltip--left` — means that side, and so do
+    the controls inside it; and a box centred on its target stays centred,
+    because the middle line does not move when the reading direction does. The
+    exceptions are registered in `schemas/component-allowlist.json` under
+    `physicalSides`.
+
+    A shape that points along the reading direction cannot be written logically
+    at all — `border-inline-end` says which edge the line is on, not which way
+    the shape points — so it turns by its own angle times `--um-mirror`, which
+    is `1` by default and `-1` under `[dir="rtl"]`. The chevrons of the tree,
+    the virtual tree, the tree select, the collapse, the cascader and the
+    select follow Element Plus: 45° closed (▶), 135° open (▼).
+
+    `node tools/audit-render.mjs rtl` renders every example twice — once as the
+    reader reads from the left, once as the reader reads from the right — and
+    reports every box whose asymmetry did not travel with the direction. The
+    current run is **3 713 boxes read in two directions, zero failures**.
+
 `site/index.html` is the documentation: an overview plus one page per
 component, with the examples, the API tables and the class list, and a live
 switcher over all 32 themes.

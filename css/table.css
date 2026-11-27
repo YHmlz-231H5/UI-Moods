@@ -36,7 +36,7 @@
 .um-table__cell {
   padding: var(--um-space-xs) var(--um-space-sm);
   border-bottom: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
-  text-align: left;
+  text-align: start;
   vertical-align: middle;
 }
 /* The header is a band of its own, not just darker text.
@@ -70,7 +70,7 @@
 .um-table--striped .um-table__body .um-table__row:hover { background: var(--um-fill-light); }
 
 .um-table--bordered .um-table__cell:not(:last-child) {
-  border-right: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+  border-inline-end: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
 }
 
 .um-table__empty {

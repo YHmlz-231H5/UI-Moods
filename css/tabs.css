@@ -52,8 +52,8 @@
 .um-tabs__header::after {
   content: "";
   position: absolute;
-  left: 0;
-  right: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
   bottom: 0;
   height: var(--um-border-width);
   background: var(--um-border-base);
@@ -80,8 +80,8 @@
    only thing that moves when the selection changes. */
 .um-tabs__indicator {
   position: absolute;
-  left: 0;
-  right: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
   bottom: 0;
   height: 2px;
   background: var(--um-tabs-indicator);

@@ -56,11 +56,11 @@
   width: 4px;
   height: 4px;
   border-top: var(--um-border-width) var(--um-border-style) currentColor;
-  border-right: var(--um-border-width) var(--um-border-style) currentColor;
+  border-inline-end: var(--um-border-width) var(--um-border-style) currentColor;
 }
 
-.um-pagination__prev .um-pagination__link::before { transform: rotate(-135deg); }
-.um-pagination__next .um-pagination__link::before { transform: rotate(45deg); }
+.um-pagination__prev .um-pagination__link::before { transform: rotate(calc(-135deg * var(--um-mirror))); }
+.um-pagination__next .um-pagination__link::before { transform: rotate(calc(45deg * var(--um-mirror))); }
 
 .um-pagination__link:disabled {
   border-color: var(--um-border-base);

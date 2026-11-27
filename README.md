@@ -185,6 +185,35 @@ glass, whatever the last visit chose), remembers the choice in
 framework-agnostic on purpose: a Vue app, a React app and a plain HTML page
 all call the same three lines.
 
+### It reads from the right as well
+
+`dir="rtl"` is a one-attribute change, and the library follows it. The sides of
+a box are written logically — `border-inline-start`, `inset-inline-start`,
+`margin-inline-start`, `text-align: start` — so the line that leads the panel
+leads it in either direction. The shapes that point along the reading
+direction — a chevron, an arrow, a check mark — turn with it, through one
+number the library keeps for exactly this:
+
+```css
+:root { --um-mirror: 1; }
+[dir="rtl"] { --um-mirror: -1; }
+```
+
+```html
+<html dir="rtl">
+```
+
+Nothing else changes: no second stylesheet, no theme variant, no request. The
+chevrons of the tree, the collapse, the cascader and the select follow
+Element Plus's convention — 45° closed (▶), 135° open (▼).
+
+A modifier class that *names* a side keeps it: `.um-drawer--left` is a drawer
+on the left, in either direction, because the name is the contract.
+
+The library is checked in both directions by a probe that renders every
+example twice and holds the two readings against each other: **3 713 boxes
+read in two directions, zero failures**.
+
 ### The CSS is the product; Vue is a thin layer on top
 
 Element Plus and Arco Design both ship framework components. This library is
@@ -328,6 +357,10 @@ The rules the component layer obeys, and `validate` enforces:
   carries the meaning on its own is held to 3:1, and the `graphic` form of
   each status colour exists for it. The raw warning colour sits at 1.39:1 on
   a container — a timeline node nobody can see.
+- **The library reads in both directions.** A side is written logically, so
+  `dir="rtl"` moves it without a second stylesheet, and a shape that points
+  along the reading direction turns with it. 3 713 boxes are read in two
+  directions and not one of them fails to follow.
 
 ### How a colour is derived
 
@@ -521,7 +554,7 @@ ui-moods/
 │                     # · audit-render · verify-themes · serve · scaffold
 │                     # · probe/ (the measuring instruments:
 │                     #   contrast · geometry · motion · package · validity
-│                     #   · state · apps)
+│                     #   · state · rtl · apps)
 ├─ docs/              # mapping convention · checklist semantics · parity checklist
 │                     # · contribution guide · vue-components · known gaps
 ├─ AGENTS.md          # protocol for AI agents
@@ -631,8 +664,9 @@ The rendered library is measured in a headless browser by
 | `geometry` | are the boxes where the markup asked for them? | 115 488 measurements, 0 failures |
 | `package` | does the published split stylesheet measure the same? | 51 328 measurements, 0 failures |
 | `motion` | does the library stop moving when the reader asks? | 3 962 measurements, 0 failures |
-| `validity` | did the browser keep every rule the library declared? | 1 164 rules, 0 failures |
+| `validity` | did the browser keep every rule the library declared? | 1 166 rules, 0 failures |
 | `state` | does a selected thing look different from an unselected one? | 37 states, 0 failures |
+| `rtl` | does the library still read from the right? | 3 713 boxes, 0 failures |
 
 Every probe exits 0 when it found nothing, 1 when it found something, and 2
 when the run itself went wrong — so it can be a step in a pipeline rather

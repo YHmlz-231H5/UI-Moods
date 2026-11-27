@@ -26,12 +26,14 @@
   height: 8px;
   margin-top: -2px;
   border: solid var(--um-color-primary-on);
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg) scale(0);
+  border-width: 0;
+  border-inline-end-width: 2px;
+  border-bottom-width: 2px;
+  transform: rotate(calc(45deg * var(--um-mirror))) scale(0);
   transition: transform var(--um-motion);
 }
 .um-checkbox__input:checked + .um-checkbox__box { background: var(--um-color-primary); border-color: var(--um-color-primary); }
-.um-checkbox__input:checked + .um-checkbox__box::after { transform: rotate(45deg) scale(1); }
+.um-checkbox__input:checked + .um-checkbox__box::after { transform: rotate(calc(45deg * var(--um-mirror))) scale(1); }
 .um-checkbox__input:indeterminate + .um-checkbox__box { background: var(--um-color-primary); border-color: var(--um-color-primary); }
 .um-checkbox__input:indeterminate + .um-checkbox__box::after {
   width: 8px;

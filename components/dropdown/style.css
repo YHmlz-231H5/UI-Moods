@@ -39,8 +39,8 @@
   width: 4px;
   height: 4px;
   border-top: var(--um-border-width) var(--um-border-style) var(--um-border-base);
-  border-right: var(--um-border-width) var(--um-border-style) var(--um-border-base);
-  transform: rotate(135deg);
+  border-inline-end: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  transform: rotate(calc(135deg * var(--um-mirror)));
 }
 
 /* The panel is hidden by `display` rather than left to the browser's
@@ -49,7 +49,7 @@
 .um-dropdown__menu {
   position: absolute;
   top: 100%;
-  left: 0;
+  inset-inline-start: 0;
   z-index: 1;
   display: none;
   min-width: 100%;
@@ -74,7 +74,7 @@
   color: var(--um-text-regular);
   font-family: var(--um-font-family);
   font-size: var(--um-font-size-body);
-  text-align: left;
+  text-align: start;
   white-space: nowrap;
   cursor: pointer;
   transition: background-color var(--um-motion), color var(--um-motion);
@@ -94,6 +94,6 @@
 
 /* A dropdown that is aligned to the right edge of its trigger. */
 .um-dropdown--end .um-dropdown__menu {
-  right: 0;
-  left: auto;
+  inset-inline-end: 0;
+  inset-inline-start: auto;
 }

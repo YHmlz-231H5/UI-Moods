@@ -51,8 +51,8 @@
   width: 4px;
   height: 4px;
   border-top: var(--um-border-width) var(--um-border-style) var(--um-border-base);
-  border-right: var(--um-border-width) var(--um-border-style) var(--um-border-base);
-  transform: rotate(45deg);
+  border-inline-end: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  transform: rotate(calc(45deg * var(--um-mirror)));
 }
 
 /* The page the reader is on is not a link, and it is not the same colour as

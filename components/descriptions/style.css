@@ -63,6 +63,6 @@
   background: var(--um-surface-panel);
 }
 .um-descriptions--bordered .um-descriptions__label {
-  padding-right: var(--um-space-sm);
-  border-right: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  padding-inline-end: var(--um-space-sm);
+  border-inline-end: var(--um-border-width) var(--um-border-style) var(--um-border-base);
 }

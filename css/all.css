@@ -32,6 +32,15 @@
   --um-motion: var(--um-duration) var(--um-easing);
 }
 
+/* The mirror: a shape that points along the reading direction has to point
+   the other way when the reader reads the other way. It is one number, and a
+   shape uses it as `scaleX(var(--um-mirror))` in front of its own turn, so
+   the drawn result is turned over rather than the shape being drawn again
+   backwards. A shape that points up or down is its own mirror and does not
+   use this. */
+:root { --um-mirror: 1; }
+[dir="rtl"] { --um-mirror: -1; }
+
 /* --- shared ---------------------------------------------------------------
    One focus treatment for every focusable component.
    ------------------------------------------------------------------------ */
@@ -577,13 +586,15 @@
 .um-icon--check::after {
   content: "";
   position: absolute;
-  left: 0.29em;
+  inset-inline-start: 0.29em;
   top: -0.05em;
   width: 0.3em;
   height: 0.6em;
   border: solid currentColor;
-  border-width: 0 0.12em 0.12em 0;
-  transform: rotate(45deg);
+  border-width: 0;
+  border-inline-end-width: 0.12em;
+  border-bottom-width: 0.12em;
+  transform: rotate(calc(45deg * var(--um-mirror)));
 }
 
 /* The cross: two bars laid over each other. */
@@ -591,7 +602,7 @@
 .um-icon--close::after {
   content: "";
   position: absolute;
-  left: 0.1em;
+  inset-inline-start: 0.1em;
   top: 0.44em;
   width: 0.8em;
   height: 0.12em;
@@ -613,24 +624,26 @@
   width: 0.4em;
   height: 0.4em;
   border: solid currentColor;
-  border-width: 0 0.12em 0.12em 0;
+  border-width: 0;
+  border-inline-end-width: 0.12em;
+  border-bottom-width: 0.12em;
 }
 .um-icon--chevron-down::after {
-  left: 0.24em;
+  inset-inline-start: 0.24em;
   top: 0.01em;
-  transform: rotate(45deg);
+  transform: rotate(calc(45deg * var(--um-mirror)));
 }
 .um-icon--chevron-right::after {
-  left: 0.01em;
+  inset-inline-start: 0.01em;
   top: 0.24em;
-  transform: rotate(-45deg);
+  transform: rotate(calc(-45deg * var(--um-mirror)));
 }
 
 /* The dot: a filled circle, and the smallest mark the set has. */
 .um-icon--dot::after {
   content: "";
   position: absolute;
-  left: 0.35em;
+  inset-inline-start: 0.35em;
   top: 0.35em;
   width: 0.3em;
   height: 0.3em;
@@ -645,14 +658,14 @@
   position: absolute;
   background: currentColor;
 }
-.um-icon--plus::before { left: 0.1em; top: 0.44em; width: 0.8em; height: 0.12em; }
-.um-icon--plus::after { left: 0.44em; top: 0.1em; width: 0.12em; height: 0.8em; }
+.um-icon--plus::before { inset-inline-start: 0.1em; top: 0.44em; width: 0.8em; height: 0.12em; }
+.um-icon--plus::after { inset-inline-start: 0.44em; top: 0.1em; width: 0.12em; height: 0.8em; }
 
 /* The minus is the plus without the bar down. */
 .um-icon--minus::after {
   content: "";
   position: absolute;
-  left: 0.1em;
+  inset-inline-start: 0.1em;
   top: 0.44em;
   width: 0.8em;
   height: 0.12em;
@@ -693,7 +706,7 @@
 .um-layout__aside {
   flex: 0 0 14em;
   padding: var(--um-space-sm);
-  border-right: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+  border-inline-end: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
 }
 
 .um-layout__main {
@@ -718,7 +731,7 @@
 .um-layout--stacked .um-layout__aside {
   flex: 0 0 auto;
   width: 100%;
-  border-right: none;
+  border-inline-end: none;
   border-bottom: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
 }
 
@@ -1032,9 +1045,9 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 50%;
+  inset-inline-start: 50%;
   width: var(--um-border-width);
-  margin-left: calc(-1 * var(--um-border-width) / 2);
+  margin-inline-start: calc(-1 * var(--um-border-width) / 2);
   background: var(--um-border-base);
 }
 
@@ -1048,12 +1061,12 @@
 .um-splitter--vertical .um-splitter__bar::before {
   top: 50%;
   bottom: auto;
-  left: 0;
-  right: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
   width: auto;
   height: var(--um-border-width);
   margin-top: calc(-1 * var(--um-border-width) / 2);
-  margin-left: 0;
+  margin-inline-start: 0;
 }
 
 /* The grip is a shape with no label of its own, so it takes the muted-shape
@@ -1213,8 +1226,8 @@
    not a thing every type family has. */
 .um-typography__quote {
   margin: 0;
-  padding-left: var(--um-space-sm);
-  border-left: calc(var(--um-border-width) * 2) solid var(--um-border-base);
+  padding-inline-start: var(--um-space-sm);
+  border-inline-start: calc(var(--um-border-width) * 2) solid var(--um-border-base);
   color: var(--um-text-secondary);
 }
 
@@ -1447,12 +1460,14 @@
   height: 8px;
   margin-top: -2px;
   border: solid var(--um-color-primary-on);
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg) scale(0);
+  border-width: 0;
+  border-inline-end-width: 2px;
+  border-bottom-width: 2px;
+  transform: rotate(calc(45deg * var(--um-mirror))) scale(0);
   transition: transform var(--um-motion);
 }
 .um-checkbox__input:checked + .um-checkbox__box { background: var(--um-color-primary); border-color: var(--um-color-primary); }
-.um-checkbox__input:checked + .um-checkbox__box::after { transform: rotate(45deg) scale(1); }
+.um-checkbox__input:checked + .um-checkbox__box::after { transform: rotate(calc(45deg * var(--um-mirror))) scale(1); }
 .um-checkbox__input:indeterminate + .um-checkbox__box { background: var(--um-color-primary); border-color: var(--um-color-primary); }
 .um-checkbox__input:indeterminate + .um-checkbox__box::after {
   width: 8px;
@@ -1830,12 +1845,14 @@
   height: 8px;
   margin-top: -2px;
   border: solid var(--um-color-primary-on);
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg) scale(0);
+  border-width: 0;
+  border-inline-end-width: 2px;
+  border-bottom-width: 2px;
+  transform: rotate(calc(45deg * var(--um-mirror))) scale(0);
   transition: transform var(--um-motion);
 }
 .um-color-picker-panel__hue-swatch:has(input:checked)::after {
-  transform: rotate(45deg) scale(1);
+  transform: rotate(calc(45deg * var(--um-mirror))) scale(1);
 }
 .um-color-picker-panel__hue-swatch:has(input[value="success"])::after {
   border-color: var(--um-color-success-on);
@@ -1975,8 +1992,8 @@
   content: "";
   position: absolute;
   top: calc(var(--um-space-sm) / 4);
-  left: 0;
-  right: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
   height: var(--um-border-width);
   background: currentColor;
 }
@@ -1987,11 +2004,11 @@
   content: "";
   position: absolute;
   top: calc(-1 * var(--um-space-xs) / 4);
-  left: calc(var(--um-space-sm) / 4);
+  inset-inline-start: calc(var(--um-space-sm) / 4);
   width: calc(var(--um-space-sm) / 2);
   height: calc(var(--um-space-xs) / 2);
-  border-left: var(--um-border-width) var(--um-border-style) currentColor;
-  border-right: var(--um-border-width) var(--um-border-style) currentColor;
+  border-inline-start: var(--um-border-width) var(--um-border-style) currentColor;
+  border-inline-end: var(--um-border-width) var(--um-border-style) currentColor;
 }
 
 /* The ring goes on the field, because the field is what the reader is
@@ -2117,16 +2134,16 @@
   width: 4px;
   height: 4px;
   border-top: var(--um-border-width) var(--um-border-style) currentColor;
-  border-right: var(--um-border-width) var(--um-border-style) currentColor;
+  border-inline-end: var(--um-border-width) var(--um-border-style) currentColor;
 }
 
-/* The shape is a corner: the top and right borders of a square. Turned 45°
-   the corner points right, and turned -135° it points left. */
+/* The shape is a corner: the top and inline-end borders of a square. Turned
+   45° the corner points right, and turned -135° it points left. */
 .um-date-picker-panel__next::after {
-  transform: rotate(45deg);
+  transform: rotate(calc(45deg * var(--um-mirror)));
 }
 .um-date-picker-panel__prev::after {
-  transform: rotate(-135deg);
+  transform: rotate(calc(-135deg * var(--um-mirror)));
 }
 
 .um-date-picker-panel__prev:focus-visible,
@@ -2437,7 +2454,7 @@
 
 .um-select {
   appearance: none;
-  padding-right: var(--um-space-lg);
+  padding-inline-end: var(--um-space-lg);
   /* The chevron is a CSS shape, not an icon font and not an emoji. */
   background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
     linear-gradient(135deg, currentColor 50%, transparent 50%);
@@ -2494,7 +2511,7 @@
 .um-input-number__controls {
   display: flex;
   flex-direction: column;
-  border-left: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-inline-start: var(--um-border-width) var(--um-border-style) var(--um-border-base);
 }
 .um-input-number__increase,
 .um-input-number__decrease {
@@ -2875,7 +2892,7 @@
   background: none;
   color: var(--um-text-regular);
   font: inherit;
-  text-align: left;
+  text-align: start;
   white-space: nowrap;
   cursor: pointer;
 }
@@ -3194,7 +3211,7 @@
 .um-switch__thumb {
   position: absolute;
   top: 2px;
-  left: 2px;
+  inset-inline-start: 2px;
   width: calc(var(--um-height-sm) - 4px);
   height: calc(var(--um-height-sm) - 4px);
   border-radius: var(--um-radius-circle);
@@ -3206,7 +3223,7 @@
    the brand colour: the raw fill colour is 1.43:1 against a container in the
    brutal mood, which is a switch whose state nobody can see. */
 .um-switch__input:checked + .um-switch__track { background: var(--um-color-primary-graphic); }
-.um-switch__input:checked + .um-switch__track .um-switch__thumb { transform: translateX(calc(var(--um-height-md) * 0.5)); }
+.um-switch__input:checked + .um-switch__track .um-switch__thumb { transform: translateX(calc(var(--um-height-md) * 0.5 * var(--um-mirror))); }
 .um-switch__input:disabled + .um-switch__track { opacity: 0.45; cursor: not-allowed; }
 .um-switch__label { color: var(--um-text-regular); font-size: var(--um-font-size-body); }
 
@@ -3364,7 +3381,8 @@
      the library draws a chevron beside the field instead. The option list is
      still the platform's. */
   appearance: none;
-  padding: 0 var(--um-space-lg) 0 0;
+  padding: 0;
+  padding-inline-end: var(--um-space-lg);
   border: 0;
   background: transparent;
   color: inherit;
@@ -3383,14 +3401,14 @@
 /* The chevron is drawn from two borders, so it carries no text of its own. */
 .um-time-select__arrow {
   position: absolute;
-  right: var(--um-space-sm);
+  inset-inline-end: var(--um-space-sm);
   top: 50%;
   width: var(--um-space-xs);
   height: var(--um-space-xs);
-  border-right: var(--um-border-width) var(--um-border-style) currentColor;
+  border-inline-end: var(--um-border-width) var(--um-border-style) currentColor;
   border-bottom: var(--um-border-width) var(--um-border-style) currentColor;
   color: var(--um-text-secondary);
-  transform: translateY(-50%) rotate(45deg);
+  transform: translateY(-50%) rotate(calc(45deg * var(--um-mirror)));
   pointer-events: none;
 }
 
@@ -3498,15 +3516,15 @@
   width: 4px;
   height: 4px;
   border-top: var(--um-border-width) var(--um-border-style) currentColor;
-  border-right: var(--um-border-width) var(--um-border-style) currentColor;
-  transform: rotate(-45deg);
+  border-inline-end: var(--um-border-width) var(--um-border-style) currentColor;
+  transform: rotate(calc(45deg * var(--um-mirror)));
   transition: transform var(--um-motion);
 }
 
 /* An open branch turns its mark over, so the reader can see that the level
    below is already there. */
 .um-tree-select__node[open] > .um-tree-select__option .um-tree-select__arrow::after {
-  transform: rotate(45deg);
+  transform: rotate(calc(135deg * var(--um-mirror)));
 }
 
 /* The circle is the one the radio component draws: a shape with no label of
@@ -3581,14 +3599,14 @@
 /* The level below is indented rather than drawn over the row, so a long name
    has the whole width of the level to itself. */
 .um-tree-select__children {
-  margin-left: var(--um-space-sm);
-  padding-left: var(--um-space-sm);
+  margin-inline-start: var(--um-space-sm);
+  padding-inline-start: var(--um-space-sm);
 }
 
 /* The guided run puts a rule down the side of each level, so the depth of a
    branch can be seen rather than counted. */
 .um-tree-select--lines .um-tree-select__children {
-  border-left: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+  border-inline-start: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
 }
 
 .um-tree-select--sm .um-tree-select__option {
@@ -4269,11 +4287,11 @@
   width: 4px;
   height: 4px;
   border-top: var(--um-border-width) var(--um-border-style) currentColor;
-  border-right: var(--um-border-width) var(--um-border-style) currentColor;
+  border-inline-end: var(--um-border-width) var(--um-border-style) currentColor;
 }
 
-.um-carousel__prev::before { transform: rotate(-135deg); }
-.um-carousel__next::before { transform: rotate(45deg); }
+.um-carousel__prev::before { transform: rotate(calc(-135deg * var(--um-mirror))); }
+.um-carousel__next::before { transform: rotate(calc(45deg * var(--um-mirror))); }
 
 .um-carousel--sm .um-carousel__caption {
   font-size: var(--um-font-size-caption);
@@ -4362,8 +4380,8 @@
   width: 4px;
   height: 4px;
   border-top: var(--um-border-width) var(--um-border-style) currentColor;
-  border-right: var(--um-border-width) var(--um-border-style) currentColor;
-  transform: rotate(135deg);
+  border-inline-end: var(--um-border-width) var(--um-border-style) currentColor;
+  transform: rotate(calc(45deg * var(--um-mirror)));
 }
 
 /* The children are hidden by `display` rather than left to the browser's
@@ -4380,15 +4398,15 @@
 /* The inline run opens the level below under the option it hangs off, and
    a rule marks where the branch begins. */
 .um-cascader--inline .um-cascader__children {
-  margin-left: var(--um-space-sm);
-  padding-left: var(--um-space-sm);
-  border-left: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+  margin-inline-start: var(--um-space-sm);
+  padding-inline-start: var(--um-space-sm);
+  border-inline-start: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
 }
 
 /* An open level turns its mark over, so the reader can see that the level
    below is already there. */
 .um-cascader--inline .um-cascader__panel[open] > .um-cascader__option .um-cascader__arrow {
-  transform: rotate(-45deg);
+  transform: rotate(calc(135deg * var(--um-mirror)));
 }
 
 /* The flyout run puts the level below beside the one it hangs off, which is
@@ -4396,7 +4414,7 @@
 .um-cascader--flyout .um-cascader__children {
   position: absolute;
   top: 0;
-  left: 100%;
+  inset-inline-start: 100%;
   z-index: 1;
   min-width: 100%;
   width: max-content;
@@ -4408,7 +4426,7 @@
 }
 
 .um-cascader--flyout .um-cascader__arrow {
-  transform: rotate(45deg);
+  transform: rotate(calc(45deg * var(--um-mirror)));
 }
 
 .um-cascader--sm .um-cascader__option {
@@ -4483,15 +4501,15 @@
   width: 4px;
   height: 4px;
   border-top: var(--um-border-width) var(--um-border-style) currentColor;
-  border-right: var(--um-border-width) var(--um-border-style) currentColor;
-  transform: rotate(135deg);
+  border-inline-end: var(--um-border-width) var(--um-border-style) currentColor;
+  transform: rotate(calc(45deg * var(--um-mirror)));
   transition: transform var(--um-motion);
 }
 
 /* An open panel turns its arrow over, so the reader can see that the body is
    already there. */
 .um-collapse[open] .um-collapse__arrow {
-  transform: rotate(-45deg);
+  transform: rotate(calc(135deg * var(--um-mirror)));
 }
 
 .um-collapse__content {
@@ -4583,8 +4601,8 @@
   background: var(--um-surface-panel);
 }
 .um-descriptions--bordered .um-descriptions__label {
-  padding-right: var(--um-space-sm);
-  border-right: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  padding-inline-end: var(--um-space-sm);
+  border-inline-end: var(--um-border-width) var(--um-border-style) var(--um-border-base);
 }
 
 /* ============================================================================
@@ -5158,7 +5176,7 @@
 .um-table__cell {
   padding: var(--um-space-xs) var(--um-space-sm);
   border-bottom: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
-  text-align: left;
+  text-align: start;
   vertical-align: middle;
 }
 /* The header is a band of its own, not just darker text.
@@ -5192,7 +5210,7 @@
 .um-table--striped .um-table__body .um-table__row:hover { background: var(--um-fill-light); }
 
 .um-table--bordered .um-table__cell:not(:last-child) {
-  border-right: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+  border-inline-end: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
 }
 
 .um-table__empty {
@@ -5269,7 +5287,7 @@
   position: absolute;
   top: var(--um-space-xs);
   bottom: 0;
-  left: calc(var(--um-space-xs) / 2 - var(--um-border-width) / 2);
+  inset-inline-start: calc(var(--um-space-xs) / 2 - var(--um-border-width) / 2);
   width: var(--um-border-width);
   background: var(--um-border-lighter);
 }
@@ -5340,8 +5358,8 @@
   position: absolute;
   width: 0;
   height: 0;
-  border-left: var(--um-space-xs) solid transparent;
-  border-right: var(--um-space-xs) solid transparent;
+  border-inline-start: var(--um-space-xs) solid transparent;
+  border-inline-end: var(--um-space-xs) solid transparent;
   border-bottom: var(--um-space-xs) solid var(--um-bg-overlay);
 }
 
@@ -5356,7 +5374,7 @@
   top: calc(100% + var(--um-space-xs));
   bottom: auto;
   left: 50%;
-  right: auto;
+  inset-inline-end: auto;
   transform: translateX(-50%);
 }
 
@@ -5364,8 +5382,8 @@
 .um-tour--bottom .um-tour__arrow {
   top: calc(-1 * var(--um-space-xs));
   bottom: auto;
-  left: 50%;
-  right: auto;
+  inset-inline-start: 50%;
+  inset-inline-end: auto;
   transform: none;
 }
 
@@ -5374,15 +5392,15 @@
   top: auto;
   bottom: calc(100% + var(--um-space-xs));
   left: 50%;
-  right: auto;
+  inset-inline-end: auto;
   transform: translateX(-50%);
 }
 
 .um-tour--top .um-tour__arrow {
   top: auto;
   bottom: calc(-1 * var(--um-space-xs));
-  left: 50%;
-  right: auto;
+  inset-inline-start: 50%;
+  inset-inline-end: auto;
   transform: rotate(180deg);
 }
 
@@ -5659,10 +5677,10 @@
   width: 4px;
   height: 4px;
   border-top: var(--um-border-width) var(--um-border-style) currentColor;
-  border-right: var(--um-border-width) var(--um-border-style) currentColor;
+  border-inline-end: var(--um-border-width) var(--um-border-style) currentColor;
 }
-.um-transfer__move::before { transform: rotate(45deg); }
-.um-transfer__move-back::before { transform: rotate(-135deg); }
+.um-transfer__move::before { transform: rotate(calc(45deg * var(--um-mirror))); }
+.um-transfer__move-back::before { transform: rotate(calc(-135deg * var(--um-mirror))); }
 
 /* The vertical run stacks the panels and puts the buttons between them. */
 .um-transfer--vertical {
@@ -5744,26 +5762,26 @@
   width: 4px;
   height: 4px;
   border-top: var(--um-border-width) var(--um-border-style) currentColor;
-  border-right: var(--um-border-width) var(--um-border-style) currentColor;
-  transform: rotate(-45deg);
+  border-inline-end: var(--um-border-width) var(--um-border-style) currentColor;
+  transform: rotate(calc(45deg * var(--um-mirror)));
   transition: transform var(--um-motion);
 }
 
 .um-tree__node[open] > .um-tree__label .um-tree__arrow {
-  transform: rotate(45deg);
+  transform: rotate(calc(135deg * var(--um-mirror)));
 }
 
 /* The level below is indented rather than drawn over the label, so a long
    name has the whole width of the level to itself. */
 .um-tree__children {
-  margin-left: var(--um-space-sm);
-  padding-left: var(--um-space-sm);
+  margin-inline-start: var(--um-space-sm);
+  padding-inline-start: var(--um-space-sm);
 }
 
 /* The guided run puts a rule down the side of each level, so the depth of a
    branch can be seen rather than counted. */
 .um-tree--lines .um-tree__children {
-  border-left: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+  border-inline-start: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
 }
 
 .um-tree--sm .um-tree__label {
@@ -5925,7 +5943,7 @@
 
 .um-virtual-table--bordered .um-virtual-table__header .um-virtual-table__head-cell:not(:last-child),
 .um-virtual-table--bordered .um-virtual-table__row .um-virtual-table__cell:not(:last-child) {
-  border-right: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+  border-inline-end: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
 }
 
 .um-virtual-table--sm .um-virtual-table__header,
@@ -6025,20 +6043,20 @@
   width: 4px;
   height: 4px;
   border-top: var(--um-border-width) var(--um-border-style) currentColor;
-  border-right: var(--um-border-width) var(--um-border-style) currentColor;
-  transform: rotate(-45deg);
+  border-inline-end: var(--um-border-width) var(--um-border-style) currentColor;
+  transform: rotate(calc(45deg * var(--um-mirror)));
   transition: transform var(--um-motion);
 }
 
 .um-virtual-tree__node[open] > .um-virtual-tree__label .um-virtual-tree__arrow {
-  transform: rotate(45deg);
+  transform: rotate(calc(135deg * var(--um-mirror)));
 }
 
 /* The level below is indented rather than drawn over the label, so a long
    name has the whole width of the level to itself. */
 .um-virtual-tree__children {
-  margin-left: var(--um-space-sm);
-  padding-left: var(--um-space-sm);
+  margin-inline-start: var(--um-space-sm);
+  padding-inline-start: var(--um-space-sm);
 }
 
 /* Each branch's children carry the skip: the browser does not lay out a child
@@ -6060,7 +6078,7 @@
 /* The guided run puts a rule down the side of each level, so the depth of a
    branch can be seen rather than counted. */
 .um-virtual-tree--lines .um-virtual-tree__children {
-  border-left: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+  border-inline-start: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
 }
 
 .um-virtual-tree--sm .um-virtual-tree__label {
@@ -6101,7 +6119,7 @@
 .um-anchor__link {
   display: block;
   padding: var(--um-space-xs) var(--um-space-sm);
-  border-left: var(--um-border-width) var(--um-border-style) var(--um-border-light);
+  border-inline-start: var(--um-border-width) var(--um-border-style) var(--um-border-light);
   color: var(--um-text-secondary);
   text-decoration: none;
   transition: color var(--um-motion), border-color var(--um-motion);
@@ -6116,7 +6134,7 @@
    one the stylesheet gives the brand colour — no stylesheet can work out
    which section is on screen, so the page has to say it. */
 .um-anchor__link[aria-current="location"] {
-  border-left-color: var(--um-color-primary);
+  border-inline-start-color: var(--um-color-primary);
   color: var(--um-color-primary-text);
   font-weight: var(--um-font-weight-medium);
 }
@@ -6132,8 +6150,8 @@
    margin too narrow to carry a line should not also carry the space one
    would have left for it. */
 .um-anchor--plain .um-anchor__link {
-  padding-left: 0;
-  border-left-color: transparent;
+  padding-inline-start: 0;
+  border-inline-start-color: transparent;
 }
 
 /* ============================================================================
@@ -6148,7 +6166,7 @@
    it, so the two are a contracted pair in every mood. */
 .um-backtop {
   position: fixed;
-  right: var(--um-space-lg);
+  inset-inline-end: var(--um-space-lg);
   bottom: var(--um-space-lg);
   z-index: 2;
   display: inline-flex;
@@ -6187,8 +6205,8 @@
   width: 8px;
   height: 8px;
   border-top: var(--um-border-width) var(--um-border-style) currentColor;
-  border-right: var(--um-border-width) var(--um-border-style) currentColor;
-  transform: rotate(-45deg);
+  border-inline-end: var(--um-border-width) var(--um-border-style) currentColor;
+  transform: rotate(calc(-45deg * var(--um-mirror)));
 }
 
 .um-backtop--sm {
@@ -6262,8 +6280,8 @@
   width: 4px;
   height: 4px;
   border-top: var(--um-border-width) var(--um-border-style) var(--um-border-base);
-  border-right: var(--um-border-width) var(--um-border-style) var(--um-border-base);
-  transform: rotate(45deg);
+  border-inline-end: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  transform: rotate(calc(45deg * var(--um-mirror)));
 }
 
 /* The page the reader is on is not a link, and it is not the same colour as
@@ -6325,8 +6343,8 @@
   width: 4px;
   height: 4px;
   border-top: var(--um-border-width) var(--um-border-style) var(--um-border-base);
-  border-right: var(--um-border-width) var(--um-border-style) var(--um-border-base);
-  transform: rotate(135deg);
+  border-inline-end: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  transform: rotate(calc(135deg * var(--um-mirror)));
 }
 
 /* The panel is hidden by `display` rather than left to the browser's
@@ -6335,7 +6353,7 @@
 .um-dropdown__menu {
   position: absolute;
   top: 100%;
-  left: 0;
+  inset-inline-start: 0;
   z-index: 1;
   display: none;
   min-width: 100%;
@@ -6360,7 +6378,7 @@
   color: var(--um-text-regular);
   font-family: var(--um-font-family);
   font-size: var(--um-font-size-body);
-  text-align: left;
+  text-align: start;
   white-space: nowrap;
   cursor: pointer;
   transition: background-color var(--um-motion), color var(--um-motion);
@@ -6380,8 +6398,8 @@
 
 /* A dropdown that is aligned to the right edge of its trigger. */
 .um-dropdown--end .um-dropdown__menu {
-  right: 0;
-  left: auto;
+  inset-inline-end: 0;
+  inset-inline-start: auto;
 }
 
 /* ============================================================================
@@ -6455,14 +6473,14 @@
   content: "";
   width: 4px;
   height: 4px;
-  margin-left: auto;
+  margin-inline-start: auto;
   border-top: var(--um-border-width) var(--um-border-style) var(--um-border-base);
-  border-right: var(--um-border-width) var(--um-border-style) var(--um-border-base);
-  transform: rotate(45deg);
+  border-inline-end: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  transform: rotate(calc(45deg * var(--um-mirror)));
   transition: transform var(--um-motion);
 }
 
-.um-menu__group > details[open] > .um-menu__title::after { transform: rotate(135deg); }
+.um-menu__group > details[open] > .um-menu__title::after { transform: rotate(calc(135deg * var(--um-mirror))); }
 
 /* The icon slot is empty on purpose: the host fills it with its own glyph.
    The slot only holds the space, so the text does not move when it does. */
@@ -6493,7 +6511,7 @@
 .um-menu--horizontal .um-menu__group > details > .um-menu__submenu {
   position: absolute;
   top: 100%;
-  left: 0;
+  inset-inline-start: 0;
   z-index: 1;
   min-width: 100%;
   padding: var(--um-space-xs) 0;
@@ -6561,11 +6579,11 @@
   width: 4px;
   height: 4px;
   border-top: var(--um-border-width) var(--um-border-style) currentColor;
-  border-right: var(--um-border-width) var(--um-border-style) currentColor;
+  border-inline-end: var(--um-border-width) var(--um-border-style) currentColor;
 }
 
-.um-pagination__prev .um-pagination__link::before { transform: rotate(-135deg); }
-.um-pagination__next .um-pagination__link::before { transform: rotate(45deg); }
+.um-pagination__prev .um-pagination__link::before { transform: rotate(calc(-135deg * var(--um-mirror))); }
+.um-pagination__next .um-pagination__link::before { transform: rotate(calc(45deg * var(--um-mirror))); }
 
 .um-pagination__link:disabled {
   border-color: var(--um-border-base);
@@ -6734,7 +6752,8 @@
   flex: none;
   width: var(--um-border-width);
   height: var(--um-space-lg);
-  margin: 0 0 0 calc((var(--um-height-sm) - var(--um-border-width)) / 2);
+  margin: 0;
+  margin-inline-start: calc((var(--um-height-sm) - var(--um-border-width)) / 2);
 }
 
 /* ============================================================================
@@ -6779,8 +6798,8 @@
 .um-tabs__header::after {
   content: "";
   position: absolute;
-  left: 0;
-  right: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
   bottom: 0;
   height: var(--um-border-width);
   background: var(--um-border-base);
@@ -6807,8 +6826,8 @@
    only thing that moves when the selection changes. */
 .um-tabs__indicator {
   position: absolute;
-  left: 0;
-  right: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
   bottom: 0;
   height: 2px;
   background: var(--um-tabs-indicator);
@@ -7032,7 +7051,7 @@
   justify-content: center;
   width: var(--um-height-sm);
   height: var(--um-height-sm);
-  margin-left: auto;
+  margin-inline-start: auto;
   padding: 0;
   border: 0;
   border-radius: var(--um-radius-small);
@@ -7109,7 +7128,7 @@
   flex-direction: column;
   width: var(--um-drawer-size);
   max-width: 100%;
-  border-left: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-inline-start: var(--um-border-width) var(--um-border-style) var(--um-border-base);
   background: var(--um-bg-overlay);
   box-shadow: var(--um-shadow-base);
   color: var(--um-text-regular);
@@ -7133,7 +7152,7 @@
   height: var(--um-drawer-size);
   max-height: 100%;
   border-bottom: var(--um-border-width) var(--um-border-style) var(--um-border-base);
-  border-left: 0;
+  border-inline-start: 0;
 }
 
 .um-drawer--bottom {
@@ -7142,7 +7161,7 @@
   height: var(--um-drawer-size);
   max-height: 100%;
   border-top: var(--um-border-width) var(--um-border-style) var(--um-border-base);
-  border-left: 0;
+  border-inline-start: 0;
 }
 
 .um-drawer--sm {
@@ -7214,7 +7233,7 @@
   justify-content: center;
   width: var(--um-height-sm);
   height: var(--um-height-sm);
-  margin-left: auto;
+  margin-inline-start: auto;
   padding: 0;
   border: 0;
   border-radius: var(--um-radius-small);
@@ -7464,8 +7483,10 @@
   border-radius: 0;
   background: none;
   border: solid currentColor;
-  border-width: 0 0.16em 0.16em 0;
-  transform: translate(-50%, -55%) rotate(45deg);
+  border-width: 0;
+  border-inline-end-width: 0.16em;
+  border-bottom-width: 0.16em;
+  transform: translate(-50%, -55%) rotate(calc(45deg * var(--um-mirror)));
 }
 
 /* The error mark is the same tick turned into a cross: two bars through the
@@ -7614,8 +7635,10 @@
   border-radius: 0;
   background: none;
   border: solid currentColor;
-  border-width: 0 0.16em 0.16em 0;
-  transform: translate(-50%, -55%) rotate(45deg);
+  border-width: 0;
+  border-inline-end-width: 0.16em;
+  border-bottom-width: 0.16em;
+  transform: translate(-50%, -55%) rotate(calc(45deg * var(--um-mirror)));
 }
 
 /* The error mark is the same tick turned into a cross: two bars through the
@@ -7945,8 +7968,10 @@
   border-radius: 0;
   background: none;
   border: solid currentColor;
-  border-width: 0 0.16em 0.16em 0;
-  transform: translate(-50%, -55%) rotate(45deg);
+  border-width: 0;
+  border-inline-end-width: 0.16em;
+  border-bottom-width: 0.16em;
+  transform: translate(-50%, -55%) rotate(calc(45deg * var(--um-mirror)));
 }
 
 /* The error mark is the same tick turned into a cross: two bars through the
@@ -8031,7 +8056,7 @@
 .um-popconfirm__panel {
   position: absolute;
   top: calc(100% + var(--um-space-xs));
-  left: 0;
+  inset-inline-start: 0;
   z-index: 1;
   display: none;
   width: max-content;
@@ -8199,8 +8224,8 @@
   width: 4px;
   height: 4px;
   border-top: var(--um-border-width) var(--um-border-style) var(--um-border-base);
-  border-right: var(--um-border-width) var(--um-border-style) var(--um-border-base);
-  transform: rotate(135deg);
+  border-inline-end: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  transform: rotate(calc(135deg * var(--um-mirror)));
 }
 
 /* The panel is hidden by `display` rather than left to the browser's
@@ -8209,7 +8234,7 @@
 .um-popover__content {
   position: absolute;
   top: calc(100% + var(--um-space-xs));
-  left: 0;
+  inset-inline-start: 0;
   z-index: 1;
   display: none;
   width: max-content;

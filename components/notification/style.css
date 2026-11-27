@@ -138,8 +138,10 @@
   border-radius: 0;
   background: none;
   border: solid currentColor;
-  border-width: 0 0.16em 0.16em 0;
-  transform: translate(-50%, -55%) rotate(45deg);
+  border-width: 0;
+  border-inline-end-width: 0.16em;
+  border-bottom-width: 0.16em;
+  transform: translate(-50%, -55%) rotate(calc(45deg * var(--um-mirror)));
 }
 
 /* The error mark is the same tick turned into a cross: two bars through the

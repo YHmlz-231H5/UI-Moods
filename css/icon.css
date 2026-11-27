@@ -42,13 +42,15 @@
 .um-icon--check::after {
   content: "";
   position: absolute;
-  left: 0.29em;
+  inset-inline-start: 0.29em;
   top: -0.05em;
   width: 0.3em;
   height: 0.6em;
   border: solid currentColor;
-  border-width: 0 0.12em 0.12em 0;
-  transform: rotate(45deg);
+  border-width: 0;
+  border-inline-end-width: 0.12em;
+  border-bottom-width: 0.12em;
+  transform: rotate(calc(45deg * var(--um-mirror)));
 }
 
 /* The cross: two bars laid over each other. */
@@ -56,7 +58,7 @@
 .um-icon--close::after {
   content: "";
   position: absolute;
-  left: 0.1em;
+  inset-inline-start: 0.1em;
   top: 0.44em;
   width: 0.8em;
   height: 0.12em;
@@ -78,24 +80,26 @@
   width: 0.4em;
   height: 0.4em;
   border: solid currentColor;
-  border-width: 0 0.12em 0.12em 0;
+  border-width: 0;
+  border-inline-end-width: 0.12em;
+  border-bottom-width: 0.12em;
 }
 .um-icon--chevron-down::after {
-  left: 0.24em;
+  inset-inline-start: 0.24em;
   top: 0.01em;
-  transform: rotate(45deg);
+  transform: rotate(calc(45deg * var(--um-mirror)));
 }
 .um-icon--chevron-right::after {
-  left: 0.01em;
+  inset-inline-start: 0.01em;
   top: 0.24em;
-  transform: rotate(-45deg);
+  transform: rotate(calc(-45deg * var(--um-mirror)));
 }
 
 /* The dot: a filled circle, and the smallest mark the set has. */
 .um-icon--dot::after {
   content: "";
   position: absolute;
-  left: 0.35em;
+  inset-inline-start: 0.35em;
   top: 0.35em;
   width: 0.3em;
   height: 0.3em;
@@ -110,14 +114,14 @@
   position: absolute;
   background: currentColor;
 }
-.um-icon--plus::before { left: 0.1em; top: 0.44em; width: 0.8em; height: 0.12em; }
-.um-icon--plus::after { left: 0.44em; top: 0.1em; width: 0.12em; height: 0.8em; }
+.um-icon--plus::before { inset-inline-start: 0.1em; top: 0.44em; width: 0.8em; height: 0.12em; }
+.um-icon--plus::after { inset-inline-start: 0.44em; top: 0.1em; width: 0.12em; height: 0.8em; }
 
 /* The minus is the plus without the bar down. */
 .um-icon--minus::after {
   content: "";
   position: absolute;
-  left: 0.1em;
+  inset-inline-start: 0.1em;
   top: 0.44em;
   width: 0.8em;
   height: 0.12em;

@@ -129,7 +129,8 @@
   flex: none;
   width: var(--um-border-width);
   height: var(--um-space-lg);
-  margin: 0 0 0 calc((var(--um-height-sm) - var(--um-border-width)) / 2);
+  margin: 0;
+  margin-inline-start: calc((var(--um-height-sm) - var(--um-border-width)) / 2);
 }
 
 /* ============================================================================

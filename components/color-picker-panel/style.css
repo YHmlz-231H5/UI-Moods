@@ -122,12 +122,14 @@
   height: 8px;
   margin-top: -2px;
   border: solid var(--um-color-primary-on);
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg) scale(0);
+  border-width: 0;
+  border-inline-end-width: 2px;
+  border-bottom-width: 2px;
+  transform: rotate(calc(45deg * var(--um-mirror))) scale(0);
   transition: transform var(--um-motion);
 }
 .um-color-picker-panel__hue-swatch:has(input:checked)::after {
-  transform: rotate(45deg) scale(1);
+  transform: rotate(calc(45deg * var(--um-mirror))) scale(1);
 }
 .um-color-picker-panel__hue-swatch:has(input[value="success"])::after {
   border-color: var(--um-color-success-on);

@@ -42,6 +42,7 @@ const PROBES = {
   package: { page: "package.html", title: "the published package" },
   validity: { page: "validity.html", title: "the rules the browser kept" },
   state: { page: "state.html", title: "the states the reader sees" },
+  rtl: { page: "rtl.html", title: "the reading direction" },
   apps: { page: "apps.html", title: "app packs" },
 };
 
@@ -325,6 +326,15 @@ const server = spawn(process.execPath, [join(root, "tools", "serve.mjs"), String
 });
 const profileDir = mkdtempSync(join(tmpdir(), "um-audit-"));
 
+// The reading direction, when the probe takes one.
+//
+// A library that claims to fit a reader's system has to work in the reader's
+// direction too, and the only way to know is to render it in that direction
+// and measure. The direction is handed to the page as a query parameter
+// rather than as an emulated media feature, because it is a property of the
+// document, not of the reader's system.
+const dir = valueOf("dir");
+
 const cleanup = () => {
   try {
     server.kill();
@@ -343,7 +353,8 @@ let browser = null;
 try {
   const base = `http://127.0.0.1:${port}`;
   await waitForServer(`${base}/index.html`);
-  const url = `${base}/probe/${PROBES[which].page}`;
+  const query = dir ? `?dir=${encodeURIComponent(dir)}` : "";
+  const url = `${base}/probe/${PROBES[which].page}${query}`;
 
   browser = await launchBrowser(chrome, url, profileDir);
 
@@ -390,6 +401,7 @@ try {
   const measured = report.measurements ?? 0;
 
   console.log(`audit-render · ${PROBES[which].title} · ${which}`);
+  if (dir) console.log(`  reading direction: ${dir}`);
   console.log(`  measurements: ${measured}`);
   console.log(`  failures: ${failures}`);
   if (report.unmeasurable !== undefined) console.log(`  unmeasurable: ${report.unmeasurable}`);

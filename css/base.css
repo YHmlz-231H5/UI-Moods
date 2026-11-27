@@ -35,6 +35,15 @@
   --um-motion: var(--um-duration) var(--um-easing);
 }
 
+/* The mirror: a shape that points along the reading direction has to point
+   the other way when the reader reads the other way. It is one number, and a
+   shape uses it as `scaleX(var(--um-mirror))` in front of its own turn, so
+   the drawn result is turned over rather than the shape being drawn again
+   backwards. A shape that points up or down is its own mirror and does not
+   use this. */
+:root { --um-mirror: 1; }
+[dir="rtl"] { --um-mirror: -1; }
+
 /* --- shared ---------------------------------------------------------------
    One focus treatment for every focusable component.
    ------------------------------------------------------------------------ */

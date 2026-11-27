@@ -114,7 +114,7 @@
   justify-content: center;
   width: var(--um-height-sm);
   height: var(--um-height-sm);
-  margin-left: auto;
+  margin-inline-start: auto;
   padding: 0;
   border: 0;
   border-radius: var(--um-radius-small);

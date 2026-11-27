@@ -22,7 +22,7 @@
    it, so the two are a contracted pair in every mood. */
 .um-backtop {
   position: fixed;
-  right: var(--um-space-lg);
+  inset-inline-end: var(--um-space-lg);
   bottom: var(--um-space-lg);
   z-index: 2;
   display: inline-flex;
@@ -61,8 +61,8 @@
   width: 8px;
   height: 8px;
   border-top: var(--um-border-width) var(--um-border-style) currentColor;
-  border-right: var(--um-border-width) var(--um-border-style) currentColor;
-  transform: rotate(-45deg);
+  border-inline-end: var(--um-border-width) var(--um-border-style) currentColor;
+  transform: rotate(calc(-45deg * var(--um-mirror)));
 }
 
 .um-backtop--sm {

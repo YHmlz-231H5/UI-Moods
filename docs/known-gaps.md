@@ -170,6 +170,14 @@ The component library is new, and the honest limits are these:
   measures what the library renders on its own documentation pages, across all
   32 moods: 51 328 measurements, zero failures. A host that puts the library
   on a surface the library does not know is outside that measurement.
+- **Right-to-left is measured on the library's own markup only** — the probe
+  renders every documented example twice and holds the two readings against
+  each other: 3 713 boxes, zero failures. What is outside it: the mood
+  specimens and the 60 app-pack screens are still written left-to-right, and
+  the library cannot tell a host that a *placement* should follow the reading
+  direction. The modifiers that name a side — `.um-drawer--left`,
+  `.um-tooltip--left`, `.um-input-number--left` — stay physical on purpose,
+  because the name is the contract.
 - **The package is checked, but it is not published** — the tarball is
   correct: 206 public names resolve through the `exports` map, the Vue package
   imports through those names and renders, and the split stylesheet in `css/`

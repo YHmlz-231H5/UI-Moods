@@ -28,7 +28,7 @@
 .um-anchor__link {
   display: block;
   padding: var(--um-space-xs) var(--um-space-sm);
-  border-left: var(--um-border-width) var(--um-border-style) var(--um-border-light);
+  border-inline-start: var(--um-border-width) var(--um-border-style) var(--um-border-light);
   color: var(--um-text-secondary);
   text-decoration: none;
   transition: color var(--um-motion), border-color var(--um-motion);
@@ -43,7 +43,7 @@
    one the stylesheet gives the brand colour — no stylesheet can work out
    which section is on screen, so the page has to say it. */
 .um-anchor__link[aria-current="location"] {
-  border-left-color: var(--um-color-primary);
+  border-inline-start-color: var(--um-color-primary);
   color: var(--um-color-primary-text);
   font-weight: var(--um-font-weight-medium);
 }
@@ -59,6 +59,6 @@
    margin too narrow to carry a line should not also carry the space one
    would have left for it. */
 .um-anchor--plain .um-anchor__link {
-  padding-left: 0;
-  border-left-color: transparent;
+  padding-inline-start: 0;
+  border-inline-start-color: transparent;
 }

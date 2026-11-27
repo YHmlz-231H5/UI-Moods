@@ -56,26 +56,26 @@
   width: 4px;
   height: 4px;
   border-top: var(--um-border-width) var(--um-border-style) currentColor;
-  border-right: var(--um-border-width) var(--um-border-style) currentColor;
-  transform: rotate(-45deg);
+  border-inline-end: var(--um-border-width) var(--um-border-style) currentColor;
+  transform: rotate(calc(45deg * var(--um-mirror)));
   transition: transform var(--um-motion);
 }
 
 .um-tree__node[open] > .um-tree__label .um-tree__arrow {
-  transform: rotate(45deg);
+  transform: rotate(calc(135deg * var(--um-mirror)));
 }
 
 /* The level below is indented rather than drawn over the label, so a long
    name has the whole width of the level to itself. */
 .um-tree__children {
-  margin-left: var(--um-space-sm);
-  padding-left: var(--um-space-sm);
+  margin-inline-start: var(--um-space-sm);
+  padding-inline-start: var(--um-space-sm);
 }
 
 /* The guided run puts a rule down the side of each level, so the depth of a
    branch can be seen rather than counted. */
 .um-tree--lines .um-tree__children {
-  border-left: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+  border-inline-start: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
 }
 
 .um-tree--sm .um-tree__label {

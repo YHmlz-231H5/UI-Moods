@@ -78,6 +78,83 @@ function selectorsOf(css) {
   return out;
 }
 
+/**
+ * The rules a stylesheet declares, with their selectors and bodies.
+ *
+ * The bodies are given without their comments, so a declaration inside a
+ * comment is not a declaration.
+ */
+function rulesOf(css) {
+  const out = [];
+  const walk = (start, end, path) => {
+    let i = start;
+    while (i < end) {
+      const open = css.indexOf("{", i);
+      if (open < 0 || open >= end) return;
+      const prelude = css.slice(i, open).trim();
+      let depth = 1;
+      let j = open + 1;
+      while (j < end && depth > 0) {
+        if (css[j] === "{") depth++;
+        else if (css[j] === "}") depth--;
+        j++;
+      }
+      if (prelude.startsWith("@")) {
+        const name = prelude.slice(1).split(/[\s(]/)[0].toLowerCase();
+        if (["media", "supports", "layer", "container", "scope"].includes(name)) {
+          walk(open + 1, j - 1, [...path, prelude]);
+        }
+      } else if (prelude) {
+        out.push({ selector: prelude, body: css.slice(open + 1, j - 1) });
+      }
+      i = j;
+    }
+  };
+  walk(0, css.length, []);
+  return out;
+}
+
+/** The individual selectors of a list, told apart at the top level only. */
+function selectorList(prelude) {
+  const out = [];
+  let depth = 0;
+  let current = "";
+  for (const ch of prelude) {
+    if (ch === "(" || ch === "[") depth++;
+    else if (ch === ")" || ch === "]") depth--;
+    if (ch === "," && depth === 0) {
+      out.push(current.replace(/\s+/g, " ").trim());
+      current = "";
+      continue;
+    }
+    current += ch;
+  }
+  if (current.trim()) out.push(current.replace(/\s+/g, " ").trim());
+  return out;
+}
+
+/** The physical sides a stylesheet must not use. */
+const PHYSICAL_SIDES = new Set([
+  "margin-left",
+  "margin-right",
+  "padding-left",
+  "padding-right",
+  "border-left",
+  "border-right",
+  "border-left-width",
+  "border-left-style",
+  "border-left-color",
+  "border-right-width",
+  "border-right-style",
+  "border-right-color",
+  "border-top-left-radius",
+  "border-top-right-radius",
+  "border-bottom-left-radius",
+  "border-bottom-right-radius",
+  "left",
+  "right",
+]);
+
 export function checkComponentLibrary(root) {
   const problems = [];
   const note = (message) => problems.push(message);
@@ -363,6 +440,74 @@ export function checkComponentLibrary(root) {
         `components/um-components.css reads a custom property in a selector: ` +
           `${selector.slice(0, 120)}; a custom property is substituted into a ` +
           `declaration, never into a selector, so the browser drops the rule`,
+      );
+    }
+  }
+
+  // --- 13. no physical direction in the component layer ----------------------
+  //
+  // The library says it works in the reader's direction, and that is a claim
+  // about the stylesheet: a physical side does not move when the direction
+  // moves. The browser turns over what it lays out — the order of a flex row,
+  // the alignment of `text-align: start` — but a physical property is the
+  // library's own writing, and it does not turn over.
+  //
+  // Two things are allowed to be physical, and both say so:
+  //
+  //   - a modifier that names a physical side (`--left`, `--right`). The name
+  //     is the contract: a drawer placed "left" is placed on the left.
+  //   - a thing centred with a translate. The middle of a thing does not move
+  //     when the direction does.
+  const componentRules = rulesOf(css);
+  const physicalSides = { ...(allowlist.physicalSides ?? {}) };
+  delete physicalSides.note;
+  const centres = new Set();
+  for (const r of componentRules) {
+    if (/\btranslate/.test(r.body)) {
+      for (const sel of selectorList(r.selector)) centres.add(sel);
+    }
+  }
+  for (const r of componentRules) {
+    const sels = selectorList(r.selector);
+    const physicalByName = sels.some((s) => /--(left|right)\b/.test(s));
+    const isCentred = sels.some((s) => centres.has(s));
+    // A rule the allowlist names may keep its physical sides, and it has to
+    // say why it needs them.
+    const allowed = sels.some((s) => physicalSides[s]);
+
+    for (const m of r.body.matchAll(/([a-z-]+)\s*:\s*([^;{}]*)/gi)) {
+      const prop = m[1].toLowerCase();
+      const value = m[2].trim();
+
+      if (prop === "text-align") {
+        if ((value === "left" || value === "right") && !physicalByName && !allowed) {
+          note(
+            `components/um-components.css has text-align: ${value}; ` +
+              `use text-align: ${value === "left" ? "start" : "end"}`,
+          );
+        }
+        continue;
+      }
+
+      // A shorthand of four values has two sides in it.
+      if ((prop === "margin" || prop === "padding") && value) {
+        const parts = value.split(/\s+/);
+        if (parts.length === 4 && parts[1] !== parts[3] && !physicalByName && !allowed) {
+          note(
+            `components/um-components.css has ${prop}: ${value}; the inline sides ` +
+              `of a shorthand have to match — write the inline side on its own`,
+          );
+        }
+        continue;
+      }
+
+      if (!PHYSICAL_SIDES.has(prop) || physicalByName || allowed) continue;
+      if (isCentred && (prop === "left" || prop === "right") && value === "50%") continue;
+
+      note(
+        `components/um-components.css has ${prop}: ${value}; the component layer ` +
+          `writes its sides logically — margin-inline-start, padding-inline-end, ` +
+          `inset-inline-start, border-inline-start`,
       );
     }
   }

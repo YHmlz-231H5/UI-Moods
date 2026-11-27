@@ -714,7 +714,8 @@
     "--um-height-sm": "Control height for the small size, derived from the theme's type size.",
     "--um-height-md": "Control height for the default size.",
     "--um-height-lg": "Control height for the large size.",
-    "--um-motion": "The theme's transition shorthand."
+    "--um-motion": "The theme's transition shorthand.",
+    "--um-mirror": "1, or -1 in a right-to-left reader: a shape that points along the reading direction turns over."
   },
   "pairs": [
     {

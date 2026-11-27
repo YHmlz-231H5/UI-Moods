@@ -75,8 +75,8 @@
    not a thing every type family has. */
 .um-typography__quote {
   margin: 0;
-  padding-left: var(--um-space-sm);
-  border-left: calc(var(--um-border-width) * 2) solid var(--um-border-base);
+  padding-inline-start: var(--um-space-sm);
+  border-inline-start: calc(var(--um-border-width) * 2) solid var(--um-border-base);
   color: var(--um-text-secondary);
 }
 

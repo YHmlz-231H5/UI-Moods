@@ -77,8 +77,8 @@
   width: 4px;
   height: 4px;
   border-top: var(--um-border-width) var(--um-border-style) currentColor;
-  border-right: var(--um-border-width) var(--um-border-style) currentColor;
-  transform: rotate(135deg);
+  border-inline-end: var(--um-border-width) var(--um-border-style) currentColor;
+  transform: rotate(calc(45deg * var(--um-mirror)));
 }
 
 /* The children are hidden by `display` rather than left to the browser's
@@ -95,15 +95,15 @@
 /* The inline run opens the level below under the option it hangs off, and
    a rule marks where the branch begins. */
 .um-cascader--inline .um-cascader__children {
-  margin-left: var(--um-space-sm);
-  padding-left: var(--um-space-sm);
-  border-left: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+  margin-inline-start: var(--um-space-sm);
+  padding-inline-start: var(--um-space-sm);
+  border-inline-start: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
 }
 
 /* An open level turns its mark over, so the reader can see that the level
    below is already there. */
 .um-cascader--inline .um-cascader__panel[open] > .um-cascader__option .um-cascader__arrow {
-  transform: rotate(-45deg);
+  transform: rotate(calc(135deg * var(--um-mirror)));
 }
 
 /* The flyout run puts the level below beside the one it hangs off, which is
@@ -111,7 +111,7 @@
 .um-cascader--flyout .um-cascader__children {
   position: absolute;
   top: 0;
-  left: 100%;
+  inset-inline-start: 100%;
   z-index: 1;
   min-width: 100%;
   width: max-content;
@@ -123,7 +123,7 @@
 }
 
 .um-cascader--flyout .um-cascader__arrow {
-  transform: rotate(45deg);
+  transform: rotate(calc(45deg * var(--um-mirror)));
 }
 
 .um-cascader--sm .um-cascader__option {

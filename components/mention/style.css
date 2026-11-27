@@ -93,7 +93,7 @@
   background: none;
   color: var(--um-text-regular);
   font: inherit;
-  text-align: left;
+  text-align: start;
   white-space: nowrap;
   cursor: pointer;
 }

@@ -74,15 +74,15 @@
   width: 4px;
   height: 4px;
   border-top: var(--um-border-width) var(--um-border-style) currentColor;
-  border-right: var(--um-border-width) var(--um-border-style) currentColor;
-  transform: rotate(-45deg);
+  border-inline-end: var(--um-border-width) var(--um-border-style) currentColor;
+  transform: rotate(calc(45deg * var(--um-mirror)));
   transition: transform var(--um-motion);
 }
 
 /* An open branch turns its mark over, so the reader can see that the level
    below is already there. */
 .um-tree-select__node[open] > .um-tree-select__option .um-tree-select__arrow::after {
-  transform: rotate(45deg);
+  transform: rotate(calc(135deg * var(--um-mirror)));
 }
 
 /* The circle is the one the radio component draws: a shape with no label of
@@ -157,14 +157,14 @@
 /* The level below is indented rather than drawn over the row, so a long name
    has the whole width of the level to itself. */
 .um-tree-select__children {
-  margin-left: var(--um-space-sm);
-  padding-left: var(--um-space-sm);
+  margin-inline-start: var(--um-space-sm);
+  padding-inline-start: var(--um-space-sm);
 }
 
 /* The guided run puts a rule down the side of each level, so the depth of a
    branch can be seen rather than counted. */
 .um-tree-select--lines .um-tree-select__children {
-  border-left: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+  border-inline-start: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
 }
 
 .um-tree-select--sm .um-tree-select__option {

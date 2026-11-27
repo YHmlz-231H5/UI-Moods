@@ -165,10 +165,10 @@
   width: 4px;
   height: 4px;
   border-top: var(--um-border-width) var(--um-border-style) currentColor;
-  border-right: var(--um-border-width) var(--um-border-style) currentColor;
+  border-inline-end: var(--um-border-width) var(--um-border-style) currentColor;
 }
-.um-transfer__move::before { transform: rotate(45deg); }
-.um-transfer__move-back::before { transform: rotate(-135deg); }
+.um-transfer__move::before { transform: rotate(calc(45deg * var(--um-mirror))); }
+.um-transfer__move-back::before { transform: rotate(calc(-135deg * var(--um-mirror))); }
 
 /* The vertical run stacks the panels and puts the buttons between them. */
 .um-transfer--vertical {

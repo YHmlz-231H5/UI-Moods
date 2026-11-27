@@ -47,7 +47,8 @@
      the library draws a chevron beside the field instead. The option list is
      still the platform's. */
   appearance: none;
-  padding: 0 var(--um-space-lg) 0 0;
+  padding: 0;
+  padding-inline-end: var(--um-space-lg);
   border: 0;
   background: transparent;
   color: inherit;
@@ -66,14 +67,14 @@
 /* The chevron is drawn from two borders, so it carries no text of its own. */
 .um-time-select__arrow {
   position: absolute;
-  right: var(--um-space-sm);
+  inset-inline-end: var(--um-space-sm);
   top: 50%;
   width: var(--um-space-xs);
   height: var(--um-space-xs);
-  border-right: var(--um-border-width) var(--um-border-style) currentColor;
+  border-inline-end: var(--um-border-width) var(--um-border-style) currentColor;
   border-bottom: var(--um-border-width) var(--um-border-style) currentColor;
   color: var(--um-text-secondary);
-  transform: translateY(-50%) rotate(45deg);
+  transform: translateY(-50%) rotate(calc(45deg * var(--um-mirror)));
   pointer-events: none;
 }
 

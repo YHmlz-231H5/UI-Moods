@@ -50,7 +50,7 @@
   position: absolute;
   top: var(--um-space-xs);
   bottom: 0;
-  left: calc(var(--um-space-xs) / 2 - var(--um-border-width) / 2);
+  inset-inline-start: calc(var(--um-space-xs) / 2 - var(--um-border-width) / 2);
   width: var(--um-border-width);
   background: var(--um-border-lighter);
 }

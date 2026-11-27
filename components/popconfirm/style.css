@@ -50,7 +50,7 @@
 .um-popconfirm__panel {
   position: absolute;
   top: calc(100% + var(--um-space-xs));
-  left: 0;
+  inset-inline-start: 0;
   z-index: 1;
   display: none;
   width: max-content;

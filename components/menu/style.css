@@ -69,14 +69,14 @@
   content: "";
   width: 4px;
   height: 4px;
-  margin-left: auto;
+  margin-inline-start: auto;
   border-top: var(--um-border-width) var(--um-border-style) var(--um-border-base);
-  border-right: var(--um-border-width) var(--um-border-style) var(--um-border-base);
-  transform: rotate(45deg);
+  border-inline-end: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  transform: rotate(calc(45deg * var(--um-mirror)));
   transition: transform var(--um-motion);
 }
 
-.um-menu__group > details[open] > .um-menu__title::after { transform: rotate(135deg); }
+.um-menu__group > details[open] > .um-menu__title::after { transform: rotate(calc(135deg * var(--um-mirror))); }
 
 /* The icon slot is empty on purpose: the host fills it with its own glyph.
    The slot only holds the space, so the text does not move when it does. */
@@ -107,7 +107,7 @@
 .um-menu--horizontal .um-menu__group > details > .um-menu__submenu {
   position: absolute;
   top: 100%;
-  left: 0;
+  inset-inline-start: 0;
   z-index: 1;
   min-width: 100%;
   padding: var(--um-space-xs) 0;

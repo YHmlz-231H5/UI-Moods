@@ -117,7 +117,7 @@ The contract lives in **`tokens/roles.json`**:
 | --- | --- |
 | `roles` | 95 roles: how to read them from the mood (`from`), how to derive them (`derive`), and what each one is for (`doc`) |
 | `pairs` | 68 contrast guarantees, each a foreground role, a background role and a minimum ratio |
-| `componentConstants` | the 11 shape and layout constants the component layer declares itself |
+| `componentConstants` | the 12 shape and layout constants the component layer declares itself |
 | `optional` | roles a mood may leave out (`glow`, `backdrop`) |
 
 ### How a role is derived
@@ -507,7 +507,7 @@ rules the browser *kept*:
 
 ```
 audit-render · the rules the browser kept · validity
-  measurements: 1164
+  measurements: 1166
   failures: 0
 ```
 
@@ -560,6 +560,99 @@ every twin matches.
 
 With the broken rule put back, the probe reports six failures — one for each
 group in the rating's own examples.
+
+### The seventh instrument: the other direction
+
+Everything above measures the library in one direction. A library that is going
+into somebody else's system has to work in *their* direction too, and "works"
+is not a matter of taste — it is two things that can be measured.
+
+- The inline **start side**. A line on the leading edge of a panel, the padding
+  in front of a label, the margin after an icon. These are written with
+  physical properties, and a physical property does not move when the direction
+  moves: `border-left` is still the left in a right-to-left reader, so the line
+  that was meant to lead now trails.
+- The inline **position**. An element pinned to `right: 0` stays pinned to the
+  right, which in a right-to-left reader is the end of the line rather than the
+  start of it.
+
+The browser flips what it can on its own — the order of a flex row, the order
+of a table's columns, the alignment of `text-align: start`. What it cannot
+flip is a physical property, and every physical property in the component layer
+is a rule the library writes and the reader does not get.
+
+`tools/probe/rtl.html` renders every component's examples twice — once as the
+reader reads from the left, once as the reader reads from the right — and holds
+every box's two readings against each other. The measurement is a *comparison*,
+not a threshold: an asymmetry that was on one side has to be on the other side
+now.
+
+```
+audit-render · the other direction · rtl
+  boxes read in two directions: 3713
+  failures: 0
+```
+
+The first run reported **781 failures**. They were not scattered — they came from
+**151 physical side properties** in the component layer, and those were four
+habits:
+
+| What the library did | How many |
+| --- | --- |
+| `left` / `right` where it meant the inline start / end | 52 + 25 |
+| `border-left` / `border-right` where it meant the leading / trailing edge | 16 + 26 |
+| `text-align: left` / `right` where it meant `start` / `end` | 15 |
+| `margin-left` / `padding-left` / `padding-right` where it meant the inline start / end | 9 + 6 + 2 |
+
+All of them are now written logically: `border-inline-start`,
+`inset-inline-start`, `margin-inline-start`, `text-align: start`. The
+component layer reads its sides logically, so a right-to-left reader gets the
+other side.
+
+Two things stay physical, and both are the author's contract rather than the
+library's:
+
+- A modifier class that **names** a side — `.um-drawer--left`,
+  `.um-input-number--left`, `.um-tooltip--left` — means that side. A drawer
+  placed "left" is placed on the left whatever the reader's direction is, and
+  so are the controls inside it.
+- A box that is **centred** on its target stays centred: the middle line does
+  not move when the reading direction does.
+
+A shape that points along the reading direction is a third case, and it is the
+one that cannot be written logically. `border-inline-end` says which edge the
+line is on, but not which way the shape points. The library therefore has one
+number for it:
+
+```css
+:root { --um-mirror: 1; }
+[dir="rtl"] { --um-mirror: -1; }
+```
+
+and every pointing shape turns by its own angle times that number:
+
+```css
+.um-collapse__arrow { transform: rotate(calc(45deg * var(--um-mirror))); }
+```
+
+In a left-to-right reader the result is byte-for-byte what it was before; in a
+right-to-left reader the shape points the other way. The alternative — turning
+the drawn result over with `scaleX(-1)` — was tried and dropped: it turns text
+and anything asymmetric inside the shape, and it makes the arrow of a tooltip
+point away from its target.
+
+The chevrons were found to be **wrong in the original direction** as well. The
+tree, the virtual tree, the tree select, the collapse, the cascader and the
+select all drew "collapsed ▲ / expanded ▶", which is not a pair — it is two
+different arrows. Element Plus draws "collapsed ▶ / expanded ▼", and so does
+this library now: 45° closed, 135° open.
+
+Two things watch for it:
+
+- `validate` fails the build when a component stylesheet uses a physical side
+  property, so the mistake is caught before it reaches a browser.
+- `node tools/audit-render.mjs rtl` renders both directions and reports every
+  box whose asymmetry did not travel with the direction.
 
 ### The other half of the library: the app packs
 

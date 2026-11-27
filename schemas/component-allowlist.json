@@ -9,5 +9,10 @@
     "6": "the badge dot's diameter",
     "8": "the tick mark's height",
     "-2": "nudges the tick mark so it sits centred in its box"
+  },
+  "physicalSides": {
+    "note": "The component layer writes its sides logically, so a right-to-left reader gets the other side. Two rules are allowed to be physical, and both say why.",
+    ".um-tooltip__arrow": "The bubble's arrow points at the trigger, and the placement it belongs to is physical: a bubble placed \"left\" is placed on the left.",
+    ".um-popconfirm__arrow": "The bubble's arrow points at the trigger, and the placement it belongs to is physical."
   }
 }

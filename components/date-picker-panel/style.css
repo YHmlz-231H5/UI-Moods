@@ -78,16 +78,16 @@
   width: 4px;
   height: 4px;
   border-top: var(--um-border-width) var(--um-border-style) currentColor;
-  border-right: var(--um-border-width) var(--um-border-style) currentColor;
+  border-inline-end: var(--um-border-width) var(--um-border-style) currentColor;
 }
 
-/* The shape is a corner: the top and right borders of a square. Turned 45°
-   the corner points right, and turned -135° it points left. */
+/* The shape is a corner: the top and inline-end borders of a square. Turned
+   45° the corner points right, and turned -135° it points left. */
 .um-date-picker-panel__next::after {
-  transform: rotate(45deg);
+  transform: rotate(calc(45deg * var(--um-mirror)));
 }
 .um-date-picker-panel__prev::after {
-  transform: rotate(-135deg);
+  transform: rotate(calc(-135deg * var(--um-mirror)));
 }
 
 .um-date-picker-panel__prev:focus-visible,

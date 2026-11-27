@@ -161,7 +161,7 @@
 
 .um-virtual-table--bordered .um-virtual-table__header .um-virtual-table__head-cell:not(:last-child),
 .um-virtual-table--bordered .um-virtual-table__row .um-virtual-table__cell:not(:last-child) {
-  border-right: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+  border-inline-end: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
 }
 
 .um-virtual-table--sm .um-virtual-table__header,
