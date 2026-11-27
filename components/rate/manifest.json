@@ -65,6 +65,13 @@
       "selector": ":focus-visible",
       "native": true,
       "note": "The checked star of the group takes the shared focus ring, so a keyboard reader can see which star they are on."
+    },
+    {
+      "id": "show-score",
+      "name": "Show score",
+      "nameZh": "显示分值",
+      "selector": ".um-rate--show-score",
+      "note": "The number of the score is written beside the stars."
     }
   ],
   "parts": [
@@ -91,6 +98,12 @@
       "name": "Active",
       "nameZh": "已填",
       "note": "The filled star, drawn on top of the empty one. It is the same shape in the theme's colour."
+    },
+    {
+      "id": "score",
+      "name": "Score",
+      "nameZh": "分值",
+      "note": "The number beside the stars. It is in the markup either way, and it only shows in the show-score state."
     }
   ],
   "props": [
@@ -136,6 +149,14 @@
       "type": "number",
       "description": "How many stars are filled, bound with v-model in Vue. Leave it out and the `value` prop is the score; bind it and the group answers to the binding.",
       "descriptionZh": "填了几颗星,在 Vue 里用 v-model 绑定。不传就以 value 属性为准;传了就以绑定为准。"
+    },
+    {
+      "name": "show-score",
+      "type": "boolean",
+      "default": "false",
+      "since": "1.1.0",
+      "description": "Writes the score beside the stars, so the number is written down and not only counted.",
+      "descriptionZh": "把分值写在星星旁边,让这个数字被写出来,而不只是被数出来。"
     }
   ],
   "slots": [],

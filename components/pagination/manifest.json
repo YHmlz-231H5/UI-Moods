@@ -31,6 +31,13 @@
       "selector": ":disabled",
       "native": true,
       "note": "The arrow at the end of the run has nowhere to go, so it is a real disabled button."
+    },
+    {
+      "id": "hidden",
+      "name": "Hidden",
+      "nameZh": "隐藏",
+      "selector": ".um-pagination--hidden",
+      "note": "A pager with a single page has nothing to page through, so it is not on the page at all."
     }
   ],
   "parts": [
@@ -118,6 +125,20 @@
       "default": "md",
       "description": "How big the buttons are. The default size is the base class on its own; the small size adds um-pagination--sm.",
       "descriptionZh": "按钮有多大。默认大小是只写基类;小号再加上 um-pagination--sm。"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the whole pager is inert. The arrows become real disabled buttons and the page numbers say so the way a disabled button does.",
+      "descriptionZh": "整个分页器是否不可用。箭头变成真正禁用的按钮,页码也像禁用按钮那样说明自己不可用。"
+    },
+    {
+      "name": "hide-on-single-page",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the pager disappears when there is only one page to be on. It adds um-pagination--hidden.",
+      "descriptionZh": "只有一页时是否把分页器藏起来。它加上 um-pagination--hidden。"
     }
   ],
   "slots": [],

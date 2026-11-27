@@ -199,25 +199,68 @@
 /* The answer that is not being asked for keeps the neutral shape, so the eye
    goes to the one that is. */
 .um-message-box__cancel {
-  background: var(--um-fill-base);
-  color: var(--um-text-regular);
+  --um-message-box-answer-fill: var(--um-fill-base);
+  --um-message-box-answer-ink: var(--um-text-regular);
+  --um-message-box-answer-hover: var(--um-fill-light);
+
+  background: var(--um-message-box-answer-fill);
+  color: var(--um-message-box-answer-ink);
 }
 .um-message-box__cancel:hover {
-  background: var(--um-fill-light);
+  background: var(--um-message-box-answer-hover);
   border-color: var(--um-color-primary-soft-6);
 }
 
 /* The answer that is being asked for is the filled one, in the type's own
    fill with the theme's foreground for it. */
 .um-message-box__confirm {
-  border-color: var(--um-message-box-mark);
-  background: var(--um-message-box-mark);
-  color: var(--um-message-box-ink);
+  --um-message-box-answer-fill: var(--um-message-box-mark);
+  --um-message-box-answer-ink: var(--um-message-box-ink);
+  --um-message-box-answer-hover: var(--um-message-box-mark-strong);
+
+  border-color: var(--um-message-box-answer-fill);
+  background: var(--um-message-box-answer-fill);
+  color: var(--um-message-box-answer-ink);
 }
 .um-message-box__confirm:hover:not(:disabled) {
-  border-color: var(--um-message-box-mark-strong);
-  background: var(--um-message-box-mark-strong);
-  color: var(--um-message-box-ink);
+  border-color: var(--um-message-box-answer-hover);
+  background: var(--um-message-box-answer-hover);
+  color: var(--um-message-box-answer-ink);
+}
+
+/* The two answers take a type of their own. The type is written on the
+   button, because the two answers are asked for separately and each of them
+   has a name of its own. The three variables are the answer's fill, its
+   foreground and the fill it takes on hover. */
+.um-message-box__confirm[data-um-type="primary"],
+.um-message-box__cancel[data-um-type="primary"] {
+  --um-message-box-answer-fill: var(--um-color-primary);
+  --um-message-box-answer-ink: var(--um-color-primary-on);
+  --um-message-box-answer-hover: var(--um-color-primary-strong);
+}
+.um-message-box__confirm[data-um-type="success"],
+.um-message-box__cancel[data-um-type="success"] {
+  --um-message-box-answer-fill: var(--um-color-success);
+  --um-message-box-answer-ink: var(--um-color-success-on);
+  --um-message-box-answer-hover: var(--um-color-success-strong);
+}
+.um-message-box__confirm[data-um-type="warning"],
+.um-message-box__cancel[data-um-type="warning"] {
+  --um-message-box-answer-fill: var(--um-color-warning);
+  --um-message-box-answer-ink: var(--um-color-warning-on);
+  --um-message-box-answer-hover: var(--um-color-warning-strong);
+}
+.um-message-box__confirm[data-um-type="danger"],
+.um-message-box__cancel[data-um-type="danger"] {
+  --um-message-box-answer-fill: var(--um-color-danger);
+  --um-message-box-answer-ink: var(--um-color-danger-on);
+  --um-message-box-answer-hover: var(--um-color-danger-strong);
+}
+.um-message-box__confirm[data-um-type="info"],
+.um-message-box__cancel[data-um-type="info"] {
+  --um-message-box-answer-fill: var(--um-color-info);
+  --um-message-box-answer-ink: var(--um-color-info-on);
+  --um-message-box-answer-hover: var(--um-color-info-strong);
 }
 
 /* A confirm button that cannot be pressed yet. The real disabled attribute
@@ -317,6 +360,52 @@
 .um-message-box--lg .um-message-box__cancel {
   height: var(--um-height-lg);
   font-size: var(--um-font-size-body);
+}
+
+/* The size of the two answers, said on its own. The rules come after the
+   box's own sizes, so they win over them. */
+.um-message-box--button-sm .um-message-box__confirm,
+.um-message-box--button-sm .um-message-box__cancel {
+  height: var(--um-height-sm);
+  font-size: var(--um-font-size-caption);
+}
+
+.um-message-box--button-lg .um-message-box__confirm,
+.um-message-box--button-lg .um-message-box__cancel {
+  height: var(--um-height-lg);
+  font-size: var(--um-font-size-body);
+}
+
+/* A centred box: the title and the message stand in the middle of the box
+   rather than at its start. */
+.um-message-box.um-message-box--center .um-message-box__title,
+.um-message-box.um-message-box--center .um-message-box__content {
+  text-align: center;
+}
+
+/* The two answers are pills. */
+.um-message-box.um-message-box--round-button .um-message-box__confirm,
+.um-message-box.um-message-box--round-button .um-message-box__cancel {
+  border-radius: var(--um-radius-round);
+}
+
+/* The field a prompt box asks its question in. It sits on the input surface,
+   so it is the one field in the library that is not a container's own. */
+.um-message-box__input {
+  width: 100%;
+  height: var(--um-height-md);
+  padding: 0 var(--um-space-xs);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-base);
+  background: var(--um-surface-input);
+  color: var(--um-text-regular);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+}
+
+.um-message-box__input:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: var(--um-focus-ring-offset);
 }
 
 /* ============================================================================

@@ -104,3 +104,16 @@
   color: var(--um-text-secondary);
   font-size: var(--um-font-size-caption);
 }
+
+/* A popover that is not asked for never opens. The rule is written with the
+   base class beside it, because the rule that opens it is the same shape and
+   comes first. */
+.um-popover.um-popover--disabled > .um-popover__content {
+  display: none;
+}
+
+/* A card the pointer cannot enter: the words in it cannot be selected and
+   the pointer passes straight through it. */
+.um-popover.um-popover--not-enterable > .um-popover__content {
+  pointer-events: none;
+}

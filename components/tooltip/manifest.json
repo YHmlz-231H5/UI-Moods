@@ -58,6 +58,34 @@
       "selector": ":focus-visible",
       "native": true,
       "note": "The trigger takes the shared focus ring, so a keyboard reader can see where they are."
+    },
+    {
+      "id": "disabled",
+      "name": "Disabled",
+      "nameZh": "禁用",
+      "selector": ".um-tooltip--disabled",
+      "note": "The tooltip is not asked for, so the bubble never opens."
+    },
+    {
+      "id": "not-enterable",
+      "name": "Not enterable",
+      "nameZh": "不可进入",
+      "selector": ".um-tooltip--not-enterable",
+      "note": "The pointer cannot enter the bubble: the words in it cannot be selected and the pointer passes straight through it."
+    },
+    {
+      "id": "visible",
+      "name": "Visible",
+      "nameZh": "常显",
+      "selector": ".um-tooltip--visible",
+      "note": "The bubble is held open, whether the pointer is on the trigger or not."
+    },
+    {
+      "id": "no-arrow",
+      "name": "No arrow",
+      "nameZh": "无箭头",
+      "selector": ".um-tooltip--no-arrow",
+      "note": "The point that says which way the bubble is facing is not drawn."
     }
   ],
   "parts": [
@@ -94,10 +122,39 @@
       "type": "string",
       "description": "The words in the bubble. It is written as text in the page, and the trigger points at it with aria-describedby so the reader hears it as a description rather than as a stray paragraph.",
       "descriptionZh": "气泡里的那段话。它以正文写进页面,触发器用 aria-describedby 指向它,这样读屏会把它当作描述,而不是一段冒出来的文字。"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the tooltip is switched off. A disabled tooltip never opens. It adds um-tooltip--disabled.",
+      "descriptionZh": "提示是否关闭。关闭的提示不会弹出来。它加上 um-tooltip--disabled。"
+    },
+    {
+      "name": "enterable",
+      "type": "boolean",
+      "default": "true",
+      "description": "Whether the pointer can enter the bubble. A bubble that cannot be entered lets the pointer through it, so the words in it cannot be selected. It adds um-tooltip--not-enterable.",
+      "descriptionZh": "指针能否进入气泡。不可进入的气泡会让指针穿过去,里面的字也就选不中。它加上 um-tooltip--not-enterable。"
+    },
+    {
+      "name": "show-arrow",
+      "type": "boolean",
+      "default": "true",
+      "description": "Whether the bubble carries the point that says which way it faces. A bubble without one adds um-tooltip--no-arrow.",
+      "descriptionZh": "气泡是否带着那个指方向的尖角。没有尖角的气泡加上 um-tooltip--no-arrow。"
+    },
+    {
+      "name": "visible",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the bubble is held open. It adds um-tooltip--visible.",
+      "descriptionZh": "气泡是否常显。它加上 um-tooltip--visible。"
     }
   ],
   "slots": [
-    { "name": "content", "description": "The words in the bubble.", "descriptionZh": "气泡里的那段话。" }
+    { "name": "content", "description": "The words in the bubble.", "descriptionZh": "气泡里的那段话。" },
+    { "name": "default", "description": "What is inside the trigger.", "descriptionZh": "触发器里的内容。" }
   ],
   "events": [],
   "a11y": {

@@ -100,4 +100,44 @@
   animation: um-spin 0.7s linear infinite;
 }
 
+/* A round button keeps the pill shape whatever height it is: the ends are as
+   round as the control is tall, so the radius is the height itself. */
+.um-button--round {
+  border-radius: var(--um-radius-round);
+}
+
+/* A circle button is as wide as it is tall, so the label sits in the middle
+   of a disc. The width follows the size the button was asked for, so a small
+   circle is small and a large one is large. */
+.um-button--circle {
+  width: var(--um-height-md);
+  padding: 0;
+  border-radius: var(--um-radius-circle);
+}
+.um-button--circle.um-button--sm { width: var(--um-height-sm); }
+.um-button--circle.um-button--lg { width: var(--um-height-lg); }
+
+/* A dashed button draws its outline as a dashed line. The line takes the
+   theme's border weight, so the dashes are as heavy as the border they
+   replace. */
+.um-button--dashed {
+  border-style: dashed;
+}
+
+/* A link button reads as a link rather than as a button: the fill and the
+   border are gone and the label is underlined. It is written with the base
+   class beside it so it wins against the fill variants, which are painted
+   earlier in this file. */
+.um-button.um-button--link {
+  border-color: transparent;
+  background: transparent;
+  color: var(--um-color-primary-text);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.um-button.um-button--link:hover:not(:disabled) {
+  background: transparent;
+  color: var(--um-color-primary-text);
+}
+
 @keyframes um-spin { to { transform: rotate(360deg); } }

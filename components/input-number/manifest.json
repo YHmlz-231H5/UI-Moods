@@ -74,6 +74,18 @@
       "name": "Controls",
       "nameZh": "按钮组",
       "note": "The pair of buttons. It is the one that moves when the controls go to the left of the field."
+    },
+    {
+      "id": "prefix",
+      "name": "Prefix",
+      "nameZh": "前缀",
+      "note": "The mark in front of the number, so a unit can be written next to it."
+    },
+    {
+      "id": "suffix",
+      "name": "Suffix",
+      "nameZh": "后缀",
+      "note": "The mark behind the number, so a unit can be written next to it."
     }
   ],
   "props": [
@@ -122,9 +134,20 @@
       "type": "number",
       "description": "The number in the field, bound with v-model in Vue. Leave it out and the `value` prop is the number; bind it and the field answers to the binding.",
       "descriptionZh": "字段里的数字,在 Vue 里用 v-model 绑定。不传就以 value 属性为准;传了就以绑定为准。"
+    },
+    {
+      "name": "readonly",
+      "type": "boolean",
+      "default": "false",
+      "since": "1.1.0",
+      "description": "Keeps the number visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures.",
+      "descriptionZh": "数字仍然可见,但不能编辑。它是原生 readonly 属性,浏览器会拒绝编辑。库不会给只读字段单独配色 —— 这不是它测量过的状态。"
     }
   ],
-  "slots": [],
+  "slots": [
+    { "name": "prefix", "description": "The mark in front of the number.", "descriptionZh": "数字前面的标记。" },
+    { "name": "suffix", "description": "The mark behind the number.", "descriptionZh": "数字后面的标记。" }
+  ],
   "events": [
     {
       "name": "change",

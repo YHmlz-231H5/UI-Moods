@@ -24,7 +24,8 @@
   ],
   "states": [
     { "id": "checked", "name": "Checked", "nameZh": "选中", "selector": ":checked", "native": true, "note": "The chosen swatch says so. The host's own colour gets a ring in the brand colour's graphic form, because a host's colour cannot be relied on to contrast with anything; the theme's colour gets a tick drawn on it, because there the colour is the swatch's own fill." },
-    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the swatch of the radio the reader is on, and on the value field." }
+    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the swatch of the radio the reader is on, and on the value field." },
+    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The swatches dim and the field takes the derived disabled colour, the way every other disabled control in the library dims." }
   ],
   "parts": [
     { "id": "panel", "name": "Panel", "nameZh": "面板", "note": "The surface the three parts sit on. It is the panel's own frame, so the parts can be lifted out of it and still read." },
@@ -34,15 +35,19 @@
     { "id": "hue-swatch", "name": "Theme swatch", "nameZh": "主题色块", "note": "One of the theme's named colours. It paints itself with the role its own radio names." },
     { "id": "value", "name": "Value", "nameZh": "颜色值", "note": "The row that holds the hexadecimal field and the preview chip." },
     { "id": "input", "name": "Hexadecimal field", "nameZh": "十六进制字段", "note": "The real text field that spells the value out. It is where a colour that is not in the swatches is typed." },
-    { "id": "preview", "name": "Preview", "nameZh": "预览", "note": "The chip that shows the colour that is chosen right now." }
+    { "id": "preview", "name": "Preview", "nameZh": "预览", "note": "The chip that shows the colour that is chosen right now." },
+    { "id": "footer", "name": "Footer", "nameZh": "页脚", "note": "The row under the swatches, where a host puts whatever acts on the colour." }
   ],
   "props": [
     { "name": "predefine", "type": "string", "default": "Blue #2f6feb,Green #12b886,Amber #f59f00,Red #e03131,Violet #7048e8", "description": "The colours the panel offers, as a comma-separated list. Each entry is written as \"name #rrggbb\", so the radio announces the name rather than a string of digits; an entry that is only a colour is announced as it is written.", "descriptionZh": "面板给的那些颜色,写成一个逗号分隔的列表。每一项写成「名字 #rrggbb」,这样单选按钮播报的是名字而不是一串数字;只写颜色的那一项,就按它写的样子播报。" },
     { "name": "hue", "type": "enum", "values": ["primary", "success", "warning", "danger", "info"], "default": "primary", "description": "Which of the theme's named colours is chosen. It is the radio that is checked in the theme colour row.", "descriptionZh": "主题的哪一个命名颜色被选中了。它就是主题色那一排里被勾上的那个单选按钮。" },
     { "name": "value", "type": "string", "default": "#2f6feb", "description": "The colour in the panel, written as a hexadecimal value. It is the text in the value field and the value of the checked swatch.", "descriptionZh": "面板里的那个颜色,写成十六进制。它是颜色值字段里的文字,也是被选中的那个色块的值。" },
-    { "name": "show-preview", "type": "boolean", "default": "true", "description": "Whether the preview chip is shown. Without it the panel has no chip in the value row.", "descriptionZh": "要不要显示预览色块。不显示的时候,面板的颜色值那一行里就没有这一小块。" }
+    { "name": "show-preview", "type": "boolean", "default": "true", "description": "Whether the preview chip is shown. Without it the panel has no chip in the value row.", "descriptionZh": "要不要显示预览色块。不显示的时候,面板的颜色值那一行里就没有这一小块。" },
+    { "name": "disabled", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Makes the panel inert. It uses the real disabled attribute on the radios and on the field, so they leave the tab order and the swatches dim, the way every other disabled control in the library dims.", "descriptionZh": "让面板不可用。它用的是单选按钮和字段上的原生 disabled 属性,因此会退出 Tab 顺序,色块也会变暗,和库里其他禁用控件一样。" }
   ],
-  "slots": [],
+  "slots": [
+    { "name": "footer", "description": "The row under the swatches, where a host puts whatever acts on the colour.", "descriptionZh": "色块下面那一行,宿主把跟颜色有关的动作放在那儿。" }
+  ],
   "events": [
     { "name": "change", "description": "Fires when a colour is picked or the value field is edited. It is the browser's own event on the radios and on the field — the library installs no listener.", "descriptionZh": "选了颜色或者改了颜色值字段的时候触发。这是单选按钮和字段上的浏览器原生事件 —— 库没有安装任何监听器。" }
   ],

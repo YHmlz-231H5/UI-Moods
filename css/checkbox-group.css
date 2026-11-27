@@ -95,6 +95,30 @@
   gap: var(--um-space-sm);
 }
 
+/* The group's size reaches the boxes through one inherited number, so the box
+   scales itself instead of being redrawn. A box that carries a size of its own
+   declares the number itself, and its own declaration wins. */
+.um-checkbox-group--sm { --um-checkbox-scale: 0.75; }
+.um-checkbox-group--lg { --um-checkbox-scale: 1.5; }
+
+.um-checkbox-group--sm .um-checkbox-group__label { font-size: var(--um-font-size-caption); }
+.um-checkbox-group--lg .um-checkbox-group__label { font-size: var(--um-font-size-title); }
+
+/* The button run turns each option into a chip with a frame of its own, and a
+   ticked chip takes the brand's fill and the foreground written for that fill. */
+.um-checkbox-group--button .um-checkbox-group__option {
+  padding: var(--um-space-xs) var(--um-space-sm);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-base);
+}
+.um-checkbox-group--button .um-checkbox-group__option:has(input:checked) {
+  background: var(--um-color-primary);
+  border-color: var(--um-color-primary);
+}
+.um-checkbox-group--button .um-checkbox-group__option:has(input:checked) .um-checkbox-group__label {
+  color: var(--um-color-primary-on);
+}
+
 /* ============================================================================
    Quality hooks
    ----------------------------------------------------------------------------

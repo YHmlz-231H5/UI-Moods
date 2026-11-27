@@ -95,6 +95,30 @@
   gap: var(--um-space-sm);
 }
 
+/* The group's size reaches the circles through one inherited number, so the
+   circle scales itself instead of being redrawn. A circle that carries a size
+   of its own declares the number itself, and its own declaration wins. */
+.um-radio-group--sm { --um-radio-scale: 0.75; }
+.um-radio-group--lg { --um-radio-scale: 1.5; }
+
+.um-radio-group--sm .um-radio-group__label { font-size: var(--um-font-size-caption); }
+.um-radio-group--lg .um-radio-group__label { font-size: var(--um-font-size-title); }
+
+/* The button run turns each option into a chip with a frame of its own, and a
+   picked chip takes the brand's fill and the foreground written for that fill. */
+.um-radio-group--button .um-radio-group__option {
+  padding: var(--um-space-xs) var(--um-space-sm);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-base);
+}
+.um-radio-group--button .um-radio-group__option:has(input:checked) {
+  background: var(--um-color-primary);
+  border-color: var(--um-color-primary);
+}
+.um-radio-group--button .um-radio-group__option:has(input:checked) .um-radio-group__label {
+  color: var(--um-color-primary-on);
+}
+
 /* ============================================================================
    Quality hooks
    ----------------------------------------------------------------------------

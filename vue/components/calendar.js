@@ -30,7 +30,7 @@ export const UMCalendar = defineComponent({
     selected: { type: String, default: "2026-11-20" },
     disabled: { type: String, default: "2026-11-05,2026-11-06" },
   },
-  setup(props) {
+  setup(props, { slots }) {
     return () => {
       const names = props.weekdays
         .split(",")
@@ -76,7 +76,7 @@ export const UMCalendar = defineComponent({
               h(
                 "div",
                 { class: "um-calendar__week", role: "row" },
-                week.map((date) => cell(date, props, blocked)),
+                week.map((date) => cell(date, props, blocked, slots["date-cell"])),
               ),
             ),
           ),
@@ -120,7 +120,7 @@ function pad(value) {
 }
 
 /** One day of the grid, with the markers it carries. */
-function cell(date, props, blocked) {
+function cell(date, props, blocked, dateCell) {
   if (!date) return h("div", { class: "um-calendar__cell", role: "gridcell" });
 
   const classes = ["um-calendar__cell"];
@@ -134,6 +134,11 @@ function cell(date, props, blocked) {
   if (blocked.has(date)) attrs["aria-disabled"] = "true";
 
   return h("div", attrs, [
-    h("span", { class: "um-calendar__number" }, String(Number(date.slice(-2)))),
+    h(
+      "span",
+      { class: "um-calendar__number" },
+      // The day number, unless the caller wrote something else in the cell.
+      dateCell ? dateCell({ date }) : String(Number(date.slice(-2))),
+    ),
   ]);
 }

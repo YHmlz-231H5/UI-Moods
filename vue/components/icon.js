@@ -15,17 +15,25 @@ export const UMIcon = defineComponent({
     size: { type: String, default: "md" },
     label: { type: String, default: "" },
   },
-  setup(props) {
-    return () =>
-      h("span", {
-        class: [
-          "um-icon",
-          `um-icon--${props.name}`,
-          props.size !== "md" ? `um-icon--${props.size}` : null,
-        ],
-        role: props.label ? "img" : undefined,
-        "aria-hidden": props.label ? undefined : "true",
-        "aria-label": props.label || undefined,
-      });
+  setup(props, { slots }) {
+    return () => {
+      const glyph = slots.default ? slots.default() : [];
+      return h(
+        "span",
+        {
+          class: [
+            "um-icon",
+            // The library's own shape is not drawn when the host brings a
+            // glyph of its own, so the two do not sit on top of each other.
+            glyph.length ? null : `um-icon--${props.name}`,
+            props.size !== "md" ? `um-icon--${props.size}` : null,
+          ],
+          role: props.label ? "img" : undefined,
+          "aria-hidden": props.label ? undefined : "true",
+          "aria-label": props.label || undefined,
+        },
+        glyph,
+      );
+    };
   },
 });

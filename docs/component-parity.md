@@ -4,6 +4,8 @@
 
 依据是 Element Plus 官方 `component/overview`:7 类,共 **82 个组件**。
 
+组件本身覆盖齐了,但「有这个组件」和「有它那一套 API」是两回事。属性、插槽、事件的逐条对照在 **[`ep-api-parity.md`](./ep-api-parity.md)**:那份对照拿的是 Element Plus 自己发布的元数据(`web-types.json` 与发布包里的类型声明),不是它的文档散文。
+
 - 统计口径:Element Plus 把 `Input` 的多行形态算作 `Input` 的 `type="textarea"`,把 `Form` 与 `Form Item` 分开计数,把 `Virtualized *` 单独计数。
 - 「可无 JS 实现」一列的判据:**能否用原生元素 + CSS 表达**(`<details>`、`<dialog>`、`:checked`、`:focus-within`、`scroll-snap`、`position: sticky`、`content-visibility`、`input[type=file]`、`input[type=color]`、`input[type=date]`)。
 - 本仓库现状:**83 份清单,覆盖 Element Plus 全部 82 个组件**。多出来的两份是 EP 总览里没有单独列出的**分组形态**(`checkbox-group`、`radio-group`);`input` 一份清单同时描述 `Input` 与 `Select`。

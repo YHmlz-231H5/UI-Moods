@@ -32,11 +32,12 @@ export const UMInputNumber = defineComponent({
     controlsPosition: { type: String, default: "right" },
     disabled: { type: Boolean, default: false },
     modelValue: { type: Number, default: undefined },
+    readonly: { type: Boolean, default: false },
   },
 
   emits: ["change", "update:modelValue"],
 
-  setup(props, { emit, attrs }) {
+  setup(props, { emit, attrs, slots }) {
     // The labels are attributes rather than props, because they are not
     // visual parameters of the control: the manifest does not describe them,
     // and a host that needs a Chinese label should be able to give one.
@@ -55,6 +56,11 @@ export const UMInputNumber = defineComponent({
         },
         [
           h("div", { class: "um-input-number__wrapper" }, [
+            h(
+              "span",
+              { class: "um-input-number__prefix" },
+              slots.prefix ? slots.prefix() : [],
+            ),
             h("input", {
               class: "um-input-number__input",
               type: "number",
@@ -63,12 +69,18 @@ export const UMInputNumber = defineComponent({
               max: props.max,
               step: props.step,
               disabled: props.disabled || undefined,
+              readonly: props.readonly || undefined,
               "aria-label": label.value,
               onChange: (e) => {
                 emit("update:modelValue", Number(eventValue(e)));
                 emit("change", e.target.value);
               },
             }),
+            h(
+              "span",
+              { class: "um-input-number__suffix" },
+              slots.suffix ? slots.suffix() : [],
+            ),
             h("span", { class: "um-input-number__controls" }, [
               h("button", {
                 class: "um-input-number__increase",

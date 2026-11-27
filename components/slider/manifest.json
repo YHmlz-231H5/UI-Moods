@@ -14,7 +14,8 @@
   "variants": [],
   "sizes": [],
   "states": [
-    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The cursor becomes not-allowed and the control leaves the tab order." }
+    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The cursor becomes not-allowed and the control leaves the tab order." },
+    { "id": "vertical", "name": "Vertical", "nameZh": "竖向", "selector": ".um-slider--vertical", "note": "The slider stands on its end. The browser lays a range input out along the writing mode, so the vertical writing mode is the whole of it." }
   ],
   "parts": [],
   "props": [
@@ -23,6 +24,7 @@
     { "name": "step", "type": "number", "default": "1", "description": "How much one arrow key press moves the value.", "descriptionZh": "按一次方向键,数值移动多少。" },
     { "name": "value", "type": "number", "description": "The current value. It is written to the value attribute, so it round-trips through a form.", "descriptionZh": "当前值。它写在 value 属性上,所以能随表单提交再回来。" },
     { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes the slider inert. It uses the real disabled attribute, so it leaves the tab order.", "descriptionZh": "让滑块不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" },
+    { "name": "vertical", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Stands the slider on its end, so the value runs from the bottom up.", "descriptionZh": "把滑块立起来,数值从下往上走。" },
     { "name": "model-value", "type": "number", "description": "The slider's own value, bound with v-model in Vue. Leave it out and the `value` prop is the value; bind it and the slider answers to the binding.", "descriptionZh": "滑块自身的数值,在 Vue 里用 v-model 绑定。不传就以 value 属性为准;传了就以绑定为准。" }
   ],
   "slots": [],

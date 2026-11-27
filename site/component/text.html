@@ -217,6 +217,7 @@
       <tr><td><code>um-text--md</code></td><td>Size: md</td></tr>
       <tr><td><code>um-text--lg</code></td><td>Size: lg</td></tr>
       <tr><td><code>.um-text--truncate</code></td><td>Truncated</td></tr>
+      <tr><td><code>.um-text--clamp</code></td><td>Clamped</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -226,6 +227,8 @@
       <tr><td><span class="api__name"><code>type</code></span></td><td><code>enum = regular | primary | secondary | placeholder | success | warning | danger | info</code></td><td><code>regular</code></td><td>Which colour the run is written in.</td></tr>
       <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The size of the run.</td></tr>
       <tr><td><span class="api__name"><code>truncate</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Clips the run to one line and ends it in an ellipsis.</td></tr>
+      <tr><td><span class="api__name"><code>truncated</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Clips the run to one line and ends it in an ellipsis. This is Element Plus's name for `truncate`; either one of them clips the run.</td></tr>
+      <tr><td><span class="api__name"><code>line-clamp</code></span></td><td><code>number</code></td><td>—</td><td>How many lines the run is held to before the rest is cut. The number is the host's; the class carries the mechanism.</td></tr>
       <tr><td><span class="api__name"><code>tag</code></span></td><td><code>enum = span | div | p</code></td><td><code>span</code></td><td>Which element the run is written as.</td></tr>
       </tbody>
     </table>

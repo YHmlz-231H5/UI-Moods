@@ -58,6 +58,21 @@
 }
 .um-select option { background: var(--um-bg-overlay); color: var(--um-text-primary); }
 
+/* The size modifier reaches all three controls: the class is the same one
+   whichever member of the family it is written on. The medium size is the
+   base class on its own, so it needs no rule. */
+.um-input--sm {
+  min-height: var(--um-height-sm);
+  font-size: var(--um-font-size-caption);
+}
+.um-input--lg {
+  min-height: var(--um-height-lg);
+  font-size: var(--um-font-size-title);
+}
+/* The textarea keeps its three rows, so it is sized by its own rule. */
+.um-textarea.um-input--sm { min-height: calc(var(--um-height-sm) * 3); }
+.um-textarea.um-input--lg { min-height: calc(var(--um-height-lg) * 3); }
+
 /* ============================================================================
    Quality hooks
    ----------------------------------------------------------------------------

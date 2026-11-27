@@ -130,6 +130,17 @@
   background: transparent;
 }
 
+/* The tip is the line of help under the list. It is text, so it takes the
+   muted role. */
+.um-upload__tip {
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+
+/* The list is there unless the host says otherwise, so the class names the
+   state rather than the absence of it. */
+.um-upload:not(.um-upload--show-file-list) .um-upload__list { display: none; }
+
 .um-upload--sm .um-upload__button {
   height: var(--um-height-sm);
   padding: 0 var(--um-space-xs);

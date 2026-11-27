@@ -33,7 +33,13 @@
     { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The size of the glyph.", "descriptionZh": "字形的大小。" },
     { "name": "label", "type": "string", "default": "", "description": "The name of the mark, for the case where the icon carries meaning on its own. An icon with a label is announced as an image; an icon without one is hidden from the screen reader.", "descriptionZh": "这个记号的名字,用在图标自己就承载语义的时候。有名字的图标会被当作图片播报,没有名字的图标对读屏是隐藏的。" }
   ],
-  "slots": [],
+  "slots": [
+    {
+      "name": "default",
+      "description": "The glyph inside the frame. The library draws its own shapes from the `name` prop; a glyph brought here takes their place, so the two never sit on top of each other.",
+      "descriptionZh": "方框里的图形。库自己按 `name` 画出形状;放进来的图形会取代它们,两者不会叠在一起。"
+    }
+  ],
   "events": [],
   "a11y": {
     "role": "img",

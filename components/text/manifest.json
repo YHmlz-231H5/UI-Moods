@@ -28,13 +28,16 @@
     { "id": "lg", "name": "Large", "nameZh": "大", "note": "The title size." }
   ],
   "states": [
-    { "id": "truncate", "name": "Truncated", "nameZh": "截断", "selector": ".um-text--truncate", "native": false, "note": "The run is clipped to one line and ends in an ellipsis. It is a class and not a pseudo-class: the host writes it into the markup, so it needs no script either. The box it is clipped in has to be narrower than the text, and the width of that box is the host's as well." }
+    { "id": "truncate", "name": "Truncated", "nameZh": "截断", "selector": ".um-text--truncate", "native": false, "note": "The run is clipped to one line and ends in an ellipsis. It is a class and not a pseudo-class: the host writes it into the markup, so it needs no script either. The box it is clipped in has to be narrower than the text, and the width of that box is the host's as well." },
+    { "id": "clamp", "name": "Clamped", "nameZh": "限行", "selector": ".um-text--clamp", "native": false, "note": "The run is held to a number of lines and the rest is cut. The class carries the mechanism; how many lines is the host's." }
   ],
   "parts": [],
   "props": [
     { "name": "type", "type": "enum", "values": ["regular", "primary", "secondary", "placeholder", "success", "warning", "danger", "info"], "default": "regular", "description": "Which colour the run is written in.", "descriptionZh": "这一段文字用哪一种颜色写。" },
     { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The size of the run.", "descriptionZh": "这一段文字的字号。" },
     { "name": "truncate", "type": "boolean", "default": "false", "description": "Clips the run to one line and ends it in an ellipsis.", "descriptionZh": "把这一段压成一行,末尾用省略号收尾。" },
+    { "name": "truncated", "type": "boolean", "default": "false", "description": "Clips the run to one line and ends it in an ellipsis. This is Element Plus's name for `truncate`; either one of them clips the run.", "descriptionZh": "把这一段压成一行,末尾用省略号收尾。这是 Element Plus 对 `truncate` 的叫法,两个都能压成一行。" },
+    { "name": "line-clamp", "type": "number", "description": "How many lines the run is held to before the rest is cut. The number is the host's; the class carries the mechanism.", "descriptionZh": "这一段保留几行,其余被切掉。行数由宿主决定,类只负责这个机制。" },
     { "name": "tag", "type": "enum", "values": ["span", "div", "p"], "default": "span", "description": "Which element the run is written as.", "descriptionZh": "这一段写成哪个元素。" }
   ],
   "slots": [

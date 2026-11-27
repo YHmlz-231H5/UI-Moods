@@ -115,6 +115,26 @@
       "type": "string",
       "description": "The heading of the panel.",
       "descriptionZh": "面板的标题。"
+    },
+    {
+      "name": "model-value",
+      "type": "boolean",
+      "description": "Whether the panel is on the page. A drawer that was not asked for is hidden rather than painted over the page.",
+      "descriptionZh": "面板是否在页面上。没有被要求出现的抽屉是藏起来的,而不是盖在页面上。"
+    },
+    {
+      "name": "show-close",
+      "type": "boolean",
+      "default": "true",
+      "description": "Whether the panel carries a close button in its header.",
+      "descriptionZh": "面板的头部是否带关闭按钮。"
+    },
+    {
+      "name": "with-header",
+      "type": "boolean",
+      "default": "true",
+      "description": "Whether the panel has a header at all. Without one there is no title and no close button.",
+      "descriptionZh": "面板是否带头部。没有头部就没有标题,也没有关闭按钮。"
     }
   ],
   "slots": [
@@ -122,6 +142,11 @@
       "name": "title",
       "description": "What is inside the heading.",
       "descriptionZh": "标题元素里的内容。"
+    },
+    {
+      "name": "header",
+      "description": "What is in the header, in place of the title. The close button stays: replacing the header removes the title, not the way out.",
+      "descriptionZh": "头部里的内容,用来代替标题。关闭按钮会留下:换掉头部去掉的是标题,不是出口。"
     },
     {
       "name": "default",

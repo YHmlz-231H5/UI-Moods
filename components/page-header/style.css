@@ -45,6 +45,18 @@
   gap: var(--um-space-xs);
 }
 
+/* The trail above the heading, for a page that says where it is. */
+.um-page-header__breadcrumb {
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+
+/* The main content of the header, under the heading and its line. */
+.um-page-header__main {
+  color: var(--um-text-regular);
+  font-size: var(--um-font-size-body);
+}
+
 /* The actions area gives a button that arrives without a class of its own a
    shape, so the band reads as finished. The whole selector sits inside
    :where, so it carries no weight: a host that brings its own button class

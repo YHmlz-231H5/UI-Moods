@@ -21,7 +21,11 @@
     { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default column width needs no modifier class." },
     { "id": "lg", "name": "Large", "nameZh": "大" }
   ],
-  "states": [],
+  "states": [
+    { "id": "align-start", "name": "Aligned to the start", "nameZh": "顶部对齐", "selector": ".um-layout--align-start", "note": "The column and the content stand at the top of the row." },
+    { "id": "align-center", "name": "Aligned to the centre", "nameZh": "居中对齐", "selector": ".um-layout--align-center", "note": "The column and the content stand in the middle of the row." },
+    { "id": "align-end", "name": "Aligned to the end", "nameZh": "底部对齐", "selector": ".um-layout--align-end", "note": "The column and the content stand at the bottom of the row." }
+  ],
   "parts": [
     { "id": "header", "name": "Header", "nameZh": "页头", "note": "The band across the top. It is a <header>, so it is a landmark." },
     { "id": "body", "name": "Body", "nameZh": "主体", "note": "The row that holds the side column and the content. It is the part the stacked variant turns." },
@@ -31,7 +35,8 @@
   ],
   "props": [
     { "name": "direction", "type": "enum", "values": ["horizontal", "stacked"], "default": "horizontal", "description": "Whether the side column stands beside the content or above it. The horizontal form is the base class on its own; the stacked form adds um-layout--stacked.", "descriptionZh": "侧栏是站在内容旁边还是排在内容上面。横向就是只写基类;上下堆叠再加上 um-layout--stacked。" },
-    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The width of the side column.", "descriptionZh": "侧栏的宽度。" }
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The width of the side column.", "descriptionZh": "侧栏的宽度。" },
+    { "name": "align", "type": "enum", "values": ["start", "center", "end", "stretch"], "default": "stretch", "description": "How the side column and the content stand against each other across the row. The stretched row needs no modifier class.", "descriptionZh": "侧栏和内容在整行里怎么对齐。拉伸的那一档不需要修饰类。" }
   ],
   "slots": [
     { "name": "header", "description": "The band at the top.", "descriptionZh": "顶部的那一条。" },

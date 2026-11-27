@@ -28,6 +28,7 @@ export const UMDatePicker = defineComponent({
     max: { type: String, default: "" },
     required: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
+    readonly: { type: Boolean, default: false },
     type: { type: String, default: "single" },
     size: { type: String, default: "md" },
     modelValue: { type: String, default: undefined },
@@ -53,6 +54,7 @@ export const UMDatePicker = defineComponent({
           max: props.max || undefined,
           required: props.required,
           disabled: props.disabled,
+          readonly: props.readonly,
           "aria-label": ariaLabel,
           onChange: (e) => {
             emit("update:modelValue", eventValue(e));

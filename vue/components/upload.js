@@ -30,6 +30,7 @@ export const UMUpload = defineComponent({
     layout: { type: String, default: "list" },
     size: { type: String, default: "md" },
     status: { type: String, default: "default" },
+    showFileList: { type: Boolean, default: true },
   },
   emits: ["change"],
   setup(props, { slots, emit }) {
@@ -52,6 +53,7 @@ export const UMUpload = defineComponent({
               : props.size === "lg"
                 ? "um-upload--lg"
                 : null,
+            props.showFileList ? "um-upload--show-file-list" : null,
           ],
         },
         [
@@ -69,7 +71,10 @@ export const UMUpload = defineComponent({
             h(
               "span",
               { class: "um-upload__button" },
-              slots.trigger ? slots.trigger() : "Choose files",
+              // The text on the trigger. The named slot says it first, and the
+              // default slot is the same content under the name Element Plus
+              // gives it.
+              slots.trigger ? slots.trigger() : slots.default ? slots.default() : "Choose files",
             ),
           ]),
           h(
@@ -85,6 +90,7 @@ export const UMUpload = defineComponent({
                   ]),
                 ],
           ),
+          h("span", { class: "um-upload__tip" }, slots.tip ? slots.tip() : []),
         ],
       );
     };

@@ -193,11 +193,15 @@
       <thead><tr><th>Class</th><th>Meaning</th></tr></thead>
       <tbody>
       <tr><td><code>um-radio</code></td><td>The base class. Every instance carries it.</td></tr>
+      <tr><td><code>um-radio--sm</code></td><td>Size: sm</td></tr>
+      <tr><td><code>um-radio--md</code></td><td>Size: md</td></tr>
+      <tr><td><code>um-radio--lg</code></td><td>Size: lg</td></tr>
       <tr><td><code>um-radio__input</code></td><td>Input</td></tr>
       <tr><td><code>um-radio__dot</code></td><td>Dot</td></tr>
       <tr><td><code>um-radio__label</code></td><td>Label</td></tr>
       <tr><td><code>:checked</code></td><td>Checked</td></tr>
       <tr><td><code>:disabled</code></td><td>Disabled</td></tr>
+      <tr><td><code>.um-radio--border</code></td><td>Bordered</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -209,6 +213,8 @@
       <tr><td><span class="api__name"><code>name</code></span></td><td><code>string</code></td><td>—</td><td>The name the group shares. Radios with the same name are one group, and only one of them can be checked.</td></tr>
       <tr><td><span class="api__name"><code>value</code></span></td><td><code>string</code></td><td>—</td><td>The value submitted while this option is selected.</td></tr>
       <tr><td><span class="api__name"><code>model-value</code></span></td><td><code>boolean</code></td><td>—</td><td>Whether this option is the selected one, bound with v-model in Vue. Leave it out and the `checked` prop is the state; bind it and the option answers to the binding. Inside a radio group the group decides instead.</td></tr>
+      <tr><td><span class="api__name"><code>border</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Puts a frame around the circle and its text, so the two read as one chip.</td></tr>
+      <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The size of the circle and its text. The medium one is the base class on its own.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>
@@ -216,6 +222,7 @@
       <thead><tr><th>Name</th><th>Description</th></tr></thead>
       <tbody>
       <tr><td><span class="api__name"><code>label</code></span></td><td>The text beside the circle.</td></tr>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>The text beside the circle. It is the name Element Plus gives the same content.</td></tr>
       </tbody>
     </table>
       <h2>Events</h2>

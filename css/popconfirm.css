@@ -125,23 +125,66 @@
 }
 
 .um-popconfirm__confirm {
-  background: var(--um-color-primary);
-  border-color: var(--um-color-primary);
-  color: var(--um-color-primary-on);
+  --um-popconfirm-answer-fill: var(--um-color-primary);
+  --um-popconfirm-answer-ink: var(--um-color-primary-on);
+  --um-popconfirm-answer-hover: var(--um-color-primary-strong);
+
+  background: var(--um-popconfirm-answer-fill);
+  border-color: var(--um-popconfirm-answer-fill);
+  color: var(--um-popconfirm-answer-ink);
 }
 .um-popconfirm__confirm:hover {
-  background: var(--um-color-primary-strong);
-  border-color: var(--um-color-primary-strong);
+  background: var(--um-popconfirm-answer-hover);
+  border-color: var(--um-popconfirm-answer-hover);
 }
 
 .um-popconfirm__cancel {
-  background: var(--um-fill-base);
+  --um-popconfirm-answer-fill: var(--um-fill-base);
+  --um-popconfirm-answer-ink: var(--um-text-regular);
+  --um-popconfirm-answer-hover: var(--um-fill-light);
+
+  background: var(--um-popconfirm-answer-fill);
   border-color: var(--um-border-base);
-  color: var(--um-text-regular);
+  color: var(--um-popconfirm-answer-ink);
 }
 .um-popconfirm__cancel:hover {
-  background: var(--um-fill-light);
+  background: var(--um-popconfirm-answer-hover);
   color: var(--um-color-primary-text);
+}
+
+/* The two answers take a type of their own. The type is written on the
+   button, because the two answers are asked for separately and each of them
+   has a name of its own. The three variables are the answer's fill, its
+   foreground and the fill it takes on hover. */
+.um-popconfirm__confirm[data-um-type="primary"],
+.um-popconfirm__cancel[data-um-type="primary"] {
+  --um-popconfirm-answer-fill: var(--um-color-primary);
+  --um-popconfirm-answer-ink: var(--um-color-primary-on);
+  --um-popconfirm-answer-hover: var(--um-color-primary-strong);
+}
+.um-popconfirm__confirm[data-um-type="success"],
+.um-popconfirm__cancel[data-um-type="success"] {
+  --um-popconfirm-answer-fill: var(--um-color-success);
+  --um-popconfirm-answer-ink: var(--um-color-success-on);
+  --um-popconfirm-answer-hover: var(--um-color-success-strong);
+}
+.um-popconfirm__confirm[data-um-type="warning"],
+.um-popconfirm__cancel[data-um-type="warning"] {
+  --um-popconfirm-answer-fill: var(--um-color-warning);
+  --um-popconfirm-answer-ink: var(--um-color-warning-on);
+  --um-popconfirm-answer-hover: var(--um-color-warning-strong);
+}
+.um-popconfirm__confirm[data-um-type="danger"],
+.um-popconfirm__cancel[data-um-type="danger"] {
+  --um-popconfirm-answer-fill: var(--um-color-danger);
+  --um-popconfirm-answer-ink: var(--um-color-danger-on);
+  --um-popconfirm-answer-hover: var(--um-color-danger-strong);
+}
+.um-popconfirm__confirm[data-um-type="info"],
+.um-popconfirm__cancel[data-um-type="info"] {
+  --um-popconfirm-answer-fill: var(--um-color-info);
+  --um-popconfirm-answer-ink: var(--um-color-info-on);
+  --um-popconfirm-answer-hover: var(--um-color-info-strong);
 }
 
 .um-popconfirm__confirm:focus-visible,
@@ -187,6 +230,25 @@
 
 .um-popconfirm--sm .um-popconfirm__panel { max-width: 16em; }
 .um-popconfirm--lg .um-popconfirm__panel { max-width: 24em; }
+
+/* A bubble that is not asked for never opens. The rule is written with the
+   base class beside it, because the rule that opens it is the same shape and
+   comes first. */
+.um-popconfirm.um-popconfirm--disabled .um-popconfirm__panel {
+  display: none;
+}
+
+/* A bubble with no arrow: the point that says which way the bubble is facing
+   is not drawn. */
+.um-popconfirm.um-popconfirm--no-arrow .um-popconfirm__arrow {
+  display: none;
+}
+
+/* A bubble the pointer cannot enter: the words in it cannot be selected and
+   the pointer passes straight through it. */
+.um-popconfirm.um-popconfirm--not-enterable .um-popconfirm__panel {
+  pointer-events: none;
+}
 
 /* ============================================================================
    Quality hooks

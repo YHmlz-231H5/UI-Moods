@@ -265,6 +265,7 @@
       <tr><td><code>:checked</code></td><td>Checked</td></tr>
       <tr><td><code>:disabled</code></td><td>Disabled</td></tr>
       <tr><td><code>:focus-visible</code></td><td>Focus visible</td></tr>
+      <tr><td><code>.um-tree-select--show-checkbox</code></td><td>Show checkbox</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -279,6 +280,7 @@
       <tr><td><span class="api__name"><code>checked</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Picks the leaf. It is the native checked attribute, not a class.</td></tr>
       <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes the leaf inert. It uses the real disabled attribute, so it leaves the tab order.</td></tr>
       <tr><td><span class="api__name"><code>model-value</code></span></td><td><code>string</code></td><td>—</td><td>The value the picked leaf submits, bound with v-model in Vue. Leave it out and the `value` prop is that value; bind it and the tree answers to the binding.</td></tr>
+      <tr><td><span class="api__name"><code>show-checkbox</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Draws a box in front of every leaf instead of a circle, so a leaf reads as something that can be ticked rather than something that can be picked.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>

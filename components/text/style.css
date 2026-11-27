@@ -48,3 +48,12 @@
   white-space: nowrap;
   vertical-align: bottom;
 }
+
+/* A clamped run is held to a number of lines and the rest is cut. The class
+   carries the mechanism — the box that counts the lines — and the number of
+   lines is the host's, so it arrives with the run. */
+.um-text--clamp {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

@@ -22,6 +22,7 @@ export const UMNotification = defineComponent({
     size: { type: String, default: "md" },
     title: { type: String, default: "" },
     closable: { type: Boolean, default: false },
+    showClose: { type: Boolean, default: false },
   },
   setup(props, { slots }) {
     return () =>
@@ -44,7 +45,7 @@ export const UMNotification = defineComponent({
             slots.title ? slots.title({ title: props.title }) : props.title,
           ),
           h("div", { class: "um-notification__content" }, slots.default ? slots.default() : []),
-          props.closable
+          props.closable || props.showClose
             ? h("button", {
                 class: "um-notification__close",
                 type: "button",

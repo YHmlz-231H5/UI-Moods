@@ -48,6 +48,17 @@
   -moz-appearance: textfield;
   appearance: textfield;
 }
+
+/* The prefix and the suffix sit either side of the number, so a unit can be
+   written next to it. They are text, so they take the muted role. */
+.um-input-number__prefix,
+.um-input-number__suffix {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 var(--um-space-xs);
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
 .um-input-number__input::-webkit-outer-spin-button,
 .um-input-number__input::-webkit-inner-spin-button {
   -webkit-appearance: none;

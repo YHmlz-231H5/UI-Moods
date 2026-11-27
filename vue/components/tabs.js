@@ -5,8 +5,12 @@
 // first, the header second and the panels last. The tab labels are the
 // default slot, one child per tab, and the panel slot is called once per
 // tab with its index.
+//
+// The open tab answers to `v-model` as well: the binding wins over the
+// `selected` prop, and a change publishes the tab that was picked.
 
 import { defineComponent, h } from "vue";
+import { modelValue } from "../lib/model.mjs";
 
 export const UMTabs = defineComponent({
   name: "UMTabs",
@@ -15,13 +19,17 @@ export const UMTabs = defineComponent({
     name: { type: String, default: "" },
     type: { type: String, default: "line" },
     selected: { type: Number, default: 1 },
+    modelValue: { type: Number, default: undefined },
+    stretch: { type: Boolean, default: false },
+    tabPosition: { type: String, default: "top" },
   },
-  emits: ["change"],
+  emits: ["change", "update:modelValue"],
   setup(props, { slots, emit }) {
     return () => {
       const labels = slots.default ? slots.default() : [];
       const count = Math.max(labels.length, 1);
       const group = props.name || "um-tabs";
+      const open = modelValue(props, props.selected);
 
       const radios = [];
       const items = [];
@@ -34,8 +42,11 @@ export const UMTabs = defineComponent({
             name: group,
             id: `${group}-${i}`,
             "aria-controls": `${group}-panel-${i}`,
-            checked: i === props.selected,
-            onChange: (e) => emit("change", e),
+            checked: i === open,
+            onChange: (e) => {
+              emit("update:modelValue", i);
+              emit("change", e);
+            },
           }),
         );
         items.push(
@@ -48,7 +59,11 @@ export const UMTabs = defineComponent({
               for: `${group}-${i}`,
             },
             [
-              h("span", { class: "um-tabs__label" }, labels[i - 1] ?? []),
+              h(
+                "span",
+                { class: "um-tabs__label" },
+                slots.label ? slots.label({ index: i - 1 }) : labels[i - 1] ?? [],
+              ),
               h("span", { class: "um-tabs__indicator", "aria-hidden": "true" }),
             ],
           ),
@@ -68,11 +83,22 @@ export const UMTabs = defineComponent({
         );
       }
 
-      return h("div", { class: ["um-tabs", props.type === "card" ? "um-tabs--card" : null] }, [
-        ...radios,
-        h("div", { class: "um-tabs__header", role: "tablist" }, items),
-        ...panels,
-      ]);
+      return h(
+        "div",
+        {
+          class: [
+            "um-tabs",
+            props.type === "card" ? "um-tabs--card" : null,
+            props.stretch ? "um-tabs--stretch" : null,
+            props.tabPosition === "bottom" ? "um-tabs--bottom" : null,
+          ],
+        },
+        [
+          ...radios,
+          h("div", { class: "um-tabs__header", role: "tablist" }, items),
+          ...panels,
+        ],
+      );
     };
   },
 });

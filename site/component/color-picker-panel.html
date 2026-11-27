@@ -408,8 +408,10 @@
       <tr><td><code>um-color-picker-panel__value</code></td><td>Value</td></tr>
       <tr><td><code>um-color-picker-panel__input</code></td><td>Hexadecimal field</td></tr>
       <tr><td><code>um-color-picker-panel__preview</code></td><td>Preview</td></tr>
+      <tr><td><code>um-color-picker-panel__footer</code></td><td>Footer</td></tr>
       <tr><td><code>:checked</code></td><td>Checked</td></tr>
       <tr><td><code>:focus-visible</code></td><td>Focus visible</td></tr>
+      <tr><td><code>:disabled</code></td><td>Disabled</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -420,9 +422,16 @@
       <tr><td><span class="api__name"><code>hue</code></span></td><td><code>enum = primary | success | warning | danger | info</code></td><td><code>primary</code></td><td>Which of the theme's named colours is chosen. It is the radio that is checked in the theme colour row.</td></tr>
       <tr><td><span class="api__name"><code>value</code></span></td><td><code>string</code></td><td><code>#2f6feb</code></td><td>The colour in the panel, written as a hexadecimal value. It is the text in the value field and the value of the checked swatch.</td></tr>
       <tr><td><span class="api__name"><code>show-preview</code></span></td><td><code>boolean</code></td><td><code>true</code></td><td>Whether the preview chip is shown. Without it the panel has no chip in the value row.</td></tr>
+      <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes the panel inert. It uses the real disabled attribute on the radios and on the field, so they leave the tab order and the swatches dim, the way every other disabled control in the library dims.</td></tr>
       </tbody>
     </table>
-
+      <h2>Slots</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>footer</code></span></td><td>The row under the swatches, where a host puts whatever acts on the colour.</td></tr>
+      </tbody>
+    </table>
       <h2>Events</h2>
 <table class="api">
       <thead><tr><th>Name</th><th>Description</th></tr></thead>

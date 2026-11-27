@@ -22,15 +22,30 @@ export const UMMenu = defineComponent({
   props: {
     direction: { type: String, default: "vertical" },
     active: { type: String, default: "" },
+    mode: { type: String, default: "vertical" },
   },
-  setup(props, { slots }) {
+  emits: ["open", "close", "select"],
+  setup(props, { slots, emit }) {
     return () => {
       const entries = slots.default ? slots.default() : [];
       const items = entries.length ? entries : fallbackEntries(props, slots);
+      // `mode` is Element Plus's name for the way the entries run and
+      // `direction` is this library's, so either one of them says it.
+      const mode = props.mode !== "vertical" ? props.mode : props.direction;
       return h(
         "ul",
         {
-          class: ["um-menu", props.direction === "horizontal" ? "um-menu--horizontal" : null],
+          class: ["um-menu", mode === "horizontal" ? "um-menu--horizontal" : null],
+          // The toggle event of a group does not bubble, so it is caught on
+          // the way down instead of on the way up.
+          onToggleCapture: (e) => {
+            if (!e.target || e.target.tagName !== "DETAILS") return;
+            emit(e.target.open ? "open" : "close", e);
+          },
+          onClick: (e) => {
+            const item = e.target?.closest?.(".um-menu__item");
+            if (item) emit("select", item.textContent?.trim() ?? "", e);
+          },
         },
         items.map((entry, i) =>
           props.active && textOf(entry) === props.active
@@ -59,6 +74,7 @@ function fallbackEntries(props, slots) {
         h("summary", { class: "um-menu__title" }, [
           h("span", { class: "um-menu__icon", "aria-hidden": "true" }),
           ...(slots.icon ? slots.icon() : []),
+          ...(slots.title ? slots.title() : []),
         ]),
         h("ul", { class: "um-menu__submenu" }, [
           h("li", { class: "um-menu__item" }, [h("a", { class: "um-menu__link", href: "#" })]),

@@ -22,6 +22,8 @@ export const UMInputTag = defineComponent({
     value: { type: String, default: "" },
     placeholder: { type: String, default: "Add a tag" },
     label: { type: String, default: "" },
+    disabled: { type: Boolean, default: false },
+    readonly: { type: Boolean, default: false },
   },
   emits: ["input"],
   setup(props, { slots, emit }) {
@@ -36,15 +38,27 @@ export const UMInputTag = defineComponent({
           ],
         },
         [
+          h(
+            "span",
+            { class: "um-input-tag__prefix" },
+            slots.prefix ? slots.prefix() : [],
+          ),
           ...(slots.default ? slots.default() : fallbackTags()),
           h("input", {
             class: "um-input-tag__input",
             type: "text",
             value: props.value || undefined,
             placeholder: props.placeholder || undefined,
+            disabled: props.disabled,
+            readonly: props.readonly,
             "aria-label": props.label || undefined,
             onInput: (e) => emit("input", e),
           }),
+          h(
+            "span",
+            { class: "um-input-tag__suffix" },
+            slots.suffix ? slots.suffix() : [],
+          ),
         ],
       );
   },

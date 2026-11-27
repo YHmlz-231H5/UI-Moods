@@ -25,6 +25,7 @@ export const UMTreeSelect = defineComponent({
     checked: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
     modelValue: { type: String, default: undefined },
+    showCheckbox: { type: Boolean, default: false },
   },
   emits: ["change", "toggle", "update:modelValue"],
   setup(props, { slots, emit }) {
@@ -42,6 +43,7 @@ export const UMTreeSelect = defineComponent({
             // The medium size is the base class itself, so it needs no
             // modifier — a class the stylesheet does not have paints nothing.
             props.size !== "md" ? `um-tree-select--${props.size}` : null,
+            props.showCheckbox ? "um-tree-select--show-checkbox" : null,
           ],
           role: "group",
         },

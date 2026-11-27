@@ -211,6 +211,10 @@
       <tr><td><code>:disabled</code></td><td>Disabled</td></tr>
       <tr><td><code>.um-button--loading</code></td><td>Loading</td></tr>
       <tr><td><code>.um-button--glow</code></td><td>Glow</td></tr>
+      <tr><td><code>.um-button--round</code></td><td>Round</td></tr>
+      <tr><td><code>.um-button--circle</code></td><td>Circle</td></tr>
+      <tr><td><code>.um-button--dashed</code></td><td>Dashed</td></tr>
+      <tr><td><code>.um-button--link</code></td><td>Link</td></tr>
       <tr><td><code>:focus-visible</code></td><td>Focus visible</td></tr>
       </tbody>
     </table>
@@ -223,9 +227,19 @@
       <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes the button inert.</td></tr>
       <tr><td><span class="api__name"><code>loading</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Shows a spinner and hides the label, keeping the width.</td></tr>
       <tr><td><span class="api__name"><code>glow</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Applies the mood's glow hook. A mood without one shows nothing.</td></tr>
+      <tr><td><span class="api__name"><code>round</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Gives the button the pill shape, whatever height it is.</td></tr>
+      <tr><td><span class="api__name"><code>circle</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes the button a disc: as wide as it is tall.</td></tr>
+      <tr><td><span class="api__name"><code>dashed</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Draws the outline as a dashed line.</td></tr>
+      <tr><td><span class="api__name"><code>link</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes the button read as a link: no fill, no border, and an underlined label.</td></tr>
       </tbody>
     </table>
-
+      <h2>Slots</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>The label of the button.</td></tr>
+      </tbody>
+    </table>
 
       <h2>Accessibility</h2>
       <p><strong>Role:</strong> <code>button</code></p>

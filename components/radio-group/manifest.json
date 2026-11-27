@@ -17,11 +17,16 @@
     { "id": "stacked", "name": "Stacked", "nameZh": "纵向", "note": "One option per row, running down the panel. The base class on its own is this layout, and the modifier paints the same thing so the class list can name it." },
     { "id": "inline", "name": "Inline", "nameZh": "横向", "note": "The options run across the panel and wrap onto the next line when they run out of room." }
   ],
-  "sizes": [],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "Smaller circles and smaller text." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default. The base class is already this size, so it needs no modifier." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "Larger circles and larger text." }
+  ],
   "states": [
     { "id": "checked", "name": "Checked", "nameZh": "选中", "selector": ":checked", "native": true, "note": "The picked option takes the brand colour's own soft tint, and its text takes the foreground that was derived for that tint." },
     { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The label takes the derived disabled colour and the circle dims, the way every other disabled control in the library dims." },
-    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the circle, because the circle is what the user actually sees of the control." }
+    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the circle, because the circle is what the user actually sees of the control." },
+    { "id": "button", "name": "Button", "nameZh": "按钮", "selector": ".um-radio-group--button", "note": "Each option becomes a chip of its own, and a picked one takes the brand's fill." }
   ],
   "parts": [
     { "id": "legend", "name": "Legend", "nameZh": "标题", "note": "The fieldset's own legend. It is the group's name, and the browser reads it before the options." },
@@ -36,7 +41,9 @@
     { "name": "checked", "type": "boolean", "default": "false", "description": "Picks one option. It is the native checked attribute, not a class.", "descriptionZh": "选中某一个选项。它是原生 checked 属性,不是某个类。" },
     { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes one option inert. It uses the real disabled attribute, so it leaves the tab order.", "descriptionZh": "让某一个选项不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" },
     { "name": "direction", "type": "enum", "values": ["stacked", "inline"], "default": "stacked", "description": "Which way the options run. The stacked run is the base class on its own; the inline run adds um-radio-group--inline.", "descriptionZh": "选项往哪个方向排。纵向是只写基础类;横向再加上 um-radio-group--inline。" },
-    { "name": "label", "type": "string", "description": "The text of the group's legend. A group with no legend still needs an accessible name of its own.", "descriptionZh": "组标题的文字。不写标题的组也得有自己的可访问名称。" }
+    { "name": "label", "type": "string", "description": "The text of the group's legend. A group with no legend still needs an accessible name of its own.", "descriptionZh": "组标题的文字。不写标题的组也得有自己的可访问名称。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "since": "1.1.0", "description": "The size of the options in the group: the circles and their text. A circle with a size of its own keeps it. The medium one is the base class on its own.", "descriptionZh": "组里选项的大小:圆圈和文字。自己带尺寸的圆圈保留自己的尺寸。中号就是基础类本身。" },
+    { "name": "type", "type": "enum", "values": ["radio", "button"], "default": "radio", "since": "1.1.0", "description": "How the options are drawn. The radio run leaves the options as they are; the button run turns each one into a chip with a frame of its own.", "descriptionZh": "选项画成什么样。radio 保持原样;button 把每个选项变成一块自带边框的小牌。" }
   ],
   "slots": [
     { "name": "legend", "description": "The legend text, above the options.", "descriptionZh": "选项上方的标题文字。" },
@@ -70,6 +77,6 @@
       "markup": "<fieldset class=\"um-radio-group um-radio-group--inline\">\n  <legend class=\"um-radio-group__legend\">Size</legend>\n  <div class=\"um-radio-group__options\">\n    <label class=\"um-radio-group__option\">\n      <input class=\"um-radio__input\" type=\"radio\" name=\"um-radio-group-size\" value=\"s\" />\n      <span class=\"um-radio__dot\"></span>\n      <span class=\"um-radio-group__label\">Small</span>\n    </label>\n    <label class=\"um-radio-group__option\">\n      <input class=\"um-radio__input\" type=\"radio\" name=\"um-radio-group-size\" value=\"m\" checked />\n      <span class=\"um-radio__dot\"></span>\n      <span class=\"um-radio-group__label\">Medium</span>\n    </label>\n    <label class=\"um-radio-group__option\">\n      <input class=\"um-radio__input\" type=\"radio\" name=\"um-radio-group-size\" value=\"l\" />\n      <span class=\"um-radio__dot\"></span>\n      <span class=\"um-radio-group__label\">Large</span>\n    </label>\n  </div>\n</fieldset>"
     }
   ],
-  "notes": "The group owns the row and the text of an option, but not the circle: the circle and the real input are the radio component's own classes, so a picked option is drawn exactly like a lone radio. The group has no sizes of its own, because the circle's size belongs to the circle — a group cannot make the control it holds bigger without redrawing it. The selected row is found with :has(), which is the only way CSS can ask an element what its child is doing.",
-  "notesZh": "组拥有选项这一行和它的文字,但不拥有圆圈:圆圈和真正的 input 都是单选框组件自己的类,所以组里选中的选项和组外的单选框画得一模一样。组本身没有尺寸,因为圆圈的大小归圆圈管 —— 组想让它里面的控件变大,就得把控件重画一遍。选中的那一行是用 :has() 找到的,这是 CSS 唯一能问元素「你孩子现在怎么样」的办法。"
+  "notes": "The group owns the row and the text of an option, but not the circle: the circle and the real input are the radio component's own classes, so a picked option is drawn exactly like a lone radio. The group's size reaches the circles through one inherited number rather than by redrawing them, and a circle with a size of its own keeps it. The selected row is found with :has(), which is the only way CSS can ask an element what its child is doing.",
+  "notesZh": "组拥有选项这一行和它的文字,但不拥有圆圈:圆圈和真正的 input 都是单选框组件自己的类,所以组里选中的选项和组外的单选框画得一模一样。组的尺寸是通过一个继承下来的数字传到圆圈那里的,而不是把圆圈重画一遍;圆圈自己带了尺寸就保留自己的。选中的那一行是用 :has() 找到的,这是 CSS 唯一能问元素「你孩子现在怎么样」的办法。"
 }

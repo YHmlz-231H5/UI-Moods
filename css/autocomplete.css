@@ -54,6 +54,16 @@
 
 .um-autocomplete__input::placeholder { color: var(--um-text-placeholder); }
 
+/* The prefix and the suffix sit either side of the text, so a unit or a mark
+   can be written next to it. They are text, so they take the muted role. */
+.um-autocomplete__prefix,
+.um-autocomplete__suffix {
+  display: inline-flex;
+  align-items: center;
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+
 /* The suggestions are a <datalist>, and the popup is the browser's own. The
    library can reach the text of a suggestion and the surface under it; the
    frame around the popup is drawn by the reader's system and does not follow

@@ -24,7 +24,8 @@
   ],
   "states": [
     { "id": "open", "name": "Open", "nameZh": "展开", "selector": "[open]", "note": "The level is open. The browser announces it, and the arrow turns over in the inline run." },
-    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the option, because the option is what the reader is on." }
+    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the option, because the option is what the reader is on." },
+    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ".um-cascader--disabled", "note": "The level cannot be opened, so the pointer is refused and the text takes the derived disabled colour." }
   ],
   "parts": [
     { "id": "panel", "name": "Panel", "nameZh": "层级", "note": "One level of the cascader. It is a <details>, and it is the element that knows whether it is open." },
@@ -37,7 +38,8 @@
     { "name": "open", "type": "boolean", "default": "false", "description": "Opens a level. It is the native open attribute on the details, so the browser keeps the state.", "descriptionZh": "展开某一层。它是 details 上的原生 open 属性,所以状态由浏览器记着。" },
     { "name": "layout", "type": "enum", "values": ["inline", "flyout"], "default": "inline", "description": "Where the level below opens. The inline run is the base class on its own; the flyout run adds um-cascader--flyout.", "descriptionZh": "下一层往哪里开。内联是只写基础类;浮层再加上 um-cascader--flyout。" },
     { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The size of the option text.", "descriptionZh": "选项文字的尺寸。" },
-    { "name": "label", "type": "string", "description": "The text of one option. An option with no text needs an accessible name of its own.", "descriptionZh": "某一个选项的文字。没有文字的选项也得有自己的可访问名称。" }
+    { "name": "label", "type": "string", "description": "The text of one option. An option with no text needs an accessible name of its own.", "descriptionZh": "某一个选项的文字。没有文字的选项也得有自己的可访问名称。" },
+    { "name": "disabled", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Makes the cascader inert. A level is a disclosure rather than a form control, so it cannot carry the disabled attribute: the whole tree refuses the pointer instead.", "descriptionZh": "让级联选择器不可用。每一层是一个 disclosure 而不是表单控件,所以带不了 disabled 属性:整棵树改为拒绝指针。" }
   ],
   "slots": [
     { "name": "option", "description": "One option: its text and the mark that says there is a level below it.", "descriptionZh": "一个选项:它的文字,以及那个表示下面还有一层的记号。" },

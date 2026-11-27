@@ -46,9 +46,10 @@ export const UMColorPickerPanel = defineComponent({
     hue: { type: String, default: "primary" },
     value: { type: String, default: "#2f6feb" },
     showPreview: { type: Boolean, default: true },
+    disabled: { type: Boolean, default: false },
   },
   emits: ["change"],
-  setup(props, { emit }) {
+  setup(props, { slots, emit }) {
     // The radios share a name, so it has to be this instance's own — two
     // panels on one page may not steal each other's colours.
     const predefineName = `um-color-picker-panel-predefine-${useId()}`;
@@ -82,6 +83,7 @@ export const UMColorPickerPanel = defineComponent({
                       name: predefineName,
                       value: entry.colour,
                       checked: entry.colour === props.value,
+                      disabled: props.disabled,
                       "aria-label": entry.name,
                       onChange: (e) => emit("change", e),
                     }),
@@ -103,6 +105,7 @@ export const UMColorPickerPanel = defineComponent({
                     name: hueName,
                     value: tone,
                     checked: tone === props.hue,
+                    disabled: props.disabled,
                     "aria-label": tone,
                     onChange: (e) => emit("change", e),
                   }),
@@ -116,6 +119,7 @@ export const UMColorPickerPanel = defineComponent({
                 value: props.value || undefined,
                 maxlength: 7,
                 spellcheck: false,
+                disabled: props.disabled,
                 "aria-label": "Hexadecimal value",
                 onChange: (e) => emit("change", e),
               }),
@@ -126,6 +130,7 @@ export const UMColorPickerPanel = defineComponent({
                   })
                 : null,
             ]),
+            h("div", { class: "um-color-picker-panel__footer" }, slots.footer ? slots.footer() : []),
           ]),
         ],
       );

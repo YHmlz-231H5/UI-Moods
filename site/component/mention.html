@@ -311,6 +311,8 @@
       <tr><td><span class="api__name"><code>placeholder</code></span></td><td><code>string</code></td><td><code>Type @ to mention someone</code></td><td>The hint in the empty field.</td></tr>
       <tr><td><span class="api__name"><code>label</code></span></td><td><code>string</code></td><td>—</td><td>The accessible name of the field. It becomes the input's aria-label.</td></tr>
       <tr><td><span class="api__name"><code>model-value</code></span></td><td><code>string</code></td><td>—</td><td>The text in the field, bound with v-model in Vue. Leave it out and the `value` prop is the text; bind it and the field answers to the binding.</td></tr>
+      <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes the field inert. It uses the real disabled attribute on the input, so it leaves the tab order and the field paints the flat control surface.</td></tr>
+      <tr><td><span class="api__name"><code>readonly</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Keeps the text visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>

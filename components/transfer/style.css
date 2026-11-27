@@ -62,6 +62,19 @@
 
 .um-transfer__item { list-style: none; }
 
+/* The footer is the row under a panel's list, where a host puts whatever that
+   panel needs: a "select all" link, a count, a note. */
+.um-transfer__footer {
+  padding: var(--um-space-xs);
+  border-top: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+
+/* An empty footer is no footer, so a panel that was given nothing does not
+   carry a rule across the bottom of itself. */
+.um-transfer__footer:empty { display: none; }
+
 /* The option is the label that wraps the real input, the box and the text.
    It is the element that can be asked whether its input is ticked. */
 .um-transfer__option {

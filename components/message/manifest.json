@@ -25,7 +25,9 @@
     { "id": "lg", "name": "Large", "nameZh": "大", "note": "A title-sized bar, for a message that has to be read from across the room." }
   ],
   "states": [
-    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The close button is a real button, so the browser owns its focus and the ring is drawn around it." }
+    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The close button is a real button, so the browser owns its focus and the ring is drawn around it." },
+    { "id": "plain", "name": "Plain", "nameZh": "朴素", "selector": ".um-message--plain", "note": "The bar sits on the page instead of floating over it: no fill behind it and no shadow of its own." },
+    { "id": "grouping", "name": "Grouped", "nameZh": "成组", "selector": ".um-message--grouping", "note": "The bar is one of several that belong together. A group is drawn as a strip of the page rather than as a set of cards floating over it." }
   ],
   "parts": [
     { "id": "icon", "name": "Status mark", "nameZh": "状态标记", "note": "The disc in front of the text. The variant fills it with the state colour and draws the state's mark on it." },
@@ -35,7 +37,10 @@
   "props": [
     { "name": "variant", "type": "enum", "values": ["info", "success", "warning", "error"], "default": "info", "description": "Which state the message carries.", "descriptionZh": "这条消息表示哪一种状态。" },
     { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The height of the bar and the size of its type.", "descriptionZh": "消息条的高度和字号。" },
-    { "name": "closable", "type": "boolean", "default": "false", "description": "Whether the bar carries a close button.", "descriptionZh": "消息条上是否带关闭按钮。" }
+    { "name": "closable", "type": "boolean", "default": "false", "description": "Whether the bar carries a close button.", "descriptionZh": "消息条上是否带关闭按钮。" },
+    { "name": "show-close", "type": "boolean", "default": "false", "description": "Whether the bar carries a close button. This is Element Plus's name for `closable`; either one of them asks for the button.", "descriptionZh": "消息条上是否带关闭按钮。这是 Element Plus 对 `closable` 的叫法,两个都能提出这个要求。" },
+    { "name": "plain", "type": "boolean", "default": "false", "description": "Lays the bar on the page rather than over it: the fill behind it and the shadow under it are gone.", "descriptionZh": "消息条平铺在页面上而不是浮在上面:底色和阴影都去掉。" },
+    { "name": "grouping", "type": "boolean", "default": "false", "description": "Says that the bar is one of a group of messages of the same kind. A grouped bar is drawn as a strip of the page, so a stack of them reads as one list.", "descriptionZh": "表示这条消息属于一组同类消息。成组的消息条画成页面上的一个条带,叠起来读起来就是一份列表。" }
   ],
   "slots": [
     { "name": "default", "description": "The text of the message.", "descriptionZh": "消息的正文。" }

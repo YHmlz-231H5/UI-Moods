@@ -25,12 +25,13 @@ export const UMAutocomplete = defineComponent({
     },
     required: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
+    readonly: { type: Boolean, default: false },
     variant: { type: String, default: "bordered" },
     size: { type: String, default: "md" },
     modelValue: { type: String, default: undefined },
   },
   emits: ["input", "change", "focus", "blur", "update:modelValue"],
-  setup(props, { emit }) {
+  setup(props, { slots, emit }) {
     // The field and its list need ids of their own, so two of them on one
     // page may not share one.
     const fieldId = `um-autocomplete-${useId()}`;
@@ -60,6 +61,11 @@ export const UMAutocomplete = defineComponent({
           ],
         },
         [
+          h(
+            "span",
+            { class: "um-autocomplete__prefix" },
+            slots.prefix ? slots.prefix() : [],
+          ),
           h("input", {
             class: "um-autocomplete__input",
             type: "text",
@@ -70,6 +76,7 @@ export const UMAutocomplete = defineComponent({
             placeholder: props.placeholder || undefined,
             required: props.required,
             disabled: props.disabled,
+            readonly: props.readonly,
             "aria-label": props.label || undefined,
             onInput: (e) => {
               emit("update:modelValue", eventValue(e));
@@ -82,6 +89,11 @@ export const UMAutocomplete = defineComponent({
             onFocus: (e) => emit("focus", e),
             onBlur: (e) => emit("blur", e),
           }),
+          h(
+            "span",
+            { class: "um-autocomplete__suffix" },
+            slots.suffix ? slots.suffix() : [],
+          ),
           h(
             "datalist",
             { class: "um-autocomplete__list", id: listId },

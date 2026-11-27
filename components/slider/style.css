@@ -41,3 +41,13 @@
   box-shadow: var(--um-shadow-light);
 }
 .um-slider:disabled { cursor: not-allowed; }
+
+/* The vertical run stands the slider on its end. The browser lays a range input
+   out along the writing mode, so the vertical writing mode is the whole of it;
+   the direction is reversed so the lowest value sits at the bottom. */
+.um-slider--vertical {
+  writing-mode: vertical-lr;
+  direction: rtl;
+  width: var(--um-height-md);
+  height: var(--um-height-md);
+}

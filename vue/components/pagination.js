@@ -15,6 +15,8 @@ export const UMPagination = defineComponent({
     currentPage: { type: Number, default: 1 },
     pageSize: { type: String, default: "10" },
     size: { type: String, default: "md" },
+    disabled: { type: Boolean, default: false },
+    hideOnSinglePage: { type: Boolean, default: false },
   },
   setup(props) {
     // The jumper's field needs a label of its own, so it needs an id that
@@ -37,6 +39,9 @@ export const UMPagination = defineComponent({
                 class: "um-pagination__link",
                 href: "#",
                 ...(active ? { "aria-current": "page" } : {}),
+                // A link cannot be disabled the way a button can, so it says
+                // so instead.
+                "aria-disabled": props.disabled ? "true" : undefined,
               },
               String(i),
             ),
@@ -47,7 +52,11 @@ export const UMPagination = defineComponent({
       return h(
         "nav",
         {
-          class: ["um-pagination", props.size === "sm" ? "um-pagination--sm" : null],
+          class: [
+            "um-pagination",
+            props.size === "sm" ? "um-pagination--sm" : null,
+            props.hideOnSinglePage && pages <= 1 ? "um-pagination--hidden" : null,
+          ],
           "aria-label": "Pagination",
         },
         [
@@ -56,7 +65,7 @@ export const UMPagination = defineComponent({
               h("button", {
                 class: "um-pagination__link",
                 type: "button",
-                disabled: current <= 1,
+                disabled: props.disabled || current <= 1,
                 "aria-label": "Previous page",
               }),
             ]),
@@ -65,7 +74,7 @@ export const UMPagination = defineComponent({
               h("button", {
                 class: "um-pagination__link",
                 type: "button",
-                disabled: current >= pages,
+                disabled: props.disabled || current >= pages,
                 "aria-label": "Next page",
               }),
             ]),

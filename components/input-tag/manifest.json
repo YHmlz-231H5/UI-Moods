@@ -32,17 +32,23 @@
     { "id": "tag", "name": "Tag", "nameZh": "标签", "note": "One chosen tag. The variant tints the tags of the whole field, because in CSS the modifier sits on the root." },
     { "id": "text", "name": "Text", "nameZh": "文字", "note": "The words of the tag. A long tag is cut with an ellipsis rather than pushing the field wider." },
     { "id": "remove", "name": "Remove", "nameZh": "删除", "note": "The button that takes the tag back out. It is a real button, and its mark is drawn from two borders." },
-    { "id": "input", "name": "Input", "nameZh": "输入", "note": "The empty place at the end of the field. It is a real text input, borderless, so the field and the text read as one control." }
+    { "id": "input", "name": "Input", "nameZh": "输入", "note": "The empty place at the end of the field. It is a real text input, borderless, so the field and the text read as one control." },
+    { "id": "prefix", "name": "Prefix", "nameZh": "前缀", "note": "The mark in front of the tags, so a unit can be written next to them." },
+    { "id": "suffix", "name": "Suffix", "nameZh": "后缀", "note": "The mark behind the field, so a unit can be written next to it." }
   ],
   "props": [
     { "name": "variant", "type": "enum", "values": ["primary", "success", "warning", "danger"], "default": "", "description": "Which colour the tags carry. The base class on its own is the neutral tag.", "descriptionZh": "标签带哪一种颜色。只写基础类就是中性标签。" },
     { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The height of the field and the size of its tags.", "descriptionZh": "输入框的高度和标签的大小。" },
     { "name": "value", "type": "string", "default": "", "description": "The text in the empty part of the field.", "descriptionZh": "输入框空着的那一格里打的字。" },
     { "name": "placeholder", "type": "string", "default": "Add a tag", "description": "The hint in the empty part of the field.", "descriptionZh": "输入框空着的那一格里的提示。" },
-    { "name": "label", "type": "string", "default": "", "description": "The accessible name of the field. It becomes the input's aria-label.", "descriptionZh": "输入框的可访问名称,它会变成 input 的 aria-label。" }
+    { "name": "label", "type": "string", "default": "", "description": "The accessible name of the field. It becomes the input's aria-label.", "descriptionZh": "输入框的可访问名称,它会变成 input 的 aria-label。" },
+    { "name": "disabled", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Makes the field inert. It uses the real disabled attribute on the input, so it leaves the tab order and the field paints the flat control surface.", "descriptionZh": "让输入框不可用。它用的是 input 上的原生 disabled 属性,因此会退出 Tab 顺序,输入框也会铺上扁平的控件底色。" },
+    { "name": "readonly", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Keeps the text visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures.", "descriptionZh": "文字仍然可见,但不能编辑。它是原生 readonly 属性,浏览器会拒绝编辑。库不会给只读字段单独配色 —— 这不是它测量过的状态。" }
   ],
   "slots": [
-    { "name": "default", "description": "The tags already chosen. Each one is a tag holding its text and its remove button.", "descriptionZh": "已经选好的标签,每个标签里装着它的文字和删除按钮。" }
+    { "name": "default", "description": "The tags already chosen. Each one is a tag holding its text and its remove button.", "descriptionZh": "已经选好的标签,每个标签里装着它的文字和删除按钮。" },
+    { "name": "prefix", "description": "The mark in front of the tags.", "descriptionZh": "标签前面的标记。" },
+    { "name": "suffix", "description": "The mark behind the field.", "descriptionZh": "输入框后面的标记。" }
   ],
   "events": [
     { "name": "input", "description": "Fires when the text in the field changes.", "descriptionZh": "输入框里的文字变了就触发。" }

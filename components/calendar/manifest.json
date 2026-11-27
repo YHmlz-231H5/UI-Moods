@@ -44,7 +44,9 @@
     { "name": "selected", "type": "string", "default": "2026-11-20", "description": "The date the reader has picked, written as YYYY-MM-DD. The day it names takes the selected marker.", "descriptionZh": "读者选中的那一天,写成 YYYY-MM-DD。被指到的那一天会带上选中的标记。" },
     { "name": "disabled", "type": "string", "default": "2026-11-05,2026-11-06", "description": "The dates that cannot be picked, written as YYYY-MM-DD and separated by commas. The days they name are marked with aria-disabled, so the reader is told they cannot be picked.", "descriptionZh": "不能选的几天,写成 YYYY-MM-DD,中间用逗号分开。被指到的那些天会带上 aria-disabled,所以读屏会知道它们选不了。" }
   ],
-  "slots": [],
+  "slots": [
+    { "name": "date-cell", "description": "The content of one day of the grid. It is written instead of the day number, and it is given the date it belongs to.", "descriptionZh": "网格里某一天的内容。它写在日号的位置上,并且会拿到它属于的那一天。" }
+  ],
   "events": [],
   "a11y": {
     "role": "grid",

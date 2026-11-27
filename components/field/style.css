@@ -14,3 +14,32 @@
 .um-field--error .um-input,
 .um-field--error .um-textarea,
 .um-field--error .um-select { border-color: var(--um-color-danger); }
+
+/* The other three validation states say the same thing about their message:
+   the message is text, so it takes that state's own text colour. */
+.um-field--success .um-field__message { color: var(--um-color-success-text); }
+.um-field--warning .um-field__message { color: var(--um-color-warning-text); }
+.um-field--info .um-field__message { color: var(--um-color-info-text); }
+
+/* The inline run puts the label beside the control instead of above it. */
+.um-field--inline {
+  flex-direction: row;
+  align-items: center;
+}
+
+/* A field with a size of its own passes it to the control it holds, so the
+   label and the control are the same size. The field does not redraw the
+   control — it only tells it how tall it is. The medium size is the control's
+   own size already, so it needs no rule. */
+.um-field--sm .um-input,
+.um-field--sm .um-select { min-height: var(--um-height-sm); }
+.um-field--sm .um-textarea { min-height: calc(var(--um-height-sm) * 3); }
+.um-field--lg .um-input,
+.um-field--lg .um-select { min-height: var(--um-height-lg); }
+.um-field--lg .um-textarea { min-height: calc(var(--um-height-lg) * 3); }
+
+/* A disabled field dims its own text. The control inside is the host's to
+   disable: the field says the field is out of use, and the control is the
+   element that can actually be switched off. */
+.um-field--disabled .um-field__label,
+.um-field--disabled .um-field__message { color: var(--um-text-disabled); }

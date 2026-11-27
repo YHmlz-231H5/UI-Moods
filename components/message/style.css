@@ -157,3 +157,20 @@
 
 .um-message--sm { min-height: var(--um-height-sm); font-size: var(--um-font-size-caption); }
 .um-message--lg { min-height: var(--um-height-lg); font-size: var(--um-font-size-title); }
+
+/* A plain bar is laid on the page rather than floating over it: the surface
+   behind it and the shadow under it are both gone, so it reads as a line of
+   the page and not as a card. */
+.um-message--plain {
+  background: transparent;
+  box-shadow: none;
+}
+
+/* A grouped bar is one of several that belong together. The group is drawn
+   as a strip of the page — the bars keep their edges, so the group still has
+   a border, but nothing about them floats on its own. */
+.um-message--grouping {
+  border-color: var(--um-border-lighter);
+  background: transparent;
+  box-shadow: none;
+}

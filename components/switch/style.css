@@ -1,13 +1,24 @@
 /* ============================================================================
    Switch
    ========================================================================== */
-.um-switch { display: inline-flex; align-items: center; gap: var(--um-space-xs); cursor: pointer; }
+.um-switch {
+  /* The track, the thumb and the distance the thumb travels are three numbers
+     the sizes move together, so they are held in one place. */
+  --um-switch-thumb: var(--um-height-sm);
+  --um-switch-track-width: calc(var(--um-height-md) * 1.5);
+  --um-switch-travel: calc(var(--um-height-md) * 0.5);
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--um-space-xs);
+  cursor: pointer;
+}
 .um-switch__input { position: absolute; width: 1px; height: 1px; opacity: 0; }
 .um-switch__track {
   position: relative;
   display: inline-block;
-  width: calc(var(--um-height-md) * 1.5);
-  height: var(--um-height-sm);
+  width: var(--um-switch-track-width);
+  height: var(--um-switch-thumb);
   border-radius: var(--um-radius-round);
   background: var(--um-fill-light);
   transition: background-color var(--um-motion);
@@ -16,8 +27,8 @@
   position: absolute;
   top: 2px;
   inset-inline-start: 2px;
-  width: calc(var(--um-height-sm) - 4px);
-  height: calc(var(--um-height-sm) - 4px);
+  width: calc(var(--um-switch-thumb) - 4px);
+  height: calc(var(--um-switch-thumb) - 4px);
   border-radius: var(--um-radius-circle);
   background: var(--um-bg-overlay);
   box-shadow: var(--um-shadow-light);
@@ -27,6 +38,44 @@
    the brand colour: the raw fill colour is 1.43:1 against a container in the
    brutal mood, which is a switch whose state nobody can see. */
 .um-switch__input:checked + .um-switch__track { background: var(--um-color-primary-graphic); }
-.um-switch__input:checked + .um-switch__track .um-switch__thumb { transform: translateX(calc(var(--um-height-md) * 0.5 * var(--um-mirror))); }
+.um-switch__input:checked + .um-switch__track .um-switch__thumb { transform: translateX(calc(var(--um-switch-travel) * var(--um-mirror))); }
 .um-switch__input:disabled + .um-switch__track { opacity: 0.45; cursor: not-allowed; }
 .um-switch__label { color: var(--um-text-regular); font-size: var(--um-font-size-body); }
+
+/* The inline prompt is the state written inside the track. It stays out of the
+   way until the switch asks for it. */
+.um-switch__inner {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--um-text-regular);
+  font-size: var(--um-font-size-caption);
+  line-height: 1;
+}
+.um-switch--inline-prompt .um-switch__inner { display: inline-flex; }
+/* The thumb steps aside for the prompt: the word says which way the switch is
+   set, so a thumb saying it again would be noise. */
+.um-switch--inline-prompt .um-switch__thumb { display: none; }
+
+/* A word now sits on the track, so the track carries the brand's fill rather
+   than its graphic form: the foreground written for that fill is the pair the
+   contract measures. */
+.um-switch--inline-prompt .um-switch__input:checked + .um-switch__track { background: var(--um-color-primary); }
+.um-switch--inline-prompt .um-switch__input:checked + .um-switch__track .um-switch__inner { color: var(--um-color-primary-on); }
+
+/* A switch that is busy cannot be flipped: the track dims and the pointer
+   stops, so the reader is not invited to press it. */
+.um-switch--loading { pointer-events: none; }
+.um-switch--loading .um-switch__track { opacity: 0.45; cursor: progress; }
+
+.um-switch--sm {
+  --um-switch-thumb: calc(var(--um-height-sm) * 0.75);
+  --um-switch-track-width: calc(var(--um-height-sm) * 1.5);
+  --um-switch-travel: calc(var(--um-height-sm) * 0.5);
+}
+.um-switch--lg {
+  --um-switch-thumb: var(--um-height-md);
+  --um-switch-track-width: calc(var(--um-height-lg) * 1.5);
+  --um-switch-travel: calc(var(--um-height-lg) * 0.5);
+}

@@ -30,6 +30,7 @@ export const UMDateTimePicker = defineComponent({
     step: { type: Number, default: 60 },
     required: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
+    readonly: { type: Boolean, default: false },
     type: { type: String, default: "single" },
     size: { type: String, default: "md" },
     modelValue: { type: String, default: undefined },
@@ -56,6 +57,7 @@ export const UMDateTimePicker = defineComponent({
           step: props.step,
           required: props.required,
           disabled: props.disabled,
+          readonly: props.readonly,
           "aria-label": ariaLabel,
           onChange: (e) => {
             emit("update:modelValue", eventValue(e));

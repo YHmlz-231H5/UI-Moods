@@ -252,6 +252,8 @@
       <tr><td><code>um-message__content</code></td><td>Content</td></tr>
       <tr><td><code>um-message__close</code></td><td>Close</td></tr>
       <tr><td><code>:focus-visible</code></td><td>Focus visible</td></tr>
+      <tr><td><code>.um-message--plain</code></td><td>Plain</td></tr>
+      <tr><td><code>.um-message--grouping</code></td><td>Grouped</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -261,6 +263,9 @@
       <tr><td><span class="api__name"><code>variant</code></span></td><td><code>enum = info | success | warning | error</code></td><td><code>info</code></td><td>Which state the message carries.</td></tr>
       <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The height of the bar and the size of its type.</td></tr>
       <tr><td><span class="api__name"><code>closable</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the bar carries a close button.</td></tr>
+      <tr><td><span class="api__name"><code>show-close</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the bar carries a close button. This is Element Plus's name for `closable`; either one of them asks for the button.</td></tr>
+      <tr><td><span class="api__name"><code>plain</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Lays the bar on the page rather than over it: the fill behind it and the shadow under it are gone.</td></tr>
+      <tr><td><span class="api__name"><code>grouping</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Says that the bar is one of a group of messages of the same kind. A grouped bar is drawn as a strip of the page, so a stack of them reads as one list.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>

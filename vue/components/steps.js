@@ -4,8 +4,12 @@
 // waiting — so the steps themselves are the default slot and keep the status
 // classes they were written with. The wrapper owns the step the `status`
 // prop describes: the one being worked on.
+//
+// The `active` prop says which step is being worked on, and the wrapper
+// marks that one: it is the host's own step, so the mark is put on it rather
+// than on a step the wrapper drew.
 
-import { defineComponent, h } from "vue";
+import { defineComponent, cloneVNode, h } from "vue";
 
 export const UMSteps = defineComponent({
   name: "UMSteps",
@@ -13,23 +17,41 @@ export const UMSteps = defineComponent({
   props: {
     direction: { type: String, default: "horizontal" },
     status: { type: String, default: "default" },
+    processStatus: { type: String, default: "default" },
+    active: { type: Number, default: 0 },
+    alignCenter: { type: Boolean, default: false },
+    simple: { type: Boolean, default: false },
   },
   setup(props, { slots }) {
     return () => {
       const steps = slots.default ? slots.default() : [];
+      const marked = steps.map((step, i) =>
+        props.active && i + 1 === props.active
+          ? cloneVNode(step, { class: "um-steps__item--active" })
+          : step,
+      );
+      // The step being worked on: `process-status` is Element Plus's name
+      // for it and `status` is this library's, so either one of them says it.
+      const standing = props.processStatus !== "default" ? props.processStatus : props.status;
+
       return h(
         "ol",
         {
-          class: ["um-steps", props.direction === "vertical" ? "um-steps--vertical" : null],
+          class: [
+            "um-steps",
+            props.direction === "vertical" ? "um-steps--vertical" : null,
+            props.alignCenter ? "um-steps--align-center" : null,
+            props.simple ? "um-steps--simple" : null,
+          ],
         },
         [
-          ...steps,
+          ...marked,
           h(
             "li",
             {
               class: [
                 "um-steps__item",
-                props.status !== "default" ? `um-steps__item--${props.status}` : null,
+                standing !== "default" ? `um-steps__item--${standing}` : null,
               ],
             },
             [

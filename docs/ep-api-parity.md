@@ -34,9 +34,9 @@
 
 | | 覆盖 | 改名 | 等价 | 跳过 | 差口 | 合计 |
 | --- | --- | --- | --- | --- | --- | --- |
-| 属性 | 149 | 1 | 12 | 996 | 378 | 1536 |
-| 插槽 | 27 | 0 | 0 | 14 | 165 | 206 |
-| 事件 | 25 | 0 | 0 | 81 | 22 | 128 |
+| 属性 | 240 | 1 | 12 | 996 | 287 | 1536 |
+| 插槽 | 67 | 0 | 0 | 14 | 125 | 206 |
+| 事件 | 30 | 0 | 0 | 81 | 17 | 128 |
 
 ## 逐组件
 
@@ -45,82 +45,82 @@
 | `affix` | el-affix | web-types | 6 | 1 | 0 | 0 | 5 | 0 |
 | `alert` | el-alert | web-types | 8 | 0 | 0 | 1 | 3 | 4 |
 | `anchor` | el-anchor, el-anchor-link | web-types | 0 | 0 | 0 | 0 | 0 | 0 |
-| `autocomplete` | el-autocomplete | web-types | 52 | 5 | 0 | 0 | 36 | 11 |
+| `autocomplete` | el-autocomplete | web-types | 52 | 6 | 0 | 0 | 36 | 10 |
 | `avatar` | el-avatar, el-avatar-group | web-types | 16 | 2 | 0 | 1 | 10 | 3 |
 | `backtop` | el-backtop | web-types | 4 | 1 | 0 | 0 | 2 | 1 |
 | `badge` | el-badge | web-types | 10 | 0 | 0 | 1 | 6 | 3 |
 | `border` | — | none | 0 | 0 | 0 | 0 | 0 | 0 |
 | `breadcrumb` | el-breadcrumb, el-breadcrumb-item | web-types | 4 | 1 | 0 | 0 | 3 | 0 |
-| `button` | el-button, el-button-group | web-types | 20 | 3 | 1 | 2 | 8 | 6 |
+| `button` | el-button, el-button-group | web-types | 20 | 7 | 1 | 2 | 8 | 2 |
 | `calendar` | el-calendar | web-types | 4 | 0 | 0 | 0 | 2 | 2 |
 | `card` | el-card | web-types | 7 | 0 | 0 | 0 | 4 | 3 |
 | `carousel` | el-carousel, el-carousel-item | web-types | 15 | 2 | 0 | 0 | 9 | 4 |
-| `cascader` | el-cascader | web-types | 35 | 1 | 0 | 0 | 22 | 12 |
-| `checkbox` | el-checkbox, el-checkbox-button | web-types | 19 | 6 | 0 | 0 | 11 | 2 |
-| `checkbox-group` | el-checkbox-group | web-types | 14 | 3 | 0 | 0 | 8 | 3 |
+| `cascader` | el-cascader | web-types | 35 | 2 | 0 | 0 | 22 | 11 |
+| `checkbox` | el-checkbox, el-checkbox-button | web-types | 19 | 8 | 0 | 0 | 11 | 0 |
+| `checkbox-group` | el-checkbox-group | web-types | 14 | 5 | 0 | 0 | 8 | 1 |
 | `collapse` | el-collapse, el-collapse-item | web-types | 8 | 1 | 0 | 0 | 3 | 4 |
 | `color` | — | none | 0 | 0 | 0 | 0 | 0 | 0 |
 | `color-picker` | el-color-picker | web-types | 19 | 4 | 0 | 0 | 13 | 2 |
-| `color-picker-panel` | el-color-picker-panel | web-types | 9 | 1 | 0 | 0 | 4 | 4 |
+| `color-picker-panel` | el-color-picker-panel | web-types | 9 | 2 | 0 | 0 | 4 | 3 |
 | `config-provider` | el-config-provider | web-types | 12 | 1 | 0 | 0 | 8 | 3 |
 | `container` | el-container, el-header, el-aside, el-main, el-footer | web-types | 3 | 0 | 0 | 0 | 3 | 0 |
-| `date-picker` | el-date-picker | web-types | 37 | 4 | 0 | 0 | 23 | 10 |
-| `date-picker-panel` | el-date-picker-panel | web-types | 19 | 2 | 0 | 0 | 8 | 9 |
-| `date-time-picker` | el-date-picker | web-types | 37 | 4 | 0 | 0 | 23 | 10 |
+| `date-picker` | el-date-picker | web-types | 37 | 5 | 0 | 0 | 23 | 9 |
+| `date-picker-panel` | el-date-picker-panel | web-types | 19 | 3 | 0 | 0 | 8 | 8 |
+| `date-time-picker` | el-date-picker | web-types | 37 | 5 | 0 | 0 | 23 | 9 |
 | `descriptions` | el-descriptions, el-descriptions-item | web-types | 16 | 0 | 0 | 0 | 13 | 3 |
-| `dialog` | el-dialog | web-types | 30 | 1 | 0 | 0 | 23 | 6 |
+| `dialog` | el-dialog | web-types | 30 | 7 | 0 | 0 | 23 | 0 |
 | `divider` | el-divider | web-types | 3 | 0 | 0 | 1 | 0 | 2 |
-| `drawer` | el-drawer | web-types | 24 | 3 | 0 | 0 | 17 | 4 |
-| `dropdown` | el-dropdown, el-dropdown-menu, el-dropdown-item | web-types | 27 | 1 | 0 | 0 | 19 | 7 |
+| `drawer` | el-drawer | web-types | 24 | 6 | 0 | 0 | 17 | 1 |
+| `dropdown` | el-dropdown, el-dropdown-menu, el-dropdown-item | web-types | 27 | 4 | 0 | 0 | 19 | 4 |
 | `empty` | el-empty | web-types | 3 | 0 | 0 | 0 | 3 | 0 |
-| `field` | el-form, el-form-item | web-types | 22 | 1 | 0 | 0 | 16 | 5 |
+| `field` | el-form, el-form-item | web-types | 22 | 5 | 0 | 0 | 16 | 1 |
 | `icon` | el-icon | web-types | 2 | 1 | 0 | 0 | 1 | 0 |
 | `image` | el-image, el-image-viewer | web-types | 22 | 3 | 0 | 0 | 17 | 2 |
 | `infinite-scroll` | — | none | 0 | 0 | 0 | 0 | 0 | 0 |
-| `input` | el-input, el-select, el-option, el-option-group | web-types | 75 | 4 | 0 | 0 | 54 | 17 |
-| `input-number` | el-input-number | web-types | 24 | 6 | 0 | 0 | 13 | 5 |
-| `input-otp` | el-input-otp | web-types | 13 | 3 | 0 | 0 | 6 | 4 |
-| `input-tag` | el-input-tag | web-types | 26 | 2 | 0 | 0 | 16 | 8 |
-| `layout` | el-row, el-col | web-types | 13 | 0 | 0 | 0 | 10 | 3 |
+| `input` | el-input, el-select, el-option, el-option-group | web-types | 75 | 5 | 0 | 0 | 54 | 16 |
+| `input-number` | el-input-number | web-types | 24 | 7 | 0 | 0 | 13 | 4 |
+| `input-otp` | el-input-otp | web-types | 13 | 4 | 0 | 0 | 6 | 3 |
+| `input-tag` | el-input-tag | web-types | 26 | 4 | 0 | 0 | 16 | 6 |
+| `layout` | el-row, el-col | web-types | 13 | 1 | 0 | 0 | 10 | 2 |
 | `link` | el-link | web-types | 6 | 3 | 0 | 1 | 2 | 0 |
-| `loading` | loading | declarations | 8 | 1 | 0 | 0 | 4 | 3 |
-| `mention` | el-mention | web-types | 49 | 4 | 0 | 0 | 30 | 15 |
-| `menu` | el-menu, el-sub-menu, el-menu-item, el-menu-item-group | web-types | 30 | 0 | 0 | 0 | 23 | 7 |
-| `message` | message | declarations | 15 | 0 | 0 | 1 | 11 | 3 |
-| `message-box` | message-box | declarations | 43 | 3 | 0 | 0 | 16 | 24 |
-| `notification` | notification | declarations | 17 | 1 | 0 | 1 | 14 | 1 |
+| `loading` | loading | declarations | 8 | 3 | 0 | 0 | 4 | 1 |
+| `mention` | el-mention | web-types | 49 | 6 | 0 | 0 | 30 | 13 |
+| `menu` | el-menu, el-sub-menu, el-menu-item, el-menu-item-group | web-types | 30 | 1 | 0 | 0 | 23 | 6 |
+| `message` | message | declarations | 15 | 3 | 0 | 1 | 11 | 0 |
+| `message-box` | message-box | declarations | 43 | 13 | 0 | 0 | 16 | 14 |
+| `notification` | notification | declarations | 17 | 2 | 0 | 1 | 14 | 0 |
 | `page-header` | el-page-header | web-types | 3 | 1 | 0 | 0 | 2 | 0 |
-| `pagination` | el-pagination | web-types | 22 | 2 | 0 | 0 | 17 | 3 |
-| `popconfirm` | el-popconfirm | web-types | 36 | 2 | 0 | 0 | 26 | 8 |
-| `popover` | el-popover | web-types | 30 | 3 | 0 | 0 | 22 | 5 |
+| `pagination` | el-pagination | web-types | 22 | 4 | 0 | 0 | 17 | 1 |
+| `popconfirm` | el-popconfirm | web-types | 36 | 8 | 0 | 0 | 26 | 2 |
+| `popover` | el-popover | web-types | 30 | 6 | 0 | 0 | 22 | 2 |
 | `progress` | el-progress | web-types | 14 | 0 | 0 | 1 | 7 | 6 |
-| `radio` | el-radio, el-radio-button | web-types | 7 | 4 | 0 | 0 | 1 | 2 |
-| `radio-group` | el-radio-group | web-types | 13 | 4 | 0 | 0 | 6 | 3 |
-| `rate` | el-rate | web-types | 22 | 4 | 0 | 0 | 14 | 4 |
+| `radio` | el-radio, el-radio-button | web-types | 7 | 6 | 0 | 0 | 1 | 0 |
+| `radio-group` | el-radio-group | web-types | 13 | 6 | 0 | 0 | 6 | 1 |
+| `rate` | el-rate | web-types | 22 | 5 | 0 | 0 | 14 | 3 |
 | `result` | el-result | web-types | 3 | 1 | 0 | 0 | 2 | 0 |
 | `scrollbar` | el-scrollbar | web-types | 18 | 1 | 0 | 0 | 14 | 3 |
 | `segmented` | el-segmented | web-types | 10 | 3 | 0 | 0 | 5 | 2 |
 | `skeleton` | el-skeleton, el-skeleton-item | web-types | 6 | 1 | 0 | 0 | 3 | 2 |
-| `slider` | el-slider | web-types | 25 | 5 | 0 | 0 | 13 | 7 |
+| `slider` | el-slider | web-types | 25 | 6 | 0 | 0 | 13 | 6 |
 | `space` | el-space | web-types | 10 | 2 | 0 | 0 | 6 | 2 |
 | `splitter` | el-splitter, el-splitter-panel | web-types | 7 | 2 | 0 | 0 | 4 | 1 |
 | `statistic` | el-statistic, el-countdown | web-types | 0 | 0 | 0 | 0 | 0 | 0 |
-| `steps` | el-steps, el-step | web-types | 11 | 2 | 0 | 0 | 4 | 5 |
-| `switch` | el-switch | web-types | 24 | 3 | 0 | 0 | 18 | 3 |
+| `steps` | el-steps, el-step | web-types | 11 | 6 | 0 | 0 | 4 | 1 |
+| `switch` | el-switch | web-types | 24 | 6 | 0 | 0 | 18 | 0 |
 | `table` | el-table, el-table-column | web-types | 72 | 0 | 0 | 0 | 53 | 19 |
-| `tabs` | el-tabs, el-tab-pane | web-types | 14 | 2 | 0 | 0 | 5 | 7 |
+| `tabs` | el-tabs, el-tab-pane | web-types | 14 | 5 | 0 | 0 | 5 | 4 |
 | `tag` | el-tag, el-check-tag | web-types | 10 | 0 | 0 | 1 | 3 | 6 |
-| `text` | el-text | web-types | 5 | 3 | 0 | 0 | 0 | 2 |
-| `time-picker` | el-time-picker | web-types | 34 | 3 | 0 | 0 | 25 | 6 |
+| `text` | el-text | web-types | 5 | 5 | 0 | 0 | 0 | 0 |
+| `time-picker` | el-time-picker | web-types | 34 | 4 | 0 | 0 | 25 | 5 |
 | `time-select` | el-time-select | web-types | 21 | 6 | 0 | 0 | 11 | 4 |
 | `timeline` | el-timeline, el-timeline-item | web-types | 11 | 1 | 0 | 1 | 3 | 6 |
-| `tooltip` | el-tooltip | web-types | 27 | 1 | 0 | 0 | 21 | 5 |
+| `tooltip` | el-tooltip | web-types | 27 | 5 | 0 | 0 | 21 | 1 |
 | `tour` | el-tour, el-tour-step | web-types | 0 | 0 | 0 | 0 | 0 | 0 |
 | `transfer` | el-transfer | web-types | 15 | 0 | 0 | 0 | 12 | 3 |
 | `tree` | el-tree | web-types | 25 | 0 | 0 | 0 | 18 | 7 |
-| `tree-select` | el-select, el-tree | web-types | 76 | 4 | 0 | 0 | 53 | 19 |
+| `tree-select` | el-select, el-tree | web-types | 76 | 5 | 0 | 0 | 53 | 18 |
 | `typography` | — | none | 0 | 0 | 0 | 0 | 0 | 0 |
-| `upload` | el-upload | web-types | 27 | 4 | 0 | 0 | 21 | 2 |
+| `upload` | el-upload | web-types | 27 | 5 | 0 | 0 | 21 | 1 |
 | `virtual-select` | el-virtualized-select | web-types | 55 | 3 | 0 | 0 | 37 | 15 |
 | `virtual-table` | el-table-v2 | web-types | 31 | 2 | 0 | 0 | 27 | 2 |
 | `virtual-tree` | el-tree-v2 | web-types | 17 | 1 | 0 | 0 | 12 | 4 |
@@ -151,7 +151,6 @@
 - prop · `fit-input-width` —— whether the width of the dropdown is the same as the input
 - prop · `form` —— same as `form` in native input
 - prop · `hide-loading` —— whether to hide the loading icon in remote search
-- prop · `readonly` —— same as `readonly` in native input
 - prop · `show-arrow` —— whether the dropdown has an arrow
 - prop · `show-password` —— whether to show toggleable password input
 - prop · `show-word-limit` —— whether show word count, only works when `type` is 'text' or 'textarea'
@@ -162,9 +161,7 @@
 - slot · `footer`
 - slot · `header`
 - slot · `loading`
-- slot · `prefix`
 - slot · `prepend`
-- slot · `suffix`
 - event · `clear`
 - event · `select`
 
@@ -195,19 +192,13 @@
 ### `button`
 
 - prop · `bg` —— determine whether the text button background color is always on
-- prop · `circle` —— determine whether it's a circle button
 - prop · `dark` —— dark mode, which automatically converts `color` to dark mode colors
-- prop · `dashed` —— determine whether it's a dashed button
-- prop · `link` —— determine whether it's a link button
-- prop · `round` —— determine whether it's a round button
-- slot · `default`
 - slot · `loading`
 
 ### `calendar`
 
 - prop · `model-value` —— binding value
 - prop · `range` —— time range, including start time and end time. Start time must be start day of week, end time must be end day of week, the time span cannot exceed two months.
-- slot · `date-cell`
 - slot · `header`
 
 ### `card`
@@ -230,7 +221,6 @@
 
 - prop · `clearable` —— whether selected value can be cleared
 - prop · `collapse-tags` —— whether to collapse tags in multiple selection mode
-- prop · `disabled` —— whether Cascader is disabled
 - prop · `effect` —— tooltip theme, built-in theme: `dark` / `light`
 - prop · `filterable` —— whether the options can be searched
 - prop · `fit-input-width` —— whether the width of the suggestion panel is the same as the input, if the value is `number`, then the width is fixed
@@ -249,17 +239,9 @@
 - slot · `tag`
 - event · `clear`
 
-### `checkbox`
-
-- prop · `border` —— whether to add a border around Checkbox
-- prop · `size` —— size of the Checkbox
-- slot · `default`
-
 ### `checkbox-group`
 
 - prop · `fill` —— border and background color when button is active
-- prop · `size` —— size of checkbox
-- prop · `type` —— component type to render options (e.g. `'button'`)
 - slot · `default`
 
 ### `collapse`
@@ -278,10 +260,8 @@
 ### `color-picker-panel`
 
 - prop · `border` —— whether the color picker panel is bordered
-- prop · `disabled` —— whether to disable the color picker
 - prop · `model-value` —— binding value
 - prop · `show-alpha` —— whether to display the alpha slider
-- slot · `footer`
 
 ### `config-provider`
 
@@ -295,7 +275,6 @@
 - prop · `clearable` —— whether to show clear button
 - prop · `editable` —— whether the input is editable
 - prop · `placeholder` —— placeholder in non-range mode
-- prop · `readonly` —— whether DatePicker is read only
 - prop · `show-confirm` —— whether to show the confirm button
 - prop · `show-footer` —— whether to show footer where the date picker is one ^[enum]`'dates' | 'months' | 'years' | 'quarters'`
 - prop · `show-week-number` —— show the week number besides the week
@@ -314,7 +293,6 @@
 - prop · `clearable` —— whether to show clear button
 - prop · `editable` —— whether the input is editable
 - prop · `model-value` —— binding value, if it is an `range` picker, the length of the array should be 2
-- prop · `show-confirm` —— whether to show the confirm button
 - prop · `show-week-number` —— show the week number besides the week
 - prop · `single-panel` —— show only one panel in range-picker
 - prop · `type` —— type of the picker. `quarter`, `quarters`, and `quarterrange` are supported since
@@ -331,7 +309,6 @@
 - prop · `clearable` —— whether to show clear button
 - prop · `editable` —— whether the input is editable
 - prop · `placeholder` —— placeholder in non-range mode
-- prop · `readonly` —— whether DatePicker is read only
 - prop · `show-confirm` —— whether to show the confirm button
 - prop · `show-footer` —— whether to show footer where the date picker is one ^[enum]`'dates' | 'months' | 'years' | 'quarters'`
 - prop · `show-week-number` —— show the week number besides the week
@@ -354,19 +331,6 @@
 - slot · `label`
 - slot · `title`
 
-### `dialog`
-
-- prop · `align-center` —— whether to align the dialog both horizontally and vertically
-- prop · `center` —— whether to align the header and footer in center
-- prop · `fullscreen` —— whether the Dialog takes up full screen
-- prop · `modal` —— whether a mask is displayed
-- prop · `model-value` —— visibility of Dialog
-- prop · `show-close` —— whether to show a close button
-- slot · `footer`
-- slot · `header`
-- event · `close`
-- event · `open`
-
 ### `divider`
 
 - prop · `border-style` —— Set the style of divider
@@ -376,23 +340,14 @@
 ### `drawer`
 
 - prop · `modal` —— Should show shadowing layer
-- prop · `model-value` —— Should Drawer be displayed
-- prop · `show-close` —— Should show close button at the top right of Drawer
-- prop · `with-header` —— Flag that controls the header section's existence, default to true, when withHeader set to false, both `title attribute` and `title slot` won't work
-- slot · `header`
 - event · `open`
 
 ### `dropdown`
 
-- prop · `disabled` —— whether to disable
-- prop · `divided` —— whether a divider is displayed
 - prop · `effect` —— Tooltip theme, built-in theme: `dark` / `light`
 - prop · `show-arrow` —— whether the tooltip content has an arrow
-- prop · `size` —— menu size, also works on the split button
 - prop · `split-button` —— whether a button group is displayed
 - prop · `type` —— menu button type, refer to `Button` Component, only works when `split-button` is true
-- slot · `default`
-- slot · `dropdown`
 
 ### `empty`
 
@@ -402,17 +357,9 @@
 
 ### `field`
 
-- prop · `disabled` —— Whether to disable all components in this form. Before , if set to `true`, it will override the `disabled` prop of the inner component. After , the configuration of the internal components takes precedence.
 - prop · `hide-required-asterisk` —— Whether to hide required fields should have a red asterisk (star) beside their labels.
-- prop · `inline` —— Whether the form is inline.
-- prop · `size` —— Control the size of components in this form.
-- prop · `validate-status` —— Validation state of formItem.
 - slot · `default`
 - slot · `error`
-
-### `icon`
-
-- slot · `default`
 
 ### `image`
 
@@ -440,7 +387,6 @@
 - prop · `show-arrow` —— whether the dropdown has an arrow
 - prop · `show-password` —— whether to show toggleable password input
 - prop · `show-word-limit` —— whether show word count, only works when `type` is 'text' or 'textarea'
-- prop · `size` —— size of Input, works when `type` is not 'textarea'
 - prop · `tag-effect` —— tag effect
 - prop · `tag-type` —— tag type
 - prop · `type` —— type of input, see more in [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types)
@@ -461,45 +407,33 @@
 
 - prop · `align` —— alignment for the inner input text
 - prop · `placeholder` —— same as `placeholder` in native input
-- prop · `readonly` —— same as `readonly` in native input
 - prop · `size` —— size of the component
 - prop · `step-strictly` —— whether input value can only be multiple of step
-- slot · `prefix`
-- slot · `suffix`
 
 ### `input-otp`
 
 - prop · `mask` —— Whether to enable password mode
 - prop · `model-value` —— The value of the OTP fields. Since numbers must not have leading zeros, `modelValue` is allowed to be a number only during initialization.
-- prop · `readonly` —— Same as `readonly` in native input
 - prop · `type` —— The type of the OTP fields
-- slot · `separator`
 
 ### `input-tag`
 
 - prop · `clearable` —— whether to show clear button
 - prop · `collapse-tags` —— whether to collapse tags to a text when multiple selecting
-- prop · `disabled` —— whether to disable input-tag
 - prop · `effect` —— tooltip theme, built-in theme: `dark` / `light`
 - prop · `model-value` —— binding value
-- prop · `readonly` —— same as `readonly` in native input
 - prop · `tag-effect` —— tag effect
 - prop · `tag-type` —— tag type
-- slot · `prefix`
-- slot · `suffix`
 - slot · `tag`
 - event · `clear`
 
 ### `layout`
 
-- prop · `align` —— vertical alignment of flex layout
 - prop · `pull` —— number of columns that grid moves to the left
 - prop · `push` —— number of columns that grid moves to the right
 
 ### `loading`
 
-- prop · `closed`
-- prop · `fullscreen` —— same as the `fullscreen` modifier of `v-loading`
 - prop · `lock` —— same as the `lock` modifier of `v-loading`
 
 ### `mention`
@@ -507,12 +441,10 @@
 - prop · `autosize` —— whether textarea has an adaptive height, only works when `type` is 'textarea'. Can accept an object, e.g. `{ minRows: 2, maxRows: 6 }`
 - prop · `check-is-whole` —— when backspace is pressed to delete, check if the mention is a whole
 - prop · `clearable` —— whether to show clear button, only works when `type` is not 'textarea'
-- prop · `disabled` —— whether Input is disabled
 - prop · `filter-option` —— customize filter option logic
 - prop · `form` —— same as `form` in native input
 - prop · `loading` —— whether the dropdown panel of mentions is in a loading state
 - prop · `prefix` —— prefix character to trigger mentions. The string length must be exactly 1
-- prop · `readonly` —— same as `readonly` in native input
 - prop · `show-arrow` —— whether the dropdown panel has an arrow
 - prop · `show-password` —— whether to show toggleable password input
 - prop · `show-word-limit` —— whether show word count, only works when `type` is 'text' or 'textarea'
@@ -532,34 +464,17 @@
 - prop · `disabled` —— whether the sub-menu is disabled
 - prop · `ellipsis` —— whether the menu is ellipsis (available only in horizontal mode)
 - prop · `menu-trigger` —— how sub-menus are triggered, only works when `mode` is 'horizontal'
-- prop · `mode` —— menu display mode
 - prop · `popper-effect` —— Tooltip theme, built-in theme: `dark` / `light` when menu is collapsed
 - prop · `unique-opened` —— whether only one sub-menu can be active
-- slot · `default`
-- slot · `title`
-- event · `close`
-- event · `open`
-- event · `select`
-
-### `message`
-
-- prop · `grouping` —— merge messages with the same content, type of VNode message is not supported
-- prop · `plain` —— whether message is plain
-- prop · `show-close` —— whether to show a close button
 
 ### `message-box`
 
-- prop · `box-type`
-- prop · `button-size`
 - prop · `callback`
 - prop · `cancel-button-class`
 - prop · `cancel-button-loading-icon`
-- prop · `cancel-button-type`
-- prop · `center`
 - prop · `close-on-hash-change`
 - prop · `confirm-button-class`
 - prop · `confirm-button-loading-icon`
-- prop · `confirm-button-type`
 - prop · `custom-style`
 - prop · `distinguish-cancel-and-close`
 - prop · `input-error-message`
@@ -568,52 +483,21 @@
 - prop · `input-type`
 - prop · `input-validator`
 - prop · `input-value`
-- prop · `modal`
-- prop · `round-button`
-- prop · `show-cancel-button`
-- prop · `show-confirm-button`
-- prop · `show-input`
-
-### `notification`
-
-- prop · `show-close` —— whether to show a close button
-
-### `page-header`
-
-- slot · `breadcrumb`
-- slot · `content`
-- slot · `default`
-- slot · `extra`
 
 ### `pagination`
 
-- prop · `disabled` —— whether Pagination is disabled
-- prop · `hide-on-single-page` —— whether to hide when there's only one page
 - prop · `layout` —— layout of Pagination, elements separated with a comma
 - slot · `default`
 
 ### `popconfirm`
 
-- prop · `cancel-button-type` —— Cancel button type
-- prop · `confirm-button-type` —— Confirm button type
-- prop · `disabled` —— Whether Tooltip is disabled
 - prop · `effect` —— Tooltip theme, built-in theme: `dark` / `light`
-- prop · `enterable` —— Whether the mouse can enter the tooltip
 - prop · `hide-icon` —— is hide Icon
-- prop · `show-arrow` —— Whether the tooltip content has an arrow
-- prop · `visible` —— Visibility of Tooltip
-- slot · `actions`
-- slot · `reference`
 
 ### `popover`
 
-- prop · `disabled` —— whether Popover is disabled
 - prop · `effect` —— Tooltip theme, built-in theme: `dark` / `light`
-- prop · `enterable` —— Whether the mouse can enter the tooltip
 - prop · `show-arrow` —— whether a tooltip arrow is displayed or not. For more info, please refer to [ElPopper](https://github.com/element-plus/element-plus/tree/dev/packages/components/popper)
-- prop · `visible` —— whether popover is visible
-- slot · `default`
-- slot · `reference`
 
 ### `progress`
 
@@ -625,24 +509,15 @@
 - prop · `text-inside` —— whether to place the percentage inside progress bar, only works when `type` is 'line'
 - slot · `default`
 
-### `radio`
-
-- prop · `border` —— whether to add a border around Radio
-- prop · `size` —— size of the Radio
-- slot · `default`
-
 ### `radio-group`
 
 - prop · `fill` —— border and background color when button is active
-- prop · `size` —— the size of radio buttons or bordered radios
-- prop · `type` —— component type to render options (e.g. `'button'`)
 - slot · `default`
 
 ### `rate`
 
 - prop · `allow-half` —— whether picking half start is allowed
 - prop · `clearable` —— whether value can be reset to `0`
-- prop · `show-score` —— whether to display current score. show-score and show-text cannot be true at the same time
 - prop · `show-text` —— whether to display texts
 
 ### `result`
@@ -674,7 +549,6 @@
 - prop · `show-stops` —— whether to display breakpoints
 - prop · `show-tooltip` —— whether to display tooltip value
 - prop · `size` —— size of the slider wrapper, will not work in vertical mode
-- prop · `vertical` —— vertical mode
 
 ### `space`
 
@@ -694,23 +568,11 @@
 
 ### `steps`
 
-- prop · `active` —— current activation step
-- prop · `align-center` —— center title and description
 - prop · `finish-status` —— status of end step
-- prop · `process-status` —— status of current step
-- prop · `simple` —— whether to apply simple theme
-- slot · `default`
-- slot · `description`
-- slot · `title`
 
 ### `switch`
 
-- prop · `inline-prompt` —— whether icon or text is displayed inside dot, only the first character will be rendered for text
-- prop · `loading` —— whether Switch is in loading state
-- prop · `size` —— size of Switch
-- slot · `active`
 - slot · `active-action`
-- slot · `inactive`
 - slot · `inactive-action`
 
 ### `table`
@@ -746,11 +608,6 @@
 - prop · `closable` —— whether Tab is closable
 - prop · `disabled` —— whether Tab is disabled
 - prop · `editable` —— whether Tab is addable and closable
-- prop · `model-value` —— binding value, name of the selected tab, the default value is the name of first tab
-- prop · `stretch` —— whether width of tab automatically fits its container
-- prop · `tab-position` —— position of tabs
-- slot · `default`
-- slot · `label`
 
 ### `tag`
 
@@ -763,11 +620,6 @@
 - slot · `default`
 - event · `close`
 
-### `text`
-
-- prop · `line-clamp` —— maximum lines
-- prop · `truncated` —— render ellipsis
-
 ### `time-picker`
 
 - prop · `arrow-control` —— whether to pick time using arrow buttons
@@ -775,7 +627,6 @@
 - prop · `editable` —— whether the input is editable
 - prop · `is-range` —— whether to pick a time range
 - prop · `placeholder` —— placeholder in non-range mode
-- prop · `readonly` —— whether TimePicker is read only
 
 ### `time-select`
 
@@ -797,12 +648,7 @@
 
 ### `tooltip`
 
-- prop · `disabled` —— Whether Tooltip is disabled
 - prop · `effect` —— Tooltip theme, built-in theme: `dark` / `light`
-- prop · `enterable` —— Whether the mouse can enter the tooltip
-- prop · `show-arrow` —— Whether the tooltip content has an arrow
-- prop · `visible` —— Visibility of Tooltip
-- slot · `default`
 
 ### `tour`
 
@@ -815,9 +661,7 @@
 - prop · `virtual-scroll` —— whether to enable virtual scrolling
 - slot · `default`
 - slot · `left-empty`
-- slot · `left-footer`
 - slot · `right-empty`
-- slot · `right-footer`
 
 ### `tree`
 
@@ -850,7 +694,6 @@
 - prop · `placeholder` —— placeholder, default is 'Select'
 - prop · `render-after-expand` —— whether to render child nodes only after a parent node is expanded for the first time
 - prop · `show-arrow` —— whether the dropdown has an arrow
-- prop · `show-checkbox` —— whether node is selectable
 - prop · `tag-effect` —— tag effect
 - prop · `tag-type` —— tag type
 - slot · `default`
@@ -867,10 +710,7 @@
 ### `upload`
 
 - prop · `list-type` —— type of file list.
-- prop · `show-file-list` —— whether to show the uploaded file list.
-- slot · `default`
 - slot · `file`
-- slot · `tip`
 
 ### `virtual-select`
 

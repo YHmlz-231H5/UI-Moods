@@ -107,6 +107,16 @@
 }
 .um-input-tag__input::placeholder { color: var(--um-text-placeholder); }
 
+/* The prefix and the suffix sit at the two ends of the field, so a unit can be
+   written next to the tags. They are text, so they take the muted role. */
+.um-input-tag__prefix,
+.um-input-tag__suffix {
+  display: inline-flex;
+  align-items: center;
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+
 /* The ring goes on the field, because the field is what the reader is typing
    in — the input is inside it, not beside it. */
 .um-input-tag:has(.um-input-tag__input:focus-visible) {

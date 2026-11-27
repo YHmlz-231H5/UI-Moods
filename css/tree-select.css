@@ -187,6 +187,15 @@
   font-size: var(--um-font-size-title);
 }
 
+/* The checkbox run swaps the circle for the square the checkbox component
+   draws, so a tree of boxes reads as boxes rather than as a radio list. */
+.um-tree-select--show-checkbox .um-tree-select__dot {
+  border-radius: var(--um-radius-small);
+}
+.um-tree-select--show-checkbox .um-tree-select__dot::after {
+  border-radius: var(--um-radius-small);
+}
+
 /* ============================================================================
    Quality hooks
    ----------------------------------------------------------------------------

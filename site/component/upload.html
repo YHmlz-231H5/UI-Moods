@@ -278,11 +278,13 @@
       <tr><td><code>um-upload__name</code></td><td>Name</td></tr>
       <tr><td><code>um-upload__size</code></td><td>Size</td></tr>
       <tr><td><code>um-upload__status</code></td><td>Status</td></tr>
+      <tr><td><code>um-upload__tip</code></td><td>Tip</td></tr>
       <tr><td><code>:disabled</code></td><td>Disabled</td></tr>
       <tr><td><code>.um-upload__item--uploading</code></td><td>Uploading</td></tr>
       <tr><td><code>.um-upload__item--done</code></td><td>Done</td></tr>
       <tr><td><code>.um-upload__item--error</code></td><td>Error</td></tr>
       <tr><td><code>:focus-visible</code></td><td>Focus visible</td></tr>
+      <tr><td><code>.um-upload--show-file-list</code></td><td>Show file list</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -296,6 +298,7 @@
       <tr><td><span class="api__name"><code>layout</code></span></td><td><code>enum = list | text</code></td><td><code>list</code></td><td>How the chosen files are shown. The list layout is the base class on its own; the text layout adds um-upload--text.</td></tr>
       <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The size of the trigger and of the file names.</td></tr>
       <tr><td><span class="api__name"><code>status</code></span></td><td><code>enum = default | uploading | done | error</code></td><td><code>default</code></td><td>Where one file has got to. It is a class on the item: no class is the waiting state, and the other three are um-upload__item--uploading, um-upload__item--done and um-upload__item--error.</td></tr>
+      <tr><td><span class="api__name"><code>show-file-list</code></span></td><td><code>boolean</code></td><td><code>true</code></td><td>Whether the chosen files are shown under the trigger. The list is there unless the host says otherwise.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>
@@ -303,7 +306,9 @@
       <thead><tr><th>Name</th><th>Description</th></tr></thead>
       <tbody>
       <tr><td><span class="api__name"><code>trigger</code></span></td><td>The text on the trigger. The button is drawn, so a trigger with no text needs an accessible name of its own.</td></tr>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>The text on the trigger. It is the name Element Plus gives the same content.</td></tr>
       <tr><td><span class="api__name"><code>list</code></span></td><td>The chosen files, as a list of items.</td></tr>
+      <tr><td><span class="api__name"><code>tip</code></span></td><td>The line of help under the list of files.</td></tr>
       </tbody>
     </table>
       <h2>Events</h2>

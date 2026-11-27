@@ -209,12 +209,16 @@
       <thead><tr><th>Class</th><th>Meaning</th></tr></thead>
       <tbody>
       <tr><td><code>um-checkbox</code></td><td>The base class. Every instance carries it.</td></tr>
+      <tr><td><code>um-checkbox--sm</code></td><td>Size: sm</td></tr>
+      <tr><td><code>um-checkbox--md</code></td><td>Size: md</td></tr>
+      <tr><td><code>um-checkbox--lg</code></td><td>Size: lg</td></tr>
       <tr><td><code>um-checkbox__input</code></td><td>Input</td></tr>
       <tr><td><code>um-checkbox__box</code></td><td>Box</td></tr>
       <tr><td><code>um-checkbox__label</code></td><td>Label</td></tr>
       <tr><td><code>:checked</code></td><td>Checked</td></tr>
       <tr><td><code>:indeterminate</code></td><td>Indeterminate</td></tr>
       <tr><td><code>:disabled</code></td><td>Disabled</td></tr>
+      <tr><td><code>.um-checkbox--border</code></td><td>Bordered</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -227,6 +231,8 @@
       <tr><td><span class="api__name"><code>name</code></span></td><td><code>string</code></td><td>—</td><td>The name the value is submitted under.</td></tr>
       <tr><td><span class="api__name"><code>value</code></span></td><td><code>string</code></td><td>—</td><td>The value submitted while the box is ticked.</td></tr>
       <tr><td><span class="api__name"><code>model-value</code></span></td><td><code>boolean</code></td><td>—</td><td>Whether the box is ticked, bound with v-model in Vue. Leave it out and the `checked` prop is the state; bind it and the box answers to the binding. Inside a checkbox group the group decides instead.</td></tr>
+      <tr><td><span class="api__name"><code>border</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Puts a frame around the box and its text, so the two read as one chip.</td></tr>
+      <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The size of the box and its text. The medium one is the base class on its own.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>
@@ -234,6 +240,7 @@
       <thead><tr><th>Name</th><th>Description</th></tr></thead>
       <tbody>
       <tr><td><span class="api__name"><code>label</code></span></td><td>The text beside the box.</td></tr>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>The text beside the box. It is the name Element Plus gives the same content.</td></tr>
       </tbody>
     </table>
       <h2>Events</h2>

@@ -86,3 +86,21 @@
 @media (prefers-reduced-motion: no-preference) {
   .um-loading__spinner { animation: um-spin 0.7s linear infinite; }
 }
+
+/* A loading that is over is not on the page. The class is written with the
+   base class beside it, because the base class says `display: inline-flex`
+   and would otherwise win. */
+.um-loading.um-loading--closed {
+  display: none;
+}
+
+/* A fullscreen loading covers the whole viewport, whatever shape it is. The
+   overlay already does this, so the class matters for the ring on its own and
+   for the ring with a caption. */
+.um-loading.um-loading--fullscreen {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  align-items: center;
+  justify-content: center;
+}

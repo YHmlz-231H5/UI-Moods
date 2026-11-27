@@ -89,6 +89,14 @@
       "type": "string",
       "description": "Which entry is the current one. It is the um-menu__active class on that entry's item.",
       "descriptionZh": "当前是哪一个条目。它是那个条目的 item 上的 um-menu__active 类。"
+    },
+    {
+      "name": "mode",
+      "type": "enum",
+      "values": ["vertical", "horizontal"],
+      "default": "vertical",
+      "description": "Which way the entries run. This is Element Plus's name for the `direction` prop; either one of them lays the menu out.",
+      "descriptionZh": "菜单往哪个方向排。这是 Element Plus 对 `direction` 属性的叫法,两个都能决定菜单怎么排。"
     }
   ],
   "slots": [
@@ -96,9 +104,35 @@
       "name": "icon",
       "description": "The glyph in front of an entry. It goes inside the icon slot, which is empty by default.",
       "descriptionZh": "条目前面的图标,放在图标位里。图标位默认是空的。"
+    },
+    {
+      "name": "default",
+      "description": "The entries of the menu.",
+      "descriptionZh": "菜单的条目。"
+    },
+    {
+      "name": "title",
+      "description": "The title of the group. It goes in the group's summary, beside the marker.",
+      "descriptionZh": "分组的标题。它放在分组的 summary 里,紧挨着标记。"
     }
   ],
-  "events": [],
+  "events": [
+    {
+      "name": "open",
+      "description": "Fires when a group opens. It is the browser's own toggle event on the group's <details>, caught on the way down.",
+      "descriptionZh": "某个分组展开时触发。这是分组那个 <details> 上的浏览器原生 toggle 事件,在向下传播的路上被接住。"
+    },
+    {
+      "name": "close",
+      "description": "Fires when a group closes. It is the browser's own toggle event on the group's <details>, caught on the way down.",
+      "descriptionZh": "某个分组收起时触发。这是分组那个 <details> 上的浏览器原生 toggle 事件,在向下传播的路上被接住。"
+    },
+    {
+      "name": "select",
+      "description": "Fires when an entry is pressed. It carries the text of the entry and the event itself.",
+      "descriptionZh": "某个条目被按下时触发。它带着这个条目的文字和事件本身。"
+    }
+  ],
   "a11y": {
     "role": "list",
     "keyboard": ["Tab", "Enter", "Space"],

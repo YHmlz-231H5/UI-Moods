@@ -122,6 +122,23 @@
   font-size: var(--um-font-size-caption);
 }
 
+/* A link that cannot be pressed says so the way a disabled button does: the
+   flat control surface and the derived disabled colour, and the pointer is
+   taken away so the link cannot be followed either. */
+.um-pagination__link[aria-disabled="true"] {
+  border-color: var(--um-border-base);
+  background: var(--um-surface-control);
+  color: var(--um-text-disabled);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* A pager with a single page has nothing to page through, so it is not on the
+   page at all. */
+.um-pagination.um-pagination--hidden {
+  display: none;
+}
+
 /* ============================================================================
    Quality hooks
    ----------------------------------------------------------------------------

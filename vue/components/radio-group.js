@@ -32,6 +32,8 @@ export const UMRadioGroup = defineComponent({
     direction: { type: String, default: "stacked" },
     label: { type: String, default: "" },
     modelValue: { type: String, default: undefined },
+    size: { type: String, default: "md" },
+    type: { type: String, default: "radio" },
   },
   emits: ["change", "update:modelValue"],
   setup(props, { slots, emit }) {
@@ -96,6 +98,10 @@ export const UMRadioGroup = defineComponent({
           class: [
             "um-radio-group",
             props.direction === "inline" ? "um-radio-group--inline" : null,
+            // The medium size is the base class itself, so it needs no
+            // modifier — a class the stylesheet does not have paints nothing.
+            props.size !== "md" ? `um-radio-group--${props.size}` : null,
+            props.type === "button" ? "um-radio-group--button" : null,
           ],
         },
         [

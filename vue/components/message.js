@@ -20,6 +20,9 @@ export const UMMessage = defineComponent({
     variant: { type: String, default: "info" },
     size: { type: String, default: "md" },
     closable: { type: Boolean, default: false },
+    showClose: { type: Boolean, default: false },
+    plain: { type: Boolean, default: false },
+    grouping: { type: Boolean, default: false },
   },
   setup(props, { slots }) {
     return () =>
@@ -30,6 +33,8 @@ export const UMMessage = defineComponent({
             "um-message",
             VARIANTS.includes(props.variant) ? `um-message--${props.variant}` : null,
             sizeClass(props.size),
+            props.plain ? "um-message--plain" : null,
+            props.grouping ? "um-message--grouping" : null,
           ],
         },
         [
@@ -37,7 +42,7 @@ export const UMMessage = defineComponent({
           // from the reader.
           h("span", { class: "um-message__icon", "aria-hidden": "true" }),
           h("div", { class: "um-message__content" }, slots.default ? slots.default() : []),
-          props.closable
+          props.closable || props.showClose
             ? h("button", {
                 class: "um-message__close",
                 type: "button",

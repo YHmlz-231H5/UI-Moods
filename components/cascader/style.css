@@ -121,3 +121,12 @@
 .um-cascader--lg .um-cascader__option {
   font-size: var(--um-font-size-title);
 }
+
+/* A disabled cascader cannot be opened, so the pointer is refused and the text
+   takes the derived disabled colour, the way every other disabled control in
+   the library dims. */
+.um-cascader--disabled { pointer-events: none; }
+.um-cascader--disabled .um-cascader__option {
+  color: var(--um-text-disabled);
+  cursor: not-allowed;
+}

@@ -19,6 +19,7 @@ export const UMCascader = defineComponent({
     layout: { type: String, default: "inline" },
     size: { type: String, default: "md" },
     label: { type: String, default: "" },
+    disabled: { type: Boolean, default: false },
   },
   emits: ["toggle"],
   setup(props, { slots, emit }) {
@@ -34,7 +35,11 @@ export const UMCascader = defineComponent({
               : props.size === "lg"
                 ? "um-cascader--lg"
                 : null,
+            props.disabled ? "um-cascader--disabled" : null,
           ],
+          // A level is a disclosure rather than a form control, so it cannot
+          // carry the disabled attribute itself.
+          "aria-disabled": props.disabled ? "true" : undefined,
         },
         [
           h(

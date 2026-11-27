@@ -27,7 +27,8 @@
     { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "Every box goes inert. They use the real disabled attribute, so they leave the tab order." }
   ],
   "parts": [
-    { "id": "field", "name": "Field", "nameZh": "输入格", "note": "One character box. It is a real <input maxlength=\"1\">, so the browser validates it, the keyboard works in it and the screen reader announces it as a text field." }
+    { "id": "field", "name": "Field", "nameZh": "输入格", "note": "One character box. It is a real <input maxlength=\"1\">, so the browser validates it, the keyboard works in it and the screen reader announces it as a text field." },
+    { "id": "separator", "name": "Separator", "nameZh": "分隔符", "note": "The mark between two boxes, so a long code can be read in groups." }
   ],
   "props": [
     { "name": "value", "type": "string", "description": "The code, as one string. Each character goes into the box at that position; a class cannot carry a code.", "descriptionZh": "验证码,写成一个字符串。每个字符落进对应位置的那个格子里 —— 类带不了验证码。" },
@@ -36,9 +37,12 @@
     { "name": "label", "type": "string", "default": "One-time code", "description": "The accessible name of the row. It becomes the group's aria-label, because the boxes are named by their position and the row itself needs a name of its own.", "descriptionZh": "这一排的可访问名称。它会变成这个组的 aria-label,因为各个格子是按位置命名的,这一排自己还需要一个名字。" },
     { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes every box inert. It uses the real disabled attribute, so they leave the tab order.", "descriptionZh": "让每个格子都不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" },
     { "name": "variant", "type": "enum", "values": ["boxed", "underline"], "default": "boxed", "description": "The shape of the boxes. The boxed run is the base class on its own; the underline run adds um-input-otp--underline.", "descriptionZh": "格子的形状。方框这一跑就是只写基础类;下划线这一跑再加上 um-input-otp--underline。" },
-    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The size of each box.", "descriptionZh": "每个格子的尺寸。" }
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The size of each box.", "descriptionZh": "每个格子的尺寸。" },
+    { "name": "readonly", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Keeps the code visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only box — it is not a state it measures.", "descriptionZh": "验证码仍然可见,但不能编辑。它是原生 readonly 属性,浏览器会拒绝编辑。库不会给只读格子单独配色 —— 这不是它测量过的状态。" }
   ],
-  "slots": [],
+  "slots": [
+    { "name": "separator", "description": "The mark between two boxes. It is written after every box but the last one.", "descriptionZh": "两个格子之间的分隔符。它写在除最后一个以外的每个格子后面。" }
+  ],
   "events": [
     { "name": "input", "description": "Fires on every keystroke in any of the boxes. It is the browser's own event on the input — the library installs no listener.", "descriptionZh": "在任何一个格子里每敲一个字就触发。这是 input 上的浏览器原生事件 —— 库没有安装任何监听器。" },
     { "name": "change", "description": "Fires when a box loses focus with a value in it.", "descriptionZh": "某个格子带着内容失去焦点时触发。" }

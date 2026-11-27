@@ -149,7 +149,7 @@
         <span class="tag">form</span>
         <span class="tag">since 1.1.0</span>
       </p>
-      <div class="note">The group owns the row and the text of an option, but not the box: the box and the real input are the checkbox component's own classes, so a tick inside a group is drawn exactly like a tick outside one. The group has no sizes of its own, because the box's size belongs to the box — a group cannot make the control it holds bigger without redrawing it. The selected row is found with :has(), which is the only way CSS can ask an element what its child is doing.</div>
+      <div class="note">The group owns the row and the text of an option, but not the box: the box and the real input are the checkbox component's own classes, so a tick inside a group is drawn exactly like a tick outside one. The group's size reaches the boxes through one inherited number rather than by redrawing them, and a box with a size of its own keeps it. The selected row is found with :has(), which is the only way CSS can ask an element what its child is doing.</div>
 
       <h2>Examples</h2>
 <div class="example">
@@ -251,6 +251,9 @@
       <tr><td><code>um-checkbox-group</code></td><td>The base class. Every instance carries it.</td></tr>
       <tr><td><code>um-checkbox-group--stacked</code></td><td>Stacked</td></tr>
       <tr><td><code>um-checkbox-group--inline</code></td><td>Inline</td></tr>
+      <tr><td><code>um-checkbox-group--sm</code></td><td>Size: sm</td></tr>
+      <tr><td><code>um-checkbox-group--md</code></td><td>Size: md</td></tr>
+      <tr><td><code>um-checkbox-group--lg</code></td><td>Size: lg</td></tr>
       <tr><td><code>um-checkbox-group__legend</code></td><td>Legend</td></tr>
       <tr><td><code>um-checkbox-group__options</code></td><td>Options</td></tr>
       <tr><td><code>um-checkbox-group__option</code></td><td>Option</td></tr>
@@ -258,6 +261,7 @@
       <tr><td><code>:checked</code></td><td>Checked</td></tr>
       <tr><td><code>:disabled</code></td><td>Disabled</td></tr>
       <tr><td><code>:focus-visible</code></td><td>Focus visible</td></tr>
+      <tr><td><code>.um-checkbox-group--button</code></td><td>Button</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -271,6 +275,8 @@
       <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes one option inert. It uses the real disabled attribute, so it leaves the tab order.</td></tr>
       <tr><td><span class="api__name"><code>direction</code></span></td><td><code>enum = stacked | inline</code></td><td><code>stacked</code></td><td>Which way the options run. The stacked run is the base class on its own; the inline run adds um-checkbox-group--inline.</td></tr>
       <tr><td><span class="api__name"><code>label</code></span></td><td><code>string</code></td><td>—</td><td>The text of the group's legend. A group with no legend still needs an accessible name of its own.</td></tr>
+      <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The size of the options in the group: the boxes and their text. A box with a size of its own keeps it. The medium one is the base class on its own.</td></tr>
+      <tr><td><span class="api__name"><code>type</code></span></td><td><code>enum = checkbox | button</code></td><td><code>checkbox</code></td><td>How the options are drawn. The checkbox run leaves the options as they are; the button run turns each one into a chip with a frame of its own.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>

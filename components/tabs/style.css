@@ -134,3 +134,25 @@
 }
 
 .um-tabs--card .um-tabs__indicator { display: none; }
+
+/* A bar of tabs that fills the width it is given: every tab takes a share of
+   it, so the row ends where the row's box ends. */
+.um-tabs.um-tabs--stretch .um-tabs__item {
+  flex: 1;
+}
+
+/* The bar of tabs under the panel instead of above it. The rule under the
+   bar and the mark of the selected tab move with it. */
+.um-tabs.um-tabs--bottom {
+  flex-direction: column-reverse;
+}
+
+.um-tabs.um-tabs--bottom .um-tabs__header::after {
+  bottom: auto;
+  top: 0;
+}
+
+.um-tabs.um-tabs--bottom .um-tabs__indicator {
+  bottom: auto;
+  top: 0;
+}

@@ -38,7 +38,8 @@
     { "id": "text", "name": "Text", "nameZh": "文字", "note": "The name of the option." },
     { "id": "controls", "name": "Controls", "nameZh": "按钮组", "note": "The pair of buttons between the panels." },
     { "id": "move", "name": "Move", "nameZh": "移到右边", "note": "The button that moves the ticked options into the target panel. Its arrow is drawn from borders, so it carries no text of its own." },
-    { "id": "move-back", "name": "Move back", "nameZh": "移回左边", "note": "The button that moves the ticked options back into the source panel." }
+    { "id": "move-back", "name": "Move back", "nameZh": "移回左边", "note": "The button that moves the ticked options back into the source panel." },
+    { "id": "footer", "name": "Footer", "nameZh": "底部", "note": "The row under a panel's list, where a host puts whatever that panel needs. An empty footer is no footer." }
   ],
   "props": [
     { "name": "name", "type": "string", "description": "The name the ticked options are submitted under. It is the native name attribute, and the source and the target list use different names so the host can tell them apart.", "descriptionZh": "勾上的选项提交时用的名字。它是原生 name 属性,两个列表用不同的名字,宿主才分得清谁是谁。" },
@@ -50,7 +51,9 @@
   ],
   "slots": [
     { "name": "source", "description": "The options of the panel on the left.", "descriptionZh": "左边那个面板里的选项。" },
-    { "name": "target", "description": "The options of the panel on the right.", "descriptionZh": "右边那个面板里的选项。" }
+    { "name": "target", "description": "The options of the panel on the right.", "descriptionZh": "右边那个面板里的选项。" },
+    { "name": "left-footer", "description": "The row under the list of the panel on the left.", "descriptionZh": "左边那个面板列表下面的那一行。" },
+    { "name": "right-footer", "description": "The row under the list of the panel on the right.", "descriptionZh": "右边那个面板列表下面的那一行。" }
   ],
   "events": [
     { "name": "change", "description": "Fires when an option is ticked or unticked. It is the browser's own event on the input — the library installs no listener.", "descriptionZh": "某个选项被勾选或取消勾选时触发。这是 input 上的浏览器原生事件 —— 库没有安装任何监听器。" },

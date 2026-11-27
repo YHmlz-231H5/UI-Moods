@@ -27,6 +27,7 @@ export const UMDatePickerPanel = defineComponent({
     disabled: { type: String, default: "2026-11-05,2026-11-06" },
     showFooter: { type: Boolean, default: true },
     footerText: { type: String, default: "确定" },
+    showConfirm: { type: Boolean, default: true },
   },
   emits: ["click"],
   setup(props, { emit }) {
@@ -122,15 +123,19 @@ export const UMDatePickerPanel = defineComponent({
                   },
                   "今天",
                 ),
-                h(
-                  "button",
-                  {
-                    class: "um-date-picker-panel__confirm",
-                    type: "button",
-                    onClick: (e) => emit("click", e),
-                  },
-                  props.footerText,
-                ),
+                // The confirm button is one of the two actions, and a panel
+                // that does not want it simply leaves it out.
+                props.showConfirm
+                  ? h(
+                      "button",
+                      {
+                        class: "um-date-picker-panel__confirm",
+                        type: "button",
+                        onClick: (e) => emit("click", e),
+                      },
+                      props.footerText,
+                    )
+                  : null,
               ])
             : null,
         ],

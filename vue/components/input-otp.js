@@ -19,9 +19,10 @@ export const UMInputOtp = defineComponent({
     disabled: { type: Boolean, default: false },
     variant: { type: String, default: "boxed" },
     size: { type: String, default: "md" },
+    readonly: { type: Boolean, default: false },
   },
   emits: ["input", "change"],
-  setup(props, { emit }) {
+  setup(props, { slots, emit }) {
     return () => {
       const variant = props.variant === "underline" ? "underline" : "boxed";
       const boxes = [];
@@ -41,10 +42,23 @@ export const UMInputOtp = defineComponent({
             // by its position.
             "aria-label": `Digit ${at + 1}`,
             disabled: props.disabled,
+            readonly: props.readonly,
             onInput: (e) => emit("input", e),
             onChange: (e) => emit("change", e),
           }),
         );
+
+        // The separator goes between the boxes, so there is none after the
+        // last one.
+        if (at < props.length - 1) {
+          boxes.push(
+            h(
+              "span",
+              { class: "um-input-otp__separator" },
+              slots.separator ? slots.separator({ index: at }) : [],
+            ),
+          );
+        }
       }
 
       return h(

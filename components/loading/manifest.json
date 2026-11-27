@@ -38,7 +38,22 @@
     { "id": "medium", "name": "Medium", "nameZh": "中", "default": true, "note": "The default ring. The base class is already this size, so it needs no modifier." },
     { "id": "large", "name": "Large", "nameZh": "大", "note": "The ring follows the theme's section gap." }
   ],
-  "states": [],
+  "states": [
+    {
+      "id": "closed",
+      "name": "Closed",
+      "nameZh": "已关闭",
+      "selector": ".um-loading--closed",
+      "note": "The loading is over, so the ring and its caption are not on the page."
+    },
+    {
+      "id": "fullscreen",
+      "name": "Fullscreen",
+      "nameZh": "全屏",
+      "selector": ".um-loading--fullscreen",
+      "note": "The loading covers the whole viewport, whatever shape it is."
+    }
+  ],
   "parts": [
     {
       "id": "spinner",
@@ -81,6 +96,20 @@
       "type": "string",
       "description": "The caption beside the ring. It is the message, so it is written as text in the page and not as an attribute.",
       "descriptionZh": "圆环旁边的文字。它就是那句话,所以它以正文的形式写进页面,而不是塞进某个属性里。"
+    },
+    {
+      "name": "closed",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the loading is over. A closed loading is not on the page.",
+      "descriptionZh": "加载是否已经结束。已结束的加载不在页面上。"
+    },
+    {
+      "name": "fullscreen",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the loading covers the whole viewport, whatever shape it is.",
+      "descriptionZh": "加载是否盖住整个视口,不论它是哪种形态。"
     }
   ],
   "slots": [

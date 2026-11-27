@@ -133,6 +133,33 @@
   transform: translateY(-50%) rotate(135deg);
 }
 
+/* A tooltip that is not asked for never opens. The rule is written with the
+   base class beside it, because the rules that open it on hover and on focus
+   are the same shape and come first. */
+.um-tooltip.um-tooltip--disabled .um-tooltip__content {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* A bubble the pointer cannot enter: the words in it cannot be selected and
+   the pointer passes straight through it. */
+.um-tooltip.um-tooltip--not-enterable .um-tooltip__content {
+  pointer-events: none;
+}
+
+/* A bubble that is held open stays open, whether the pointer is on the
+   trigger or not. */
+.um-tooltip.um-tooltip--visible .um-tooltip__content {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* A bubble with no arrow: the point that says which way the bubble is
+   facing is not drawn. */
+.um-tooltip.um-tooltip--no-arrow .um-tooltip__arrow {
+  display: none;
+}
+
 /* ============================================================================
    Quality hooks
    ----------------------------------------------------------------------------

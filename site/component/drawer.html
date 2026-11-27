@@ -332,6 +332,9 @@
       <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>How wide the panel is. A panel that comes from the side measures across; one that comes from the top or the bottom measures down. The size is a measure of the panel's own type, so it grows with the mood's text.</td></tr>
       <tr><td><span class="api__name"><code>inline</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the panel is part of the layout instead of floating over it. It adds um-drawer--inline.</td></tr>
       <tr><td><span class="api__name"><code>title</code></span></td><td><code>string</code></td><td>—</td><td>The heading of the panel.</td></tr>
+      <tr><td><span class="api__name"><code>model-value</code></span></td><td><code>boolean</code></td><td>—</td><td>Whether the panel is on the page. A drawer that was not asked for is hidden rather than painted over the page.</td></tr>
+      <tr><td><span class="api__name"><code>show-close</code></span></td><td><code>boolean</code></td><td><code>true</code></td><td>Whether the panel carries a close button in its header.</td></tr>
+      <tr><td><span class="api__name"><code>with-header</code></span></td><td><code>boolean</code></td><td><code>true</code></td><td>Whether the panel has a header at all. Without one there is no title and no close button.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>
@@ -339,6 +342,7 @@
       <thead><tr><th>Name</th><th>Description</th></tr></thead>
       <tbody>
       <tr><td><span class="api__name"><code>title</code></span></td><td>What is inside the heading.</td></tr>
+      <tr><td><span class="api__name"><code>header</code></span></td><td>What is in the header, in place of the title. The close button stays: replacing the header removes the title, not the way out.</td></tr>
       <tr><td><span class="api__name"><code>default</code></span></td><td>The body of the panel.</td></tr>
       <tr><td><span class="api__name"><code>footer</code></span></td><td>The actions in the footer.</td></tr>
       </tbody>

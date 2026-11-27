@@ -14,15 +14,22 @@
     "part": "um-switch__"
   },
   "variants": [],
-  "sizes": [],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "A smaller track." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default track. The base class is already this size, so it needs no modifier." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "A larger track." }
+  ],
   "states": [
     { "id": "checked", "name": "Checked", "nameZh": "打开", "selector": ":checked", "native": true, "note": "The track fills with the brand colour and the thumb slides to the far end." },
-    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The track dims, and the label takes the derived disabled text colour." }
+    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The track dims, and the label takes the derived disabled text colour." },
+    { "id": "loading", "name": "Loading", "nameZh": "加载中", "selector": ".um-switch--loading", "note": "The track dims and the pointer stops, because a switch that is busy cannot be flipped." },
+    { "id": "inline-prompt", "name": "Inline prompt", "nameZh": "内嵌提示", "selector": ".um-switch--inline-prompt", "note": "The state is written inside the track instead of on a thumb beside it." }
   ],
   "parts": [
     { "id": "input", "name": "Input", "nameZh": "输入框", "note": "The real checkbox. It must come before the track: the checked state is matched with an adjacent sibling selector." },
     { "id": "track", "name": "Track", "nameZh": "轨道", "note": "The rounded groove the thumb travels in." },
     { "id": "thumb", "name": "Thumb", "nameZh": "滑块", "note": "The circle that moves. It is moved with a transform, so nothing around it reflows." },
+    { "id": "inner", "name": "Inner", "nameZh": "内嵌文字", "note": "The text inside the track. It is only shown in the inline-prompt state, where it says which way the switch is set." },
     { "id": "label", "name": "Label", "nameZh": "文字", "note": "The text beside the switch. Optional, but a switch without one needs an accessible name of its own." }
   ],
   "props": [
@@ -30,10 +37,15 @@
     { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes the switch inert. It uses the real disabled attribute, so it leaves the tab order.", "descriptionZh": "让开关不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" },
     { "name": "name", "type": "string", "description": "The name the value is submitted under.", "descriptionZh": "提交时这个值使用的名字。" },
     { "name": "value", "type": "string", "description": "The value submitted while the switch is on.", "descriptionZh": "开关打开时提交的值。" },
-    { "name": "model-value", "type": "boolean", "description": "The switch's own state, bound with v-model in Vue. Leave it out and the `checked` prop is the state; bind it and the switch answers to the binding.", "descriptionZh": "开关自身的状态,在 Vue 里用 v-model 绑定。不传就以 checked 属性为准;传了就以绑定为准。" }
+    { "name": "model-value", "type": "boolean", "description": "The switch's own state, bound with v-model in Vue. Leave it out and the `checked` prop is the state; bind it and the switch answers to the binding.", "descriptionZh": "开关自身的状态,在 Vue 里用 v-model 绑定。不传就以 checked 属性为准;传了就以绑定为准。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "since": "1.1.0", "description": "The size of the track and the thumb. The medium one is the base class on its own.", "descriptionZh": "轨道和滑块的大小。中号就是基础类本身。" },
+    { "name": "loading", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Says the switch is busy. The track dims and the switch stops taking clicks.", "descriptionZh": "表示开关正忙。轨道变暗,并且不再接受点击。" },
+    { "name": "inline-prompt", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Writes the state inside the track instead of on a thumb beside it. The active and inactive slots are what it writes.", "descriptionZh": "把状态写在轨道里面,而不是写在外面的滑块上。写的是 active 与 inactive 两个插槽。" }
   ],
   "slots": [
-    { "name": "label", "description": "The text beside the switch.", "descriptionZh": "开关旁边的文字。" }
+    { "name": "label", "description": "The text beside the switch.", "descriptionZh": "开关旁边的文字。" },
+    { "name": "active", "description": "The text inside the track while the switch is on. It is shown in the inline-prompt state.", "descriptionZh": "开关打开时轨道里面的文字。在内嵌提示状态下显示。" },
+    { "name": "inactive", "description": "The text inside the track while the switch is off. It is shown in the inline-prompt state.", "descriptionZh": "开关关闭时轨道里面的文字。在内嵌提示状态下显示。" }
   ],
   "events": [
     { "name": "change", "description": "Fires when the switch is flipped. It is the browser's own event on the checkbox underneath — the library installs no listener.", "descriptionZh": "开关被拨动时触发。这是底下那个 checkbox 的浏览器原生事件 —— 库没有安装任何监听器。" },

@@ -14,11 +14,16 @@
     "part": "um-checkbox__"
   },
   "variants": [],
-  "sizes": [],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "A smaller box." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default box. The base class is already this size, so it needs no modifier." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "A larger box." }
+  ],
   "states": [
     { "id": "checked", "name": "Checked", "nameZh": "勾选", "selector": ":checked", "native": true, "note": "The box fills with the brand colour and the tick appears." },
     { "id": "indeterminate", "name": "Indeterminate", "nameZh": "半选", "selector": ":indeterminate", "note": "The box fills and the tick becomes a dash. This is the one state the library cannot reach on its own — the browser only sets :indeterminate when the host assigns input.indeterminate." },
-    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The box dims and the label takes the derived disabled text colour." }
+    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The box dims and the label takes the derived disabled text colour." },
+    { "id": "border", "name": "Bordered", "nameZh": "带边框", "selector": ".um-checkbox--border", "note": "A frame goes around the box and its text, so the two read as one chip." }
   ],
   "parts": [
     { "id": "input", "name": "Input", "nameZh": "输入框", "note": "The real checkbox. It must come before the box: the checked state is matched with an adjacent sibling selector." },
@@ -31,10 +36,13 @@
     { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes the checkbox inert. It uses the real disabled attribute, so it leaves the tab order.", "descriptionZh": "让复选框不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" },
     { "name": "name", "type": "string", "description": "The name the value is submitted under.", "descriptionZh": "提交时这个值使用的名字。" },
     { "name": "value", "type": "string", "description": "The value submitted while the box is ticked.", "descriptionZh": "勾选时提交的值。" },
-    { "name": "model-value", "type": "boolean", "description": "Whether the box is ticked, bound with v-model in Vue. Leave it out and the `checked` prop is the state; bind it and the box answers to the binding. Inside a checkbox group the group decides instead.", "descriptionZh": "方框是否勾上,在 Vue 里用 v-model 绑定。不传就以 checked 属性为准;传了就以绑定为准。在复选框组里则由组说了算。" }
+    { "name": "model-value", "type": "boolean", "description": "Whether the box is ticked, bound with v-model in Vue. Leave it out and the `checked` prop is the state; bind it and the box answers to the binding. Inside a checkbox group the group decides instead.", "descriptionZh": "方框是否勾上,在 Vue 里用 v-model 绑定。不传就以 checked 属性为准;传了就以绑定为准。在复选框组里则由组说了算。" },
+    { "name": "border", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Puts a frame around the box and its text, so the two read as one chip.", "descriptionZh": "给方框和文字加一圈边框,让它们读起来像一块整体。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "since": "1.1.0", "description": "The size of the box and its text. The medium one is the base class on its own.", "descriptionZh": "方框和文字的大小。中号就是基础类本身。" }
   ],
   "slots": [
-    { "name": "label", "description": "The text beside the box.", "descriptionZh": "方框旁边的文字。" }
+    { "name": "label", "description": "The text beside the box.", "descriptionZh": "方框旁边的文字。" },
+    { "name": "default", "description": "The text beside the box. It is the name Element Plus gives the same content.", "descriptionZh": "方框旁边的文字。Element Plus 给同样内容起的名字。" }
   ],
   "events": [
     { "name": "change", "description": "Fires when the box is ticked or unticked. It is the browser's own event — the library installs no listener.", "descriptionZh": "方框被勾选或取消勾选时触发。这是浏览器自己的事件 —— 库没有安装任何监听器。" },

@@ -207,12 +207,18 @@
       <thead><tr><th>Class</th><th>Meaning</th></tr></thead>
       <tbody>
       <tr><td><code>um-switch</code></td><td>The base class. Every instance carries it.</td></tr>
+      <tr><td><code>um-switch--sm</code></td><td>Size: sm</td></tr>
+      <tr><td><code>um-switch--md</code></td><td>Size: md</td></tr>
+      <tr><td><code>um-switch--lg</code></td><td>Size: lg</td></tr>
       <tr><td><code>um-switch__input</code></td><td>Input</td></tr>
       <tr><td><code>um-switch__track</code></td><td>Track</td></tr>
       <tr><td><code>um-switch__thumb</code></td><td>Thumb</td></tr>
+      <tr><td><code>um-switch__inner</code></td><td>Inner</td></tr>
       <tr><td><code>um-switch__label</code></td><td>Label</td></tr>
       <tr><td><code>:checked</code></td><td>Checked</td></tr>
       <tr><td><code>:disabled</code></td><td>Disabled</td></tr>
+      <tr><td><code>.um-switch--loading</code></td><td>Loading</td></tr>
+      <tr><td><code>.um-switch--inline-prompt</code></td><td>Inline prompt</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -224,6 +230,9 @@
       <tr><td><span class="api__name"><code>name</code></span></td><td><code>string</code></td><td>—</td><td>The name the value is submitted under.</td></tr>
       <tr><td><span class="api__name"><code>value</code></span></td><td><code>string</code></td><td>—</td><td>The value submitted while the switch is on.</td></tr>
       <tr><td><span class="api__name"><code>model-value</code></span></td><td><code>boolean</code></td><td>—</td><td>The switch's own state, bound with v-model in Vue. Leave it out and the `checked` prop is the state; bind it and the switch answers to the binding.</td></tr>
+      <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The size of the track and the thumb. The medium one is the base class on its own.</td></tr>
+      <tr><td><span class="api__name"><code>loading</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Says the switch is busy. The track dims and the switch stops taking clicks.</td></tr>
+      <tr><td><span class="api__name"><code>inline-prompt</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Writes the state inside the track instead of on a thumb beside it. The active and inactive slots are what it writes.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>
@@ -231,6 +240,8 @@
       <thead><tr><th>Name</th><th>Description</th></tr></thead>
       <tbody>
       <tr><td><span class="api__name"><code>label</code></span></td><td>The text beside the switch.</td></tr>
+      <tr><td><span class="api__name"><code>active</code></span></td><td>The text inside the track while the switch is on. It is shown in the inline-prompt state.</td></tr>
+      <tr><td><span class="api__name"><code>inactive</code></span></td><td>The text inside the track while the switch is off. It is shown in the inline-prompt state.</td></tr>
       </tbody>
     </table>
       <h2>Events</h2>

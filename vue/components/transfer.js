@@ -37,7 +37,7 @@ export const UMTransfer = defineComponent({
       const targetRows = target.length ? target : [null];
       const total = sourceRows.length + targetRows.length;
 
-      const panel = (title, rows, listName) =>
+      const panel = (title, rows, listName, footer) =>
         h("section", { class: "um-transfer__panel" }, [
           h("header", { class: "um-transfer__header" }, [
             h("span", { class: "um-transfer__title" }, title),
@@ -71,6 +71,9 @@ export const UMTransfer = defineComponent({
                   ]),
             ),
           ),
+          // The footer is under the list. It is in the markup either way, and
+          // an empty one takes no room.
+          h("div", { class: "um-transfer__footer" }, footer ? footer() : []),
         ]);
 
       return h(
@@ -89,7 +92,7 @@ export const UMTransfer = defineComponent({
           onSubmit: (e) => emit("submit", e),
         },
         [
-          panel("Available", sourceRows, `${base}-source`),
+          panel("Available", sourceRows, `${base}-source`, slots["left-footer"]),
           h("div", { class: "um-transfer__controls" }, [
             h("button", {
               class: "um-transfer__move",
@@ -108,7 +111,7 @@ export const UMTransfer = defineComponent({
               disabled: props.disabled,
             }),
           ]),
-          panel("Chosen", targetRows, `${base}-target`),
+          panel("Chosen", targetRows, `${base}-target`, slots["right-footer"]),
         ],
       );
     };

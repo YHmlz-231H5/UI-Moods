@@ -234,6 +234,8 @@
       <tr><td><code>um-loading__spinner</code></td><td>Spinner</td></tr>
       <tr><td><code>um-loading__text</code></td><td>Text</td></tr>
       <tr><td><code>um-loading__panel</code></td><td>Panel</td></tr>
+      <tr><td><code>.um-loading--closed</code></td><td>Closed</td></tr>
+      <tr><td><code>.um-loading--fullscreen</code></td><td>Fullscreen</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -243,6 +245,8 @@
       <tr><td><span class="api__name"><code>variant</code></span></td><td><code>enum = spinner | text | overlay</code></td><td><code>spinner</code></td><td>Which of the three shapes this is. The ring on its own is the base class, so the spinner variant only needs the modifier when the markup wants to say so.</td></tr>
       <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = small | medium | large</code></td><td><code>medium</code></td><td>How big the ring is. The sizes are the theme's own spacing steps, so the ring grows with the mood's rhythm instead of sitting at a fixed size.</td></tr>
       <tr><td><span class="api__name"><code>text</code></span></td><td><code>string</code></td><td>—</td><td>The caption beside the ring. It is the message, so it is written as text in the page and not as an attribute.</td></tr>
+      <tr><td><span class="api__name"><code>closed</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the loading is over. A closed loading is not on the page.</td></tr>
+      <tr><td><span class="api__name"><code>fullscreen</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the loading covers the whole viewport, whatever shape it is.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>

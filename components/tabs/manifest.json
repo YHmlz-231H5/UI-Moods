@@ -31,6 +31,20 @@
       "selector": ":checked",
       "native": true,
       "note": "The radio's own checked attribute. It is the only thing that decides which tab and which panel are open."
+    },
+    {
+      "id": "stretch",
+      "name": "Stretched",
+      "nameZh": "拉伸",
+      "selector": ".um-tabs--stretch",
+      "note": "The tabs fill the width they are given: every tab takes a share of it."
+    },
+    {
+      "id": "bottom",
+      "name": "At the bottom",
+      "nameZh": "在下方",
+      "selector": ".um-tabs--bottom",
+      "note": "The bar of tabs sits under the panel instead of above it."
     }
   ],
   "parts": [
@@ -92,6 +106,27 @@
       "default": "1",
       "description": "Which tab starts open. It is the checked attribute on that radio.",
       "descriptionZh": "初始展开的是哪一个标签页。就是在对应的 radio 上加 checked 属性。"
+    },
+    {
+      "name": "model-value",
+      "type": "number",
+      "description": "Which tab is open, counted from one. The binding wins over `selected`.",
+      "descriptionZh": "哪一个标签页是展开的,从一开始数。绑定优先于 `selected`。"
+    },
+    {
+      "name": "stretch",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the tabs fill the width they are given. It adds um-tabs--stretch.",
+      "descriptionZh": "标签页是否撑满给定的宽度。它加上 um-tabs--stretch。"
+    },
+    {
+      "name": "tab-position",
+      "type": "enum",
+      "values": ["top", "bottom"],
+      "default": "top",
+      "description": "Where the bar of tabs sits. The bar on top is the base class on its own; the bar under the panel adds um-tabs--bottom.",
+      "descriptionZh": "标签栏放在哪儿。在上面就是只写基类;放在面板下面再加上 um-tabs--bottom。"
     }
   ],
   "slots": [
@@ -99,6 +134,16 @@
       "name": "panel",
       "description": "The content of one tab. It goes inside the panel section.",
       "descriptionZh": "一个标签页的内容,放在面板 section 里。"
+    },
+    {
+      "name": "default",
+      "description": "The labels of the tabs, one child per tab.",
+      "descriptionZh": "各个标签页的文字,一个子元素对应一个标签页。"
+    },
+    {
+      "name": "label",
+      "description": "The label of one tab. It is called once per tab with its index, the way the panel slot is.",
+      "descriptionZh": "一个标签页的文字。它按标签页逐个调用,带着自己的序号,和面板插槽一样。"
     }
   ],
   "events": [

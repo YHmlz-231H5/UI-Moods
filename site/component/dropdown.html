@@ -206,11 +206,16 @@
       <tbody>
       <tr><td><code>um-dropdown</code></td><td>The base class. Every instance carries it.</td></tr>
       <tr><td><code>um-dropdown--end</code></td><td>Aligned to the end</td></tr>
+      <tr><td><code>um-dropdown--sm</code></td><td>Size: sm</td></tr>
+      <tr><td><code>um-dropdown--md</code></td><td>Size: md</td></tr>
+      <tr><td><code>um-dropdown--lg</code></td><td>Size: lg</td></tr>
       <tr><td><code>um-dropdown__trigger</code></td><td>Trigger</td></tr>
       <tr><td><code>um-dropdown__menu</code></td><td>Menu</td></tr>
       <tr><td><code>um-dropdown__item</code></td><td>Item</td></tr>
       <tr><td><code>um-dropdown__divider</code></td><td>Divider</td></tr>
       <tr><td><code>[open]</code></td><td>Open</td></tr>
+      <tr><td><code>.um-dropdown--disabled</code></td><td>Disabled</td></tr>
+      <tr><td><code>.um-dropdown--divided</code></td><td>Divided</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -219,6 +224,9 @@
       <tbody>
       <tr><td><span class="api__name"><code>placement</code></span></td><td><code>enum = start | end</code></td><td><code>start</code></td><td>Which edge of the trigger the panel lines up with. The start placement is the base class on its own; the end placement adds um-dropdown--end.</td></tr>
       <tr><td><span class="api__name"><code>label</code></span></td><td><code>string</code></td><td>—</td><td>The text on the trigger. A trigger with no text still needs an accessible name of its own.</td></tr>
+      <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>How big the trigger and the items are. The default size is the base class on its own; the other two add um-dropdown--sm or um-dropdown--lg.</td></tr>
+      <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the dropdown is switched off. A disabled dropdown never opens. It adds um-dropdown--disabled.</td></tr>
+      <tr><td><span class="api__name"><code>divided</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the menu draws a rule between its items. It adds um-dropdown--divided.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>
@@ -226,6 +234,8 @@
       <thead><tr><th>Name</th><th>Description</th></tr></thead>
       <tbody>
       <tr><td><span class="api__name"><code>trigger</code></span></td><td>What is inside the trigger, next to the marker.</td></tr>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>The items in the panel.</td></tr>
+      <tr><td><span class="api__name"><code>dropdown</code></span></td><td>The items in the panel. This is Element Plus's name for the same place; either one of them fills the panel.</td></tr>
       </tbody>
     </table>
       <h2>Events</h2>

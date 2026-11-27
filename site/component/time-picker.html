@@ -229,6 +229,7 @@
       <tr><td><span class="api__name"><code>type</code></span></td><td><code>enum = single | range</code></td><td><code>single</code></td><td>Whether the field holds one time or two. The single field is the base class on its own; the range field adds um-time-picker--range.</td></tr>
       <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The height of the field.</td></tr>
       <tr><td><span class="api__name"><code>model-value</code></span></td><td><code>string</code></td><td>—</td><td>The time in the field, bound with v-model in Vue. Leave it out and the `value` prop is the time; bind it and the field answers to the binding.</td></tr>
+      <tr><td><span class="api__name"><code>readonly</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Keeps the time visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>

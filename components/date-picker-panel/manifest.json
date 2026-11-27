@@ -208,6 +208,14 @@
       "default": "确定",
       "description": "The words on the confirm button.",
       "descriptionZh": "确定按钮上的字。"
+    },
+    {
+      "name": "show-confirm",
+      "type": "boolean",
+      "default": "true",
+      "since": "1.1.0",
+      "description": "Whether the confirm button is shown. Without it the footer keeps only the shortcut, and the host keeps the action somewhere else.",
+      "descriptionZh": "要不要显示确定按钮。不显示的时候页脚里只剩那个快捷按钮,这个动作由宿主放在别处。"
     }
   ],
   "slots": [],

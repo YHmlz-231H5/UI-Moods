@@ -189,9 +189,17 @@
       <thead><tr><th>Class</th><th>Meaning</th></tr></thead>
       <tbody>
       <tr><td><code>um-field</code></td><td>The base class. Every instance carries it.</td></tr>
+      <tr><td><code>um-field--sm</code></td><td>Size: sm</td></tr>
+      <tr><td><code>um-field--md</code></td><td>Size: md</td></tr>
+      <tr><td><code>um-field--lg</code></td><td>Size: lg</td></tr>
       <tr><td><code>um-field__label</code></td><td>Label</td></tr>
       <tr><td><code>um-field__message</code></td><td>Message</td></tr>
       <tr><td><code>.um-field--error</code></td><td>Error</td></tr>
+      <tr><td><code>.um-field--success</code></td><td>Success</td></tr>
+      <tr><td><code>.um-field--warning</code></td><td>Warning</td></tr>
+      <tr><td><code>.um-field--info</code></td><td>Info</td></tr>
+      <tr><td><code>.um-field--disabled</code></td><td>Disabled</td></tr>
+      <tr><td><code>.um-field--inline</code></td><td>Inline</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -199,6 +207,10 @@
       <thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
       <tbody>
       <tr><td><span class="api__name"><code>error</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Puts the field in its error state.</td></tr>
+      <tr><td><span class="api__name"><code>validate-status</code></span></td><td><code>enum = error | success | warning | info</code></td><td>—</td><td>Which validation state the field is in. It is the class the state is painted with: um-field--error, um-field--success, um-field--warning or um-field--info.</td></tr>
+      <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Says the field is out of use. The field's own text dims. The control inside is the host's to disable, because it is the element that can actually be switched off.</td></tr>
+      <tr><td><span class="api__name"><code>inline</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Puts the label beside the control instead of above it.</td></tr>
+      <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The size of the control the field holds. The field does not redraw the control — it only tells it how tall it is. The medium size is the control's own size already.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>

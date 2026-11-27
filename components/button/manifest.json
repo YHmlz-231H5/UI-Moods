@@ -30,6 +30,10 @@
     { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true },
     { "id": "loading", "name": "Loading", "nameZh": "加载中", "selector": ".um-button--loading" },
     { "id": "glow", "name": "Glow", "nameZh": "发光", "selector": ".um-button--glow", "note": "The mood's glow hook. A mood without one declares none, so the hook is invisible there rather than being a second visual system. The rule lives in the shared hooks layer, because a glow is a mood capability and not a button variant." },
+    { "id": "round", "name": "Round", "nameZh": "圆角", "selector": ".um-button--round", "note": "The pill: the ends of the button are as round as the control is tall." },
+    { "id": "circle", "name": "Circle", "nameZh": "圆形", "selector": ".um-button--circle", "note": "The disc: the button is as wide as it is tall, so the label sits in the middle of a circle." },
+    { "id": "dashed", "name": "Dashed", "nameZh": "虚线", "selector": ".um-button--dashed", "note": "The outline is drawn as a dashed line rather than a solid one." },
+    { "id": "link", "name": "Link", "nameZh": "链接", "selector": ".um-button--link", "note": "The button reads as a link: the fill and the border are gone and the label is underlined." },
     { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true }
   ],
   "parts": [],
@@ -38,9 +42,15 @@
     { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The control height.", "descriptionZh": "控件高度。" },
     { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes the button inert.", "descriptionZh": "按钮不可用。" },
     { "name": "loading", "type": "boolean", "default": "false", "description": "Shows a spinner and hides the label, keeping the width.", "descriptionZh": "显示加载指示,隐藏文字但保持宽度不变。" },
-    { "name": "glow", "type": "boolean", "default": "false", "description": "Applies the mood's glow hook. A mood without one shows nothing.", "descriptionZh": "应用该 mood 的发光钩子;没有定义发光的 mood 不会显示任何东西。" }
+    { "name": "glow", "type": "boolean", "default": "false", "description": "Applies the mood's glow hook. A mood without one shows nothing.", "descriptionZh": "应用该 mood 的发光钩子;没有定义发光的 mood 不会显示任何东西。" },
+    { "name": "round", "type": "boolean", "default": "false", "description": "Gives the button the pill shape, whatever height it is.", "descriptionZh": "按钮变成胶囊形,不论高度多少。" },
+    { "name": "circle", "type": "boolean", "default": "false", "description": "Makes the button a disc: as wide as it is tall.", "descriptionZh": "按钮变成圆形:宽和高一样大。" },
+    { "name": "dashed", "type": "boolean", "default": "false", "description": "Draws the outline as a dashed line.", "descriptionZh": "边框用虚线绘制。" },
+    { "name": "link", "type": "boolean", "default": "false", "description": "Makes the button read as a link: no fill, no border, and an underlined label.", "descriptionZh": "按钮看起来像链接:没有底色、没有边框,文字带下划线。" }
   ],
-  "slots": [],
+  "slots": [
+    { "name": "default", "description": "The label of the button.", "descriptionZh": "按钮的文字。" }
+  ],
   "events": [],
   "a11y": {
     "role": "button",

@@ -13,14 +13,22 @@
 /* ============================================================================
    Checkbox
    ========================================================================== */
-.um-checkbox { display: inline-flex; align-items: center; gap: var(--um-space-xs); cursor: pointer; }
+.um-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--um-space-xs);
+  cursor: pointer;
+}
 .um-checkbox__input { position: absolute; width: 1px; height: 1px; opacity: 0; }
 .um-checkbox__box {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: var(--um-height-sm);
-  height: var(--um-height-sm);
+  /* The box is sized by one number, so a group that holds boxes can size them
+     too: the number is inherited, and a box with a size of its own declares
+     it and wins. */
+  width: calc(var(--um-height-sm) * var(--um-checkbox-scale, 1));
+  height: calc(var(--um-height-sm) * var(--um-checkbox-scale, 1));
   /* The box is the control, not a divider: it has no label of its own, so its
      outline is held to the muted-shape role (3:1) rather than to the border
      role a hairline would use. In the clay mood the border role is literally
@@ -34,9 +42,9 @@
 /* The check mark is drawn with two borders — a shape, not a glyph. */
 .um-checkbox__box::after {
   content: "";
-  width: 4px;
-  height: 8px;
-  margin-top: -2px;
+  width: calc(4px * var(--um-checkbox-scale, 1));
+  height: calc(8px * var(--um-checkbox-scale, 1));
+  margin-top: calc(-2px * var(--um-checkbox-scale, 1));
   border: solid var(--um-color-primary-on);
   border-width: 0;
   border-inline-end-width: 2px;
@@ -48,7 +56,7 @@
 .um-checkbox__input:checked + .um-checkbox__box::after { transform: rotate(calc(45deg * var(--um-mirror))) scale(1); }
 .um-checkbox__input:indeterminate + .um-checkbox__box { background: var(--um-color-primary); border-color: var(--um-color-primary); }
 .um-checkbox__input:indeterminate + .um-checkbox__box::after {
-  width: 8px;
+  width: calc(8px * var(--um-checkbox-scale, 1));
   height: 0;
   margin-top: 0;
   border-width: 0 0 2px 0;
@@ -57,6 +65,20 @@
 
 .um-checkbox__label { color: var(--um-text-regular); font-size: var(--um-font-size-body); }
 .um-checkbox__input:disabled + .um-checkbox__box { opacity: 0.45; cursor: not-allowed; }
+
+/* The bordered run puts a frame around the box and its text, so the two read
+   as one chip rather than as two things next to each other. */
+.um-checkbox--border {
+  padding: var(--um-space-xs) var(--um-space-sm);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-base);
+}
+
+.um-checkbox--sm { --um-checkbox-scale: 0.75; }
+.um-checkbox--sm .um-checkbox__label { font-size: var(--um-font-size-caption); }
+
+.um-checkbox--lg { --um-checkbox-scale: 1.5; }
+.um-checkbox--lg .um-checkbox__label { font-size: var(--um-font-size-title); }
 
 /* ============================================================================
    Quality hooks

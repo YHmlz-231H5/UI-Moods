@@ -26,7 +26,8 @@
     { "id": "open", "name": "Open", "nameZh": "展开", "selector": "[open]", "native": true, "note": "The branch is open. The browser announces it, and the arrow turns over." },
     { "id": "checked", "name": "Checked", "nameZh": "选中", "selector": ":checked", "native": true, "note": "The picked leaf takes the brand colour's soft tint and its own text colour, and the circle next to it fills in." },
     { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The leaf is inert. Its text takes the derived disabled colour and the circle dims, the way every other disabled control in the library dims." },
-    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the circle, because the circle is what the reader is on." }
+    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the circle, because the circle is what the reader is on." },
+    { "id": "show-checkbox", "name": "Show checkbox", "nameZh": "显示复选框", "selector": ".um-tree-select--show-checkbox", "note": "The circle becomes the square the checkbox component draws, so a tree of boxes reads as boxes." }
   ],
   "parts": [
     { "id": "node", "name": "Node", "nameZh": "节点", "note": "One branch. It is a <details>, so it is the element that knows whether it is open." },
@@ -45,7 +46,8 @@
     { "name": "label", "type": "string", "description": "The name of the thing the branch holds.", "descriptionZh": "这一支里那个东西的名字。" },
     { "name": "checked", "type": "boolean", "default": "false", "description": "Picks the leaf. It is the native checked attribute, not a class.", "descriptionZh": "选中这个叶子。它是原生 checked 属性,不是某个类。" },
     { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes the leaf inert. It uses the real disabled attribute, so it leaves the tab order.", "descriptionZh": "让这个叶子不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" },
-    { "name": "model-value", "type": "string", "description": "The value the picked leaf submits, bound with v-model in Vue. Leave it out and the `value` prop is that value; bind it and the tree answers to the binding.", "descriptionZh": "被选中的叶子的值,在 Vue 里用 v-model 绑定。不传就以 value 属性为准;传了就以绑定为准。" }
+    { "name": "model-value", "type": "string", "description": "The value the picked leaf submits, bound with v-model in Vue. Leave it out and the `value` prop is that value; bind it and the tree answers to the binding.", "descriptionZh": "被选中的叶子的值,在 Vue 里用 v-model 绑定。不传就以 value 属性为准;传了就以绑定为准。" },
+    { "name": "show-checkbox", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Draws a box in front of every leaf instead of a circle, so a leaf reads as something that can be ticked rather than something that can be picked.", "descriptionZh": "在每个叶子前面画一个方框而不是圆圈,于是叶子读起来像可以勾选的东西,而不是只能挑选的东西。" }
   ],
   "slots": [
     { "name": "branch", "description": "The name of the thing the branch holds.", "descriptionZh": "这一支里那个东西的名字。" },

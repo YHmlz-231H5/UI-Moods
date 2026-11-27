@@ -50,6 +50,13 @@
 .um-layout--sm .um-layout__aside { flex-basis: 11em; }
 .um-layout--lg .um-layout__aside { flex-basis: 18em; }
 
+/* How the side column and the content stand against each other across the
+   row. The stretched row is the base class on its own, so it needs no
+   modifier. */
+.um-layout--align-start .um-layout__body { align-items: flex-start; }
+.um-layout--align-center .um-layout__body { align-items: center; }
+.um-layout--align-end .um-layout__body { align-items: flex-end; }
+
 /* Stacked, the column lies above the content and its rule lies down as well:
    a vertical rule beside a column that is now horizontal would cut the page
    in half for no reason. */

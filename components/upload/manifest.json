@@ -27,7 +27,8 @@
     { "id": "uploading", "name": "Uploading", "nameZh": "上传中", "selector": ".um-upload__item--uploading", "note": "A file that is on its way up. The status takes the brand colour's text role." },
     { "id": "done", "name": "Done", "nameZh": "已完成", "selector": ".um-upload__item--done", "note": "A file that has arrived. The status takes the success colour's text role." },
     { "id": "error", "name": "Error", "nameZh": "出错", "selector": ".um-upload__item--error", "note": "A file that did not make it. The status takes the danger colour's text role." },
-    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the button, because the button is what the user sees of the control." }
+    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the button, because the button is what the user sees of the control." },
+    { "id": "show-file-list", "name": "Show file list", "nameZh": "显示文件列表", "selector": ".um-upload--show-file-list", "note": "The chosen files are listed under the trigger. The class names the state, so the list is there unless the host says otherwise." }
   ],
   "parts": [
     { "id": "trigger", "name": "Trigger", "nameZh": "触发器", "note": "The label that opens the dialog. It wraps the real input, so clicking it opens the browser's own file picker." },
@@ -37,7 +38,8 @@
     { "id": "item", "name": "Item", "nameZh": "文件", "note": "One chosen file. It carries the status class when the file is not simply waiting." },
     { "id": "name", "name": "Name", "nameZh": "文件名", "note": "The file's name. It takes the room it needs and cuts the rest off with an ellipsis." },
     { "id": "size", "name": "Size", "nameZh": "大小", "note": "The file's size. It is text, so it takes the muted role." },
-    { "id": "status", "name": "Status", "nameZh": "状态", "note": "Where the file has got to. It is text about a state, so it takes that state's derived text colour." }
+    { "id": "status", "name": "Status", "nameZh": "状态", "note": "Where the file has got to. It is text about a state, so it takes that state's derived text colour." },
+    { "id": "tip", "name": "Tip", "nameZh": "提示", "note": "The line of help under the list. It is text, so it takes the muted role." }
   ],
   "props": [
     { "name": "multiple", "type": "boolean", "default": "false", "description": "Lets more than one file be chosen at a time. It is the native multiple attribute.", "descriptionZh": "允许一次选多个文件。它是原生 multiple 属性。" },
@@ -46,11 +48,14 @@
     { "name": "name", "type": "string", "description": "The name the chosen files are submitted under. It is the native name attribute.", "descriptionZh": "选中的文件提交时用的名字。它是原生 name 属性。" },
     { "name": "layout", "type": "enum", "values": ["list", "text"], "default": "list", "description": "How the chosen files are shown. The list layout is the base class on its own; the text layout adds um-upload--text.", "descriptionZh": "已选文件怎么显示。列表是只写基础类;文字再加上 um-upload--text。" },
     { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The size of the trigger and of the file names.", "descriptionZh": "触发器和文件名的尺寸。" },
-    { "name": "status", "type": "enum", "values": ["default", "uploading", "done", "error"], "default": "default", "description": "Where one file has got to. It is a class on the item: no class is the waiting state, and the other three are um-upload__item--uploading, um-upload__item--done and um-upload__item--error.", "descriptionZh": "某一个文件走到哪一步了。它是条目上的一个类:不加类就是等待状态,另外三个分别是 um-upload__item--uploading、um-upload__item--done 和 um-upload__item--error。" }
+    { "name": "status", "type": "enum", "values": ["default", "uploading", "done", "error"], "default": "default", "description": "Where one file has got to. It is a class on the item: no class is the waiting state, and the other three are um-upload__item--uploading, um-upload__item--done and um-upload__item--error.", "descriptionZh": "某一个文件走到哪一步了。它是条目上的一个类:不加类就是等待状态,另外三个分别是 um-upload__item--uploading、um-upload__item--done 和 um-upload__item--error。" },
+    { "name": "show-file-list", "type": "boolean", "default": "true", "since": "1.1.0", "description": "Whether the chosen files are shown under the trigger. The list is there unless the host says otherwise.", "descriptionZh": "触发器下面是否列出已选的文件。宿主不说不要,列表就在那儿。" }
   ],
   "slots": [
     { "name": "trigger", "description": "The text on the trigger. The button is drawn, so a trigger with no text needs an accessible name of its own.", "descriptionZh": "触发器上的文字。按钮是画出来的,所以不写文字的触发器也得有自己的可访问名称。" },
-    { "name": "list", "description": "The chosen files, as a list of items.", "descriptionZh": "已选的文件,写成一个条目列表。" }
+    { "name": "default", "description": "The text on the trigger. It is the name Element Plus gives the same content.", "descriptionZh": "触发器上的文字。Element Plus 给同样内容起的名字。" },
+    { "name": "list", "description": "The chosen files, as a list of items.", "descriptionZh": "已选的文件,写成一个条目列表。" },
+    { "name": "tip", "description": "The line of help under the list of files.", "descriptionZh": "文件列表下面那一行说明。" }
   ],
   "events": [
     { "name": "change", "description": "Fires when files are chosen. It is the browser's own event on the input — the library installs no listener, and it cannot read the chosen files without one.", "descriptionZh": "选了文件时触发。这是 input 上的浏览器原生事件 —— 库没有安装任何监听器,也没有监听器就读不到选中的文件。" }

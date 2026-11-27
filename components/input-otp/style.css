@@ -60,3 +60,10 @@
   width: var(--um-height-lg);
   height: var(--um-height-lg);
 }
+
+/* The separator sits between two boxes, so a long code can be read in groups.
+   It is text, so it takes the muted role. */
+.um-input-otp__separator {
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-body);
+}

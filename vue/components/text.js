@@ -20,21 +20,29 @@ export const UMText = defineComponent({
     type: { type: String, default: "regular" },
     size: { type: String, default: "md" },
     truncate: { type: Boolean, default: false },
+    truncated: { type: Boolean, default: false },
+    lineClamp: { type: Number, default: undefined },
     tag: { type: String, default: "span" },
   },
   setup(props, { slots }) {
-    return () =>
-      h(
+    return () => {
+      const clamped = props.lineClamp !== undefined && props.lineClamp !== null;
+      return h(
         TAGS.includes(props.tag) ? props.tag : "span",
         {
           class: [
             "um-text",
             `um-text--${props.type}`,
             props.size !== "md" ? `um-text--${props.size}` : null,
-            props.truncate ? "um-text--truncate" : null,
+            props.truncate || props.truncated ? "um-text--truncate" : null,
+            clamped ? "um-text--clamp" : null,
           ],
+          // The number of lines is the host's, so it comes with the run. The
+          // class only says that the run is clamped.
+          style: clamped ? { "-webkit-line-clamp": String(props.lineClamp) } : undefined,
         },
         slots.default ? slots.default() : [],
       );
+    };
   },
 });

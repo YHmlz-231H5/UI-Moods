@@ -28,6 +28,8 @@ export const UMMention = defineComponent({
     placeholder: { type: String, default: "Type @ to mention someone" },
     label: { type: String, default: "" },
     modelValue: { type: String, default: undefined },
+    disabled: { type: Boolean, default: false },
+    readonly: { type: Boolean, default: false },
   },
   emits: ["input", "update:modelValue"],
   setup(props, { slots, emit }) {
@@ -48,6 +50,8 @@ export const UMMention = defineComponent({
               type: "text",
               value: modelValue(props, props.value) || undefined,
               placeholder: props.placeholder || undefined,
+              disabled: props.disabled,
+              readonly: props.readonly,
               "aria-label": props.label || undefined,
               onInput: (e) => {
                 emit("update:modelValue", eventValue(e));

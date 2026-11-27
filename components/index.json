@@ -148,9 +148,9 @@
       "doc": "site/component/layout.html",
       "variants": 1,
       "sizes": 3,
-      "states": 0,
+      "states": 3,
       "parts": 5,
-      "props": 2
+      "props": 3
     },
     {
       "id": "link",
@@ -183,7 +183,7 @@
       "variants": 1,
       "sizes": 0,
       "states": 0,
-      "parts": 4,
+      "parts": 6,
       "props": 4
     },
     {
@@ -250,9 +250,9 @@
       "doc": "site/component/text.html",
       "variants": 8,
       "sizes": 3,
-      "states": 1,
+      "states": 2,
       "parts": 0,
-      "props": 4
+      "props": 6
     },
     {
       "id": "typography",
@@ -285,8 +285,8 @@
       "variants": 2,
       "sizes": 3,
       "states": 3,
-      "parts": 3,
-      "props": 9
+      "parts": 5,
+      "props": 10
     },
     {
       "id": "button",
@@ -301,9 +301,9 @@
       "doc": "site/component/button.html",
       "variants": 6,
       "sizes": 3,
-      "states": 4,
+      "states": 8,
       "parts": 0,
-      "props": 5
+      "props": 9
     },
     {
       "id": "checkbox",
@@ -317,10 +317,10 @@
       "style": "components/checkbox/style.css",
       "doc": "site/component/checkbox.html",
       "variants": 0,
-      "sizes": 0,
-      "states": 3,
+      "sizes": 3,
+      "states": 4,
       "parts": 3,
-      "props": 6
+      "props": 8
     },
     {
       "id": "checkbox-group",
@@ -334,10 +334,10 @@
       "style": "components/checkbox-group/style.css",
       "doc": "site/component/checkbox-group.html",
       "variants": 2,
-      "sizes": 0,
-      "states": 3,
+      "sizes": 3,
+      "states": 4,
       "parts": 4,
-      "props": 7
+      "props": 9
     },
     {
       "id": "color-picker",
@@ -369,9 +369,9 @@
       "doc": "site/component/color-picker-panel.html",
       "variants": 2,
       "sizes": 3,
-      "states": 2,
-      "parts": 8,
-      "props": 4
+      "states": 3,
+      "parts": 9,
+      "props": 5
     },
     {
       "id": "date-picker",
@@ -388,7 +388,7 @@
       "sizes": 3,
       "states": 3,
       "parts": 3,
-      "props": 8
+      "props": 9
     },
     {
       "id": "date-picker-panel",
@@ -405,7 +405,7 @@
       "sizes": 3,
       "states": 4,
       "parts": 13,
-      "props": 7
+      "props": 8
     },
     {
       "id": "date-time-picker",
@@ -422,7 +422,7 @@
       "sizes": 3,
       "states": 3,
       "parts": 2,
-      "props": 9
+      "props": 10
     },
     {
       "id": "field",
@@ -436,10 +436,10 @@
       "style": "components/field/style.css",
       "doc": "site/component/field.html",
       "variants": 0,
-      "sizes": 0,
-      "states": 1,
+      "sizes": 3,
+      "states": 6,
       "parts": 2,
-      "props": 1
+      "props": 5
     },
     {
       "id": "input",
@@ -453,10 +453,10 @@
       "style": "components/input/style.css",
       "doc": "site/component/input.html",
       "variants": 0,
-      "sizes": 0,
+      "sizes": 3,
       "states": 2,
       "parts": 0,
-      "props": 5
+      "props": 6
     },
     {
       "id": "input-number",
@@ -472,8 +472,8 @@
       "variants": 1,
       "sizes": 3,
       "states": 2,
-      "parts": 5,
-      "props": 7
+      "parts": 7,
+      "props": 8
     },
     {
       "id": "input-otp",
@@ -489,8 +489,8 @@
       "variants": 2,
       "sizes": 3,
       "states": 2,
-      "parts": 1,
-      "props": 7
+      "parts": 2,
+      "props": 8
     },
     {
       "id": "input-tag",
@@ -506,8 +506,8 @@
       "variants": 4,
       "sizes": 3,
       "states": 2,
-      "parts": 4,
-      "props": 5
+      "parts": 6,
+      "props": 7
     },
     {
       "id": "mention",
@@ -524,7 +524,7 @@
       "sizes": 3,
       "states": 2,
       "parts": 6,
-      "props": 6
+      "props": 8
     },
     {
       "id": "radio",
@@ -538,10 +538,10 @@
       "style": "components/radio/style.css",
       "doc": "site/component/radio.html",
       "variants": 0,
-      "sizes": 0,
-      "states": 2,
+      "sizes": 3,
+      "states": 3,
       "parts": 3,
-      "props": 5
+      "props": 7
     },
     {
       "id": "radio-group",
@@ -555,10 +555,10 @@
       "style": "components/radio-group/style.css",
       "doc": "site/component/radio-group.html",
       "variants": 2,
-      "sizes": 0,
-      "states": 3,
+      "sizes": 3,
+      "states": 4,
       "parts": 4,
-      "props": 7
+      "props": 9
     },
     {
       "id": "rate",
@@ -573,9 +573,9 @@
       "doc": "site/component/rate.html",
       "variants": 3,
       "sizes": 3,
-      "states": 3,
-      "parts": 4,
-      "props": 6
+      "states": 4,
+      "parts": 5,
+      "props": 7
     },
     {
       "id": "slider",
@@ -590,9 +590,9 @@
       "doc": "site/component/slider.html",
       "variants": 0,
       "sizes": 0,
-      "states": 1,
+      "states": 2,
       "parts": 0,
-      "props": 6
+      "props": 7
     },
     {
       "id": "switch",
@@ -606,10 +606,10 @@
       "style": "components/switch/style.css",
       "doc": "site/component/switch.html",
       "variants": 0,
-      "sizes": 0,
-      "states": 2,
-      "parts": 4,
-      "props": 5
+      "sizes": 3,
+      "states": 4,
+      "parts": 5,
+      "props": 8
     },
     {
       "id": "time-picker",
@@ -626,7 +626,7 @@
       "sizes": 3,
       "states": 3,
       "parts": 3,
-      "props": 9
+      "props": 10
     },
     {
       "id": "time-select",
@@ -658,9 +658,9 @@
       "doc": "site/component/tree-select.html",
       "variants": 2,
       "sizes": 3,
-      "states": 4,
+      "states": 5,
       "parts": 7,
-      "props": 8
+      "props": 9
     },
     {
       "id": "upload",
@@ -675,9 +675,9 @@
       "doc": "site/component/upload.html",
       "variants": 2,
       "sizes": 3,
-      "states": 5,
-      "parts": 8,
-      "props": 7
+      "states": 6,
+      "parts": 9,
+      "props": 8
     },
     {
       "id": "virtual-select",
@@ -794,9 +794,9 @@
       "doc": "site/component/cascader.html",
       "variants": 2,
       "sizes": 3,
-      "states": 2,
+      "states": 3,
       "parts": 5,
-      "props": 4
+      "props": 5
     },
     {
       "id": "collapse",
@@ -1050,7 +1050,7 @@
       "variants": 2,
       "sizes": 3,
       "states": 3,
-      "parts": 11,
+      "parts": 12,
       "props": 6
     },
     {
@@ -1167,10 +1167,10 @@
       "style": "components/dropdown/style.css",
       "doc": "site/component/dropdown.html",
       "variants": 1,
-      "sizes": 0,
-      "states": 1,
+      "sizes": 3,
+      "states": 3,
       "parts": 4,
-      "props": 2
+      "props": 5
     },
     {
       "id": "menu",
@@ -1187,7 +1187,7 @@
       "sizes": 0,
       "states": 1,
       "parts": 7,
-      "props": 2
+      "props": 3
     },
     {
       "id": "pagination",
@@ -1202,9 +1202,9 @@
       "doc": "site/component/pagination.html",
       "variants": 0,
       "sizes": 1,
-      "states": 1,
+      "states": 2,
       "parts": 9,
-      "props": 4
+      "props": 6
     },
     {
       "id": "steps",
@@ -1219,9 +1219,9 @@
       "doc": "site/component/steps.html",
       "variants": 1,
       "sizes": 0,
-      "states": 4,
+      "states": 6,
       "parts": 6,
-      "props": 2
+      "props": 6
     },
     {
       "id": "tabs",
@@ -1236,9 +1236,9 @@
       "doc": "site/component/tabs.html",
       "variants": 1,
       "sizes": 0,
-      "states": 1,
+      "states": 3,
       "parts": 6,
-      "props": 3
+      "props": 6
     },
     {
       "id": "alert",
@@ -1270,9 +1270,9 @@
       "doc": "site/component/dialog.html",
       "variants": 1,
       "sizes": 3,
-      "states": 1,
+      "states": 4,
       "parts": 7,
-      "props": 3
+      "props": 9
     },
     {
       "id": "drawer",
@@ -1289,7 +1289,7 @@
       "sizes": 3,
       "states": 1,
       "parts": 5,
-      "props": 4
+      "props": 7
     },
     {
       "id": "loading",
@@ -1304,9 +1304,9 @@
       "doc": "site/component/loading.html",
       "variants": 3,
       "sizes": 3,
-      "states": 0,
+      "states": 2,
       "parts": 3,
-      "props": 3
+      "props": 5
     },
     {
       "id": "message",
@@ -1321,9 +1321,9 @@
       "doc": "site/component/message.html",
       "variants": 4,
       "sizes": 3,
-      "states": 1,
+      "states": 3,
       "parts": 3,
-      "props": 3
+      "props": 6
     },
     {
       "id": "message-box",
@@ -1338,9 +1338,9 @@
       "doc": "site/component/message-box.html",
       "variants": 4,
       "sizes": 3,
-      "states": 1,
-      "parts": 7,
-      "props": 7
+      "states": 5,
+      "parts": 8,
+      "props": 17
     },
     {
       "id": "notification",
@@ -1357,7 +1357,7 @@
       "sizes": 3,
       "states": 1,
       "parts": 4,
-      "props": 4
+      "props": 5
     },
     {
       "id": "popconfirm",
@@ -1372,9 +1372,9 @@
       "doc": "site/component/popconfirm.html",
       "variants": 3,
       "sizes": 3,
-      "states": 2,
+      "states": 5,
       "parts": 8,
-      "props": 5
+      "props": 11
     },
     {
       "id": "popover",
@@ -1389,9 +1389,9 @@
       "doc": "site/component/popover.html",
       "variants": 3,
       "sizes": 3,
-      "states": 1,
+      "states": 3,
       "parts": 5,
-      "props": 3
+      "props": 6
     },
     {
       "id": "tooltip",
@@ -1406,9 +1406,9 @@
       "doc": "site/component/tooltip.html",
       "variants": 3,
       "sizes": 0,
-      "states": 3,
+      "states": 7,
       "parts": 3,
-      "props": 2
+      "props": 6
     },
     {
       "id": "divider",

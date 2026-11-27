@@ -47,6 +47,18 @@
       "name": "Actions",
       "nameZh": "操作区",
       "note": "The actions that belong to the page. It lays them out; the buttons in it are the host's, and the stylesheet only gives a button that arrives without a class of its own a shape."
+    },
+    {
+      "id": "breadcrumb",
+      "name": "Breadcrumb",
+      "nameZh": "面包屑",
+      "note": "The trail above the heading, for a page that says where it is."
+    },
+    {
+      "id": "main",
+      "name": "Main",
+      "nameZh": "主体",
+      "note": "The main content of the header, under the heading and its line."
     }
   ],
   "props": [
@@ -94,6 +106,26 @@
       "name": "actions",
       "description": "The actions that belong to the page.",
       "descriptionZh": "属于这一页的操作。"
+    },
+    {
+      "name": "extra",
+      "description": "The actions that belong to the page. This is Element Plus's name for the `actions` slot; either one of them fills the actions area.",
+      "descriptionZh": "属于这一页的操作。这是 Element Plus 对 `actions` 插槽的叫法,两个都能填满操作区。"
+    },
+    {
+      "name": "content",
+      "description": "The line under the title that says what the page is about. This is Element Plus's name for the `subtitle` slot; either one of them fills the line.",
+      "descriptionZh": "标题下面那行说明页面是什么的。这是 Element Plus 对 `subtitle` 插槽的叫法,两个都能填满这一行。"
+    },
+    {
+      "name": "breadcrumb",
+      "description": "The trail above the heading, for a page that says where it is.",
+      "descriptionZh": "标题上方的路径,用来告诉读者这是页面的哪一层。"
+    },
+    {
+      "name": "default",
+      "description": "The main content of the header, under the heading and its line.",
+      "descriptionZh": "头部的主体内容,放在标题和那一行说明下面。"
     }
   ],
   "events": [],

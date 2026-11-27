@@ -21,7 +21,11 @@
       "note": "The panel lines up with the right edge of the trigger instead of the left one."
     }
   ],
-  "sizes": [],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小" },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default size needs no modifier class." },
+    { "id": "lg", "name": "Large", "nameZh": "大" }
+  ],
   "states": [
     {
       "id": "open",
@@ -29,6 +33,20 @@
       "nameZh": "展开",
       "selector": "[open]",
       "note": "The trigger's <details> is open, so the panel is shown."
+    },
+    {
+      "id": "disabled",
+      "name": "Disabled",
+      "nameZh": "禁用",
+      "selector": ".um-dropdown--disabled",
+      "note": "The dropdown is not asked for, so the panel never opens."
+    },
+    {
+      "id": "divided",
+      "name": "Divided",
+      "nameZh": "带分隔线",
+      "selector": ".um-dropdown--divided",
+      "note": "The menu draws a rule between its items."
     }
   ],
   "parts": [
@@ -71,6 +89,28 @@
       "type": "string",
       "description": "The text on the trigger. A trigger with no text still needs an accessible name of its own.",
       "descriptionZh": "触发器上的文字。没有文字的触发器也得有自己的可访问名称。"
+    },
+    {
+      "name": "size",
+      "type": "enum",
+      "values": ["sm", "md", "lg"],
+      "default": "md",
+      "description": "How big the trigger and the items are. The default size is the base class on its own; the other two add um-dropdown--sm or um-dropdown--lg.",
+      "descriptionZh": "触发器和条目有多大。默认大小是只写基类;另外两个分别加上 um-dropdown--sm、um-dropdown--lg。"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the dropdown is switched off. A disabled dropdown never opens. It adds um-dropdown--disabled.",
+      "descriptionZh": "下拉菜单是否关闭。关闭的下拉菜单不会打开。它加上 um-dropdown--disabled。"
+    },
+    {
+      "name": "divided",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the menu draws a rule between its items. It adds um-dropdown--divided.",
+      "descriptionZh": "菜单是否在条目之间画一条分隔线。它加上 um-dropdown--divided。"
     }
   ],
   "slots": [
@@ -78,6 +118,16 @@
       "name": "trigger",
       "description": "What is inside the trigger, next to the marker.",
       "descriptionZh": "触发器里除标记之外的内容。"
+    },
+    {
+      "name": "default",
+      "description": "The items in the panel.",
+      "descriptionZh": "面板里的条目。"
+    },
+    {
+      "name": "dropdown",
+      "description": "The items in the panel. This is Element Plus's name for the same place; either one of them fills the panel.",
+      "descriptionZh": "面板里的条目。这是 Element Plus 对同一个位置的叫法,两个都能填满面板。"
     }
   ],
   "events": [

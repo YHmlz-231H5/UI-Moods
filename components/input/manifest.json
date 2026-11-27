@@ -13,7 +13,11 @@
     "also": ["um-textarea", "um-select"]
   },
   "variants": [],
-  "sizes": [],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "A shorter control." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default control height. The base class is already this size, so it needs no modifier." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "A taller control." }
+  ],
   "states": [
     { "id": "focus", "name": "Focus", "nameZh": "聚焦", "selector": ":focus", "native": true, "note": "The border takes the brand colour and a soft ring is drawn around the control." },
     { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The shared layer paints a flat surface and the derived disabled text colour, so the value stays measurable." }
@@ -24,7 +28,8 @@
     { "name": "placeholder", "type": "string", "description": "The hint text for the input and the textarea. It takes the muted placeholder role, not the body colour.", "descriptionZh": "输入框和文本域的提示文字。它用的是弱化的占位文字色,不是正文色。" },
     { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes the control inert. It uses the real disabled attribute, so it leaves the tab order.", "descriptionZh": "让控件不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" },
     { "name": "readonly", "type": "boolean", "default": "false", "description": "Keeps the value visible but stops it being edited. The library does not repaint a readonly control — it is not a state it measures.", "descriptionZh": "值仍然可见,但不能编辑。库不会给只读控件单独配色 —— 这不是它测量过的状态。" },
-    { "name": "model-value", "type": "string", "description": "The control's value, bound with v-model in Vue. Leave it out and the control holds whatever the reader typed; bind it and the control answers to the binding.", "descriptionZh": "控件的值,在 Vue 里用 v-model 绑定。不传就由读者输入的内容决定;传了就以绑定为准。" }
+    { "name": "model-value", "type": "string", "description": "The control's value, bound with v-model in Vue. Leave it out and the control holds whatever the reader typed; bind it and the control answers to the binding.", "descriptionZh": "控件的值,在 Vue 里用 v-model 绑定。不传就由读者输入的内容决定;传了就以绑定为准。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "since": "1.1.0", "description": "The size of the control. The same modifier class reaches all three members of the family. The medium size is the base class on its own.", "descriptionZh": "控件的尺寸。同一个修饰类管到这一族的所有成员。中号就是基础类本身。" }
   ],
   "slots": [],
   "events": [

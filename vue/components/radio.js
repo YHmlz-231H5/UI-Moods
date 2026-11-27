@@ -22,6 +22,8 @@ export const UMRadio = defineComponent({
     name: { type: String, default: "" },
     value: { type: String, default: "" },
     modelValue: { type: Boolean, default: undefined },
+    border: { type: Boolean, default: false },
+    size: { type: String, default: "md" },
   },
   emits: ["change", "update:modelValue"],
   setup(props, { slots, emit }) {
@@ -33,21 +35,40 @@ export const UMRadio = defineComponent({
       group ? isSelected(group, props.value) : modelValue(props, props.checked);
 
     return () =>
-      h("label", { class: "um-radio" }, [
-        h("input", {
-          class: "um-radio__input",
-          type: "radio",
-          checked: isChecked(),
-          disabled: props.disabled,
-          name: props.name || group?.name || undefined,
-          value: props.value || undefined,
-          onChange: (e) => {
-            emit("update:modelValue", eventValue(e, true));
-            emit("change", e);
-          },
-        }),
-        h("span", { class: "um-radio__dot" }),
-        h("span", { class: "um-radio__label" }, slots.label ? slots.label() : []),
-      ]);
+      h(
+        "label",
+        {
+          class: [
+            "um-radio",
+            // The medium size is the base class itself, so it needs no
+            // modifier — a class the stylesheet does not have paints nothing.
+            props.size !== "md" ? `um-radio--${props.size}` : null,
+            props.border ? "um-radio--border" : null,
+          ],
+        },
+        [
+          h("input", {
+            class: "um-radio__input",
+            type: "radio",
+            checked: isChecked(),
+            disabled: props.disabled,
+            name: props.name || group?.name || undefined,
+            value: props.value || undefined,
+            onChange: (e) => {
+              emit("update:modelValue", eventValue(e, true));
+              emit("change", e);
+            },
+          }),
+          h("span", { class: "um-radio__dot" }),
+          h(
+            "span",
+            { class: "um-radio__label" },
+            // The text beside the circle. The named slot says it first, and
+            // the default slot is the same content under the name Element Plus
+            // gives it.
+            slots.label ? slots.label() : slots.default ? slots.default() : [],
+          ),
+        ],
+      );
   },
 });

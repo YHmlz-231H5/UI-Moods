@@ -345,6 +345,7 @@
       <tr><td><code>um-cascader__children</code></td><td>Children</td></tr>
       <tr><td><code>[open]</code></td><td>Open</td></tr>
       <tr><td><code>:focus-visible</code></td><td>Focus visible</td></tr>
+      <tr><td><code>.um-cascader--disabled</code></td><td>Disabled</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -355,6 +356,7 @@
       <tr><td><span class="api__name"><code>layout</code></span></td><td><code>enum = inline | flyout</code></td><td><code>inline</code></td><td>Where the level below opens. The inline run is the base class on its own; the flyout run adds um-cascader--flyout.</td></tr>
       <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The size of the option text.</td></tr>
       <tr><td><span class="api__name"><code>label</code></span></td><td><code>string</code></td><td>—</td><td>The text of one option. An option with no text needs an accessible name of its own.</td></tr>
+      <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes the cascader inert. A level is a disclosure rather than a form control, so it cannot carry the disabled attribute: the whole tree refuses the pointer instead.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>

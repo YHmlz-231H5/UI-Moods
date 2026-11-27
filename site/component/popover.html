@@ -295,6 +295,8 @@
       <tr><td><code>um-popover__body</code></td><td>Body</td></tr>
       <tr><td><code>um-popover__footer</code></td><td>Footer</td></tr>
       <tr><td><code>[open]</code></td><td>Open</td></tr>
+      <tr><td><code>.um-popover--disabled</code></td><td>Disabled</td></tr>
+      <tr><td><code>.um-popover--not-enterable</code></td><td>Not enterable</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -304,6 +306,9 @@
       <tr><td><span class="api__name"><code>placement</code></span></td><td><code>enum = bottom | top | left | right</code></td><td><code>bottom</code></td><td>Where the card opens relative to the trigger. The bottom placement is the base class on its own; the other three add um-popover--top, um-popover--left or um-popover--right.</td></tr>
       <tr><td><span class="api__name"><code>width</code></span></td><td><code>enum = small | medium | large</code></td><td><code>medium</code></td><td>How wide the card is. The measures are in the card's own type, so the card grows with the mood's text instead of holding a fixed pixel width.</td></tr>
       <tr><td><span class="api__name"><code>title</code></span></td><td><code>string</code></td><td>—</td><td>The heading of the card. It is a real heading element, not a bold paragraph, so the reader can jump to it.</td></tr>
+      <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the popover is switched off. A disabled popover never opens. It adds um-popover--disabled.</td></tr>
+      <tr><td><span class="api__name"><code>enterable</code></span></td><td><code>boolean</code></td><td><code>true</code></td><td>Whether the pointer can enter the card. A card that cannot be entered lets the pointer through it, so the words in it cannot be selected. It adds um-popover--not-enterable.</td></tr>
+      <tr><td><span class="api__name"><code>visible</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the card is open. It is the open attribute on the trigger's own &lt;details&gt;.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>
@@ -313,6 +318,8 @@
       <tr><td><span class="api__name"><code>header</code></span></td><td>The heading of the card.</td></tr>
       <tr><td><span class="api__name"><code>body</code></span></td><td>The text of the card.</td></tr>
       <tr><td><span class="api__name"><code>footer</code></span></td><td>The row at the bottom of the card.</td></tr>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>What is inside the trigger.</td></tr>
+      <tr><td><span class="api__name"><code>reference</code></span></td><td>The element that opens the card. This is Element Plus's name for the trigger; either one of them fills it.</td></tr>
       </tbody>
     </table>
       <h2>Events</h2>

@@ -82,14 +82,6 @@
 /* The status is a class on the item, so one step can be finished while the
    next one is still running. A step with no status class is the waiting
    state: an outlined number on the plain surface. */
-.um-steps__item--active .um-steps__icon {
-  border-color: var(--um-color-primary);
-  background: var(--um-color-primary);
-  color: var(--um-color-primary-on);
-}
-
-.um-steps__item--active .um-steps__title { color: var(--um-color-primary-text); }
-
 .um-steps__item--success .um-steps__icon {
   border-color: var(--um-color-success);
   background: var(--um-color-success);
@@ -110,6 +102,30 @@
 
 .um-steps__item--error .um-steps__title,
 .um-steps__item--danger .um-steps__title { color: var(--um-color-danger-text); }
+
+/* The running state is painted last, so a step the wrapper marks as running
+   is running even when the markup carries another state as well. */
+.um-steps__item--active .um-steps__icon {
+  border-color: var(--um-color-primary);
+  background: var(--um-color-primary);
+  color: var(--um-color-primary-on);
+}
+
+.um-steps__item--active .um-steps__title { color: var(--um-color-primary-text); }
+
+/* A centred run: the title and the line under it stand in the middle of the
+   step rather than at its start. */
+.um-steps.um-steps--align-center .um-steps__content {
+  align-items: center;
+  text-align: center;
+}
+
+/* A simple run: the titles stand in a row and the descriptions and the line
+   are not drawn. */
+.um-steps.um-steps--simple .um-steps__description,
+.um-steps.um-steps--simple .um-steps__line {
+  display: none;
+}
 
 /* In a vertical run the line hangs under the icon instead of running beside
    it, and it is centred on the icon's axis. */

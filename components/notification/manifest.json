@@ -37,7 +37,8 @@
     { "name": "variant", "type": "enum", "values": ["info", "success", "warning", "error"], "default": "info", "description": "Which state the notification carries.", "descriptionZh": "这条通知表示哪一种状态。" },
     { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The width of the card. The measures are in the card's own type, so the card grows with the mood's text.", "descriptionZh": "卡片的宽度。宽度用的是卡片自己的字号单位,所以卡片会跟着 mood 的文字一起变大。" },
     { "name": "title", "type": "string", "default": "", "description": "The heading of the card.", "descriptionZh": "卡片的标题。" },
-    { "name": "closable", "type": "boolean", "default": "false", "description": "Whether the card carries a close button.", "descriptionZh": "卡片上是否带关闭按钮。" }
+    { "name": "closable", "type": "boolean", "default": "false", "description": "Whether the card carries a close button.", "descriptionZh": "卡片上是否带关闭按钮。" },
+    { "name": "show-close", "type": "boolean", "default": "false", "description": "Whether the card carries a close button. This is Element Plus's name for `closable`; either one of them asks for the button.", "descriptionZh": "卡片上是否带关闭按钮。这是 Element Plus 对 `closable` 的叫法,两个都能提出这个要求。" }
   ],
   "slots": [
     { "name": "title", "description": "The heading of the card.", "descriptionZh": "卡片的标题。" },

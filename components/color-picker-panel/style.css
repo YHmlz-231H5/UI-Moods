@@ -191,6 +191,29 @@
   background: var(--um-color-picker-panel-swatch);
 }
 
+/* The footer is the row under the swatches, where a host puts whatever acts
+   on the colour. */
+.um-color-picker-panel__footer {
+  display: flex;
+  align-items: center;
+  gap: var(--um-space-xs);
+  padding-top: var(--um-space-xs);
+  border-top: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+}
+
+/* A disabled panel dims its swatches and takes the derived disabled colour on
+   its field, the way every other disabled control in the library dims. */
+.um-color-picker-panel__swatch:has(input:disabled),
+.um-color-picker-panel__hue-swatch:has(input:disabled) {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.um-color-picker-panel__input:disabled {
+  background: var(--um-surface-control);
+  color: var(--um-text-disabled);
+  cursor: not-allowed;
+}
+
 .um-color-picker-panel--sm .um-color-picker-panel__swatch,
 .um-color-picker-panel--sm .um-color-picker-panel__hue-swatch,
 .um-color-picker-panel--sm .um-color-picker-panel__preview {

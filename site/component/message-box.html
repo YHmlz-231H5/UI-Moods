@@ -405,7 +405,12 @@
       <tr><td><code>um-message-box__confirm</code></td><td>Confirm</td></tr>
       <tr><td><code>um-message-box__cancel</code></td><td>Cancel</td></tr>
       <tr><td><code>um-message-box__close</code></td><td>Close</td></tr>
+      <tr><td><code>um-message-box__input</code></td><td>Input</td></tr>
       <tr><td><code>:disabled</code></td><td>Disabled</td></tr>
+      <tr><td><code>.um-message-box--center</code></td><td>Centred</td></tr>
+      <tr><td><code>.um-message-box--round-button</code></td><td>Round buttons</td></tr>
+      <tr><td><code>.um-message-box--button-sm</code></td><td>Small answers</td></tr>
+      <tr><td><code>.um-message-box--button-lg</code></td><td>Large answers</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -419,6 +424,16 @@
       <tr><td><span class="api__name"><code>cancel-text</code></span></td><td><code>string</code></td><td><code>取消</code></td><td>The label on the cancel button.</td></tr>
       <tr><td><span class="api__name"><code>show-close</code></span></td><td><code>boolean</code></td><td><code>true</code></td><td>Whether the box carries the cross in the corner.</td></tr>
       <tr><td><span class="api__name"><code>show-cancel</code></span></td><td><code>boolean</code></td><td><code>true</code></td><td>Whether the box carries the cancel button.</td></tr>
+      <tr><td><span class="api__name"><code>show-cancel-button</code></span></td><td><code>boolean</code></td><td><code>true</code></td><td>Whether the box carries the cancel button. This is Element Plus's name for `show-cancel`; either one of them asks for the button.</td></tr>
+      <tr><td><span class="api__name"><code>show-confirm-button</code></span></td><td><code>boolean</code></td><td><code>true</code></td><td>Whether the box carries the confirm button.</td></tr>
+      <tr><td><span class="api__name"><code>show-input</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the box asks its question in a field the reader can type in.</td></tr>
+      <tr><td><span class="api__name"><code>box-type</code></span></td><td><code>enum = alert | confirm | prompt</code></td><td><code>confirm</code></td><td>What the box is for. An alert asks for one answer, a confirm for two, and a prompt for two and a field to type in.</td></tr>
+      <tr><td><span class="api__name"><code>center</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the title and the message stand in the middle of the box. It adds um-message-box--center.</td></tr>
+      <tr><td><span class="api__name"><code>round-button</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the two answers are pills. It adds um-message-box--round-button.</td></tr>
+      <tr><td><span class="api__name"><code>button-size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>How big the two answers are. The default size is the base class on its own; the other two add um-message-box--button-sm or um-message-box--button-lg.</td></tr>
+      <tr><td><span class="api__name"><code>modal</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the box is opened as the browser's own modal dialog, in the top layer and with the backdrop the browser paints for it. The library paints no mask of its own.</td></tr>
+      <tr><td><span class="api__name"><code>confirm-button-type</code></span></td><td><code>enum = default | primary | success | warning | danger | info</code></td><td><code>default</code></td><td>The type of the answer the box is asking for. The default type is the box's own type; the other five are a fill of their own.</td></tr>
+      <tr><td><span class="api__name"><code>cancel-button-type</code></span></td><td><code>enum = default | primary | success | warning | danger | info</code></td><td><code>default</code></td><td>The type of the answer that backs out. The default type is the neutral shape, so the eye goes to the answer that is being asked for; the other five are a fill of their own.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>

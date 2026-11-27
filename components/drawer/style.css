@@ -27,6 +27,13 @@
   font-size: var(--um-font-size-body);
 }
 
+/* A drawer that was not asked for is hidden rather than painted over the
+   page. The rule carries the hidden attribute with the base class beside it,
+   because the base class says `display: flex` and would otherwise win. */
+.um-drawer[hidden] {
+  display: none;
+}
+
 /* The rule sits on the edge the panel hangs from, so it moves with the
    panel: on the right for a panel that came from the right. */
 .um-drawer--left {

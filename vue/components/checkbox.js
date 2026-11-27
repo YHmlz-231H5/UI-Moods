@@ -23,6 +23,8 @@ export const UMCheckbox = defineComponent({
     name: { type: String, default: "" },
     value: { type: String, default: "" },
     modelValue: { type: Boolean, default: undefined },
+    border: { type: Boolean, default: false },
+    size: { type: String, default: "md" },
   },
   emits: ["change", "update:modelValue"],
   setup(props, { slots, emit }) {
@@ -41,22 +43,41 @@ export const UMCheckbox = defineComponent({
       group ? isSelected(group, props.value) : modelValue(props, props.checked);
 
     return () =>
-      h("label", { class: "um-checkbox" }, [
-        h("input", {
-          ref: input,
-          class: "um-checkbox__input",
-          type: "checkbox",
-          checked: isChecked(),
-          disabled: props.disabled,
-          name: props.name || group?.name || undefined,
-          value: props.value || undefined,
-          onChange: (e) => {
-            emit("update:modelValue", eventValue(e, true));
-            emit("change", e);
-          },
-        }),
-        h("span", { class: "um-checkbox__box" }),
-        h("span", { class: "um-checkbox__label" }, slots.label ? slots.label() : []),
-      ]);
+      h(
+        "label",
+        {
+          class: [
+            "um-checkbox",
+            // The medium size is the base class itself, so it needs no
+            // modifier — a class the stylesheet does not have paints nothing.
+            props.size !== "md" ? `um-checkbox--${props.size}` : null,
+            props.border ? "um-checkbox--border" : null,
+          ],
+        },
+        [
+          h("input", {
+            ref: input,
+            class: "um-checkbox__input",
+            type: "checkbox",
+            checked: isChecked(),
+            disabled: props.disabled,
+            name: props.name || group?.name || undefined,
+            value: props.value || undefined,
+            onChange: (e) => {
+              emit("update:modelValue", eventValue(e, true));
+              emit("change", e);
+            },
+          }),
+          h("span", { class: "um-checkbox__box" }),
+          h(
+            "span",
+            { class: "um-checkbox__label" },
+            // The text beside the box. The named slot says it first, and the
+            // default slot is the same content under the name Element Plus
+            // gives it.
+            slots.label ? slots.label() : slots.default ? slots.default() : [],
+          ),
+        ],
+      );
   },
 });

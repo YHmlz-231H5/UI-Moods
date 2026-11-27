@@ -109,6 +109,16 @@
   opacity: 0.45;
 }
 
+/* The score is the number beside the stars. It is in the markup either way, so
+   it only takes up room when the stars ask for it. */
+.um-rate__score {
+  display: none;
+  color: var(--um-text-regular);
+  font-size: var(--um-font-size-body);
+  font-variant-numeric: tabular-nums;
+}
+.um-rate--show-score .um-rate__score { display: inline-flex; }
+
 /* ============================================================================
    Quality hooks
    ----------------------------------------------------------------------------

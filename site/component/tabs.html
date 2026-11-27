@@ -379,6 +379,8 @@
       <tr><td><code>um-tabs__indicator</code></td><td>Indicator</td></tr>
       <tr><td><code>um-tabs__panel</code></td><td>Panel</td></tr>
       <tr><td><code>:checked</code></td><td>Selected</td></tr>
+      <tr><td><code>.um-tabs--stretch</code></td><td>Stretched</td></tr>
+      <tr><td><code>.um-tabs--bottom</code></td><td>At the bottom</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -388,6 +390,9 @@
       <tr><td><span class="api__name"><code>name</code></span></td><td><code>string</code></td><td>—</td><td>The name the radios share. Two tab groups with different names can be open at the same time.</td></tr>
       <tr><td><span class="api__name"><code>type</code></span></td><td><code>enum = line | card</code></td><td><code>line</code></td><td>The shape of the tab row. The line type is the base class on its own; the card type adds um-tabs--card.</td></tr>
       <tr><td><span class="api__name"><code>selected</code></span></td><td><code>number</code></td><td><code>1</code></td><td>Which tab starts open. It is the checked attribute on that radio.</td></tr>
+      <tr><td><span class="api__name"><code>model-value</code></span></td><td><code>number</code></td><td>—</td><td>Which tab is open, counted from one. The binding wins over `selected`.</td></tr>
+      <tr><td><span class="api__name"><code>stretch</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the tabs fill the width they are given. It adds um-tabs--stretch.</td></tr>
+      <tr><td><span class="api__name"><code>tab-position</code></span></td><td><code>enum = top | bottom</code></td><td><code>top</code></td><td>Where the bar of tabs sits. The bar on top is the base class on its own; the bar under the panel adds um-tabs--bottom.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>
@@ -395,6 +400,8 @@
       <thead><tr><th>Name</th><th>Description</th></tr></thead>
       <tbody>
       <tr><td><span class="api__name"><code>panel</code></span></td><td>The content of one tab. It goes inside the panel section.</td></tr>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>The labels of the tabs, one child per tab.</td></tr>
+      <tr><td><span class="api__name"><code>label</code></span></td><td>The label of one tab. It is called once per tab with its index, the way the panel slot is.</td></tr>
       </tbody>
     </table>
       <h2>Events</h2>

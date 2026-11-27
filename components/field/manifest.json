@@ -14,16 +14,29 @@
     "part": "um-field__"
   },
   "variants": [],
-  "sizes": [],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "A shorter control." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default control height. The base class is already this size, so it needs no modifier." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "A taller control." }
+  ],
   "states": [
-    { "id": "error", "name": "Error", "nameZh": "错误", "selector": ".um-field--error", "note": "The message takes the danger text colour, and a control inside the field gets a danger border." }
+    { "id": "error", "name": "Error", "nameZh": "错误", "selector": ".um-field--error", "note": "The message takes the danger text colour, and a control inside the field gets a danger border." },
+    { "id": "success", "name": "Success", "nameZh": "成功", "selector": ".um-field--success", "note": "The message takes the success text colour." },
+    { "id": "warning", "name": "Warning", "nameZh": "警告", "selector": ".um-field--warning", "note": "The message takes the warning text colour." },
+    { "id": "info", "name": "Info", "nameZh": "提示", "selector": ".um-field--info", "note": "The message takes the info text colour." },
+    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ".um-field--disabled", "note": "The field's own text dims. The control inside is the host's to disable, because it is the element that can be switched off." },
+    { "id": "inline", "name": "Inline", "nameZh": "行内", "selector": ".um-field--inline", "note": "The label sits beside the control instead of above it." }
   ],
   "parts": [
     { "id": "label", "name": "Label", "nameZh": "标签", "note": "The label above the control. It is a real <label>, so it needs a for that matches the control's id." },
     { "id": "message", "name": "Message", "nameZh": "说明", "note": "The helper or error text below the control. It is muted until the field is in its error state." }
   ],
   "props": [
-    { "name": "error", "type": "boolean", "default": "false", "description": "Puts the field in its error state.", "descriptionZh": "让表单项进入错误态。" }
+    { "name": "error", "type": "boolean", "default": "false", "description": "Puts the field in its error state.", "descriptionZh": "让表单项进入错误态。" },
+    { "name": "validate-status", "type": "enum", "values": ["error", "success", "warning", "info"], "default": "", "since": "1.1.0", "description": "Which validation state the field is in. It is the class the state is painted with: um-field--error, um-field--success, um-field--warning or um-field--info.", "descriptionZh": "表单项处于哪个校验状态。它就是那个状态对应的类:um-field--error、um-field--success、um-field--warning 或 um-field--info。" },
+    { "name": "disabled", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Says the field is out of use. The field's own text dims. The control inside is the host's to disable, because it is the element that can actually be switched off.", "descriptionZh": "表示这个表单项不再使用。表单项自己的文字会变暗。里面的控件由宿主来禁用,因为它才是真正能被关掉的元素。" },
+    { "name": "inline", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Puts the label beside the control instead of above it.", "descriptionZh": "把标签放在控件旁边,而不是上面。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "since": "1.1.0", "description": "The size of the control the field holds. The field does not redraw the control — it only tells it how tall it is. The medium size is the control's own size already.", "descriptionZh": "表单项里那个控件的尺寸。表单项不重画控件,只告诉它有多高。中号就是控件本来的高度。" }
   ],
   "slots": [
     { "name": "label", "description": "The label text, above the control.", "descriptionZh": "控件上方的标签文字。" },

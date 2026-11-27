@@ -13,6 +13,7 @@ export const UMLayout = defineComponent({
   props: {
     direction: { type: String, default: "horizontal" },
     size: { type: String, default: "md" },
+    align: { type: String, default: "stretch" },
   },
   setup(props, { slots }) {
     return () =>
@@ -23,6 +24,8 @@ export const UMLayout = defineComponent({
             "um-layout",
             props.direction === "stacked" ? "um-layout--stacked" : null,
             props.size !== "md" ? `um-layout--${props.size}` : null,
+            // The stretched row is the base class on its own.
+            props.align !== "stretch" ? `um-layout--align-${props.align}` : null,
           ],
         },
         [

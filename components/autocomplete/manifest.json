@@ -30,7 +30,9 @@
   "parts": [
     { "id": "input", "name": "Input", "nameZh": "输入框", "note": "The real <input type=\"text\">. It is borderless inside the field, so the field and the suggestions read as one control." },
     { "id": "list", "name": "Suggestion list", "nameZh": "建议列表", "note": "The <datalist> that holds the suggestions. The browser paints the popup: the library can reach the suggestion text and the surface under it, but the frame around the popup belongs to the reader's system." },
-    { "id": "option", "name": "Suggestion", "nameZh": "建议项", "note": "One suggestion in the list. Its value is what the field takes when the reader picks it." }
+    { "id": "option", "name": "Suggestion", "nameZh": "建议项", "note": "One suggestion in the list. Its value is what the field takes when the reader picks it." },
+    { "id": "prefix", "name": "Prefix", "nameZh": "前缀", "note": "The mark in front of the text, so a unit can be written next to it." },
+    { "id": "suffix", "name": "Suffix", "nameZh": "后缀", "note": "The mark behind the text, so a unit can be written next to it." }
   ],
   "props": [
     { "name": "value", "type": "string", "description": "The text in the field. It is the input's own value — a class cannot carry a word.", "descriptionZh": "字段里的文字。它是 input 自己的值 —— 类带不了词。" },
@@ -41,9 +43,13 @@
     { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes the field inert. It uses the real disabled attribute, so it leaves the tab order.", "descriptionZh": "让字段不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" },
     { "name": "variant", "type": "enum", "values": ["bordered", "filled"], "default": "bordered", "description": "The surface of the field. The bordered run is the base class on its own; the filled run adds um-autocomplete--filled.", "descriptionZh": "字段的底面。描边这一跑就是只写基础类;填充这一跑再加上 um-autocomplete--filled。" },
     { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The height of the field.", "descriptionZh": "字段的高度。" },
-    { "name": "model-value", "type": "string", "description": "The text in the field, bound with v-model in Vue. Leave it out and the `value` prop is the text; bind it and the field answers to the binding.", "descriptionZh": "字段里的文字,在 Vue 里用 v-model 绑定。不传就以 value 属性为准;传了就以绑定为准。" }
+    { "name": "model-value", "type": "string", "description": "The text in the field, bound with v-model in Vue. Leave it out and the `value` prop is the text; bind it and the field answers to the binding.", "descriptionZh": "字段里的文字,在 Vue 里用 v-model 绑定。不传就以 value 属性为准;传了就以绑定为准。" },
+    { "name": "readonly", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Keeps the text visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures.", "descriptionZh": "文字仍然可见,但不能编辑。它是原生 readonly 属性,浏览器会拒绝编辑。库不会给只读字段单独配色 —— 这不是它测量过的状态。" }
   ],
-  "slots": [],
+  "slots": [
+    { "name": "prefix", "description": "The mark in front of the text.", "descriptionZh": "文字前面的标记。" },
+    { "name": "suffix", "description": "The mark behind the text.", "descriptionZh": "文字后面的标记。" }
+  ],
   "events": [
     { "name": "input", "description": "Fires on every keystroke in the field. It is the browser's own event on the input — the library installs no listener.", "descriptionZh": "在字段里每敲一个字就触发。这是 input 上的浏览器原生事件 —— 库没有安装任何监听器。" },
     { "name": "change", "description": "Fires when the value is committed: when the reader leaves the field, or when they pick a suggestion.", "descriptionZh": "值被提交时触发:读者离开字段时,或者他们选定一条建议时。" },

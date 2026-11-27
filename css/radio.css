@@ -13,14 +13,22 @@
 /* ============================================================================
    Radio
    ========================================================================== */
-.um-radio { display: inline-flex; align-items: center; gap: var(--um-space-xs); cursor: pointer; }
+.um-radio {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--um-space-xs);
+  cursor: pointer;
+}
 .um-radio__input { position: absolute; width: 1px; height: 1px; opacity: 0; }
 .um-radio__dot {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: var(--um-height-sm);
-  height: var(--um-height-sm);
+  /* The circle is sized by one number, so a group that holds circles can size
+     them too: the number is inherited, and a circle with a size of its own
+     declares it and wins. */
+  width: calc(var(--um-height-sm) * var(--um-radio-scale, 1));
+  height: calc(var(--um-height-sm) * var(--um-radio-scale, 1));
   /* The dot is the control, not a divider: it has no label of its own, so its
      outline is held to the muted-shape role (3:1) rather than to the border
      role a hairline would use. In the clay mood the border role is literally
@@ -33,8 +41,8 @@
 
 .um-radio__dot::after {
   content: "";
-  width: calc(var(--um-height-sm) * 0.4);
-  height: calc(var(--um-height-sm) * 0.4);
+  width: calc(var(--um-height-sm) * 0.4 * var(--um-radio-scale, 1));
+  height: calc(var(--um-height-sm) * 0.4 * var(--um-radio-scale, 1));
   border-radius: var(--um-radius-circle);
   background: var(--um-color-primary-on);
   transform: scale(0);
@@ -45,6 +53,20 @@
 
 .um-radio__label { color: var(--um-text-regular); font-size: var(--um-font-size-body); }
 .um-radio__input:disabled + .um-radio__dot { opacity: 0.45; cursor: not-allowed; }
+
+/* The bordered run puts a frame around the circle and its text, so the two read
+   as one chip rather than as two things next to each other. */
+.um-radio--border {
+  padding: var(--um-space-xs) var(--um-space-sm);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-base);
+}
+
+.um-radio--sm { --um-radio-scale: 0.75; }
+.um-radio--sm .um-radio__label { font-size: var(--um-font-size-caption); }
+
+.um-radio--lg { --um-radio-scale: 1.5; }
+.um-radio--lg .um-radio__label { font-size: var(--um-font-size-title); }
 
 /* ============================================================================
    Quality hooks

@@ -50,6 +50,20 @@
       "nameZh": "危险",
       "selector": ".um-steps__item--danger",
       "note": "The library's name for the same state, kept so the class matches the colour roles used everywhere else."
+    },
+    {
+      "id": "align-center",
+      "name": "Aligned to the centre",
+      "nameZh": "居中对齐",
+      "selector": ".um-steps--align-center",
+      "note": "The title and the description stand in the middle of the step rather than at its start."
+    },
+    {
+      "id": "simple",
+      "name": "Simple",
+      "nameZh": "最简",
+      "selector": ".um-steps--simple",
+      "note": "The titles stand in a row and the descriptions and the line are not drawn."
     }
   ],
   "parts": [
@@ -106,6 +120,35 @@
       "default": "default",
       "description": "Where the step stands. It is a class on the item: no class is the waiting state, and the other four are um-steps__item--active, um-steps__item--success, um-steps__item--error and um-steps__item--danger.",
       "descriptionZh": "这一步走到哪儿了。它是条目上的一个类:不加类就是等待状态,另外四个分别是 um-steps__item--active、um-steps__item--success、um-steps__item--error 和 um-steps__item--danger。"
+    },
+    {
+      "name": "process-status",
+      "type": "enum",
+      "values": ["default", "active", "success", "error", "danger"],
+      "default": "default",
+      "description": "Where the step that is being worked on stands. This is Element Plus's name for the `status` prop; either one of them says it.",
+      "descriptionZh": "正在做的那一步走到哪儿了。这是 Element Plus 对 `status` 属性的叫法,两个都能说明它。"
+    },
+    {
+      "name": "active",
+      "type": "number",
+      "default": "0",
+      "description": "Which step is being worked on, counted from one. That step carries the running state; zero leaves the states where the markup put them.",
+      "descriptionZh": "正在做的是第几步,从一开始数。那一步会带上进行中的状态;零表示状态由标记自己写。"
+    },
+    {
+      "name": "align-center",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the title and the description stand in the middle of the step rather than at its start. It adds um-steps--align-center.",
+      "descriptionZh": "标题和说明是否居中而不是靠前。它加上 um-steps--align-center。"
+    },
+    {
+      "name": "simple",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the run is the simple one: the titles stand in a row and the descriptions and the line are not drawn. It adds um-steps--simple.",
+      "descriptionZh": "是否用最简的形态:只排标题,不画说明和连接线。它加上 um-steps--simple。"
     }
   ],
   "slots": [
@@ -113,6 +156,21 @@
       "name": "icon",
       "description": "The number or mark in the round slot. It is text in the markup, so it can be a number, a word or a tick.",
       "descriptionZh": "圆槽里的序号或标记。标记里写的是文字,所以可以是数字、单词或者一个对勾。"
+    },
+    {
+      "name": "default",
+      "description": "The steps themselves. Each one keeps the status class it was written with.",
+      "descriptionZh": "步骤本身。每一步保留标记里写好的状态类。"
+    },
+    {
+      "name": "title",
+      "description": "The title of the step.",
+      "descriptionZh": "这一步的标题。"
+    },
+    {
+      "name": "description",
+      "description": "The line under the title that says what the step is.",
+      "descriptionZh": "标题下面那行说明这一步是什么的。"
     }
   ],
   "events": [],

@@ -149,6 +149,8 @@ export interface LayoutProps {
   size?: LayoutSize;
   /** Whether the side column stands beside the content or above it. The horizontal form is the base class on its own; the stacked form adds um-layout--stacked. */
   direction?: "horizontal" | "stacked";
+  /** How the side column and the content stand against each other across the row. The stretched row needs no modifier class. */
+  align?: "start" | "center" | "end" | "stretch";
 }
 
 /** Link · 链接 — A link, in one of the semantic colours. It is text, so it takes the text form of the colour and reads at 4.5:1 on the page, on an overlay and inside a container. */
@@ -234,6 +236,10 @@ export interface TextProps {
   type?: "regular" | "primary" | "secondary" | "placeholder" | "success" | "warning" | "danger" | "info";
   /** Clips the run to one line and ends it in an ellipsis. */
   truncate?: boolean;
+  /** Clips the run to one line and ends it in an ellipsis. This is Element Plus's name for `truncate`; either one of them clips the run. */
+  truncated?: boolean;
+  /** How many lines the run is held to before the rest is cut. The number is the host's; the class carries the mechanism. */
+  lineClamp?: number;
   /** Which element the run is written as. */
   tag?: "span" | "div" | "p";
 }
@@ -274,6 +280,8 @@ export interface AutocompleteProps {
   disabled?: boolean;
   /** The text in the field, bound with v-model in Vue. Leave it out and the `value` prop is the text; bind it and the field answers to the binding. */
   modelValue?: string;
+  /** Keeps the text visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures. */
+  readonly?: boolean;
 }
 
 /** Button · 按钮 — An action the user takes. The one component every interface needs, and the one that has to look right in thirty-two different moods. */
@@ -291,11 +299,22 @@ export interface ButtonProps {
   loading?: boolean;
   /** Applies the mood's glow hook. A mood without one shows nothing. */
   glow?: boolean;
+  /** Gives the button the pill shape, whatever height it is. */
+  round?: boolean;
+  /** Makes the button a disc: as wide as it is tall. */
+  circle?: boolean;
+  /** Draws the outline as a dashed line. */
+  dashed?: boolean;
+  /** Makes the button read as a link: no fill, no border, and an underlined label. */
+  link?: boolean;
 }
 
+/** Checkbox — the sizes it can be rendered at. */
+export type CheckboxSize = "sm" | "md" | "lg";
 export interface CheckboxProps {
   /** The component's own id, so a registry can be keyed by it. */
   id: "checkbox";
+  size?: CheckboxSize;
   /** Ticks the box. It is the native checked attribute, not a class. */
   checked?: boolean;
   /** Shows the dash instead of the tick. The browser has no attribute for it: the host sets input.indeterminate = true. */
@@ -308,14 +327,19 @@ export interface CheckboxProps {
   value?: string;
   /** Whether the box is ticked, bound with v-model in Vue. Leave it out and the `checked` prop is the state; bind it and the box answers to the binding. Inside a checkbox group the group decides instead. */
   modelValue?: boolean;
+  /** Puts a frame around the box and its text, so the two read as one chip. */
+  border?: boolean;
 }
 
 /** Checkbox Group · 复选框组 — A set of checkboxes that share one name and belong to one field. The group is a fieldset, so the browser groups the boxes for the form and for the screen reader. */
 export type CheckboxGroupVariant = "stacked" | "inline";
+/** Checkbox Group — the sizes it can be rendered at. */
+export type CheckboxGroupSize = "sm" | "md" | "lg";
 export interface CheckboxGroupProps {
   /** The component's own id, so a registry can be keyed by it. */
   id: "checkbox-group";
   variant?: CheckboxGroupVariant;
+  size?: CheckboxGroupSize;
   /** The name every option in the group submits under. It is the native name attribute, so the form posts every ticked option as one field. */
   name?: string;
   /** The value one option submits while it is ticked. */
@@ -330,6 +354,8 @@ export interface CheckboxGroupProps {
   direction?: "stacked" | "inline";
   /** The text of the group's legend. A group with no legend still needs an accessible name of its own. */
   label?: string;
+  /** How the options are drawn. The checkbox run leaves the options as they are; the button run turns each one into a chip with a frame of its own. */
+  type?: "checkbox" | "button";
 }
 
 /** Color Picker · 颜色选择器 — A colour in three parts: the platform's own colour button, a row of palette chips the reader can pick from, and the hexadecimal value written out. The chips are a real radio group, so the choice is in the tab order and the browser announces it. */
@@ -374,6 +400,8 @@ export interface ColorPickerPanelProps {
   value?: string;
   /** Whether the preview chip is shown. Without it the panel has no chip in the value row. */
   showPreview?: boolean;
+  /** Makes the panel inert. It uses the real disabled attribute on the radios and on the field, so they leave the tab order and the swatches dim, the way every other disabled control in the library dims. */
+  disabled?: boolean;
 }
 
 /** Date Picker · 日期选择器 — A field for a date. It is a real <input type="date"> inside a box the library draws, so the browser validates the date, the arrow keys walk through it and the reader's own calendar opens it. */
@@ -399,6 +427,8 @@ export interface DatePickerProps {
   type?: "single" | "range";
   /** The date in the field, bound with v-model in Vue. Leave it out and the `value` prop is the date; bind it and the field answers to the binding. */
   modelValue?: string;
+  /** Keeps the date visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures. */
+  readonly?: boolean;
 }
 
 /** Date Picker Panel · 日期选择面板 — The month panel a date picker drops: the month and its navigation, the week grid, and the two actions in the footer. The panel does not keep a month, so the host owns the month and the buttons that change it. */
@@ -424,6 +454,8 @@ export interface DatePickerPanelProps {
   showFooter?: boolean;
   /** The words on the confirm button. */
   footerText?: string;
+  /** Whether the confirm button is shown. Without it the footer keeps only the shortcut, and the host keeps the action somewhere else. */
+  showConfirm?: boolean;
 }
 
 /** Date Time Picker · 日期时间选择器 — A field for a date and a time together. It is a real <input type="datetime-local"> inside a box the library draws, so the browser validates both halves, the arrow keys walk the segments and the reader's own calendar opens it. */
@@ -451,18 +483,32 @@ export interface DateTimePickerProps {
   type?: "single" | "range";
   /** The date and time in the field, bound with v-model in Vue. Leave it out and the `value` prop is the value; bind it and the field answers to the binding. */
   modelValue?: string;
+  /** Keeps the value visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures. */
+  readonly?: boolean;
 }
 
+/** Field — the sizes it can be rendered at. */
+export type FieldSize = "sm" | "md" | "lg";
 export interface FieldProps {
   /** The component's own id, so a registry can be keyed by it. */
   id: "field";
+  size?: FieldSize;
   /** Puts the field in its error state. */
   error?: boolean;
+  /** Which validation state the field is in. It is the class the state is painted with: um-field--error, um-field--success, um-field--warning or um-field--info. */
+  validateStatus?: "error" | "success" | "warning" | "info";
+  /** Says the field is out of use. The field's own text dims. The control inside is the host's to disable, because it is the element that can actually be switched off. */
+  disabled?: boolean;
+  /** Puts the label beside the control instead of above it. */
+  inline?: boolean;
 }
 
+/** Input / Textarea / Select — the sizes it can be rendered at. */
+export type InputSize = "sm" | "md" | "lg";
 export interface InputProps {
   /** The component's own id, so a registry can be keyed by it. */
   id: "input";
+  size?: InputSize;
   /** Which member of the family this is. Each one is its own class: um-input, um-textarea, um-select. */
   control?: "input" | "textarea" | "select";
   /** The hint text for the input and the textarea. It takes the muted placeholder role, not the body colour. */
@@ -498,6 +544,8 @@ export interface InputNumberProps {
   disabled?: boolean;
   /** The number in the field, bound with v-model in Vue. Leave it out and the `value` prop is the number; bind it and the field answers to the binding. */
   modelValue?: number;
+  /** Keeps the number visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures. */
+  readonly?: boolean;
 }
 
 /** Input OTP · 验证码输入 — A row of one-character fields for a code the reader has been sent. Each box is a real input that holds one character, so the browser's own keyboard, autofill and password manager all still apply to it. */
@@ -519,6 +567,8 @@ export interface InputOtpProps {
   label?: string;
   /** Makes every box inert. It uses the real disabled attribute, so they leave the tab order. */
   disabled?: boolean;
+  /** Keeps the code visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only box — it is not a state it measures. */
+  readonly?: boolean;
 }
 
 /** Input Tag · 标签输入 — A field that holds the tags already chosen, and an empty place to type the next one. Removing a tag needs a script; the shapes of the tag and of its remove button do not. */
@@ -536,6 +586,10 @@ export interface InputTagProps {
   placeholder?: string;
   /** The accessible name of the field. It becomes the input's aria-label. */
   label?: string;
+  /** Makes the field inert. It uses the real disabled attribute on the input, so it leaves the tab order and the field paints the flat control surface. */
+  disabled?: boolean;
+  /** Keeps the text visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures. */
+  readonly?: boolean;
 }
 
 /** Mention · 提及 — A field with a list of people under it. The reader types, the host decides which names to offer, and each name is a button that carries an avatar slot and an @name. */
@@ -555,11 +609,18 @@ export interface MentionProps {
   label?: string;
   /** The text in the field, bound with v-model in Vue. Leave it out and the `value` prop is the text; bind it and the field answers to the binding. */
   modelValue?: string;
+  /** Makes the field inert. It uses the real disabled attribute on the input, so it leaves the tab order and the field paints the flat control surface. */
+  disabled?: boolean;
+  /** Keeps the text visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures. */
+  readonly?: boolean;
 }
 
+/** Radio — the sizes it can be rendered at. */
+export type RadioSize = "sm" | "md" | "lg";
 export interface RadioProps {
   /** The component's own id, so a registry can be keyed by it. */
   id: "radio";
+  size?: RadioSize;
   /** Selects this option. It is the native checked attribute, not a class. */
   checked?: boolean;
   /** Makes the radio inert. It uses the real disabled attribute, so it leaves the tab order. */
@@ -570,14 +631,19 @@ export interface RadioProps {
   value?: string;
   /** Whether this option is the selected one, bound with v-model in Vue. Leave it out and the `checked` prop is the state; bind it and the option answers to the binding. Inside a radio group the group decides instead. */
   modelValue?: boolean;
+  /** Puts a frame around the circle and its text, so the two read as one chip. */
+  border?: boolean;
 }
 
 /** Radio Group · 单选框组 — A set of radios that share one name and belong to one field. The group is a fieldset, so the browser groups the circles for the form and for the screen reader. */
 export type RadioGroupVariant = "stacked" | "inline";
+/** Radio Group — the sizes it can be rendered at. */
+export type RadioGroupSize = "sm" | "md" | "lg";
 export interface RadioGroupProps {
   /** The component's own id, so a registry can be keyed by it. */
   id: "radio-group";
   variant?: RadioGroupVariant;
+  size?: RadioGroupSize;
   /** The name every option in the group shares. It is the native name attribute, and it is what makes the group a group: the browser keeps exactly one of the options picked. */
   name?: string;
   /** The value one option submits while it is picked. */
@@ -592,6 +658,8 @@ export interface RadioGroupProps {
   direction?: "stacked" | "inline";
   /** The text of the group's legend. A group with no legend still needs an accessible name of its own. */
   label?: string;
+  /** How the options are drawn. The radio run leaves the options as they are; the button run turns each one into a chip with a frame of its own. */
+  type?: "radio" | "button";
 }
 
 /** Rate · 评分 — A row of stars the reader sets by choosing one. The stars are real radio buttons under a drawn shape, so the value is the browser's own value and the group is the browser's own group. */
@@ -613,6 +681,8 @@ export interface RateProps {
   disabled?: boolean;
   /** How many stars are filled, bound with v-model in Vue. Leave it out and the `value` prop is the score; bind it and the group answers to the binding. */
   modelValue?: number;
+  /** Writes the score beside the stars, so the number is written down and not only counted. */
+  showScore?: boolean;
 }
 
 export interface SliderProps {
@@ -628,13 +698,18 @@ export interface SliderProps {
   value?: number;
   /** Makes the slider inert. It uses the real disabled attribute, so it leaves the tab order. */
   disabled?: boolean;
+  /** Stands the slider on its end, so the value runs from the bottom up. */
+  vertical?: boolean;
   /** The slider's own value, bound with v-model in Vue. Leave it out and the `value` prop is the value; bind it and the slider answers to the binding. */
   modelValue?: number;
 }
 
+/** Switch — the sizes it can be rendered at. */
+export type SwitchSize = "sm" | "md" | "lg";
 export interface SwitchProps {
   /** The component's own id, so a registry can be keyed by it. */
   id: "switch";
+  size?: SwitchSize;
   /** Turns the setting on. It is the native checked attribute, not a class. */
   checked?: boolean;
   /** Makes the switch inert. It uses the real disabled attribute, so it leaves the tab order. */
@@ -645,6 +720,10 @@ export interface SwitchProps {
   value?: string;
   /** The switch's own state, bound with v-model in Vue. Leave it out and the `checked` prop is the state; bind it and the switch answers to the binding. */
   modelValue?: boolean;
+  /** Says the switch is busy. The track dims and the switch stops taking clicks. */
+  loading?: boolean;
+  /** Writes the state inside the track instead of on a thumb beside it. The active and inactive slots are what it writes. */
+  inlinePrompt?: boolean;
 }
 
 /** Time Picker · 时间选择器 — A field for a time of day. It is a real <input type="time"> inside a box the library draws, so the browser validates the hour, the arrow keys walk the segments and the reader's own clock opens it. */
@@ -672,6 +751,8 @@ export interface TimePickerProps {
   type?: "single" | "range";
   /** The time in the field, bound with v-model in Vue. Leave it out and the `value` prop is the time; bind it and the field answers to the binding. */
   modelValue?: string;
+  /** Keeps the time visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures. */
+  readonly?: boolean;
 }
 
 /** Time Select · 时间选择器 — A choice of time of day, as a native <select>. The option list is the platform's own, so the reader gets the system's own picker and its keyboard behaviour; the library draws the field and the arrow around it. */
@@ -720,6 +801,8 @@ export interface TreeSelectProps {
   disabled?: boolean;
   /** The value the picked leaf submits, bound with v-model in Vue. Leave it out and the `value` prop is that value; bind it and the tree answers to the binding. */
   modelValue?: string;
+  /** Draws a box in front of every leaf instead of a circle, so a leaf reads as something that can be ticked rather than something that can be picked. */
+  showCheckbox?: boolean;
 }
 
 /** Upload · 上传 — A file input and the list of the files that were chosen. The input is a real one, so the browser's own dialog opens and the files are chosen with the browser's own picker. */
@@ -743,6 +826,8 @@ export interface UploadProps {
   layout?: "list" | "text";
   /** Where one file has got to. It is a class on the item: no class is the waiting state, and the other three are um-upload__item--uploading, um-upload__item--done and um-upload__item--error. */
   status?: "default" | "uploading" | "done" | "error";
+  /** Whether the chosen files are shown under the trigger. The list is there unless the host says otherwise. */
+  showFileList?: boolean;
 }
 
 /** Virtual Select · 虚拟列表选择器 — A long list of choices that the browser only lays out near the viewport. The rows far away are skipped, and the browser is told how tall such a row is, so the scrollbar is right without every row being built. */
@@ -846,6 +931,8 @@ export interface CascaderProps {
   layout?: "inline" | "flyout";
   /** The text of one option. An option with no text needs an accessible name of its own. */
   label?: string;
+  /** Makes the cascader inert. A level is a disclosure rather than a form control, so it cannot carry the disabled attribute: the whole tree refuses the pointer instead. */
+  disabled?: boolean;
 }
 
 /** Collapse · 折叠面板 — A panel that opens and closes. It is a real disclosure, so the browser does the opening and the closing and the state survives a reload. */
@@ -1157,14 +1244,21 @@ export interface BreadcrumbProps {
 
 /** Dropdown · 下拉菜单 — A row of actions that stays out of the way until it is wanted. The trigger is a <summary>, so the panel opens and closes with the browser's own disclosure behaviour. */
 export type DropdownVariant = "end";
+/** Dropdown — the sizes it can be rendered at. */
+export type DropdownSize = "sm" | "md" | "lg";
 export interface DropdownProps {
   /** The component's own id, so a registry can be keyed by it. */
   id: "dropdown";
   variant?: DropdownVariant;
+  size?: DropdownSize;
   /** Which edge of the trigger the panel lines up with. The start placement is the base class on its own; the end placement adds um-dropdown--end. */
   placement?: "start" | "end";
   /** The text on the trigger. A trigger with no text still needs an accessible name of its own. */
   label?: string;
+  /** Whether the dropdown is switched off. A disabled dropdown never opens. It adds um-dropdown--disabled. */
+  disabled?: boolean;
+  /** Whether the menu draws a rule between its items. It adds um-dropdown--divided. */
+  divided?: boolean;
 }
 
 /** Menu · 菜单 — A list of places to go, with groups that fold away. The groups are <details> elements, so the browser opens and closes them and keeps them open across a reload. */
@@ -1177,6 +1271,8 @@ export interface MenuProps {
   direction?: "vertical" | "horizontal";
   /** Which entry is the current one. It is the um-menu__active class on that entry's item. */
   active?: string;
+  /** Which way the entries run. This is Element Plus's name for the `direction` prop; either one of them lays the menu out. */
+  mode?: "vertical" | "horizontal";
 }
 
 /** Pagination — the sizes it can be rendered at. */
@@ -1191,6 +1287,10 @@ export interface PaginationProps {
   currentPage?: number;
   /** How many records one page holds. */
   pageSize?: "10" | "20" | "50" | "100";
+  /** Whether the whole pager is inert. The arrows become real disabled buttons and the page numbers say so the way a disabled button does. */
+  disabled?: boolean;
+  /** Whether the pager disappears when there is only one page to be on. It adds um-pagination--hidden. */
+  hideOnSinglePage?: boolean;
 }
 
 /** Steps · 步骤条 — The order of a job, one step per entry, with the step you are on picked out and the steps already done marked as finished. */
@@ -1203,6 +1303,14 @@ export interface StepsProps {
   direction?: "horizontal" | "vertical";
   /** Where the step stands. It is a class on the item: no class is the waiting state, and the other four are um-steps__item--active, um-steps__item--success, um-steps__item--error and um-steps__item--danger. */
   status?: "default" | "active" | "success" | "error" | "danger";
+  /** Where the step that is being worked on stands. This is Element Plus's name for the `status` prop; either one of them says it. */
+  processStatus?: "default" | "active" | "success" | "error" | "danger";
+  /** Which step is being worked on, counted from one. That step carries the running state; zero leaves the states where the markup put them. */
+  active?: number;
+  /** Whether the title and the description stand in the middle of the step rather than at its start. It adds um-steps--align-center. */
+  alignCenter?: boolean;
+  /** Whether the run is the simple one: the titles stand in a row and the descriptions and the line are not drawn. It adds um-steps--simple. */
+  simple?: boolean;
 }
 
 /** Tabs · 标签页 — One row of tabs over several panels of content. The tabs are radio inputs, so the browser keeps the selection, the focus and the arrow keys without a line of script. */
@@ -1217,6 +1325,12 @@ export interface TabsProps {
   type?: "line" | "card";
   /** Which tab starts open. It is the checked attribute on that radio. */
   selected?: number;
+  /** Which tab is open, counted from one. The binding wins over `selected`. */
+  modelValue?: number;
+  /** Whether the tabs fill the width they are given. It adds um-tabs--stretch. */
+  stretch?: boolean;
+  /** Where the bar of tabs sits. The bar on top is the base class on its own; the bar under the panel adds um-tabs--bottom. */
+  tabPosition?: "top" | "bottom";
 }
 
 /** Alert · 警告 — A message that stays in the page and says what the reader has to know: the run failed, the quota is nearly gone, the sync is through. The variant colours the border and the mark, not the text. */
@@ -1240,6 +1354,18 @@ export interface DialogProps {
   title?: string;
   /** Where the title and the actions sit. The start alignment is the base class on its own; the centred one adds um-dialog--center. */
   align?: "start" | "center";
+  /** Whether the title and the actions are centred. This is Element Plus's name for the `align` prop's centred value; either one of them centres the panel. */
+  center?: boolean;
+  /** Whether the panel sits in the middle of the screen rather than in the flow of the page. It adds um-dialog--align-center. */
+  alignCenter?: boolean;
+  /** Whether the panel takes the whole screen. It adds um-dialog--fullscreen. */
+  fullscreen?: boolean;
+  /** Whether the panel is opened as the browser's own modal dialog, in the top layer and with the backdrop the browser paints for it. The library paints no mask of its own. */
+  modal?: boolean;
+  /** Whether the panel is open. The binding wins over the static form, which is the open one. */
+  modelValue?: boolean;
+  /** Whether the panel carries a close button in its header. */
+  showClose?: boolean;
 }
 
 /** Drawer · 抽屉 — A panel that slides out from the edge of the page: a side panel with a title, a body and a row of actions. It is held against the edge with fixed positioning, so it stays put while the page moves behind it. */
@@ -1257,6 +1383,12 @@ export interface DrawerProps {
   inline?: boolean;
   /** The heading of the panel. */
   title?: string;
+  /** Whether the panel is on the page. A drawer that was not asked for is hidden rather than painted over the page. */
+  modelValue?: boolean;
+  /** Whether the panel carries a close button in its header. */
+  showClose?: boolean;
+  /** Whether the panel has a header at all. Without one there is no title and no close button. */
+  withHeader?: boolean;
 }
 
 /** Loading · 加载中 — A ring that turns while the library waits for something. The ring is two borders with one side left out, and the turn is a keyframe, so it needs neither a timer nor a script. */
@@ -1270,6 +1402,10 @@ export interface LoadingProps {
   size?: LoadingSize;
   /** The caption beside the ring. It is the message, so it is written as text in the page and not as an attribute. */
   text?: string;
+  /** Whether the loading is over. A closed loading is not on the page. */
+  closed?: boolean;
+  /** Whether the loading covers the whole viewport, whatever shape it is. */
+  fullscreen?: boolean;
 }
 
 /** Message · 消息 — A short bar that tells the reader what just happened. Element Plus's message is a function that paints the bar and takes it away again; here the bar is a container, and the host decides whether it is on the page. */
@@ -1283,6 +1419,12 @@ export interface MessageProps {
   size?: MessageSize;
   /** Whether the bar carries a close button. */
   closable?: boolean;
+  /** Whether the bar carries a close button. This is Element Plus's name for `closable`; either one of them asks for the button. */
+  showClose?: boolean;
+  /** Lays the bar on the page rather than over it: the fill behind it and the shadow under it are gone. */
+  plain?: boolean;
+  /** Says that the bar is one of a group of messages of the same kind. A grouped bar is drawn as a strip of the page, so a stack of them reads as one list. */
+  grouping?: boolean;
 }
 
 /** Message Box · 消息框 — The narrow, centred box that asks the reader to confirm: a title, a message, and a pair of buttons, with an icon that carries the type. It is written as a <dialog> with a form around it, so the browser's own close is the one that closes it — the buttons are submits inside a form whose method is dialog, and the library installs no listener anywhere. */
@@ -1306,6 +1448,26 @@ export interface MessageBoxProps {
   showClose?: boolean;
   /** Whether the box carries the cancel button. */
   showCancel?: boolean;
+  /** Whether the box carries the cancel button. This is Element Plus's name for `show-cancel`; either one of them asks for the button. */
+  showCancelButton?: boolean;
+  /** Whether the box carries the confirm button. */
+  showConfirmButton?: boolean;
+  /** Whether the box asks its question in a field the reader can type in. */
+  showInput?: boolean;
+  /** What the box is for. An alert asks for one answer, a confirm for two, and a prompt for two and a field to type in. */
+  boxType?: "alert" | "confirm" | "prompt";
+  /** Whether the title and the message stand in the middle of the box. It adds um-message-box--center. */
+  center?: boolean;
+  /** Whether the two answers are pills. It adds um-message-box--round-button. */
+  roundButton?: boolean;
+  /** How big the two answers are. The default size is the base class on its own; the other two add um-message-box--button-sm or um-message-box--button-lg. */
+  buttonSize?: "sm" | "md" | "lg";
+  /** Whether the box is opened as the browser's own modal dialog, in the top layer and with the backdrop the browser paints for it. The library paints no mask of its own. */
+  modal?: boolean;
+  /** The type of the answer the box is asking for. The default type is the box's own type; the other five are a fill of their own. */
+  confirmButtonType?: "default" | "primary" | "success" | "warning" | "danger" | "info";
+  /** The type of the answer that backs out. The default type is the neutral shape, so the eye goes to the answer that is being asked for; the other five are a fill of their own. */
+  cancelButtonType?: "default" | "primary" | "success" | "warning" | "danger" | "info";
 }
 
 /** Notification · 通知 — A card that reports something the reader did not ask about — a deployment finished, a certificate was renewed. It is wider than a message, and it carries a heading of its own. */
@@ -1321,6 +1483,8 @@ export interface NotificationProps {
   title?: string;
   /** Whether the card carries a close button. */
   closable?: boolean;
+  /** Whether the card carries a close button. This is Element Plus's name for `closable`; either one of them asks for the button. */
+  showClose?: boolean;
 }
 
 /** Popconfirm · 气泡确认 — A bubble that asks before it acts. It hangs off a trigger, and it holds a question and the two real buttons that answer it: confirm and cancel. */
@@ -1340,6 +1504,18 @@ export interface PopconfirmProps {
   confirmText?: string;
   /** The label of the button that backs out. */
   cancelText?: string;
+  /** Whether the bubble is switched off. A disabled bubble never opens. It adds um-popconfirm--disabled. */
+  disabled?: boolean;
+  /** Whether the pointer can enter the bubble. A bubble that cannot be entered lets the pointer through it, so the words in it cannot be selected. It adds um-popconfirm--not-enterable. */
+  enterable?: boolean;
+  /** Whether the bubble is open. It is the checked attribute on the trigger's own checkbox. */
+  visible?: boolean;
+  /** Whether the bubble carries the point that says which way it faces. A bubble without one adds um-popconfirm--no-arrow. */
+  showArrow?: boolean;
+  /** The type of the answer that goes ahead. The default type is the brand colour; the other five are a fill of their own. */
+  confirmButtonType?: "default" | "primary" | "success" | "warning" | "danger" | "info";
+  /** The type of the answer that backs out. The default type is the neutral shape, so the eye goes to the answer that is being asked for; the other five are a fill of their own. */
+  cancelButtonType?: "default" | "primary" | "success" | "warning" | "danger" | "info";
 }
 
 /** Popover · 气泡卡片 — A card that floats next to a trigger and holds more than a note: a heading, a body and a row of actions. The trigger is a <summary>, so the card opens and closes with the browser's own disclosure behaviour. */
@@ -1357,6 +1533,12 @@ export interface PopoverProps {
   width?: "small" | "medium" | "large";
   /** The heading of the card. It is a real heading element, not a bold paragraph, so the reader can jump to it. */
   title?: string;
+  /** Whether the popover is switched off. A disabled popover never opens. It adds um-popover--disabled. */
+  disabled?: boolean;
+  /** Whether the pointer can enter the card. A card that cannot be entered lets the pointer through it, so the words in it cannot be selected. It adds um-popover--not-enterable. */
+  enterable?: boolean;
+  /** Whether the card is open. It is the open attribute on the trigger's own <details>. */
+  visible?: boolean;
 }
 
 /** Tooltip · 文字提示 — A short note that appears when the reader points at a word or tabs to it. The bubble is drawn by the stylesheet and placed with absolute positioning; the trigger is a real button, so the keyboard opens it as well as the pointer. */
@@ -1369,6 +1551,14 @@ export interface TooltipProps {
   placement?: "bottom" | "top" | "left" | "right";
   /** The words in the bubble. It is written as text in the page, and the trigger points at it with aria-describedby so the reader hears it as a description rather than as a stray paragraph. */
   text?: string;
+  /** Whether the tooltip is switched off. A disabled tooltip never opens. It adds um-tooltip--disabled. */
+  disabled?: boolean;
+  /** Whether the pointer can enter the bubble. A bubble that cannot be entered lets the pointer through it, so the words in it cannot be selected. It adds um-tooltip--not-enterable. */
+  enterable?: boolean;
+  /** Whether the bubble carries the point that says which way it faces. A bubble without one adds um-tooltip--no-arrow. */
+  showArrow?: boolean;
+  /** Whether the bubble is held open. It adds um-tooltip--visible. */
+  visible?: boolean;
 }
 
 /** Divider · 分割线 — A rule between two things. It can carry a label in the middle, drop the rules and keep the label, or stand up as a vertical rule. */

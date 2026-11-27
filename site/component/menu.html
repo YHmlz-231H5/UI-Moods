@@ -282,6 +282,7 @@
       <tbody>
       <tr><td><span class="api__name"><code>direction</code></span></td><td><code>enum = vertical | horizontal</code></td><td><code>vertical</code></td><td>Which way the entries run. The vertical menu is the base class on its own; the horizontal menu adds um-menu--horizontal.</td></tr>
       <tr><td><span class="api__name"><code>active</code></span></td><td><code>string</code></td><td>—</td><td>Which entry is the current one. It is the um-menu__active class on that entry's item.</td></tr>
+      <tr><td><span class="api__name"><code>mode</code></span></td><td><code>enum = vertical | horizontal</code></td><td><code>vertical</code></td><td>Which way the entries run. This is Element Plus's name for the `direction` prop; either one of them lays the menu out.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>
@@ -289,9 +290,19 @@
       <thead><tr><th>Name</th><th>Description</th></tr></thead>
       <tbody>
       <tr><td><span class="api__name"><code>icon</code></span></td><td>The glyph in front of an entry. It goes inside the icon slot, which is empty by default.</td></tr>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>The entries of the menu.</td></tr>
+      <tr><td><span class="api__name"><code>title</code></span></td><td>The title of the group. It goes in the group's summary, beside the marker.</td></tr>
       </tbody>
     </table>
-
+      <h2>Events</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>open</code></span></td><td>Fires when a group opens. It is the browser's own toggle event on the group's &lt;details&gt;, caught on the way down.</td></tr>
+      <tr><td><span class="api__name"><code>close</code></span></td><td>Fires when a group closes. It is the browser's own toggle event on the group's &lt;details&gt;, caught on the way down.</td></tr>
+      <tr><td><span class="api__name"><code>select</code></span></td><td>Fires when an entry is pressed. It carries the text of the entry and the event itself.</td></tr>
+      </tbody>
+    </table>
       <h2>Accessibility</h2>
       <p><strong>Role:</strong> <code>list</code></p>
         <p><strong>Keyboard:</strong> <code>Tab</code> <code>Enter</code> <code>Space</code></p>

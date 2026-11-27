@@ -33,6 +33,8 @@ export const UMCheckboxGroup = defineComponent({
     direction: { type: String, default: "stacked" },
     label: { type: String, default: "" },
     modelValue: { type: Array, default: undefined },
+    size: { type: String, default: "md" },
+    type: { type: String, default: "checkbox" },
   },
   emits: ["change", "update:modelValue"],
   setup(props, { slots, emit }) {
@@ -98,6 +100,10 @@ export const UMCheckboxGroup = defineComponent({
           class: [
             "um-checkbox-group",
             props.direction === "inline" ? "um-checkbox-group--inline" : null,
+            // The medium size is the base class itself, so it needs no
+            // modifier — a class the stylesheet does not have paints nothing.
+            props.size !== "md" ? `um-checkbox-group--${props.size}` : null,
+            props.type === "button" ? "um-checkbox-group--button" : null,
           ],
         },
         [

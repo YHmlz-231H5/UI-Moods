@@ -20,6 +20,9 @@ export const UMPopover = defineComponent({
     placement: { type: String, default: "bottom" },
     width: { type: String, default: "medium" },
     title: { type: String, default: "" },
+    disabled: { type: Boolean, default: false },
+    enterable: { type: Boolean, default: true },
+    visible: { type: Boolean, default: false },
   },
   emits: ["toggle"],
   setup(props, { slots, emit }) {
@@ -35,11 +38,20 @@ export const UMPopover = defineComponent({
             "um-popover",
             PLACEMENTS.includes(props.placement) ? `um-popover--${props.placement}` : null,
             WIDTHS.includes(props.width) ? `um-popover--${props.width}` : null,
+            props.disabled ? "um-popover--disabled" : null,
+            props.enterable ? null : "um-popover--not-enterable",
           ],
+          // The open attribute is the browser's own: the card is open when
+          // the host asks for it to be.
+          open: props.visible || undefined,
           onToggle: (e) => emit("toggle", e),
         },
         [
-          h("summary", { class: "um-popover__trigger" }, slots.default ? slots.default() : []),
+          h(
+            "summary",
+            { class: "um-popover__trigger" },
+            slots.reference ? slots.reference() : slots.default ? slots.default() : [],
+          ),
           h("div", { class: "um-popover__content" }, [
             h("div", { class: "um-popover__header", hidden: !hasContent(header) }, header),
             h("div", { class: "um-popover__body", hidden: !hasContent(body) }, body),

@@ -52,6 +52,8 @@ export interface UMAutocompleteProps {
   size?: "sm" | "md" | "lg";
   /** The text in the field, bound with v-model in Vue. Leave it out and the `value` prop is the text; bind it and the field answers to the binding. */
   modelValue?: string;
+  /** Keeps the text visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures. */
+  readonly?: boolean;
 }
 
 export declare const UMAutocomplete: DefineComponent<UMAutocompleteProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
@@ -126,6 +128,14 @@ export interface UMButtonProps {
   loading?: boolean;
   /** Applies the mood's glow hook. A mood without one shows nothing. */
   glow?: boolean;
+  /** Gives the button the pill shape, whatever height it is. */
+  round?: boolean;
+  /** Makes the button a disc: as wide as it is tall. */
+  circle?: boolean;
+  /** Draws the outline as a dashed line. */
+  dashed?: boolean;
+  /** Makes the button read as a link: no fill, no border, and an underlined label. */
+  link?: boolean;
 }
 
 export declare const UMButton: DefineComponent<UMButtonProps>;
@@ -182,6 +192,8 @@ export interface UMCascaderProps {
   size?: "sm" | "md" | "lg";
   /** The text of one option. An option with no text needs an accessible name of its own. */
   label?: string;
+  /** Makes the cascader inert. A level is a disclosure rather than a form control, so it cannot carry the disabled attribute: the whole tree refuses the pointer instead. */
+  disabled?: boolean;
 }
 
 export declare const UMCascader: DefineComponent<UMCascaderProps>;
@@ -200,6 +212,10 @@ export interface UMCheckboxProps {
   value?: string;
   /** Whether the box is ticked, bound with v-model in Vue. Leave it out and the `checked` prop is the state; bind it and the box answers to the binding. Inside a checkbox group the group decides instead. */
   modelValue?: boolean;
+  /** Puts a frame around the box and its text, so the two read as one chip. */
+  border?: boolean;
+  /** The size of the box and its text. The medium one is the base class on its own. */
+  size?: "sm" | "md" | "lg";
 }
 
 export declare const UMCheckbox: DefineComponent<UMCheckboxProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: boolean) => void }>;
@@ -220,6 +236,10 @@ export interface UMCheckboxGroupProps {
   direction?: "stacked" | "inline";
   /** The text of the group's legend. A group with no legend still needs an accessible name of its own. */
   label?: string;
+  /** The size of the options in the group: the boxes and their text. A box with a size of its own keeps it. The medium one is the base class on its own. */
+  size?: "sm" | "md" | "lg";
+  /** How the options are drawn. The checkbox run leaves the options as they are; the button run turns each one into a chip with a frame of its own. */
+  type?: "checkbox" | "button";
 }
 
 export declare const UMCheckboxGroup: DefineComponent<UMCheckboxGroupProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string[]) => void }>;
@@ -280,6 +300,8 @@ export interface UMColorPickerPanelProps {
   value?: string;
   /** Whether the preview chip is shown. Without it the panel has no chip in the value row. */
   showPreview?: boolean;
+  /** Makes the panel inert. It uses the real disabled attribute on the radios and on the field, so they leave the tab order and the swatches dim, the way every other disabled control in the library dims. */
+  disabled?: boolean;
 }
 
 export declare const UMColorPickerPanel: DefineComponent<UMColorPickerPanelProps>;
@@ -322,6 +344,8 @@ export interface UMDatePickerProps {
   size?: "sm" | "md" | "lg";
   /** The date in the field, bound with v-model in Vue. Leave it out and the `value` prop is the date; bind it and the field answers to the binding. */
   modelValue?: string;
+  /** Keeps the date visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures. */
+  readonly?: boolean;
 }
 
 export declare const UMDatePicker: DefineComponent<UMDatePickerProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
@@ -342,6 +366,8 @@ export interface UMDatePickerPanelProps {
   showFooter?: boolean;
   /** The words on the confirm button. */
   footerText?: string;
+  /** Whether the confirm button is shown. Without it the footer keeps only the shortcut, and the host keeps the action somewhere else. */
+  showConfirm?: boolean;
 }
 
 export declare const UMDatePickerPanel: DefineComponent<UMDatePickerPanelProps>;
@@ -366,6 +392,8 @@ export interface UMDateTimePickerProps {
   size?: "sm" | "md" | "lg";
   /** The date and time in the field, bound with v-model in Vue. Leave it out and the `value` prop is the value; bind it and the field answers to the binding. */
   modelValue?: string;
+  /** Keeps the value visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures. */
+  readonly?: boolean;
 }
 
 export declare const UMDateTimePicker: DefineComponent<UMDateTimePickerProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
@@ -390,9 +418,21 @@ export interface UMDialogProps {
   align?: "start" | "center";
   /** How wide the panel is. The width is a measure of the panel's own type, so the panel grows with the mood's text instead of holding a fixed pixel width. */
   size?: "sm" | "md" | "lg";
+  /** Whether the title and the actions are centred. This is Element Plus's name for the `align` prop's centred value; either one of them centres the panel. */
+  center?: boolean;
+  /** Whether the panel sits in the middle of the screen rather than in the flow of the page. It adds um-dialog--align-center. */
+  alignCenter?: boolean;
+  /** Whether the panel takes the whole screen. It adds um-dialog--fullscreen. */
+  fullscreen?: boolean;
+  /** Whether the panel is opened as the browser's own modal dialog, in the top layer and with the backdrop the browser paints for it. The library paints no mask of its own. */
+  modal?: boolean;
+  /** Whether the panel is open. The binding wins over the static form, which is the open one. */
+  modelValue?: boolean;
+  /** Whether the panel carries a close button in its header. */
+  showClose?: boolean;
 }
 
-export declare const UMDialog: DefineComponent<UMDialogProps>;
+export declare const UMDialog: DefineComponent<UMDialogProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: boolean) => void }>;
 
 /** Divider · 分割线 — A rule between two things. It can carry a label in the middle, drop the rules and keep the label, or stand up as a vertical rule. */
 export interface UMDividerProps {
@@ -412,9 +452,15 @@ export interface UMDrawerProps {
   inline?: boolean;
   /** The heading of the panel. */
   title?: string;
+  /** Whether the panel is on the page. A drawer that was not asked for is hidden rather than painted over the page. */
+  modelValue?: boolean;
+  /** Whether the panel carries a close button in its header. */
+  showClose?: boolean;
+  /** Whether the panel has a header at all. Without one there is no title and no close button. */
+  withHeader?: boolean;
 }
 
-export declare const UMDrawer: DefineComponent<UMDrawerProps>;
+export declare const UMDrawer: DefineComponent<UMDrawerProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: boolean) => void }>;
 
 /** Dropdown · 下拉菜单 — A row of actions that stays out of the way until it is wanted. The trigger is a <summary>, so the panel opens and closes with the browser's own disclosure behaviour. */
 export interface UMDropdownProps {
@@ -422,6 +468,12 @@ export interface UMDropdownProps {
   placement?: "start" | "end";
   /** The text on the trigger. A trigger with no text still needs an accessible name of its own. */
   label?: string;
+  /** How big the trigger and the items are. The default size is the base class on its own; the other two add um-dropdown--sm or um-dropdown--lg. */
+  size?: "sm" | "md" | "lg";
+  /** Whether the dropdown is switched off. A disabled dropdown never opens. It adds um-dropdown--disabled. */
+  disabled?: boolean;
+  /** Whether the menu draws a rule between its items. It adds um-dropdown--divided. */
+  divided?: boolean;
 }
 
 export declare const UMDropdown: DefineComponent<UMDropdownProps>;
@@ -436,6 +488,14 @@ export declare const UMEmpty: DefineComponent<UMEmptyProps>;
 export interface UMFieldProps {
   /** Puts the field in its error state. */
   error?: boolean;
+  /** Which validation state the field is in. It is the class the state is painted with: um-field--error, um-field--success, um-field--warning or um-field--info. */
+  validateStatus?: "error" | "success" | "warning" | "info";
+  /** Says the field is out of use. The field's own text dims. The control inside is the host's to disable, because it is the element that can actually be switched off. */
+  disabled?: boolean;
+  /** Puts the label beside the control instead of above it. */
+  inline?: boolean;
+  /** The size of the control the field holds. The field does not redraw the control — it only tells it how tall it is. The medium size is the control's own size already. */
+  size?: "sm" | "md" | "lg";
 }
 
 export declare const UMField: DefineComponent<UMFieldProps>;
@@ -504,6 +564,8 @@ export interface UMInputProps {
   readonly?: boolean;
   /** The control's value, bound with v-model in Vue. Leave it out and the control holds whatever the reader typed; bind it and the control answers to the binding. */
   modelValue?: string;
+  /** The size of the control. The same modifier class reaches all three members of the family. The medium size is the base class on its own. */
+  size?: "sm" | "md" | "lg";
 }
 
 export declare const UMInput: DefineComponent<UMInputProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
@@ -524,6 +586,8 @@ export interface UMInputNumberProps {
   disabled?: boolean;
   /** The number in the field, bound with v-model in Vue. Leave it out and the `value` prop is the number; bind it and the field answers to the binding. */
   modelValue?: number;
+  /** Keeps the number visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures. */
+  readonly?: boolean;
 }
 
 export declare const UMInputNumber: DefineComponent<UMInputNumberProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: number) => void }>;
@@ -544,6 +608,8 @@ export interface UMInputOtpProps {
   variant?: "boxed" | "underline";
   /** The size of each box. */
   size?: "sm" | "md" | "lg";
+  /** Keeps the code visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only box — it is not a state it measures. */
+  readonly?: boolean;
 }
 
 export declare const UMInputOtp: DefineComponent<UMInputOtpProps>;
@@ -560,6 +626,10 @@ export interface UMInputTagProps {
   placeholder?: string;
   /** The accessible name of the field. It becomes the input's aria-label. */
   label?: string;
+  /** Makes the field inert. It uses the real disabled attribute on the input, so it leaves the tab order and the field paints the flat control surface. */
+  disabled?: boolean;
+  /** Keeps the text visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures. */
+  readonly?: boolean;
 }
 
 export declare const UMInputTag: DefineComponent<UMInputTagProps>;
@@ -570,6 +640,8 @@ export interface UMLayoutProps {
   direction?: "horizontal" | "stacked";
   /** The width of the side column. */
   size?: "sm" | "md" | "lg";
+  /** How the side column and the content stand against each other across the row. The stretched row needs no modifier class. */
+  align?: "start" | "center" | "end" | "stretch";
 }
 
 export declare const UMLayout: DefineComponent<UMLayoutProps>;
@@ -598,6 +670,10 @@ export interface UMLoadingProps {
   size?: "small" | "medium" | "large";
   /** The caption beside the ring. It is the message, so it is written as text in the page and not as an attribute. */
   text?: string;
+  /** Whether the loading is over. A closed loading is not on the page. */
+  closed?: boolean;
+  /** Whether the loading covers the whole viewport, whatever shape it is. */
+  fullscreen?: boolean;
 }
 
 export declare const UMLoading: DefineComponent<UMLoadingProps>;
@@ -616,6 +692,10 @@ export interface UMMentionProps {
   label?: string;
   /** The text in the field, bound with v-model in Vue. Leave it out and the `value` prop is the text; bind it and the field answers to the binding. */
   modelValue?: string;
+  /** Makes the field inert. It uses the real disabled attribute on the input, so it leaves the tab order and the field paints the flat control surface. */
+  disabled?: boolean;
+  /** Keeps the text visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures. */
+  readonly?: boolean;
 }
 
 export declare const UMMention: DefineComponent<UMMentionProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
@@ -626,6 +706,8 @@ export interface UMMenuProps {
   direction?: "vertical" | "horizontal";
   /** Which entry is the current one. It is the um-menu__active class on that entry's item. */
   active?: string;
+  /** Which way the entries run. This is Element Plus's name for the `direction` prop; either one of them lays the menu out. */
+  mode?: "vertical" | "horizontal";
 }
 
 export declare const UMMenu: DefineComponent<UMMenuProps>;
@@ -638,6 +720,12 @@ export interface UMMessageProps {
   size?: "sm" | "md" | "lg";
   /** Whether the bar carries a close button. */
   closable?: boolean;
+  /** Whether the bar carries a close button. This is Element Plus's name for `closable`; either one of them asks for the button. */
+  showClose?: boolean;
+  /** Lays the bar on the page rather than over it: the fill behind it and the shadow under it are gone. */
+  plain?: boolean;
+  /** Says that the bar is one of a group of messages of the same kind. A grouped bar is drawn as a strip of the page, so a stack of them reads as one list. */
+  grouping?: boolean;
 }
 
 export declare const UMMessage: DefineComponent<UMMessageProps>;
@@ -658,6 +746,26 @@ export interface UMMessageBoxProps {
   showClose?: boolean;
   /** Whether the box carries the cancel button. */
   showCancel?: boolean;
+  /** Whether the box carries the cancel button. This is Element Plus's name for `show-cancel`; either one of them asks for the button. */
+  showCancelButton?: boolean;
+  /** Whether the box carries the confirm button. */
+  showConfirmButton?: boolean;
+  /** Whether the box asks its question in a field the reader can type in. */
+  showInput?: boolean;
+  /** What the box is for. An alert asks for one answer, a confirm for two, and a prompt for two and a field to type in. */
+  boxType?: "alert" | "confirm" | "prompt";
+  /** Whether the title and the message stand in the middle of the box. It adds um-message-box--center. */
+  center?: boolean;
+  /** Whether the two answers are pills. It adds um-message-box--round-button. */
+  roundButton?: boolean;
+  /** How big the two answers are. The default size is the base class on its own; the other two add um-message-box--button-sm or um-message-box--button-lg. */
+  buttonSize?: "sm" | "md" | "lg";
+  /** Whether the box is opened as the browser's own modal dialog, in the top layer and with the backdrop the browser paints for it. The library paints no mask of its own. */
+  modal?: boolean;
+  /** The type of the answer the box is asking for. The default type is the box's own type; the other five are a fill of their own. */
+  confirmButtonType?: "default" | "primary" | "success" | "warning" | "danger" | "info";
+  /** The type of the answer that backs out. The default type is the neutral shape, so the eye goes to the answer that is being asked for; the other five are a fill of their own. */
+  cancelButtonType?: "default" | "primary" | "success" | "warning" | "danger" | "info";
 }
 
 export declare const UMMessageBox: DefineComponent<UMMessageBoxProps>;
@@ -672,6 +780,8 @@ export interface UMNotificationProps {
   title?: string;
   /** Whether the card carries a close button. */
   closable?: boolean;
+  /** Whether the card carries a close button. This is Element Plus's name for `closable`; either one of them asks for the button. */
+  showClose?: boolean;
 }
 
 export declare const UMNotification: DefineComponent<UMNotificationProps>;
@@ -700,6 +810,10 @@ export interface UMPaginationProps {
   pageSize?: "10" | "20" | "50" | "100";
   /** How big the buttons are. The default size is the base class on its own; the small size adds um-pagination--sm. */
   size?: "sm" | "md";
+  /** Whether the whole pager is inert. The arrows become real disabled buttons and the page numbers say so the way a disabled button does. */
+  disabled?: boolean;
+  /** Whether the pager disappears when there is only one page to be on. It adds um-pagination--hidden. */
+  hideOnSinglePage?: boolean;
 }
 
 export declare const UMPagination: DefineComponent<UMPaginationProps>;
@@ -716,6 +830,18 @@ export interface UMPopconfirmProps {
   confirmText?: string;
   /** The label of the button that backs out. */
   cancelText?: string;
+  /** Whether the bubble is switched off. A disabled bubble never opens. It adds um-popconfirm--disabled. */
+  disabled?: boolean;
+  /** Whether the pointer can enter the bubble. A bubble that cannot be entered lets the pointer through it, so the words in it cannot be selected. It adds um-popconfirm--not-enterable. */
+  enterable?: boolean;
+  /** Whether the bubble is open. It is the checked attribute on the trigger's own checkbox. */
+  visible?: boolean;
+  /** Whether the bubble carries the point that says which way it faces. A bubble without one adds um-popconfirm--no-arrow. */
+  showArrow?: boolean;
+  /** The type of the answer that goes ahead. The default type is the brand colour; the other five are a fill of their own. */
+  confirmButtonType?: "default" | "primary" | "success" | "warning" | "danger" | "info";
+  /** The type of the answer that backs out. The default type is the neutral shape, so the eye goes to the answer that is being asked for; the other five are a fill of their own. */
+  cancelButtonType?: "default" | "primary" | "success" | "warning" | "danger" | "info";
 }
 
 export declare const UMPopconfirm: DefineComponent<UMPopconfirmProps>;
@@ -728,6 +854,12 @@ export interface UMPopoverProps {
   width?: "small" | "medium" | "large";
   /** The heading of the card. It is a real heading element, not a bold paragraph, so the reader can jump to it. */
   title?: string;
+  /** Whether the popover is switched off. A disabled popover never opens. It adds um-popover--disabled. */
+  disabled?: boolean;
+  /** Whether the pointer can enter the card. A card that cannot be entered lets the pointer through it, so the words in it cannot be selected. It adds um-popover--not-enterable. */
+  enterable?: boolean;
+  /** Whether the card is open. It is the open attribute on the trigger's own <details>. */
+  visible?: boolean;
 }
 
 export declare const UMPopover: DefineComponent<UMPopoverProps>;
@@ -756,6 +888,10 @@ export interface UMRadioProps {
   value?: string;
   /** Whether this option is the selected one, bound with v-model in Vue. Leave it out and the `checked` prop is the state; bind it and the option answers to the binding. Inside a radio group the group decides instead. */
   modelValue?: boolean;
+  /** Puts a frame around the circle and its text, so the two read as one chip. */
+  border?: boolean;
+  /** The size of the circle and its text. The medium one is the base class on its own. */
+  size?: "sm" | "md" | "lg";
 }
 
 export declare const UMRadio: DefineComponent<UMRadioProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: boolean) => void }>;
@@ -776,6 +912,10 @@ export interface UMRadioGroupProps {
   direction?: "stacked" | "inline";
   /** The text of the group's legend. A group with no legend still needs an accessible name of its own. */
   label?: string;
+  /** The size of the options in the group: the circles and their text. A circle with a size of its own keeps it. The medium one is the base class on its own. */
+  size?: "sm" | "md" | "lg";
+  /** How the options are drawn. The radio run leaves the options as they are; the button run turns each one into a chip with a frame of its own. */
+  type?: "radio" | "button";
 }
 
 export declare const UMRadioGroup: DefineComponent<UMRadioGroupProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
@@ -794,6 +934,8 @@ export interface UMRateProps {
   size?: "small" | "medium" | "large";
   /** How many stars are filled, bound with v-model in Vue. Leave it out and the `value` prop is the score; bind it and the group answers to the binding. */
   modelValue?: number;
+  /** Writes the score beside the stars, so the number is written down and not only counted. */
+  showScore?: boolean;
 }
 
 export declare const UMRate: DefineComponent<UMRateProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: number) => void }>;
@@ -866,6 +1008,8 @@ export interface UMSliderProps {
   value?: number;
   /** Makes the slider inert. It uses the real disabled attribute, so it leaves the tab order. */
   disabled?: boolean;
+  /** Stands the slider on its end, so the value runs from the bottom up. */
+  vertical?: boolean;
   /** The slider's own value, bound with v-model in Vue. Leave it out and the `value` prop is the value; bind it and the slider answers to the binding. */
   modelValue?: number;
 }
@@ -910,6 +1054,14 @@ export interface UMStepsProps {
   direction?: "horizontal" | "vertical";
   /** Where the step stands. It is a class on the item: no class is the waiting state, and the other four are um-steps__item--active, um-steps__item--success, um-steps__item--error and um-steps__item--danger. */
   status?: "default" | "active" | "success" | "error" | "danger";
+  /** Where the step that is being worked on stands. This is Element Plus's name for the `status` prop; either one of them says it. */
+  processStatus?: "default" | "active" | "success" | "error" | "danger";
+  /** Which step is being worked on, counted from one. That step carries the running state; zero leaves the states where the markup put them. */
+  active?: number;
+  /** Whether the title and the description stand in the middle of the step rather than at its start. It adds um-steps--align-center. */
+  alignCenter?: boolean;
+  /** Whether the run is the simple one: the titles stand in a row and the descriptions and the line are not drawn. It adds um-steps--simple. */
+  simple?: boolean;
 }
 
 export declare const UMSteps: DefineComponent<UMStepsProps>;
@@ -926,6 +1078,12 @@ export interface UMSwitchProps {
   value?: string;
   /** The switch's own state, bound with v-model in Vue. Leave it out and the `checked` prop is the state; bind it and the switch answers to the binding. */
   modelValue?: boolean;
+  /** The size of the track and the thumb. The medium one is the base class on its own. */
+  size?: "sm" | "md" | "lg";
+  /** Says the switch is busy. The track dims and the switch stops taking clicks. */
+  loading?: boolean;
+  /** Writes the state inside the track instead of on a thumb beside it. The active and inactive slots are what it writes. */
+  inlinePrompt?: boolean;
 }
 
 export declare const UMSwitch: DefineComponent<UMSwitchProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: boolean) => void }>;
@@ -948,9 +1106,15 @@ export interface UMTabsProps {
   type?: "line" | "card";
   /** Which tab starts open. It is the checked attribute on that radio. */
   selected?: number;
+  /** Which tab is open, counted from one. The binding wins over `selected`. */
+  modelValue?: number;
+  /** Whether the tabs fill the width they are given. It adds um-tabs--stretch. */
+  stretch?: boolean;
+  /** Where the bar of tabs sits. The bar on top is the base class on its own; the bar under the panel adds um-tabs--bottom. */
+  tabPosition?: "top" | "bottom";
 }
 
-export declare const UMTabs: DefineComponent<UMTabsProps>;
+export declare const UMTabs: DefineComponent<UMTabsProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: number) => void }>;
 
 /** Tag · 标签 — A label for one piece of data — a category, a state, a filter. The outlined member of the chip family, so it can sit beside a filled badge without either of them winning. */
 export interface UMTagProps {
@@ -968,6 +1132,10 @@ export interface UMTextProps {
   size?: "sm" | "md" | "lg";
   /** Clips the run to one line and ends it in an ellipsis. */
   truncate?: boolean;
+  /** Clips the run to one line and ends it in an ellipsis. This is Element Plus's name for `truncate`; either one of them clips the run. */
+  truncated?: boolean;
+  /** How many lines the run is held to before the rest is cut. The number is the host's; the class carries the mechanism. */
+  lineClamp?: number;
   /** Which element the run is written as. */
   tag?: "span" | "div" | "p";
 }
@@ -1004,6 +1172,8 @@ export interface UMTimePickerProps {
   size?: "sm" | "md" | "lg";
   /** The time in the field, bound with v-model in Vue. Leave it out and the `value` prop is the time; bind it and the field answers to the binding. */
   modelValue?: string;
+  /** Keeps the time visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures. */
+  readonly?: boolean;
 }
 
 export declare const UMTimePicker: DefineComponent<UMTimePickerProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
@@ -1038,6 +1208,14 @@ export interface UMTooltipProps {
   placement?: "bottom" | "top" | "left" | "right";
   /** The words in the bubble. It is written as text in the page, and the trigger points at it with aria-describedby so the reader hears it as a description rather than as a stray paragraph. */
   text?: string;
+  /** Whether the tooltip is switched off. A disabled tooltip never opens. It adds um-tooltip--disabled. */
+  disabled?: boolean;
+  /** Whether the pointer can enter the bubble. A bubble that cannot be entered lets the pointer through it, so the words in it cannot be selected. It adds um-tooltip--not-enterable. */
+  enterable?: boolean;
+  /** Whether the bubble carries the point that says which way it faces. A bubble without one adds um-tooltip--no-arrow. */
+  showArrow?: boolean;
+  /** Whether the bubble is held open. It adds um-tooltip--visible. */
+  visible?: boolean;
 }
 
 export declare const UMTooltip: DefineComponent<UMTooltipProps>;
@@ -1110,6 +1288,8 @@ export interface UMTreeSelectProps {
   disabled?: boolean;
   /** The value the picked leaf submits, bound with v-model in Vue. Leave it out and the `value` prop is that value; bind it and the tree answers to the binding. */
   modelValue?: string;
+  /** Draws a box in front of every leaf instead of a circle, so a leaf reads as something that can be ticked rather than something that can be picked. */
+  showCheckbox?: boolean;
 }
 
 export declare const UMTreeSelect: DefineComponent<UMTreeSelectProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
@@ -1140,6 +1320,8 @@ export interface UMUploadProps {
   size?: "sm" | "md" | "lg";
   /** Where one file has got to. It is a class on the item: no class is the waiting state, and the other three are um-upload__item--uploading, um-upload__item--done and um-upload__item--error. */
   status?: "default" | "uploading" | "done" | "error";
+  /** Whether the chosen files are shown under the trigger. The list is there unless the host says otherwise. */
+  showFileList?: boolean;
 }
 
 export declare const UMUpload: DefineComponent<UMUploadProps>;

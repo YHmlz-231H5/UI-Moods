@@ -13,6 +13,9 @@ export const UMDropdown = defineComponent({
   props: {
     placement: { type: String, default: "start" },
     label: { type: String, default: "" },
+    size: { type: String, default: "md" },
+    disabled: { type: Boolean, default: false },
+    divided: { type: Boolean, default: false },
   },
   emits: ["toggle"],
   setup(props, { slots, emit }) {
@@ -20,7 +23,13 @@ export const UMDropdown = defineComponent({
       h(
         "details",
         {
-          class: ["um-dropdown", props.placement === "end" ? "um-dropdown--end" : null],
+          class: [
+            "um-dropdown",
+            props.placement === "end" ? "um-dropdown--end" : null,
+            props.size !== "md" ? `um-dropdown--${props.size}` : null,
+            props.disabled ? "um-dropdown--disabled" : null,
+            props.divided ? "um-dropdown--divided" : null,
+          ],
           onToggle: (e) => emit("toggle", e),
         },
         [
@@ -29,7 +38,15 @@ export const UMDropdown = defineComponent({
             { class: "um-dropdown__trigger" },
             slots.trigger ? slots.trigger() : props.label,
           ),
-          h("div", { class: "um-dropdown__menu" }, slots.default ? slots.default() : fallbackMenu()),
+          h(
+            "div",
+            { class: "um-dropdown__menu" },
+            slots.dropdown
+              ? slots.dropdown()
+              : slots.default
+                ? slots.default()
+                : fallbackMenu(),
+          ),
         ],
       );
   },

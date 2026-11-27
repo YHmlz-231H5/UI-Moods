@@ -318,6 +318,8 @@
       <tr><td><code>um-input-tag__text</code></td><td>Text</td></tr>
       <tr><td><code>um-input-tag__remove</code></td><td>Remove</td></tr>
       <tr><td><code>um-input-tag__input</code></td><td>Input</td></tr>
+      <tr><td><code>um-input-tag__prefix</code></td><td>Prefix</td></tr>
+      <tr><td><code>um-input-tag__suffix</code></td><td>Suffix</td></tr>
       <tr><td><code>:focus-visible</code></td><td>Focus visible</td></tr>
       <tr><td><code>:disabled</code></td><td>Disabled</td></tr>
       </tbody>
@@ -331,6 +333,8 @@
       <tr><td><span class="api__name"><code>value</code></span></td><td><code>string</code></td><td>—</td><td>The text in the empty part of the field.</td></tr>
       <tr><td><span class="api__name"><code>placeholder</code></span></td><td><code>string</code></td><td><code>Add a tag</code></td><td>The hint in the empty part of the field.</td></tr>
       <tr><td><span class="api__name"><code>label</code></span></td><td><code>string</code></td><td>—</td><td>The accessible name of the field. It becomes the input's aria-label.</td></tr>
+      <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes the field inert. It uses the real disabled attribute on the input, so it leaves the tab order and the field paints the flat control surface.</td></tr>
+      <tr><td><span class="api__name"><code>readonly</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Keeps the text visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>
@@ -338,6 +342,8 @@
       <thead><tr><th>Name</th><th>Description</th></tr></thead>
       <tbody>
       <tr><td><span class="api__name"><code>default</code></span></td><td>The tags already chosen. Each one is a tag holding its text and its remove button.</td></tr>
+      <tr><td><span class="api__name"><code>prefix</code></span></td><td>The mark in front of the tags.</td></tr>
+      <tr><td><span class="api__name"><code>suffix</code></span></td><td>The mark behind the field.</td></tr>
       </tbody>
     </table>
       <h2>Events</h2>

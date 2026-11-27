@@ -19,6 +19,12 @@ export const UMPopconfirm = defineComponent({
     title: { type: String, default: "" },
     confirmText: { type: String, default: "Confirm" },
     cancelText: { type: String, default: "Cancel" },
+    disabled: { type: Boolean, default: false },
+    enterable: { type: Boolean, default: true },
+    visible: { type: Boolean, default: false },
+    showArrow: { type: Boolean, default: true },
+    confirmButtonType: { type: String, default: "default" },
+    cancelButtonType: { type: String, default: "default" },
   },
   setup(props, { slots }) {
     // The label and the checkbox have to name each other, so the pair needs an
@@ -33,16 +39,26 @@ export const UMPopconfirm = defineComponent({
             "um-popconfirm",
             PLACEMENTS.includes(props.placement) ? `um-popconfirm--${props.placement}` : null,
             props.size === "sm" ? "um-popconfirm--sm" : props.size === "lg" ? "um-popconfirm--lg" : null,
+            props.disabled ? "um-popconfirm--disabled" : null,
+            props.enterable ? null : "um-popconfirm--not-enterable",
+            props.showArrow ? null : "um-popconfirm--no-arrow",
           ],
         },
         [
-          h("input", { class: "um-popconfirm__toggle", type: "checkbox", id }),
+          h("input", {
+            class: "um-popconfirm__toggle",
+            type: "checkbox",
+            id,
+            // The checked attribute is the browser's own: the bubble is open
+            // when the host asks for it to be.
+            checked: props.visible || undefined,
+          }),
           h(
             "label",
             { class: "um-popconfirm__trigger", for: id },
             // With no slot the trigger falls back to the question, so the
             // component is usable with a single prop.
-            slots.default ? slots.default() : props.title,
+            slots.reference ? slots.reference() : slots.default ? slots.default() : props.title,
           ),
           h(
             "div",
@@ -59,8 +75,32 @@ export const UMPopconfirm = defineComponent({
                 slots.message ? slots.message({ title: props.title }) : props.title,
               ),
               h("div", { class: "um-popconfirm__actions" }, [
-                h("button", { class: "um-popconfirm__cancel", type: "button" }, props.cancelText),
-                h("button", { class: "um-popconfirm__confirm", type: "button" }, props.confirmText),
+                slots.actions
+                  ? slots.actions()
+                  : [
+                      h(
+                        "button",
+                        {
+                          class: "um-popconfirm__cancel",
+                          type: "button",
+                          ...(props.cancelButtonType !== "default"
+                            ? { "data-um-type": props.cancelButtonType }
+                            : {}),
+                        },
+                        props.cancelText,
+                      ),
+                      h(
+                        "button",
+                        {
+                          class: "um-popconfirm__confirm",
+                          type: "button",
+                          ...(props.confirmButtonType !== "default"
+                            ? { "data-um-type": props.confirmButtonType }
+                            : {}),
+                        },
+                        props.confirmText,
+                      ),
+                    ],
               ]),
             ],
           ),

@@ -287,9 +287,11 @@
       <tr><td><code>um-rate__item</code></td><td>Item</td></tr>
       <tr><td><code>um-rate__icon</code></td><td>Icon</td></tr>
       <tr><td><code>um-rate__active</code></td><td>Active</td></tr>
+      <tr><td><code>um-rate__score</code></td><td>Score</td></tr>
       <tr><td><code>:checked</code></td><td>Checked</td></tr>
       <tr><td><code>:disabled</code></td><td>Disabled</td></tr>
       <tr><td><code>:focus-visible</code></td><td>Focus ring</td></tr>
+      <tr><td><code>.um-rate--show-score</code></td><td>Show score</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -302,6 +304,7 @@
       <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes the group inert. It uses the real disabled attribute on the radios, so it leaves the tab order.</td></tr>
       <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = small | medium | large</code></td><td><code>medium</code></td><td>How big the stars are. The medium size is the base class on its own, so it needs no modifier class.</td></tr>
       <tr><td><span class="api__name"><code>model-value</code></span></td><td><code>number</code></td><td>—</td><td>How many stars are filled, bound with v-model in Vue. Leave it out and the `value` prop is the score; bind it and the group answers to the binding.</td></tr>
+      <tr><td><span class="api__name"><code>show-score</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Writes the score beside the stars, so the number is written down and not only counted.</td></tr>
       </tbody>
     </table>
 

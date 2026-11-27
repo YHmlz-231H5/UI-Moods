@@ -27,6 +27,7 @@ export const UMInput = defineComponent({
     disabled: { type: Boolean, default: false },
     readonly: { type: Boolean, default: false },
     modelValue: { type: String, default: undefined },
+    size: { type: String, default: "md" },
   },
   emits: ["input", "change", "focus", "blur", "update:modelValue"],
   setup(props, { slots, emit }) {
@@ -34,7 +35,12 @@ export const UMInput = defineComponent({
       const control = props.control in CONTROL_CLASS ? props.control : "input";
       const value = modelValue(props, undefined);
       const common = {
-        class: CONTROL_CLASS[control],
+        // The medium size is the base class itself, so it needs no modifier —
+        // a class the stylesheet does not have paints nothing.
+        class: [
+          CONTROL_CLASS[control],
+          props.size !== "md" ? `um-input--${props.size}` : null,
+        ],
         disabled: props.disabled,
         value,
         onInput: (e) => {

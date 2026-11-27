@@ -16,6 +16,10 @@ export const UMTooltip = defineComponent({
   props: {
     placement: { type: String, default: "bottom" },
     text: { type: String, default: "" },
+    disabled: { type: Boolean, default: false },
+    enterable: { type: Boolean, default: true },
+    showArrow: { type: Boolean, default: true },
+    visible: { type: Boolean, default: false },
   },
   setup(props, { slots }) {
     const id = `um-tooltip-${useId()}`;
@@ -28,6 +32,10 @@ export const UMTooltip = defineComponent({
           class: [
             "um-tooltip",
             PLACEMENTS.includes(props.placement) ? `um-tooltip--${props.placement}` : null,
+            props.disabled ? "um-tooltip--disabled" : null,
+            props.enterable ? null : "um-tooltip--not-enterable",
+            props.showArrow ? null : "um-tooltip--no-arrow",
+            props.visible ? "um-tooltip--visible" : null,
           ],
         },
         [

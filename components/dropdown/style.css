@@ -97,3 +97,38 @@
   inset-inline-end: 0;
   inset-inline-start: auto;
 }
+
+/* A dropdown that is not asked for never opens. The rule is written with the
+   base class beside it, because the rule that opens it is the same shape and
+   comes first. */
+.um-dropdown.um-dropdown--disabled > .um-dropdown__menu {
+  display: none;
+}
+
+/* A divided menu draws a rule between its items. */
+.um-dropdown.um-dropdown--divided .um-dropdown__item + .um-dropdown__item {
+  border-block-start: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+}
+
+/* The two smaller and larger sizes. The middle one is the base class on its
+   own. */
+.um-dropdown--sm .um-dropdown__trigger {
+  height: var(--um-height-sm);
+  padding: 0 var(--um-space-xs);
+  font-size: var(--um-font-size-caption);
+}
+
+.um-dropdown--sm .um-dropdown__item {
+  padding: var(--um-space-xs);
+  font-size: var(--um-font-size-caption);
+}
+
+.um-dropdown--lg .um-dropdown__trigger {
+  height: var(--um-height-lg);
+  padding: 0 var(--um-space-md);
+}
+
+.um-dropdown--lg .um-dropdown__item {
+  padding: var(--um-space-sm);
+  font-size: var(--um-font-size-title);
+}

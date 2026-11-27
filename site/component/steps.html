@@ -284,6 +284,8 @@
       <tr><td><code>.um-steps__item--success</code></td><td>Success</td></tr>
       <tr><td><code>.um-steps__item--error</code></td><td>Error</td></tr>
       <tr><td><code>.um-steps__item--danger</code></td><td>Danger</td></tr>
+      <tr><td><code>.um-steps--align-center</code></td><td>Aligned to the centre</td></tr>
+      <tr><td><code>.um-steps--simple</code></td><td>Simple</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -292,6 +294,10 @@
       <tbody>
       <tr><td><span class="api__name"><code>direction</code></span></td><td><code>enum = horizontal | vertical</code></td><td><code>horizontal</code></td><td>Which way the steps run. The horizontal run is the base class on its own; the vertical run adds um-steps--vertical.</td></tr>
       <tr><td><span class="api__name"><code>status</code></span></td><td><code>enum = default | active | success | error | danger</code></td><td><code>default</code></td><td>Where the step stands. It is a class on the item: no class is the waiting state, and the other four are um-steps__item--active, um-steps__item--success, um-steps__item--error and um-steps__item--danger.</td></tr>
+      <tr><td><span class="api__name"><code>process-status</code></span></td><td><code>enum = default | active | success | error | danger</code></td><td><code>default</code></td><td>Where the step that is being worked on stands. This is Element Plus's name for the `status` prop; either one of them says it.</td></tr>
+      <tr><td><span class="api__name"><code>active</code></span></td><td><code>number</code></td><td><code>0</code></td><td>Which step is being worked on, counted from one. That step carries the running state; zero leaves the states where the markup put them.</td></tr>
+      <tr><td><span class="api__name"><code>align-center</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the title and the description stand in the middle of the step rather than at its start. It adds um-steps--align-center.</td></tr>
+      <tr><td><span class="api__name"><code>simple</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the run is the simple one: the titles stand in a row and the descriptions and the line are not drawn. It adds um-steps--simple.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>
@@ -299,6 +305,9 @@
       <thead><tr><th>Name</th><th>Description</th></tr></thead>
       <tbody>
       <tr><td><span class="api__name"><code>icon</code></span></td><td>The number or mark in the round slot. It is text in the markup, so it can be a number, a word or a tick.</td></tr>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>The steps themselves. Each one keeps the status class it was written with.</td></tr>
+      <tr><td><span class="api__name"><code>title</code></span></td><td>The title of the step.</td></tr>
+      <tr><td><span class="api__name"><code>description</code></span></td><td>The line under the title that says what the step is.</td></tr>
       </tbody>
     </table>
 

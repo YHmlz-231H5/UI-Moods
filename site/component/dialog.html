@@ -313,6 +313,9 @@
       <tr><td><code>um-dialog__action</code></td><td>Action</td></tr>
       <tr><td><code>um-dialog__close</code></td><td>Close</td></tr>
       <tr><td><code>[open]</code></td><td>Open</td></tr>
+      <tr><td><code>:modal</code></td><td>Modal</td></tr>
+      <tr><td><code>.um-dialog--align-center</code></td><td>Aligned to the centre</td></tr>
+      <tr><td><code>.um-dialog--fullscreen</code></td><td>Fullscreen</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -322,6 +325,12 @@
       <tr><td><span class="api__name"><code>title</code></span></td><td><code>string</code></td><td>—</td><td>The heading of the panel.</td></tr>
       <tr><td><span class="api__name"><code>align</code></span></td><td><code>enum = start | center</code></td><td><code>start</code></td><td>Where the title and the actions sit. The start alignment is the base class on its own; the centred one adds um-dialog--center.</td></tr>
       <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>How wide the panel is. The width is a measure of the panel's own type, so the panel grows with the mood's text instead of holding a fixed pixel width.</td></tr>
+      <tr><td><span class="api__name"><code>center</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the title and the actions are centred. This is Element Plus's name for the `align` prop's centred value; either one of them centres the panel.</td></tr>
+      <tr><td><span class="api__name"><code>align-center</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the panel sits in the middle of the screen rather than in the flow of the page. It adds um-dialog--align-center.</td></tr>
+      <tr><td><span class="api__name"><code>fullscreen</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the panel takes the whole screen. It adds um-dialog--fullscreen.</td></tr>
+      <tr><td><span class="api__name"><code>modal</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the panel is opened as the browser's own modal dialog, in the top layer and with the backdrop the browser paints for it. The library paints no mask of its own.</td></tr>
+      <tr><td><span class="api__name"><code>model-value</code></span></td><td><code>boolean</code></td><td>—</td><td>Whether the panel is open. The binding wins over the static form, which is the open one.</td></tr>
+      <tr><td><span class="api__name"><code>show-close</code></span></td><td><code>boolean</code></td><td><code>true</code></td><td>Whether the panel carries a close button in its header.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>
@@ -329,11 +338,20 @@
       <thead><tr><th>Name</th><th>Description</th></tr></thead>
       <tbody>
       <tr><td><span class="api__name"><code>title</code></span></td><td>What is inside the heading.</td></tr>
+      <tr><td><span class="api__name"><code>header</code></span></td><td>What is in the header, in place of the title. The close button stays: replacing the header removes the title, not the way out.</td></tr>
       <tr><td><span class="api__name"><code>default</code></span></td><td>The body of the panel.</td></tr>
+      <tr><td><span class="api__name"><code>footer</code></span></td><td>The actions in the footer. This is Element Plus's name for the `actions` slot; either one of them fills the footer.</td></tr>
       <tr><td><span class="api__name"><code>actions</code></span></td><td>The actions in the footer.</td></tr>
       </tbody>
     </table>
-
+      <h2>Events</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>close</code></span></td><td>Fires when the panel closes. The close is the browser's own: the close button submits the form around the panel, and the browser tells the wrapper the dialog is done.</td></tr>
+      <tr><td><span class="api__name"><code>open</code></span></td><td>Fires when the panel opens. The panel is open in the markup, so the event fires when it reaches the page and again whenever the host opens it after that.</td></tr>
+      </tbody>
+    </table>
       <h2>Accessibility</h2>
       <p><strong>Role:</strong> <code>dialog</code></p>
         <p><strong>Keyboard:</strong> <code>Tab</code> <code>Enter</code> <code>Escape</code></p>

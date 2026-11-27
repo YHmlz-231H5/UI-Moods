@@ -14,10 +14,15 @@
     "part": "um-radio__"
   },
   "variants": [],
-  "sizes": [],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "A smaller circle." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default circle. The base class is already this size, so it needs no modifier." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "A larger circle." }
+  ],
   "states": [
     { "id": "checked", "name": "Checked", "nameZh": "选中", "selector": ":checked", "native": true, "note": "The circle fills with the brand colour and the dot scales up from the middle." },
-    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The circle dims and the label takes the derived disabled text colour." }
+    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The circle dims and the label takes the derived disabled text colour." },
+    { "id": "border", "name": "Bordered", "nameZh": "带边框", "selector": ".um-radio--border", "note": "A frame goes around the circle and its text, so the two read as one chip." }
   ],
   "parts": [
     { "id": "input", "name": "Input", "nameZh": "输入框", "note": "The real radio. It must come before the dot: the checked state is matched with an adjacent sibling selector." },
@@ -29,10 +34,13 @@
     { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes the radio inert. It uses the real disabled attribute, so it leaves the tab order.", "descriptionZh": "让单选框不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" },
     { "name": "name", "type": "string", "description": "The name the group shares. Radios with the same name are one group, and only one of them can be checked.", "descriptionZh": "这一组共用的名字。同名的单选框属于同一组,组里只能有一个被选中。" },
     { "name": "value", "type": "string", "description": "The value submitted while this option is selected.", "descriptionZh": "选中这一项时提交的值。" },
-    { "name": "model-value", "type": "boolean", "description": "Whether this option is the selected one, bound with v-model in Vue. Leave it out and the `checked` prop is the state; bind it and the option answers to the binding. Inside a radio group the group decides instead.", "descriptionZh": "这一项是不是被选中的,在 Vue 里用 v-model 绑定。不传就以 checked 属性为准;传了就以绑定为准。在单选组里则由组说了算。" }
+    { "name": "model-value", "type": "boolean", "description": "Whether this option is the selected one, bound with v-model in Vue. Leave it out and the `checked` prop is the state; bind it and the option answers to the binding. Inside a radio group the group decides instead.", "descriptionZh": "这一项是不是被选中的,在 Vue 里用 v-model 绑定。不传就以 checked 属性为准;传了就以绑定为准。在单选组里则由组说了算。" },
+    { "name": "border", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Puts a frame around the circle and its text, so the two read as one chip.", "descriptionZh": "给圆圈和文字加一圈边框,让它们读起来像一块整体。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "since": "1.1.0", "description": "The size of the circle and its text. The medium one is the base class on its own.", "descriptionZh": "圆圈和文字的大小。中号就是基础类本身。" }
   ],
   "slots": [
-    { "name": "label", "description": "The text beside the circle.", "descriptionZh": "圆圈旁边的文字。" }
+    { "name": "label", "description": "The text beside the circle.", "descriptionZh": "圆圈旁边的文字。" },
+    { "name": "default", "description": "The text beside the circle. It is the name Element Plus gives the same content.", "descriptionZh": "圆圈旁边的文字。Element Plus 给同样内容起的名字。" }
   ],
   "events": [
     { "name": "change", "description": "Fires when the selection moves to this option. It is the browser's own event — the library installs no listener.", "descriptionZh": "选中项移到这一项时触发。这是浏览器自己的事件 —— 库没有安装任何监听器。" },

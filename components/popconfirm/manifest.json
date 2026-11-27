@@ -25,7 +25,10 @@
   ],
   "states": [
     { "id": "checked", "name": "Open", "nameZh": "展开", "selector": ":checked", "native": true, "note": "The trigger's own checkbox is ticked, so the bubble is shown." },
-    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The checkbox is the focused control, so the ring is drawn around the trigger it belongs to." }
+    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The checkbox is the focused control, so the ring is drawn around the trigger it belongs to." },
+    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ".um-popconfirm--disabled", "note": "The bubble is not asked for, so it never opens." },
+    { "id": "not-enterable", "name": "Not enterable", "nameZh": "不可进入", "selector": ".um-popconfirm--not-enterable", "note": "The pointer cannot enter the bubble: the words in it cannot be selected and the pointer passes straight through it." },
+    { "id": "no-arrow", "name": "No arrow", "nameZh": "无箭头", "selector": ".um-popconfirm--no-arrow", "note": "The point that says which way the bubble is facing is not drawn." }
   ],
   "parts": [
     { "id": "toggle", "name": "Toggle", "nameZh": "开关", "note": "The checkbox that holds the open state. It is invisible and one pixel wide; the trigger label is what the reader sees." },
@@ -42,11 +45,19 @@
     { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "How wide the bubble is. The measures are in the bubble's own type, so it grows with the mood's text.", "descriptionZh": "气泡有多宽。宽度用的是气泡自己的字号单位,所以气泡会跟着 mood 的文字一起变大。" },
     { "name": "title", "type": "string", "default": "", "description": "The question the bubble asks.", "descriptionZh": "气泡问的那句话。" },
     { "name": "confirmText", "type": "string", "default": "Confirm", "description": "The label of the button that goes ahead.", "descriptionZh": "确认按钮上的文字。" },
-    { "name": "cancelText", "type": "string", "default": "Cancel", "description": "The label of the button that backs out.", "descriptionZh": "取消按钮上的文字。" }
+    { "name": "cancelText", "type": "string", "default": "Cancel", "description": "The label of the button that backs out.", "descriptionZh": "取消按钮上的文字。" },
+    { "name": "disabled", "type": "boolean", "default": "false", "description": "Whether the bubble is switched off. A disabled bubble never opens. It adds um-popconfirm--disabled.", "descriptionZh": "气泡是否关闭。关闭的气泡不会打开。它加上 um-popconfirm--disabled。" },
+    { "name": "enterable", "type": "boolean", "default": "true", "description": "Whether the pointer can enter the bubble. A bubble that cannot be entered lets the pointer through it, so the words in it cannot be selected. It adds um-popconfirm--not-enterable.", "descriptionZh": "指针能否进入气泡。不可进入的气泡会让指针穿过去,里面的字也就选不中。它加上 um-popconfirm--not-enterable。" },
+    { "name": "visible", "type": "boolean", "default": "false", "description": "Whether the bubble is open. It is the checked attribute on the trigger's own checkbox.", "descriptionZh": "气泡是否展开。就是触发器那个复选框上的 checked 属性。" },
+    { "name": "show-arrow", "type": "boolean", "default": "true", "description": "Whether the bubble carries the point that says which way it faces. A bubble without one adds um-popconfirm--no-arrow.", "descriptionZh": "气泡是否带着那个指方向的尖角。没有尖角的气泡加上 um-popconfirm--no-arrow。" },
+    { "name": "confirm-button-type", "type": "enum", "values": ["default", "primary", "success", "warning", "danger", "info"], "default": "default", "description": "The type of the answer that goes ahead. The default type is the brand colour; the other five are a fill of their own.", "descriptionZh": "那个表示继续的回答的类型。default 是品牌色;另外五个各有自己的填充色。" },
+    { "name": "cancel-button-type", "type": "enum", "values": ["default", "primary", "success", "warning", "danger", "info"], "default": "default", "description": "The type of the answer that backs out. The default type is the neutral shape, so the eye goes to the answer that is being asked for; the other five are a fill of their own.", "descriptionZh": "那个表示不的回答的类型。default 是中性的形状,好让眼睛落在被问到的那个回答上;另外五个各有自己的填充色。" }
   ],
   "slots": [
     { "name": "default", "description": "The label of the trigger.", "descriptionZh": "触发器上的文字。" },
-    { "name": "message", "description": "The question the bubble asks.", "descriptionZh": "气泡问的那句话。" }
+    { "name": "message", "description": "The question the bubble asks.", "descriptionZh": "气泡问的那句话。" },
+    { "name": "reference", "description": "The element that opens the bubble. This is Element Plus's name for the trigger; either one of them fills it.", "descriptionZh": "打开气泡的元素。这是 Element Plus 对触发器的叫法,两个都能填满它。" },
+    { "name": "actions", "description": "The answers at the bottom of the bubble. It replaces the two buttons with the host's own.", "descriptionZh": "气泡底部的回答。它会用宿主自己的内容取代那两个按钮。" }
   ],
   "events": [],
   "a11y": {

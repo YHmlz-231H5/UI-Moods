@@ -17,11 +17,16 @@
     { "id": "stacked", "name": "Stacked", "nameZh": "纵向", "note": "One option per row, running down the panel. The base class on its own is this layout, and the modifier paints the same thing so the class list can name it." },
     { "id": "inline", "name": "Inline", "nameZh": "横向", "note": "The options run across the panel and wrap onto the next line when they run out of room." }
   ],
-  "sizes": [],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "Smaller boxes and smaller text." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default. The base class is already this size, so it needs no modifier." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "Larger boxes and larger text." }
+  ],
   "states": [
     { "id": "checked", "name": "Checked", "nameZh": "勾选", "selector": ":checked", "native": true, "note": "A ticked option takes the brand colour's own soft tint, and its text takes the foreground that was derived for that tint." },
     { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The label takes the derived disabled colour and the box dims, the way every other disabled control in the library dims." },
-    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the box, because the box is what the user actually sees of the control." }
+    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the box, because the box is what the user actually sees of the control." },
+    { "id": "button", "name": "Button", "nameZh": "按钮", "selector": ".um-checkbox-group--button", "note": "Each option becomes a chip of its own, and a ticked one takes the brand's fill." }
   ],
   "parts": [
     { "id": "legend", "name": "Legend", "nameZh": "标题", "note": "The fieldset's own legend. It is the group's name, and the browser reads it before the options." },
@@ -36,7 +41,9 @@
     { "name": "checked", "type": "boolean", "default": "false", "description": "Ticks one option. It is the native checked attribute, not a class.", "descriptionZh": "勾上某一个选项。它是原生 checked 属性,不是某个类。" },
     { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes one option inert. It uses the real disabled attribute, so it leaves the tab order.", "descriptionZh": "让某一个选项不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" },
     { "name": "direction", "type": "enum", "values": ["stacked", "inline"], "default": "stacked", "description": "Which way the options run. The stacked run is the base class on its own; the inline run adds um-checkbox-group--inline.", "descriptionZh": "选项往哪个方向排。纵向是只写基础类;横向再加上 um-checkbox-group--inline。" },
-    { "name": "label", "type": "string", "description": "The text of the group's legend. A group with no legend still needs an accessible name of its own.", "descriptionZh": "组标题的文字。不写标题的组也得有自己的可访问名称。" }
+    { "name": "label", "type": "string", "description": "The text of the group's legend. A group with no legend still needs an accessible name of its own.", "descriptionZh": "组标题的文字。不写标题的组也得有自己的可访问名称。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "since": "1.1.0", "description": "The size of the options in the group: the boxes and their text. A box with a size of its own keeps it. The medium one is the base class on its own.", "descriptionZh": "组里选项的大小:方框和文字。自己带尺寸的方框保留自己的尺寸。中号就是基础类本身。" },
+    { "name": "type", "type": "enum", "values": ["checkbox", "button"], "default": "checkbox", "since": "1.1.0", "description": "How the options are drawn. The checkbox run leaves the options as they are; the button run turns each one into a chip with a frame of its own.", "descriptionZh": "选项画成什么样。checkbox 保持原样;button 把每个选项变成一块自带边框的小牌。" }
   ],
   "slots": [
     { "name": "legend", "description": "The legend text, above the options.", "descriptionZh": "选项上方的标题文字。" },
@@ -70,6 +77,6 @@
       "markup": "<fieldset class=\"um-checkbox-group um-checkbox-group--inline\">\n  <legend class=\"um-checkbox-group__legend\">Channels</legend>\n  <div class=\"um-checkbox-group__options\">\n    <label class=\"um-checkbox-group__option\">\n      <input class=\"um-checkbox__input\" type=\"checkbox\" name=\"um-checkbox-group-channel\" value=\"email\" checked />\n      <span class=\"um-checkbox__box\"></span>\n      <span class=\"um-checkbox-group__label\">Email</span>\n    </label>\n    <label class=\"um-checkbox-group__option\">\n      <input class=\"um-checkbox__input\" type=\"checkbox\" name=\"um-checkbox-group-channel\" value=\"sms\" />\n      <span class=\"um-checkbox__box\"></span>\n      <span class=\"um-checkbox-group__label\">SMS</span>\n    </label>\n    <label class=\"um-checkbox-group__option\">\n      <input class=\"um-checkbox__input\" type=\"checkbox\" name=\"um-checkbox-group-channel\" value=\"push\" />\n      <span class=\"um-checkbox__box\"></span>\n      <span class=\"um-checkbox-group__label\">Push</span>\n    </label>\n  </div>\n</fieldset>"
     }
   ],
-  "notes": "The group owns the row and the text of an option, but not the box: the box and the real input are the checkbox component's own classes, so a tick inside a group is drawn exactly like a tick outside one. The group has no sizes of its own, because the box's size belongs to the box — a group cannot make the control it holds bigger without redrawing it. The selected row is found with :has(), which is the only way CSS can ask an element what its child is doing.",
-  "notesZh": "组拥有选项这一行和它的文字,但不拥有方框:方框和真正的 input 都是复选框组件自己的类,所以组里的对勾和组外的对勾画得一模一样。组本身没有尺寸,因为方框的大小归方框管 —— 组想让它里面的控件变大,就得把控件重画一遍。选中的那一行是用 :has() 找到的,这是 CSS 唯一能问元素「你孩子现在怎么样」的办法。"
+  "notes": "The group owns the row and the text of an option, but not the box: the box and the real input are the checkbox component's own classes, so a tick inside a group is drawn exactly like a tick outside one. The group's size reaches the boxes through one inherited number rather than by redrawing them, and a box with a size of its own keeps it. The selected row is found with :has(), which is the only way CSS can ask an element what its child is doing.",
+  "notesZh": "组拥有选项这一行和它的文字,但不拥有方框:方框和真正的 input 都是复选框组件自己的类,所以组里的对勾和组外的对勾画得一模一样。组的尺寸是通过一个继承下来的数字传到方框那里的,而不是把方框重画一遍;方框自己带了尺寸就保留自己的。选中的那一行是用 :has() 找到的,这是 CSS 唯一能问元素「你孩子现在怎么样」的办法。"
 }

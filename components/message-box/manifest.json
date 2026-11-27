@@ -25,7 +25,11 @@
     { "id": "lg", "name": "Large", "nameZh": "大", "note": "A wide box, for a message with more than one sentence in it." }
   ],
   "states": [
-    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The confirm button goes inert. It uses the real disabled attribute, so it leaves the tab order, and it is painted with the flattened control surface and the derived disabled colour, so what is left on the screen can still be measured." }
+    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The confirm button goes inert. It uses the real disabled attribute, so it leaves the tab order, and it is painted with the flattened control surface and the derived disabled colour, so what is left on the screen can still be measured." },
+    { "id": "center", "name": "Centred", "nameZh": "居中", "selector": ".um-message-box--center", "note": "The title and the message stand in the middle of the box rather than at its start." },
+    { "id": "round-button", "name": "Round buttons", "nameZh": "圆形按钮", "selector": ".um-message-box--round-button", "note": "The two answers are pills." },
+    { "id": "button-sm", "name": "Small answers", "nameZh": "小按钮", "selector": ".um-message-box--button-sm", "note": "The size of the two answers, said on its own." },
+    { "id": "button-lg", "name": "Large answers", "nameZh": "大按钮", "selector": ".um-message-box--button-lg", "note": "The size of the two answers, said on its own." }
   ],
   "parts": [
     { "id": "icon", "name": "Icon", "nameZh": "图标", "note": "The type's mark. It is drawn from borders rather than written as a character, so it needs no icon font and it is never read out as a word." },
@@ -34,7 +38,8 @@
     { "id": "actions", "name": "Actions", "nameZh": "操作", "note": "The row of buttons at the foot of the box." },
     { "id": "confirm", "name": "Confirm", "nameZh": "确定", "note": "The button that says yes. It is the filled one, and it takes the type's own fill and the theme's foreground for it." },
     { "id": "cancel", "name": "Cancel", "nameZh": "取消", "note": "The button that says no. It keeps the neutral shape, so the eye goes to the answer that is being asked for." },
-    { "id": "close", "name": "Close", "nameZh": "关闭", "note": "The cross in the corner. It is a submit button inside the form, so submitting it is the browser's own way of closing a dialog." }
+    { "id": "close", "name": "Close", "nameZh": "关闭", "note": "The cross in the corner. It is a submit button inside the form, so submitting it is the browser's own way of closing a dialog." },
+    { "id": "input", "name": "Input", "nameZh": "输入框", "note": "The field a prompt box asks its question in. It is a real input, so it is in the tab order and the keyboard can reach it." }
   ],
   "props": [
     { "name": "type", "type": "enum", "values": ["info", "success", "warning", "error"], "default": "info", "description": "What the box is asking about. It sets the icon and the accent of the confirm button.", "descriptionZh": "这个框问的是什么。它决定图标,也决定确定按钮的强调色。" },
@@ -43,7 +48,17 @@
     { "name": "confirm-text", "type": "string", "default": "确定", "description": "The label on the confirm button.", "descriptionZh": "确定按钮上的文字。" },
     { "name": "cancel-text", "type": "string", "default": "取消", "description": "The label on the cancel button.", "descriptionZh": "取消按钮上的文字。" },
     { "name": "show-close", "type": "boolean", "default": "true", "description": "Whether the box carries the cross in the corner.", "descriptionZh": "框上是否带角上的那个叉。" },
-    { "name": "show-cancel", "type": "boolean", "default": "true", "description": "Whether the box carries the cancel button.", "descriptionZh": "框上是否带取消按钮。" }
+    { "name": "show-cancel", "type": "boolean", "default": "true", "description": "Whether the box carries the cancel button.", "descriptionZh": "框上是否带取消按钮。" },
+    { "name": "show-cancel-button", "type": "boolean", "default": "true", "description": "Whether the box carries the cancel button. This is Element Plus's name for `show-cancel`; either one of them asks for the button.", "descriptionZh": "框上是否带取消按钮。这是 Element Plus 对 `show-cancel` 的叫法,两个都能提出这个要求。" },
+    { "name": "show-confirm-button", "type": "boolean", "default": "true", "description": "Whether the box carries the confirm button.", "descriptionZh": "框上是否带确定按钮。" },
+    { "name": "show-input", "type": "boolean", "default": "false", "description": "Whether the box asks its question in a field the reader can type in.", "descriptionZh": "框是否用一个可以输入的字段来提问。" },
+    { "name": "box-type", "type": "enum", "values": ["alert", "confirm", "prompt"], "default": "confirm", "description": "What the box is for. An alert asks for one answer, a confirm for two, and a prompt for two and a field to type in.", "descriptionZh": "这个框是做什么用的。alert 只要一个回答,confirm 要两个,prompt 要两个回答外加一个输入框。" },
+    { "name": "center", "type": "boolean", "default": "false", "description": "Whether the title and the message stand in the middle of the box. It adds um-message-box--center.", "descriptionZh": "标题和正文是否居中。它加上 um-message-box--center。" },
+    { "name": "round-button", "type": "boolean", "default": "false", "description": "Whether the two answers are pills. It adds um-message-box--round-button.", "descriptionZh": "两个回答按钮是否做成胶囊形。它加上 um-message-box--round-button。" },
+    { "name": "button-size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "How big the two answers are. The default size is the base class on its own; the other two add um-message-box--button-sm or um-message-box--button-lg.", "descriptionZh": "两个回答按钮有多大。默认大小是只写基类;另外两个分别加上 um-message-box--button-sm、um-message-box--button-lg。" },
+    { "name": "modal", "type": "boolean", "default": "false", "description": "Whether the box is opened as the browser's own modal dialog, in the top layer and with the backdrop the browser paints for it. The library paints no mask of its own.", "descriptionZh": "框是否以浏览器自己的模态对话框打开:进入顶层,并带上浏览器为它画的遮罩。库自己不画遮罩。" },
+    { "name": "confirm-button-type", "type": "enum", "values": ["default", "primary", "success", "warning", "danger", "info"], "default": "default", "description": "The type of the answer the box is asking for. The default type is the box's own type; the other five are a fill of their own.", "descriptionZh": "框所求的那个回答的类型。default 是框自己的类型;另外五个各有自己的填充色。" },
+    { "name": "cancel-button-type", "type": "enum", "values": ["default", "primary", "success", "warning", "danger", "info"], "default": "default", "description": "The type of the answer that backs out. The default type is the neutral shape, so the eye goes to the answer that is being asked for; the other five are a fill of their own.", "descriptionZh": "那个表示不的回答的类型。default 是中性的形状,好让眼睛落在被问到的那个回答上;另外五个各有自己的填充色。" }
   ],
   "slots": [
     { "name": "default", "description": "The message the box asks about.", "descriptionZh": "这个框问的那句话。" }

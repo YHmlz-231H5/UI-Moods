@@ -21,12 +21,16 @@ export const UMSlider = defineComponent({
     value: { type: Number },
     disabled: { type: Boolean, default: false },
     modelValue: { type: Number, default: undefined },
+    vertical: { type: Boolean, default: false },
   },
   emits: ["input", "change", "update:modelValue"],
   setup(props, { emit }) {
     return () =>
       h("input", {
-        class: "um-slider",
+        class: [
+          "um-slider",
+          props.vertical ? "um-slider--vertical" : null,
+        ],
         type: "range",
         min: props.min,
         max: props.max,

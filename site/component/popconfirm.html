@@ -359,6 +359,9 @@
       <tr><td><code>um-popconfirm__cancel</code></td><td>Cancel</td></tr>
       <tr><td><code>:checked</code></td><td>Open</td></tr>
       <tr><td><code>:focus-visible</code></td><td>Focus visible</td></tr>
+      <tr><td><code>.um-popconfirm--disabled</code></td><td>Disabled</td></tr>
+      <tr><td><code>.um-popconfirm--not-enterable</code></td><td>Not enterable</td></tr>
+      <tr><td><code>.um-popconfirm--no-arrow</code></td><td>No arrow</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -370,6 +373,12 @@
       <tr><td><span class="api__name"><code>title</code></span></td><td><code>string</code></td><td>—</td><td>The question the bubble asks.</td></tr>
       <tr><td><span class="api__name"><code>confirmText</code></span></td><td><code>string</code></td><td><code>Confirm</code></td><td>The label of the button that goes ahead.</td></tr>
       <tr><td><span class="api__name"><code>cancelText</code></span></td><td><code>string</code></td><td><code>Cancel</code></td><td>The label of the button that backs out.</td></tr>
+      <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the bubble is switched off. A disabled bubble never opens. It adds um-popconfirm--disabled.</td></tr>
+      <tr><td><span class="api__name"><code>enterable</code></span></td><td><code>boolean</code></td><td><code>true</code></td><td>Whether the pointer can enter the bubble. A bubble that cannot be entered lets the pointer through it, so the words in it cannot be selected. It adds um-popconfirm--not-enterable.</td></tr>
+      <tr><td><span class="api__name"><code>visible</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the bubble is open. It is the checked attribute on the trigger's own checkbox.</td></tr>
+      <tr><td><span class="api__name"><code>show-arrow</code></span></td><td><code>boolean</code></td><td><code>true</code></td><td>Whether the bubble carries the point that says which way it faces. A bubble without one adds um-popconfirm--no-arrow.</td></tr>
+      <tr><td><span class="api__name"><code>confirm-button-type</code></span></td><td><code>enum = default | primary | success | warning | danger | info</code></td><td><code>default</code></td><td>The type of the answer that goes ahead. The default type is the brand colour; the other five are a fill of their own.</td></tr>
+      <tr><td><span class="api__name"><code>cancel-button-type</code></span></td><td><code>enum = default | primary | success | warning | danger | info</code></td><td><code>default</code></td><td>The type of the answer that backs out. The default type is the neutral shape, so the eye goes to the answer that is being asked for; the other five are a fill of their own.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>
@@ -378,6 +387,8 @@
       <tbody>
       <tr><td><span class="api__name"><code>default</code></span></td><td>The label of the trigger.</td></tr>
       <tr><td><span class="api__name"><code>message</code></span></td><td>The question the bubble asks.</td></tr>
+      <tr><td><span class="api__name"><code>reference</code></span></td><td>The element that opens the bubble. This is Element Plus's name for the trigger; either one of them fills it.</td></tr>
+      <tr><td><span class="api__name"><code>actions</code></span></td><td>The answers at the bottom of the bubble. It replaces the two buttons with the host's own.</td></tr>
       </tbody>
     </table>
 

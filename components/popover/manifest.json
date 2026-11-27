@@ -45,6 +45,20 @@
       "nameZh": "展开",
       "selector": "[open]",
       "note": "The trigger's <details> is open, so the card is shown."
+    },
+    {
+      "id": "disabled",
+      "name": "Disabled",
+      "nameZh": "禁用",
+      "selector": ".um-popover--disabled",
+      "note": "The popover is not asked for, so the card never opens."
+    },
+    {
+      "id": "not-enterable",
+      "name": "Not enterable",
+      "nameZh": "不可进入",
+      "selector": ".um-popover--not-enterable",
+      "note": "The pointer cannot enter the card: the words in it cannot be selected and the pointer passes straight through it."
     }
   ],
   "parts": [
@@ -101,12 +115,35 @@
       "type": "string",
       "description": "The heading of the card. It is a real heading element, not a bold paragraph, so the reader can jump to it.",
       "descriptionZh": "卡片的标题。它是一个真正的标题元素,不是加粗的段落,读者可以跳到它。"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the popover is switched off. A disabled popover never opens. It adds um-popover--disabled.",
+      "descriptionZh": "浮层是否关闭。关闭的浮层不会打开。它加上 um-popover--disabled。"
+    },
+    {
+      "name": "enterable",
+      "type": "boolean",
+      "default": "true",
+      "description": "Whether the pointer can enter the card. A card that cannot be entered lets the pointer through it, so the words in it cannot be selected. It adds um-popover--not-enterable.",
+      "descriptionZh": "指针能否进入卡片。不可进入的卡片会让指针穿过去,里面的字也就选不中。它加上 um-popover--not-enterable。"
+    },
+    {
+      "name": "visible",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the card is open. It is the open attribute on the trigger's own <details>.",
+      "descriptionZh": "卡片是否展开。就是触发器那个 <details> 上的 open 属性。"
     }
   ],
   "slots": [
     { "name": "header", "description": "The heading of the card.", "descriptionZh": "卡片的标题。" },
     { "name": "body", "description": "The text of the card.", "descriptionZh": "卡片的正文。" },
-    { "name": "footer", "description": "The row at the bottom of the card.", "descriptionZh": "卡片底部的一行。" }
+    { "name": "footer", "description": "The row at the bottom of the card.", "descriptionZh": "卡片底部的一行。" },
+    { "name": "default", "description": "What is inside the trigger.", "descriptionZh": "触发器里的内容。" },
+    { "name": "reference", "description": "The element that opens the card. This is Element Plus's name for the trigger; either one of them fills it.", "descriptionZh": "打开卡片的元素。这是 Element Plus 对触发器的叫法,两个都能填满它。" }
   ],
   "events": [
     {

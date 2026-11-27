@@ -728,6 +728,13 @@
 .um-layout--sm .um-layout__aside { flex-basis: 11em; }
 .um-layout--lg .um-layout__aside { flex-basis: 18em; }
 
+/* How the side column and the content stand against each other across the
+   row. The stretched row is the base class on its own, so it needs no
+   modifier. */
+.um-layout--align-start .um-layout__body { align-items: flex-start; }
+.um-layout--align-center .um-layout__body { align-items: center; }
+.um-layout--align-end .um-layout__body { align-items: flex-end; }
+
 /* Stacked, the column lies above the content and its rule lies down as well:
    a vertical rule beside a column that is now horizontal would cut the page
    in half for no reason. */
@@ -838,6 +845,18 @@
   flex-shrink: 0;
   align-items: center;
   gap: var(--um-space-xs);
+}
+
+/* The trail above the heading, for a page that says where it is. */
+.um-page-header__breadcrumb {
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+
+/* The main content of the header, under the heading and its line. */
+.um-page-header__main {
+  color: var(--um-text-regular);
+  font-size: var(--um-font-size-body);
 }
 
 /* The actions area gives a button that arrives without a class of its own a
@@ -1165,6 +1184,15 @@
   vertical-align: bottom;
 }
 
+/* A clamped run is held to a number of lines and the rest is cut. The class
+   carries the mechanism — the box that counts the lines — and the number of
+   lines is the host's, so it arrives with the run. */
+.um-text--clamp {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 /* ============================================================================
    Typography
    ========================================================================== */
@@ -1278,6 +1306,16 @@
 }
 
 .um-autocomplete__input::placeholder { color: var(--um-text-placeholder); }
+
+/* The prefix and the suffix sit either side of the text, so a unit or a mark
+   can be written next to it. They are text, so they take the muted role. */
+.um-autocomplete__prefix,
+.um-autocomplete__suffix {
+  display: inline-flex;
+  align-items: center;
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
 
 /* The suggestions are a <datalist>, and the popup is the browser's own. The
    library can reach the text of a suggestion and the surface under it; the
@@ -1434,19 +1472,67 @@
   animation: um-spin 0.7s linear infinite;
 }
 
+/* A round button keeps the pill shape whatever height it is: the ends are as
+   round as the control is tall, so the radius is the height itself. */
+.um-button--round {
+  border-radius: var(--um-radius-round);
+}
+
+/* A circle button is as wide as it is tall, so the label sits in the middle
+   of a disc. The width follows the size the button was asked for, so a small
+   circle is small and a large one is large. */
+.um-button--circle {
+  width: var(--um-height-md);
+  padding: 0;
+  border-radius: var(--um-radius-circle);
+}
+.um-button--circle.um-button--sm { width: var(--um-height-sm); }
+.um-button--circle.um-button--lg { width: var(--um-height-lg); }
+
+/* A dashed button draws its outline as a dashed line. The line takes the
+   theme's border weight, so the dashes are as heavy as the border they
+   replace. */
+.um-button--dashed {
+  border-style: dashed;
+}
+
+/* A link button reads as a link rather than as a button: the fill and the
+   border are gone and the label is underlined. It is written with the base
+   class beside it so it wins against the fill variants, which are painted
+   earlier in this file. */
+.um-button.um-button--link {
+  border-color: transparent;
+  background: transparent;
+  color: var(--um-color-primary-text);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.um-button.um-button--link:hover:not(:disabled) {
+  background: transparent;
+  color: var(--um-color-primary-text);
+}
+
 @keyframes um-spin { to { transform: rotate(360deg); } }
 
 /* ============================================================================
    Checkbox
    ========================================================================== */
-.um-checkbox { display: inline-flex; align-items: center; gap: var(--um-space-xs); cursor: pointer; }
+.um-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--um-space-xs);
+  cursor: pointer;
+}
 .um-checkbox__input { position: absolute; width: 1px; height: 1px; opacity: 0; }
 .um-checkbox__box {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: var(--um-height-sm);
-  height: var(--um-height-sm);
+  /* The box is sized by one number, so a group that holds boxes can size them
+     too: the number is inherited, and a box with a size of its own declares
+     it and wins. */
+  width: calc(var(--um-height-sm) * var(--um-checkbox-scale, 1));
+  height: calc(var(--um-height-sm) * var(--um-checkbox-scale, 1));
   /* The box is the control, not a divider: it has no label of its own, so its
      outline is held to the muted-shape role (3:1) rather than to the border
      role a hairline would use. In the clay mood the border role is literally
@@ -1460,9 +1546,9 @@
 /* The check mark is drawn with two borders — a shape, not a glyph. */
 .um-checkbox__box::after {
   content: "";
-  width: 4px;
-  height: 8px;
-  margin-top: -2px;
+  width: calc(4px * var(--um-checkbox-scale, 1));
+  height: calc(8px * var(--um-checkbox-scale, 1));
+  margin-top: calc(-2px * var(--um-checkbox-scale, 1));
   border: solid var(--um-color-primary-on);
   border-width: 0;
   border-inline-end-width: 2px;
@@ -1474,7 +1560,7 @@
 .um-checkbox__input:checked + .um-checkbox__box::after { transform: rotate(calc(45deg * var(--um-mirror))) scale(1); }
 .um-checkbox__input:indeterminate + .um-checkbox__box { background: var(--um-color-primary); border-color: var(--um-color-primary); }
 .um-checkbox__input:indeterminate + .um-checkbox__box::after {
-  width: 8px;
+  width: calc(8px * var(--um-checkbox-scale, 1));
   height: 0;
   margin-top: 0;
   border-width: 0 0 2px 0;
@@ -1483,6 +1569,20 @@
 
 .um-checkbox__label { color: var(--um-text-regular); font-size: var(--um-font-size-body); }
 .um-checkbox__input:disabled + .um-checkbox__box { opacity: 0.45; cursor: not-allowed; }
+
+/* The bordered run puts a frame around the box and its text, so the two read
+   as one chip rather than as two things next to each other. */
+.um-checkbox--border {
+  padding: var(--um-space-xs) var(--um-space-sm);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-base);
+}
+
+.um-checkbox--sm { --um-checkbox-scale: 0.75; }
+.um-checkbox--sm .um-checkbox__label { font-size: var(--um-font-size-caption); }
+
+.um-checkbox--lg { --um-checkbox-scale: 1.5; }
+.um-checkbox--lg .um-checkbox__label { font-size: var(--um-font-size-title); }
 
 /* ============================================================================
    Checkbox Group
@@ -1567,6 +1667,30 @@
   flex-direction: row;
   flex-wrap: wrap;
   gap: var(--um-space-sm);
+}
+
+/* The group's size reaches the boxes through one inherited number, so the box
+   scales itself instead of being redrawn. A box that carries a size of its own
+   declares the number itself, and its own declaration wins. */
+.um-checkbox-group--sm { --um-checkbox-scale: 0.75; }
+.um-checkbox-group--lg { --um-checkbox-scale: 1.5; }
+
+.um-checkbox-group--sm .um-checkbox-group__label { font-size: var(--um-font-size-caption); }
+.um-checkbox-group--lg .um-checkbox-group__label { font-size: var(--um-font-size-title); }
+
+/* The button run turns each option into a chip with a frame of its own, and a
+   ticked chip takes the brand's fill and the foreground written for that fill. */
+.um-checkbox-group--button .um-checkbox-group__option {
+  padding: var(--um-space-xs) var(--um-space-sm);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-base);
+}
+.um-checkbox-group--button .um-checkbox-group__option:has(input:checked) {
+  background: var(--um-color-primary);
+  border-color: var(--um-color-primary);
+}
+.um-checkbox-group--button .um-checkbox-group__option:has(input:checked) .um-checkbox-group__label {
+  color: var(--um-color-primary-on);
 }
 
 /* ============================================================================
@@ -1916,6 +2040,29 @@
   border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
   border-radius: var(--um-radius-small);
   background: var(--um-color-picker-panel-swatch);
+}
+
+/* The footer is the row under the swatches, where a host puts whatever acts
+   on the colour. */
+.um-color-picker-panel__footer {
+  display: flex;
+  align-items: center;
+  gap: var(--um-space-xs);
+  padding-top: var(--um-space-xs);
+  border-top: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+}
+
+/* A disabled panel dims its swatches and takes the derived disabled colour on
+   its field, the way every other disabled control in the library dims. */
+.um-color-picker-panel__swatch:has(input:disabled),
+.um-color-picker-panel__hue-swatch:has(input:disabled) {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.um-color-picker-panel__input:disabled {
+  background: var(--um-surface-control);
+  color: var(--um-text-disabled);
+  cursor: not-allowed;
 }
 
 .um-color-picker-panel--sm .um-color-picker-panel__swatch,
@@ -2420,6 +2567,35 @@
 .um-field--error .um-textarea,
 .um-field--error .um-select { border-color: var(--um-color-danger); }
 
+/* The other three validation states say the same thing about their message:
+   the message is text, so it takes that state's own text colour. */
+.um-field--success .um-field__message { color: var(--um-color-success-text); }
+.um-field--warning .um-field__message { color: var(--um-color-warning-text); }
+.um-field--info .um-field__message { color: var(--um-color-info-text); }
+
+/* The inline run puts the label beside the control instead of above it. */
+.um-field--inline {
+  flex-direction: row;
+  align-items: center;
+}
+
+/* A field with a size of its own passes it to the control it holds, so the
+   label and the control are the same size. The field does not redraw the
+   control — it only tells it how tall it is. The medium size is the control's
+   own size already, so it needs no rule. */
+.um-field--sm .um-input,
+.um-field--sm .um-select { min-height: var(--um-height-sm); }
+.um-field--sm .um-textarea { min-height: calc(var(--um-height-sm) * 3); }
+.um-field--lg .um-input,
+.um-field--lg .um-select { min-height: var(--um-height-lg); }
+.um-field--lg .um-textarea { min-height: calc(var(--um-height-lg) * 3); }
+
+/* A disabled field dims its own text. The control inside is the host's to
+   disable: the field says the field is out of use, and the control is the
+   element that can actually be switched off. */
+.um-field--disabled .um-field__label,
+.um-field--disabled .um-field__message { color: var(--um-text-disabled); }
+
 /* ============================================================================
    Input / Textarea / Select
    ========================================================================== */
@@ -2468,6 +2644,21 @@
 }
 .um-select option { background: var(--um-bg-overlay); color: var(--um-text-primary); }
 
+/* The size modifier reaches all three controls: the class is the same one
+   whichever member of the family it is written on. The medium size is the
+   base class on its own, so it needs no rule. */
+.um-input--sm {
+  min-height: var(--um-height-sm);
+  font-size: var(--um-font-size-caption);
+}
+.um-input--lg {
+  min-height: var(--um-height-lg);
+  font-size: var(--um-font-size-title);
+}
+/* The textarea keeps its three rows, so it is sized by its own rule. */
+.um-textarea.um-input--sm { min-height: calc(var(--um-height-sm) * 3); }
+.um-textarea.um-input--lg { min-height: calc(var(--um-height-lg) * 3); }
+
 /* ============================================================================
    Input Number
    ========================================================================== */
@@ -2505,6 +2696,17 @@
      they are removed rather than left to fight for the same corner. */
   -moz-appearance: textfield;
   appearance: textfield;
+}
+
+/* The prefix and the suffix sit either side of the number, so a unit can be
+   written next to it. They are text, so they take the muted role. */
+.um-input-number__prefix,
+.um-input-number__suffix {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 var(--um-space-xs);
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
 }
 .um-input-number__input::-webkit-outer-spin-button,
 .um-input-number__input::-webkit-inner-spin-button {
@@ -2660,6 +2862,13 @@
   height: var(--um-height-lg);
 }
 
+/* The separator sits between two boxes, so a long code can be read in groups.
+   It is text, so it takes the muted role. */
+.um-input-otp__separator {
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-body);
+}
+
 /* ============================================================================
    Input Tag
    ========================================================================== */
@@ -2756,6 +2965,16 @@
   line-height: 1.5;
 }
 .um-input-tag__input::placeholder { color: var(--um-text-placeholder); }
+
+/* The prefix and the suffix sit at the two ends of the field, so a unit can be
+   written next to the tags. They are text, so they take the muted role. */
+.um-input-tag__prefix,
+.um-input-tag__suffix {
+  display: inline-flex;
+  align-items: center;
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
 
 /* The ring goes on the field, because the field is what the reader is typing
    in — the input is inside it, not beside it. */
@@ -2937,14 +3156,22 @@
 /* ============================================================================
    Radio
    ========================================================================== */
-.um-radio { display: inline-flex; align-items: center; gap: var(--um-space-xs); cursor: pointer; }
+.um-radio {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--um-space-xs);
+  cursor: pointer;
+}
 .um-radio__input { position: absolute; width: 1px; height: 1px; opacity: 0; }
 .um-radio__dot {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: var(--um-height-sm);
-  height: var(--um-height-sm);
+  /* The circle is sized by one number, so a group that holds circles can size
+     them too: the number is inherited, and a circle with a size of its own
+     declares it and wins. */
+  width: calc(var(--um-height-sm) * var(--um-radio-scale, 1));
+  height: calc(var(--um-height-sm) * var(--um-radio-scale, 1));
   /* The dot is the control, not a divider: it has no label of its own, so its
      outline is held to the muted-shape role (3:1) rather than to the border
      role a hairline would use. In the clay mood the border role is literally
@@ -2957,8 +3184,8 @@
 
 .um-radio__dot::after {
   content: "";
-  width: calc(var(--um-height-sm) * 0.4);
-  height: calc(var(--um-height-sm) * 0.4);
+  width: calc(var(--um-height-sm) * 0.4 * var(--um-radio-scale, 1));
+  height: calc(var(--um-height-sm) * 0.4 * var(--um-radio-scale, 1));
   border-radius: var(--um-radius-circle);
   background: var(--um-color-primary-on);
   transform: scale(0);
@@ -2969,6 +3196,20 @@
 
 .um-radio__label { color: var(--um-text-regular); font-size: var(--um-font-size-body); }
 .um-radio__input:disabled + .um-radio__dot { opacity: 0.45; cursor: not-allowed; }
+
+/* The bordered run puts a frame around the circle and its text, so the two read
+   as one chip rather than as two things next to each other. */
+.um-radio--border {
+  padding: var(--um-space-xs) var(--um-space-sm);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-base);
+}
+
+.um-radio--sm { --um-radio-scale: 0.75; }
+.um-radio--sm .um-radio__label { font-size: var(--um-font-size-caption); }
+
+.um-radio--lg { --um-radio-scale: 1.5; }
+.um-radio--lg .um-radio__label { font-size: var(--um-font-size-title); }
 
 /* ============================================================================
    Radio Group
@@ -3053,6 +3294,30 @@
   flex-direction: row;
   flex-wrap: wrap;
   gap: var(--um-space-sm);
+}
+
+/* The group's size reaches the circles through one inherited number, so the
+   circle scales itself instead of being redrawn. A circle that carries a size
+   of its own declares the number itself, and its own declaration wins. */
+.um-radio-group--sm { --um-radio-scale: 0.75; }
+.um-radio-group--lg { --um-radio-scale: 1.5; }
+
+.um-radio-group--sm .um-radio-group__label { font-size: var(--um-font-size-caption); }
+.um-radio-group--lg .um-radio-group__label { font-size: var(--um-font-size-title); }
+
+/* The button run turns each option into a chip with a frame of its own, and a
+   picked chip takes the brand's fill and the foreground written for that fill. */
+.um-radio-group--button .um-radio-group__option {
+  padding: var(--um-space-xs) var(--um-space-sm);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-base);
+}
+.um-radio-group--button .um-radio-group__option:has(input:checked) {
+  background: var(--um-color-primary);
+  border-color: var(--um-color-primary);
+}
+.um-radio-group--button .um-radio-group__option:has(input:checked) .um-radio-group__label {
+  color: var(--um-color-primary-on);
 }
 
 /* ============================================================================
@@ -3154,6 +3419,16 @@
   opacity: 0.45;
 }
 
+/* The score is the number beside the stars. It is in the markup either way, so
+   it only takes up room when the stars ask for it. */
+.um-rate__score {
+  display: none;
+  color: var(--um-text-regular);
+  font-size: var(--um-font-size-body);
+  font-variant-numeric: tabular-nums;
+}
+.um-rate--show-score .um-rate__score { display: inline-flex; }
+
 /* ============================================================================
    Slider
    ========================================================================== */
@@ -3198,16 +3473,37 @@
 }
 .um-slider:disabled { cursor: not-allowed; }
 
+/* The vertical run stands the slider on its end. The browser lays a range input
+   out along the writing mode, so the vertical writing mode is the whole of it;
+   the direction is reversed so the lowest value sits at the bottom. */
+.um-slider--vertical {
+  writing-mode: vertical-lr;
+  direction: rtl;
+  width: var(--um-height-md);
+  height: var(--um-height-md);
+}
+
 /* ============================================================================
    Switch
    ========================================================================== */
-.um-switch { display: inline-flex; align-items: center; gap: var(--um-space-xs); cursor: pointer; }
+.um-switch {
+  /* The track, the thumb and the distance the thumb travels are three numbers
+     the sizes move together, so they are held in one place. */
+  --um-switch-thumb: var(--um-height-sm);
+  --um-switch-track-width: calc(var(--um-height-md) * 1.5);
+  --um-switch-travel: calc(var(--um-height-md) * 0.5);
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--um-space-xs);
+  cursor: pointer;
+}
 .um-switch__input { position: absolute; width: 1px; height: 1px; opacity: 0; }
 .um-switch__track {
   position: relative;
   display: inline-block;
-  width: calc(var(--um-height-md) * 1.5);
-  height: var(--um-height-sm);
+  width: var(--um-switch-track-width);
+  height: var(--um-switch-thumb);
   border-radius: var(--um-radius-round);
   background: var(--um-fill-light);
   transition: background-color var(--um-motion);
@@ -3216,8 +3512,8 @@
   position: absolute;
   top: 2px;
   inset-inline-start: 2px;
-  width: calc(var(--um-height-sm) - 4px);
-  height: calc(var(--um-height-sm) - 4px);
+  width: calc(var(--um-switch-thumb) - 4px);
+  height: calc(var(--um-switch-thumb) - 4px);
   border-radius: var(--um-radius-circle);
   background: var(--um-bg-overlay);
   box-shadow: var(--um-shadow-light);
@@ -3227,9 +3523,47 @@
    the brand colour: the raw fill colour is 1.43:1 against a container in the
    brutal mood, which is a switch whose state nobody can see. */
 .um-switch__input:checked + .um-switch__track { background: var(--um-color-primary-graphic); }
-.um-switch__input:checked + .um-switch__track .um-switch__thumb { transform: translateX(calc(var(--um-height-md) * 0.5 * var(--um-mirror))); }
+.um-switch__input:checked + .um-switch__track .um-switch__thumb { transform: translateX(calc(var(--um-switch-travel) * var(--um-mirror))); }
 .um-switch__input:disabled + .um-switch__track { opacity: 0.45; cursor: not-allowed; }
 .um-switch__label { color: var(--um-text-regular); font-size: var(--um-font-size-body); }
+
+/* The inline prompt is the state written inside the track. It stays out of the
+   way until the switch asks for it. */
+.um-switch__inner {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--um-text-regular);
+  font-size: var(--um-font-size-caption);
+  line-height: 1;
+}
+.um-switch--inline-prompt .um-switch__inner { display: inline-flex; }
+/* The thumb steps aside for the prompt: the word says which way the switch is
+   set, so a thumb saying it again would be noise. */
+.um-switch--inline-prompt .um-switch__thumb { display: none; }
+
+/* A word now sits on the track, so the track carries the brand's fill rather
+   than its graphic form: the foreground written for that fill is the pair the
+   contract measures. */
+.um-switch--inline-prompt .um-switch__input:checked + .um-switch__track { background: var(--um-color-primary); }
+.um-switch--inline-prompt .um-switch__input:checked + .um-switch__track .um-switch__inner { color: var(--um-color-primary-on); }
+
+/* A switch that is busy cannot be flipped: the track dims and the pointer
+   stops, so the reader is not invited to press it. */
+.um-switch--loading { pointer-events: none; }
+.um-switch--loading .um-switch__track { opacity: 0.45; cursor: progress; }
+
+.um-switch--sm {
+  --um-switch-thumb: calc(var(--um-height-sm) * 0.75);
+  --um-switch-track-width: calc(var(--um-height-sm) * 1.5);
+  --um-switch-travel: calc(var(--um-height-sm) * 0.5);
+}
+.um-switch--lg {
+  --um-switch-thumb: var(--um-height-md);
+  --um-switch-track-width: calc(var(--um-height-lg) * 1.5);
+  --um-switch-travel: calc(var(--um-height-lg) * 0.5);
+}
 
 /* ============================================================================
    Time Picker
@@ -3621,6 +3955,15 @@
   font-size: var(--um-font-size-title);
 }
 
+/* The checkbox run swaps the circle for the square the checkbox component
+   draws, so a tree of boxes reads as boxes rather than as a radio list. */
+.um-tree-select--show-checkbox .um-tree-select__dot {
+  border-radius: var(--um-radius-small);
+}
+.um-tree-select--show-checkbox .um-tree-select__dot::after {
+  border-radius: var(--um-radius-small);
+}
+
 /* ============================================================================
    Upload
    ========================================================================== */
@@ -3752,6 +4095,17 @@
   border: 0;
   background: transparent;
 }
+
+/* The tip is the line of help under the list. It is text, so it takes the
+   muted role. */
+.um-upload__tip {
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+
+/* The list is there unless the host says otherwise, so the class names the
+   state rather than the absence of it. */
+.um-upload:not(.um-upload--show-file-list) .um-upload__list { display: none; }
 
 .um-upload--sm .um-upload__button {
   height: var(--um-height-sm);
@@ -4439,6 +4793,15 @@
 
 .um-cascader--lg .um-cascader__option {
   font-size: var(--um-font-size-title);
+}
+
+/* A disabled cascader cannot be opened, so the pointer is refused and the text
+   takes the derived disabled colour, the way every other disabled control in
+   the library dims. */
+.um-cascader--disabled { pointer-events: none; }
+.um-cascader--disabled .um-cascader__option {
+  color: var(--um-text-disabled);
+  cursor: not-allowed;
 }
 
 /* ============================================================================
@@ -5590,6 +5953,19 @@
 
 .um-transfer__item { list-style: none; }
 
+/* The footer is the row under a panel's list, where a host puts whatever that
+   panel needs: a "select all" link, a count, a note. */
+.um-transfer__footer {
+  padding: var(--um-space-xs);
+  border-top: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+
+/* An empty footer is no footer, so a panel that was given nothing does not
+   carry a rule across the bottom of itself. */
+.um-transfer__footer:empty { display: none; }
+
 /* The option is the label that wraps the real input, the box and the text.
    It is the element that can be asked whether its input is ticked. */
 .um-transfer__option {
@@ -6406,6 +6782,41 @@
   inset-inline-start: auto;
 }
 
+/* A dropdown that is not asked for never opens. The rule is written with the
+   base class beside it, because the rule that opens it is the same shape and
+   comes first. */
+.um-dropdown.um-dropdown--disabled > .um-dropdown__menu {
+  display: none;
+}
+
+/* A divided menu draws a rule between its items. */
+.um-dropdown.um-dropdown--divided .um-dropdown__item + .um-dropdown__item {
+  border-block-start: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+}
+
+/* The two smaller and larger sizes. The middle one is the base class on its
+   own. */
+.um-dropdown--sm .um-dropdown__trigger {
+  height: var(--um-height-sm);
+  padding: 0 var(--um-space-xs);
+  font-size: var(--um-font-size-caption);
+}
+
+.um-dropdown--sm .um-dropdown__item {
+  padding: var(--um-space-xs);
+  font-size: var(--um-font-size-caption);
+}
+
+.um-dropdown--lg .um-dropdown__trigger {
+  height: var(--um-height-lg);
+  padding: 0 var(--um-space-md);
+}
+
+.um-dropdown--lg .um-dropdown__item {
+  padding: var(--um-space-sm);
+  font-size: var(--um-font-size-title);
+}
+
 /* ============================================================================
    Menu
    ========================================================================== */
@@ -6637,6 +7048,23 @@
   font-size: var(--um-font-size-caption);
 }
 
+/* A link that cannot be pressed says so the way a disabled button does: the
+   flat control surface and the derived disabled colour, and the pointer is
+   taken away so the link cannot be followed either. */
+.um-pagination__link[aria-disabled="true"] {
+  border-color: var(--um-border-base);
+  background: var(--um-surface-control);
+  color: var(--um-text-disabled);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* A pager with a single page has nothing to page through, so it is not on the
+   page at all. */
+.um-pagination.um-pagination--hidden {
+  display: none;
+}
+
 /* ============================================================================
    Steps
    ========================================================================== */
@@ -6709,14 +7137,6 @@
 /* The status is a class on the item, so one step can be finished while the
    next one is still running. A step with no status class is the waiting
    state: an outlined number on the plain surface. */
-.um-steps__item--active .um-steps__icon {
-  border-color: var(--um-color-primary);
-  background: var(--um-color-primary);
-  color: var(--um-color-primary-on);
-}
-
-.um-steps__item--active .um-steps__title { color: var(--um-color-primary-text); }
-
 .um-steps__item--success .um-steps__icon {
   border-color: var(--um-color-success);
   background: var(--um-color-success);
@@ -6737,6 +7157,30 @@
 
 .um-steps__item--error .um-steps__title,
 .um-steps__item--danger .um-steps__title { color: var(--um-color-danger-text); }
+
+/* The running state is painted last, so a step the wrapper marks as running
+   is running even when the markup carries another state as well. */
+.um-steps__item--active .um-steps__icon {
+  border-color: var(--um-color-primary);
+  background: var(--um-color-primary);
+  color: var(--um-color-primary-on);
+}
+
+.um-steps__item--active .um-steps__title { color: var(--um-color-primary-text); }
+
+/* A centred run: the title and the line under it stand in the middle of the
+   step rather than at its start. */
+.um-steps.um-steps--align-center .um-steps__content {
+  align-items: center;
+  text-align: center;
+}
+
+/* A simple run: the titles stand in a row and the descriptions and the line
+   are not drawn. */
+.um-steps.um-steps--simple .um-steps__description,
+.um-steps.um-steps--simple .um-steps__line {
+  display: none;
+}
 
 /* In a vertical run the line hangs under the icon instead of running beside
    it, and it is centred on the icon's axis. */
@@ -6896,6 +7340,28 @@
 }
 
 .um-tabs--card .um-tabs__indicator { display: none; }
+
+/* A bar of tabs that fills the width it is given: every tab takes a share of
+   it, so the row ends where the row's box ends. */
+.um-tabs.um-tabs--stretch .um-tabs__item {
+  flex: 1;
+}
+
+/* The bar of tabs under the panel instead of above it. The rule under the
+   bar and the mark of the selected tab move with it. */
+.um-tabs.um-tabs--bottom {
+  flex-direction: column-reverse;
+}
+
+.um-tabs.um-tabs--bottom .um-tabs__header::after {
+  bottom: auto;
+  top: 0;
+}
+
+.um-tabs.um-tabs--bottom .um-tabs__indicator {
+  bottom: auto;
+  top: 0;
+}
 
 /* ============================================================================
    Alert
@@ -7111,6 +7577,31 @@
   --um-dialog-width: 36em;
 }
 
+/* A panel that is aligned to the centre sits in the middle of the screen
+   rather than in the flow of the page. The browser already does this for a
+   panel it opened as modal, so the rule only speaks about the static one —
+   and it says so with the base class beside it, because the rule above
+   gives a static panel its own box. */
+.um-dialog.um-dialog--align-center:not(:modal) {
+  position: fixed;
+  inset: 0;
+  height: fit-content;
+  margin: auto;
+}
+
+/* A fullscreen panel takes the whole screen. The rule is written with the
+   base class beside it so it wins against the static panel's own box. */
+.um-dialog.um-dialog--fullscreen {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  margin: 0;
+  border-radius: var(--um-radius-none);
+}
+
 /* ============================================================================
    Drawer
    ========================================================================== */
@@ -7138,6 +7629,13 @@
   color: var(--um-text-regular);
   font-family: var(--um-font-family);
   font-size: var(--um-font-size-body);
+}
+
+/* A drawer that was not asked for is hidden rather than painted over the
+   page. The rule carries the hidden attribute with the base class beside it,
+   because the base class says `display: flex` and would otherwise win. */
+.um-drawer[hidden] {
+  display: none;
 }
 
 /* The rule sits on the edge the panel hangs from, so it moves with the
@@ -7363,6 +7861,24 @@
   .um-loading__spinner { animation: um-spin 0.7s linear infinite; }
 }
 
+/* A loading that is over is not on the page. The class is written with the
+   base class beside it, because the base class says `display: inline-flex`
+   and would otherwise win. */
+.um-loading.um-loading--closed {
+  display: none;
+}
+
+/* A fullscreen loading covers the whole viewport, whatever shape it is. The
+   overlay already does this, so the class matters for the ring on its own and
+   for the ring with a caption. */
+.um-loading.um-loading--fullscreen {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  align-items: center;
+  justify-content: center;
+}
+
 /* ============================================================================
    Message
    ========================================================================== */
@@ -7522,6 +8038,23 @@
 
 .um-message--sm { min-height: var(--um-height-sm); font-size: var(--um-font-size-caption); }
 .um-message--lg { min-height: var(--um-height-lg); font-size: var(--um-font-size-title); }
+
+/* A plain bar is laid on the page rather than floating over it: the surface
+   behind it and the shadow under it are both gone, so it reads as a line of
+   the page and not as a card. */
+.um-message--plain {
+  background: transparent;
+  box-shadow: none;
+}
+
+/* A grouped bar is one of several that belong together. The group is drawn
+   as a strip of the page — the bars keep their edges, so the group still has
+   a border, but nothing about them floats on its own. */
+.um-message--grouping {
+  border-color: var(--um-border-lighter);
+  background: transparent;
+  box-shadow: none;
+}
 
 /* ============================================================================
    Message Box
@@ -7712,25 +8245,68 @@
 /* The answer that is not being asked for keeps the neutral shape, so the eye
    goes to the one that is. */
 .um-message-box__cancel {
-  background: var(--um-fill-base);
-  color: var(--um-text-regular);
+  --um-message-box-answer-fill: var(--um-fill-base);
+  --um-message-box-answer-ink: var(--um-text-regular);
+  --um-message-box-answer-hover: var(--um-fill-light);
+
+  background: var(--um-message-box-answer-fill);
+  color: var(--um-message-box-answer-ink);
 }
 .um-message-box__cancel:hover {
-  background: var(--um-fill-light);
+  background: var(--um-message-box-answer-hover);
   border-color: var(--um-color-primary-soft-6);
 }
 
 /* The answer that is being asked for is the filled one, in the type's own
    fill with the theme's foreground for it. */
 .um-message-box__confirm {
-  border-color: var(--um-message-box-mark);
-  background: var(--um-message-box-mark);
-  color: var(--um-message-box-ink);
+  --um-message-box-answer-fill: var(--um-message-box-mark);
+  --um-message-box-answer-ink: var(--um-message-box-ink);
+  --um-message-box-answer-hover: var(--um-message-box-mark-strong);
+
+  border-color: var(--um-message-box-answer-fill);
+  background: var(--um-message-box-answer-fill);
+  color: var(--um-message-box-answer-ink);
 }
 .um-message-box__confirm:hover:not(:disabled) {
-  border-color: var(--um-message-box-mark-strong);
-  background: var(--um-message-box-mark-strong);
-  color: var(--um-message-box-ink);
+  border-color: var(--um-message-box-answer-hover);
+  background: var(--um-message-box-answer-hover);
+  color: var(--um-message-box-answer-ink);
+}
+
+/* The two answers take a type of their own. The type is written on the
+   button, because the two answers are asked for separately and each of them
+   has a name of its own. The three variables are the answer's fill, its
+   foreground and the fill it takes on hover. */
+.um-message-box__confirm[data-um-type="primary"],
+.um-message-box__cancel[data-um-type="primary"] {
+  --um-message-box-answer-fill: var(--um-color-primary);
+  --um-message-box-answer-ink: var(--um-color-primary-on);
+  --um-message-box-answer-hover: var(--um-color-primary-strong);
+}
+.um-message-box__confirm[data-um-type="success"],
+.um-message-box__cancel[data-um-type="success"] {
+  --um-message-box-answer-fill: var(--um-color-success);
+  --um-message-box-answer-ink: var(--um-color-success-on);
+  --um-message-box-answer-hover: var(--um-color-success-strong);
+}
+.um-message-box__confirm[data-um-type="warning"],
+.um-message-box__cancel[data-um-type="warning"] {
+  --um-message-box-answer-fill: var(--um-color-warning);
+  --um-message-box-answer-ink: var(--um-color-warning-on);
+  --um-message-box-answer-hover: var(--um-color-warning-strong);
+}
+.um-message-box__confirm[data-um-type="danger"],
+.um-message-box__cancel[data-um-type="danger"] {
+  --um-message-box-answer-fill: var(--um-color-danger);
+  --um-message-box-answer-ink: var(--um-color-danger-on);
+  --um-message-box-answer-hover: var(--um-color-danger-strong);
+}
+.um-message-box__confirm[data-um-type="info"],
+.um-message-box__cancel[data-um-type="info"] {
+  --um-message-box-answer-fill: var(--um-color-info);
+  --um-message-box-answer-ink: var(--um-color-info-on);
+  --um-message-box-answer-hover: var(--um-color-info-strong);
 }
 
 /* A confirm button that cannot be pressed yet. The real disabled attribute
@@ -7830,6 +8406,52 @@
 .um-message-box--lg .um-message-box__cancel {
   height: var(--um-height-lg);
   font-size: var(--um-font-size-body);
+}
+
+/* The size of the two answers, said on its own. The rules come after the
+   box's own sizes, so they win over them. */
+.um-message-box--button-sm .um-message-box__confirm,
+.um-message-box--button-sm .um-message-box__cancel {
+  height: var(--um-height-sm);
+  font-size: var(--um-font-size-caption);
+}
+
+.um-message-box--button-lg .um-message-box__confirm,
+.um-message-box--button-lg .um-message-box__cancel {
+  height: var(--um-height-lg);
+  font-size: var(--um-font-size-body);
+}
+
+/* A centred box: the title and the message stand in the middle of the box
+   rather than at its start. */
+.um-message-box.um-message-box--center .um-message-box__title,
+.um-message-box.um-message-box--center .um-message-box__content {
+  text-align: center;
+}
+
+/* The two answers are pills. */
+.um-message-box.um-message-box--round-button .um-message-box__confirm,
+.um-message-box.um-message-box--round-button .um-message-box__cancel {
+  border-radius: var(--um-radius-round);
+}
+
+/* The field a prompt box asks its question in. It sits on the input surface,
+   so it is the one field in the library that is not a container's own. */
+.um-message-box__input {
+  width: 100%;
+  height: var(--um-height-md);
+  padding: 0 var(--um-space-xs);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-base);
+  background: var(--um-surface-input);
+  color: var(--um-text-regular);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+}
+
+.um-message-box__input:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: var(--um-focus-ring-offset);
 }
 
 /* ============================================================================
@@ -8123,23 +8745,66 @@
 }
 
 .um-popconfirm__confirm {
-  background: var(--um-color-primary);
-  border-color: var(--um-color-primary);
-  color: var(--um-color-primary-on);
+  --um-popconfirm-answer-fill: var(--um-color-primary);
+  --um-popconfirm-answer-ink: var(--um-color-primary-on);
+  --um-popconfirm-answer-hover: var(--um-color-primary-strong);
+
+  background: var(--um-popconfirm-answer-fill);
+  border-color: var(--um-popconfirm-answer-fill);
+  color: var(--um-popconfirm-answer-ink);
 }
 .um-popconfirm__confirm:hover {
-  background: var(--um-color-primary-strong);
-  border-color: var(--um-color-primary-strong);
+  background: var(--um-popconfirm-answer-hover);
+  border-color: var(--um-popconfirm-answer-hover);
 }
 
 .um-popconfirm__cancel {
-  background: var(--um-fill-base);
+  --um-popconfirm-answer-fill: var(--um-fill-base);
+  --um-popconfirm-answer-ink: var(--um-text-regular);
+  --um-popconfirm-answer-hover: var(--um-fill-light);
+
+  background: var(--um-popconfirm-answer-fill);
   border-color: var(--um-border-base);
-  color: var(--um-text-regular);
+  color: var(--um-popconfirm-answer-ink);
 }
 .um-popconfirm__cancel:hover {
-  background: var(--um-fill-light);
+  background: var(--um-popconfirm-answer-hover);
   color: var(--um-color-primary-text);
+}
+
+/* The two answers take a type of their own. The type is written on the
+   button, because the two answers are asked for separately and each of them
+   has a name of its own. The three variables are the answer's fill, its
+   foreground and the fill it takes on hover. */
+.um-popconfirm__confirm[data-um-type="primary"],
+.um-popconfirm__cancel[data-um-type="primary"] {
+  --um-popconfirm-answer-fill: var(--um-color-primary);
+  --um-popconfirm-answer-ink: var(--um-color-primary-on);
+  --um-popconfirm-answer-hover: var(--um-color-primary-strong);
+}
+.um-popconfirm__confirm[data-um-type="success"],
+.um-popconfirm__cancel[data-um-type="success"] {
+  --um-popconfirm-answer-fill: var(--um-color-success);
+  --um-popconfirm-answer-ink: var(--um-color-success-on);
+  --um-popconfirm-answer-hover: var(--um-color-success-strong);
+}
+.um-popconfirm__confirm[data-um-type="warning"],
+.um-popconfirm__cancel[data-um-type="warning"] {
+  --um-popconfirm-answer-fill: var(--um-color-warning);
+  --um-popconfirm-answer-ink: var(--um-color-warning-on);
+  --um-popconfirm-answer-hover: var(--um-color-warning-strong);
+}
+.um-popconfirm__confirm[data-um-type="danger"],
+.um-popconfirm__cancel[data-um-type="danger"] {
+  --um-popconfirm-answer-fill: var(--um-color-danger);
+  --um-popconfirm-answer-ink: var(--um-color-danger-on);
+  --um-popconfirm-answer-hover: var(--um-color-danger-strong);
+}
+.um-popconfirm__confirm[data-um-type="info"],
+.um-popconfirm__cancel[data-um-type="info"] {
+  --um-popconfirm-answer-fill: var(--um-color-info);
+  --um-popconfirm-answer-ink: var(--um-color-info-on);
+  --um-popconfirm-answer-hover: var(--um-color-info-strong);
 }
 
 .um-popconfirm__confirm:focus-visible,
@@ -8185,6 +8850,25 @@
 
 .um-popconfirm--sm .um-popconfirm__panel { max-width: 16em; }
 .um-popconfirm--lg .um-popconfirm__panel { max-width: 24em; }
+
+/* A bubble that is not asked for never opens. The rule is written with the
+   base class beside it, because the rule that opens it is the same shape and
+   comes first. */
+.um-popconfirm.um-popconfirm--disabled .um-popconfirm__panel {
+  display: none;
+}
+
+/* A bubble with no arrow: the point that says which way the bubble is facing
+   is not drawn. */
+.um-popconfirm.um-popconfirm--no-arrow .um-popconfirm__arrow {
+  display: none;
+}
+
+/* A bubble the pointer cannot enter: the words in it cannot be selected and
+   the pointer passes straight through it. */
+.um-popconfirm.um-popconfirm--not-enterable .um-popconfirm__panel {
+  pointer-events: none;
+}
 
 /* ============================================================================
    Popover
@@ -8291,6 +8975,19 @@
   border-top: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
   color: var(--um-text-secondary);
   font-size: var(--um-font-size-caption);
+}
+
+/* A popover that is not asked for never opens. The rule is written with the
+   base class beside it, because the rule that opens it is the same shape and
+   comes first. */
+.um-popover.um-popover--disabled > .um-popover__content {
+  display: none;
+}
+
+/* A card the pointer cannot enter: the words in it cannot be selected and
+   the pointer passes straight through it. */
+.um-popover.um-popover--not-enterable > .um-popover__content {
+  pointer-events: none;
 }
 
 /* ============================================================================
@@ -8414,6 +9111,33 @@
   right: auto;
   left: calc(var(--um-tooltip-arrow) * -0.5);
   transform: translateY(-50%) rotate(135deg);
+}
+
+/* A tooltip that is not asked for never opens. The rule is written with the
+   base class beside it, because the rules that open it on hover and on focus
+   are the same shape and come first. */
+.um-tooltip.um-tooltip--disabled .um-tooltip__content {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* A bubble the pointer cannot enter: the words in it cannot be selected and
+   the pointer passes straight through it. */
+.um-tooltip.um-tooltip--not-enterable .um-tooltip__content {
+  pointer-events: none;
+}
+
+/* A bubble that is held open stays open, whether the pointer is on the
+   trigger or not. */
+.um-tooltip.um-tooltip--visible .um-tooltip__content {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* A bubble with no arrow: the point that says which way the bubble is
+   facing is not drawn. */
+.um-tooltip.um-tooltip--no-arrow .um-tooltip__arrow {
+  display: none;
 }
 
 /* ============================================================================
