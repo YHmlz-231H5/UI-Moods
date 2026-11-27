@@ -1,0 +1,80 @@
+{
+  "id": "notification",
+  "name": "Notification",
+  "nameZh": "通知",
+  "category": "feedback",
+  "element": "div",
+  "summary": "A card that reports something the reader did not ask about — a deployment finished, a certificate was renewed. It is wider than a message, and it carries a heading of its own.",
+  "summaryZh": "一张卡片,报告读者没有问过的事 —— 部署完成了、证书续期了。它比消息宽,而且自带一个标题。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-notification",
+    "modifier": "um-notification--",
+    "part": "um-notification__"
+  },
+  "variants": [
+    { "id": "info", "name": "Info", "nameZh": "信息", "state": "solid", "note": "The default state, and the base class on its own." },
+    { "id": "success", "name": "Success", "nameZh": "成功", "state": "solid" },
+    { "id": "warning", "name": "Warning", "nameZh": "警告", "state": "solid" },
+    { "id": "error", "name": "Error", "nameZh": "错误", "state": "solid", "note": "Element Plus calls this type error; the theme calls the same colour danger, so the class paints the danger role." }
+  ],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "A narrow card, for a line of news." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default card needs no modifier class." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "A wide card, for news that has a paragraph under its heading." }
+  ],
+  "states": [
+    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The close button is a real button, so the browser owns its focus and the ring is drawn around it." }
+  ],
+  "parts": [
+    { "id": "icon", "name": "Status mark", "nameZh": "状态标记", "note": "The disc beside the heading. The variant fills it with the state colour and draws the state's mark on it." },
+    { "id": "title", "name": "Title", "nameZh": "标题", "note": "The heading of the card. It is a heading element in the markup, so the reader can jump to it." },
+    { "id": "content", "name": "Content", "nameZh": "正文", "note": "The body of the card. It keeps the mood's regular text colour." },
+    { "id": "close", "name": "Close", "nameZh": "关闭", "note": "The button that dismisses the card. Its mark is drawn from two borders, not written as a character." }
+  ],
+  "props": [
+    { "name": "variant", "type": "enum", "values": ["info", "success", "warning", "error"], "default": "info", "description": "Which state the notification carries.", "descriptionZh": "这条通知表示哪一种状态。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The width of the card. The measures are in the card's own type, so the card grows with the mood's text.", "descriptionZh": "卡片的宽度。宽度用的是卡片自己的字号单位,所以卡片会跟着 mood 的文字一起变大。" },
+    { "name": "title", "type": "string", "default": "", "description": "The heading of the card.", "descriptionZh": "卡片的标题。" },
+    { "name": "closable", "type": "boolean", "default": "false", "description": "Whether the card carries a close button.", "descriptionZh": "卡片上是否带关闭按钮。" }
+  ],
+  "slots": [
+    { "name": "title", "description": "The heading of the card.", "descriptionZh": "卡片的标题。" },
+    { "name": "default", "description": "The body of the card.", "descriptionZh": "卡片的正文。" }
+  ],
+  "events": [],
+  "a11y": {
+    "keyboard": ["Tab", "Space"],
+    "notes": "The card is a plain container, so it carries no role of its own. A notification that arrives without the reader asking for it needs a live region: give it role=\"status\", or role=\"alert\" when the news is urgent. The status disc is decorative — the heading already says what happened — so hide it with aria-hidden. Put the heading in a real heading element, so the reader can navigate by it.",
+    "notesZh": "卡片本身只是一个容器,不带角色。读者没操作它就出现的通知需要一个 live region:给它 role=\"status\";消息紧急时用 role=\"alert\"。状态标记是装饰 —— 标题已经说了发生了什么 —— 用 aria-hidden 把它藏掉。标题要放在真正的标题元素里,读者才能靠它跳转。"
+  },
+  "examples": [
+    {
+      "id": "variants",
+      "title": "Variants",
+      "titleZh": "变体",
+      "description": "Four states. The disc carries the state colour and the state's mark; the heading and the body keep the mood's own text colours.",
+      "descriptionZh": "四种状态。圆盘承载状态色和状态记号,标题和正文还是 mood 自己的文字色。",
+      "markup": "<div class=\"um-notification um-notification--info\">\n  <span class=\"um-notification__icon\" aria-hidden=\"true\"></span>\n  <h3 class=\"um-notification__title\">Reconciliation finished</h3>\n  <div class=\"um-notification__content\">The nightly run compared both regions and found no differences.</div>\n</div>\n<div class=\"um-notification um-notification--success\">\n  <span class=\"um-notification__icon\" aria-hidden=\"true\"></span>\n  <h3 class=\"um-notification__title\">Deployment finished</h3>\n  <div class=\"um-notification__content\">Six replicas were moved to build 214, one at a time.</div>\n</div>\n<div class=\"um-notification um-notification--warning\">\n  <span class=\"um-notification__icon\" aria-hidden=\"true\"></span>\n  <h3 class=\"um-notification__title\">Storage at 68%</h3>\n  <div class=\"um-notification__content\">Two more connectors will exceed the plan limit.</div>\n</div>\n<div class=\"um-notification um-notification--error\">\n  <span class=\"um-notification__icon\" aria-hidden=\"true\"></span>\n  <h3 class=\"um-notification__title\">Replica unreachable</h3>\n  <div class=\"um-notification__content\">The last sync failed 12 minutes ago.</div>\n</div>"
+    },
+    {
+      "id": "sizes",
+      "title": "Sizes",
+      "titleZh": "尺寸",
+      "description": "Three widths. The middle one is the base class on its own, because the base class is already the medium card. The width is a measure of the card's own type, so it grows with the mood's text.",
+      "descriptionZh": "三种宽度。中间那个只写基础类,因为基础类本来就是中号卡片。宽度是卡片自己的字号单位,所以卡片会跟着 mood 的文字一起变大。",
+      "markup": "<div class=\"um-notification um-notification--info um-notification--sm\">\n  <span class=\"um-notification__icon\" aria-hidden=\"true\"></span>\n  <h3 class=\"um-notification__title\">Certificate renewed</h3>\n  <div class=\"um-notification__content\">A narrow card, for a line of news.</div>\n</div>\n<div class=\"um-notification um-notification--info\">\n  <span class=\"um-notification__icon\" aria-hidden=\"true\"></span>\n  <h3 class=\"um-notification__title\">Certificate renewed</h3>\n  <div class=\"um-notification__content\">The default card.</div>\n</div>\n<div class=\"um-notification um-notification--info um-notification--lg\">\n  <span class=\"um-notification__icon\" aria-hidden=\"true\"></span>\n  <h3 class=\"um-notification__title\">Certificate renewed</h3>\n  <div class=\"um-notification__content\">A wide card, for news that has a paragraph under its heading.</div>\n</div>"
+    },
+    {
+      "id": "announced",
+      "title": "Announced",
+      "titleZh": "会播报",
+      "description": "A notification that arrives on its own needs a live region, so it is announced instead of waiting to be found. The close button is a real button.",
+      "descriptionZh": "自己冒出来的通知需要 live region,这样它会被播报,而不是等着被看见。关闭按钮是真的按钮。",
+      "markup": "<div class=\"um-notification um-notification--success\" role=\"status\">\n  <span class=\"um-notification__icon\" aria-hidden=\"true\"></span>\n  <h3 class=\"um-notification__title\">Certificate renewed</h3>\n  <div class=\"um-notification__content\">The wildcard for *.internal was issued on 12 March and expires in 90 days.</div>\n  <button type=\"button\" class=\"um-notification__close\" aria-label=\"Dismiss\"></button>\n</div>"
+    }
+  ],
+  "notes": "The card is laid out with a grid, so the status disc sits beside the heading and the body runs under the heading rather than under the disc. The width is written in em: a notification is a measure of text, and a measure that does not follow the type size stops being a measure the moment a mood changes its type.",
+  "notesZh": "卡片用网格排:状态标记在标题旁边,正文从标题底下起排,而不是从标记底下起排。宽度用的是 em —— 通知是文字的一行长短,而长短不跟着字号走的话,mood 一换字号它就不再是长短了。"
+}

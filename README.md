@@ -219,7 +219,12 @@ The rules the component layer obeys, and `validate` enforces:
   measurements**, all green.
 - **The rendered pages hold too.** A probe loads every component's live
   examples, walks the whole document once per mood and measures what the
-  browser actually painted: **11 392 measurements, zero failures**.
+  browser actually painted: **51 008 measurements, zero failures**. A second
+  probe measures the *geometry* — whether the boxes the browser laid out are
+  the boxes the markup asked for — and a third measures the app packs.
+- **The boxes fit.** The library states its own box model for the elements it
+  paints, so an input at `width: 100%` is as wide as its column and not a
+  padding wider. A host's own layout is left alone.
 - **A shape has its own bar.** Text is held to 4.5:1; a shape whose colour
   carries the meaning on its own is held to 3:1, and the `graphic` form of
   each status colour exists for it. The raw warning colour sits at 1.39:1 on
@@ -316,32 +321,39 @@ the props, the classes, the parts.
 ### Where it is going
 
 `docs/component-parity.md` holds the full checklist against Element Plus: 7
-categories, 82 components, and what this repository covers today. Seventy-five
-of the eighty-two can be expressed with native elements and CSS alone; only
-`Message`, `MessageBox`, `Notification`, `Config Provider` and the three
-virtualized components genuinely need JavaScript.
+categories, 82 components, and what this repository covers today. All 82 are
+covered, and the two places where the answer is not "the same as EP's" are
+written down rather than glossed over.
 
 ### What is in the library now
 
-**39 components, covering 39 of Element Plus's 82** — one manifest can cover
-more than one native control, and two of them are forms EP does not list
-separately:
+**83 component manifests, covering all 82 of Element Plus's components** — one
+manifest can cover more than one native control, and two of them are forms EP
+does not list separately:
 
 | Manifest | Covers | Element Plus |
 | --- | --- | --- |
 | `input` | `um-input`, `um-textarea`, `um-select` | Input, Select |
 | `field` | `um-field`, `um-field__label`, `um-field__message` | Form, Form Item |
-| the other 37 | one each | one each |
+| the other 81 | one each | one each |
 
-- **Basic** — divider, typography, card, tag, badge, skeleton, empty, avatar
-- **Form** — button, input, field, checkbox, radio, switch, slider, rate,
-  input-number, checkbox-group, radio-group, upload, date-picker
-- **Data** — progress, statistic, descriptions, table, timeline, result, transfer, cascader
-- **Navigation** — tabs, breadcrumb, steps, pagination, menu, dropdown
-- **Feedback** — alert, loading, tooltip, popover
+- **Basic** — border, color, container, icon, layout, link, scrollbar, space,
+  splitter, typography, text, config-provider
+- **Form** — button, input, field, checkbox, checkbox-group, radio, radio-group,
+  switch, slider, rate, input-number, upload, date-picker, date-time-picker,
+  time-picker, time-select, autocomplete, color-picker, color-picker-panel,
+  date-picker-panel, mention, input-tag, input-otp, tree-select
+- **Data** — avatar, badge, calendar, card, carousel, collapse, descriptions,
+  empty, image, infinite-scroll, pagination, progress, result, skeleton,
+  statistic, table, virtual-table, tag, timeline, tour, tree, virtual-tree,
+  segmented, transfer, cascader
+- **Navigation** — affix, anchor, backtop, breadcrumb, dropdown, menu,
+  page-header, steps, tabs, pagination
+- **Feedback** — alert, dialog, drawer, loading, message, message-box,
+  notification, popconfirm, popover, tooltip
 
 [`docs/component-parity.md`](./docs/component-parity.md) lists all 82 against
-what is here, and names the 43 that are not.
+what is here.
 
 Each of them has a Vue 3 wrapper, so the library is usable from plain HTML and
 from a Vue project with the same markup underneath.
@@ -399,10 +411,11 @@ ui-moods/
 │  └─ app/            # app.css (shared screen stylesheet)
 ├─ tools/             # cli · build-specimen · build-apps · build-themes
 │                     # · build-components · build-docs · build-types · build-vue
-│                     # · validate · check-vue · audit-contrast · verify-themes
-│                     # · serve · scaffold
+│                     # · validate · check-vue · check-component · audit-contrast
+│                     # · audit-render · verify-themes · serve · scaffold
+│                     # · probe/ (the measuring instruments: contrast · geometry)
 ├─ docs/              # mapping convention · checklist semantics · parity checklist
-│                     # · contribution guide · vue-components
+│                     # · contribution guide · vue-components · known gaps
 ├─ AGENTS.md          # protocol for AI agents
 ├─ moods.json         # style registry index
 └─ apps.json          # app registry index

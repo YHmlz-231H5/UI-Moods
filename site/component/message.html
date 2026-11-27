@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Message · UI Moods</title>
+  <meta name="description" content="A short bar that tells the reader what just happened. Element Plus's message is a function that paints the bar and takes it away again; here the bar is a container, and the host decides whether it is on the page." />
+
+  <!-- The two files that make the whole thing work.
+       The first is the library; the second carries all thirty-two moods at
+       once, so the picker below changes an attribute instead of loading a
+       file — the switch has no network request to wait for. -->
+  <link rel="stylesheet" id="um-theme" href="../../themes/all.css" />
+  <link rel="stylesheet" href="../../components/um-components.css" />
+  <link rel="stylesheet" href="../../site/assets/site.css" />
+</head>
+<body>
+  <header class="site-header">
+      <a class="site-header__brand" href="../../index.html">UI Moods<span>Component Library</span></a>
+      <div class="site-header__spacer"></div>
+      <div class="switcher">
+        <label class="switcher__label" for="um-theme-picker">Theme</label>
+        <span class="switcher__field">
+          <select class="switcher__select" id="um-theme-picker"></select>
+        </span>
+      </div>
+    </header>
+  <div class="site-body">
+    <nav class="site-sidebar" aria-label="Components">
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Basic · 基础</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/affix.html">Affix <span class="meta">固钉</span></a></li>
+          <li><a href="../component/border.html">Border <span class="meta">边框</span></a></li>
+          <li><a href="../component/color.html">Color <span class="meta">色板</span></a></li>
+          <li><a href="../component/config-provider.html">Config Provider <span class="meta">全局配置</span></a></li>
+          <li><a href="../component/container.html">Container <span class="meta">容器</span></a></li>
+          <li><a href="../component/icon.html">Icon <span class="meta">图标</span></a></li>
+          <li><a href="../component/layout.html">Layout <span class="meta">布局</span></a></li>
+          <li><a href="../component/link.html">Link <span class="meta">链接</span></a></li>
+          <li><a href="../component/page-header.html">PageHeader <span class="meta">页头</span></a></li>
+          <li><a href="../component/scrollbar.html">Scrollbar <span class="meta">滚动条</span></a></li>
+          <li><a href="../component/space.html">Space <span class="meta">间距</span></a></li>
+          <li><a href="../component/splitter.html">Splitter <span class="meta">分割面板</span></a></li>
+          <li><a href="../component/text.html">Text <span class="meta">文本</span></a></li>
+          <li><a href="../component/typography.html">Typography <span class="meta">文字排版</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Form · 表单</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/autocomplete.html">Autocomplete <span class="meta">自动补全</span></a></li>
+          <li><a href="../component/button.html">Button <span class="meta">按钮</span></a></li>
+          <li><a href="../component/checkbox.html">Checkbox <span class="meta">复选框</span></a></li>
+          <li><a href="../component/checkbox-group.html">Checkbox Group <span class="meta">复选框组</span></a></li>
+          <li><a href="../component/color-picker.html">Color Picker <span class="meta">颜色选择器</span></a></li>
+          <li><a href="../component/color-picker-panel.html">Color Picker Panel <span class="meta">颜色选择面板</span></a></li>
+          <li><a href="../component/date-picker.html">Date Picker <span class="meta">日期选择器</span></a></li>
+          <li><a href="../component/date-picker-panel.html">Date Picker Panel <span class="meta">日期选择面板</span></a></li>
+          <li><a href="../component/date-time-picker.html">Date Time Picker <span class="meta">日期时间选择器</span></a></li>
+          <li><a href="../component/field.html">Field <span class="meta">表单项</span></a></li>
+          <li><a href="../component/input.html">Input / Textarea / Select <span class="meta">输入框 / 文本域 / 选择器</span></a></li>
+          <li><a href="../component/input-number.html">Input Number <span class="meta">数字输入框</span></a></li>
+          <li><a href="../component/input-otp.html">Input OTP <span class="meta">验证码输入</span></a></li>
+          <li><a href="../component/input-tag.html">Input Tag <span class="meta">标签输入</span></a></li>
+          <li><a href="../component/mention.html">Mention <span class="meta">提及</span></a></li>
+          <li><a href="../component/radio.html">Radio <span class="meta">单选框</span></a></li>
+          <li><a href="../component/radio-group.html">Radio Group <span class="meta">单选框组</span></a></li>
+          <li><a href="../component/rate.html">Rate <span class="meta">评分</span></a></li>
+          <li><a href="../component/slider.html">Slider <span class="meta">滑块</span></a></li>
+          <li><a href="../component/switch.html">Switch <span class="meta">开关</span></a></li>
+          <li><a href="../component/time-picker.html">Time Picker <span class="meta">时间选择器</span></a></li>
+          <li><a href="../component/time-select.html">Time Select <span class="meta">时间选择器</span></a></li>
+          <li><a href="../component/tree-select.html">Tree Select <span class="meta">树选择器</span></a></li>
+          <li><a href="../component/upload.html">Upload <span class="meta">上传</span></a></li>
+          <li><a href="../component/virtual-select.html">Virtual Select <span class="meta">虚拟列表选择器</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Data · 数据展示</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/avatar.html">Avatar <span class="meta">头像</span></a></li>
+          <li><a href="../component/badge.html">Badge <span class="meta">徽标</span></a></li>
+          <li><a href="../component/calendar.html">Calendar <span class="meta">日历</span></a></li>
+          <li><a href="../component/card.html">Card <span class="meta">卡片</span></a></li>
+          <li><a href="../component/carousel.html">Carousel <span class="meta">轮播图</span></a></li>
+          <li><a href="../component/cascader.html">Cascader <span class="meta">级联选择器</span></a></li>
+          <li><a href="../component/collapse.html">Collapse <span class="meta">折叠面板</span></a></li>
+          <li><a href="../component/descriptions.html">Descriptions <span class="meta">描述列表</span></a></li>
+          <li><a href="../component/empty.html">Empty <span class="meta">空状态</span></a></li>
+          <li><a href="../component/image.html">Image <span class="meta">图片</span></a></li>
+          <li><a href="../component/infinite-scroll.html">Infinite Scroll <span class="meta">无限滚动</span></a></li>
+          <li><a href="../component/progress.html">Progress <span class="meta">进度条</span></a></li>
+          <li><a href="../component/result.html">Result <span class="meta">结果</span></a></li>
+          <li><a href="../component/segmented.html">Segmented <span class="meta">分段控制器</span></a></li>
+          <li><a href="../component/skeleton.html">Skeleton <span class="meta">骨架屏</span></a></li>
+          <li><a href="../component/statistic.html">Statistic <span class="meta">统计数值</span></a></li>
+          <li><a href="../component/table.html">Table <span class="meta">表格</span></a></li>
+          <li><a href="../component/tag.html">Tag <span class="meta">标签</span></a></li>
+          <li><a href="../component/timeline.html">Timeline <span class="meta">时间线</span></a></li>
+          <li><a href="../component/tour.html">Tour <span class="meta">引导</span></a></li>
+          <li><a href="../component/transfer.html">Transfer <span class="meta">穿梭框</span></a></li>
+          <li><a href="../component/tree.html">Tree <span class="meta">树</span></a></li>
+          <li><a href="../component/virtual-table.html">Virtualized Table <span class="meta">虚拟表格</span></a></li>
+          <li><a href="../component/virtual-tree.html">Virtualized Tree <span class="meta">虚拟树</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Navigation · 导航</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/anchor.html">Anchor <span class="meta">锚点</span></a></li>
+          <li><a href="../component/backtop.html">Backtop <span class="meta">回到顶部</span></a></li>
+          <li><a href="../component/breadcrumb.html">Breadcrumb <span class="meta">面包屑</span></a></li>
+          <li><a href="../component/dropdown.html">Dropdown <span class="meta">下拉菜单</span></a></li>
+          <li><a href="../component/menu.html">Menu <span class="meta">菜单</span></a></li>
+          <li><a href="../component/pagination.html">Pagination <span class="meta">分页</span></a></li>
+          <li><a href="../component/steps.html">Steps <span class="meta">步骤条</span></a></li>
+          <li><a href="../component/tabs.html">Tabs <span class="meta">标签页</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Feedback · 反馈</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/alert.html">Alert <span class="meta">警告</span></a></li>
+          <li><a href="../component/dialog.html">Dialog <span class="meta">对话框</span></a></li>
+          <li><a href="../component/drawer.html">Drawer <span class="meta">抽屉</span></a></li>
+          <li><a href="../component/loading.html">Loading <span class="meta">加载中</span></a></li>
+          <li><a href="" aria-current="page">Message <span class="meta">消息</span></a></li>
+          <li><a href="../component/message-box.html">Message Box <span class="meta">消息框</span></a></li>
+          <li><a href="../component/notification.html">Notification <span class="meta">通知</span></a></li>
+          <li><a href="../component/popconfirm.html">Popconfirm <span class="meta">气泡确认</span></a></li>
+          <li><a href="../component/popover.html">Popover <span class="meta">气泡卡片</span></a></li>
+          <li><a href="../component/tooltip.html">Tooltip <span class="meta">文字提示</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Others · 其他</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/divider.html">Divider <span class="meta">分割线</span></a></li>
+          <li><a href="../component/watermark.html">Watermark <span class="meta">水印</span></a></li>
+        </ul>
+      </div>
+    </nav>
+    <main class="site-main">
+      <h1>Message <span class="meta">消息</span></h1>
+      <p class="lede">A short bar that tells the reader what just happened. Element Plus's message is a function that paints the bar and takes it away again; here the bar is a container, and the host decides whether it is on the page.</p>
+      <p class="meta">
+        <span class="tag">div</span>
+        <span class="tag">feedback</span>
+        <span class="tag">since 1.1.0</span>
+      </p>
+      <div class="note">The status mark is a disc with the state's mark drawn on it, and the mark is drawn from borders rather than written as a character: a character would have to be typed into every markup and would then be read out as a word. The disc's fill and the mark's ink are the theme's own on-colour pair, so the mark is as legible as the sentence beside it.</div>
+
+      <h2>Examples</h2>
+<div class="example">
+        <div class="example__title">Variants · 变体</div>
+        <div class="example__desc">Four states. The disc carries the state colour and the state's mark, and the sentence keeps the mood's regular text colour — a message never changes the reading colour of the page it lands on.</div>
+        <div class="example__demo">
+<div class="um-message um-message--info">
+  <span class="um-message__icon" aria-hidden="true"></span>
+  <div class="um-message__content">The nightly reconciliation finished with no differences.</div>
+</div>
+<div class="um-message um-message--success">
+  <span class="um-message__icon" aria-hidden="true"></span>
+  <div class="um-message__content">Six replicas were moved to build 214.</div>
+</div>
+<div class="um-message um-message--warning">
+  <span class="um-message__icon" aria-hidden="true"></span>
+  <div class="um-message__content">Storage is at 68% of the plan limit.</div>
+</div>
+<div class="um-message um-message--error">
+  <span class="um-message__icon" aria-hidden="true"></span>
+  <div class="um-message__content">The last sync failed 12 minutes ago.</div>
+</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-message um-message--info&quot;&gt;
+  &lt;span class=&quot;um-message__icon&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+  &lt;div class=&quot;um-message__content&quot;&gt;The nightly reconciliation finished with no differences.&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;um-message um-message--success&quot;&gt;
+  &lt;span class=&quot;um-message__icon&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+  &lt;div class=&quot;um-message__content&quot;&gt;Six replicas were moved to build 214.&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;um-message um-message--warning&quot;&gt;
+  &lt;span class=&quot;um-message__icon&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+  &lt;div class=&quot;um-message__content&quot;&gt;Storage is at 68% of the plan limit.&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;um-message um-message--error&quot;&gt;
+  &lt;span class=&quot;um-message__icon&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+  &lt;div class=&quot;um-message__content&quot;&gt;The last sync failed 12 minutes ago.&lt;/div&gt;
+&lt;/div&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">Sizes · 尺寸</div>
+        <div class="example__desc">Three bars. The middle one is the base class on its own, because the base class is already the medium bar.</div>
+        <div class="example__demo">
+<div class="um-message um-message--info um-message--sm">
+  <span class="um-message__icon" aria-hidden="true"></span>
+  <div class="um-message__content">A caption-sized message.</div>
+</div>
+<div class="um-message um-message--info">
+  <span class="um-message__icon" aria-hidden="true"></span>
+  <div class="um-message__content">The default message.</div>
+</div>
+<div class="um-message um-message--info um-message--lg">
+  <span class="um-message__icon" aria-hidden="true"></span>
+  <div class="um-message__content">A title-sized message.</div>
+</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-message um-message--info um-message--sm&quot;&gt;
+  &lt;span class=&quot;um-message__icon&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+  &lt;div class=&quot;um-message__content&quot;&gt;A caption-sized message.&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;um-message um-message--info&quot;&gt;
+  &lt;span class=&quot;um-message__icon&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+  &lt;div class=&quot;um-message__content&quot;&gt;The default message.&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;um-message um-message--info um-message--lg&quot;&gt;
+  &lt;span class=&quot;um-message__icon&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+  &lt;div class=&quot;um-message__content&quot;&gt;A title-sized message.&lt;/div&gt;
+&lt;/div&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">Announced · 会播报</div>
+        <div class="example__desc">A message that arrives on its own needs a live region, so it is announced instead of waiting to be found. The close button is a real button.</div>
+        <div class="example__demo">
+<div class="um-message um-message--success" role="status">
+  <span class="um-message__icon" aria-hidden="true"></span>
+  <div class="um-message__content">The certificate was renewed.</div>
+  <button type="button" class="um-message__close" aria-label="Dismiss"></button>
+</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-message um-message--success&quot; role=&quot;status&quot;&gt;
+  &lt;span class=&quot;um-message__icon&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+  &lt;div class=&quot;um-message__content&quot;&gt;The certificate was renewed.&lt;/div&gt;
+  &lt;button type=&quot;button&quot; class=&quot;um-message__close&quot; aria-label=&quot;Dismiss&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;</pre>
+      </div>
+      <h2>Classes</h2>
+<table class="api">
+      <thead><tr><th>Class</th><th>Meaning</th></tr></thead>
+      <tbody>
+      <tr><td><code>um-message</code></td><td>The base class. Every instance carries it.</td></tr>
+      <tr><td><code>um-message--info</code></td><td>Info</td></tr>
+      <tr><td><code>um-message--success</code></td><td>Success</td></tr>
+      <tr><td><code>um-message--warning</code></td><td>Warning</td></tr>
+      <tr><td><code>um-message--error</code></td><td>Error</td></tr>
+      <tr><td><code>um-message--sm</code></td><td>Size: sm</td></tr>
+      <tr><td><code>um-message--md</code></td><td>Size: md</td></tr>
+      <tr><td><code>um-message--lg</code></td><td>Size: lg</td></tr>
+      <tr><td><code>um-message__icon</code></td><td>Status mark</td></tr>
+      <tr><td><code>um-message__content</code></td><td>Content</td></tr>
+      <tr><td><code>um-message__close</code></td><td>Close</td></tr>
+      <tr><td><code>:focus-visible</code></td><td>Focus visible</td></tr>
+      </tbody>
+    </table>
+      <h2>Props</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>variant</code></span></td><td><code>enum = info | success | warning | error</code></td><td><code>info</code></td><td>Which state the message carries.</td></tr>
+      <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The height of the bar and the size of its type.</td></tr>
+      <tr><td><span class="api__name"><code>closable</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the bar carries a close button.</td></tr>
+      </tbody>
+    </table>
+      <h2>Slots</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>The text of the message.</td></tr>
+      </tbody>
+    </table>
+
+      <h2>Accessibility</h2>
+      <p><strong>Keyboard:</strong> <code>Tab</code> <code>Space</code></p>
+        <p>The bar is a plain container, so it carries no role of its own. A message that arrives without the reader asking for it needs a live region: give it role=&quot;status&quot;, or role=&quot;alert&quot; when the news is urgent. The status disc is decorative — the sentence in it already says what happened — so hide it with aria-hidden. The close button is a real button, so it is in the tab order and can be pressed with the keyboard.</p>
+
+    </main>
+  </div>
+
+  <script>window.UM_THEMES = {"light":["anime","archive","bauhaus","brutal","clay","corporate","eco","fashion","food","forest","ios","luxury","medical","monochrome","nordic","pastel","retro","sakura","swiss","travel","y2k"],"dark":["aurora","blueprint","crypto","finance","gaming","glass","instrument","neon","night","vaporwave","verdant"]};
+  window.UM_DEFAULT_THEME = "aurora";</script>
+  <script src="../../themes/switcher.js"></script>
+  <script src="../../site/assets/site.js"></script>
+</body>
+</html>

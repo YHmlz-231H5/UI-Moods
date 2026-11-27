@@ -1,0 +1,128 @@
+{
+  "id": "backtop",
+  "name": "Backtop",
+  "nameZh": "回到顶部",
+  "category": "navigation",
+  "element": "a, span",
+  "summary": "A round button that takes the reader back to the top of the page. It is a link to a fragment, so it works with the keyboard alone and needs no scroll listener to appear — it is simply there.",
+  "summaryZh": "一个把读者带回页面顶端的圆按钮。它是指向片段的链接,所以单靠键盘就能用,也不需要监听滚动才出现 —— 它一直就在那儿。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-backtop",
+    "modifier": "um-backtop--",
+    "part": "um-backtop__"
+  },
+  "variants": [
+    {
+      "id": "soft",
+      "name": "Soft",
+      "nameZh": "柔和",
+      "state": "soft",
+      "note": "The button takes the brand colour's own tint instead of its solid fill, and the foreground derived for that tint. It fills in with the solid brand colour when the pointer is over it."
+    },
+    {
+      "id": "inline",
+      "name": "In the flow",
+      "nameZh": "随文",
+      "note": "The button sits in the flow of the page instead of floating over it, for the link at the end of a long article. It is the modifier um-backtop--inline."
+    }
+  ],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "A smaller button. The diameter follows the theme's control height, so it grows with the mood's type." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default button. The base class is already this size, so it needs no modifier." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "A larger button, for a pointer that wants a bigger target." }
+  ],
+  "states": [
+    {
+      "id": "focus-visible",
+      "name": "Focus visible",
+      "nameZh": "键盘聚焦",
+      "selector": ":focus-visible",
+      "native": true,
+      "note": "The link takes the shared focus ring, so a keyboard reader can see where they are."
+    }
+  ],
+  "parts": [
+    {
+      "id": "icon",
+      "name": "Arrow",
+      "nameZh": "箭头",
+      "note": "The chevron that points up. It is drawn from two borders, so it takes the button's own colour and the library ships no icon font."
+    }
+  ],
+  "props": [
+    {
+      "name": "variant",
+      "type": "enum",
+      "values": ["solid", "soft"],
+      "default": "solid",
+      "description": "Which fill the button has. The solid fill is the base class on its own; the soft fill adds um-backtop--soft.",
+      "descriptionZh": "按钮用哪种底色。实心底色就是只写基类;柔和底色再加上 um-backtop--soft。"
+    },
+    {
+      "name": "size",
+      "type": "enum",
+      "values": ["sm", "md", "lg"],
+      "default": "md",
+      "description": "How big the button is. The diameter follows the theme's control height, so the button grows with the mood's type rather than staying a fixed number of pixels.",
+      "descriptionZh": "按钮有多大。直径跟着主题的控件高度走,所以按钮会跟着 mood 的字号一起变大,而不是卡在一个固定的像素数上。"
+    },
+    {
+      "name": "inline",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the button sits in the flow of the page instead of floating over it. It adds um-backtop--inline.",
+      "descriptionZh": "按钮是随文排在页面里,还是浮在页面上。它加上 um-backtop--inline。"
+    },
+    {
+      "name": "target",
+      "type": "string",
+      "default": "#top",
+      "description": "The fragment the link points at. The page needs an element with that id for the link to go anywhere.",
+      "descriptionZh": "链接指向的片段。页面上要有那个 id 的元素,链接才有地方可去。"
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "default": "Back to top",
+      "description": "The accessible name of the link. The arrow is a shape and says nothing, so the name has to come from somewhere.",
+      "descriptionZh": "链接的可访问名称。箭头是个形状,什么也没说,所以名字总得有个来源。"
+    }
+  ],
+  "slots": [],
+  "events": [],
+  "a11y": {
+    "keyboard": ["Tab", "Enter"],
+    "notes": "The button is an <a href=\"#top\">: it is a link to a place on the page, so it is in the tab order, the browser announces it as a link, and it works with the keyboard alone. The arrow is aria-hidden and the link carries an aria-label, because a shape has nothing to say and the label is what names the control. The link points at a fragment, so the page needs an element with that id — a back-to-top link with no target goes nowhere, which is a property of the page rather than of the component.",
+    "notesZh": "按钮是一个 <a href=\"#top\">:它是指向页面某个位置的链接,所以在 Tab 顺序里,浏览器会把它播报成链接,单靠键盘就能用。箭头加了 aria-hidden,链接带上 aria-label —— 箭头是个形状,什么也没说,名字得由标签来给。链接指向一个片段,所以页面上要有那个 id 的元素 —— 没有目标的回到顶部哪儿也去不了,这是页面的事,不是组件的事。"
+  },
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Basic",
+      "titleZh": "基础用法",
+      "description": "The button floats over the page in the corner, the way a back-to-top button has to: a link that scrolls away with the content is not a back-to-top link. The arrow is drawn from two borders, so it takes the button's own colour.",
+      "descriptionZh": "按钮浮在页面角落里 —— 回到顶部的按钮就该这样:跟着内容一起滚走的链接不算回到顶部的链接。箭头是用两条边框画出来的,所以它用的是按钮自己的颜色。",
+      "markup": "<a class=\"um-backtop\" href=\"#top\" aria-label=\"Back to top\">\n  <span class=\"um-backtop__icon\" aria-hidden=\"true\"></span>\n</a>"
+    },
+    {
+      "id": "inline",
+      "title": "In the flow",
+      "titleZh": "随文",
+      "description": "The inline variant sits in the flow of the page instead of floating over it, which is what the link at the end of a long article wants.",
+      "descriptionZh": "inline 变体排在页面流里,而不是浮在页面上 —— 长文章末尾那个链接要的就是这样。",
+      "markup": "<p>The audit ends at 14:20 and nothing was waiting for approval.</p>\n<a class=\"um-backtop um-backtop--inline\" href=\"#top\" aria-label=\"Back to top\">\n  <span class=\"um-backtop__icon\" aria-hidden=\"true\"></span>\n</a>"
+    },
+    {
+      "id": "soft",
+      "title": "Soft",
+      "titleZh": "柔和",
+      "description": "The soft fill is the brand colour's own tint, with the foreground derived for that tint. It fills in with the solid brand colour when the pointer is over it. It is shown here in the flow, so that both fills can be compared on one page.",
+      "descriptionZh": "柔和的底色是品牌色自己的淡色,文字取为那个淡色派生的前景色。指针移上去时会填成实心的品牌色。这里把它放在页面流里,好让两种底色能在同一页上比一比。",
+      "markup": "<a class=\"um-backtop um-backtop--soft um-backtop--inline\" href=\"#top\" aria-label=\"Back to top\">\n  <span class=\"um-backtop__icon\" aria-hidden=\"true\"></span>\n</a>"
+    }
+  ],
+  "notes": "The button does not appear and disappear as the page scrolls. That would need a scroll listener, and a library with no JavaScript cannot have one — so the button is simply always there, and the page that wants it out of the way until the reader has scrolled is a page that writes the class itself. The arrow is drawn from two borders rather than shipped as a glyph, so it takes the theme's border colour and border weight and the library loads no icon font.",
+  "notesZh": "按钮不会随着页面滚动出现或消失。那需要监听滚动,而一个没有 JavaScript 的库做不到 —— 所以按钮一直就在那儿,想让它在读者滚过一段之前不挡路的页面,得由页面自己来写这个类。箭头是用两条边框画出来的,而不是作为一个字形随库发布,所以它用的是主题的描边色和描边粗细,库里也不加载图标字体。"
+}

@@ -114,12 +114,42 @@ language in every mood, and it is the only path whose contrast is measured.
 
 9. If you change the **component layer or the role contract**, measure the
    result, do not eyeball it. `node tools/audit-contrast.mjs` prints every
-   contract pair across the 32 moods and exits 1 when one falls short; the
-   rendered pages are measured by `tools/probe/contrast.html`, which loads
-   every component's examples, walks the document once per mood and measures
-   what the browser actually painted. The current run is 11 392 measurements
-   with zero failures, and a change that moves it is a change to the library's
-   promise.
+   contract pair across the 32 moods and exits 1 when one falls short. The
+   rendered pages are measured by `node tools/audit-render.mjs`, which drives
+   `tools/probe/contrast.html` in a headless browser, walks every component's
+   examples once per mood and reports what the browser actually painted. The
+   current run is **51 008 measurements with zero failures**, and a change that
+   moves it is a change to the library's promise. The same command with the
+   word `geometry` measures the *layout* instead — whether the boxes the
+   browser laid out are the boxes the markup asked for — and the word `apps`
+   measures the app packs (those numbers are the moods' own contrast debt,
+   not the component layer's, and they are tracked in `docs/known-gaps.md`).
+
+10. If you paint a **disabled** control, say so in the markup, not only in the
+    stylesheet. A `<button disabled>` and an `aria-disabled="true"` are states
+    a reader can be told about and an audit can measure; a class that paints a
+    dimmed element is only a picture. The rendered audit holds a disabled
+    control to 2:1 (the `text-disabled` contract) and everything else to
+    4.5:1, so a component that dims its days with a class alone is reported as
+    a failure — correctly, because it has not declared a disabled state. When a
+    real element cannot carry the state, use `aria-disabled="true"`, the way
+    `um-link` does.
+
+11. If a component **fills the width it is given**, it needs the library's box
+    model, which the build emits for every component the library paints:
+    `box-sizing: border-box` on the component and everything inside it. A
+    host's own layout is deliberately left alone — the library states its box
+    model for itself and for nothing else. Without it an input at
+    `width: 100%` is wider than the column it sits in by its own padding, and
+    the documentation site hides the problem because the site resets the box
+    model for itself.
+
+12. If a word sits on a **brand tint**, it takes `--um-color-*-on-soft`, not
+    `--um-color-*-text`. The brand colour as text is contracted to 4.5:1
+    against the page, an overlay and a container; on `color-*-soft-8` it is
+    contracted to 3:1, because there it is an outline rather than a word.
+    `badge`, `menu`, `segmented`, `tag` and `transfer` all use the `on-soft`
+    form, and so must anything else that paints a word on a tint.
 
 `site/index.html` is the documentation: an overview plus one page per
 component, with the examples, the API tables and the class list, and a live

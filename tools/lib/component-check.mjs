@@ -16,6 +16,7 @@ import { readFileSync, existsSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { contrastRatio, parseColor } from "./state-colors.mjs";
 import { loadManifests } from "./manifest.mjs";
+import { boxModelCss } from "./box-model.mjs";
 
 const stripComments = (css) => css.replace(/\/\*[\s\S]*?\*\//g, "");
 
@@ -249,7 +250,15 @@ export function checkComponentLibrary(root) {
       .filter((f) => f === "_hooks.css")
       .map((name) => readFileSync(join(manifestDir, name), "utf8").trim());
 
-    const expected = [...shared, ...perComponent, ...hooks].join("\n\n");
+    // The box-model rule is generated from the manifests, and it sits between
+    // the shared layer and the components. It is generated in one place, so
+    // that the builder and this check cannot disagree about what it is.
+    const expected = [
+      ...shared,
+      boxModelCss(manifests),
+      ...perComponent,
+      ...hooks,
+    ].join("\n\n");
     const assembled = readFileSync(join(root, "components", "um-components.css"), "utf8");
     if (assembled.indexOf(expected) === -1) {
       note(

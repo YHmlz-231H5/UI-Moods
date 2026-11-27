@@ -1,0 +1,100 @@
+/* ============================================================================
+   Image
+   ========================================================================== */
+
+/* The figure is the column the frame and the caption stand in; it owns the
+   type and the spacing and nothing else, so the frame can be lifted out of
+   it and still be a frame. */
+.um-image {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--um-space-xs);
+  margin: 0;
+  color: var(--um-text-regular);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-caption);
+}
+
+/* The frame owns the shape, the rule and the recessed fill behind the
+   picture. The picture is drawn on top of that fill, so the fill is painted
+   once and once only. */
+.um-image__frame {
+  position: relative;
+  display: block;
+  width: var(--um-height-lg);
+  height: var(--um-height-lg);
+  overflow: hidden;
+  border-radius: var(--um-radius-none);
+  background: var(--um-fill-light);
+}
+
+.um-image__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* The cover run is the base class on its own; the modifier paints the same
+   rule, so the class list can name it. */
+.um-image--cover .um-image__image { object-fit: cover; }
+.um-image--contain .um-image__image { object-fit: contain; }
+.um-image--fill .um-image__image { object-fit: fill; }
+
+.um-image--rounded .um-image__frame { border-radius: var(--um-radius-base); }
+.um-image--circle .um-image__frame { border-radius: var(--um-radius-circle); }
+
+.um-image--bordered .um-image__frame {
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+}
+
+/* The placeholder is the shape that says "there is a picture slot here". It
+   is drawn from a border rather than from an image, so the library ships no
+   picture of its own, and it is hidden from the reader because it carries no
+   text. It is hidden to begin with: it only shows when there is no picture. */
+.um-image__placeholder {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.um-image__placeholder::before {
+  content: "";
+  width: 40%;
+  height: 40%;
+  border: var(--um-border-width) var(--um-border-style) var(--um-shape-muted);
+  border-radius: var(--um-radius-small);
+}
+
+/* The placeholder stands in for a picture that is not there: it is shown when
+   the frame holds no picture, and hidden the moment a picture is there. A
+   picture that failed is not a picture, so the broken one does not count
+   towards that either. */
+.um-image:not(:has(.um-image__image[src]:not(.um-image__image--error))) .um-image__placeholder {
+  display: flex;
+}
+
+/* A picture that failed is taken out of the frame, so the placeholder stands
+   in for it instead of the browser's broken-image mark. */
+.um-image__image--error {
+  display: none;
+}
+
+/* The caption is under the frame rather than on top of it: a band of colour
+   over a picture is a colour no role names. */
+.um-image__caption {
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+
+.um-image--sm .um-image__frame {
+  width: var(--um-height-md);
+  height: var(--um-height-md);
+}
+
+.um-image--lg .um-image__frame {
+  width: calc(var(--um-height-lg) * 1.5);
+  height: calc(var(--um-height-lg) * 1.5);
+}

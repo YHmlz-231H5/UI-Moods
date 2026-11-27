@@ -69,6 +69,175 @@ export interface ThemeIndex {
   themes: ThemeCatalogue;
 }
 
+/** Affix · 固钉 — A bar that stays where the reader put it while the page scrolls past. The bar is held with position: sticky, so the browser keeps it in the flow and pins it to the edge of the scrollport — no scroll listener, no measuring, no JavaScript. */
+export type AffixVariant = "bottom";
+export interface AffixProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "affix";
+  variant?: AffixVariant;
+  /** Which edge of the scrollport the bar sticks to. The top position is the base class on its own; the bottom position adds um-affix--bottom. */
+  position?: "top" | "bottom";
+}
+
+/** Border · 边框 — A frame of one semantic colour around a block of content. It says what state the content is in without adding a word to it. */
+export type BorderVariant = "primary" | "success" | "warning" | "danger" | "info";
+/** Border — the sizes it can be rendered at. */
+export type BorderSize = "sm" | "md" | "lg";
+export interface BorderProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "border";
+  variant?: BorderVariant;
+  size?: BorderSize;
+}
+
+/** Color · 色板 — The semantic colours of the mood, drawn as a readable palette. Every cell names the role it shows and the address of the value behind it. */
+export type ColorVariant = "primary" | "success" | "warning" | "danger" | "info";
+/** Color — the sizes it can be rendered at. */
+export type ColorSize = "sm" | "md" | "lg";
+export interface ColorProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "color";
+  variant?: ColorVariant;
+  size?: ColorSize;
+}
+
+export interface ConfigProviderProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "config-provider";
+  /** The density of the subtree. The whole control scale collapses onto that rung — the heights of the controls and the sizes of the type inside the provider. md is the default, and it changes nothing. */
+  size?: "sm" | "md" | "lg";
+  /** The radius mode of the subtree. square collapses the box radii onto a flat edge; soft is the default, and it changes nothing. */
+  radius?: "soft" | "square";
+}
+
+/** Container · 容器 — A fixed width, centred block of content. The width is a step of the type size rather than a number of pixels, so a mood with larger type gets a larger container. */
+export type ContainerVariant = "left";
+/** Container — the sizes it can be rendered at. */
+export type ContainerSize = "sm" | "md" | "lg" | "xl" | "full";
+export interface ContainerProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "container";
+  variant?: ContainerVariant;
+  size?: ContainerSize;
+  /** Whether the container is centred in its parent. When it is not, it adds um-container--left. */
+  centered?: boolean;
+}
+
+/** Icon · 图标 — The handful of marks a page needs most, drawn in CSS out of borders and pseudo-elements. The library ships no icon font, so every glyph here is a shape. */
+export type IconVariant = "check" | "close" | "chevron-down" | "chevron-right" | "dot" | "plus" | "minus";
+/** Icon — the sizes it can be rendered at. */
+export type IconSize = "sm" | "md" | "lg";
+export interface IconProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "icon";
+  variant?: IconVariant;
+  size?: IconSize;
+  /** Which mark this is. */
+  name?: "check" | "close" | "chevron-down" | "chevron-right" | "dot" | "plus" | "minus";
+  /** The name of the mark, for the case where the icon carries meaning on its own. An icon with a label is announced as an image; an icon without one is hidden from the screen reader. */
+  label?: string;
+}
+
+/** Layout · 布局 — The skeleton of a page: a header, a side column, the content and a footer. It draws the rules that separate them and leaves the surfaces to the page behind it. */
+export type LayoutVariant = "stacked";
+/** Layout — the sizes it can be rendered at. */
+export type LayoutSize = "sm" | "md" | "lg";
+export interface LayoutProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "layout";
+  variant?: LayoutVariant;
+  size?: LayoutSize;
+  /** Whether the side column stands beside the content or above it. The horizontal form is the base class on its own; the stacked form adds um-layout--stacked. */
+  direction?: "horizontal" | "stacked";
+}
+
+/** Link · 链接 — A link, in one of the semantic colours. It is text, so it takes the text form of the colour and reads at 4.5:1 on the page, on an overlay and inside a container. */
+export type LinkVariant = "primary" | "success" | "warning" | "danger" | "info" | "underline";
+/** Link — the sizes it can be rendered at. */
+export type LinkSize = "sm" | "md" | "lg";
+export interface LinkProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "link";
+  variant?: LinkVariant;
+  size?: LinkSize;
+  /** Where the link goes. */
+  href?: string;
+  /** Keeps the underline on the link at all times, not only under the pointer. */
+  underline?: boolean;
+  /** Makes the link inert. It adds aria-disabled, and the wrapper refuses to follow it. */
+  disabled?: boolean;
+}
+
+/** PageHeader · 页头 — The title of a page, the line that says what the page is about, and the actions that belong to it. The title is a real heading at the level the page asks for, so the document outline stays right however the header is styled. */
+export type PageHeaderVariant = "bordered";
+export interface PageHeaderProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "page-header";
+  variant?: PageHeaderVariant;
+  /** The heading of the page. */
+  title?: string;
+  /** The line under the title that says what the page is about. */
+  subtitle?: string;
+  /** Which heading level the title is. The class sets the size, so the level is free to follow the document outline instead of following the size. */
+  level?: "1" | "2" | "3";
+}
+
+/** Scrollbar · 滚动条 — A box that scrolls, with a scrollbar drawn in the mood's own colours instead of the platform's. The bar is a shape and a line, not a widget: there is no thumb to drag with a mouse, only a box that scrolls. */
+export type ScrollbarVariant = "solid" | "ghost";
+/** Scrollbar — the sizes it can be rendered at. */
+export type ScrollbarSize = "sm" | "md" | "lg";
+export interface ScrollbarProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "scrollbar";
+  variant?: ScrollbarVariant;
+  size?: ScrollbarSize;
+  /** How tall the scrolling box is. The library cannot guess it: a box that is not given a height never scrolls, because its content is what gives it one. */
+  height?: string;
+}
+
+/** Space · 间距 — A run of things with the same space between them. The space is one gap on the container, not a margin on each child, so the last child carries no trailing space and the run wraps without a gap of its own. */
+export type SpaceVariant = "horizontal" | "vertical";
+/** Space — the sizes it can be rendered at. */
+export type SpaceSize = "sm" | "md" | "lg";
+export interface SpaceProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "space";
+  variant?: SpaceVariant;
+  size?: SpaceSize;
+  /** Which way the run goes. The horizontal run is the base class on its own; the vertical run adds um-space--vertical. */
+  direction?: "horizontal" | "vertical";
+}
+
+/** Splitter · 分割面板 — Two panes with a divider between them. The divider is a line with a grip on it, and the grip says which way the thing can be moved. Moving it is the host's job: the library draws the shape and stops there. */
+export type SplitterVariant = "horizontal" | "vertical";
+/** Splitter — the sizes it can be rendered at. */
+export type SplitterSize = "sm" | "md" | "lg";
+export interface SplitterProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "splitter";
+  variant?: SplitterVariant;
+  size?: SplitterSize;
+  /** How the two panes are laid out. The horizontal run is the base class on its own; the vertical run adds um-splitter--vertical. */
+  layout?: "horizontal" | "vertical";
+}
+
+/** Text · 文本 — A run of inline text in one of the library's colours. It is the smallest atom of the type system: no box, no border, only the words and the colour they are written in. The blocks a page is written in are the typography component; this is the coloured run inside one of them. */
+export type TextVariant = "regular" | "primary" | "secondary" | "placeholder" | "success" | "warning" | "danger" | "info";
+/** Text — the sizes it can be rendered at. */
+export type TextSize = "sm" | "md" | "lg";
+export interface TextProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "text";
+  variant?: TextVariant;
+  size?: TextSize;
+  /** Which colour the run is written in. */
+  type?: "regular" | "primary" | "secondary" | "placeholder" | "success" | "warning" | "danger" | "info";
+  /** Clips the run to one line and ends it in an ellipsis. */
+  truncate?: boolean;
+  /** Which element the run is written as. */
+  tag?: "span" | "div" | "p";
+}
+
 /** Typography · 文字排版 — The set of text styles a page is written in: a title, a subtitle, a paragraph, supporting text, a link and a quote. The library paints the sizes, the colours and the leading; the words and the heading levels are the host's. */
 export type TypographyVariant = "primary" | "success" | "warning" | "danger" | "info";
 /** Typography — the sizes it can be rendered at. */
@@ -80,6 +249,29 @@ export interface TypographyProps {
   size?: TypographySize;
   /** The colour of the text. The regular text colour is the base class on its own; the five modifiers paint the text with the matching colour. */
   color?: "primary" | "success" | "warning" | "danger" | "info";
+}
+
+/** Autocomplete · 自动补全 — A text field that offers values while the reader types. The suggestions live in a native <datalist>, so the browser filters them, the arrow keys walk them and the popup opens without a line of script. */
+export type AutocompleteVariant = "bordered" | "filled";
+/** Autocomplete — the sizes it can be rendered at. */
+export type AutocompleteSize = "sm" | "md" | "lg";
+export interface AutocompleteProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "autocomplete";
+  variant?: AutocompleteVariant;
+  size?: AutocompleteSize;
+  /** The text in the field. It is the input's own value — a class cannot carry a word. */
+  value?: string;
+  /** The accessible name of the field. It becomes the input's aria-label, because the library does not draw a label of its own. */
+  label?: string;
+  /** The hint text in the field. It takes the muted placeholder role, not the body colour. */
+  placeholder?: string;
+  /** The suggestions, as one comma-separated string. They are the host's data — the list is fixed markup, not something the library fetches. */
+  suggestions?: string;
+  /** Makes the field necessary. It is the native required attribute, so the browser asks for it. */
+  required?: boolean;
+  /** Makes the field inert. It uses the real disabled attribute, so it leaves the tab order. */
+  disabled?: boolean;
 }
 
 /** Button · 按钮 — An action the user takes. The one component every interface needs, and the one that has to look right in thirty-two different moods. */
@@ -134,6 +326,48 @@ export interface CheckboxGroupProps {
   label?: string;
 }
 
+/** Color Picker · 颜色选择器 — A colour in three parts: the platform's own colour button, a row of palette chips the reader can pick from, and the hexadecimal value written out. The chips are a real radio group, so the choice is in the tab order and the browser announces it. */
+export type ColorPickerVariant = "inline" | "stacked";
+/** Color Picker — the sizes it can be rendered at. */
+export type ColorPickerSize = "sm" | "md" | "lg";
+export interface ColorPickerProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "color-picker";
+  variant?: ColorPickerVariant;
+  size?: ColorPickerSize;
+  /** The colour in the control, as a hexadecimal value. It is the platform's own value on the colour button and the text in the value field. */
+  value?: string;
+  /** The palette, as a comma-separated list of "name #rrggbb" pairs. The name is what the radio announces and the colour is what the chip paints, so a chip is never an unnamed colour. */
+  palette?: string;
+  /** The accessible name of the platform's colour button. It becomes the button's aria-label. */
+  label?: string;
+  /** The accessible name of the hexadecimal field. It becomes the field's aria-label. */
+  hexLabel?: string;
+  /** The accessible name of the palette, as the name of the group the radios belong to. */
+  paletteLabel?: string;
+  /** Makes the whole control inert. It uses the real disabled attribute, so the parts leave the tab order. */
+  disabled?: boolean;
+}
+
+/** Color Picker Panel · 颜色选择面板 — The panel a colour picker drops: the colours the host has predefined, a choice among the theme's own named colours, and the hexadecimal value written out. Every swatch is a real radio, so the choice is in the tab order and the browser announces it. */
+export type ColorPickerPanelVariant = "inline" | "popover";
+/** Color Picker Panel — the sizes it can be rendered at. */
+export type ColorPickerPanelSize = "sm" | "md" | "lg";
+export interface ColorPickerPanelProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "color-picker-panel";
+  variant?: ColorPickerPanelVariant;
+  size?: ColorPickerPanelSize;
+  /** The colours the panel offers, as a comma-separated list. Each entry is written as "name #rrggbb", so the radio announces the name rather than a string of digits; an entry that is only a colour is announced as it is written. */
+  predefine?: string;
+  /** Which of the theme's named colours is chosen. It is the radio that is checked in the theme colour row. */
+  hue?: "primary" | "success" | "warning" | "danger" | "info";
+  /** The colour in the panel, written as a hexadecimal value. It is the text in the value field and the value of the checked swatch. */
+  value?: string;
+  /** Whether the preview chip is shown. Without it the panel has no chip in the value row. */
+  showPreview?: boolean;
+}
+
 /** Date Picker · 日期选择器 — A field for a date. It is a real <input type="date"> inside a box the library draws, so the browser validates the date, the arrow keys walk through it and the reader's own calendar opens it. */
 export type DatePickerVariant = "single" | "range";
 /** Date Picker — the sizes it can be rendered at. */
@@ -154,6 +388,56 @@ export interface DatePickerProps {
   /** Makes the field inert. It uses the real disabled attribute, so it leaves the tab order. */
   disabled?: boolean;
   /** Whether the field holds one date or two. The single field is the base class on its own; the range field adds um-date-picker--range. */
+  type?: "single" | "range";
+}
+
+/** Date Picker Panel · 日期选择面板 — The month panel a date picker drops: the month and its navigation, the week grid, and the two actions in the footer. The panel does not keep a month, so the host owns the month and the buttons that change it. */
+export type DatePickerPanelVariant = "single" | "range";
+/** Date Picker Panel — the sizes it can be rendered at. */
+export type DatePickerPanelSize = "sm" | "md" | "lg";
+export interface DatePickerPanelProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "date-picker-panel";
+  variant?: DatePickerPanelVariant;
+  size?: DatePickerPanelSize;
+  /** The month to draw, written as YYYY-MM. The panel has no navigation of its own, so the host decides which month this is. */
+  month?: string;
+  /** The seven column names, separated by commas. They are written out rather than derived, so a month can start on Monday or on Sunday, and so a host can name the columns in its own language. */
+  weekdays?: string;
+  /** The date that is today, written as YYYY-MM-DD. The day it names takes the today marker. */
+  today?: string;
+  /** The date the reader has picked, written as YYYY-MM-DD. The day it names takes the selected marker. */
+  selected?: string;
+  /** The dates that cannot be picked, written as YYYY-MM-DD and separated by commas. The days they name are marked with aria-disabled, so the reader is told they cannot be picked. */
+  disabled?: string;
+  /** Whether the footer is shown. Without it the panel has no footer, and the host keeps the two actions somewhere else. */
+  showFooter?: boolean;
+  /** The words on the confirm button. */
+  footerText?: string;
+}
+
+/** Date Time Picker · 日期时间选择器 — A field for a date and a time together. It is a real <input type="datetime-local"> inside a box the library draws, so the browser validates both halves, the arrow keys walk the segments and the reader's own calendar opens it. */
+export type DateTimePickerVariant = "single" | "range";
+/** Date Time Picker — the sizes it can be rendered at. */
+export type DateTimePickerSize = "sm" | "md" | "lg";
+export interface DateTimePickerProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "date-time-picker";
+  variant?: DateTimePickerVariant;
+  size?: DateTimePickerSize;
+  /** The date and time in the field. It is the input's own value, in the browser's own format — a class cannot carry a moment. */
+  value?: string;
+  /** The earliest moment the field accepts. It is the input's own min attribute, so the browser enforces it and marks the field out of range when it is not met. */
+  min?: string;
+  /** The latest moment the field accepts. It is the input's own max attribute. */
+  max?: string;
+  /** How fine the time half is, in seconds. It is the input's own step attribute, so the arrow keys move by it too. */
+  step?: number;
+  /** Makes the field necessary. It is the native required attribute, so the browser asks for it. */
+  required?: boolean;
+  /** Makes the field inert. It uses the real disabled attribute, so it leaves the tab order. */
+  disabled?: boolean;
+  /** Whether the field holds one date-time or two. The single field is the base class on its own; the range field adds um-date-time-picker--range. */
   type?: "single" | "range";
 }
 
@@ -198,6 +482,61 @@ export interface InputNumberProps {
   controlsPosition?: "right" | "left";
   /** Makes the field and both buttons inert. It uses the real disabled attribute, so they leave the tab order. */
   disabled?: boolean;
+}
+
+/** Input OTP · 验证码输入 — A row of one-character fields for a code the reader has been sent. Each box is a real input that holds one character, so the browser's own keyboard, autofill and password manager all still apply to it. */
+export type InputOtpVariant = "boxed" | "underline";
+/** Input OTP — the sizes it can be rendered at. */
+export type InputOtpSize = "sm" | "md" | "lg";
+export interface InputOtpProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "input-otp";
+  variant?: InputOtpVariant;
+  size?: InputOtpSize;
+  /** The code, as one string. Each character goes into the box at that position; a class cannot carry a code. */
+  value?: string;
+  /** How many boxes there are. It is the host's number of characters, not something the class can say. */
+  length?: number;
+  /** Hides what is typed, the way a password field does. It is the input's own type, so the password manager and the reader's own setting still apply. */
+  masked?: boolean;
+  /** The accessible name of the row. It becomes the group's aria-label, because the boxes are named by their position and the row itself needs a name of its own. */
+  label?: string;
+  /** Makes every box inert. It uses the real disabled attribute, so they leave the tab order. */
+  disabled?: boolean;
+}
+
+/** Input Tag · 标签输入 — A field that holds the tags already chosen, and an empty place to type the next one. Removing a tag needs a script; the shapes of the tag and of its remove button do not. */
+export type InputTagVariant = "primary" | "success" | "warning" | "danger";
+/** Input Tag — the sizes it can be rendered at. */
+export type InputTagSize = "sm" | "md" | "lg";
+export interface InputTagProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "input-tag";
+  variant?: InputTagVariant;
+  size?: InputTagSize;
+  /** The text in the empty part of the field. */
+  value?: string;
+  /** The hint in the empty part of the field. */
+  placeholder?: string;
+  /** The accessible name of the field. It becomes the input's aria-label. */
+  label?: string;
+}
+
+/** Mention · 提及 — A field with a list of people under it. The reader types, the host decides which names to offer, and each name is a button that carries an avatar slot and an @name. */
+export type MentionVariant = "bordered" | "plain" | "round";
+/** Mention — the sizes it can be rendered at. */
+export type MentionSize = "sm" | "md" | "lg";
+export interface MentionProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "mention";
+  variant?: MentionVariant;
+  size?: MentionSize;
+  /** The text in the field. */
+  value?: string;
+  /** The hint in the empty field. */
+  placeholder?: string;
+  /** The accessible name of the field. It becomes the input's aria-label. */
+  label?: string;
 }
 
 export interface RadioProps {
@@ -280,6 +619,75 @@ export interface SwitchProps {
   value?: string;
 }
 
+/** Time Picker · 时间选择器 — A field for a time of day. It is a real <input type="time"> inside a box the library draws, so the browser validates the hour, the arrow keys walk the segments and the reader's own clock opens it. */
+export type TimePickerVariant = "single" | "range";
+/** Time Picker — the sizes it can be rendered at. */
+export type TimePickerSize = "sm" | "md" | "lg";
+export interface TimePickerProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "time-picker";
+  variant?: TimePickerVariant;
+  size?: TimePickerSize;
+  /** The time in the field. It is the input's own value, in the browser's own format — a class cannot carry a time. */
+  value?: string;
+  /** The earliest time the field accepts. It is the input's own min attribute, so the browser enforces it and marks the field out of range when it is not met. */
+  min?: string;
+  /** The latest time the field accepts. It is the input's own max attribute. */
+  max?: string;
+  /** How fine the time is, in seconds. It is the input's own step attribute, so the arrow keys move by it too. */
+  step?: number;
+  /** Makes the time necessary. It is the native required attribute, so the browser asks for it. */
+  required?: boolean;
+  /** Makes the field inert. It uses the real disabled attribute, so it leaves the tab order. */
+  disabled?: boolean;
+  /** Whether the field holds one time or two. The single field is the base class on its own; the range field adds um-time-picker--range. */
+  type?: "single" | "range";
+}
+
+/** Time Select · 时间选择器 — A choice of time of day, as a native <select>. The option list is the platform's own, so the reader gets the system's own picker and its keyboard behaviour; the library draws the field and the arrow around it. */
+export type TimeSelectVariant = "bordered" | "filled";
+/** Time Select — the sizes it can be rendered at. */
+export type TimeSelectSize = "sm" | "md" | "lg";
+export interface TimeSelectProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "time-select";
+  variant?: TimeSelectVariant;
+  size?: TimeSelectSize;
+  /** The chosen time. It is the select's own value — a class cannot carry a time. */
+  value?: string;
+  /** The first time in the list. The list is the host's data: a class cannot carry the times either. */
+  start?: string;
+  /** The last time in the list. */
+  end?: string;
+  /** How far apart the times are, in seconds. Half an hour is the default; an hour is 3600. */
+  step?: number;
+  /** The accessible name of the field. It becomes the select's aria-label, because the library does not draw a label of its own. */
+  label?: string;
+  /** Makes the field inert. It uses the real disabled attribute, so it leaves the tab order. */
+  disabled?: boolean;
+}
+
+/** Tree Select · 树选择器 — A tree you pick a leaf from. The branches are disclosures, so the browser opens and closes them, and the leaf that is picked is a real radio, so the browser keeps exactly one of them picked. */
+export type TreeSelectVariant = "plain" | "lines";
+/** Tree Select — the sizes it can be rendered at. */
+export type TreeSelectSize = "sm" | "md" | "lg";
+export interface TreeSelectProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "tree-select";
+  variant?: TreeSelectVariant;
+  size?: TreeSelectSize;
+  /** The name every leaf in the tree shares. It is the native name attribute, and it is what makes the leaves a group: the browser keeps exactly one of them picked. */
+  name?: string;
+  /** The value one leaf submits while it is picked. It is also what the leaf says when the caller gives it no name of its own. */
+  value?: string;
+  /** The name of the thing the branch holds. */
+  label?: string;
+  /** Picks the leaf. It is the native checked attribute, not a class. */
+  checked?: boolean;
+  /** Makes the leaf inert. It uses the real disabled attribute, so it leaves the tab order. */
+  disabled?: boolean;
+}
+
 /** Upload · 上传 — A file input and the list of the files that were chosen. The input is a real one, so the browser's own dialog opens and the files are chosen with the browser's own picker. */
 export type UploadVariant = "list" | "text";
 /** Upload — the sizes it can be rendered at. */
@@ -301,6 +709,25 @@ export interface UploadProps {
   layout?: "list" | "text";
   /** Where one file has got to. It is a class on the item: no class is the waiting state, and the other three are um-upload__item--uploading, um-upload__item--done and um-upload__item--error. */
   status?: "default" | "uploading" | "done" | "error";
+}
+
+/** Virtual Select · 虚拟列表选择器 — A long list of choices that the browser only lays out near the viewport. The rows far away are skipped, and the browser is told how tall such a row is, so the scrollbar is right without every row being built. */
+export type VirtualSelectVariant = "bordered" | "plain";
+/** Virtual Select — the sizes it can be rendered at. */
+export type VirtualSelectSize = "sm" | "md" | "lg";
+export interface VirtualSelectProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "virtual-select";
+  variant?: VirtualSelectVariant;
+  size?: VirtualSelectSize;
+  /** The label of the option that is chosen. It is the radio's own value, so the choice is the browser's and not the library's. */
+  value?: string;
+  /** The labels in the list, separated by commas. The wrapper draws one option per label; the markup writes the options out. */
+  options?: string;
+  /** The text that names the list and stands in for a choice. It is the accessible name of the listbox, so the browser announces it when the reader reaches the list. The library has no field to write a selection into, so the placeholder is what the list is called. */
+  placeholder?: string;
+  /** The height of the scroller. It is a length and not a number of pixels: how tall the window onto the list is belongs to the host's page. */
+  height?: string;
 }
 
 /** Avatar · 头像 — A small picture of a person. It takes a photo, a pair of initials or an icon, and it keeps the shape of whichever mood it is in. */
@@ -326,12 +753,48 @@ export interface BadgeProps {
   dot?: boolean;
 }
 
+/** Calendar · 日历 — One month laid out as a seven-column grid. It draws the month and marks the days; which month to show is the host's business, because a grid cannot know which months exist. */
+export type CalendarVariant = "bordered" | "plain";
+/** Calendar — the sizes it can be rendered at. */
+export type CalendarSize = "sm" | "md" | "lg";
+export interface CalendarProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "calendar";
+  variant?: CalendarVariant;
+  size?: CalendarSize;
+  /** The month to draw, written as YYYY-MM. The calendar has no navigation of its own, so the host decides which month this is. */
+  month?: string;
+  /** The seven column names, separated by commas. They are written out rather than derived, so a month can start on Monday or on Sunday, and so a host can name the columns in its own language. */
+  weekdays?: string;
+  /** The date that is today, written as YYYY-MM-DD. The day it names takes the today marker. */
+  today?: string;
+  /** The date the reader has picked, written as YYYY-MM-DD. The day it names takes the selected marker. */
+  selected?: string;
+  /** The dates that cannot be picked, written as YYYY-MM-DD and separated by commas. The days they name are marked with aria-disabled, so the reader is told they cannot be picked. */
+  disabled?: string;
+}
+
 /** Card · 卡片 — A surface that groups one thing: a title, a body, a footer. Its border, radius, shadow and fill all come from the mood, so one card reads correctly in all thirty-two of them. */
 export type CardVariant = "frosted";
 export interface CardProps {
   /** The component's own id, so a registry can be keyed by it. */
   id: "card";
   variant?: CardVariant;
+}
+
+/** Carousel · 轮播图 — Slides the reader scrolls through, with a button at each end of a slide that moves to the neighbouring one. The track is a real scroller, so the browser does the scrolling and the snapping. */
+export type CarouselVariant = "plain" | "spaced";
+/** Carousel — the sizes it can be rendered at. */
+export type CarouselSize = "sm" | "md" | "lg";
+export interface CarouselProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "carousel";
+  variant?: CarouselVariant;
+  size?: CarouselSize;
+  /** The prefix of the ids of the slides. Every slide needs an id of its own, because that id is what the buttons point at, and two carousels on one page cannot share ids. */
+  name?: string;
+  /** The name of the track, read out before the slides. A scrollable region has to carry a name, or the reader is told about a scroll box and nothing else. */
+  label?: string;
 }
 
 /** Cascader · 级联选择器 — Options in levels, opened one level at a time. Every level is a disclosure, so the browser does the opening and the closing and the state survives a reload. */
@@ -351,6 +814,21 @@ export interface CascaderProps {
   label?: string;
 }
 
+/** Collapse · 折叠面板 — A panel that opens and closes. It is a real disclosure, so the browser does the opening and the closing and the state survives a reload. */
+export type CollapseVariant = "plain" | "card";
+/** Collapse — the sizes it can be rendered at. */
+export type CollapseSize = "sm" | "md" | "lg";
+export interface CollapseProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "collapse";
+  variant?: CollapseVariant;
+  size?: CollapseSize;
+  /** Opens the panel. It is the native open attribute on the details, so the browser keeps the state. */
+  open?: boolean;
+  /** The text of the header. A panel with no text needs an accessible name of its own. */
+  title?: string;
+}
+
 /** Descriptions · 描述列表 — The facts about one thing, as label and value pairs. It is a definition list, so a screen reader announces each label before the value it belongs to. */
 export type DescriptionsVariant = "plain" | "bordered";
 export interface DescriptionsProps {
@@ -366,6 +844,50 @@ export interface DescriptionsProps {
 export interface EmptyProps {
   /** The component's own id, so a registry can be keyed by it. */
   id: "empty";
+}
+
+/** Image · 图片 — A frame for a picture: it holds the space the picture will take, shows a placeholder while there is none, and decides how the picture fills that space. */
+export type ImageVariant = "cover" | "contain" | "fill" | "rounded" | "circle" | "bordered";
+/** Image — the sizes it can be rendered at. */
+export type ImageSize = "sm" | "md" | "lg";
+export interface ImageProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "image";
+  variant?: ImageVariant;
+  size?: ImageSize;
+  /** Where the picture is. An empty source leaves the placeholder standing in. */
+  src?: string;
+  /** The text a reader gets instead of the picture. An empty alt is right for a picture that only decorates the page. */
+  alt?: string;
+  /** The line under the frame. A caption is a caption for the picture, so it belongs under it and not on top of it. */
+  caption?: string;
+  /** How the picture fills the frame. The cover run is the base class on its own; the other two add um-image--contain and um-image--fill. */
+  fit?: "cover" | "contain" | "fill";
+  /** The shape of the frame. The square run is the base class on its own; the other two add um-image--rounded and um-image--circle. */
+  shape?: "square" | "rounded" | "circle";
+  /** Puts a rule around the frame. It is a class rather than an attribute, because the rule is a picture of the frame and not a state of it. */
+  bordered?: boolean;
+  /** Says the picture failed to load, so the placeholder stands in for it. */
+  error?: boolean;
+}
+
+/** Infinite Scroll · 无限滚动 — A feed the reader can scroll a long way through, and a sentinel at the end of it that says what comes next. The library cannot load anything: it provides the container, the skipped layout and the sentinel, and the host decides what to load. */
+export type InfiniteScrollVariant = "bordered" | "plain";
+/** Infinite Scroll — the sizes it can be rendered at. */
+export type InfiniteScrollSize = "sm" | "md" | "lg";
+export interface InfiniteScrollProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "infinite-scroll";
+  variant?: InfiniteScrollVariant;
+  size?: InfiniteScrollSize;
+  /** How many items the feed has. The wrapper writes one item per entry, and the stylesheet skips the ones the reader cannot see. */
+  items?: number;
+  /** Which of the three moments the sentinel is in. It is a class on the sentinel: the wrapper has to be told, because the library cannot know what the host is loading. */
+  state?: "loading" | "loaded" | "end";
+  /** How tall the scrolling box is. The library cannot guess it: a box that is not given a height never scrolls, because its content is what gives it one. */
+  height?: string;
+  /** What the end state says. */
+  endText?: string;
 }
 
 /** Progress · 进度条 — How much of something is done. The bar is a groove with a fill inside it, and the fill takes its width from the host. */
@@ -390,6 +912,27 @@ export interface ResultProps {
   title?: string;
   /** The line under the title. */
   subtitle?: string;
+}
+
+/** Segmented · 分段控制器 — A row of choices that show which one is picked, drawn as radios under a shared frame. The browser keeps the selection, so the group behaves like the radio group it is. */
+export type SegmentedVariant = "soft" | "solid" | "ghost";
+/** Segmented — the sizes it can be rendered at. */
+export type SegmentedSize = "sm" | "md" | "lg";
+export interface SegmentedProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "segmented";
+  variant?: SegmentedVariant;
+  size?: SegmentedSize;
+  /** The name every radio in the row shares. It is what makes the segments one group: the browser keeps exactly one of them picked. */
+  name?: string;
+  /** The value one segment submits while it is picked. */
+  value?: string;
+  /** Picks one segment. It is the native checked attribute, not a class. */
+  checked?: boolean;
+  /** Makes one segment inert. It uses the real disabled attribute, so it leaves the tab order. */
+  disabled?: boolean;
+  /** The name of the whole row, read out before the segments. A row with no name of its own needs an accessible name from somewhere. */
+  label?: string;
 }
 
 /** Skeleton · 骨架屏 — The shape of content that has not arrived yet. Three placeholder shapes and, if the motion is welcome, a shimmer over them. */
@@ -446,6 +989,27 @@ export interface TimelineProps {
   timestamp?: string;
 }
 
+/** Tour · 引导 — A walkthrough that points at one thing on the page and says what to do with it. The ring is the thing being pointed at, the card is what the tour says, and the dots are how far along the walkthrough is. Moving from one step to the next is the host's job. */
+export type TourVariant = "bottom" | "top" | "left" | "right";
+/** Tour — the sizes it can be rendered at. */
+export type TourSize = "sm" | "md" | "lg";
+export interface TourProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "tour";
+  variant?: TourVariant;
+  size?: TourSize;
+  /** Where the card sits relative to the thing it points at. The card below is the base class on its own; the other three add um-tour--top, um-tour--left and um-tour--right. */
+  placement?: "bottom" | "top" | "left" | "right";
+  /** The name of the step. */
+  title?: string;
+  /** The sentence that says what to do. */
+  content?: string;
+  /** Which step the walkthrough is on. It is the dot that is filled in. */
+  step?: number;
+  /** How many steps the walkthrough has. It is how many dots there are. */
+  total?: number;
+}
+
 /** Transfer · 穿梭框 — Two lists side by side with a button between them: what is available on one side, what has been chosen on the other. The whole thing is a form, so the move is a submission. */
 export type TransferVariant = "horizontal" | "vertical";
 /** Transfer — the sizes it can be rendered at. */
@@ -465,6 +1029,84 @@ export interface TransferProps {
   disabled?: boolean;
   /** Which way the two panels are laid out. The horizontal run is the base class on its own; the vertical run adds um-transfer--vertical. */
   direction?: "horizontal" | "vertical";
+}
+
+/** Tree · 树 — Things inside things. Every branch is a disclosure, so the browser opens and closes it and the state survives a reload. */
+export type TreeVariant = "plain" | "lines";
+/** Tree — the sizes it can be rendered at. */
+export type TreeSize = "sm" | "md" | "lg";
+export interface TreeProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "tree";
+  variant?: TreeVariant;
+  size?: TreeSize;
+  /** Opens the branch. It is the native open attribute on the details, so the browser keeps the state. */
+  open?: boolean;
+  /** The name of the thing the branch holds. A branch with no text needs an accessible name of its own. */
+  label?: string;
+}
+
+/** Virtualized Table · 虚拟表格 — A long table the browser is not asked to lay out in full. The rows far from the viewport are skipped and given a placeholder size, so the cost of the list is what is near it. */
+export type VirtualTableVariant = "bordered" | "plain";
+/** Virtualized Table — the sizes it can be rendered at. */
+export type VirtualTableSize = "sm" | "md" | "lg";
+export interface VirtualTableProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "virtual-table";
+  variant?: VirtualTableVariant;
+  size?: VirtualTableSize;
+  /** How many rows the list has. The wrapper writes one row per record, and the stylesheet skips the ones the reader cannot see. */
+  rows?: number;
+  /** The column names, separated by commas. */
+  columns?: string;
+  /** How tall the scrolling box is. The library cannot guess it: a box that is not given a height never scrolls, because its content is what gives it one. */
+  height?: string;
+  /** That there is nothing to show. The body says so instead of writing the rows. */
+  empty?: boolean;
+}
+
+/** Virtualized Tree · 虚拟树 — A tree so large that the browser is asked to lay out only the branches near the reader. Every branch is still a disclosure, so the browser opens and closes it and the state survives a reload. */
+export type VirtualTreeVariant = "plain" | "lines";
+/** Virtualized Tree — the sizes it can be rendered at. */
+export type VirtualTreeSize = "sm" | "md" | "lg";
+export interface VirtualTreeProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "virtual-tree";
+  variant?: VirtualTreeVariant;
+  size?: VirtualTreeSize;
+  /** How deep the tree goes. The wrapper writes that many levels of branches. */
+  depth?: number;
+  /** How many branches each level has. The wrapper multiplies them out, so a depth of four and six branches is a thousand leaves. */
+  branches?: number;
+  /** How tall the scrolling box is. The library cannot guess it: a box that is not given a height never scrolls, because its content is what gives it one. */
+  height?: string;
+}
+
+/** Anchor · 锚点 — A column of links to the sections of the page, with a rule down the side so the reader can see that they are a list of places rather than a list of links. The section being read is marked with aria-current, because CSS cannot work out what is on screen. */
+export type AnchorVariant = "plain";
+export interface AnchorProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "anchor";
+  variant?: AnchorVariant;
+  /** The accessible name of the nav element. Every anchor on a page needs its own, or the screen reader announces them all as the same thing. */
+  label?: string;
+}
+
+/** Backtop · 回到顶部 — A round button that takes the reader back to the top of the page. It is a link to a fragment, so it works with the keyboard alone and needs no scroll listener to appear — it is simply there. */
+export type BacktopVariant = "soft" | "inline";
+/** Backtop — the sizes it can be rendered at. */
+export type BacktopSize = "sm" | "md" | "lg";
+export interface BacktopProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "backtop";
+  variant?: BacktopVariant;
+  size?: BacktopSize;
+  /** Whether the button sits in the flow of the page instead of floating over it. It adds um-backtop--inline. */
+  inline?: boolean;
+  /** The fragment the link points at. The page needs an element with that id for the link to go anywhere. */
+  target?: string;
+  /** The accessible name of the link. The arrow is a shape and says nothing, so the name has to come from somewhere. */
+  label?: string;
 }
 
 /** Breadcrumb · 面包屑 — The path to the page you are on, as a list of links. The separators between the steps are drawn by the stylesheet, not written into the markup as characters. */
@@ -551,6 +1193,38 @@ export interface AlertProps {
   variant?: AlertVariant;
 }
 
+/** Dialog · 对话框 — A panel that asks the reader something, written as a <dialog>. It is shown the way a dialog is shown without JavaScript — open in the markup — and it is closed the way the browser closes one: the close button submits the form around it, and the form's method is dialog. */
+export type DialogVariant = "center";
+/** Dialog — the sizes it can be rendered at. */
+export type DialogSize = "sm" | "md" | "lg";
+export interface DialogProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "dialog";
+  variant?: DialogVariant;
+  size?: DialogSize;
+  /** The heading of the panel. */
+  title?: string;
+  /** Where the title and the actions sit. The start alignment is the base class on its own; the centred one adds um-dialog--center. */
+  align?: "start" | "center";
+}
+
+/** Drawer · 抽屉 — A panel that slides out from the edge of the page: a side panel with a title, a body and a row of actions. It is held against the edge with fixed positioning, so it stays put while the page moves behind it. */
+export type DrawerVariant = "left" | "top" | "bottom" | "inline";
+/** Drawer — the sizes it can be rendered at. */
+export type DrawerSize = "sm" | "md" | "lg";
+export interface DrawerProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "drawer";
+  variant?: DrawerVariant;
+  size?: DrawerSize;
+  /** Which edge the panel slides out from. The right edge is the base class on its own; the other three add um-drawer--left, um-drawer--top or um-drawer--bottom. */
+  direction?: "right" | "left" | "top" | "bottom";
+  /** Whether the panel is part of the layout instead of floating over it. It adds um-drawer--inline. */
+  inline?: boolean;
+  /** The heading of the panel. */
+  title?: string;
+}
+
 /** Loading · 加载中 — A ring that turns while the library waits for something. The ring is two borders with one side left out, and the turn is a keyframe, so it needs neither a timer nor a script. */
 export type LoadingVariant = "spinner" | "text" | "overlay";
 /** Loading — the sizes it can be rendered at. */
@@ -562,6 +1236,76 @@ export interface LoadingProps {
   size?: LoadingSize;
   /** The caption beside the ring. It is the message, so it is written as text in the page and not as an attribute. */
   text?: string;
+}
+
+/** Message · 消息 — A short bar that tells the reader what just happened. Element Plus's message is a function that paints the bar and takes it away again; here the bar is a container, and the host decides whether it is on the page. */
+export type MessageVariant = "info" | "success" | "warning" | "error";
+/** Message — the sizes it can be rendered at. */
+export type MessageSize = "sm" | "md" | "lg";
+export interface MessageProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "message";
+  variant?: MessageVariant;
+  size?: MessageSize;
+  /** Whether the bar carries a close button. */
+  closable?: boolean;
+}
+
+/** Message Box · 消息框 — The narrow, centred box that asks the reader to confirm: a title, a message, and a pair of buttons, with an icon that carries the type. It is written as a <dialog> with a form around it, so the browser's own close is the one that closes it — the buttons are submits inside a form whose method is dialog, and the library installs no listener anywhere. */
+export type MessageBoxVariant = "info" | "success" | "warning" | "error";
+/** Message Box — the sizes it can be rendered at. */
+export type MessageBoxSize = "sm" | "md" | "lg";
+export interface MessageBoxProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "message-box";
+  variant?: MessageBoxVariant;
+  size?: MessageBoxSize;
+  /** What the box is asking about. It sets the icon and the accent of the confirm button. */
+  type?: "info" | "success" | "warning" | "error";
+  /** The heading of the box. */
+  title?: string;
+  /** The label on the confirm button. */
+  confirmText?: string;
+  /** The label on the cancel button. */
+  cancelText?: string;
+  /** Whether the box carries the cross in the corner. */
+  showClose?: boolean;
+  /** Whether the box carries the cancel button. */
+  showCancel?: boolean;
+}
+
+/** Notification · 通知 — A card that reports something the reader did not ask about — a deployment finished, a certificate was renewed. It is wider than a message, and it carries a heading of its own. */
+export type NotificationVariant = "info" | "success" | "warning" | "error";
+/** Notification — the sizes it can be rendered at. */
+export type NotificationSize = "sm" | "md" | "lg";
+export interface NotificationProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "notification";
+  variant?: NotificationVariant;
+  size?: NotificationSize;
+  /** The heading of the card. */
+  title?: string;
+  /** Whether the card carries a close button. */
+  closable?: boolean;
+}
+
+/** Popconfirm · 气泡确认 — A bubble that asks before it acts. It hangs off a trigger, and it holds a question and the two real buttons that answer it: confirm and cancel. */
+export type PopconfirmVariant = "top" | "left" | "right";
+/** Popconfirm — the sizes it can be rendered at. */
+export type PopconfirmSize = "sm" | "md" | "lg";
+export interface PopconfirmProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "popconfirm";
+  variant?: PopconfirmVariant;
+  size?: PopconfirmSize;
+  /** Where the bubble opens relative to the trigger. The bottom placement is the base class on its own. */
+  placement?: "bottom" | "top" | "left" | "right";
+  /** The question the bubble asks. */
+  title?: string;
+  /** The label of the button that goes ahead. */
+  confirmText?: string;
+  /** The label of the button that backs out. */
+  cancelText?: string;
 }
 
 /** Popover · 气泡卡片 — A card that floats next to a trigger and holds more than a note: a heading, a body and a row of actions. The trigger is a <summary>, so the card opens and closes with the browser's own disclosure behaviour. */
@@ -601,36 +1345,90 @@ export interface DividerProps {
   variant?: DividerVariant;
 }
 
+/** Watermark · 水印 — A layer of the same word, repeated across a box, to say that what is underneath is a copy. The word is real text in the markup, tiled by the browser rather than baked into a picture. */
+export type WatermarkVariant = "diagonal" | "upright";
+/** Watermark — the sizes it can be rendered at. */
+export type WatermarkSize = "sm" | "md" | "lg";
+export interface WatermarkProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "watermark";
+  variant?: WatermarkVariant;
+  size?: WatermarkSize;
+  /** The word the watermark repeats. */
+  text?: string;
+  /** How many rows of tiles to write. */
+  rows?: number;
+  /** How many tiles to write in each row. */
+  columns?: number;
+}
+
 /** Every component the library ships, keyed by id. */
 export interface ComponentRegistry {
+  affix: AffixProps;
+  border: BorderProps;
+  color: ColorProps;
+  "config-provider": ConfigProviderProps;
+  container: ContainerProps;
+  icon: IconProps;
+  layout: LayoutProps;
+  link: LinkProps;
+  "page-header": PageHeaderProps;
+  scrollbar: ScrollbarProps;
+  space: SpaceProps;
+  splitter: SplitterProps;
+  text: TextProps;
   typography: TypographyProps;
+  autocomplete: AutocompleteProps;
   button: ButtonProps;
   checkbox: CheckboxProps;
   "checkbox-group": CheckboxGroupProps;
+  "color-picker": ColorPickerProps;
+  "color-picker-panel": ColorPickerPanelProps;
   "date-picker": DatePickerProps;
+  "date-picker-panel": DatePickerPanelProps;
+  "date-time-picker": DateTimePickerProps;
   field: FieldProps;
   input: InputProps;
   "input-number": InputNumberProps;
+  "input-otp": InputOtpProps;
+  "input-tag": InputTagProps;
+  mention: MentionProps;
   radio: RadioProps;
   "radio-group": RadioGroupProps;
   rate: RateProps;
   slider: SliderProps;
   switch: SwitchProps;
+  "time-picker": TimePickerProps;
+  "time-select": TimeSelectProps;
+  "tree-select": TreeSelectProps;
   upload: UploadProps;
+  "virtual-select": VirtualSelectProps;
   avatar: AvatarProps;
   badge: BadgeProps;
+  calendar: CalendarProps;
   card: CardProps;
+  carousel: CarouselProps;
   cascader: CascaderProps;
+  collapse: CollapseProps;
   descriptions: DescriptionsProps;
   empty: EmptyProps;
+  image: ImageProps;
+  "infinite-scroll": InfiniteScrollProps;
   progress: ProgressProps;
   result: ResultProps;
+  segmented: SegmentedProps;
   skeleton: SkeletonProps;
   statistic: StatisticProps;
   table: TableProps;
   tag: TagProps;
   timeline: TimelineProps;
+  tour: TourProps;
   transfer: TransferProps;
+  tree: TreeProps;
+  "virtual-table": VirtualTableProps;
+  "virtual-tree": VirtualTreeProps;
+  anchor: AnchorProps;
+  backtop: BacktopProps;
   breadcrumb: BreadcrumbProps;
   dropdown: DropdownProps;
   menu: MenuProps;
@@ -638,10 +1436,17 @@ export interface ComponentRegistry {
   steps: StepsProps;
   tabs: TabsProps;
   alert: AlertProps;
+  dialog: DialogProps;
+  drawer: DrawerProps;
   loading: LoadingProps;
+  message: MessageProps;
+  "message-box": MessageBoxProps;
+  notification: NotificationProps;
+  popconfirm: PopconfirmProps;
   popover: PopoverProps;
   tooltip: TooltipProps;
   divider: DividerProps;
+  watermark: WatermarkProps;
 }
 
 /** The catalogue entry for one component. */
@@ -665,34 +1470,71 @@ export interface ComponentCatalogueEntry {
 
 /** Every component the library ships, by id. */
 export type ComponentId =
+  | "affix"
+  | "border"
+  | "color"
+  | "config-provider"
+  | "container"
+  | "icon"
+  | "layout"
+  | "link"
+  | "page-header"
+  | "scrollbar"
+  | "space"
+  | "splitter"
+  | "text"
   | "typography"
+  | "autocomplete"
   | "button"
   | "checkbox"
   | "checkbox-group"
+  | "color-picker"
+  | "color-picker-panel"
   | "date-picker"
+  | "date-picker-panel"
+  | "date-time-picker"
   | "field"
   | "input"
   | "input-number"
+  | "input-otp"
+  | "input-tag"
+  | "mention"
   | "radio"
   | "radio-group"
   | "rate"
   | "slider"
   | "switch"
+  | "time-picker"
+  | "time-select"
+  | "tree-select"
   | "upload"
+  | "virtual-select"
   | "avatar"
   | "badge"
+  | "calendar"
   | "card"
+  | "carousel"
   | "cascader"
+  | "collapse"
   | "descriptions"
   | "empty"
+  | "image"
+  | "infinite-scroll"
   | "progress"
   | "result"
+  | "segmented"
   | "skeleton"
   | "statistic"
   | "table"
   | "tag"
   | "timeline"
+  | "tour"
   | "transfer"
+  | "tree"
+  | "virtual-table"
+  | "virtual-tree"
+  | "anchor"
+  | "backtop"
   | "breadcrumb"
   | "dropdown"
   | "menu"
@@ -700,10 +1542,17 @@ export type ComponentId =
   | "steps"
   | "tabs"
   | "alert"
+  | "dialog"
+  | "drawer"
   | "loading"
+  | "message"
+  | "message-box"
+  | "notification"
+  | "popconfirm"
   | "popover"
   | "tooltip"
-  | "divider";
+  | "divider"
+  | "watermark";
 
 export declare const themes: ThemeCatalogue;
 export declare const components: ComponentCatalogueEntry[];

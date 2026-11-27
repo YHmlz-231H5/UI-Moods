@@ -1,0 +1,257 @@
+{
+  "id": "date-picker-panel",
+  "name": "Date Picker Panel",
+  "nameZh": "日期选择面板",
+  "category": "form",
+  "element": "div",
+  "summary": "The month panel a date picker drops: the month and its navigation, the week grid, and the two actions in the footer. The panel does not keep a month, so the host owns the month and the buttons that change it.",
+  "summaryZh": "日期选择器落下来的那块月份面板:是哪个月和翻页的按钮、按周排开的日期格子,以及页脚上的两个动作。面板自己不记着是哪个月,所以月份和翻页的按钮都归宿主管。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-date-picker-panel",
+    "modifier": "um-date-picker-panel--",
+    "part": "um-date-picker-panel__"
+  },
+  "variants": [
+    {
+      "id": "single",
+      "name": "Single month",
+      "nameZh": "单个月份",
+      "note": "One month and one grid. The base class on its own is this layout, and the modifier paints the same thing so the class list can name it."
+    },
+    {
+      "id": "range",
+      "name": "Range",
+      "nameZh": "日期区间",
+      "note": "Two months side by side in one panel, and the days from the first end to the second are marked as one run."
+    }
+  ],
+  "sizes": [
+    {
+      "id": "sm",
+      "name": "Small",
+      "nameZh": "小",
+      "note": "The day numbers take the caption size and the cells take the small control height."
+    },
+    {
+      "id": "md",
+      "name": "Medium",
+      "nameZh": "中",
+      "default": true,
+      "note": "The default panel. The base class is already this size, so it needs no modifier."
+    },
+    {
+      "id": "lg",
+      "name": "Large",
+      "nameZh": "大",
+      "note": "The day numbers take the title size and the cells take the large control height."
+    }
+  ],
+  "states": [
+    {
+      "id": "today",
+      "name": "Today",
+      "nameZh": "今天",
+      "selector": ".um-date-picker-panel__cell--today",
+      "note": "The day the reader is looking for. Its number sits in a filled circle: a solid brand surface with the brand's own foreground on it, which is the pair the contract measures for a filled surface that carries text."
+    },
+    {
+      "id": "selected",
+      "name": "Selected",
+      "nameZh": "选中",
+      "selector": ".um-date-picker-panel__cell--selected",
+      "note": "The day the reader has picked. The ring around it carries the meaning and carries no text, so it takes the graphic form of the brand colour, which is contracted to 3:1 rather than to the 4.5:1 of text. A selected day that stands inside a range stands on the brand's tint rather than on the panel's surface, and on that tint the brand colour as text is contracted to 3:1 rather than to 4.5:1, so there the number takes the foreground the contract writes for the tint and the ring takes the brand colour as text."
+    },
+    {
+      "id": "disabled",
+      "name": "Disabled",
+      "nameZh": "禁用",
+      "selector": "[aria-disabled=\"true\"]",
+      "native": false,
+      "note": "A day that cannot be picked. Its number takes the derived disabled colour, the way every other disabled control in the library dims. The state is written as aria-disabled and not as a class of its own: a grid cell has no disabled attribute, so a class alone would leave the reader unaware that the day cannot be picked — and leave the audit unable to tell a dimmed day from an ordinary one."
+    },
+    {
+      "id": "in-range",
+      "name": "In range",
+      "nameZh": "区间内",
+      "selector": ".um-date-picker-panel__cell--in-range",
+      "note": "A day between the two ends of a range. It is a class, because it is a mark and not a state the reader can act on: the two ends carry the selected marker, and the days between them only say that the run goes through here. The run is the brand's barely-there tint, and the words on it take the foreground the contract writes for that tint."
+    }
+  ],
+  "parts": [
+    {
+      "id": "panel",
+      "name": "Month",
+      "nameZh": "月份",
+      "note": "One month of the panel: its header and its grid. A range shows two of them, side by side."
+    },
+    {
+      "id": "header",
+      "name": "Header",
+      "nameZh": "标题栏",
+      "note": "The row that holds the month and the two navigation buttons."
+    },
+    {
+      "id": "title",
+      "name": "Title",
+      "nameZh": "月份标题",
+      "note": "The month and the year, as the host writes them. The panel keeps no calendar, so it cannot work out a name for a month."
+    },
+    {
+      "id": "prev",
+      "name": "Previous month",
+      "nameZh": "上一个月",
+      "note": "The button that goes back a month. It is a real button, so the browser announces it and the keyboard can reach it; what it does is the host's business."
+    },
+    {
+      "id": "next",
+      "name": "Next month",
+      "nameZh": "下一个月",
+      "note": "The button that goes forward a month. It is a real button, so the browser announces it and the keyboard can reach it; what it does is the host's business."
+    },
+    {
+      "id": "grid",
+      "name": "Grid",
+      "nameZh": "日期区",
+      "note": "The days. It holds the weeks, and each week holds seven days."
+    },
+    {
+      "id": "weekday",
+      "name": "Weekday",
+      "nameZh": "星期",
+      "note": "One weekday name. It is a column header, so the browser says which column a day belongs to."
+    },
+    {
+      "id": "week",
+      "name": "Week",
+      "nameZh": "周",
+      "note": "One row of the grid: the seven weekday names make the first one, and each week of days makes one after it."
+    },
+    {
+      "id": "cell",
+      "name": "Cell",
+      "nameZh": "日期格",
+      "note": "One day. It carries the state class when the day is not an ordinary one."
+    },
+    {
+      "id": "number",
+      "name": "Number",
+      "nameZh": "日期",
+      "note": "The day of the month. It is the circle the today marker fills."
+    },
+    {
+      "id": "footer",
+      "name": "Footer",
+      "nameZh": "页脚",
+      "note": "The row of the two actions. A panel that does not want it simply leaves it out."
+    },
+    {
+      "id": "today",
+      "name": "Today",
+      "nameZh": "今天",
+      "note": "The shortcut that jumps to today. It is a real button, and the words on it are the host's."
+    },
+    {
+      "id": "confirm",
+      "name": "Confirm",
+      "nameZh": "确定",
+      "note": "The button that takes the date. It is a real button and it carries the brand's fill, because it is the one that acts."
+    }
+  ],
+  "props": [
+    {
+      "name": "month",
+      "type": "string",
+      "default": "2026-11",
+      "description": "The month to draw, written as YYYY-MM. The panel has no navigation of its own, so the host decides which month this is.",
+      "descriptionZh": "要画的那个月,写成 YYYY-MM。面板自己不带翻页,所以哪个月由宿主决定。"
+    },
+    {
+      "name": "weekdays",
+      "type": "string",
+      "default": "Mon,Tue,Wed,Thu,Fri,Sat,Sun",
+      "description": "The seven column names, separated by commas. They are written out rather than derived, so a month can start on Monday or on Sunday, and so a host can name the columns in its own language.",
+      "descriptionZh": "七列的名字,用逗号分开。它们是写下来的而不是算出来的,所以一周可以从星期一开始,也可以从星期日开始,宿主也能用自己的语言写这七个名字。"
+    },
+    {
+      "name": "today",
+      "type": "string",
+      "default": "2026-11-28",
+      "description": "The date that is today, written as YYYY-MM-DD. The day it names takes the today marker.",
+      "descriptionZh": "今天是哪一天,写成 YYYY-MM-DD。被指到的那一天会带上今天的标记。"
+    },
+    {
+      "name": "selected",
+      "type": "string",
+      "default": "2026-11-20",
+      "description": "The date the reader has picked, written as YYYY-MM-DD. The day it names takes the selected marker.",
+      "descriptionZh": "读者选中的那一天,写成 YYYY-MM-DD。被指到的那一天会带上选中的标记。"
+    },
+    {
+      "name": "disabled",
+      "type": "string",
+      "default": "2026-11-05,2026-11-06",
+      "description": "The dates that cannot be picked, written as YYYY-MM-DD and separated by commas. The days they name are marked with aria-disabled, so the reader is told they cannot be picked.",
+      "descriptionZh": "不能选的几天,写成 YYYY-MM-DD,中间用逗号分开。被指到的那些天会带上 aria-disabled,所以读屏会知道它们选不了。"
+    },
+    {
+      "name": "show-footer",
+      "type": "boolean",
+      "default": "true",
+      "description": "Whether the footer is shown. Without it the panel has no footer, and the host keeps the two actions somewhere else.",
+      "descriptionZh": "要不要显示页脚。不显示的时候面板里就没有页脚,那两个动作由宿主放在别处。"
+    },
+    {
+      "name": "footer-text",
+      "type": "string",
+      "default": "确定",
+      "description": "The words on the confirm button.",
+      "descriptionZh": "确定按钮上的字。"
+    }
+  ],
+  "slots": [],
+  "events": [
+    {
+      "name": "click",
+      "description": "Fires when one of the buttons is pressed. It is the browser's own event — the library installs no listener, and the panel does not keep a month, so what a press means is the host's business.",
+      "descriptionZh": "按到其中一个按钮的时候触发。这是浏览器原生事件 —— 库没有安装任何监听器,而且面板自己不记着是哪个月,所以按下去是什么意思是宿主的事。"
+    }
+  ],
+  "a11y": {
+    "role": "group",
+    "keyboard": [
+      "Tab"
+    ],
+    "notes": "The month is a grid: the weekday names are a row of column headers and the weeks are rows of grid cells, so the browser says which column a day belongs to and a reader can walk the week across. A day that cannot be picked carries aria-disabled, so the reader is told that day is unavailable; the other markers are classes and not attributes, so the reader is not told which day is today or which one is selected: the host has to say that in the markup or in the text around the grid. The two buttons in the header and the two in the footer are real buttons, so the browser announces them and the keyboard can reach them — but the panel does not keep a month, so what a press means is the host's business.",
+    "notesZh": "月份就是一张网格:星期名是一行列标题,每一周是一行网格单元,所以浏览器会说明某一天属于哪一列,读者也能横着读一周。不能选的那几天带着 aria-disabled,所以读屏会知道那天不可用;另外的标记是类而不是属性,所以读屏不会说哪一天是今天、哪一天被选中:这件事得由宿主写进标记里,或者写进网格旁边的文字里。标题栏里的两个按钮和页脚里的两个按钮都是真的按钮,所以浏览器会播报它们,键盘也够得到 —— 但面板自己不记着是哪个月,所以按下去是什么意思是宿主的事。"
+  },
+  "examples": [
+    {
+      "id": "single",
+      "title": "One month",
+      "titleZh": "一个月份",
+      "description": "November 2026. The 28th is today, the 20th is the day that was picked, and the 5th and the 6th cannot be picked. The empty cells at the front of the first week are the days of October the month does not have.",
+      "descriptionZh": "2026 年 11 月。28 号是今天,20 号是被选中的那天,5 号和 6 号不能选。第一周前面那些空格是这个月没有的十月份的日子。",
+      "markup": "<div class=\"um-date-picker-panel um-date-picker-panel--single\">\n  <div class=\"um-date-picker-panel__panel\">\n    <div class=\"um-date-picker-panel__header\">\n      <button class=\"um-date-picker-panel__prev\" type=\"button\" aria-label=\"Previous month\"></button>\n      <span class=\"um-date-picker-panel__title\" id=\"um-date-picker-panel-title-single\">2026-11</span>\n      <button class=\"um-date-picker-panel__next\" type=\"button\" aria-label=\"Next month\"></button>\n    </div>\n    <div class=\"um-date-picker-panel__grid\" role=\"grid\" aria-labelledby=\"um-date-picker-panel-title-single\">\n      <div class=\"um-date-picker-panel__week\" role=\"row\">\n        <span class=\"um-date-picker-panel__weekday\" role=\"columnheader\">Mon</span>\n        <span class=\"um-date-picker-panel__weekday\" role=\"columnheader\">Tue</span>\n        <span class=\"um-date-picker-panel__weekday\" role=\"columnheader\">Wed</span>\n        <span class=\"um-date-picker-panel__weekday\" role=\"columnheader\">Thu</span>\n        <span class=\"um-date-picker-panel__weekday\" role=\"columnheader\">Fri</span>\n        <span class=\"um-date-picker-panel__weekday\" role=\"columnheader\">Sat</span>\n        <span class=\"um-date-picker-panel__weekday\" role=\"columnheader\">Sun</span>\n      </div>\n      <div class=\"um-date-picker-panel__week\" role=\"row\">\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">1</span></div>\n      </div>\n      <div class=\"um-date-picker-panel__week\" role=\"row\">\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">2</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">3</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">4</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\" aria-disabled=\"true\"><span class=\"um-date-picker-panel__number\">5</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\" aria-disabled=\"true\"><span class=\"um-date-picker-panel__number\">6</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">7</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">8</span></div>\n      </div>\n      <div class=\"um-date-picker-panel__week\" role=\"row\">\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">9</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">10</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">11</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">12</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">13</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">14</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">15</span></div>\n      </div>\n      <div class=\"um-date-picker-panel__week\" role=\"row\">\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">16</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">17</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">18</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">19</span></div>\n        <div class=\"um-date-picker-panel__cell um-date-picker-panel__cell--selected\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">20</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">21</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">22</span></div>\n      </div>\n      <div class=\"um-date-picker-panel__week\" role=\"row\">\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">23</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">24</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">25</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">26</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">27</span></div>\n        <div class=\"um-date-picker-panel__cell um-date-picker-panel__cell--today\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">28</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">29</span></div>\n      </div>\n      <div class=\"um-date-picker-panel__week\" role=\"row\">\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">30</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n      </div>\n    </div>\n  </div>\n    <div class=\"um-date-picker-panel__footer\">\n      <button class=\"um-date-picker-panel__today\" type=\"button\">今天</button>\n      <button class=\"um-date-picker-panel__confirm\" type=\"button\">确定</button>\n    </div>\n</div>"
+    },
+    {
+      "id": "range",
+      "title": "Two months",
+      "titleZh": "两个月份",
+      "description": "November and December side by side, with the run from the 20th of November to the 8th of December marked as one band. The footer spans both months, because there is one date range and not two.",
+      "descriptionZh": "11 月和 12 月并排,从 11 月 20 号到 12 月 8 号这一段标成一条带子。页脚横跨两个月,因为要选的是一段区间,不是两个月。",
+      "markup": "<div class=\"um-date-picker-panel um-date-picker-panel--range\">\n  <div class=\"um-date-picker-panel__panel\">\n    <div class=\"um-date-picker-panel__header\">\n      <button class=\"um-date-picker-panel__prev\" type=\"button\" aria-label=\"Previous month\"></button>\n      <span class=\"um-date-picker-panel__title\" id=\"um-date-picker-panel-title-range-a\">2026-11</span>\n      <button class=\"um-date-picker-panel__next\" type=\"button\" aria-label=\"Next month\"></button>\n    </div>\n    <div class=\"um-date-picker-panel__grid\" role=\"grid\" aria-labelledby=\"um-date-picker-panel-title-range-a\">\n      <div class=\"um-date-picker-panel__week\" role=\"row\">\n        <span class=\"um-date-picker-panel__weekday\" role=\"columnheader\">Mon</span>\n        <span class=\"um-date-picker-panel__weekday\" role=\"columnheader\">Tue</span>\n        <span class=\"um-date-picker-panel__weekday\" role=\"columnheader\">Wed</span>\n        <span class=\"um-date-picker-panel__weekday\" role=\"columnheader\">Thu</span>\n        <span class=\"um-date-picker-panel__weekday\" role=\"columnheader\">Fri</span>\n        <span class=\"um-date-picker-panel__weekday\" role=\"columnheader\">Sat</span>\n        <span class=\"um-date-picker-panel__weekday\" role=\"columnheader\">Sun</span>\n      </div>\n      <div class=\"um-date-picker-panel__week\" role=\"row\">\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">1</span></div>\n      </div>\n      <div class=\"um-date-picker-panel__week\" role=\"row\">\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">2</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">3</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">4</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\" aria-disabled=\"true\"><span class=\"um-date-picker-panel__number\">5</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\" aria-disabled=\"true\"><span class=\"um-date-picker-panel__number\">6</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">7</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">8</span></div>\n      </div>\n      <div class=\"um-date-picker-panel__week\" role=\"row\">\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">9</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">10</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">11</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">12</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">13</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">14</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">15</span></div>\n      </div>\n      <div class=\"um-date-picker-panel__week\" role=\"row\">\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">16</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">17</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">18</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">19</span></div>\n        <div class=\"um-date-picker-panel__cell um-date-picker-panel__cell--selected um-date-picker-panel__cell--in-range\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">20</span></div>\n        <div class=\"um-date-picker-panel__cell um-date-picker-panel__cell--in-range\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">21</span></div>\n        <div class=\"um-date-picker-panel__cell um-date-picker-panel__cell--in-range\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">22</span></div>\n      </div>\n      <div class=\"um-date-picker-panel__week\" role=\"row\">\n        <div class=\"um-date-picker-panel__cell um-date-picker-panel__cell--in-range\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">23</span></div>\n        <div class=\"um-date-picker-panel__cell um-date-picker-panel__cell--in-range\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">24</span></div>\n        <div class=\"um-date-picker-panel__cell um-date-picker-panel__cell--in-range\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">25</span></div>\n        <div class=\"um-date-picker-panel__cell um-date-picker-panel__cell--in-range\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">26</span></div>\n        <div class=\"um-date-picker-panel__cell um-date-picker-panel__cell--in-range\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">27</span></div>\n        <div class=\"um-date-picker-panel__cell um-date-picker-panel__cell--today um-date-picker-panel__cell--in-range\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">28</span></div>\n        <div class=\"um-date-picker-panel__cell um-date-picker-panel__cell--in-range\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">29</span></div>\n      </div>\n      <div class=\"um-date-picker-panel__week\" role=\"row\">\n        <div class=\"um-date-picker-panel__cell um-date-picker-panel__cell--in-range\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">30</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n      </div>\n    </div>\n  </div>\n  <div class=\"um-date-picker-panel__panel\">\n    <div class=\"um-date-picker-panel__header\">\n      <button class=\"um-date-picker-panel__prev\" type=\"button\" aria-label=\"Previous month\"></button>\n      <span class=\"um-date-picker-panel__title\" id=\"um-date-picker-panel-title-range-b\">2026-12</span>\n      <button class=\"um-date-picker-panel__next\" type=\"button\" aria-label=\"Next month\"></button>\n    </div>\n    <div class=\"um-date-picker-panel__grid\" role=\"grid\" aria-labelledby=\"um-date-picker-panel-title-range-b\">\n      <div class=\"um-date-picker-panel__week\" role=\"row\">\n        <span class=\"um-date-picker-panel__weekday\" role=\"columnheader\">Mon</span>\n        <span class=\"um-date-picker-panel__weekday\" role=\"columnheader\">Tue</span>\n        <span class=\"um-date-picker-panel__weekday\" role=\"columnheader\">Wed</span>\n        <span class=\"um-date-picker-panel__weekday\" role=\"columnheader\">Thu</span>\n        <span class=\"um-date-picker-panel__weekday\" role=\"columnheader\">Fri</span>\n        <span class=\"um-date-picker-panel__weekday\" role=\"columnheader\">Sat</span>\n        <span class=\"um-date-picker-panel__weekday\" role=\"columnheader\">Sun</span>\n      </div>\n      <div class=\"um-date-picker-panel__week\" role=\"row\">\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n        <div class=\"um-date-picker-panel__cell um-date-picker-panel__cell--in-range\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">1</span></div>\n        <div class=\"um-date-picker-panel__cell um-date-picker-panel__cell--in-range\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">2</span></div>\n        <div class=\"um-date-picker-panel__cell um-date-picker-panel__cell--in-range\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">3</span></div>\n        <div class=\"um-date-picker-panel__cell um-date-picker-panel__cell--in-range\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">4</span></div>\n        <div class=\"um-date-picker-panel__cell um-date-picker-panel__cell--in-range\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">5</span></div>\n        <div class=\"um-date-picker-panel__cell um-date-picker-panel__cell--in-range\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">6</span></div>\n      </div>\n      <div class=\"um-date-picker-panel__week\" role=\"row\">\n        <div class=\"um-date-picker-panel__cell um-date-picker-panel__cell--in-range\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">7</span></div>\n        <div class=\"um-date-picker-panel__cell um-date-picker-panel__cell--in-range\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">8</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">9</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">10</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">11</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">12</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">13</span></div>\n      </div>\n      <div class=\"um-date-picker-panel__week\" role=\"row\">\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">14</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">15</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">16</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">17</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">18</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">19</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">20</span></div>\n      </div>\n      <div class=\"um-date-picker-panel__week\" role=\"row\">\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">21</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">22</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">23</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">24</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">25</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">26</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">27</span></div>\n      </div>\n      <div class=\"um-date-picker-panel__week\" role=\"row\">\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">28</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">29</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">30</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">31</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n      </div>\n    </div>\n  </div>\n    <div class=\"um-date-picker-panel__footer\">\n      <button class=\"um-date-picker-panel__today\" type=\"button\">今天</button>\n      <button class=\"um-date-picker-panel__confirm\" type=\"button\">确定</button>\n    </div>\n</div>"
+    },
+    {
+      "id": "no-footer",
+      "title": "Without the footer",
+      "titleZh": "没有页脚",
+      "description": "The same month without the footer. The panel simply leaves it out — there is no class to switch off, because a panel that is not there does not need a class to say so.",
+      "descriptionZh": "同一个月,没有页脚。面板直接不写它 —— 没有什么类可以关掉它,因为一块不存在的面板不需要一个类来说自己不在。",
+      "markup": "<div class=\"um-date-picker-panel um-date-picker-panel--single\">\n  <div class=\"um-date-picker-panel__panel\">\n    <div class=\"um-date-picker-panel__header\">\n      <button class=\"um-date-picker-panel__prev\" type=\"button\" aria-label=\"Previous month\"></button>\n      <span class=\"um-date-picker-panel__title\" id=\"um-date-picker-panel-title-no-footer\">2026-11</span>\n      <button class=\"um-date-picker-panel__next\" type=\"button\" aria-label=\"Next month\"></button>\n    </div>\n    <div class=\"um-date-picker-panel__grid\" role=\"grid\" aria-labelledby=\"um-date-picker-panel-title-no-footer\">\n      <div class=\"um-date-picker-panel__week\" role=\"row\">\n        <span class=\"um-date-picker-panel__weekday\" role=\"columnheader\">Mon</span>\n        <span class=\"um-date-picker-panel__weekday\" role=\"columnheader\">Tue</span>\n        <span class=\"um-date-picker-panel__weekday\" role=\"columnheader\">Wed</span>\n        <span class=\"um-date-picker-panel__weekday\" role=\"columnheader\">Thu</span>\n        <span class=\"um-date-picker-panel__weekday\" role=\"columnheader\">Fri</span>\n        <span class=\"um-date-picker-panel__weekday\" role=\"columnheader\">Sat</span>\n        <span class=\"um-date-picker-panel__weekday\" role=\"columnheader\">Sun</span>\n      </div>\n      <div class=\"um-date-picker-panel__week\" role=\"row\">\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">1</span></div>\n      </div>\n      <div class=\"um-date-picker-panel__week\" role=\"row\">\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">2</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">3</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">4</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\" aria-disabled=\"true\"><span class=\"um-date-picker-panel__number\">5</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\" aria-disabled=\"true\"><span class=\"um-date-picker-panel__number\">6</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">7</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">8</span></div>\n      </div>\n      <div class=\"um-date-picker-panel__week\" role=\"row\">\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">9</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">10</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">11</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">12</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">13</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">14</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">15</span></div>\n      </div>\n      <div class=\"um-date-picker-panel__week\" role=\"row\">\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">16</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">17</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">18</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">19</span></div>\n        <div class=\"um-date-picker-panel__cell um-date-picker-panel__cell--selected\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">20</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">21</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">22</span></div>\n      </div>\n      <div class=\"um-date-picker-panel__week\" role=\"row\">\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">23</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">24</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">25</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">26</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">27</span></div>\n        <div class=\"um-date-picker-panel__cell um-date-picker-panel__cell--today\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">28</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">29</span></div>\n      </div>\n      <div class=\"um-date-picker-panel__week\" role=\"row\">\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"><span class=\"um-date-picker-panel__number\">30</span></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n        <div class=\"um-date-picker-panel__cell\" role=\"gridcell\"></div>\n      </div>\n    </div>\n  </div>\n</div>"
+    }
+  ],
+  "notes": "The panel does not keep a month. A month panel cannot know which months exist, so the host owns the month, the host owns the buttons that change it, and the host owns the words in the footer. What the panel gives the host is a grid it can drop into any frame, drawn the way the calendar draws it: today is a filled circle with a number on it, so it is a surface with text and takes the brand's on-colour; selected is a ring with nothing on it, so it is a shape and takes the graphic form of the brand colour; disabled is a number that takes the derived disabled colour, and it is marked with aria-disabled rather than with a class of its own. A selected day that stands inside a range stands on the brand's tint and not on the panel's surface, so there it takes the foreground the contract writes for that tint, and its ring takes the brand colour as text — the pair the contract writes for a mark on a soft surface.",
+  "notesZh": "面板自己不记着是哪个月。月份面板不知道有哪些月份可选,所以月份归宿主管,翻页的按钮归宿主管,页脚上的字也归宿主管。面板给宿主的只是一张能放进任何框里的日期网格,画法跟日历一样:今天是填满的圆,圆上有数字,所以它是一块带字的表面,用的是品牌色的 on 色;选中是一个圈,圈里没有字,所以它是一个形状,用的是品牌色的 graphic 形态;禁用是一个数字,用的是派生出来的禁用色,而且是用 aria-disabled 标出来的,不是用一个类。落在区间里的那个选中日,脚下是品牌色的那层淡色而不是面板的底色,所以它用契约为那层淡色写下的前景色,那圈环则用品牌色当文字 —— 这正是契约为一层淡色上的标记写下的那一对。"
+}

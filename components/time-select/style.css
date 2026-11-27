@@ -1,0 +1,94 @@
+/* ============================================================================
+   Time Select
+   ========================================================================== */
+
+/* The field is a box; the select inside it is borderless, so the field and
+   the list it opens read as one control rather than as a select with a box
+   drawn around it. */
+.um-time-select,
+.um-time-select--bordered {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-width: 8em;
+  height: var(--um-height-md);
+  padding: 0 var(--um-space-xs);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-small);
+  background: var(--um-surface-input);
+  color: var(--um-text-primary);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+}
+
+/* The filled run drops the border and sits the field on a recessed surface, so
+   the field reads as a well rather than as a box. */
+.um-time-select--filled {
+  border-color: transparent;
+  background: var(--um-fill-light);
+}
+
+.um-time-select__select {
+  flex: 1 1 auto;
+  min-width: 0;
+  /* The platform's own arrow does not follow the theme, so it is dropped and
+     the library draws a chevron beside the field instead. The option list is
+     still the platform's. */
+  appearance: none;
+  padding: 0 var(--um-space-lg) 0 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.um-time-select__option {
+  color: var(--um-text-primary);
+  background: var(--um-bg-overlay);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+}
+
+/* The chevron is drawn from two borders, so it carries no text of its own. */
+.um-time-select__arrow {
+  position: absolute;
+  right: var(--um-space-sm);
+  top: 50%;
+  width: var(--um-space-xs);
+  height: var(--um-space-xs);
+  border-right: var(--um-border-width) var(--um-border-style) currentColor;
+  border-bottom: var(--um-border-width) var(--um-border-style) currentColor;
+  color: var(--um-text-secondary);
+  transform: translateY(-50%) rotate(45deg);
+  pointer-events: none;
+}
+
+/* The ring goes on the field, because the field is what the reader is on —
+   the select is inside it, not beside it. */
+.um-time-select:has(.um-time-select__select:focus-visible) {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+/* A disabled field paints a flat surface and takes the derived disabled
+   colour, the way every other disabled control does. */
+.um-time-select:has(.um-time-select__select:disabled) {
+  background: var(--um-surface-control);
+  color: var(--um-text-disabled);
+  cursor: not-allowed;
+}
+
+.um-time-select:has(.um-time-select__select:disabled) .um-time-select__arrow {
+  color: var(--um-text-disabled);
+}
+
+.um-time-select--sm {
+  height: var(--um-height-sm);
+  font-size: var(--um-font-size-caption);
+}
+
+.um-time-select--lg {
+  height: var(--um-height-lg);
+}

@@ -73,9 +73,12 @@ const propName = (name) =>
 
 /**
  * @param {string} root the repository root
+ * @param {{ only?: string[] }} [options] `only` narrows the check to the
+ *   named components, so an author can check their own wrappers while the rest
+ *   of the library is still in flight.
  * @returns {Promise<{ errors: string[], warnings: string[], skipped?: boolean }>}
  */
-export async function checkVueComponents(root) {
+export async function checkVueComponents(root, options = {}) {
   const errors = [];
   const warnings = [];
 
@@ -102,7 +105,10 @@ export async function checkVueComponents(root) {
       .map((f) => f.replace(/\.js$/, "")),
   );
 
+  const only = options.only?.length ? new Set(options.only) : null;
+
   for (const m of manifests) {
+    if (only && !only.has(m.id)) continue;
     const file = join(wrapperDir, `${m.id}.js`);
     if (!wrappers.has(m.id)) {
       errors.push(`vue: no wrapper for "${m.id}" — write vue/components/${m.id}.js`);

@@ -1,0 +1,114 @@
+{
+  "id": "anchor",
+  "name": "Anchor",
+  "nameZh": "锚点",
+  "category": "navigation",
+  "element": "nav, ul, li, a",
+  "summary": "A column of links to the sections of the page, with a rule down the side so the reader can see that they are a list of places rather than a list of links. The section being read is marked with aria-current, because CSS cannot work out what is on screen.",
+  "summaryZh": "一列指向页面各章节的链接,旁边有一条竖线,好让人看出这是一串位置而不是一串链接。正在读的那一节用 aria-current 标出来,因为 CSS 算不出屏幕上有什么。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-anchor",
+    "modifier": "um-anchor--",
+    "part": "um-anchor__"
+  },
+  "variants": [
+    {
+      "id": "plain",
+      "name": "No rule",
+      "nameZh": "无竖线",
+      "note": "The column without the rule beside it, for a narrow margin where the rule would crowd the text. It is the modifier um-anchor--plain."
+    }
+  ],
+  "sizes": [],
+  "states": [
+    {
+      "id": "current",
+      "name": "Current section",
+      "nameZh": "当前章节",
+      "selector": "[aria-current=\"location\"]",
+      "native": true,
+      "note": "The entry for the section the reader is in. aria-current=\"location\" is the value that says \"this is where you are inside a set of things\", and it is the only one that takes the brand colour."
+    },
+    {
+      "id": "focus-visible",
+      "name": "Focus visible",
+      "nameZh": "键盘聚焦",
+      "selector": ":focus-visible",
+      "native": true,
+      "note": "The link takes the shared focus ring, so a keyboard reader can see where they are."
+    }
+  ],
+  "parts": [
+    {
+      "id": "list",
+      "name": "List",
+      "nameZh": "列表",
+      "note": "The <ul> that holds the entries."
+    },
+    {
+      "id": "item",
+      "name": "Item",
+      "nameZh": "条目",
+      "note": "One entry. It exists so the rule beside the column runs through the gaps as well as through the links."
+    },
+    {
+      "id": "link",
+      "name": "Link",
+      "nameZh": "链接",
+      "note": "The entry itself. It is an <a> to the fragment the section sits on."
+    }
+  ],
+  "props": [
+    {
+      "name": "variant",
+      "type": "enum",
+      "values": ["line", "plain"],
+      "default": "line",
+      "description": "Whether a rule runs down the side of the column. The rule is the base class on its own; the plain column adds um-anchor--plain.",
+      "descriptionZh": "列的旁边有没有那条竖线。带竖线就是只写基类;plain 那一列再加上 um-anchor--plain。"
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "default": "Anchor",
+      "description": "The accessible name of the nav element. Every anchor on a page needs its own, or the screen reader announces them all as the same thing.",
+      "descriptionZh": "nav 元素的可访问名称。同一个页面上每个锚点导航都要有各自的名称,否则读屏会把它们当成同一个东西。"
+    }
+  ],
+  "slots": [
+    {
+      "name": "default",
+      "description": "The entries. Each one is an <a> to the fragment of a section; the one for the section being read carries aria-current=\"location\".",
+      "descriptionZh": "各个条目。每个条目都是指向某一节锚点的 <a>;正在读的那一节带 aria-current=\"location\"。"
+    }
+  ],
+  "events": [],
+  "a11y": {
+    "role": "navigation",
+    "keyboard": ["Tab", "Enter"],
+    "notes": "The column is a <nav> with an aria-label, so a screen reader can jump past it and knows what it navigates, and an <ul>, so the entries are announced as a list and the reader hears how many there are. The entries are links to fragments, so they are in the tab order and can be followed with Enter. The entry for the section being read carries aria-current=\"location\" — the value that means \"this is where you are inside a set of things\" — and it is the only one that takes the brand colour. No stylesheet can work out which section is on screen, so the host marks it; that is the one thing an anchor needs the page to know.",
+    "notesZh": "这一列是带 aria-label 的 <nav>,读屏可以直接跳过、也知道它在导航什么;里面是 <ul>,条目会作为列表播报,读屏能听出共有多少条。条目是指向片段的链接,所以在 Tab 顺序里,按 Enter 就能跳过去。正在读的那一节带 aria-current=\"location\" —— 这个值的意思是「你在这组东西里的当前位置」—— 也是唯一一条会取品牌色的条目。样式表算不出屏幕上停在哪一节,所以得由宿主标出来;这是锚点唯一需要页面知道的事。"
+  },
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Basic",
+      "titleZh": "基础用法",
+      "description": "A column of sections with a rule down the side. The entry for the section being read carries aria-current, so it is the one that takes the brand colour — the stylesheet cannot know which section is on screen, so the page says.",
+      "descriptionZh": "一列章节,旁边有一条竖线。正在读的那一节带 aria-current,所以它是唯一取品牌色的那一条 —— 样式表不知道屏幕上停在哪一节,得由页面来说。",
+      "markup": "<nav class=\"um-anchor\" aria-label=\"On this page\">\n  <ul class=\"um-anchor__list\">\n    <li class=\"um-anchor__item\">\n      <a class=\"um-anchor__link\" href=\"#overview\">Overview</a>\n    </li>\n    <li class=\"um-anchor__item\">\n      <a class=\"um-anchor__link\" href=\"#install\" aria-current=\"location\">Installation</a>\n    </li>\n    <li class=\"um-anchor__item\">\n      <a class=\"um-anchor__link\" href=\"#limits\">Limits</a>\n    </li>\n  </ul>\n</nav>"
+    },
+    {
+      "id": "plain",
+      "title": "No rule",
+      "titleZh": "无竖线",
+      "description": "The plain column drops the rule and moves the text back to the edge, for a margin too narrow to carry a line beside the words.",
+      "descriptionZh": "plain 那一列去掉了竖线,文字也退回边缘 —— 边栏太窄,放不下一条贴着字的线。",
+      "markup": "<nav class=\"um-anchor um-anchor--plain\" aria-label=\"On this page\">\n  <ul class=\"um-anchor__list\">\n    <li class=\"um-anchor__item\">\n      <a class=\"um-anchor__link\" href=\"#overview\">Overview</a>\n    </li>\n    <li class=\"um-anchor__item\">\n      <a class=\"um-anchor__link\" href=\"#install\" aria-current=\"location\">Installation</a>\n    </li>\n    <li class=\"um-anchor__item\">\n      <a class=\"um-anchor__link\" href=\"#limits\">Limits</a>\n    </li>\n  </ul>\n</nav>"
+    }
+  ],
+  "notes": "The rule is drawn on the entries rather than on the list, so it runs through the gaps between them instead of stopping at every word. That is why the column has no gap of its own: the space between two entries is the padding of the entry below. The current entry is marked with aria-current rather than with a class the page toggles, because the marking is information about the page, not about the style — and a screen reader can act on it.",
+  "notesZh": "竖线画在条目上而不是列表上,所以它会连着穿过条目之间的空隙,而不是每到一个词就断一次。这也是这一列自己没有间距的原因:两条之间的空,是下面那条自己的内边距。当前这一节用 aria-current 标出来,而不是靠页面去切一个类 —— 因为这个标记是关于页面的信息,不是关于样式的信息,而且读屏能对它作出反应。"
+}

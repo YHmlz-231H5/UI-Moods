@@ -1,0 +1,85 @@
+{
+  "id": "segmented",
+  "name": "Segmented",
+  "nameZh": "分段控制器",
+  "category": "data",
+  "element": "div",
+  "summary": "A row of choices that show which one is picked, drawn as radios under a shared frame. The browser keeps the selection, so the group behaves like the radio group it is.",
+  "summaryZh": "一排选项,让人一眼看出选中的是哪一个。它是一排套在同一个框里的单选框,选中状态由浏览器记着,所以它的行为和单选框组一样。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-segmented",
+    "modifier": "um-segmented--",
+    "part": "um-segmented__"
+  },
+  "variants": [
+    { "id": "soft", "name": "Soft", "nameZh": "柔和", "state": "soft", "note": "The picked segment takes the brand colour's own soft tint, and its text takes the foreground derived for that tint. The base class on its own is this, and the modifier paints the same thing so the class list can name it." },
+    { "id": "solid", "name": "Solid", "nameZh": "实心", "state": "solid", "note": "The picked segment takes the solid brand fill, with the brand's own foreground on it." },
+    { "id": "ghost", "name": "Ghost", "nameZh": "无边框", "state": "ghost", "note": "The frame goes away and the segments sit straight on the page. The picked one is still marked, because a row of choices has to say which one it is." }
+  ],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "The segment takes the small control height and the caption size." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default size. The base class is already this size, so it needs no modifier." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "The segment takes the large control height and the title size." }
+  ],
+  "states": [
+    { "id": "checked", "name": "Checked", "nameZh": "选中", "selector": ":checked", "native": true, "note": "The picked segment. The segment knows it is picked because it holds the radio: :has() is the only way CSS can ask an element what its child is doing." },
+    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "A segment that cannot be picked. Its text takes the derived disabled colour, the way every other disabled control in the library dims." },
+    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the segment rather than on the radio, because the radio is a pixel wide and the segment is what the reader sees." }
+  ],
+  "parts": [
+    { "id": "option", "name": "Option", "nameZh": "选项", "note": "One segment. It is the label that wraps the real radio, so clicking it ticks the radio it points at." },
+    { "id": "input", "name": "Input", "nameZh": "输入框", "note": "The real control. It is hidden by size and opacity rather than by display, because an input that is not rendered leaves the tab order and the widget stops being operable by keyboard." },
+    { "id": "label", "name": "Label", "nameZh": "文字", "note": "The text of a segment." }
+  ],
+  "props": [
+    { "name": "name", "type": "string", "description": "The name every radio in the row shares. It is what makes the segments one group: the browser keeps exactly one of them picked.", "descriptionZh": "这一排单选框共用的名字。它正是让这几段成为一组的东西:浏览器保证组里恰好只有一个被选中。" },
+    { "name": "value", "type": "string", "description": "The value one segment submits while it is picked.", "descriptionZh": "某一段选中时提交的值。" },
+    { "name": "checked", "type": "boolean", "default": "false", "description": "Picks one segment. It is the native checked attribute, not a class.", "descriptionZh": "选中某一段。它是原生 checked 属性,不是某个类。" },
+    { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes one segment inert. It uses the real disabled attribute, so it leaves the tab order.", "descriptionZh": "让某一段不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" },
+    { "name": "variant", "type": "enum", "values": ["soft", "solid", "ghost"], "default": "soft", "description": "How the picked segment is painted. The soft run is the base class on its own; the other two add um-segmented--solid and um-segmented--ghost.", "descriptionZh": "选中的那一段怎么画。柔和是只写基类;另外两种加上 um-segmented--solid 和 um-segmented--ghost。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The size of the segments.", "descriptionZh": "每一段的大小。" },
+    { "name": "label", "type": "string", "description": "The name of the whole row, read out before the segments. A row with no name of its own needs an accessible name from somewhere.", "descriptionZh": "整排的名字,会在各段之前读出来。没有自己名字的一排,得从别处拿到一个可访问名称。" }
+  ],
+  "slots": [
+    { "name": "default", "description": "One segment per option: a label holding the real radio and the text.", "descriptionZh": "一个选项一段:一个包住真正 radio 和文字的 label。" }
+  ],
+  "events": [
+    { "name": "change", "description": "Fires when the selection moves to a segment. It is the browser's own event on the radio — the library installs no listener.", "descriptionZh": "选中项移到某一段时触发。这是 radio 上的浏览器原生事件 —— 库没有安装任何监听器。" }
+  ],
+  "a11y": {
+    "role": "radiogroup",
+    "keyboard": ["Tab", "Space", "Arrow keys"],
+    "notes": "The row is a radiogroup and every segment is a real radio inside a label, so the browser keeps exactly one of them picked, the arrow keys move the selection along the row and Tab moves between rows. The radio is hidden by size and opacity rather than removed from the accessibility tree, so it keeps its place in the tab order and its label.",
+    "notesZh": "这一排是 radiogroup,每一段都是 label 里一个真正的 radio,所以浏览器保证恰好有一个被选中,方向键沿着这一排移动选中项,Tab 在排与排之间移动。这个 radio 只是视觉隐藏,没有被移出无障碍树,因此它仍在 Tab 顺序里,也仍然有标签。"
+  },
+  "examples": [
+    {
+      "id": "soft",
+      "title": "Soft",
+      "titleZh": "柔和",
+      "description": "The picked segment takes the brand colour's soft tint, and the segment knows it is picked because it holds the radio.",
+      "descriptionZh": "选中的那一段会带上品牌色的浅色底,而这一段知道自己是选中的,因为 radio 就在它里面。",
+      "markup": "<div class=\"um-segmented um-segmented--soft\" role=\"radiogroup\" aria-label=\"View\">\n  <label class=\"um-segmented__option\">\n    <input class=\"um-segmented__input\" type=\"radio\" name=\"um-segmented-view\" value=\"grid\" checked />\n    <span class=\"um-segmented__label\">Grid</span>\n  </label>\n  <label class=\"um-segmented__option\">\n    <input class=\"um-segmented__input\" type=\"radio\" name=\"um-segmented-view\" value=\"list\" />\n    <span class=\"um-segmented__label\">List</span>\n  </label>\n  <label class=\"um-segmented__option\">\n    <input class=\"um-segmented__input\" type=\"radio\" name=\"um-segmented-view\" value=\"map\" />\n    <span class=\"um-segmented__label\">Map</span>\n  </label>\n</div>"
+    },
+    {
+      "id": "solid",
+      "title": "Solid",
+      "titleZh": "实心",
+      "description": "The picked segment takes the solid brand fill. The last segment is disabled, so it takes the derived disabled colour.",
+      "descriptionZh": "选中的那一段用实心的品牌色。最后一段是禁用的,所以它用派生出来的禁用色。",
+      "markup": "<div class=\"um-segmented um-segmented--solid\" role=\"radiogroup\" aria-label=\"Density\">\n  <label class=\"um-segmented__option\">\n    <input class=\"um-segmented__input\" type=\"radio\" name=\"um-segmented-density\" value=\"compact\" />\n    <span class=\"um-segmented__label\">Compact</span>\n  </label>\n  <label class=\"um-segmented__option\">\n    <input class=\"um-segmented__input\" type=\"radio\" name=\"um-segmented-density\" value=\"comfortable\" checked />\n    <span class=\"um-segmented__label\">Comfortable</span>\n  </label>\n  <label class=\"um-segmented__option\">\n    <input class=\"um-segmented__input\" type=\"radio\" name=\"um-segmented-density\" value=\"roomy\" disabled />\n    <span class=\"um-segmented__label\">Roomy</span>\n  </label>\n</div>"
+    },
+    {
+      "id": "ghost",
+      "title": "Ghost",
+      "titleZh": "无边框",
+      "description": "The frame goes away and the segments sit on the page. The picked one is still marked, because a row of choices has to say which one it is.",
+      "descriptionZh": "外框没了,几段直接坐在页面上。被选中的那一段还是标出来了,因为一排选项总得说明自己选的是哪一个。",
+      "markup": "<div class=\"um-segmented um-segmented--ghost\" role=\"radiogroup\" aria-label=\"Layout\">\n  <label class=\"um-segmented__option\">\n    <input class=\"um-segmented__input\" type=\"radio\" name=\"um-segmented-layout\" value=\"side\" checked />\n    <span class=\"um-segmented__label\">Side</span>\n  </label>\n  <label class=\"um-segmented__option\">\n    <input class=\"um-segmented__input\" type=\"radio\" name=\"um-segmented-layout\" value=\"top\" />\n    <span class=\"um-segmented__label\">Top</span>\n  </label>\n</div>"
+    }
+  ],
+  "notes": "The row is a group of radios and not a row of buttons: the browser keeps exactly one of them picked, the arrow keys move the selection along the row, and a form submits the picked value without a line of script. The radio is hidden by size and opacity rather than by display, because an input that is not rendered leaves the tab order and the widget stops being operable by keyboard. The picked segment is found with :has(), which is the only way CSS can ask an element what its child is doing.",
+  "notesZh": "这一排是一组单选框,不是一排按钮:浏览器保证恰好有一个被选中,方向键沿着这一排移动选中项,表单提交时也会把选中的值带上去,不用一行脚本。这个 radio 是用尺寸和透明度藏起来的,不是用 display:none —— 一个没有渲染出来的 input 会退出 Tab 顺序,这个控件就没法用键盘操作了。选中的那一段是用 :has() 找到的,这是 CSS 唯一能问元素「你孩子现在怎么样」的办法。"
+}

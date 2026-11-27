@@ -3,6 +3,10 @@
    ========================================================================== */
 .um-slider {
   width: 100%;
+  /* The browser gives a range input a margin of its own, and that margin
+     would push the track a couple of pixels past the width the host gave
+     it. The component owns its box. */
+  margin: 0;
   height: var(--um-space-sm);
   appearance: none;
   background: transparent;

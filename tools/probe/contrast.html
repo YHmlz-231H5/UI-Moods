@@ -24,6 +24,13 @@
   #report th { background: var(--um-fill-light); color: var(--um-text-primary); position: sticky; top: 0; }
   .fail { background: var(--um-color-danger-soft-4); }
   #stage { position: absolute; left: -99999px; top: 0; width: 1200px; background: var(--um-bg-page); }
+  /* The probe measures the component as the reader sees it, not the browser's
+     transitional state. A subtree under `content-visibility: auto` is skipped
+     until it comes near the viewport, and a skipped subtree is not laid out:
+     its text would go unmeasured and its box would be a placeholder rather
+     than the real one. Laying everything out is what scrolling the page
+     would do anyway. */
+  #stage * { content-visibility: visible !important; }
   /* A transition would let the probe measure a frame between two states. */
   #stage *, #stage *::before, #stage *::after { transition: none !important; animation: none !important; }
 </style>
@@ -133,16 +140,23 @@ function effectiveBackground(el) {
   const layers = [];
   let node = el;
   let opacity = 1;
-  const rect = el.getBoundingClientRect();
+  let rect = el.getBoundingClientRect();
   while (node && node.nodeType === 1 && node !== document.body && node !== document.documentElement) {
     const style = getComputedStyle(node);
     const own = parse(style.backgroundColor);
     const box = node.getBoundingClientRect();
-    const behind = box.width === 0 || box.height === 0 || rectIntersects(rect, box);
+    // A clipping ancestor — a scroll box — holds its content inside its own
+    // box: the content is painted over that background whether or not the
+    // content's own rectangle reaches that far, because scrolling moves the
+    // content and not the background. Past the clip, the content's position
+    // stops mattering and the clip's own box takes over.
+    const clips = style.overflowX !== "visible" || style.overflowY !== "visible";
+    const behind = clips || box.width === 0 || box.height === 0 || rectIntersects(rect, box);
     if (own && own.a > 0 && behind) layers.push(own);
     const o = parseFloat(style.opacity);
     if (!Number.isNaN(o) && o < 1) opacity *= o;
     if (own && own.a >= 1) break;
+    if (clips) rect = box;
     node = node.parentElement;
   }
   let result = canvasColor();
@@ -176,6 +190,14 @@ const GRAPHICS = [
  * ancestor — the label of a disabled checkbox sits next to the input, not
  * inside it — so the walk has to reach the component root and ask whether
  * that root holds a disabled control.
+ *
+ * What counts is the *state*, not the picture: a class that paints a dimmed
+ * day is not a disabled day until the markup says so. A component that dims a
+ * control without saying `aria-disabled` has not declared a disabled state,
+ * it has drawn one, and the reader is no better off than before — so the
+ * probe holds it to the bar of ordinary text and reports it. That is the
+ * point of the instrument: a dimmed picture and a dimmed state are not the
+ * same thing, and only one of them can be announced.
  */
 function isDisabled(el) {
   let node = el;

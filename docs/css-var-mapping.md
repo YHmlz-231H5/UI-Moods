@@ -298,10 +298,10 @@ browser composites what is really on the page — so the pages are measured too.
 `tools/probe/contrast.html` loads every component's live examples, walks the
 whole document once per mood, and measures the colours the browser actually
 painted: the foreground it resolved, and the background composited through
-every layer between the element and the page. The current run is **11 392
-measurements across 39 components and 32 moods, with zero failures**.
+every layer between the element and the page. the current run is **51 008
+measurements across 74 components and 32 moods, with zero failures**.
 
-Three things the probe had to learn, each of them a false alarm in the first
+Four things the probe had to learn, each of them a false alarm in the first
 place:
 
 - **A colour can be written as hex.** The placeholder role is written as a hex
@@ -316,6 +316,121 @@ place:
   to the canvas, so it is what is behind everything — including a panel that
   has left the body's box entirely. A probe that found nothing there and
   fell back to white would measure every dark mood against a light surface.
+- **A dimmed picture is not a disabled state.** A calendar day that cannot be
+  picked was painted with the derived `text-disabled` colour, which the
+  contract holds at 2:1 — the bar for a control the reader cannot use. But the
+  probe could not tell that day was disabled, because the day carried a *class*
+  and nothing else, so it held the day to the 4.5:1 of ordinary text and
+  reported 64 failures across the 32 moods. The probe was right and the
+  component was wrong: a class that paints a dimmed day does not tell a reader
+  that the day is unavailable. The day now carries `aria-disabled="true"`, the
+  way `um-link` does, and the library's own rule is that a disabled state is
+  written in the markup and not only in the stylesheet.
+
+### The audit is a command, not a ritual
+
+The probe pages are measuring instruments, and a measuring instrument that
+needs a person to open it in a browser and read the table is a check that
+stops being run. `node tools/audit-render.mjs` drives the same page in a
+headless browser over the DevTools protocol and prints the answer:
+
+```
+audit-render · component layer · contrast
+  measurements: 22208
+  failures: 0
+```
+
+The measurement is still the browser's — the page under `tools/probe/` does the
+walking, and this command only reads the result the page publishes as
+`window.__PROBE__`. The exit code is the verdict: 0 when the probe reported
+nothing, 1 when it did, 2 when the run itself went wrong. A run that never
+finished is reported as a run that never finished; it is never read as a clean
+bill of health.
+
+The same command with the word `apps` measures the app packs instead, and
+reports the same 3 364 / 1 106 the in-browser run found — two independent
+paths to the same number.
+
+### The other instrument: geometry
+
+A contrast probe cannot see a broken layout. A date grid laid out in seven
+columns instead of one has colours that are perfectly readable and numbers
+that lie on top of each other; the calendar component shipped exactly that
+for a while, and the contrast probe reported zero failures on every one of
+its sixty examples in all thirty-two moods.
+
+`tools/probe/geometry.html` measures the boxes the browser laid out. The
+current run is **115 168 measurements across 83 components and 32 moods, with
+zero failures**, and it is a command in exactly the same way:
+
+```
+audit-render · component layout · geometry
+  measurements: 93632
+  failures: 0
+```
+
+Four things it had to learn, each of them a false alarm in the first place:
+
+- **A dimmed picture is not the only way to be wrong.** A box that is exactly
+  where it was asked to be can still hold a word that does not fit: a date
+  number squeezed into a tenth of its cell keeps the box the layout gave it
+  and spills the digits over its neighbour. The text's own ink box — measured
+  with a range over the text node — is what shows it.
+- **A rotated shape's box is bigger than the box it occupies.** A leaning
+  slash turns a narrow rectangle into a wide diagonal. Comparing the
+  transformed bounding box with the parent would report every decoration in
+  the library as an overflow.
+- **A closed disclosure's content is not in the disclosure's height.** The
+  browser lays the content out and does not paint it, so its box sits below
+  the box of the thing that holds it.
+- **A skipped subtree is not painted either.** `content-visibility: auto`
+  keeps a subtree out of the layout until it comes near the viewport, and
+  its container holds a placeholder size rather than the real one. The
+  content is genuinely taller than the box it sits in — that is what the
+  browser is for.
+
+And one thing it learned from the library's own semantics: **a row is a
+row.** Two elements marked `role="row"` whose vertical ranges overlap are
+laid out beside each other, which means the container above them has the
+wrong number of columns. That is the check that finds the seven-column date
+grid, and it finds it even when every box in it is exactly the size it was
+asked to be.
+
+A measuring instrument that has never been shown to fail is not known to
+work, so the broken layout was put back on purpose: the probe reported 384
+failures on it, and 0 once it was fixed again.
+
+### The other half of the library: the app packs
+
+The app packs are the other thing this repository renders: 14 product screen
+sets, 60 screens, built from a mood's **own** tokens rather than from the
+component layer's roles. They were never measured; the documentation used to
+say an app pack "inherits its mood's contrast guarantees" and stop there.
+
+`tools/probe/apps.html` loads every screen into an iframe and measures what
+the browser painted: **3 364 measurements, 1 106 below the bar**. The failures
+are not spread out — they are two habits, and both are the *mood's* habit
+rather than the generator's:
+
+| What the screen does | Failures | Worst |
+| --- | --- | --- |
+| A mood colour painted as text — `colors.muted`, `colors.accent`, `colors.ok`, `colors.danger` | 961 | 1.44 |
+| A solid fill with the mood's own on-colour (`onAccent`, `onDangerSolid`, …) | 145 | 2.02 |
+
+823 of the 961 are one token: `colors.muted`. It is below 4.5:1 as text in 20
+of the 32 moods, and the app packs show it as often as the screens allow.
+
+This is the same debt the component layer does *not* have, and the difference
+is exactly what the derived roles are for: the component layer derives
+`text-secondary` from the mood's muted colour and moves it toward the text
+colour until it reads, and it derives `color-*-on` so that a solid fill has a
+foreground that reads on it. The app layer paints with the mood's tokens as
+they are, on purpose — it is the faithful picture of a mood, and a faithful
+picture of a mood shows the mood's contrast.
+
+So the number above is not a defect in the app generator. It is the size of
+the mood palette's own contrast debt, measured. Repairing it is a decision
+about the moods themselves, and it belongs to whoever owns the moods.
 
 ### Text has a bar, and a shape has a different one
 

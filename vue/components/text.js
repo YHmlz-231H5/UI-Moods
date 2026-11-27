@@ -1,0 +1,40 @@
+// ui-moods · Text
+//
+// The inline text atom: a colour, a size and the words. The wrapper picks the
+// element, because the element is the host's to choose — a run that reads as a
+// heading has to be marked up as a heading, and only the host knows which
+// level it is.
+//
+// The size modifier is left off for the default size, because the stylesheet
+// says the middle size needs no class.
+
+import { defineComponent, h } from "vue";
+
+/** The elements a run may be written as. */
+const TAGS = ["span", "div", "p"];
+
+export const UMText = defineComponent({
+  name: "UMText",
+  example: "types",
+  props: {
+    type: { type: String, default: "regular" },
+    size: { type: String, default: "md" },
+    truncate: { type: Boolean, default: false },
+    tag: { type: String, default: "span" },
+  },
+  setup(props, { slots }) {
+    return () =>
+      h(
+        TAGS.includes(props.tag) ? props.tag : "span",
+        {
+          class: [
+            "um-text",
+            `um-text--${props.type}`,
+            props.size !== "md" ? `um-text--${props.size}` : null,
+            props.truncate ? "um-text--truncate" : null,
+          ],
+        },
+        slots.default ? slots.default() : [],
+      );
+  },
+});

@@ -1,0 +1,62 @@
+{
+  "id": "space",
+  "name": "Space",
+  "nameZh": "间距",
+  "category": "basic",
+  "element": "div",
+  "summary": "A run of things with the same space between them. The space is one gap on the container, not a margin on each child, so the last child carries no trailing space and the run wraps without a gap of its own.",
+  "summaryZh": "一排东西,彼此之间留同样的空。这个空是容器上的一个 gap,不是每个孩子身上的 margin,所以最后一个孩子不会多带一段空白,整排换行的时候也不会多出一道缝。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-space",
+    "modifier": "um-space--",
+    "part": "um-space__"
+  },
+  "variants": [
+    { "id": "horizontal", "name": "Horizontal", "nameZh": "横向", "note": "The run goes across and wraps onto the next line when it runs out of room. The base class on its own is this layout, and the modifier paints the same thing so the class list can name it." },
+    { "id": "vertical", "name": "Vertical", "nameZh": "纵向", "note": "The run goes down. Every child takes the whole width of the run, so the space between them is a line of its own rather than a gap in a row." }
+  ],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "The gap takes the theme's tightest step." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default size. The base class is already this size, so it needs no modifier." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "The gap takes the theme's section step." }
+  ],
+  "states": [],
+  "parts": [
+    { "id": "item", "name": "Item", "nameZh": "子项", "note": "One thing in the run. It carries no size of its own — the space between the items belongs to the container — but it is allowed to shrink, so a long name wraps instead of pushing the row wider than the box it sits in." }
+  ],
+  "props": [
+    { "name": "direction", "type": "enum", "values": ["horizontal", "vertical"], "default": "horizontal", "description": "Which way the run goes. The horizontal run is the base class on its own; the vertical run adds um-space--vertical.", "descriptionZh": "这一排往哪个方向排。横向是只写基础类;纵向再加上 um-space--vertical。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "How much space sits between the items. It is a step of the theme's own spacing scale, so the run is spaced like the rest of the page.", "descriptionZh": "子项之间留多少空。它是主题自己间距刻度上的一档,所以这一排的疏密跟页面上其他地方是一致的。" }
+  ],
+  "slots": [
+    { "name": "default", "description": "The things in the run. Each one is wrapped in an item, so the gap lands between them and not inside them.", "descriptionZh": "这一排里的东西。每一个都会裹进一个子项里,所以那道空落在它们之间,而不是落在它们自己身上。" }
+  ],
+  "events": [],
+  "a11y": {
+    "keyboard": [],
+    "notes": "The container carries no role: it is a layout, and a layout that announced itself would only get in the way of the things inside it. The space between the items is a gap, so nothing about the reading order changes — the items are read in the order they are written, which is the order a screen reader walks the document in anyway. The component paints no surface of its own, so whatever the items sit on is still whatever the page put there.",
+    "notesZh": "容器不带角色:它是一个排版,会自己出声的排版只会挡住里面的东西。子项之间的空是一个 gap,所以阅读顺序没有变 —— 读屏按文档顺序走,读到的就是写的那个顺序。这个组件自己不画任何表面,所以子项落在什么上面,还是页面放在那里的什么。"
+  },
+  "examples": [
+    {
+      "id": "horizontal",
+      "title": "Horizontal",
+      "titleZh": "横向",
+      "description": "A row of labels with one gap between them. The gap belongs to the container, so the row wraps without a gap of its own when it runs out of room.",
+      "descriptionZh": "一排文字,彼此之间一道空。那道空属于容器,所以这一排放不下的时候换行,换出来的那一行不会多出一道缝。",
+      "markup": "<div class=\"um-space um-space--horizontal\">\n  <span class=\"um-space__item\">Inbox</span>\n  <span class=\"um-space__item\">Drafts</span>\n  <span class=\"um-space__item\">Sent</span>\n  <span class=\"um-space__item\">Archive</span>\n</div>"
+    },
+    {
+      "id": "vertical",
+      "title": "Vertical",
+      "titleZh": "纵向",
+      "description": "The same run downwards. Every child takes the full width of the run, so the space between them is a line of its own.",
+      "descriptionZh": "同一排东西改成往下排。每个子项都占满整排的宽度,所以它们之间的空是单独一行。",
+      "markup": "<div class=\"um-space um-space--vertical\">\n  <span class=\"um-space__item\">Inbox</span>\n  <span class=\"um-space__item\">Drafts</span>\n  <span class=\"um-space__item\">Sent</span>\n  <span class=\"um-space__item\">Archive</span>\n</div>"
+    }
+  ],
+  "notes": "The space is a gap and not a margin on each child. A margin would have to be cancelled on the first and the last child to come out even, and the cancellation is the part that is always forgotten; a gap is between two things by definition, so the ends are clean by construction. The item exists so that a child can shrink — without it a long name in a narrow row pushes the whole run wider than the box it sits in.",
+  "notesZh": "这道空是 gap,不是每个孩子身上的 margin。margin 要在第一个和最后一个孩子身上抵消回来才匀,而被忘掉的总归是那个抵消;gap 本来就在两个东西之间,所以两头天生是干净的。子项这个类的用处是让孩子可以被压小 —— 没有它,一行里的长名字会把整排撑得比它所在的盒子还宽。"
+}

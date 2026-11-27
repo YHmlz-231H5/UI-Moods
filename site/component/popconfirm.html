@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Popconfirm · UI Moods</title>
+  <meta name="description" content="A bubble that asks before it acts. It hangs off a trigger, and it holds a question and the two real buttons that answer it: confirm and cancel." />
+
+  <!-- The two files that make the whole thing work.
+       The first is the library; the second carries all thirty-two moods at
+       once, so the picker below changes an attribute instead of loading a
+       file — the switch has no network request to wait for. -->
+  <link rel="stylesheet" id="um-theme" href="../../themes/all.css" />
+  <link rel="stylesheet" href="../../components/um-components.css" />
+  <link rel="stylesheet" href="../../site/assets/site.css" />
+</head>
+<body>
+  <header class="site-header">
+      <a class="site-header__brand" href="../../index.html">UI Moods<span>Component Library</span></a>
+      <div class="site-header__spacer"></div>
+      <div class="switcher">
+        <label class="switcher__label" for="um-theme-picker">Theme</label>
+        <span class="switcher__field">
+          <select class="switcher__select" id="um-theme-picker"></select>
+        </span>
+      </div>
+    </header>
+  <div class="site-body">
+    <nav class="site-sidebar" aria-label="Components">
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Basic · 基础</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/affix.html">Affix <span class="meta">固钉</span></a></li>
+          <li><a href="../component/border.html">Border <span class="meta">边框</span></a></li>
+          <li><a href="../component/color.html">Color <span class="meta">色板</span></a></li>
+          <li><a href="../component/config-provider.html">Config Provider <span class="meta">全局配置</span></a></li>
+          <li><a href="../component/container.html">Container <span class="meta">容器</span></a></li>
+          <li><a href="../component/icon.html">Icon <span class="meta">图标</span></a></li>
+          <li><a href="../component/layout.html">Layout <span class="meta">布局</span></a></li>
+          <li><a href="../component/link.html">Link <span class="meta">链接</span></a></li>
+          <li><a href="../component/page-header.html">PageHeader <span class="meta">页头</span></a></li>
+          <li><a href="../component/scrollbar.html">Scrollbar <span class="meta">滚动条</span></a></li>
+          <li><a href="../component/space.html">Space <span class="meta">间距</span></a></li>
+          <li><a href="../component/splitter.html">Splitter <span class="meta">分割面板</span></a></li>
+          <li><a href="../component/text.html">Text <span class="meta">文本</span></a></li>
+          <li><a href="../component/typography.html">Typography <span class="meta">文字排版</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Form · 表单</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/autocomplete.html">Autocomplete <span class="meta">自动补全</span></a></li>
+          <li><a href="../component/button.html">Button <span class="meta">按钮</span></a></li>
+          <li><a href="../component/checkbox.html">Checkbox <span class="meta">复选框</span></a></li>
+          <li><a href="../component/checkbox-group.html">Checkbox Group <span class="meta">复选框组</span></a></li>
+          <li><a href="../component/color-picker.html">Color Picker <span class="meta">颜色选择器</span></a></li>
+          <li><a href="../component/color-picker-panel.html">Color Picker Panel <span class="meta">颜色选择面板</span></a></li>
+          <li><a href="../component/date-picker.html">Date Picker <span class="meta">日期选择器</span></a></li>
+          <li><a href="../component/date-picker-panel.html">Date Picker Panel <span class="meta">日期选择面板</span></a></li>
+          <li><a href="../component/date-time-picker.html">Date Time Picker <span class="meta">日期时间选择器</span></a></li>
+          <li><a href="../component/field.html">Field <span class="meta">表单项</span></a></li>
+          <li><a href="../component/input.html">Input / Textarea / Select <span class="meta">输入框 / 文本域 / 选择器</span></a></li>
+          <li><a href="../component/input-number.html">Input Number <span class="meta">数字输入框</span></a></li>
+          <li><a href="../component/input-otp.html">Input OTP <span class="meta">验证码输入</span></a></li>
+          <li><a href="../component/input-tag.html">Input Tag <span class="meta">标签输入</span></a></li>
+          <li><a href="../component/mention.html">Mention <span class="meta">提及</span></a></li>
+          <li><a href="../component/radio.html">Radio <span class="meta">单选框</span></a></li>
+          <li><a href="../component/radio-group.html">Radio Group <span class="meta">单选框组</span></a></li>
+          <li><a href="../component/rate.html">Rate <span class="meta">评分</span></a></li>
+          <li><a href="../component/slider.html">Slider <span class="meta">滑块</span></a></li>
+          <li><a href="../component/switch.html">Switch <span class="meta">开关</span></a></li>
+          <li><a href="../component/time-picker.html">Time Picker <span class="meta">时间选择器</span></a></li>
+          <li><a href="../component/time-select.html">Time Select <span class="meta">时间选择器</span></a></li>
+          <li><a href="../component/tree-select.html">Tree Select <span class="meta">树选择器</span></a></li>
+          <li><a href="../component/upload.html">Upload <span class="meta">上传</span></a></li>
+          <li><a href="../component/virtual-select.html">Virtual Select <span class="meta">虚拟列表选择器</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Data · 数据展示</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/avatar.html">Avatar <span class="meta">头像</span></a></li>
+          <li><a href="../component/badge.html">Badge <span class="meta">徽标</span></a></li>
+          <li><a href="../component/calendar.html">Calendar <span class="meta">日历</span></a></li>
+          <li><a href="../component/card.html">Card <span class="meta">卡片</span></a></li>
+          <li><a href="../component/carousel.html">Carousel <span class="meta">轮播图</span></a></li>
+          <li><a href="../component/cascader.html">Cascader <span class="meta">级联选择器</span></a></li>
+          <li><a href="../component/collapse.html">Collapse <span class="meta">折叠面板</span></a></li>
+          <li><a href="../component/descriptions.html">Descriptions <span class="meta">描述列表</span></a></li>
+          <li><a href="../component/empty.html">Empty <span class="meta">空状态</span></a></li>
+          <li><a href="../component/image.html">Image <span class="meta">图片</span></a></li>
+          <li><a href="../component/infinite-scroll.html">Infinite Scroll <span class="meta">无限滚动</span></a></li>
+          <li><a href="../component/progress.html">Progress <span class="meta">进度条</span></a></li>
+          <li><a href="../component/result.html">Result <span class="meta">结果</span></a></li>
+          <li><a href="../component/segmented.html">Segmented <span class="meta">分段控制器</span></a></li>
+          <li><a href="../component/skeleton.html">Skeleton <span class="meta">骨架屏</span></a></li>
+          <li><a href="../component/statistic.html">Statistic <span class="meta">统计数值</span></a></li>
+          <li><a href="../component/table.html">Table <span class="meta">表格</span></a></li>
+          <li><a href="../component/tag.html">Tag <span class="meta">标签</span></a></li>
+          <li><a href="../component/timeline.html">Timeline <span class="meta">时间线</span></a></li>
+          <li><a href="../component/tour.html">Tour <span class="meta">引导</span></a></li>
+          <li><a href="../component/transfer.html">Transfer <span class="meta">穿梭框</span></a></li>
+          <li><a href="../component/tree.html">Tree <span class="meta">树</span></a></li>
+          <li><a href="../component/virtual-table.html">Virtualized Table <span class="meta">虚拟表格</span></a></li>
+          <li><a href="../component/virtual-tree.html">Virtualized Tree <span class="meta">虚拟树</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Navigation · 导航</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/anchor.html">Anchor <span class="meta">锚点</span></a></li>
+          <li><a href="../component/backtop.html">Backtop <span class="meta">回到顶部</span></a></li>
+          <li><a href="../component/breadcrumb.html">Breadcrumb <span class="meta">面包屑</span></a></li>
+          <li><a href="../component/dropdown.html">Dropdown <span class="meta">下拉菜单</span></a></li>
+          <li><a href="../component/menu.html">Menu <span class="meta">菜单</span></a></li>
+          <li><a href="../component/pagination.html">Pagination <span class="meta">分页</span></a></li>
+          <li><a href="../component/steps.html">Steps <span class="meta">步骤条</span></a></li>
+          <li><a href="../component/tabs.html">Tabs <span class="meta">标签页</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Feedback · 反馈</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/alert.html">Alert <span class="meta">警告</span></a></li>
+          <li><a href="../component/dialog.html">Dialog <span class="meta">对话框</span></a></li>
+          <li><a href="../component/drawer.html">Drawer <span class="meta">抽屉</span></a></li>
+          <li><a href="../component/loading.html">Loading <span class="meta">加载中</span></a></li>
+          <li><a href="../component/message.html">Message <span class="meta">消息</span></a></li>
+          <li><a href="../component/message-box.html">Message Box <span class="meta">消息框</span></a></li>
+          <li><a href="../component/notification.html">Notification <span class="meta">通知</span></a></li>
+          <li><a href="" aria-current="page">Popconfirm <span class="meta">气泡确认</span></a></li>
+          <li><a href="../component/popover.html">Popover <span class="meta">气泡卡片</span></a></li>
+          <li><a href="../component/tooltip.html">Tooltip <span class="meta">文字提示</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Others · 其他</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/divider.html">Divider <span class="meta">分割线</span></a></li>
+          <li><a href="../component/watermark.html">Watermark <span class="meta">水印</span></a></li>
+        </ul>
+      </div>
+    </nav>
+    <main class="site-main">
+      <h1>Popconfirm <span class="meta">气泡确认</span></h1>
+      <p class="lede">A bubble that asks before it acts. It hangs off a trigger, and it holds a question and the two real buttons that answer it: confirm and cancel.</p>
+      <p class="meta">
+        <span class="tag">div</span>
+        <span class="tag">feedback</span>
+        <span class="tag">since 1.1.0</span>
+      </p>
+      <div class="note">The bubble is hidden with `display: none` and shown again by the ticked checkbox, rather than by opacity or by visibility: a bubble that is merely transparent is still in the tab order, and its two buttons would still be reachable while it is not there. The arrow is a square turned on its corner, and the two edges that form the point carry the bubble's border colour, so the border line stops at the arrow and picks up again on the other side of it.</div>
+
+      <h2>Examples</h2>
+<div class="example">
+        <div class="example__title">Basic · 基础用法</div>
+        <div class="example__desc">A trigger and a bubble. The checkbox is invisible and one pixel wide; the label is what the reader sees and clicks.</div>
+        <div class="example__demo">
+<div class="um-popconfirm">
+  <input class="um-popconfirm__toggle" type="checkbox" id="popconfirm-basic">
+  <label class="um-popconfirm__trigger" for="popconfirm-basic">Delete node</label>
+  <div class="um-popconfirm__panel" role="dialog" aria-label="Delete node">
+    <span class="um-popconfirm__arrow" aria-hidden="true"></span>
+    <div class="um-popconfirm__message">Delete node-07 and everything on it? This cannot be undone.</div>
+    <div class="um-popconfirm__actions">
+      <button type="button" class="um-popconfirm__cancel">Cancel</button>
+      <button type="button" class="um-popconfirm__confirm">Delete</button>
+    </div>
+  </div>
+</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-popconfirm&quot;&gt;
+  &lt;input class=&quot;um-popconfirm__toggle&quot; type=&quot;checkbox&quot; id=&quot;popconfirm-basic&quot;&gt;
+  &lt;label class=&quot;um-popconfirm__trigger&quot; for=&quot;popconfirm-basic&quot;&gt;Delete node&lt;/label&gt;
+  &lt;div class=&quot;um-popconfirm__panel&quot; role=&quot;dialog&quot; aria-label=&quot;Delete node&quot;&gt;
+    &lt;span class=&quot;um-popconfirm__arrow&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+    &lt;div class=&quot;um-popconfirm__message&quot;&gt;Delete node-07 and everything on it? This cannot be undone.&lt;/div&gt;
+    &lt;div class=&quot;um-popconfirm__actions&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;um-popconfirm__cancel&quot;&gt;Cancel&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;um-popconfirm__confirm&quot;&gt;Delete&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">Placements · 位置</div>
+        <div class="example__desc">The base class opens the bubble below the trigger. The three modifiers open it above, to the left or to the right, and the arrow follows.</div>
+        <div class="example__demo">
+<div class="um-popconfirm um-popconfirm--top">
+  <input class="um-popconfirm__toggle" type="checkbox" id="popconfirm-top">
+  <label class="um-popconfirm__trigger" for="popconfirm-top">Above</label>
+  <div class="um-popconfirm__panel" role="dialog" aria-label="Above">
+    <span class="um-popconfirm__arrow" aria-hidden="true"></span>
+    <div class="um-popconfirm__message">The bubble opens above the trigger.</div>
+    <div class="um-popconfirm__actions">
+      <button type="button" class="um-popconfirm__cancel">Cancel</button>
+      <button type="button" class="um-popconfirm__confirm">Confirm</button>
+    </div>
+  </div>
+</div>
+<div class="um-popconfirm um-popconfirm--left">
+  <input class="um-popconfirm__toggle" type="checkbox" id="popconfirm-left">
+  <label class="um-popconfirm__trigger" for="popconfirm-left">Left</label>
+  <div class="um-popconfirm__panel" role="dialog" aria-label="Left">
+    <span class="um-popconfirm__arrow" aria-hidden="true"></span>
+    <div class="um-popconfirm__message">The bubble opens to the left of the trigger.</div>
+    <div class="um-popconfirm__actions">
+      <button type="button" class="um-popconfirm__cancel">Cancel</button>
+      <button type="button" class="um-popconfirm__confirm">Confirm</button>
+    </div>
+  </div>
+</div>
+<div class="um-popconfirm um-popconfirm--right">
+  <input class="um-popconfirm__toggle" type="checkbox" id="popconfirm-right">
+  <label class="um-popconfirm__trigger" for="popconfirm-right">Right</label>
+  <div class="um-popconfirm__panel" role="dialog" aria-label="Right">
+    <span class="um-popconfirm__arrow" aria-hidden="true"></span>
+    <div class="um-popconfirm__message">The bubble opens to the right of the trigger.</div>
+    <div class="um-popconfirm__actions">
+      <button type="button" class="um-popconfirm__cancel">Cancel</button>
+      <button type="button" class="um-popconfirm__confirm">Confirm</button>
+    </div>
+  </div>
+</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-popconfirm um-popconfirm--top&quot;&gt;
+  &lt;input class=&quot;um-popconfirm__toggle&quot; type=&quot;checkbox&quot; id=&quot;popconfirm-top&quot;&gt;
+  &lt;label class=&quot;um-popconfirm__trigger&quot; for=&quot;popconfirm-top&quot;&gt;Above&lt;/label&gt;
+  &lt;div class=&quot;um-popconfirm__panel&quot; role=&quot;dialog&quot; aria-label=&quot;Above&quot;&gt;
+    &lt;span class=&quot;um-popconfirm__arrow&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+    &lt;div class=&quot;um-popconfirm__message&quot;&gt;The bubble opens above the trigger.&lt;/div&gt;
+    &lt;div class=&quot;um-popconfirm__actions&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;um-popconfirm__cancel&quot;&gt;Cancel&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;um-popconfirm__confirm&quot;&gt;Confirm&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;um-popconfirm um-popconfirm--left&quot;&gt;
+  &lt;input class=&quot;um-popconfirm__toggle&quot; type=&quot;checkbox&quot; id=&quot;popconfirm-left&quot;&gt;
+  &lt;label class=&quot;um-popconfirm__trigger&quot; for=&quot;popconfirm-left&quot;&gt;Left&lt;/label&gt;
+  &lt;div class=&quot;um-popconfirm__panel&quot; role=&quot;dialog&quot; aria-label=&quot;Left&quot;&gt;
+    &lt;span class=&quot;um-popconfirm__arrow&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+    &lt;div class=&quot;um-popconfirm__message&quot;&gt;The bubble opens to the left of the trigger.&lt;/div&gt;
+    &lt;div class=&quot;um-popconfirm__actions&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;um-popconfirm__cancel&quot;&gt;Cancel&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;um-popconfirm__confirm&quot;&gt;Confirm&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;um-popconfirm um-popconfirm--right&quot;&gt;
+  &lt;input class=&quot;um-popconfirm__toggle&quot; type=&quot;checkbox&quot; id=&quot;popconfirm-right&quot;&gt;
+  &lt;label class=&quot;um-popconfirm__trigger&quot; for=&quot;popconfirm-right&quot;&gt;Right&lt;/label&gt;
+  &lt;div class=&quot;um-popconfirm__panel&quot; role=&quot;dialog&quot; aria-label=&quot;Right&quot;&gt;
+    &lt;span class=&quot;um-popconfirm__arrow&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+    &lt;div class=&quot;um-popconfirm__message&quot;&gt;The bubble opens to the right of the trigger.&lt;/div&gt;
+    &lt;div class=&quot;um-popconfirm__actions&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;um-popconfirm__cancel&quot;&gt;Cancel&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;um-popconfirm__confirm&quot;&gt;Confirm&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">Sizes · 尺寸</div>
+        <div class="example__desc">Three widths. The middle one is the base class on its own, because the base class is already the medium bubble.</div>
+        <div class="example__demo">
+<div class="um-popconfirm um-popconfirm--sm">
+  <input class="um-popconfirm__toggle" type="checkbox" id="popconfirm-sm">
+  <label class="um-popconfirm__trigger" for="popconfirm-sm">Small</label>
+  <div class="um-popconfirm__panel" role="dialog" aria-label="Small">
+    <span class="um-popconfirm__arrow" aria-hidden="true"></span>
+    <div class="um-popconfirm__message">A narrow bubble.</div>
+    <div class="um-popconfirm__actions">
+      <button type="button" class="um-popconfirm__cancel">Cancel</button>
+      <button type="button" class="um-popconfirm__confirm">Confirm</button>
+    </div>
+  </div>
+</div>
+<div class="um-popconfirm">
+  <input class="um-popconfirm__toggle" type="checkbox" id="popconfirm-md">
+  <label class="um-popconfirm__trigger" for="popconfirm-md">Medium</label>
+  <div class="um-popconfirm__panel" role="dialog" aria-label="Medium">
+    <span class="um-popconfirm__arrow" aria-hidden="true"></span>
+    <div class="um-popconfirm__message">The default bubble.</div>
+    <div class="um-popconfirm__actions">
+      <button type="button" class="um-popconfirm__cancel">Cancel</button>
+      <button type="button" class="um-popconfirm__confirm">Confirm</button>
+    </div>
+  </div>
+</div>
+<div class="um-popconfirm um-popconfirm--lg">
+  <input class="um-popconfirm__toggle" type="checkbox" id="popconfirm-lg">
+  <label class="um-popconfirm__trigger" for="popconfirm-lg">Large</label>
+  <div class="um-popconfirm__panel" role="dialog" aria-label="Large">
+    <span class="um-popconfirm__arrow" aria-hidden="true"></span>
+    <div class="um-popconfirm__message">A wide bubble, for a question that needs a line or two of its own.</div>
+    <div class="um-popconfirm__actions">
+      <button type="button" class="um-popconfirm__cancel">Cancel</button>
+      <button type="button" class="um-popconfirm__confirm">Confirm</button>
+    </div>
+  </div>
+</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-popconfirm um-popconfirm--sm&quot;&gt;
+  &lt;input class=&quot;um-popconfirm__toggle&quot; type=&quot;checkbox&quot; id=&quot;popconfirm-sm&quot;&gt;
+  &lt;label class=&quot;um-popconfirm__trigger&quot; for=&quot;popconfirm-sm&quot;&gt;Small&lt;/label&gt;
+  &lt;div class=&quot;um-popconfirm__panel&quot; role=&quot;dialog&quot; aria-label=&quot;Small&quot;&gt;
+    &lt;span class=&quot;um-popconfirm__arrow&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+    &lt;div class=&quot;um-popconfirm__message&quot;&gt;A narrow bubble.&lt;/div&gt;
+    &lt;div class=&quot;um-popconfirm__actions&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;um-popconfirm__cancel&quot;&gt;Cancel&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;um-popconfirm__confirm&quot;&gt;Confirm&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;um-popconfirm&quot;&gt;
+  &lt;input class=&quot;um-popconfirm__toggle&quot; type=&quot;checkbox&quot; id=&quot;popconfirm-md&quot;&gt;
+  &lt;label class=&quot;um-popconfirm__trigger&quot; for=&quot;popconfirm-md&quot;&gt;Medium&lt;/label&gt;
+  &lt;div class=&quot;um-popconfirm__panel&quot; role=&quot;dialog&quot; aria-label=&quot;Medium&quot;&gt;
+    &lt;span class=&quot;um-popconfirm__arrow&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+    &lt;div class=&quot;um-popconfirm__message&quot;&gt;The default bubble.&lt;/div&gt;
+    &lt;div class=&quot;um-popconfirm__actions&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;um-popconfirm__cancel&quot;&gt;Cancel&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;um-popconfirm__confirm&quot;&gt;Confirm&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;um-popconfirm um-popconfirm--lg&quot;&gt;
+  &lt;input class=&quot;um-popconfirm__toggle&quot; type=&quot;checkbox&quot; id=&quot;popconfirm-lg&quot;&gt;
+  &lt;label class=&quot;um-popconfirm__trigger&quot; for=&quot;popconfirm-lg&quot;&gt;Large&lt;/label&gt;
+  &lt;div class=&quot;um-popconfirm__panel&quot; role=&quot;dialog&quot; aria-label=&quot;Large&quot;&gt;
+    &lt;span class=&quot;um-popconfirm__arrow&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+    &lt;div class=&quot;um-popconfirm__message&quot;&gt;A wide bubble, for a question that needs a line or two of its own.&lt;/div&gt;
+    &lt;div class=&quot;um-popconfirm__actions&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;um-popconfirm__cancel&quot;&gt;Cancel&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;um-popconfirm__confirm&quot;&gt;Confirm&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+      </div>
+      <h2>Classes</h2>
+<table class="api">
+      <thead><tr><th>Class</th><th>Meaning</th></tr></thead>
+      <tbody>
+      <tr><td><code>um-popconfirm</code></td><td>The base class. Every instance carries it.</td></tr>
+      <tr><td><code>um-popconfirm--top</code></td><td>Above the trigger</td></tr>
+      <tr><td><code>um-popconfirm--left</code></td><td>Left of the trigger</td></tr>
+      <tr><td><code>um-popconfirm--right</code></td><td>Right of the trigger</td></tr>
+      <tr><td><code>um-popconfirm--sm</code></td><td>Size: sm</td></tr>
+      <tr><td><code>um-popconfirm--md</code></td><td>Size: md</td></tr>
+      <tr><td><code>um-popconfirm--lg</code></td><td>Size: lg</td></tr>
+      <tr><td><code>um-popconfirm__toggle</code></td><td>Toggle</td></tr>
+      <tr><td><code>um-popconfirm__trigger</code></td><td>Trigger</td></tr>
+      <tr><td><code>um-popconfirm__panel</code></td><td>Bubble</td></tr>
+      <tr><td><code>um-popconfirm__arrow</code></td><td>Arrow</td></tr>
+      <tr><td><code>um-popconfirm__message</code></td><td>Question</td></tr>
+      <tr><td><code>um-popconfirm__actions</code></td><td>Actions</td></tr>
+      <tr><td><code>um-popconfirm__confirm</code></td><td>Confirm</td></tr>
+      <tr><td><code>um-popconfirm__cancel</code></td><td>Cancel</td></tr>
+      <tr><td><code>:checked</code></td><td>Open</td></tr>
+      <tr><td><code>:focus-visible</code></td><td>Focus visible</td></tr>
+      </tbody>
+    </table>
+      <h2>Props</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>placement</code></span></td><td><code>enum = bottom | top | left | right</code></td><td><code>bottom</code></td><td>Where the bubble opens relative to the trigger. The bottom placement is the base class on its own.</td></tr>
+      <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>How wide the bubble is. The measures are in the bubble's own type, so it grows with the mood's text.</td></tr>
+      <tr><td><span class="api__name"><code>title</code></span></td><td><code>string</code></td><td>—</td><td>The question the bubble asks.</td></tr>
+      <tr><td><span class="api__name"><code>confirmText</code></span></td><td><code>string</code></td><td><code>Confirm</code></td><td>The label of the button that goes ahead.</td></tr>
+      <tr><td><span class="api__name"><code>cancelText</code></span></td><td><code>string</code></td><td><code>Cancel</code></td><td>The label of the button that backs out.</td></tr>
+      </tbody>
+    </table>
+      <h2>Slots</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>The label of the trigger.</td></tr>
+      <tr><td><span class="api__name"><code>message</code></span></td><td>The question the bubble asks.</td></tr>
+      </tbody>
+    </table>
+
+      <h2>Accessibility</h2>
+      <p><strong>Role:</strong> <code>dialog</code></p>
+        <p><strong>Keyboard:</strong> <code>Tab</code> <code>Space</code></p>
+        <p>The open state is a real checkbox, so the browser owns it: the label ticks the box, and ticking the box again closes the bubble. The checkbox is the control that takes the focus, so the focus ring is drawn around the trigger it belongs to. The bubble is not modal: it does not trap the focus, and Escape does not close it — a CSS-only library has no key handling to add — so the reader closes it with the same trigger they opened it with. The two answers are real buttons, so both are in the tab order and both can be pressed with the keyboard.</p>
+
+    </main>
+  </div>
+
+  <script>window.UM_THEMES = {"light":["anime","archive","bauhaus","brutal","clay","corporate","eco","fashion","food","forest","ios","luxury","medical","monochrome","nordic","pastel","retro","sakura","swiss","travel","y2k"],"dark":["aurora","blueprint","crypto","finance","gaming","glass","instrument","neon","night","vaporwave","verdant"]};
+  window.UM_DEFAULT_THEME = "aurora";</script>
+  <script src="../../themes/switcher.js"></script>
+  <script src="../../site/assets/site.js"></script>
+</body>
+</html>

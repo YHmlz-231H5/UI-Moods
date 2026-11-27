@@ -1,0 +1,62 @@
+/* ============================================================================
+   Input OTP
+   ========================================================================== */
+
+/* The row is the group: the boxes are one-character fields, and the row only
+   holds them and the gap between them. The boxed run is the base class on its
+   own; the modifier carries the same rule, so the class list can name it. */
+.um-input-otp,
+.um-input-otp--boxed {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--um-space-xs);
+}
+
+.um-input-otp__field {
+  width: var(--um-height-md);
+  height: var(--um-height-md);
+  padding: 0;
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-small);
+  background: var(--um-surface-input);
+  color: var(--um-text-primary);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-title);
+  line-height: 1;
+  text-align: center;
+}
+
+/* The ring goes on the one box the reader is in. A ring around the whole row
+   would say the wrong thing about what is focused. */
+.um-input-otp__field:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+/* A disabled box paints a flat surface and takes the derived disabled
+   colour, the way every other disabled control does. */
+.um-input-otp__field:disabled {
+  background: var(--um-surface-control);
+  color: var(--um-text-disabled);
+  cursor: not-allowed;
+}
+
+/* The underline run drops every edge but the bottom one, so the row reads as
+   six slots on a line rather than as six boxes. It comes after the disabled
+   rule, so a disabled slot stays a slot and not a filled box. */
+.um-input-otp--underline .um-input-otp__field {
+  border-width: 0 0 var(--um-border-width);
+  border-radius: var(--um-radius-none);
+  background: transparent;
+}
+
+.um-input-otp--sm .um-input-otp__field {
+  width: var(--um-height-sm);
+  height: var(--um-height-sm);
+  font-size: var(--um-font-size-body);
+}
+
+.um-input-otp--lg .um-input-otp__field {
+  width: var(--um-height-lg);
+  height: var(--um-height-lg);
+}

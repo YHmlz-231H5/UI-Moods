@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mention · UI Moods</title>
+  <meta name="description" content="A field with a list of people under it. The reader types, the host decides which names to offer, and each name is a button that carries an avatar slot and an @name." />
+
+  <!-- The two files that make the whole thing work.
+       The first is the library; the second carries all thirty-two moods at
+       once, so the picker below changes an attribute instead of loading a
+       file — the switch has no network request to wait for. -->
+  <link rel="stylesheet" id="um-theme" href="../../themes/all.css" />
+  <link rel="stylesheet" href="../../components/um-components.css" />
+  <link rel="stylesheet" href="../../site/assets/site.css" />
+</head>
+<body>
+  <header class="site-header">
+      <a class="site-header__brand" href="../../index.html">UI Moods<span>Component Library</span></a>
+      <div class="site-header__spacer"></div>
+      <div class="switcher">
+        <label class="switcher__label" for="um-theme-picker">Theme</label>
+        <span class="switcher__field">
+          <select class="switcher__select" id="um-theme-picker"></select>
+        </span>
+      </div>
+    </header>
+  <div class="site-body">
+    <nav class="site-sidebar" aria-label="Components">
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Basic · 基础</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/affix.html">Affix <span class="meta">固钉</span></a></li>
+          <li><a href="../component/border.html">Border <span class="meta">边框</span></a></li>
+          <li><a href="../component/color.html">Color <span class="meta">色板</span></a></li>
+          <li><a href="../component/config-provider.html">Config Provider <span class="meta">全局配置</span></a></li>
+          <li><a href="../component/container.html">Container <span class="meta">容器</span></a></li>
+          <li><a href="../component/icon.html">Icon <span class="meta">图标</span></a></li>
+          <li><a href="../component/layout.html">Layout <span class="meta">布局</span></a></li>
+          <li><a href="../component/link.html">Link <span class="meta">链接</span></a></li>
+          <li><a href="../component/page-header.html">PageHeader <span class="meta">页头</span></a></li>
+          <li><a href="../component/scrollbar.html">Scrollbar <span class="meta">滚动条</span></a></li>
+          <li><a href="../component/space.html">Space <span class="meta">间距</span></a></li>
+          <li><a href="../component/splitter.html">Splitter <span class="meta">分割面板</span></a></li>
+          <li><a href="../component/text.html">Text <span class="meta">文本</span></a></li>
+          <li><a href="../component/typography.html">Typography <span class="meta">文字排版</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Form · 表单</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/autocomplete.html">Autocomplete <span class="meta">自动补全</span></a></li>
+          <li><a href="../component/button.html">Button <span class="meta">按钮</span></a></li>
+          <li><a href="../component/checkbox.html">Checkbox <span class="meta">复选框</span></a></li>
+          <li><a href="../component/checkbox-group.html">Checkbox Group <span class="meta">复选框组</span></a></li>
+          <li><a href="../component/color-picker.html">Color Picker <span class="meta">颜色选择器</span></a></li>
+          <li><a href="../component/color-picker-panel.html">Color Picker Panel <span class="meta">颜色选择面板</span></a></li>
+          <li><a href="../component/date-picker.html">Date Picker <span class="meta">日期选择器</span></a></li>
+          <li><a href="../component/date-picker-panel.html">Date Picker Panel <span class="meta">日期选择面板</span></a></li>
+          <li><a href="../component/date-time-picker.html">Date Time Picker <span class="meta">日期时间选择器</span></a></li>
+          <li><a href="../component/field.html">Field <span class="meta">表单项</span></a></li>
+          <li><a href="../component/input.html">Input / Textarea / Select <span class="meta">输入框 / 文本域 / 选择器</span></a></li>
+          <li><a href="../component/input-number.html">Input Number <span class="meta">数字输入框</span></a></li>
+          <li><a href="../component/input-otp.html">Input OTP <span class="meta">验证码输入</span></a></li>
+          <li><a href="../component/input-tag.html">Input Tag <span class="meta">标签输入</span></a></li>
+          <li><a href="" aria-current="page">Mention <span class="meta">提及</span></a></li>
+          <li><a href="../component/radio.html">Radio <span class="meta">单选框</span></a></li>
+          <li><a href="../component/radio-group.html">Radio Group <span class="meta">单选框组</span></a></li>
+          <li><a href="../component/rate.html">Rate <span class="meta">评分</span></a></li>
+          <li><a href="../component/slider.html">Slider <span class="meta">滑块</span></a></li>
+          <li><a href="../component/switch.html">Switch <span class="meta">开关</span></a></li>
+          <li><a href="../component/time-picker.html">Time Picker <span class="meta">时间选择器</span></a></li>
+          <li><a href="../component/time-select.html">Time Select <span class="meta">时间选择器</span></a></li>
+          <li><a href="../component/tree-select.html">Tree Select <span class="meta">树选择器</span></a></li>
+          <li><a href="../component/upload.html">Upload <span class="meta">上传</span></a></li>
+          <li><a href="../component/virtual-select.html">Virtual Select <span class="meta">虚拟列表选择器</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Data · 数据展示</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/avatar.html">Avatar <span class="meta">头像</span></a></li>
+          <li><a href="../component/badge.html">Badge <span class="meta">徽标</span></a></li>
+          <li><a href="../component/calendar.html">Calendar <span class="meta">日历</span></a></li>
+          <li><a href="../component/card.html">Card <span class="meta">卡片</span></a></li>
+          <li><a href="../component/carousel.html">Carousel <span class="meta">轮播图</span></a></li>
+          <li><a href="../component/cascader.html">Cascader <span class="meta">级联选择器</span></a></li>
+          <li><a href="../component/collapse.html">Collapse <span class="meta">折叠面板</span></a></li>
+          <li><a href="../component/descriptions.html">Descriptions <span class="meta">描述列表</span></a></li>
+          <li><a href="../component/empty.html">Empty <span class="meta">空状态</span></a></li>
+          <li><a href="../component/image.html">Image <span class="meta">图片</span></a></li>
+          <li><a href="../component/infinite-scroll.html">Infinite Scroll <span class="meta">无限滚动</span></a></li>
+          <li><a href="../component/progress.html">Progress <span class="meta">进度条</span></a></li>
+          <li><a href="../component/result.html">Result <span class="meta">结果</span></a></li>
+          <li><a href="../component/segmented.html">Segmented <span class="meta">分段控制器</span></a></li>
+          <li><a href="../component/skeleton.html">Skeleton <span class="meta">骨架屏</span></a></li>
+          <li><a href="../component/statistic.html">Statistic <span class="meta">统计数值</span></a></li>
+          <li><a href="../component/table.html">Table <span class="meta">表格</span></a></li>
+          <li><a href="../component/tag.html">Tag <span class="meta">标签</span></a></li>
+          <li><a href="../component/timeline.html">Timeline <span class="meta">时间线</span></a></li>
+          <li><a href="../component/tour.html">Tour <span class="meta">引导</span></a></li>
+          <li><a href="../component/transfer.html">Transfer <span class="meta">穿梭框</span></a></li>
+          <li><a href="../component/tree.html">Tree <span class="meta">树</span></a></li>
+          <li><a href="../component/virtual-table.html">Virtualized Table <span class="meta">虚拟表格</span></a></li>
+          <li><a href="../component/virtual-tree.html">Virtualized Tree <span class="meta">虚拟树</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Navigation · 导航</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/anchor.html">Anchor <span class="meta">锚点</span></a></li>
+          <li><a href="../component/backtop.html">Backtop <span class="meta">回到顶部</span></a></li>
+          <li><a href="../component/breadcrumb.html">Breadcrumb <span class="meta">面包屑</span></a></li>
+          <li><a href="../component/dropdown.html">Dropdown <span class="meta">下拉菜单</span></a></li>
+          <li><a href="../component/menu.html">Menu <span class="meta">菜单</span></a></li>
+          <li><a href="../component/pagination.html">Pagination <span class="meta">分页</span></a></li>
+          <li><a href="../component/steps.html">Steps <span class="meta">步骤条</span></a></li>
+          <li><a href="../component/tabs.html">Tabs <span class="meta">标签页</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Feedback · 反馈</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/alert.html">Alert <span class="meta">警告</span></a></li>
+          <li><a href="../component/dialog.html">Dialog <span class="meta">对话框</span></a></li>
+          <li><a href="../component/drawer.html">Drawer <span class="meta">抽屉</span></a></li>
+          <li><a href="../component/loading.html">Loading <span class="meta">加载中</span></a></li>
+          <li><a href="../component/message.html">Message <span class="meta">消息</span></a></li>
+          <li><a href="../component/message-box.html">Message Box <span class="meta">消息框</span></a></li>
+          <li><a href="../component/notification.html">Notification <span class="meta">通知</span></a></li>
+          <li><a href="../component/popconfirm.html">Popconfirm <span class="meta">气泡确认</span></a></li>
+          <li><a href="../component/popover.html">Popover <span class="meta">气泡卡片</span></a></li>
+          <li><a href="../component/tooltip.html">Tooltip <span class="meta">文字提示</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Others · 其他</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/divider.html">Divider <span class="meta">分割线</span></a></li>
+          <li><a href="../component/watermark.html">Watermark <span class="meta">水印</span></a></li>
+        </ul>
+      </div>
+    </nav>
+    <main class="site-main">
+      <h1>Mention <span class="meta">提及</span></h1>
+      <p class="lede">A field with a list of people under it. The reader types, the host decides which names to offer, and each name is a button that carries an avatar slot and an @name.</p>
+      <p class="meta">
+        <span class="tag">div</span>
+        <span class="tag">form</span>
+        <span class="tag">since 1.1.0</span>
+      </p>
+      <div class="note">Element Plus opens the list when the reader types an @ and closes it when they stop; here the list is a container and the host decides whether it is on the page. The input is a real input inside a borderless field, so the field and the text read as one control rather than as a field with something stuck to it. The field paints the surface and the input paints none — two translucent layers would be a colour no role names.</div>
+
+      <h2>Examples</h2>
+<div class="example">
+        <div class="example__title">Basic · 基础用法</div>
+        <div class="example__desc">A field and the names under it. Each name is a button with an avatar slot in front of it.</div>
+        <div class="example__demo">
+<div class="um-mention">
+  <div class="um-mention__field">
+    <input class="um-mention__input" type="text" placeholder="Type @ to mention someone" aria-label="Comment">
+  </div>
+  <ul class="um-mention__list">
+    <li>
+      <button type="button" class="um-mention__item">
+        <span class="um-mention__avatar" aria-hidden="true">ZM</span>
+        <span class="um-mention__name">@Zhao Ming</span>
+      </button>
+    </li>
+    <li>
+      <button type="button" class="um-mention__item">
+        <span class="um-mention__avatar" aria-hidden="true">LW</span>
+        <span class="um-mention__name">@Li Wei</span>
+      </button>
+    </li>
+    <li>
+      <button type="button" class="um-mention__item">
+        <span class="um-mention__avatar" aria-hidden="true">CY</span>
+        <span class="um-mention__name">@Chen Yu</span>
+      </button>
+    </li>
+  </ul>
+</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-mention&quot;&gt;
+  &lt;div class=&quot;um-mention__field&quot;&gt;
+    &lt;input class=&quot;um-mention__input&quot; type=&quot;text&quot; placeholder=&quot;Type @ to mention someone&quot; aria-label=&quot;Comment&quot;&gt;
+  &lt;/div&gt;
+  &lt;ul class=&quot;um-mention__list&quot;&gt;
+    &lt;li&gt;
+      &lt;button type=&quot;button&quot; class=&quot;um-mention__item&quot;&gt;
+        &lt;span class=&quot;um-mention__avatar&quot; aria-hidden=&quot;true&quot;&gt;ZM&lt;/span&gt;
+        &lt;span class=&quot;um-mention__name&quot;&gt;@Zhao Ming&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;button type=&quot;button&quot; class=&quot;um-mention__item&quot;&gt;
+        &lt;span class=&quot;um-mention__avatar&quot; aria-hidden=&quot;true&quot;&gt;LW&lt;/span&gt;
+        &lt;span class=&quot;um-mention__name&quot;&gt;@Li Wei&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;button type=&quot;button&quot; class=&quot;um-mention__item&quot;&gt;
+        &lt;span class=&quot;um-mention__avatar&quot; aria-hidden=&quot;true&quot;&gt;CY&lt;/span&gt;
+        &lt;span class=&quot;um-mention__name&quot;&gt;@Chen Yu&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">Variants · 变体</div>
+        <div class="example__desc">Three shapes for the field. The bordered one is the base class on its own, because the base class is already the bordered field.</div>
+        <div class="example__demo">
+<div class="um-mention um-mention--bordered">
+  <div class="um-mention__field">
+    <input class="um-mention__input" type="text" placeholder="Bordered" aria-label="Bordered">
+  </div>
+</div>
+<div class="um-mention um-mention--plain">
+  <div class="um-mention__field">
+    <input class="um-mention__input" type="text" placeholder="Plain" aria-label="Plain">
+  </div>
+</div>
+<div class="um-mention um-mention--round">
+  <div class="um-mention__field">
+    <input class="um-mention__input" type="text" placeholder="Round" aria-label="Round">
+  </div>
+</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-mention um-mention--bordered&quot;&gt;
+  &lt;div class=&quot;um-mention__field&quot;&gt;
+    &lt;input class=&quot;um-mention__input&quot; type=&quot;text&quot; placeholder=&quot;Bordered&quot; aria-label=&quot;Bordered&quot;&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;um-mention um-mention--plain&quot;&gt;
+  &lt;div class=&quot;um-mention__field&quot;&gt;
+    &lt;input class=&quot;um-mention__input&quot; type=&quot;text&quot; placeholder=&quot;Plain&quot; aria-label=&quot;Plain&quot;&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;um-mention um-mention--round&quot;&gt;
+  &lt;div class=&quot;um-mention__field&quot;&gt;
+    &lt;input class=&quot;um-mention__input&quot; type=&quot;text&quot; placeholder=&quot;Round&quot; aria-label=&quot;Round&quot;&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">Sizes · 尺寸</div>
+        <div class="example__desc">Three heights. The middle one is the base class on its own, because the base class is already the medium field.</div>
+        <div class="example__demo">
+<div class="um-mention um-mention--sm">
+  <div class="um-mention__field">
+    <input class="um-mention__input" type="text" placeholder="Small" aria-label="Small">
+  </div>
+</div>
+<div class="um-mention">
+  <div class="um-mention__field">
+    <input class="um-mention__input" type="text" placeholder="Medium" aria-label="Medium">
+  </div>
+</div>
+<div class="um-mention um-mention--lg">
+  <div class="um-mention__field">
+    <input class="um-mention__input" type="text" placeholder="Large" aria-label="Large">
+  </div>
+</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-mention um-mention--sm&quot;&gt;
+  &lt;div class=&quot;um-mention__field&quot;&gt;
+    &lt;input class=&quot;um-mention__input&quot; type=&quot;text&quot; placeholder=&quot;Small&quot; aria-label=&quot;Small&quot;&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;um-mention&quot;&gt;
+  &lt;div class=&quot;um-mention__field&quot;&gt;
+    &lt;input class=&quot;um-mention__input&quot; type=&quot;text&quot; placeholder=&quot;Medium&quot; aria-label=&quot;Medium&quot;&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;um-mention um-mention--lg&quot;&gt;
+  &lt;div class=&quot;um-mention__field&quot;&gt;
+    &lt;input class=&quot;um-mention__input&quot; type=&quot;text&quot; placeholder=&quot;Large&quot; aria-label=&quot;Large&quot;&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+      </div>
+      <h2>Classes</h2>
+<table class="api">
+      <thead><tr><th>Class</th><th>Meaning</th></tr></thead>
+      <tbody>
+      <tr><td><code>um-mention</code></td><td>The base class. Every instance carries it.</td></tr>
+      <tr><td><code>um-mention--bordered</code></td><td>Bordered</td></tr>
+      <tr><td><code>um-mention--plain</code></td><td>Plain</td></tr>
+      <tr><td><code>um-mention--round</code></td><td>Round</td></tr>
+      <tr><td><code>um-mention--sm</code></td><td>Size: sm</td></tr>
+      <tr><td><code>um-mention--md</code></td><td>Size: md</td></tr>
+      <tr><td><code>um-mention--lg</code></td><td>Size: lg</td></tr>
+      <tr><td><code>um-mention__field</code></td><td>Field</td></tr>
+      <tr><td><code>um-mention__input</code></td><td>Input</td></tr>
+      <tr><td><code>um-mention__list</code></td><td>List</td></tr>
+      <tr><td><code>um-mention__item</code></td><td>Item</td></tr>
+      <tr><td><code>um-mention__avatar</code></td><td>Avatar</td></tr>
+      <tr><td><code>um-mention__name</code></td><td>Name</td></tr>
+      <tr><td><code>:focus-visible</code></td><td>Focus visible</td></tr>
+      <tr><td><code>:disabled</code></td><td>Disabled</td></tr>
+      </tbody>
+    </table>
+      <h2>Props</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>variant</code></span></td><td><code>enum = bordered | plain | round</code></td><td><code>bordered</code></td><td>The shape of the field.</td></tr>
+      <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The height of the field and the size of its type.</td></tr>
+      <tr><td><span class="api__name"><code>value</code></span></td><td><code>string</code></td><td>—</td><td>The text in the field.</td></tr>
+      <tr><td><span class="api__name"><code>placeholder</code></span></td><td><code>string</code></td><td><code>Type @ to mention someone</code></td><td>The hint in the empty field.</td></tr>
+      <tr><td><span class="api__name"><code>label</code></span></td><td><code>string</code></td><td>—</td><td>The accessible name of the field. It becomes the input's aria-label.</td></tr>
+      </tbody>
+    </table>
+      <h2>Slots</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>The names in the list. Each one is a list item holding a button.</td></tr>
+      </tbody>
+    </table>
+      <h2>Events</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>input</code></span></td><td>Fires when the text in the field changes.</td></tr>
+      </tbody>
+    </table>
+      <h2>Accessibility</h2>
+      <p><strong>Keyboard:</strong> <code>Tab</code> <code>Space</code></p>
+        <p>The field is a real text input, so the keyboard, the autofill and the screen reader all behave the way the reader expects. The names in the list are real buttons, so each one can be reached with the keyboard and pressed with Space — the library installs no listener and asks for no script. Give the input an accessible name: an aria-label, or a visible label above it. The list is not a listbox here: nothing tracks which name is active, so it is an ordinary list of buttons, and the reader reaches them by tabbing.</p>
+
+    </main>
+  </div>
+
+  <script>window.UM_THEMES = {"light":["anime","archive","bauhaus","brutal","clay","corporate","eco","fashion","food","forest","ios","luxury","medical","monochrome","nordic","pastel","retro","sakura","swiss","travel","y2k"],"dark":["aurora","blueprint","crypto","finance","gaming","glass","instrument","neon","night","vaporwave","verdant"]};
+  window.UM_DEFAULT_THEME = "aurora";</script>
+  <script src="../../themes/switcher.js"></script>
+  <script src="../../site/assets/site.js"></script>
+</body>
+</html>

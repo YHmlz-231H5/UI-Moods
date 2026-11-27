@@ -1,0 +1,73 @@
+{
+  "id": "carousel",
+  "name": "Carousel",
+  "nameZh": "轮播图",
+  "category": "data",
+  "element": "div",
+  "summary": "Slides the reader scrolls through, with a button at each end of a slide that moves to the neighbouring one. The track is a real scroller, so the browser does the scrolling and the snapping.",
+  "summaryZh": "一组可以横向滚动的幻灯片,每张幻灯片的两端各有一个按钮,点一下就走到相邻那张。滚动区是一个真正的滚动容器,所以滚动和吸附都由浏览器负责。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-carousel",
+    "modifier": "um-carousel--",
+    "part": "um-carousel__"
+  },
+  "variants": [
+    { "id": "plain", "name": "Plain", "nameZh": "无间隙", "state": "ghost", "note": "The slides sit edge to edge. The base class on its own is this, and the modifier paints the same thing so the class list can name it." },
+    { "id": "spaced", "name": "Spaced", "nameZh": "有间隙", "state": "outline", "note": "A gap between the slides, so the neighbouring ones are seen at the edges of the track and the reader can tell there is more than one slide." }
+  ],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "The caption takes the caption size and the buttons take the small control height." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default size. The base class is already this size, so it needs no modifier." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "The caption takes the title size and the buttons take the large control height." }
+  ],
+  "states": [
+    { "id": "current", "name": "Current", "nameZh": "当前", "selector": ":target", "note": "The slide the reader has moved to. Its caption takes the brand colour's text role, so the reader can see which slide is the one they are looking at." }
+  ],
+  "parts": [
+    { "id": "track", "name": "Track", "nameZh": "轨道", "note": "The row of slides. It is the scroller: the browser snaps it from one slide to the next, so the track has to be reachable by keyboard and has to carry a name." },
+    { "id": "slide", "name": "Slide", "nameZh": "幻灯片", "note": "One slide. It fills the track and is the element a link points at, so the id on it is what the buttons navigate to." },
+    { "id": "body", "name": "Body", "nameZh": "内容", "note": "The picture or the text of a slide. It keeps the slide's own proportions." },
+    { "id": "caption", "name": "Caption", "nameZh": "说明", "note": "The line under the slide that says what it is. It sits under the slide rather than on it, because a band of colour over a picture is a colour no role names." },
+    { "id": "nav", "name": "Navigation", "nameZh": "导航", "note": "The row of buttons at the foot of a slide. It belongs to the slide, so the buttons always point at that slide's neighbours." },
+    { "id": "prev", "name": "Previous", "nameZh": "上一张", "note": "The button that moves to the slide before this one. It is drawn from two borders, so it carries no text of its own." },
+    { "id": "next", "name": "Next", "nameZh": "下一张", "note": "The button that moves to the slide after this one." }
+  ],
+  "props": [
+    { "name": "name", "type": "string", "description": "The prefix of the ids of the slides. Every slide needs an id of its own, because that id is what the buttons point at, and two carousels on one page cannot share ids.", "descriptionZh": "各张幻灯片 id 的前缀。每张幻灯片都需要自己的 id,因为按钮指的就是这个 id,而同一页上的两个轮播不能共用 id。" },
+    { "name": "variant", "type": "enum", "values": ["plain", "spaced"], "default": "plain", "description": "Whether the slides are edge to edge or have a gap between them. The plain run is the base class on its own; the spaced run adds um-carousel--spaced.", "descriptionZh": "幻灯片是紧挨着还是留一道缝。无间隙是只写基类;有间隙再加上 um-carousel--spaced。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The size of the caption and of the buttons.", "descriptionZh": "说明文字和按钮的尺寸。" },
+    { "name": "label", "type": "string", "description": "The name of the track, read out before the slides. A scrollable region has to carry a name, or the reader is told about a scroll box and nothing else.", "descriptionZh": "轨道的名字,会在幻灯片之前读出来。一个可滚动区域必须带名字,不然读屏只会说这里有个滚动框,别的什么也说不出来。" }
+  ],
+  "slots": [
+    { "name": "default", "description": "The slides, one figure per slide. Each figure holds the body, the caption and, at its foot, the buttons that move to its neighbours.", "descriptionZh": "各张幻灯片,一张一个 figure。每个 figure 里放着内容、说明,以及底部那两个走到相邻幻灯片的按钮。" }
+  ],
+  "events": [],
+  "a11y": {
+    "role": "group",
+    "keyboard": ["Tab", "Arrow keys", "Home", "End"],
+    "notes": "The track is a real scroller, so give it tabindex=\"0\" and a name: a scrollable region that the keyboard cannot reach is not operable. The buttons are real links with names, so the reader hears \"Next slide\" rather than a picture of an arrow. The arrow itself is drawn from borders and is hidden from the reader, so the name on the link is what carries it. A slide that is moved to is marked by the fragment in the address, which the browser also records in its history — so the back button walks back through the slides.",
+    "notesZh": "轨道是一个真正的滚动容器,所以要给它 tabindex=\"0\" 和一个名字:键盘够不到的滚动区域等于不能用。按钮是真的链接,带着名字,所以读屏读到的是「下一张」而不是一张箭头的图片。箭头本身是用边框画出来的,对读屏隐藏,所以真正说明它的是链接上的名字。读者走到的那一张由地址里的片段标记出来,浏览器也会把这一段记进历史,所以后退键会沿着幻灯片往回走。"
+  },
+  "examples": [
+    {
+      "id": "plain",
+      "title": "Slides",
+      "titleZh": "轮播",
+      "description": "Three slides, edge to edge. Each slide carries its own buttons, so the buttons always point at that slide's neighbours; the first slide's previous button wraps around to the last one. The pictures stand in for real ones.",
+      "descriptionZh": "三张幻灯片,紧挨着排。每张幻灯片都带着自己的按钮,所以按钮总是指向这张的相邻两张;第一张的上一张绕回到最后一张。图是占位的。",
+      "markup": "<div class=\"um-carousel um-carousel--plain\">\n  <div class=\"um-carousel__track\" tabindex=\"0\" role=\"group\" aria-label=\"Slides\">\n    <figure class=\"um-carousel__slide\" id=\"um-carousel-1-slide-1\">\n      <div class=\"um-carousel__body\">\n        <img src=\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='180'%3E%3Crect width='320' height='180' fill='%23c8ccd4'/%3E%3C/svg%3E\" alt=\"A grey rectangle standing for the first slide\" />\n      </div>\n      <figcaption class=\"um-carousel__caption\">The node room, before the upgrade</figcaption>\n      <nav class=\"um-carousel__nav\">\n        <a class=\"um-carousel__prev\" href=\"#um-carousel-1-slide-3\" aria-label=\"Previous slide\"></a>\n        <a class=\"um-carousel__next\" href=\"#um-carousel-1-slide-2\" aria-label=\"Next slide\"></a>\n      </nav>\n    </figure>\n    <figure class=\"um-carousel__slide\" id=\"um-carousel-1-slide-2\">\n      <div class=\"um-carousel__body\">\n        <img src=\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='180'%3E%3Crect width='320' height='180' fill='%23b6bcc8'/%3E%3C/svg%3E\" alt=\"A grey rectangle standing for the second slide\" />\n      </div>\n      <figcaption class=\"um-carousel__caption\">The same room, afterwards</figcaption>\n      <nav class=\"um-carousel__nav\">\n        <a class=\"um-carousel__prev\" href=\"#um-carousel-1-slide-1\" aria-label=\"Previous slide\"></a>\n        <a class=\"um-carousel__next\" href=\"#um-carousel-1-slide-3\" aria-label=\"Next slide\"></a>\n      </nav>\n    </figure>\n    <figure class=\"um-carousel__slide\" id=\"um-carousel-1-slide-3\">\n      <div class=\"um-carousel__body\">\n        <img src=\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='180'%3E%3Crect width='320' height='180' fill='%23a4abb8'/%3E%3C/svg%3E\" alt=\"A grey rectangle standing for the third slide\" />\n      </div>\n      <figcaption class=\"um-carousel__caption\">And the drawings that came with it</figcaption>\n      <nav class=\"um-carousel__nav\">\n        <a class=\"um-carousel__prev\" href=\"#um-carousel-1-slide-2\" aria-label=\"Previous slide\"></a>\n        <a class=\"um-carousel__next\" href=\"#um-carousel-1-slide-1\" aria-label=\"Next slide\"></a>\n      </nav>\n    </figure>\n  </div>\n</div>"
+    },
+    {
+      "id": "spaced",
+      "title": "Spaced",
+      "titleZh": "有间隙",
+      "description": "The same three slides with a gap between them, so the neighbouring slides show at the edges of the track and the reader can tell there is more than one. Only the modifier class changes; the markup is the same.",
+      "descriptionZh": "同样的三张幻灯片,中间留了一道缝,所以相邻的两张会在轨道两边露出来,读者也就知道不止一张。变的只有那个修饰类,标记是同一份。",
+      "markup": "<div class=\"um-carousel um-carousel--spaced\">\n  <div class=\"um-carousel__track\" tabindex=\"0\" role=\"group\" aria-label=\"Slides\">\n    <figure class=\"um-carousel__slide\" id=\"um-carousel-2-slide-1\">\n      <div class=\"um-carousel__body\">\n        <img src=\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='180'%3E%3Crect width='320' height='180' fill='%23c8ccd4'/%3E%3C/svg%3E\" alt=\"A grey rectangle standing for the first slide\" />\n      </div>\n      <figcaption class=\"um-carousel__caption\">The node room, before the upgrade</figcaption>\n      <nav class=\"um-carousel__nav\">\n        <a class=\"um-carousel__prev\" href=\"#um-carousel-2-slide-3\" aria-label=\"Previous slide\"></a>\n        <a class=\"um-carousel__next\" href=\"#um-carousel-2-slide-2\" aria-label=\"Next slide\"></a>\n      </nav>\n    </figure>\n    <figure class=\"um-carousel__slide\" id=\"um-carousel-2-slide-2\">\n      <div class=\"um-carousel__body\">\n        <img src=\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='180'%3E%3Crect width='320' height='180' fill='%23b6bcc8'/%3E%3C/svg%3E\" alt=\"A grey rectangle standing for the second slide\" />\n      </div>\n      <figcaption class=\"um-carousel__caption\">The same room, afterwards</figcaption>\n      <nav class=\"um-carousel__nav\">\n        <a class=\"um-carousel__prev\" href=\"#um-carousel-2-slide-1\" aria-label=\"Previous slide\"></a>\n        <a class=\"um-carousel__next\" href=\"#um-carousel-2-slide-3\" aria-label=\"Next slide\"></a>\n      </nav>\n    </figure>\n    <figure class=\"um-carousel__slide\" id=\"um-carousel-2-slide-3\">\n      <div class=\"um-carousel__body\">\n        <img src=\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='180'%3E%3Crect width='320' height='180' fill='%23a4abb8'/%3E%3C/svg%3E\" alt=\"A grey rectangle standing for the third slide\" />\n      </div>\n      <figcaption class=\"um-carousel__caption\">And the drawings that came with it</figcaption>\n      <nav class=\"um-carousel__nav\">\n        <a class=\"um-carousel__prev\" href=\"#um-carousel-2-slide-2\" aria-label=\"Previous slide\"></a>\n        <a class=\"um-carousel__next\" href=\"#um-carousel-2-slide-1\" aria-label=\"Next slide\"></a>\n      </nav>\n    </figure>\n  </div>\n</div>"
+    }
+  ],
+  "notes": "The buttons are links, and that is the only way a stylesheet can move a scroller. A checked radio or an open details can change what the page looks like, but no rule in CSS can move a scroll container: the browser scrolls a scroller when a fragment names something inside it, and that is all. So the buttons point at the id of a slide and the browser does the scrolling and the snapping, and the slide they arrive at is the one the fragment names, which is how the current slide is marked. The buttons live in the slide they belong to, so the previous and the next button always point at that slide's neighbours — with a static row of buttons outside the slides, there would be no way to say \"the slide before this one\" without script. The track is a real scroller, so it is given a tabindex and a name.",
+  "notesZh": "按钮是链接,因为让样式表移动一个滚动容器的办法只有这一个。被选中的 radio 或者展开的 details 能改变页面长什么样,但 CSS 里没有任何一条规则能移动一个滚动容器:浏览器会在地址里的片段指向容器里的某个东西时滚动它,办法就这一个。所以按钮指着一张幻灯片的 id,滚动和吸附都由浏览器负责,而读者走到的那一张正是片段指到的那一张,当前幻灯片就是这样标出来的。按钮住在自己那张幻灯片里,所以「上一张」和「下一张」永远指向这张的相邻两张 —— 如果把按钮放在幻灯片外面排成一行,就没有办法在不写脚本的情况下说出「这张的前一张」。轨道是一个真正的滚动容器,所以它有 tabindex,也有名字。"
+}

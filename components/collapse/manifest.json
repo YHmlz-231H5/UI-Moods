@@ -1,0 +1,73 @@
+{
+  "id": "collapse",
+  "name": "Collapse",
+  "nameZh": "折叠面板",
+  "category": "data",
+  "element": "details",
+  "summary": "A panel that opens and closes. It is a real disclosure, so the browser does the opening and the closing and the state survives a reload.",
+  "summaryZh": "一块能展开也能收起来的面板。它是一个真正的展开控件,所以开关由浏览器负责,展开的状态也能扛过一次刷新。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-collapse",
+    "modifier": "um-collapse--",
+    "part": "um-collapse__"
+  },
+  "variants": [
+    { "id": "plain", "name": "Plain", "nameZh": "无边框", "state": "ghost", "note": "The panel carries no frame of its own; two panels in a row are separated by the rule the second one draws above itself, so a group needs no extra element. The base class on its own is this, and the modifier paints the same thing so the class list can name it." },
+    { "id": "card", "name": "Card", "nameZh": "卡片式", "state": "outline", "note": "Every panel is a card of its own, with a frame and a fill." }
+  ],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "The title takes the caption size and the panel is padded tightly." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default size. The base class is already this size, so it needs no modifier." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "The title takes the title size and the panel is padded loosely." }
+  ],
+  "states": [
+    { "id": "open", "name": "Open", "nameZh": "展开", "selector": "[open]", "native": true, "note": "The panel is open. The browser announces it, and the arrow turns over." },
+    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the header, because the header is what the reader is on." }
+  ],
+  "parts": [
+    { "id": "header", "name": "Header", "nameZh": "标题栏", "note": "The summary. It is the element the browser turns into a disclosure button, so it carries the focus and the keyboard." },
+    { "id": "title", "name": "Title", "nameZh": "标题", "note": "The text of the header." },
+    { "id": "arrow", "name": "Arrow", "nameZh": "箭头", "note": "The mark that says the panel opens. It is drawn from two borders, so it carries no text of its own." },
+    { "id": "content", "name": "Content", "nameZh": "内容", "note": "The body of the panel. The browser hides it while the panel is closed." }
+  ],
+  "props": [
+    { "name": "open", "type": "boolean", "default": "false", "description": "Opens the panel. It is the native open attribute on the details, so the browser keeps the state.", "descriptionZh": "展开面板。它是 details 上的原生 open 属性,所以状态由浏览器记着。" },
+    { "name": "variant", "type": "enum", "values": ["plain", "card"], "default": "plain", "description": "The shape of the panel. The plain run is the base class on its own; the card run adds um-collapse--card.", "descriptionZh": "面板的样子。无边框就是只写基类;卡片式再加上 um-collapse--card。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The size of the title and of the padding around the panel.", "descriptionZh": "标题的尺寸,以及面板四周留白的大小。" },
+    { "name": "title", "type": "string", "description": "The text of the header. A panel with no text needs an accessible name of its own.", "descriptionZh": "标题栏上的文字。没有文字的面板也得有自己的可访问名称。" }
+  ],
+  "slots": [
+    { "name": "default", "description": "The body of the panel: what the panel hides and shows.", "descriptionZh": "面板的内容:面板收起和展开时露出来的那部分。" }
+  ],
+  "events": [
+    { "name": "toggle", "description": "Fires when the panel opens or closes. It is the browser's own event on the details — the library installs no listener.", "descriptionZh": "面板展开或收起时触发。这是 details 上的浏览器原生事件 —— 库没有安装任何监听器。" }
+  ],
+  "a11y": {
+    "role": "group",
+    "keyboard": ["Tab", "Enter", "Space"],
+    "notes": "The panel is a real <details> and the header is a real <summary>, so the browser announces the header as a disclosure button and says whether the panel is open. The keyboard is the browser's own: Tab reaches the header, Enter or Space opens the panel. The arrow is drawn from borders, so it carries no text — the state is announced by the browser, not by the mark.",
+    "notesZh": "面板是一个真正的 <details>,标题栏是一个真正的 <summary>,所以浏览器会把标题栏播报成展开按钮,并说明面板是开着还是关着。键盘也是浏览器自己的:Tab 走到标题栏上,Enter 或空格展开面板。那个箭头是边框画出来的,所以它自己不带文字 —— 状态是浏览器播报的,不是那个记号播报的。"
+  },
+  "examples": [
+    {
+      "id": "plain",
+      "title": "A group of panels",
+      "titleZh": "一组面板",
+      "description": "Two panels in a row. The rule between them is drawn by the panel below, so a group of panels needs no element around it. The first one is open.",
+      "descriptionZh": "一排两块面板。它们之间的线是下面那块画的,所以一组面板不需要外面再套一个元素。第一块是开着的。",
+      "markup": "<details class=\"um-collapse um-collapse--plain\" open>\n  <summary class=\"um-collapse__header\">\n    <span class=\"um-collapse__title\">Shipping</span>\n    <span class=\"um-collapse__arrow\" aria-hidden=\"true\"></span>\n  </summary>\n  <div class=\"um-collapse__content\">\n    <p>Orders leave the warehouse on the next working day.</p>\n  </div>\n</details>\n<details class=\"um-collapse um-collapse--plain\">\n  <summary class=\"um-collapse__header\">\n    <span class=\"um-collapse__title\">Returns</span>\n    <span class=\"um-collapse__arrow\" aria-hidden=\"true\"></span>\n  </summary>\n  <div class=\"um-collapse__content\">\n    <p>Anything unused can go back within thirty days.</p>\n  </div>\n</details>"
+    },
+    {
+      "id": "card",
+      "title": "Cards",
+      "titleZh": "卡片式",
+      "description": "Each panel is a card of its own, with a frame and a fill. Only the modifier class changes; the markup is the same.",
+      "descriptionZh": "每块面板都是自己的一张卡片,带外框和底色。变的只有那个修饰类,标记是同一份。",
+      "markup": "<details class=\"um-collapse um-collapse--card\" open>\n  <summary class=\"um-collapse__header\">\n    <span class=\"um-collapse__title\">Shipping</span>\n    <span class=\"um-collapse__arrow\" aria-hidden=\"true\"></span>\n  </summary>\n  <div class=\"um-collapse__content\">\n    <p>Orders leave the warehouse on the next working day.</p>\n  </div>\n</details>\n<details class=\"um-collapse um-collapse--card\">\n  <summary class=\"um-collapse__header\">\n    <span class=\"um-collapse__title\">Returns</span>\n    <span class=\"um-collapse__arrow\" aria-hidden=\"true\"></span>\n  </summary>\n  <div class=\"um-collapse__content\">\n    <p>Anything unused can go back within thirty days.</p>\n  </div>\n</details>"
+    }
+  ],
+  "notes": "A panel is a disclosure and not a menu: the browser owns the open state, so it stays open across a reload and the reader gets the collapsed and expanded announcement for free. The rule between two plain panels is drawn by the panel below as a top border, so a group of panels needs no wrapper and a group of one has no stray line above it. The arrow is drawn from two borders, so it takes the header's own colour and a disabled panel dims with it.",
+  "notesZh": "面板是一个展开控件,不是一个菜单:开关状态归浏览器管,所以它在刷新之后还是开着的,读者也能免费得到「已折叠」「已展开」的播报。两块无边框面板之间的线是由下面那块画的上边框,所以一组面板不需要外层元素,只有一块的时候也不会多出一道孤零零的线。那个箭头是用两条边框画出来的,所以它跟着标题栏自己的颜色走。"
+}

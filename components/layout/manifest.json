@@ -1,0 +1,76 @@
+{
+  "id": "layout",
+  "name": "Layout",
+  "nameZh": "布局",
+  "category": "basic",
+  "element": "div, header, aside, main, footer",
+  "summary": "The skeleton of a page: a header, a side column, the content and a footer. It draws the rules that separate them and leaves the surfaces to the page behind it.",
+  "summaryZh": "页面的骨架:页头、侧栏、内容和页脚。它只画把这些区域分开的线,底色留给页面本身。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-layout",
+    "modifier": "um-layout--",
+    "part": "um-layout__"
+  },
+  "variants": [
+    { "id": "stacked", "name": "Stacked", "nameZh": "上下堆叠", "state": "ghost", "note": "The side column sits above the content instead of beside it." }
+  ],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "A narrow side column." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default column width needs no modifier class." },
+    { "id": "lg", "name": "Large", "nameZh": "大" }
+  ],
+  "states": [],
+  "parts": [
+    { "id": "header", "name": "Header", "nameZh": "页头", "note": "The band across the top. It is a <header>, so it is a landmark." },
+    { "id": "body", "name": "Body", "nameZh": "主体", "note": "The row that holds the side column and the content. It is the part the stacked variant turns." },
+    { "id": "aside", "name": "Aside", "nameZh": "侧栏", "note": "The column beside the content. It is an <aside>, so it is a landmark." },
+    { "id": "main", "name": "Main", "nameZh": "内容", "note": "The content. It is a <main>, so it is the landmark the rest of the page is read against." },
+    { "id": "footer", "name": "Footer", "nameZh": "页脚", "note": "The band at the bottom. It is a <footer>." }
+  ],
+  "props": [
+    { "name": "direction", "type": "enum", "values": ["horizontal", "stacked"], "default": "horizontal", "description": "Whether the side column stands beside the content or above it. The horizontal form is the base class on its own; the stacked form adds um-layout--stacked.", "descriptionZh": "侧栏是站在内容旁边还是排在内容上面。横向就是只写基类;上下堆叠再加上 um-layout--stacked。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The width of the side column.", "descriptionZh": "侧栏的宽度。" }
+  ],
+  "slots": [
+    { "name": "header", "description": "The band at the top.", "descriptionZh": "顶部的那一条。" },
+    { "name": "aside", "description": "The side column.", "descriptionZh": "侧栏。" },
+    { "name": "default", "description": "The content.", "descriptionZh": "内容。" },
+    { "name": "footer", "description": "The band at the bottom.", "descriptionZh": "底部的那一条。" }
+  ],
+  "events": [],
+  "a11y": {
+    "keyboard": [],
+    "notes": "The parts are the landmarks themselves: a <header>, an <aside>, a <main> and a <footer>. A screen reader can jump from one landmark to the next, which is the fastest way through a long page. There is one <main> per page, so the content of the layout is the main landmark and nothing else may claim it. Label the aside and the header when there is more than one of either.",
+    "notesZh": "这几个部件本身就是地标:<header>、<aside>、<main> 和 <footer>。读屏可以从一个地标跳到下一个,这是翻长页面最快的办法。一个页面只有一个 <main>,所以布局里的内容就是那个主地标,别的元素不要再抢。当页头或侧栏不止一个的时候,给它们起名字。"
+  },
+  "examples": [
+    {
+      "id": "horizontal",
+      "title": "Header, side column, content, footer",
+      "titleZh": "页头、侧栏、内容、页脚",
+      "description": "The usual arrangement. The regions are separated by rules rather than by fills, so the page behind the layout keeps one surface instead of carrying a stack of translucent ones.",
+      "descriptionZh": "常见的样子。各个区域靠线分开而不是靠底色,所以布局后面的页面只留一层表面,而不是叠着一摞半透明的层。",
+      "markup": "<div class=\"um-layout\">\n  <header class=\"um-layout__header\">\n    <strong>Node A</strong>\n  </header>\n  <div class=\"um-layout__body\">\n    <aside class=\"um-layout__aside\">\n      <nav aria-label=\"Sections\">\n        <p>Builds</p>\n        <p>Nodes</p>\n        <p>Reports</p>\n      </nav>\n    </aside>\n    <main class=\"um-layout__main\">\n      <p>Build 214 started at 09:12 and passed at 13:24.</p>\n    </main>\n  </div>\n  <footer class=\"um-layout__footer\">\n    <p>Last checked a minute ago.</p>\n  </footer>\n</div>"
+    },
+    {
+      "id": "stacked",
+      "title": "Stacked",
+      "titleZh": "上下堆叠",
+      "description": "The stacked variant puts the side column above the content and turns its rule from a vertical one into a horizontal one, so the column still reads as a column.",
+      "descriptionZh": "堆叠这一式把侧栏挪到内容上面,并且把它那道线从竖的变成横的,这样侧栏还是像侧栏。",
+      "markup": "<div class=\"um-layout um-layout--stacked\">\n  <header class=\"um-layout__header\">\n    <strong>Node A</strong>\n  </header>\n  <div class=\"um-layout__body\">\n    <aside class=\"um-layout__aside\">\n      <nav aria-label=\"Sections\">\n        <p>Builds</p>\n        <p>Nodes</p>\n      </nav>\n    </aside>\n    <main class=\"um-layout__main\">\n      <p>Build 214 started at 09:12 and passed at 13:24.</p>\n    </main>\n  </div>\n  <footer class=\"um-layout__footer\">\n    <p>Last checked a minute ago.</p>\n  </footer>\n</div>"
+    },
+    {
+      "id": "widths",
+      "title": "The side column",
+      "titleZh": "侧栏宽度",
+      "description": "The size is the width of the side column. It is written in em, so the column grows with the type instead of staying the same number of pixels in every mood.",
+      "descriptionZh": "尺寸说的是侧栏的宽度。它用的是 em,所以侧栏跟着字号长,而不是在每套 mood 里都守着同一个像素数。",
+      "markup": "<div class=\"um-layout um-layout--sm\">\n  <header class=\"um-layout__header\">\n    <strong>Node A</strong>\n  </header>\n  <div class=\"um-layout__body\">\n    <aside class=\"um-layout__aside\">\n      <p>Builds</p>\n    </aside>\n    <main class=\"um-layout__main\">\n      <p>A narrow side column.</p>\n    </main>\n  </div>\n</div>"
+    }
+  ],
+  "notes": "The layout paints no surface of its own. A frame that owns a surface paints it and the thing inside the frame paints nothing, and the layout has no business owning the page's background — the page behind it does. The regions are separated with rules instead, so the skeleton reads as a skeleton and the page keeps one background all the way down.",
+  "notesZh": "布局自己不画任何表面。谁拥有一层表面,谁就画它,而里面的东西就什么都不画;页面背后的底色属于页面,不属于布局。各个区域改用线来分开,于是骨架还是骨架的样子,页面从头到尾只有一层背景。"
+}

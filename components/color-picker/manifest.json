@@ -1,0 +1,87 @@
+{
+  "id": "color-picker",
+  "name": "Color Picker",
+  "nameZh": "颜色选择器",
+  "category": "form",
+  "element": "div",
+  "summary": "A colour in three parts: the platform's own colour button, a row of palette chips the reader can pick from, and the hexadecimal value written out. The chips are a real radio group, so the choice is in the tab order and the browser announces it.",
+  "summaryZh": "一个颜色分三块:平台自己的取色按钮、一排可以让读者挑的色块,以及写出来的十六进制值。色块是一组真的单选按钮,所以这个选择在 Tab 顺序里,浏览器也会播报它。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-color-picker",
+    "modifier": "um-color-picker--",
+    "part": "um-color-picker__"
+  },
+  "variants": [
+    { "id": "inline", "name": "Inline", "nameZh": "横排", "note": "The button, the palette and the value sit on one line. The base class on its own is this layout, and the modifier paints the same thing so the class list can name it." },
+    { "id": "stacked", "name": "Stacked", "nameZh": "竖排", "note": "The palette sits under the two fields, so a long palette does not stretch the row." }
+  ],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "The swatch and the chips take the small step and the value field takes the caption size." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default control. The base class is already this size, so it needs no modifier." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "The swatch and the chips take the large control height and the value field takes the body size." }
+  ],
+  "states": [
+    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the control the reader is on: the platform's button, the chip of the focused radio, or the value field." },
+    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "All three parts go inert. They use the real disabled attribute, so they leave the tab order." },
+    { "id": "checked", "name": "Checked", "nameZh": "选中", "selector": ":checked", "native": true, "note": "The picked chip gets a ring in the brand colour's graphic form. The chip's own colour is the host's data and cannot be relied on to contrast with anything, but the ring around it sits on the container and is measured." }
+  ],
+  "parts": [
+    { "id": "swatch", "name": "Swatch", "nameZh": "取色按钮", "note": "The real <input type=\"color\">. It is the platform's button and the platform's colour; the library paints the frame around it." },
+    { "id": "presets", "name": "Palette", "nameZh": "色板", "note": "The row of chips. It is the group the radios belong to." },
+    { "id": "preset", "name": "Preset", "nameZh": "色块", "note": "One chip. It is a <label>, so clicking the chip picks its radio." },
+    { "id": "radio", "name": "Radio", "nameZh": "单选按钮", "note": "The real radio that carries the choice. It is kept out of sight but not out of the tab order, and it names itself for the reader." },
+    { "id": "chip", "name": "Chip", "nameZh": "色块", "note": "The painted colour itself. Its colour arrives as a custom property, because a colour is data and not a theme value." },
+    { "id": "hex", "name": "Hexadecimal value", "nameZh": "十六进制值", "note": "The real text field that spells the value out. It is the field to type into when the colour is not in the palette." }
+  ],
+  "props": [
+    { "name": "value", "type": "string", "default": "#2f6feb", "description": "The colour in the control, as a hexadecimal value. It is the platform's own value on the colour button and the text in the value field.", "descriptionZh": "控件里的颜色,写成十六进制。它是取色按钮自己的值,也是值字段里的文字。" },
+    { "name": "palette", "type": "string", "default": "Blue #2f6feb,Green #12b886,Amber #f59f00,Red #e03131,Violet #7048e8", "description": "The palette, as a comma-separated list of \"name #rrggbb\" pairs. The name is what the radio announces and the colour is what the chip paints, so a chip is never an unnamed colour.", "descriptionZh": "色板,写成一个逗号分隔的「名字 #rrggbb」列表。名字是单选按钮播报的内容,颜色是色块画出来的颜色,所以色块永远不是一个没有名字的颜色。" },
+    { "name": "label", "type": "string", "description": "The accessible name of the platform's colour button. It becomes the button's aria-label.", "descriptionZh": "取色按钮的可访问名称。它会变成按钮的 aria-label。" },
+    { "name": "hex-label", "type": "string", "description": "The accessible name of the hexadecimal field. It becomes the field's aria-label.", "descriptionZh": "十六进制字段的可访问名称。它会变成字段的 aria-label。" },
+    { "name": "palette-label", "type": "string", "default": "Palette", "description": "The accessible name of the palette, as the name of the group the radios belong to.", "descriptionZh": "色板的可访问名称,也就是这组单选按钮所属那个组的名称。" },
+    { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes the whole control inert. It uses the real disabled attribute, so the parts leave the tab order.", "descriptionZh": "让整个控件不可用。它用的是原生 disabled 属性,所以各部分会退出 Tab 顺序。" },
+    { "name": "variant", "type": "enum", "values": ["inline", "stacked"], "default": "inline", "description": "How the three parts are laid out. The inline run is the base class on its own; the stacked run adds um-color-picker--stacked.", "descriptionZh": "这三块怎么排。横排就是只写基础类;竖排再加上 um-color-picker--stacked。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The size of the control.", "descriptionZh": "控件的尺寸。" }
+  ],
+  "slots": [],
+  "events": [
+    { "name": "input", "description": "Fires when the colour changes. It is the browser's own event on the colour button and on the value field — the library installs no listener.", "descriptionZh": "颜色变了的时候触发。这是取色按钮和值字段上的浏览器原生事件 —— 库没有安装任何监听器。" },
+    { "name": "change", "description": "Fires when the colour is committed.", "descriptionZh": "颜色被提交时触发。" }
+  ],
+  "a11y": {
+    "role": "group",
+    "keyboard": ["Tab", "Arrow keys", "Space"],
+    "notes": "The chips are real radios, so the palette is a radio group: the arrow keys move between the colours and the browser announces the picked one. Each radio names itself, because a chip is a painted colour and a painted colour carries no text. The platform's colour button and the hexadecimal field are real inputs, so each of them needs a name of its own. The colour the reader picks is data, not a theme value: nothing in the library can promise that an arbitrary colour will read against an arbitrary surface, which is why the picked chip is marked by a ring around it rather than by the colour itself.",
+    "notesZh": "色块是真的单选按钮,所以色板就是一个单选组:方向键在颜色之间走,浏览器会播报选中的那个。每个单选按钮都自带名字,因为色块是画出来的颜色,画出来的颜色不带文字。取色按钮和十六进制字段都是真的输入框,所以它们各自都需要名字。读者挑的颜色是数据,不是主题的值:库里没有任何东西能保证一个任意的颜色在任意的表面上读得出来,所以选中的色块用外面一圈环来标记,而不是靠颜色本身。"
+  },
+  "examples": [
+    {
+      "id": "basic",
+      "title": "The three parts",
+      "titleZh": "三块",
+      "description": "The platform's colour button, five chips and the hexadecimal value. Each chip is a label around a real radio, so clicking the chip picks its colour and the keyboard can reach it too.",
+      "descriptionZh": "平台的取色按钮、五个色块和十六进制值。每个色块都是包着一个真单选按钮的 label,所以点色块就选中那个颜色,键盘也够得到。",
+      "markup": "<div class=\"um-color-picker um-color-picker--inline\">\n  <input class=\"um-color-picker__swatch\" type=\"color\" value=\"#2f6feb\" aria-label=\"Pick a colour\" />\n  <div class=\"um-color-picker__presets\" role=\"group\" aria-label=\"Palette\">\n    <label class=\"um-color-picker__preset\">\n      <input class=\"um-color-picker__radio\" type=\"radio\" name=\"um-color-picker-palette\" value=\"#2f6feb\" aria-label=\"Blue\" checked />\n      <span class=\"um-color-picker__chip\" style=\"--um-color-picker-preset: #2f6feb\"></span>\n    </label>\n    <label class=\"um-color-picker__preset\">\n      <input class=\"um-color-picker__radio\" type=\"radio\" name=\"um-color-picker-palette\" value=\"#12b886\" aria-label=\"Green\" />\n      <span class=\"um-color-picker__chip\" style=\"--um-color-picker-preset: #12b886\"></span>\n    </label>\n    <label class=\"um-color-picker__preset\">\n      <input class=\"um-color-picker__radio\" type=\"radio\" name=\"um-color-picker-palette\" value=\"#f59f00\" aria-label=\"Amber\" />\n      <span class=\"um-color-picker__chip\" style=\"--um-color-picker-preset: #f59f00\"></span>\n    </label>\n    <label class=\"um-color-picker__preset\">\n      <input class=\"um-color-picker__radio\" type=\"radio\" name=\"um-color-picker-palette\" value=\"#e03131\" aria-label=\"Red\" />\n      <span class=\"um-color-picker__chip\" style=\"--um-color-picker-preset: #e03131\"></span>\n    </label>\n    <label class=\"um-color-picker__preset\">\n      <input class=\"um-color-picker__radio\" type=\"radio\" name=\"um-color-picker-palette\" value=\"#7048e8\" aria-label=\"Violet\" />\n      <span class=\"um-color-picker__chip\" style=\"--um-color-picker-preset: #7048e8\"></span>\n    </label>\n  </div>\n  <input class=\"um-color-picker__hex\" type=\"text\" value=\"#2f6feb\" maxlength=\"7\" spellcheck=\"false\" aria-label=\"Hexadecimal value\" />\n</div>"
+    },
+    {
+      "id": "stacked",
+      "title": "Stacked",
+      "titleZh": "竖排",
+      "description": "The same control with the palette under the two fields, so a long palette does not stretch the row. Only the modifier class changes.",
+      "descriptionZh": "同一个控件,色板挪到两个字段下面,所以色板长了也不会把这一行撑开。只改修饰类。",
+      "markup": "<div class=\"um-color-picker um-color-picker--stacked\">\n  <input class=\"um-color-picker__swatch\" type=\"color\" value=\"#12b886\" aria-label=\"Pick a colour\" />\n  <input class=\"um-color-picker__hex\" type=\"text\" value=\"#12b886\" maxlength=\"7\" spellcheck=\"false\" aria-label=\"Hexadecimal value\" />\n  <div class=\"um-color-picker__presets\" role=\"group\" aria-label=\"Palette\">\n    <label class=\"um-color-picker__preset\">\n      <input class=\"um-color-picker__radio\" type=\"radio\" name=\"um-color-picker-palette-stacked\" value=\"#12b886\" aria-label=\"Green\" checked />\n      <span class=\"um-color-picker__chip\" style=\"--um-color-picker-preset: #12b886\"></span>\n    </label>\n    <label class=\"um-color-picker__preset\">\n      <input class=\"um-color-picker__radio\" type=\"radio\" name=\"um-color-picker-palette-stacked\" value=\"#7048e8\" aria-label=\"Violet\" />\n      <span class=\"um-color-picker__chip\" style=\"--um-color-picker-preset: #7048e8\"></span>\n    </label>\n    <label class=\"um-color-picker__preset\">\n      <input class=\"um-color-picker__radio\" type=\"radio\" name=\"um-color-picker-palette-stacked\" value=\"#e03131\" aria-label=\"Red\" />\n      <span class=\"um-color-picker__chip\" style=\"--um-color-picker-preset: #e03131\"></span>\n    </label>\n  </div>\n</div>"
+    },
+    {
+      "id": "states",
+      "title": "States",
+      "titleZh": "状态",
+      "description": "A disabled control. Every part goes inert and leaves the tab order, and the colour on screen stays readable.",
+      "descriptionZh": "一个禁用的控件。每一块都不再可用,也退出 Tab 顺序,屏幕上的颜色仍然读得清。",
+      "markup": "<div class=\"um-color-picker um-color-picker--inline\">\n  <input class=\"um-color-picker__swatch\" type=\"color\" value=\"#7048e8\" aria-label=\"Pick a colour\" disabled />\n  <div class=\"um-color-picker__presets\" role=\"group\" aria-label=\"Palette\">\n    <label class=\"um-color-picker__preset\">\n      <input class=\"um-color-picker__radio\" type=\"radio\" name=\"um-color-picker-palette-off\" value=\"#7048e8\" aria-label=\"Violet\" checked disabled />\n      <span class=\"um-color-picker__chip\" style=\"--um-color-picker-preset: #7048e8\"></span>\n    </label>\n    <label class=\"um-color-picker__preset\">\n      <input class=\"um-color-picker__radio\" type=\"radio\" name=\"um-color-picker-palette-off\" value=\"#f59f00\" aria-label=\"Amber\" disabled />\n      <span class=\"um-color-picker__chip\" style=\"--um-color-picker-preset: #f59f00\"></span>\n    </label>\n  </div>\n  <input class=\"um-color-picker__hex\" type=\"text\" value=\"#7048e8\" maxlength=\"7\" spellcheck=\"false\" aria-label=\"Hexadecimal value\" disabled />\n</div>"
+    }
+  ],
+  "notes": "The colour of a chip is data, not a theme value: it arrives as a custom property the host sets, which is why the library paints the frame around the chip and the ring that marks it, and leaves the colour itself alone. The platform's own colour button is left where the browser puts it, because it is the only way to reach a colour that is not in the palette without a script.",
+  "notesZh": "色块的颜色是数据,不是主题的值:它由宿主用一个自定义属性送进来,所以库只画色块外面的框和标记它的那圈环,颜色本身不碰。平台自己的取色按钮留在浏览器放的位置,因为不用脚本时,它是走到调色板以外的唯一一个办法。"
+}

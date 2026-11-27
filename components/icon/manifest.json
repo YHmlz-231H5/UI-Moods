@@ -1,0 +1,72 @@
+{
+  "id": "icon",
+  "name": "Icon",
+  "nameZh": "图标",
+  "category": "basic",
+  "element": "span",
+  "summary": "The handful of marks a page needs most, drawn in CSS out of borders and pseudo-elements. The library ships no icon font, so every glyph here is a shape.",
+  "summaryZh": "页面最常用的那几个记号,用边框和伪元素画出来。库里没有图标字体,所以这里的每个字形都是形状。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-icon",
+    "modifier": "um-icon--"
+  },
+  "variants": [
+    { "id": "check", "name": "Check", "nameZh": "对勾", "state": "outline", "note": "The tick, drawn from two borders and a turn — the same drawing the checkbox uses." },
+    { "id": "close", "name": "Close", "nameZh": "关闭", "state": "solid", "note": "The cross, two bars over each other." },
+    { "id": "chevron-down", "name": "Chevron down", "nameZh": "向下箭头", "state": "outline" },
+    { "id": "chevron-right", "name": "Chevron right", "nameZh": "向右箭头", "state": "outline" },
+    { "id": "dot", "name": "Dot", "nameZh": "圆点", "state": "solid", "note": "A filled circle. It is the smallest mark the set has." },
+    { "id": "plus", "name": "Plus", "nameZh": "加号", "state": "solid" },
+    { "id": "minus", "name": "Minus", "nameZh": "减号", "state": "solid" }
+  ],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "The small glyph, at the caption size." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default glyph, at the body size. It needs no modifier class." },
+    { "id": "lg", "name": "Large", "nameZh": "大" }
+  ],
+  "states": [],
+  "parts": [],
+  "props": [
+    { "name": "name", "type": "enum", "values": ["check", "close", "chevron-down", "chevron-right", "dot", "plus", "minus"], "default": "check", "description": "Which mark this is.", "descriptionZh": "这是哪一个记号。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The size of the glyph.", "descriptionZh": "字形的大小。" },
+    { "name": "label", "type": "string", "default": "", "description": "The name of the mark, for the case where the icon carries meaning on its own. An icon with a label is announced as an image; an icon without one is hidden from the screen reader.", "descriptionZh": "这个记号的名字,用在图标自己就承载语义的时候。有名字的图标会被当作图片播报,没有名字的图标对读屏是隐藏的。" }
+  ],
+  "slots": [],
+  "events": [],
+  "a11y": {
+    "role": "img",
+    "keyboard": [],
+    "notes": "An icon is a shape and says nothing by itself, so it is hidden from the screen reader by default. When it is the only thing in a button, that button needs an accessible name of its own. When the icon is the message — a close mark that stands for “dismiss” — give it a label: the wrapper then exposes it as role=\"img\" with that name, and the shape is announced instead of skipped.",
+    "notesZh": "图标是个形状,自己不说话,所以默认对读屏是隐藏的。当按钮里只有它一个东西时,那个按钮得自己有个可访问名称。当图标本身就是那句话 —— 一个代表“关闭”的叉 —— 就给它一个名字:封装会把它作为 role=\"img\" 带着这个名字播报,这个形状就被念出来,而不是被跳过。"
+  },
+  "examples": [
+    {
+      "id": "glyphs",
+      "title": "The marks",
+      "titleZh": "这些记号",
+      "description": "Every mark in the set, each drawn from borders and pseudo-elements. They take the colour of the text they sit in, because an icon that chose its own colour would be a second visual system.",
+      "descriptionZh": "这一套里的每个记号,都由边框和伪元素画出来。它们取所在文字的颜色,因为一个自己挑颜色的图标就成了一套单独的视觉系统。",
+      "markup": "<span class=\"um-icon um-icon--check\" aria-hidden=\"true\"></span>\n<span class=\"um-icon um-icon--close\" aria-hidden=\"true\"></span>\n<span class=\"um-icon um-icon--chevron-down\" aria-hidden=\"true\"></span>\n<span class=\"um-icon um-icon--chevron-right\" aria-hidden=\"true\"></span>\n<span class=\"um-icon um-icon--dot\" aria-hidden=\"true\"></span>\n<span class=\"um-icon um-icon--plus\" aria-hidden=\"true\"></span>\n<span class=\"um-icon um-icon--minus\" aria-hidden=\"true\"></span>"
+    },
+    {
+      "id": "sizes",
+      "title": "Sizes",
+      "titleZh": "尺寸",
+      "description": "The glyph is one em square, so it is as big as the text it sits in. The size changes the type size it is measured against.",
+      "descriptionZh": "字形是一个 em 见方的盒子,所以它跟所在的文字一样大。尺寸改的是它用来衡量的字号。",
+      "markup": "<span class=\"um-icon um-icon--check um-icon--sm\" aria-hidden=\"true\"></span>\n<span class=\"um-icon um-icon--check\" aria-hidden=\"true\"></span>\n<span class=\"um-icon um-icon--check um-icon--lg\" aria-hidden=\"true\"></span>"
+    },
+    {
+      "id": "with-a-name",
+      "title": "With a name",
+      "titleZh": "带名字",
+      "description": "An icon that carries the message on its own is given a name, and it is announced as an image with that name. An icon beside a word stays hidden, because the word already says it.",
+      "descriptionZh": "自己就承载那句话的图标要给它一个名字,它会被当作带着这个名字的图片播报。图标旁边已经有文字的仍然隐藏,因为那句话已经说过了。",
+      "markup": "<span class=\"um-icon um-icon--close\" role=\"img\" aria-label=\"Dismiss\"></span>\n<span class=\"um-icon um-icon--dot\" aria-hidden=\"true\"></span>\n<span>Running</span>"
+    }
+  ],
+  "notes": "The glyphs are drawn, not typed. A character would have to be in the markup, and a font would have to be loaded, and both put the shape of the mark in the document instead of in the theme — where the weight, the colour and the size are decided. Drawn here, the same seven marks work in every mood, and a mark that sits in a button takes the button's own colour.",
+  "notesZh": "这些字形是画出来的,不是打出来的。用字符就得写进标记里,用字体就得加载字体,而这两种做法都把记号的形状放到了文档里,而不是放在决定线宽、颜色和大小的主题里。画出来之后,同样这七个记号在每套 mood 里都成立,而待在按钮里的记号会取按钮自己的颜色。"
+}

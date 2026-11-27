@@ -1,0 +1,39 @@
+/* ============================================================================
+   Border
+   ========================================================================== */
+
+/* The frame owns the surface: it paints the fill, and the body inside it
+   paints nothing. Two translucent layers would be a colour no role names, and
+   a guarantee made against one of them is a guarantee about a surface nobody
+   sees. */
+.um-border {
+  padding: var(--um-space-sm);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-base);
+  background: var(--um-fill-blank);
+  color: var(--um-text-regular);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+}
+
+.um-border--sm { padding: var(--um-space-xs); }
+.um-border--lg { padding: var(--um-space-md); }
+
+/* The frame is a shape that carries the state on its own — nothing inside it
+   says "this is a warning" — so it takes the graphic form of the tone, the
+   one contracted to 3:1 against the page and the container. The fill form
+   clears 4.5:1 as a background for text and clears nothing as a picture. */
+.um-border--primary { border-color: var(--um-color-primary-graphic); }
+.um-border--success { border-color: var(--um-color-success-graphic); }
+.um-border--warning { border-color: var(--um-color-warning-graphic); }
+.um-border--danger { border-color: var(--um-color-danger-graphic); }
+.um-border--info { border-color: var(--um-color-info-graphic); }
+
+/* The frame takes the focus ring when something inside it has the keyboard,
+   so the reader can see which box they are in. */
+.um-border:focus-within {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+.um-border__body { min-width: 0; line-height: 1.6; }

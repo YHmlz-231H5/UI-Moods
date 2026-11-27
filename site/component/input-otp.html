@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Input OTP · UI Moods</title>
+  <meta name="description" content="A row of one-character fields for a code the reader has been sent. Each box is a real input that holds one character, so the browser's own keyboard, autofill and password manager all still apply to it." />
+
+  <!-- The two files that make the whole thing work.
+       The first is the library; the second carries all thirty-two moods at
+       once, so the picker below changes an attribute instead of loading a
+       file — the switch has no network request to wait for. -->
+  <link rel="stylesheet" id="um-theme" href="../../themes/all.css" />
+  <link rel="stylesheet" href="../../components/um-components.css" />
+  <link rel="stylesheet" href="../../site/assets/site.css" />
+</head>
+<body>
+  <header class="site-header">
+      <a class="site-header__brand" href="../../index.html">UI Moods<span>Component Library</span></a>
+      <div class="site-header__spacer"></div>
+      <div class="switcher">
+        <label class="switcher__label" for="um-theme-picker">Theme</label>
+        <span class="switcher__field">
+          <select class="switcher__select" id="um-theme-picker"></select>
+        </span>
+      </div>
+    </header>
+  <div class="site-body">
+    <nav class="site-sidebar" aria-label="Components">
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Basic · 基础</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/affix.html">Affix <span class="meta">固钉</span></a></li>
+          <li><a href="../component/border.html">Border <span class="meta">边框</span></a></li>
+          <li><a href="../component/color.html">Color <span class="meta">色板</span></a></li>
+          <li><a href="../component/config-provider.html">Config Provider <span class="meta">全局配置</span></a></li>
+          <li><a href="../component/container.html">Container <span class="meta">容器</span></a></li>
+          <li><a href="../component/icon.html">Icon <span class="meta">图标</span></a></li>
+          <li><a href="../component/layout.html">Layout <span class="meta">布局</span></a></li>
+          <li><a href="../component/link.html">Link <span class="meta">链接</span></a></li>
+          <li><a href="../component/page-header.html">PageHeader <span class="meta">页头</span></a></li>
+          <li><a href="../component/scrollbar.html">Scrollbar <span class="meta">滚动条</span></a></li>
+          <li><a href="../component/space.html">Space <span class="meta">间距</span></a></li>
+          <li><a href="../component/splitter.html">Splitter <span class="meta">分割面板</span></a></li>
+          <li><a href="../component/text.html">Text <span class="meta">文本</span></a></li>
+          <li><a href="../component/typography.html">Typography <span class="meta">文字排版</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Form · 表单</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/autocomplete.html">Autocomplete <span class="meta">自动补全</span></a></li>
+          <li><a href="../component/button.html">Button <span class="meta">按钮</span></a></li>
+          <li><a href="../component/checkbox.html">Checkbox <span class="meta">复选框</span></a></li>
+          <li><a href="../component/checkbox-group.html">Checkbox Group <span class="meta">复选框组</span></a></li>
+          <li><a href="../component/color-picker.html">Color Picker <span class="meta">颜色选择器</span></a></li>
+          <li><a href="../component/color-picker-panel.html">Color Picker Panel <span class="meta">颜色选择面板</span></a></li>
+          <li><a href="../component/date-picker.html">Date Picker <span class="meta">日期选择器</span></a></li>
+          <li><a href="../component/date-picker-panel.html">Date Picker Panel <span class="meta">日期选择面板</span></a></li>
+          <li><a href="../component/date-time-picker.html">Date Time Picker <span class="meta">日期时间选择器</span></a></li>
+          <li><a href="../component/field.html">Field <span class="meta">表单项</span></a></li>
+          <li><a href="../component/input.html">Input / Textarea / Select <span class="meta">输入框 / 文本域 / 选择器</span></a></li>
+          <li><a href="../component/input-number.html">Input Number <span class="meta">数字输入框</span></a></li>
+          <li><a href="" aria-current="page">Input OTP <span class="meta">验证码输入</span></a></li>
+          <li><a href="../component/input-tag.html">Input Tag <span class="meta">标签输入</span></a></li>
+          <li><a href="../component/mention.html">Mention <span class="meta">提及</span></a></li>
+          <li><a href="../component/radio.html">Radio <span class="meta">单选框</span></a></li>
+          <li><a href="../component/radio-group.html">Radio Group <span class="meta">单选框组</span></a></li>
+          <li><a href="../component/rate.html">Rate <span class="meta">评分</span></a></li>
+          <li><a href="../component/slider.html">Slider <span class="meta">滑块</span></a></li>
+          <li><a href="../component/switch.html">Switch <span class="meta">开关</span></a></li>
+          <li><a href="../component/time-picker.html">Time Picker <span class="meta">时间选择器</span></a></li>
+          <li><a href="../component/time-select.html">Time Select <span class="meta">时间选择器</span></a></li>
+          <li><a href="../component/tree-select.html">Tree Select <span class="meta">树选择器</span></a></li>
+          <li><a href="../component/upload.html">Upload <span class="meta">上传</span></a></li>
+          <li><a href="../component/virtual-select.html">Virtual Select <span class="meta">虚拟列表选择器</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Data · 数据展示</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/avatar.html">Avatar <span class="meta">头像</span></a></li>
+          <li><a href="../component/badge.html">Badge <span class="meta">徽标</span></a></li>
+          <li><a href="../component/calendar.html">Calendar <span class="meta">日历</span></a></li>
+          <li><a href="../component/card.html">Card <span class="meta">卡片</span></a></li>
+          <li><a href="../component/carousel.html">Carousel <span class="meta">轮播图</span></a></li>
+          <li><a href="../component/cascader.html">Cascader <span class="meta">级联选择器</span></a></li>
+          <li><a href="../component/collapse.html">Collapse <span class="meta">折叠面板</span></a></li>
+          <li><a href="../component/descriptions.html">Descriptions <span class="meta">描述列表</span></a></li>
+          <li><a href="../component/empty.html">Empty <span class="meta">空状态</span></a></li>
+          <li><a href="../component/image.html">Image <span class="meta">图片</span></a></li>
+          <li><a href="../component/infinite-scroll.html">Infinite Scroll <span class="meta">无限滚动</span></a></li>
+          <li><a href="../component/progress.html">Progress <span class="meta">进度条</span></a></li>
+          <li><a href="../component/result.html">Result <span class="meta">结果</span></a></li>
+          <li><a href="../component/segmented.html">Segmented <span class="meta">分段控制器</span></a></li>
+          <li><a href="../component/skeleton.html">Skeleton <span class="meta">骨架屏</span></a></li>
+          <li><a href="../component/statistic.html">Statistic <span class="meta">统计数值</span></a></li>
+          <li><a href="../component/table.html">Table <span class="meta">表格</span></a></li>
+          <li><a href="../component/tag.html">Tag <span class="meta">标签</span></a></li>
+          <li><a href="../component/timeline.html">Timeline <span class="meta">时间线</span></a></li>
+          <li><a href="../component/tour.html">Tour <span class="meta">引导</span></a></li>
+          <li><a href="../component/transfer.html">Transfer <span class="meta">穿梭框</span></a></li>
+          <li><a href="../component/tree.html">Tree <span class="meta">树</span></a></li>
+          <li><a href="../component/virtual-table.html">Virtualized Table <span class="meta">虚拟表格</span></a></li>
+          <li><a href="../component/virtual-tree.html">Virtualized Tree <span class="meta">虚拟树</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Navigation · 导航</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/anchor.html">Anchor <span class="meta">锚点</span></a></li>
+          <li><a href="../component/backtop.html">Backtop <span class="meta">回到顶部</span></a></li>
+          <li><a href="../component/breadcrumb.html">Breadcrumb <span class="meta">面包屑</span></a></li>
+          <li><a href="../component/dropdown.html">Dropdown <span class="meta">下拉菜单</span></a></li>
+          <li><a href="../component/menu.html">Menu <span class="meta">菜单</span></a></li>
+          <li><a href="../component/pagination.html">Pagination <span class="meta">分页</span></a></li>
+          <li><a href="../component/steps.html">Steps <span class="meta">步骤条</span></a></li>
+          <li><a href="../component/tabs.html">Tabs <span class="meta">标签页</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Feedback · 反馈</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/alert.html">Alert <span class="meta">警告</span></a></li>
+          <li><a href="../component/dialog.html">Dialog <span class="meta">对话框</span></a></li>
+          <li><a href="../component/drawer.html">Drawer <span class="meta">抽屉</span></a></li>
+          <li><a href="../component/loading.html">Loading <span class="meta">加载中</span></a></li>
+          <li><a href="../component/message.html">Message <span class="meta">消息</span></a></li>
+          <li><a href="../component/message-box.html">Message Box <span class="meta">消息框</span></a></li>
+          <li><a href="../component/notification.html">Notification <span class="meta">通知</span></a></li>
+          <li><a href="../component/popconfirm.html">Popconfirm <span class="meta">气泡确认</span></a></li>
+          <li><a href="../component/popover.html">Popover <span class="meta">气泡卡片</span></a></li>
+          <li><a href="../component/tooltip.html">Tooltip <span class="meta">文字提示</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Others · 其他</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/divider.html">Divider <span class="meta">分割线</span></a></li>
+          <li><a href="../component/watermark.html">Watermark <span class="meta">水印</span></a></li>
+        </ul>
+      </div>
+    </nav>
+    <main class="site-main">
+      <h1>Input OTP <span class="meta">验证码输入</span></h1>
+      <p class="lede">A row of one-character fields for a code the reader has been sent. Each box is a real input that holds one character, so the browser's own keyboard, autofill and password manager all still apply to it.</p>
+      <p class="meta">
+        <span class="tag">div</span>
+        <span class="tag">form</span>
+        <span class="tag">since 1.1.0</span>
+      </p>
+      <div class="note">The boxes are one-character inputs rather than one input with the characters drawn inside it, because a real input keeps the keyboard, the autofill and the password manager — and because a reader who cannot see well may well widen the field to read it. The price is that the caret does not walk from one box to the next on its own: the library has no script, so the host moves it, and the reader can always Tab through the boxes in the meantime.</div>
+
+      <h2>Examples</h2>
+<div class="example">
+        <div class="example__title">Six boxes · 六个格子</div>
+        <div class="example__desc">Six single-character fields. The first one asks the browser for the one-time-code autofill, so a code that arrived by message can land in it.</div>
+        <div class="example__demo">
+<div class="um-input-otp um-input-otp--boxed" role="group" aria-label="Verification code">
+  <input class="um-input-otp__field" type="text" inputmode="numeric" maxlength="1" autocomplete="one-time-code" aria-label="Digit 1" />
+  <input class="um-input-otp__field" type="text" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Digit 2" />
+  <input class="um-input-otp__field" type="text" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Digit 3" />
+  <input class="um-input-otp__field" type="text" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Digit 4" />
+  <input class="um-input-otp__field" type="text" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Digit 5" />
+  <input class="um-input-otp__field" type="text" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Digit 6" />
+</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-input-otp um-input-otp--boxed&quot; role=&quot;group&quot; aria-label=&quot;Verification code&quot;&gt;
+  &lt;input class=&quot;um-input-otp__field&quot; type=&quot;text&quot; inputmode=&quot;numeric&quot; maxlength=&quot;1&quot; autocomplete=&quot;one-time-code&quot; aria-label=&quot;Digit 1&quot; /&gt;
+  &lt;input class=&quot;um-input-otp__field&quot; type=&quot;text&quot; inputmode=&quot;numeric&quot; maxlength=&quot;1&quot; autocomplete=&quot;off&quot; aria-label=&quot;Digit 2&quot; /&gt;
+  &lt;input class=&quot;um-input-otp__field&quot; type=&quot;text&quot; inputmode=&quot;numeric&quot; maxlength=&quot;1&quot; autocomplete=&quot;off&quot; aria-label=&quot;Digit 3&quot; /&gt;
+  &lt;input class=&quot;um-input-otp__field&quot; type=&quot;text&quot; inputmode=&quot;numeric&quot; maxlength=&quot;1&quot; autocomplete=&quot;off&quot; aria-label=&quot;Digit 4&quot; /&gt;
+  &lt;input class=&quot;um-input-otp__field&quot; type=&quot;text&quot; inputmode=&quot;numeric&quot; maxlength=&quot;1&quot; autocomplete=&quot;off&quot; aria-label=&quot;Digit 5&quot; /&gt;
+  &lt;input class=&quot;um-input-otp__field&quot; type=&quot;text&quot; inputmode=&quot;numeric&quot; maxlength=&quot;1&quot; autocomplete=&quot;off&quot; aria-label=&quot;Digit 6&quot; /&gt;
+&lt;/div&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">Underline · 下划线</div>
+        <div class="example__desc">The same row with every edge but the bottom one gone, so it reads as six slots on a line. Only the modifier class changes.</div>
+        <div class="example__demo">
+<div class="um-input-otp um-input-otp--underline" role="group" aria-label="Verification code">
+  <input class="um-input-otp__field" type="text" inputmode="numeric" maxlength="1" autocomplete="one-time-code" aria-label="Digit 1" />
+  <input class="um-input-otp__field" type="text" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Digit 2" />
+  <input class="um-input-otp__field" type="text" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Digit 3" />
+  <input class="um-input-otp__field" type="text" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Digit 4" />
+</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-input-otp um-input-otp--underline&quot; role=&quot;group&quot; aria-label=&quot;Verification code&quot;&gt;
+  &lt;input class=&quot;um-input-otp__field&quot; type=&quot;text&quot; inputmode=&quot;numeric&quot; maxlength=&quot;1&quot; autocomplete=&quot;one-time-code&quot; aria-label=&quot;Digit 1&quot; /&gt;
+  &lt;input class=&quot;um-input-otp__field&quot; type=&quot;text&quot; inputmode=&quot;numeric&quot; maxlength=&quot;1&quot; autocomplete=&quot;off&quot; aria-label=&quot;Digit 2&quot; /&gt;
+  &lt;input class=&quot;um-input-otp__field&quot; type=&quot;text&quot; inputmode=&quot;numeric&quot; maxlength=&quot;1&quot; autocomplete=&quot;off&quot; aria-label=&quot;Digit 3&quot; /&gt;
+  &lt;input class=&quot;um-input-otp__field&quot; type=&quot;text&quot; inputmode=&quot;numeric&quot; maxlength=&quot;1&quot; autocomplete=&quot;off&quot; aria-label=&quot;Digit 4&quot; /&gt;
+&lt;/div&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">Masked · 掩码</div>
+        <div class="example__desc">The same row with the boxes masked, so what is typed stays out of sight. The fields are real password fields, so the reader's own password manager still handles them.</div>
+        <div class="example__demo">
+<div class="um-input-otp um-input-otp--boxed" role="group" aria-label="One-time code">
+  <input class="um-input-otp__field" type="password" inputmode="numeric" maxlength="1" autocomplete="one-time-code" aria-label="Digit 1" />
+  <input class="um-input-otp__field" type="password" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Digit 2" />
+  <input class="um-input-otp__field" type="password" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Digit 3" />
+  <input class="um-input-otp__field" type="password" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Digit 4" />
+</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-input-otp um-input-otp--boxed&quot; role=&quot;group&quot; aria-label=&quot;One-time code&quot;&gt;
+  &lt;input class=&quot;um-input-otp__field&quot; type=&quot;password&quot; inputmode=&quot;numeric&quot; maxlength=&quot;1&quot; autocomplete=&quot;one-time-code&quot; aria-label=&quot;Digit 1&quot; /&gt;
+  &lt;input class=&quot;um-input-otp__field&quot; type=&quot;password&quot; inputmode=&quot;numeric&quot; maxlength=&quot;1&quot; autocomplete=&quot;off&quot; aria-label=&quot;Digit 2&quot; /&gt;
+  &lt;input class=&quot;um-input-otp__field&quot; type=&quot;password&quot; inputmode=&quot;numeric&quot; maxlength=&quot;1&quot; autocomplete=&quot;off&quot; aria-label=&quot;Digit 3&quot; /&gt;
+  &lt;input class=&quot;um-input-otp__field&quot; type=&quot;password&quot; inputmode=&quot;numeric&quot; maxlength=&quot;1&quot; autocomplete=&quot;off&quot; aria-label=&quot;Digit 4&quot; /&gt;
+&lt;/div&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">States · 状态</div>
+        <div class="example__desc">A disabled row. Every box leaves the tab order, and what was typed stays on screen so the reader can still read it.</div>
+        <div class="example__demo">
+<div class="um-input-otp um-input-otp--boxed" role="group" aria-label="Verification code">
+  <input class="um-input-otp__field" type="text" inputmode="numeric" maxlength="1" value="4" autocomplete="off" aria-label="Digit 1" disabled />
+  <input class="um-input-otp__field" type="text" inputmode="numeric" maxlength="1" value="2" autocomplete="off" aria-label="Digit 2" disabled />
+  <input class="um-input-otp__field" type="text" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Digit 3" disabled />
+  <input class="um-input-otp__field" type="text" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Digit 4" disabled />
+</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-input-otp um-input-otp--boxed&quot; role=&quot;group&quot; aria-label=&quot;Verification code&quot;&gt;
+  &lt;input class=&quot;um-input-otp__field&quot; type=&quot;text&quot; inputmode=&quot;numeric&quot; maxlength=&quot;1&quot; value=&quot;4&quot; autocomplete=&quot;off&quot; aria-label=&quot;Digit 1&quot; disabled /&gt;
+  &lt;input class=&quot;um-input-otp__field&quot; type=&quot;text&quot; inputmode=&quot;numeric&quot; maxlength=&quot;1&quot; value=&quot;2&quot; autocomplete=&quot;off&quot; aria-label=&quot;Digit 2&quot; disabled /&gt;
+  &lt;input class=&quot;um-input-otp__field&quot; type=&quot;text&quot; inputmode=&quot;numeric&quot; maxlength=&quot;1&quot; autocomplete=&quot;off&quot; aria-label=&quot;Digit 3&quot; disabled /&gt;
+  &lt;input class=&quot;um-input-otp__field&quot; type=&quot;text&quot; inputmode=&quot;numeric&quot; maxlength=&quot;1&quot; autocomplete=&quot;off&quot; aria-label=&quot;Digit 4&quot; disabled /&gt;
+&lt;/div&gt;</pre>
+      </div>
+      <h2>Classes</h2>
+<table class="api">
+      <thead><tr><th>Class</th><th>Meaning</th></tr></thead>
+      <tbody>
+      <tr><td><code>um-input-otp</code></td><td>The base class. Every instance carries it.</td></tr>
+      <tr><td><code>um-input-otp--boxed</code></td><td>Boxed</td></tr>
+      <tr><td><code>um-input-otp--underline</code></td><td>Underline</td></tr>
+      <tr><td><code>um-input-otp--sm</code></td><td>Size: sm</td></tr>
+      <tr><td><code>um-input-otp--md</code></td><td>Size: md</td></tr>
+      <tr><td><code>um-input-otp--lg</code></td><td>Size: lg</td></tr>
+      <tr><td><code>um-input-otp__field</code></td><td>Field</td></tr>
+      <tr><td><code>:focus-visible</code></td><td>Focus visible</td></tr>
+      <tr><td><code>:disabled</code></td><td>Disabled</td></tr>
+      </tbody>
+    </table>
+      <h2>Props</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>value</code></span></td><td><code>string</code></td><td>—</td><td>The code, as one string. Each character goes into the box at that position; a class cannot carry a code.</td></tr>
+      <tr><td><span class="api__name"><code>length</code></span></td><td><code>number</code></td><td><code>6</code></td><td>How many boxes there are. It is the host's number of characters, not something the class can say.</td></tr>
+      <tr><td><span class="api__name"><code>masked</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Hides what is typed, the way a password field does. It is the input's own type, so the password manager and the reader's own setting still apply.</td></tr>
+      <tr><td><span class="api__name"><code>label</code></span></td><td><code>string</code></td><td><code>One-time code</code></td><td>The accessible name of the row. It becomes the group's aria-label, because the boxes are named by their position and the row itself needs a name of its own.</td></tr>
+      <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes every box inert. It uses the real disabled attribute, so they leave the tab order.</td></tr>
+      <tr><td><span class="api__name"><code>variant</code></span></td><td><code>enum = boxed | underline</code></td><td><code>boxed</code></td><td>The shape of the boxes. The boxed run is the base class on its own; the underline run adds um-input-otp--underline.</td></tr>
+      <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The size of each box.</td></tr>
+      </tbody>
+    </table>
+
+      <h2>Events</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>input</code></span></td><td>Fires on every keystroke in any of the boxes. It is the browser's own event on the input — the library installs no listener.</td></tr>
+      <tr><td><span class="api__name"><code>change</code></span></td><td>Fires when a box loses focus with a value in it.</td></tr>
+      </tbody>
+    </table>
+      <h2>Accessibility</h2>
+      <p><strong>Role:</strong> <code>group</code></p>
+        <p><strong>Keyboard:</strong> <code>Tab</code> <code>Arrow keys</code> <code>Backspace</code></p>
+        <p>Each box is a real &lt;input maxlength=&quot;1&quot;&gt;, so it is in the tab order, the reader can type into it, and a screen reader announces it as a text field. Every box names itself by its position — &quot;Digit 1&quot;, &quot;Digit 2&quot; — because a blank box carries no text of its own, and the row itself carries the name of the thing being asked for. The first box asks the browser for the one-time-code autofill, which is where a code arriving by message goes. The library has no script, so it cannot move the caret from one box to the next when a box is filled; that is the host's to do, and the reader can always Tab through the boxes instead.</p>
+
+    </main>
+  </div>
+
+  <script>window.UM_THEMES = {"light":["anime","archive","bauhaus","brutal","clay","corporate","eco","fashion","food","forest","ios","luxury","medical","monochrome","nordic","pastel","retro","sakura","swiss","travel","y2k"],"dark":["aurora","blueprint","crypto","finance","gaming","glass","instrument","neon","night","vaporwave","verdant"]};
+  window.UM_DEFAULT_THEME = "aurora";</script>
+  <script src="../../themes/switcher.js"></script>
+  <script src="../../site/assets/site.js"></script>
+</body>
+</html>

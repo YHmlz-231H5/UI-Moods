@@ -1,0 +1,78 @@
+{
+  "id": "text",
+  "name": "Text",
+  "nameZh": "文本",
+  "category": "basic",
+  "element": "span",
+  "summary": "A run of inline text in one of the library's colours. It is the smallest atom of the type system: no box, no border, only the words and the colour they are written in. The blocks a page is written in are the typography component; this is the coloured run inside one of them.",
+  "summaryZh": "一段用库里的颜色写出来的行内文字。它是排版系统里最小的原子:没有框,没有边,只有字和它们的颜色。一个页面由哪些块写成,那是 typography 组件;这里是块里面那一小段有颜色的文字。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-text",
+    "modifier": "um-text--"
+  },
+  "variants": [
+    { "id": "regular", "name": "Regular", "nameZh": "常规", "note": "The neutral text colour. It is what the base class paints, so a plain um-text is this already; the modifier says the same thing out loud, for the host who would rather be explicit." },
+    { "id": "primary", "name": "Primary", "nameZh": "主要", "note": "The brand colour, in the role that is guaranteed to read on the page, the overlay and the container." },
+    { "id": "secondary", "name": "Secondary", "nameZh": "次要", "note": "Supporting text." },
+    { "id": "placeholder", "name": "Placeholder", "nameZh": "占位", "note": "The hint colour. It is contracted at 2.5:1, because a placeholder is a hint and not content." },
+    { "id": "success", "name": "Success", "nameZh": "成功" },
+    { "id": "warning", "name": "Warning", "nameZh": "警告" },
+    { "id": "danger", "name": "Danger", "nameZh": "危险" },
+    { "id": "info", "name": "Info", "nameZh": "信息" }
+  ],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "The caption size." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The body size. The base class is already this size, so it needs no modifier." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "The title size." }
+  ],
+  "states": [
+    { "id": "truncate", "name": "Truncated", "nameZh": "截断", "selector": ".um-text--truncate", "native": false, "note": "The run is clipped to one line and ends in an ellipsis. It is a class and not a pseudo-class: the host writes it into the markup, so it needs no script either. The box it is clipped in has to be narrower than the text, and the width of that box is the host's as well." }
+  ],
+  "parts": [],
+  "props": [
+    { "name": "type", "type": "enum", "values": ["regular", "primary", "secondary", "placeholder", "success", "warning", "danger", "info"], "default": "regular", "description": "Which colour the run is written in.", "descriptionZh": "这一段文字用哪一种颜色写。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The size of the run.", "descriptionZh": "这一段文字的字号。" },
+    { "name": "truncate", "type": "boolean", "default": "false", "description": "Clips the run to one line and ends it in an ellipsis.", "descriptionZh": "把这一段压成一行,末尾用省略号收尾。" },
+    { "name": "tag", "type": "enum", "values": ["span", "div", "p"], "default": "span", "description": "Which element the run is written as.", "descriptionZh": "这一段写成哪个元素。" }
+  ],
+  "slots": [
+    { "name": "default", "description": "The words themselves.", "descriptionZh": "文字本身。" }
+  ],
+  "events": [],
+  "a11y": {
+    "role": "",
+    "keyboard": [],
+    "notes": "The run adds nothing to what the reader's own screen reader already says: it is type, and type is read as it is written. The one thing here that changes the document is the tag, and the tag is the host's to choose — a run that reads as a heading has to be marked up as a heading, or it stays invisible to someone navigating by heading. The placeholder colour is the one exception to the 4.5:1 bar, and it is a deliberate one: a placeholder is a hint and not content, so the role is contracted at 2.5:1 and the field it sits in is expected to carry a visible label.",
+    "notesZh": "这一段不会给读屏增加它本来就读不到的东西:它是字形,字形是怎样写的就读成怎样。这里唯一会改变文档的是用哪个元素,而这由宿主决定 —— 一段读起来像标题的文字必须真的写成标题,否则靠标题跳转的人是看不见它的。占位色是 4.5:1 这条标准的唯一例外,而且是有意的例外:占位文字是提示,不是内容,所以这个角色的契约是 2.5:1,放它的那个字段应当带着一个看得见的标签。"
+  },
+  "examples": [
+    {
+      "id": "types",
+      "title": "Types",
+      "titleZh": "类型",
+      "description": "The eight colour types. The base class on its own is the regular text, and the regular modifier says the same thing — the first line is here to show that the two agree.",
+      "descriptionZh": "八种颜色类型。只写基础类就是常规文字,regular 修饰类说的是同一件事 —— 第一行放在这儿,是为了说明这两者是一致的。",
+      "markup": "<span class=\"um-text\">The regular text colour.</span><br>\n<span class=\"um-text um-text--regular\">The regular text colour, said out loud.</span><br>\n<span class=\"um-text um-text--primary\">The brand colour.</span><br>\n<span class=\"um-text um-text--secondary\">The supporting colour.</span><br>\n<span class=\"um-text um-text--placeholder\">The placeholder colour.</span><br>\n<span class=\"um-text um-text--success\">The success colour.</span><br>\n<span class=\"um-text um-text--warning\">The warning colour.</span><br>\n<span class=\"um-text um-text--danger\">The danger colour.</span><br>\n<span class=\"um-text um-text--info\">The info colour.</span>"
+    },
+    {
+      "id": "sizes",
+      "title": "Sizes",
+      "titleZh": "尺寸",
+      "description": "Three sizes, written as paragraphs here to show that the tag is the host's to choose. The middle one is the base class on its own, because the base class is already the body size.",
+      "descriptionZh": "三种尺寸,这里写成段落,是为了说明用哪个元素由宿主决定。中间那个只写基础类,因为基础类本来就是正文字号。",
+      "markup": "<p class=\"um-text um-text--sm\">A caption-sized run.</p>\n<p class=\"um-text\">The body-sized run, which is the base class on its own.</p>\n<p class=\"um-text um-text--lg\">A title-sized run.</p>"
+    },
+    {
+      "id": "truncate",
+      "title": "Truncated",
+      "titleZh": "截断",
+      "description": "A run that is clipped to one line. The clip needs a box that is narrower than the text, so the example puts the run in one — the class clips whatever box it is given and never decides how long a line may be.",
+      "descriptionZh": "一段被压成一行的文字。要截断就得有一个比文字窄的盒子,所以这个例子给它准备了一个 —— 这个类只负责裁剪放进来的盒子,从不决定一行能有多长。",
+      "markup": "<div style=\"max-width: 18em\">\n  <span class=\"um-text um-text--truncate\">The reconciliation finished with no differences and the log was kept for thirty days.</span>\n</div>"
+    }
+  ],
+  "notes": "The variant changes the colour of the run and nothing else; the size changes the type and nothing else; the tag is the host's to choose. The colour types take the -text form of a brand colour and never the fill form, because a fill colour used as writing can sit under 4.5:1 on a page. The placeholder colour is the one role here that is not held to the reading bar — it is contracted at 2.5:1, because a placeholder is a hint and not content, and the library would rather say that plainly than paint it darker than the mood meant it to be.",
+  "notesZh": "变体只改这一段文字的颜色,别的都不动;尺寸只改字号,别的也不动;用哪个元素由宿主决定。颜色类型取的是品牌色的 -text 形式,而不是填充形式:填充色拿来当正文写,在页面上可能不到 4.5:1。占位色是这里唯一不按阅读标准算的角色 —— 它的契约是 2.5:1,因为占位文字是提示,不是内容;与其把它画得比 mood 本来的意思更深,不如把这件事说明白。"
+}

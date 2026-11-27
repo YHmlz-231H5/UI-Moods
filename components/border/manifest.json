@@ -1,0 +1,75 @@
+{
+  "id": "border",
+  "name": "Border",
+  "nameZh": "边框",
+  "category": "basic",
+  "element": "div",
+  "summary": "A frame of one semantic colour around a block of content. It says what state the content is in without adding a word to it.",
+  "summaryZh": "给一块内容加一圈语义色的边框。它说明这块内容处在什么状态,不用往里加一个字。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-border",
+    "modifier": "um-border--",
+    "part": "um-border__"
+  },
+  "variants": [
+    { "id": "primary", "name": "Primary", "nameZh": "主要", "state": "outline", "note": "The brand colour, drawn in the graphic form so the frame reads as a shape." },
+    { "id": "success", "name": "Success", "nameZh": "成功", "state": "outline" },
+    { "id": "warning", "name": "Warning", "nameZh": "警告", "state": "outline" },
+    { "id": "danger", "name": "Danger", "nameZh": "危险", "state": "outline" },
+    { "id": "info", "name": "Info", "nameZh": "信息", "state": "outline" }
+  ],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "The tight padding." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default padding needs no modifier class." },
+    { "id": "lg", "name": "Large", "nameZh": "大" }
+  ],
+  "states": [
+    { "id": "focus-within", "name": "Focus within", "nameZh": "内部聚焦", "selector": ":focus-within", "native": true, "note": "A control inside the frame has the keyboard. The frame takes the focus ring, so the reader can see which box they are in." }
+  ],
+  "parts": [
+    { "id": "body", "name": "Body", "nameZh": "内容", "note": "The content inside the frame. It paints no surface of its own — the frame owns the one surface there is." }
+  ],
+  "props": [
+    { "name": "variant", "type": "enum", "values": ["primary", "success", "warning", "danger", "info"], "default": "primary", "description": "The colour of the frame.", "descriptionZh": "边框的颜色。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The padding inside the frame.", "descriptionZh": "边框内的留白。" }
+  ],
+  "slots": [
+    { "name": "default", "description": "The content the frame is drawn around. It goes in `.um-border__body`.", "descriptionZh": "被边框围起来的内容,放在 `.um-border__body` 里。" }
+  ],
+  "events": [],
+  "a11y": {
+    "keyboard": ["Tab"],
+    "notes": "The frame is a div and adds nothing to the accessibility tree: a border is a shape, and the content inside it is read as it is. When the frame holds a control, the frame takes the focus ring through :focus-within, so a keyboard reader can see where they are. Give the frame a role and an accessible name only when the group of controls inside it needs one.",
+    "notesZh": "边框是个 div,不给无障碍树增加任何东西:边框是个形状,里面的内容照常读。当边框里装着控件时,边框用 :focus-within 接住焦点环,键盘用户才看得见自己在哪儿。只有当里面这组控件需要名字时,才给边框加 role 和可访问名称。"
+  },
+  "examples": [
+    {
+      "id": "variants",
+      "title": "The five states",
+      "titleZh": "五种状态",
+      "description": "Each frame carries the colour of the state it announces. The colour is the graphic form of the tone, because the frame is a shape whose colour says it all — the raw fill colour clears nothing as a picture.",
+      "descriptionZh": "每个边框带着它要宣布的那个状态的颜色。这里用的是状态的图形色,因为边框是个全靠颜色说话的颜色 —— 填充色本身作为图形什么都保证不了。",
+      "markup": "<div class=\"um-border um-border--primary\">\n  <div class=\"um-border__body\">The build is running on node A.</div>\n</div>\n<div class=\"um-border um-border--success\">\n  <div class=\"um-border__body\">The build passed.</div>\n</div>\n<div class=\"um-border um-border--warning\">\n  <div class=\"um-border__body\">The certificate expires in three days.</div>\n</div>\n<div class=\"um-border um-border--danger\">\n  <div class=\"um-border__body\">The disk is full.</div>\n</div>\n<div class=\"um-border um-border--info\">\n  <div class=\"um-border__body\">The report covers the last 24 hours.</div>\n</div>"
+    },
+    {
+      "id": "sizes",
+      "title": "Sizes",
+      "titleZh": "尺寸",
+      "description": "The size is the padding inside the frame. The medium size is the default and needs no modifier class.",
+      "descriptionZh": "尺寸说的是边框里的留白。中号是默认尺寸,不需要修饰类。",
+      "markup": "<div class=\"um-border um-border--primary um-border--sm\">\n  <div class=\"um-border__body\">Small</div>\n</div>\n<div class=\"um-border um-border--primary\">\n  <div class=\"um-border__body\">Medium</div>\n</div>\n<div class=\"um-border um-border--primary um-border--lg\">\n  <div class=\"um-border__body\">Large</div>\n</div>"
+    },
+    {
+      "id": "plain",
+      "title": "Without a state",
+      "titleZh": "不带状态",
+      "description": "The base class on its own is a plain frame. It is the one to reach for when the content should be set off without announcing anything about it.",
+      "descriptionZh": "只写基类就是一个素边框。内容只是需要被框起来、又不需要借此宣布什么的时候,用这个。",
+      "markup": "<div class=\"um-border\">\n  <div class=\"um-border__body\">A plain frame, in the mood's own border colour.</div>\n</div>"
+    }
+  ],
+  "notes": "The frame paints the surface and the body inside it paints nothing. Two translucent layers would be a colour no role names, and a guarantee made against one of them is a guarantee about a surface nobody sees. The frame's own colour is the graphic form of the tone, because the frame is a shape that carries the state on its own: the raw fill colour clears 4.5:1 as a background for text and clears nothing as a picture.",
+  "notesZh": "边框负责画那层底色,里面的内容什么都不画。两层半透明叠起来是一个谁都没命名的颜色,而对着其中一层做的保证,保证的是一层没人看得见的表面。边框的颜色用的是状态的图形色,因为边框本身就是一个全靠颜色承载状态的形状:填充色作为文字底色能到 4.5:1,作为图形则什么都保证不了。"
+}

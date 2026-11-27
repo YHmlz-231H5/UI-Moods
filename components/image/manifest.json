@@ -1,0 +1,84 @@
+{
+  "id": "image",
+  "name": "Image",
+  "nameZh": "图片",
+  "category": "data",
+  "element": "figure",
+  "summary": "A frame for a picture: it holds the space the picture will take, shows a placeholder while there is none, and decides how the picture fills that space.",
+  "summaryZh": "给图片留的一个框:它占住图片将要占的位置,没有图片时放一个占位形状,并决定图片怎么填满这个位置。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-image",
+    "modifier": "um-image--",
+    "part": "um-image__"
+  },
+  "variants": [
+    { "id": "cover", "name": "Cover", "nameZh": "裁剪填满", "note": "The picture fills the frame and the edges that do not fit are cut off. The base class on its own is this, and the modifier paints the same thing so the class list can name it." },
+    { "id": "contain", "name": "Contain", "nameZh": "完整显示", "note": "The whole picture fits inside the frame, and the frame keeps whatever is left over." },
+    { "id": "fill", "name": "Fill", "nameZh": "拉伸填满", "note": "The picture is stretched to the frame, so it takes the frame's shape and loses its own." },
+    { "id": "rounded", "name": "Rounded", "nameZh": "圆角", "state": "outline", "note": "The frame takes the mood's default corner radius." },
+    { "id": "circle", "name": "Circle", "nameZh": "圆形", "state": "outline", "note": "The frame becomes a circle, so the picture is cropped to it." },
+    { "id": "bordered", "name": "Bordered", "nameZh": "带边框", "state": "outline", "note": "The frame takes a rule around it, so the edge of the picture is stated rather than implied." }
+  ],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "The frame takes the medium control height." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default size. The base class is already this size, so it needs no modifier." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "The frame takes one and a half times the large control height." }
+  ],
+  "states": [
+    { "id": "error", "name": "Error", "nameZh": "出错", "selector": ".um-image__image--error", "note": "The picture failed to load. It is taken out of the frame, so the placeholder stands in for it." }
+  ],
+  "parts": [
+    { "id": "frame", "name": "Frame", "nameZh": "画框", "note": "The box the picture goes in. It owns the shape, the rule and the recessed fill behind the picture." },
+    { "id": "image", "name": "Image", "nameZh": "图片", "note": "The picture itself. It fills the frame, and the fill variant decides whether it is cropped, fitted or stretched." },
+    { "id": "placeholder", "name": "Placeholder", "nameZh": "占位图", "note": "The mark that stands in for a picture that is not there yet. It is drawn from borders and carries no text of its own." },
+    { "id": "caption", "name": "Caption", "nameZh": "说明", "note": "The line under the frame that says what the picture is." }
+  ],
+  "props": [
+    { "name": "src", "type": "string", "description": "Where the picture is. An empty source leaves the placeholder standing in.", "descriptionZh": "图片在哪里。地址为空时就由占位图顶上。" },
+    { "name": "alt", "type": "string", "description": "The text a reader gets instead of the picture. An empty alt is right for a picture that only decorates the page.", "descriptionZh": "读屏代替图片读到的文字。如果这张图只是装饰,空 alt 是对的。" },
+    { "name": "caption", "type": "string", "description": "The line under the frame. A caption is a caption for the picture, so it belongs under it and not on top of it.", "descriptionZh": "画框下面那一行文字。说明就是图片的说明,所以它该在下面,而不是盖在图片上。" },
+    { "name": "fit", "type": "enum", "values": ["cover", "contain", "fill"], "default": "cover", "description": "How the picture fills the frame. The cover run is the base class on its own; the other two add um-image--contain and um-image--fill.", "descriptionZh": "图片怎么填满画框。裁剪填满就是只写基类;另外两种加上 um-image--contain 和 um-image--fill。" },
+    { "name": "shape", "type": "enum", "values": ["square", "rounded", "circle"], "default": "square", "description": "The shape of the frame. The square run is the base class on its own; the other two add um-image--rounded and um-image--circle.", "descriptionZh": "画框的形状。方形就是只写基类;另外两种加上 um-image--rounded 和 um-image--circle。" },
+    { "name": "bordered", "type": "boolean", "default": "false", "description": "Puts a rule around the frame. It is a class rather than an attribute, because the rule is a picture of the frame and not a state of it.", "descriptionZh": "给画框加一道边。它是一个类而不是属性,因为这道边是画框的样子,不是画框的状态。" },
+    { "name": "error", "type": "boolean", "default": "false", "description": "Says the picture failed to load, so the placeholder stands in for it.", "descriptionZh": "说明这张图没加载出来,于是由占位图顶上。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The size of the frame.", "descriptionZh": "画框的大小。" }
+  ],
+  "slots": [],
+  "events": [],
+  "a11y": {
+    "role": "figure",
+    "keyboard": [],
+    "notes": "The picture is a real <img> with an alt, so the reader gets the text instead of the picture when the picture is the content, and nothing at all when the picture is only decoration. The placeholder is a shape and carries no text, so it is hidden from the reader. The caption is a real <figcaption>, so it is announced with the picture.",
+    "notesZh": "图片是一个真正的 <img>,带着 alt,所以图片本身就是内容的时候读屏读到的是那段文字,图片只是装饰的时候就什么也不读。占位图是一个形状,自己不带文字,所以对读屏隐藏。说明是真正的 <figcaption>,会跟着图片一起播报。"
+  },
+  "examples": [
+    {
+      "id": "picture",
+      "title": "A picture",
+      "titleZh": "一张图片",
+      "description": "The picture is cropped to the frame, and the caption sits under the frame rather than on top of it: a caption band over a picture would be a colour no role names. The frame is the medium size.",
+      "descriptionZh": "图片被裁进画框里,说明写在画框下面而不是盖在图片上 —— 盖在图片上的说明条是谁都没命名的颜色。画框是中等尺寸。",
+      "markup": "<figure class=\"um-image um-image--cover\">\n  <div class=\"um-image__frame\">\n    <img class=\"um-image__image\" src=\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='120'%3E%3Crect width='160' height='120' fill='%23c8ccd4'/%3E%3C/svg%3E\" alt=\"A grey rectangle standing for a picture\" />\n  </div>\n  <figcaption class=\"um-image__caption\">Node A, before the upgrade</figcaption>\n</figure>"
+    },
+    {
+      "id": "placeholder",
+      "title": "The placeholder",
+      "titleZh": "占位图",
+      "description": "With no picture there is still a frame, and the placeholder marks the space the picture will take. The rounded shape is a modifier on the same markup.",
+      "descriptionZh": "没有图片的时候画框还在,占位图标出图片将要占的位置。圆角是同一份标记上的一个修饰类。",
+      "markup": "<figure class=\"um-image um-image--contain um-image--rounded\">\n  <div class=\"um-image__frame\">\n    <span class=\"um-image__placeholder\" aria-hidden=\"true\"></span>\n  </div>\n  <figcaption class=\"um-image__caption\">Waiting for the picture</figcaption>\n</figure>"
+    },
+    {
+      "id": "shapes",
+      "title": "Other shapes",
+      "titleZh": "别的形状",
+      "description": "The frame is a circle and it takes a rule around it. The two modifiers are independent, so they can be used together or on their own.",
+      "descriptionZh": "画框是一个圆,外面还加了一道边。这两个修饰类是独立的,可以一起用,也可以分开用。",
+      "markup": "<figure class=\"um-image um-image--cover um-image--circle um-image--bordered\">\n  <div class=\"um-image__frame\">\n    <img class=\"um-image__image\" src=\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Ccircle cx='80' cy='80' r='80' fill='%23c8ccd4'/%3E%3C/svg%3E\" alt=\"A grey disc standing for a picture\" />\n  </div>\n  <figcaption class=\"um-image__caption\">The build that passed</figcaption>\n</figure>"
+    }
+  ],
+  "notes": "The frame owns the shape and the fill behind the picture, and the picture owns only how it fills the frame. The caption is under the frame rather than over it, because a band of colour on top of a picture is a colour no role names and its contrast cannot be measured against anything. The placeholder is drawn from borders in the muted-shape role: it is a shape with no label, so it has to clear 3:1 against the page on its own. A picture that failed is not a picture, so the broken one is taken out of the frame and the placeholder stands in for it.",
+  "notesZh": "画框管形状,管图片背后的底色;图片只管自己怎么填进画框。说明写在画框下面而不是盖在上面,因为盖在图片上的一条色块是谁都没命名的颜色,它的对比度也对不上任何东西。占位图是用边框画出来的,用的是 muted 形状的角色:它是一个没有标签的形状,所以得自己对上页面就有 3:1。没加载出来的图片不算图片,所以那张坏掉的被拿出画框,由占位图顶上。"
+}

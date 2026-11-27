@@ -16,6 +16,7 @@ import { readFileSync, writeFileSync, existsSync, readdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { loadManifests, catalogue, declaredClasses, modifierClass, partClass } from "./lib/manifest.mjs";
+import { boxModelCss } from "./lib/box-model.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const componentsDir = join(root, "components");
@@ -62,6 +63,22 @@ if (!first.length) {
   console.error("components/_base.css missing — the shared layer has to exist");
   process.exit(1);
 }
+
+// --- the library's own box model ---------------------------------------------
+
+/**
+ * Every box the library paints measures itself from the outside in.
+ *
+ * The rule is generated from the manifests, so a component that is added
+ * tomorrow is covered without anyone remembering to add it, and it is
+ * generated in one place — `tools/lib/box-model.mjs` — so that the builder
+ * and the validator cannot disagree about what it is.
+ */
+chunks.push({
+  id: "_box-model",
+  title: "box model",
+  css: boxModelCss(manifests),
+});
 
 const perComponent = new Map();
 // The shared text a component's own state selector may live in: the shared

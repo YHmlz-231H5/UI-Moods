@@ -1,0 +1,129 @@
+/* ============================================================================
+   Virtual Select
+   ========================================================================== */
+
+/* The list is long, so the browser is told to skip the work for the rows
+   that are far away: `content-visibility: auto` leaves the layout of a row
+   that is off the screen to the browser, and `contain-intrinsic-size` says
+   how big such a row is until the reader comes to it.
+
+   Both are the row's own, not the list's: a row is what is skipped, and a
+   skipped row needs its own size to stand in for.
+
+   The row height is a length of the component's own, and not a number of
+   pixels: a row's height follows the theme's type, and the library's pixel
+   allowlist has no row in it. The scroller's height is the host's, because
+   how much of a long list fits on a page is the host's business. */
+.um-virtual-select {
+  --um-virtual-select-row-size: var(--um-height-md);
+  --um-virtual-select-height: 12em;
+  display: inline-block;
+  /* The list has a width of its own, because a row that the browser has not
+     laid out yet has no width to be measured with: the list would shrink to
+     the placeholder and the words would spill out of it. */
+  min-width: 16em;
+  max-width: 100%;
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+}
+
+.um-virtual-select--sm {
+  --um-virtual-select-row-size: var(--um-height-sm);
+}
+
+.um-virtual-select--lg {
+  --um-virtual-select-row-size: var(--um-height-lg);
+}
+
+/* The scroller is the bounded box the list scrolls in. */
+.um-virtual-select__scroller {
+  overflow: auto;
+  max-height: var(--um-virtual-select-height);
+  overscroll-behavior: contain;
+}
+
+/* The bordered run frames the list. The plain run lets it sit straight on
+   the page. */
+.um-virtual-select .um-virtual-select__scroller,
+.um-virtual-select--bordered .um-virtual-select__scroller {
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-base);
+  background: var(--um-bg-overlay);
+}
+
+.um-virtual-select--plain .um-virtual-select__scroller {
+  border: 0;
+  background: transparent;
+}
+
+.um-virtual-select__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* The row that is skipped. The placeholder size is the row's own size, so
+   the scrollbar is right before the row has ever been looked at. */
+.um-virtual-select__option {
+  content-visibility: auto;
+  contain-intrinsic-size: auto var(--um-virtual-select-row-size);
+  min-height: var(--um-virtual-select-row-size);
+}
+
+/* The label is the row: it holds the radio and the words. It clips what it
+   holds, because a row the browser has not laid out yet is only as wide as
+   the placeholder it stands in for, and the words must not run past the box
+   that holds them. */
+.um-virtual-select__label {
+  display: flex;
+  align-items: center;
+  gap: var(--um-space-xs);
+  min-height: var(--um-virtual-select-row-size);
+  padding: 0 var(--um-space-sm);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* The radio carries the choice. It is kept out of sight but not out of the
+   tab order, and it names itself — a row is a label, and a label carries no
+   text of its own. */
+.um-virtual-select__label input[type="radio"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.um-virtual-select__text {
+  /* A flex item may shrink below the width of its own words, so a long name
+     is clipped with an ellipsis rather than running past the row. The row
+     keeps one height this way, which is what the placeholder size of a row
+     the browser has not laid out yet has to match. */
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--um-text-regular);
+  font-size: var(--um-font-size-body);
+}
+
+/* The chosen row takes the brand's barely-there tint, and the words on it
+   take the foreground the contract writes for that tint. */
+.um-virtual-select__option:has(input:checked) {
+  background: var(--um-color-primary-soft-8);
+}
+
+.um-virtual-select__option:has(input:checked) .um-virtual-select__text {
+  color: var(--um-color-primary-on-soft);
+}
+
+/* The ring goes inside the row, the way the ring on a button in a row goes
+   inside it: an outside ring would be cut off by the scroller. */
+.um-virtual-select__option:has(input:focus-visible) .um-virtual-select__label {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: calc(-1 * var(--um-focus-ring-width));
+}
+
+.um-virtual-select--sm .um-virtual-select__text {
+  font-size: var(--um-font-size-caption);
+}

@@ -1,0 +1,84 @@
+{
+  "id": "mention",
+  "name": "Mention",
+  "nameZh": "提及",
+  "category": "form",
+  "element": "div",
+  "summary": "A field with a list of people under it. The reader types, the host decides which names to offer, and each name is a button that carries an avatar slot and an @name.",
+  "summaryZh": "一个输入框,底下压着一份人的名单。读者打字,由使用方决定端出哪些名字,每个名字是一个按钮,带着一个头像位和一个 @名字。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-mention",
+    "modifier": "um-mention--",
+    "part": "um-mention__"
+  },
+  "variants": [
+    { "id": "bordered", "name": "Bordered", "nameZh": "描边", "note": "The field is a box with a border. The base class on its own is already this." },
+    { "id": "plain", "name": "Plain", "nameZh": "无边框", "note": "The field drops its border and its fill, so it reads as a line of text on the page." },
+    { "id": "round", "name": "Round", "nameZh": "圆角", "note": "The field is a pill, for a mention that sits at the end of a sentence." }
+  ],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "A caption-sized field." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default field needs no modifier class." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "A title-sized field." }
+  ],
+  "states": [
+    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring is drawn around the field, because the field is what the reader is typing in — the input is inside it, not beside it." },
+    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The field paints the flat control surface and takes the derived disabled colour." }
+  ],
+  "parts": [
+    { "id": "field", "name": "Field", "nameZh": "输入框", "note": "The box the input sits in. It owns the field's fill and border, so the input inside it paints none." },
+    { "id": "input", "name": "Input", "nameZh": "输入", "note": "The real text input. It is borderless, so the field and the text read as one control." },
+    { "id": "list", "name": "List", "nameZh": "列表", "note": "The panel of names. It sits on the overlay surface and carries its own shadow." },
+    { "id": "item", "name": "Item", "nameZh": "提及项", "note": "One name in the list. It is a real button, so it is focusable and can be pressed with the keyboard." },
+    { "id": "avatar", "name": "Avatar", "nameZh": "头像", "note": "The avatar slot in front of the name. It is a disc the host fills with initials." },
+    { "id": "name", "name": "Name", "nameZh": "名字", "note": "The name itself, written with the @ in front of it, the way the reader will see it in the text." }
+  ],
+  "props": [
+    { "name": "variant", "type": "enum", "values": ["bordered", "plain", "round"], "default": "bordered", "description": "The shape of the field.", "descriptionZh": "输入框的形态。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The height of the field and the size of its type.", "descriptionZh": "输入框的高度和字号。" },
+    { "name": "value", "type": "string", "default": "", "description": "The text in the field.", "descriptionZh": "输入框里的文字。" },
+    { "name": "placeholder", "type": "string", "default": "Type @ to mention someone", "description": "The hint in the empty field.", "descriptionZh": "空输入框里的提示。" },
+    { "name": "label", "type": "string", "default": "", "description": "The accessible name of the field. It becomes the input's aria-label.", "descriptionZh": "输入框的可访问名称,它会变成 input 的 aria-label。" }
+  ],
+  "slots": [
+    { "name": "default", "description": "The names in the list. Each one is a list item holding a button.", "descriptionZh": "列表里的名字,每个名字是一个列表项,里面放一个按钮。" }
+  ],
+  "events": [
+    { "name": "input", "description": "Fires when the text in the field changes.", "descriptionZh": "输入框里的文字变了就触发。" }
+  ],
+  "a11y": {
+    "keyboard": ["Tab", "Space"],
+    "notes": "The field is a real text input, so the keyboard, the autofill and the screen reader all behave the way the reader expects. The names in the list are real buttons, so each one can be reached with the keyboard and pressed with Space — the library installs no listener and asks for no script. Give the input an accessible name: an aria-label, or a visible label above it. The list is not a listbox here: nothing tracks which name is active, so it is an ordinary list of buttons, and the reader reaches them by tabbing.",
+    "notesZh": "输入框是真的文本输入,键盘、自动填充和读屏都会按读者熟悉的方式工作。列表里的名字是真按钮,每一个都能用键盘走到、按空格选中 —— 库里没有装任何监听器,也不需要脚本。给输入框一个可访问的名字:aria-label,或者上面写一个看得见的标签。这里的列表不是 listbox:没有东西在跟踪当前选中的是谁,所以它就是一份普通的按钮列表,读者靠 Tab 一个个走到。"
+  },
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Basic",
+      "titleZh": "基础用法",
+      "description": "A field and the names under it. Each name is a button with an avatar slot in front of it.",
+      "descriptionZh": "一个输入框和底下的名单。每个名字是一个按钮,前面带一个头像位。",
+      "markup": "<div class=\"um-mention\">\n  <div class=\"um-mention__field\">\n    <input class=\"um-mention__input\" type=\"text\" placeholder=\"Type @ to mention someone\" aria-label=\"Comment\">\n  </div>\n  <ul class=\"um-mention__list\">\n    <li>\n      <button type=\"button\" class=\"um-mention__item\">\n        <span class=\"um-mention__avatar\" aria-hidden=\"true\">ZM</span>\n        <span class=\"um-mention__name\">@Zhao Ming</span>\n      </button>\n    </li>\n    <li>\n      <button type=\"button\" class=\"um-mention__item\">\n        <span class=\"um-mention__avatar\" aria-hidden=\"true\">LW</span>\n        <span class=\"um-mention__name\">@Li Wei</span>\n      </button>\n    </li>\n    <li>\n      <button type=\"button\" class=\"um-mention__item\">\n        <span class=\"um-mention__avatar\" aria-hidden=\"true\">CY</span>\n        <span class=\"um-mention__name\">@Chen Yu</span>\n      </button>\n    </li>\n  </ul>\n</div>"
+    },
+    {
+      "id": "variants",
+      "title": "Variants",
+      "titleZh": "变体",
+      "description": "Three shapes for the field. The bordered one is the base class on its own, because the base class is already the bordered field.",
+      "descriptionZh": "输入框的三种形态。描边的那种只写基础类,因为基础类本来就是描边的输入框。",
+      "markup": "<div class=\"um-mention um-mention--bordered\">\n  <div class=\"um-mention__field\">\n    <input class=\"um-mention__input\" type=\"text\" placeholder=\"Bordered\" aria-label=\"Bordered\">\n  </div>\n</div>\n<div class=\"um-mention um-mention--plain\">\n  <div class=\"um-mention__field\">\n    <input class=\"um-mention__input\" type=\"text\" placeholder=\"Plain\" aria-label=\"Plain\">\n  </div>\n</div>\n<div class=\"um-mention um-mention--round\">\n  <div class=\"um-mention__field\">\n    <input class=\"um-mention__input\" type=\"text\" placeholder=\"Round\" aria-label=\"Round\">\n  </div>\n</div>"
+    },
+    {
+      "id": "sizes",
+      "title": "Sizes",
+      "titleZh": "尺寸",
+      "description": "Three heights. The middle one is the base class on its own, because the base class is already the medium field.",
+      "descriptionZh": "三种高度。中间那个只写基础类,因为基础类本来就是中号输入框。",
+      "markup": "<div class=\"um-mention um-mention--sm\">\n  <div class=\"um-mention__field\">\n    <input class=\"um-mention__input\" type=\"text\" placeholder=\"Small\" aria-label=\"Small\">\n  </div>\n</div>\n<div class=\"um-mention\">\n  <div class=\"um-mention__field\">\n    <input class=\"um-mention__input\" type=\"text\" placeholder=\"Medium\" aria-label=\"Medium\">\n  </div>\n</div>\n<div class=\"um-mention um-mention--lg\">\n  <div class=\"um-mention__field\">\n    <input class=\"um-mention__input\" type=\"text\" placeholder=\"Large\" aria-label=\"Large\">\n  </div>\n</div>"
+    }
+  ],
+  "notes": "Element Plus opens the list when the reader types an @ and closes it when they stop; here the list is a container and the host decides whether it is on the page. The input is a real input inside a borderless field, so the field and the text read as one control rather than as a field with something stuck to it. The field paints the surface and the input paints none — two translucent layers would be a colour no role names.",
+  "notesZh": "Element Plus 是读者打出 @ 时打开名单、停下来时又收走;这里的名单就是一个容器,在不在页面上由使用方决定。输入是真的 input,放在一个没有边框的外壳里,所以外壳和文字读起来是一个控件,而不是一个框上粘了个什么东西。外壳负责画底色,input 什么都不画 —— 两层半透明叠起来就是一个谁都没命名的颜色。"
+}

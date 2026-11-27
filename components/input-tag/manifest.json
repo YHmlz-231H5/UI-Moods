@@ -1,0 +1,83 @@
+{
+  "id": "input-tag",
+  "name": "Input Tag",
+  "nameZh": "标签输入",
+  "category": "form",
+  "element": "div",
+  "summary": "A field that holds the tags already chosen, and an empty place to type the next one. Removing a tag needs a script; the shapes of the tag and of its remove button do not.",
+  "summaryZh": "一个装着已经选好的标签的输入框,外加一个可以继续打字的位置。删掉一个标签需要脚本,而标签和它的删除按钮长什么样不需要。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-input-tag",
+    "modifier": "um-input-tag--",
+    "part": "um-input-tag__"
+  },
+  "variants": [
+    { "id": "primary", "name": "Primary", "nameZh": "主要", "state": "soft", "note": "The tags carry the brand colour." },
+    { "id": "success", "name": "Success", "nameZh": "成功", "state": "soft" },
+    { "id": "warning", "name": "Warning", "nameZh": "警告", "state": "soft" },
+    { "id": "danger", "name": "Danger", "nameZh": "危险", "state": "soft" }
+  ],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "A caption-sized field." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default field needs no modifier class." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "A title-sized field." }
+  ],
+  "states": [
+    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring is drawn around the field, because the field is what the reader is typing in." },
+    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The field paints the flat control surface and takes the derived disabled colour." }
+  ],
+  "parts": [
+    { "id": "tag", "name": "Tag", "nameZh": "标签", "note": "One chosen tag. The variant tints the tags of the whole field, because in CSS the modifier sits on the root." },
+    { "id": "text", "name": "Text", "nameZh": "文字", "note": "The words of the tag. A long tag is cut with an ellipsis rather than pushing the field wider." },
+    { "id": "remove", "name": "Remove", "nameZh": "删除", "note": "The button that takes the tag back out. It is a real button, and its mark is drawn from two borders." },
+    { "id": "input", "name": "Input", "nameZh": "输入", "note": "The empty place at the end of the field. It is a real text input, borderless, so the field and the text read as one control." }
+  ],
+  "props": [
+    { "name": "variant", "type": "enum", "values": ["primary", "success", "warning", "danger"], "default": "", "description": "Which colour the tags carry. The base class on its own is the neutral tag.", "descriptionZh": "标签带哪一种颜色。只写基础类就是中性标签。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The height of the field and the size of its tags.", "descriptionZh": "输入框的高度和标签的大小。" },
+    { "name": "value", "type": "string", "default": "", "description": "The text in the empty part of the field.", "descriptionZh": "输入框空着的那一格里打的字。" },
+    { "name": "placeholder", "type": "string", "default": "Add a tag", "description": "The hint in the empty part of the field.", "descriptionZh": "输入框空着的那一格里的提示。" },
+    { "name": "label", "type": "string", "default": "", "description": "The accessible name of the field. It becomes the input's aria-label.", "descriptionZh": "输入框的可访问名称,它会变成 input 的 aria-label。" }
+  ],
+  "slots": [
+    { "name": "default", "description": "The tags already chosen. Each one is a tag holding its text and its remove button.", "descriptionZh": "已经选好的标签,每个标签里装着它的文字和删除按钮。" }
+  ],
+  "events": [
+    { "name": "input", "description": "Fires when the text in the field changes.", "descriptionZh": "输入框里的文字变了就触发。" }
+  ],
+  "a11y": {
+    "keyboard": ["Tab", "Space"],
+    "notes": "The empty part of the field is a real text input, so the keyboard and the autofill behave the way the reader expects. Each remove button is a real button with its own accessible name — \"Remove Frontend\", not \"Remove\" — because a reader who hears ten of them in a row needs to know which is which. Give the input an accessible name: an aria-label, or a visible label above the field.",
+    "notesZh": "空着的那一格是真的文本输入,键盘和自动填充都会按读者熟悉的方式工作。每个删除按钮都是真按钮,都有自己的可访问名称 —— 是「Remove Frontend」而不是「Remove」,因为一次听到十个同样的按钮时,读者得知道哪个是哪个。给输入框一个可访问的名字:aria-label,或者在框上面写一个看得见的标签。"
+  },
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Basic",
+      "titleZh": "基础用法",
+      "description": "Three chosen tags and the empty place to type the next one. The remove mark is drawn from two borders rather than written as a character.",
+      "descriptionZh": "三个已经选好的标签,和一个可以继续打字的位置。删除记号是用两条边框画的,不是写出来的字符。",
+      "markup": "<div class=\"um-input-tag\">\n  <span class=\"um-input-tag__tag\">\n    <span class=\"um-input-tag__text\">Frontend</span>\n    <button type=\"button\" class=\"um-input-tag__remove\" aria-label=\"Remove Frontend\"></button>\n  </span>\n  <span class=\"um-input-tag__tag\">\n    <span class=\"um-input-tag__text\">Nightly</span>\n    <button type=\"button\" class=\"um-input-tag__remove\" aria-label=\"Remove Nightly\"></button>\n  </span>\n  <span class=\"um-input-tag__tag\">\n    <span class=\"um-input-tag__text\">Reconciliation</span>\n    <button type=\"button\" class=\"um-input-tag__remove\" aria-label=\"Remove Reconciliation\"></button>\n  </span>\n  <input class=\"um-input-tag__input\" type=\"text\" placeholder=\"Add a tag\" aria-label=\"Add a tag\">\n</div>"
+    },
+    {
+      "id": "variants",
+      "title": "Variants",
+      "titleZh": "变体",
+      "description": "The tone of the tags. The base class on its own is the neutral tag; the four variants tint the tags and outline them with the derived colour.",
+      "descriptionZh": "标签的颜色。只写基础类就是中性标签;四种变体给标签上淡色,描边则用派生出来的颜色。",
+      "markup": "<div class=\"um-input-tag\">\n  <span class=\"um-input-tag__tag\">\n    <span class=\"um-input-tag__text\">Draft</span>\n    <button type=\"button\" class=\"um-input-tag__remove\" aria-label=\"Remove Draft\"></button>\n  </span>\n</div>\n<div class=\"um-input-tag um-input-tag--primary\">\n  <span class=\"um-input-tag__tag\">\n    <span class=\"um-input-tag__text\">Frontend</span>\n    <button type=\"button\" class=\"um-input-tag__remove\" aria-label=\"Remove Frontend\"></button>\n  </span>\n</div>\n<div class=\"um-input-tag um-input-tag--success\">\n  <span class=\"um-input-tag__tag\">\n    <span class=\"um-input-tag__text\">Nightly</span>\n    <button type=\"button\" class=\"um-input-tag__remove\" aria-label=\"Remove Nightly\"></button>\n  </span>\n</div>\n<div class=\"um-input-tag um-input-tag--warning\">\n  <span class=\"um-input-tag__tag\">\n    <span class=\"um-input-tag__text\">Manual</span>\n    <button type=\"button\" class=\"um-input-tag__remove\" aria-label=\"Remove Manual\"></button>\n  </span>\n</div>\n<div class=\"um-input-tag um-input-tag--danger\">\n  <span class=\"um-input-tag__tag\">\n    <span class=\"um-input-tag__text\">Blocking</span>\n    <button type=\"button\" class=\"um-input-tag__remove\" aria-label=\"Remove Blocking\"></button>\n  </span>\n</div>"
+    },
+    {
+      "id": "sizes",
+      "title": "Sizes",
+      "titleZh": "尺寸",
+      "description": "Three heights, and the tags grow with the field. The middle one is the base class on its own, because the base class is already the medium field.",
+      "descriptionZh": "三种高度,标签跟着输入框一起长大。中间那个只写基础类,因为基础类本来就是中号输入框。",
+      "markup": "<div class=\"um-input-tag um-input-tag--sm\">\n  <span class=\"um-input-tag__tag\">\n    <span class=\"um-input-tag__text\">Frontend</span>\n    <button type=\"button\" class=\"um-input-tag__remove\" aria-label=\"Remove Frontend\"></button>\n  </span>\n  <input class=\"um-input-tag__input\" type=\"text\" placeholder=\"Add a tag\" aria-label=\"Add a tag\">\n</div>\n<div class=\"um-input-tag\">\n  <span class=\"um-input-tag__tag\">\n    <span class=\"um-input-tag__text\">Frontend</span>\n    <button type=\"button\" class=\"um-input-tag__remove\" aria-label=\"Remove Frontend\"></button>\n  </span>\n  <input class=\"um-input-tag__input\" type=\"text\" placeholder=\"Add a tag\" aria-label=\"Add a tag\">\n</div>\n<div class=\"um-input-tag um-input-tag--lg\">\n  <span class=\"um-input-tag__tag\">\n    <span class=\"um-input-tag__text\">Frontend</span>\n    <button type=\"button\" class=\"um-input-tag__remove\" aria-label=\"Remove Frontend\"></button>\n  </span>\n  <input class=\"um-input-tag__input\" type=\"text\" placeholder=\"Add a tag\" aria-label=\"Add a tag\">\n</div>"
+    }
+  ],
+  "notes": "Adding a tag and taking one away both need a script, so this component is only the two shapes: the tag and its remove button. The field paints the surface and the input inside it paints none — two translucent layers would be a colour no role names. The variant tints the tags of the whole field rather than of one tag, because in CSS the modifier class sits on the root; a per-tag tone needs the host to write the tag's own class.",
+  "notesZh": "加标签和删标签都要脚本,所以这个组件只剩两副样子:标签本身,和它的删除按钮。输入框负责画底色,里面的 input 什么都不画 —— 两层半透明叠起来就是一个谁都没命名的颜色。变体染的是整个输入框里的标签,而不是单个标签,因为在 CSS 里修饰类挂在根上;想让单个标签带上自己的颜色,得由使用方把类写在那个标签上。"
+}

@@ -1,0 +1,86 @@
+{
+  "id": "popconfirm",
+  "name": "Popconfirm",
+  "nameZh": "气泡确认",
+  "category": "feedback",
+  "element": "div",
+  "summary": "A bubble that asks before it acts. It hangs off a trigger, and it holds a question and the two real buttons that answer it: confirm and cancel.",
+  "summaryZh": "一个先问再做的小气泡。它挂在触发器旁边,里面装着一个问题,以及回答它的两个真按钮:确认和取消。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-popconfirm",
+    "modifier": "um-popconfirm--",
+    "part": "um-popconfirm__"
+  },
+  "variants": [
+    { "id": "top", "name": "Above the trigger", "nameZh": "上方", "note": "The bubble opens above the trigger instead of below it." },
+    { "id": "left", "name": "Left of the trigger", "nameZh": "左侧", "note": "The bubble opens to the left of the trigger." },
+    { "id": "right", "name": "Right of the trigger", "nameZh": "右侧", "note": "The bubble opens to the right of the trigger." }
+  ],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "A narrow bubble, for a short question." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default bubble needs no modifier class." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "A wide bubble, for a question that needs a line or two." }
+  ],
+  "states": [
+    { "id": "checked", "name": "Open", "nameZh": "展开", "selector": ":checked", "native": true, "note": "The trigger's own checkbox is ticked, so the bubble is shown." },
+    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The checkbox is the focused control, so the ring is drawn around the trigger it belongs to." }
+  ],
+  "parts": [
+    { "id": "toggle", "name": "Toggle", "nameZh": "开关", "note": "The checkbox that holds the open state. It is invisible and one pixel wide; the trigger label is what the reader sees." },
+    { "id": "trigger", "name": "Trigger", "nameZh": "触发器", "note": "The label that opens the bubble. Clicking it ticks the checkbox, so the browser does the work." },
+    { "id": "panel", "name": "Bubble", "nameZh": "气泡", "note": "The floating bubble. It sits on the overlay surface and carries its own shadow, because it is above the page rather than on it." },
+    { "id": "arrow", "name": "Arrow", "nameZh": "箭头", "note": "The pointer that ties the bubble to its trigger. It is a square turned on its corner, drawn from two borders." },
+    { "id": "message", "name": "Question", "nameZh": "问题", "note": "The sentence the reader is being asked." },
+    { "id": "actions", "name": "Actions", "nameZh": "操作", "note": "The row the two buttons sit in. It is right-aligned, so the answer the reader is pushed towards is last." },
+    { "id": "confirm", "name": "Confirm", "nameZh": "确认", "note": "The button that goes ahead. It is a real button, filled with the brand colour." },
+    { "id": "cancel", "name": "Cancel", "nameZh": "取消", "note": "The button that backs out. It is a real button, in the neutral outline." }
+  ],
+  "props": [
+    { "name": "placement", "type": "enum", "values": ["bottom", "top", "left", "right"], "default": "bottom", "description": "Where the bubble opens relative to the trigger. The bottom placement is the base class on its own.", "descriptionZh": "气泡相对触发器从哪里打开。bottom 就是只写基础类。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "How wide the bubble is. The measures are in the bubble's own type, so it grows with the mood's text.", "descriptionZh": "气泡有多宽。宽度用的是气泡自己的字号单位,所以气泡会跟着 mood 的文字一起变大。" },
+    { "name": "title", "type": "string", "default": "", "description": "The question the bubble asks.", "descriptionZh": "气泡问的那句话。" },
+    { "name": "confirmText", "type": "string", "default": "Confirm", "description": "The label of the button that goes ahead.", "descriptionZh": "确认按钮上的文字。" },
+    { "name": "cancelText", "type": "string", "default": "Cancel", "description": "The label of the button that backs out.", "descriptionZh": "取消按钮上的文字。" }
+  ],
+  "slots": [
+    { "name": "default", "description": "The label of the trigger.", "descriptionZh": "触发器上的文字。" },
+    { "name": "message", "description": "The question the bubble asks.", "descriptionZh": "气泡问的那句话。" }
+  ],
+  "events": [],
+  "a11y": {
+    "role": "dialog",
+    "keyboard": ["Tab", "Space"],
+    "notes": "The open state is a real checkbox, so the browser owns it: the label ticks the box, and ticking the box again closes the bubble. The checkbox is the control that takes the focus, so the focus ring is drawn around the trigger it belongs to. The bubble is not modal: it does not trap the focus, and Escape does not close it — a CSS-only library has no key handling to add — so the reader closes it with the same trigger they opened it with. The two answers are real buttons, so both are in the tab order and both can be pressed with the keyboard.",
+    "notesZh": "展开状态是一个真正的复选框,所以它归浏览器管:标签会勾上它,再勾一次就收起气泡。复选框才是吃焦点的控件,所以焦点环画在它所属的触发器上。气泡不是模态的:它不困住焦点,Escape 也关不掉它 —— 纯 CSS 的库没有键位处理可加 —— 所以读者用打开它的那个触发器把它关掉。两个回答都是真按钮,都在 Tab 顺序里,键盘也能按。"
+  },
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Basic",
+      "titleZh": "基础用法",
+      "description": "A trigger and a bubble. The checkbox is invisible and one pixel wide; the label is what the reader sees and clicks.",
+      "descriptionZh": "一个触发器和一个气泡。复选框是看不见的,只有一个像素宽;读者看见并点的是那个标签。",
+      "markup": "<div class=\"um-popconfirm\">\n  <input class=\"um-popconfirm__toggle\" type=\"checkbox\" id=\"popconfirm-basic\">\n  <label class=\"um-popconfirm__trigger\" for=\"popconfirm-basic\">Delete node</label>\n  <div class=\"um-popconfirm__panel\" role=\"dialog\" aria-label=\"Delete node\">\n    <span class=\"um-popconfirm__arrow\" aria-hidden=\"true\"></span>\n    <div class=\"um-popconfirm__message\">Delete node-07 and everything on it? This cannot be undone.</div>\n    <div class=\"um-popconfirm__actions\">\n      <button type=\"button\" class=\"um-popconfirm__cancel\">Cancel</button>\n      <button type=\"button\" class=\"um-popconfirm__confirm\">Delete</button>\n    </div>\n  </div>\n</div>"
+    },
+    {
+      "id": "placements",
+      "title": "Placements",
+      "titleZh": "位置",
+      "description": "The base class opens the bubble below the trigger. The three modifiers open it above, to the left or to the right, and the arrow follows.",
+      "descriptionZh": "基础类把气泡开在触发器下面。三个修饰类把它开在上面、左边或右边,箭头也跟着换方向。",
+      "markup": "<div class=\"um-popconfirm um-popconfirm--top\">\n  <input class=\"um-popconfirm__toggle\" type=\"checkbox\" id=\"popconfirm-top\">\n  <label class=\"um-popconfirm__trigger\" for=\"popconfirm-top\">Above</label>\n  <div class=\"um-popconfirm__panel\" role=\"dialog\" aria-label=\"Above\">\n    <span class=\"um-popconfirm__arrow\" aria-hidden=\"true\"></span>\n    <div class=\"um-popconfirm__message\">The bubble opens above the trigger.</div>\n    <div class=\"um-popconfirm__actions\">\n      <button type=\"button\" class=\"um-popconfirm__cancel\">Cancel</button>\n      <button type=\"button\" class=\"um-popconfirm__confirm\">Confirm</button>\n    </div>\n  </div>\n</div>\n<div class=\"um-popconfirm um-popconfirm--left\">\n  <input class=\"um-popconfirm__toggle\" type=\"checkbox\" id=\"popconfirm-left\">\n  <label class=\"um-popconfirm__trigger\" for=\"popconfirm-left\">Left</label>\n  <div class=\"um-popconfirm__panel\" role=\"dialog\" aria-label=\"Left\">\n    <span class=\"um-popconfirm__arrow\" aria-hidden=\"true\"></span>\n    <div class=\"um-popconfirm__message\">The bubble opens to the left of the trigger.</div>\n    <div class=\"um-popconfirm__actions\">\n      <button type=\"button\" class=\"um-popconfirm__cancel\">Cancel</button>\n      <button type=\"button\" class=\"um-popconfirm__confirm\">Confirm</button>\n    </div>\n  </div>\n</div>\n<div class=\"um-popconfirm um-popconfirm--right\">\n  <input class=\"um-popconfirm__toggle\" type=\"checkbox\" id=\"popconfirm-right\">\n  <label class=\"um-popconfirm__trigger\" for=\"popconfirm-right\">Right</label>\n  <div class=\"um-popconfirm__panel\" role=\"dialog\" aria-label=\"Right\">\n    <span class=\"um-popconfirm__arrow\" aria-hidden=\"true\"></span>\n    <div class=\"um-popconfirm__message\">The bubble opens to the right of the trigger.</div>\n    <div class=\"um-popconfirm__actions\">\n      <button type=\"button\" class=\"um-popconfirm__cancel\">Cancel</button>\n      <button type=\"button\" class=\"um-popconfirm__confirm\">Confirm</button>\n    </div>\n  </div>\n</div>"
+    },
+    {
+      "id": "sizes",
+      "title": "Sizes",
+      "titleZh": "尺寸",
+      "description": "Three widths. The middle one is the base class on its own, because the base class is already the medium bubble.",
+      "descriptionZh": "三种宽度。中间那个只写基础类,因为基础类本来就是中号气泡。",
+      "markup": "<div class=\"um-popconfirm um-popconfirm--sm\">\n  <input class=\"um-popconfirm__toggle\" type=\"checkbox\" id=\"popconfirm-sm\">\n  <label class=\"um-popconfirm__trigger\" for=\"popconfirm-sm\">Small</label>\n  <div class=\"um-popconfirm__panel\" role=\"dialog\" aria-label=\"Small\">\n    <span class=\"um-popconfirm__arrow\" aria-hidden=\"true\"></span>\n    <div class=\"um-popconfirm__message\">A narrow bubble.</div>\n    <div class=\"um-popconfirm__actions\">\n      <button type=\"button\" class=\"um-popconfirm__cancel\">Cancel</button>\n      <button type=\"button\" class=\"um-popconfirm__confirm\">Confirm</button>\n    </div>\n  </div>\n</div>\n<div class=\"um-popconfirm\">\n  <input class=\"um-popconfirm__toggle\" type=\"checkbox\" id=\"popconfirm-md\">\n  <label class=\"um-popconfirm__trigger\" for=\"popconfirm-md\">Medium</label>\n  <div class=\"um-popconfirm__panel\" role=\"dialog\" aria-label=\"Medium\">\n    <span class=\"um-popconfirm__arrow\" aria-hidden=\"true\"></span>\n    <div class=\"um-popconfirm__message\">The default bubble.</div>\n    <div class=\"um-popconfirm__actions\">\n      <button type=\"button\" class=\"um-popconfirm__cancel\">Cancel</button>\n      <button type=\"button\" class=\"um-popconfirm__confirm\">Confirm</button>\n    </div>\n  </div>\n</div>\n<div class=\"um-popconfirm um-popconfirm--lg\">\n  <input class=\"um-popconfirm__toggle\" type=\"checkbox\" id=\"popconfirm-lg\">\n  <label class=\"um-popconfirm__trigger\" for=\"popconfirm-lg\">Large</label>\n  <div class=\"um-popconfirm__panel\" role=\"dialog\" aria-label=\"Large\">\n    <span class=\"um-popconfirm__arrow\" aria-hidden=\"true\"></span>\n    <div class=\"um-popconfirm__message\">A wide bubble, for a question that needs a line or two of its own.</div>\n    <div class=\"um-popconfirm__actions\">\n      <button type=\"button\" class=\"um-popconfirm__cancel\">Cancel</button>\n      <button type=\"button\" class=\"um-popconfirm__confirm\">Confirm</button>\n    </div>\n  </div>\n</div>"
+    }
+  ],
+  "notes": "The bubble is hidden with `display: none` and shown again by the ticked checkbox, rather than by opacity or by visibility: a bubble that is merely transparent is still in the tab order, and its two buttons would still be reachable while it is not there. The arrow is a square turned on its corner, and the two edges that form the point carry the bubble's border colour, so the border line stops at the arrow and picks up again on the other side of it.",
+  "notesZh": "气泡是用 `display: none` 藏起来的,再由勾上的复选框放出来,而不是靠透明度或可见性 —— 仅仅透明的气泡仍然在 Tab 顺序里,它的两个按钮在不在页面上都能被 tab 到。箭头是一个转过角的方块,构成尖端的两条边带着气泡的描边色,所以描边在箭头处停下,过了箭头再接上。"
+}

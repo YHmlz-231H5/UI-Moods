@@ -1,0 +1,178 @@
+{
+  "id": "drawer",
+  "name": "Drawer",
+  "nameZh": "抽屉",
+  "category": "feedback",
+  "element": "aside, h2, div, button",
+  "summary": "A panel that slides out from the edge of the page: a side panel with a title, a body and a row of actions. It is held against the edge with fixed positioning, so it stays put while the page moves behind it.",
+  "summaryZh": "从页面边缘滑出来的一块面板:带标题、正文和一排操作的侧栏。它用固定定位贴在边上,所以页面在它后面动的时候,它不动。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-drawer",
+    "modifier": "um-drawer--",
+    "part": "um-drawer__"
+  },
+  "variants": [
+    {
+      "id": "left",
+      "name": "From the left",
+      "nameZh": "从左侧",
+      "note": "The panel slides out from the left edge of the page instead of the right one. It is the modifier um-drawer--left."
+    },
+    {
+      "id": "top",
+      "name": "From the top",
+      "nameZh": "从上方",
+      "note": "The panel slides out from the top edge and lies across the page. It is the modifier um-drawer--top."
+    },
+    {
+      "id": "bottom",
+      "name": "From the bottom",
+      "nameZh": "从下方",
+      "note": "The panel slides out from the bottom edge. It is the modifier um-drawer--bottom."
+    },
+    {
+      "id": "inline",
+      "name": "In the layout",
+      "nameZh": "随布局",
+      "note": "The panel is part of the layout instead of floating over it, for a side panel that is always there. It is the modifier um-drawer--inline."
+    }
+  ],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "A narrow panel. The size is a measure of the panel's own type, so it grows with the mood's text." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default panel. The base class is already this size, so it needs no modifier." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "A wide panel, for a body of text rather than a line of it." }
+  ],
+  "states": [
+    {
+      "id": "focus-visible",
+      "name": "Focus visible",
+      "nameZh": "键盘聚焦",
+      "selector": ":focus-visible",
+      "native": true,
+      "note": "The close button takes the shared focus ring, so a keyboard reader can see where they are."
+    }
+  ],
+  "parts": [
+    {
+      "id": "header",
+      "name": "Header",
+      "nameZh": "头部",
+      "note": "The top strip. It holds the title and the close button."
+    },
+    {
+      "id": "title",
+      "name": "Title",
+      "nameZh": "标题",
+      "note": "The heading of the panel. The drawer points at it with aria-labelledby, so the reader hears what the panel is about."
+    },
+    {
+      "id": "body",
+      "name": "Body",
+      "nameZh": "正文",
+      "note": "The content of the panel. It takes the space that is left and scrolls when there is too much of it."
+    },
+    {
+      "id": "footer",
+      "name": "Footer",
+      "nameZh": "底部",
+      "note": "The row at the bottom of the panel, where the actions live."
+    },
+    {
+      "id": "close",
+      "name": "Close",
+      "nameZh": "关闭",
+      "note": "The cross in the corner. A drawer is not a dialog: the browser has no close of its own to offer, so the host gives this button something to do."
+    }
+  ],
+  "props": [
+    {
+      "name": "direction",
+      "type": "enum",
+      "values": ["right", "left", "top", "bottom"],
+      "default": "right",
+      "description": "Which edge the panel slides out from. The right edge is the base class on its own; the other three add um-drawer--left, um-drawer--top or um-drawer--bottom.",
+      "descriptionZh": "面板从哪条边滑出来。右边就是只写基类;另外三个分别加上 um-drawer--left、um-drawer--top、um-drawer--bottom。"
+    },
+    {
+      "name": "size",
+      "type": "enum",
+      "values": ["sm", "md", "lg"],
+      "default": "md",
+      "description": "How wide the panel is. A panel that comes from the side measures across; one that comes from the top or the bottom measures down. The size is a measure of the panel's own type, so it grows with the mood's text.",
+      "descriptionZh": "面板有多宽。从侧面出来的面板量的是宽度,从上面或下面出来的量的是高度。这几档用的是面板自己的字号单位,所以面板会跟着 mood 的文字一起变大。"
+    },
+    {
+      "name": "inline",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the panel is part of the layout instead of floating over it. It adds um-drawer--inline.",
+      "descriptionZh": "面板是布局的一部分,还是浮在页面上。它加上 um-drawer--inline。"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "The heading of the panel.",
+      "descriptionZh": "面板的标题。"
+    }
+  ],
+  "slots": [
+    {
+      "name": "title",
+      "description": "What is inside the heading.",
+      "descriptionZh": "标题元素里的内容。"
+    },
+    {
+      "name": "default",
+      "description": "The body of the panel.",
+      "descriptionZh": "面板的正文。"
+    },
+    {
+      "name": "footer",
+      "description": "The actions in the footer.",
+      "descriptionZh": "底部里的操作。"
+    }
+  ],
+  "events": [
+    {
+      "name": "close",
+      "description": "Fires when the close button is pressed. A drawer is not a dialog, so the browser has no close of its own: the panel stays where it is until the host takes it away.",
+      "descriptionZh": "关闭按钮被按下时触发。抽屉不是对话框,浏览器没有自己的关闭动作:面板会一直待在那儿,直到宿主把它收走。"
+    }
+  ],
+  "a11y": {
+    "role": "complementary",
+    "keyboard": ["Tab", "Enter"],
+    "notes": "The panel is an <aside>, so it is a complementary landmark, and it names itself with aria-labelledby pointing at its own title — so a page with two drawers tells them apart. The title is a real heading, so the reader can jump to it. The panel is not modal: it does not take the focus, it does not make the page behind it inert, and it does not close itself, because all of that belongs to a dialog. The close button is a real button with a name; what it does is the host's, and the library only gives it a shape.",
+    "notesZh": "面板是 <aside>,所以它是一个补充地标,并且用 aria-labelledby 指向自己的标题给自己起名 —— 这样一页上有两个抽屉时,读屏分得清。标题是真正的标题元素,读者能跳到它。面板不是模态的:它不接管焦点,不让后面的页面失效,也不会自己关掉,因为这些都属于对话框。关闭按钮是一个有名字的真正按钮;它做什么归宿主管,库只给它一个样子。"
+  },
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Basic",
+      "titleZh": "基础用法",
+      "description": "A panel on the right edge of the page, with a title, a body and a row of actions. It is fixed to the viewport, so the page moves behind it rather than under it.",
+      "descriptionZh": "贴在页面右边的一块面板,带标题、正文和一排操作。它固定在视口上,所以页面是在它后面动,而不是从它下面钻过去。",
+      "markup": "<aside class=\"um-drawer\" aria-labelledby=\"um-drawer-title\">\n  <div class=\"um-drawer__header\">\n    <h2 class=\"um-drawer__title\" id=\"um-drawer-title\">Filters</h2>\n    <button class=\"um-drawer__close\" type=\"button\" aria-label=\"Close\"></button>\n  </div>\n  <div class=\"um-drawer__body\">\n    <p>Only the builds that failed in the last hour.</p>\n  </div>\n  <div class=\"um-drawer__footer\">\n    <button type=\"button\">Reset</button>\n    <button type=\"button\">Apply</button>\n  </div>\n</aside>"
+    },
+    {
+      "id": "directions",
+      "title": "Directions",
+      "titleZh": "方向",
+      "description": "The panel can come from any of the four edges. They are shown here in the layout rather than over the page, so that all three can be compared side by side.",
+      "descriptionZh": "面板可以从四条边中的任何一条出来。这里把它们排在布局里而不是浮在页面上,好让三种能并排比一比。",
+      "markup": "<aside class=\"um-drawer um-drawer--left um-drawer--inline\" aria-labelledby=\"um-drawer-left-title\">\n  <div class=\"um-drawer__header\">\n    <h2 class=\"um-drawer__title\" id=\"um-drawer-left-title\">From the left</h2>\n    <button class=\"um-drawer__close\" type=\"button\" aria-label=\"Close\"></button>\n  </div>\n  <div class=\"um-drawer__body\">\n    <p>The rule moves to the right side, because that is the edge the panel hangs from.</p>\n  </div>\n</aside>\n<aside class=\"um-drawer um-drawer--top um-drawer--inline\" aria-labelledby=\"um-drawer-top-title\">\n  <div class=\"um-drawer__header\">\n    <h2 class=\"um-drawer__title\" id=\"um-drawer-top-title\">From the top</h2>\n    <button class=\"um-drawer__close\" type=\"button\" aria-label=\"Close\"></button>\n  </div>\n  <div class=\"um-drawer__body\">\n    <p>A panel that comes from the top measures down instead of across.</p>\n  </div>\n</aside>\n<aside class=\"um-drawer um-drawer--bottom um-drawer--inline\" aria-labelledby=\"um-drawer-bottom-title\">\n  <div class=\"um-drawer__header\">\n    <h2 class=\"um-drawer__title\" id=\"um-drawer-bottom-title\">From the bottom</h2>\n    <button class=\"um-drawer__close\" type=\"button\" aria-label=\"Close\"></button>\n  </div>\n  <div class=\"um-drawer__body\">\n    <p>And one that comes from the bottom measures down as well.</p>\n  </div>\n</aside>"
+    },
+    {
+      "id": "sizes",
+      "title": "Sizes",
+      "titleZh": "尺寸",
+      "description": "Three widths. The middle one is the base class on its own, because the base class is already the medium panel.",
+      "descriptionZh": "三种宽度。中间那个只写基础类,因为基础类本来就是中号面板。",
+      "markup": "<aside class=\"um-drawer um-drawer--sm um-drawer--inline\" aria-labelledby=\"um-drawer-small-title\">\n  <div class=\"um-drawer__header\">\n    <h2 class=\"um-drawer__title\" id=\"um-drawer-small-title\">Small</h2>\n    <button class=\"um-drawer__close\" type=\"button\" aria-label=\"Close\"></button>\n  </div>\n  <div class=\"um-drawer__body\">\n    <p>A narrow panel.</p>\n  </div>\n</aside>\n<aside class=\"um-drawer um-drawer--inline\" aria-labelledby=\"um-drawer-medium-title\">\n  <div class=\"um-drawer__header\">\n    <h2 class=\"um-drawer__title\" id=\"um-drawer-medium-title\">Medium</h2>\n    <button class=\"um-drawer__close\" type=\"button\" aria-label=\"Close\"></button>\n  </div>\n  <div class=\"um-drawer__body\">\n    <p>The default panel.</p>\n  </div>\n</aside>\n<aside class=\"um-drawer um-drawer--lg um-drawer--inline\" aria-labelledby=\"um-drawer-large-title\">\n  <div class=\"um-drawer__header\">\n    <h2 class=\"um-drawer__title\" id=\"um-drawer-large-title\">Large</h2>\n    <button class=\"um-drawer__close\" type=\"button\" aria-label=\"Close\"></button>\n  </div>\n  <div class=\"um-drawer__body\">\n    <p>A wide panel.</p>\n  </div>\n</aside>"
+    }
+  ],
+  "notes": "The panel paints one surface and nothing inside it paints another: a header, a body and a footer are separated by rules rather than by fills, so the surface the reader sees is the surface the contract describes. There is no mask behind the panel, for the same reason the dialog has none: the contract has no role for a scrim, and a second translucent layer over the page is a colour no role names. What stands between the panel and the page is the shadow and the rule on its free edge.",
+  "notesZh": "面板只画一层表面,里面不再画第二层:头部、正文和底部之间靠线分开,而不是靠底色,所以读者看到的那层表面,就是契约里说的那一层。面板背后没有遮罩,和对话框没有遮罩是同一个原因:契约里没有给遮罩留角色,而盖在页面上的第二层半透明表面,是任何一个角色都没命名的颜色。面板和页面之间靠的是阴影,和它那条空着的边上的线。"
+}

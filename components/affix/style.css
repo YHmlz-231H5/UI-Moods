@@ -1,0 +1,51 @@
+/* ============================================================================
+   Affix
+   ========================================================================== */
+
+/* `position: sticky` is the whole mechanism. The browser keeps the element in
+   the flow and holds it against the edge of the scrollport once the flow
+   would have carried it past — so the space it occupies never changes and
+   nothing has to listen to the scroll.
+
+   The affix itself paints nothing: it is a positioning context, not a
+   surface. The bar inside it paints the one layer of colour that separates
+   the pinned strip from the page behind it. */
+.um-affix {
+  --um-affix-offset: 0;
+
+  position: sticky;
+  top: var(--um-affix-offset);
+  z-index: 2;
+}
+
+.um-affix__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--um-space-sm);
+  padding: var(--um-space-sm) var(--um-space-lg);
+  border-bottom: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+  background: var(--um-bg-container);
+  box-shadow: var(--um-shadow-light);
+  color: var(--um-text-regular);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+}
+
+/* Pinned to the bottom of the scrollport instead of the top one. The rule
+   moves with it: it is the edge the bar is attached to. */
+.um-affix--bottom {
+  top: auto;
+  bottom: var(--um-affix-offset);
+}
+
+.um-affix--bottom .um-affix__bar {
+  border-top: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+  border-bottom: 0;
+}
+
+/* When the keyboard moves into the bar, it lifts. A pinned bar can cover the
+   thing the reader has just tabbed to, and the deeper shadow is what says the
+   bar is still on top of it. */
+.um-affix:focus-within .um-affix__bar {
+  box-shadow: var(--um-shadow-base);
+}

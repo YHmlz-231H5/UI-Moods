@@ -1,0 +1,88 @@
+{
+  "id": "input-otp",
+  "name": "Input OTP",
+  "nameZh": "验证码输入",
+  "category": "form",
+  "element": "div",
+  "summary": "A row of one-character fields for a code the reader has been sent. Each box is a real input that holds one character, so the browser's own keyboard, autofill and password manager all still apply to it.",
+  "summaryZh": "一排只装一个字符的输入框,用来填读者收到的验证码。每个框都是一个真的输入框,只装一个字符,所以浏览器自己的键盘、自动填充和密码管理器对它都照样管用。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-input-otp",
+    "modifier": "um-input-otp--",
+    "part": "um-input-otp__"
+  },
+  "variants": [
+    { "id": "boxed", "name": "Boxed", "nameZh": "方框", "note": "Each character sits in its own bordered box. The base class on its own is this run, and the modifier paints the same thing so the class list can name it." },
+    { "id": "underline", "name": "Underline", "nameZh": "下划线", "note": "Every edge but the bottom one goes away, so the row reads as six slots on a line rather than as six boxes." }
+  ],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "Each box follows the theme's small control height." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default row. The base class is already this size, so it needs no modifier." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "Each box follows the theme's large control height." }
+  ],
+  "states": [
+    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the one box the reader is in, not around the whole row — a ring around the row would say the wrong thing about what is focused." },
+    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "Every box goes inert. They use the real disabled attribute, so they leave the tab order." }
+  ],
+  "parts": [
+    { "id": "field", "name": "Field", "nameZh": "输入格", "note": "One character box. It is a real <input maxlength=\"1\">, so the browser validates it, the keyboard works in it and the screen reader announces it as a text field." }
+  ],
+  "props": [
+    { "name": "value", "type": "string", "description": "The code, as one string. Each character goes into the box at that position; a class cannot carry a code.", "descriptionZh": "验证码,写成一个字符串。每个字符落进对应位置的那个格子里 —— 类带不了验证码。" },
+    { "name": "length", "type": "number", "default": "6", "description": "How many boxes there are. It is the host's number of characters, not something the class can say.", "descriptionZh": "有多少个格子。这是宿主的字符数,不是类能表达的东西。" },
+    { "name": "masked", "type": "boolean", "default": "false", "description": "Hides what is typed, the way a password field does. It is the input's own type, so the password manager and the reader's own setting still apply.", "descriptionZh": "把输入的内容藏起来,就像密码框一样。它是 input 自己的 type,所以密码管理器和读者自己的设置都照样管用。" },
+    { "name": "label", "type": "string", "default": "One-time code", "description": "The accessible name of the row. It becomes the group's aria-label, because the boxes are named by their position and the row itself needs a name of its own.", "descriptionZh": "这一排的可访问名称。它会变成这个组的 aria-label,因为各个格子是按位置命名的,这一排自己还需要一个名字。" },
+    { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes every box inert. It uses the real disabled attribute, so they leave the tab order.", "descriptionZh": "让每个格子都不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" },
+    { "name": "variant", "type": "enum", "values": ["boxed", "underline"], "default": "boxed", "description": "The shape of the boxes. The boxed run is the base class on its own; the underline run adds um-input-otp--underline.", "descriptionZh": "格子的形状。方框这一跑就是只写基础类;下划线这一跑再加上 um-input-otp--underline。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The size of each box.", "descriptionZh": "每个格子的尺寸。" }
+  ],
+  "slots": [],
+  "events": [
+    { "name": "input", "description": "Fires on every keystroke in any of the boxes. It is the browser's own event on the input — the library installs no listener.", "descriptionZh": "在任何一个格子里每敲一个字就触发。这是 input 上的浏览器原生事件 —— 库没有安装任何监听器。" },
+    { "name": "change", "description": "Fires when a box loses focus with a value in it.", "descriptionZh": "某个格子带着内容失去焦点时触发。" }
+  ],
+  "a11y": {
+    "role": "group",
+    "keyboard": ["Tab", "Arrow keys", "Backspace"],
+    "notes": "Each box is a real <input maxlength=\"1\">, so it is in the tab order, the reader can type into it, and a screen reader announces it as a text field. Every box names itself by its position — \"Digit 1\", \"Digit 2\" — because a blank box carries no text of its own, and the row itself carries the name of the thing being asked for. The first box asks the browser for the one-time-code autofill, which is where a code arriving by message goes. The library has no script, so it cannot move the caret from one box to the next when a box is filled; that is the host's to do, and the reader can always Tab through the boxes instead.",
+    "notesZh": "每个格子都是一个真正的 <input maxlength=\"1\">,所以它在 Tab 顺序里,读者能往里打字,读屏也会把它当作文本框播报。每个格子按位置给自己命名 —— 「第 1 位」「第 2 位」 —— 因为空格子自己不带文字,而这一排要带着被问的那件事的名字。第一个格子向浏览器要一次性验证码的自动填充,短信到的码就走这条路。库里没有脚本,所以它在某个格子填满时没法把光标挪到下一个;那是宿主的事,读者也随时可以用 Tab 一个一个走过去。"
+  },
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Six boxes",
+      "titleZh": "六个格子",
+      "description": "Six single-character fields. The first one asks the browser for the one-time-code autofill, so a code that arrived by message can land in it.",
+      "descriptionZh": "六个只装一个字符的字段。第一个向浏览器要一次性验证码的自动填充,所以短信到的码可以直接落进去。",
+      "markup": "<div class=\"um-input-otp um-input-otp--boxed\" role=\"group\" aria-label=\"Verification code\">\n  <input class=\"um-input-otp__field\" type=\"text\" inputmode=\"numeric\" maxlength=\"1\" autocomplete=\"one-time-code\" aria-label=\"Digit 1\" />\n  <input class=\"um-input-otp__field\" type=\"text\" inputmode=\"numeric\" maxlength=\"1\" autocomplete=\"off\" aria-label=\"Digit 2\" />\n  <input class=\"um-input-otp__field\" type=\"text\" inputmode=\"numeric\" maxlength=\"1\" autocomplete=\"off\" aria-label=\"Digit 3\" />\n  <input class=\"um-input-otp__field\" type=\"text\" inputmode=\"numeric\" maxlength=\"1\" autocomplete=\"off\" aria-label=\"Digit 4\" />\n  <input class=\"um-input-otp__field\" type=\"text\" inputmode=\"numeric\" maxlength=\"1\" autocomplete=\"off\" aria-label=\"Digit 5\" />\n  <input class=\"um-input-otp__field\" type=\"text\" inputmode=\"numeric\" maxlength=\"1\" autocomplete=\"off\" aria-label=\"Digit 6\" />\n</div>"
+    },
+    {
+      "id": "underline",
+      "title": "Underline",
+      "titleZh": "下划线",
+      "description": "The same row with every edge but the bottom one gone, so it reads as six slots on a line. Only the modifier class changes.",
+      "descriptionZh": "同一排,除了底边以外的边都去掉,于是读起来像一行上的六个槽位。只改修饰类。",
+      "markup": "<div class=\"um-input-otp um-input-otp--underline\" role=\"group\" aria-label=\"Verification code\">\n  <input class=\"um-input-otp__field\" type=\"text\" inputmode=\"numeric\" maxlength=\"1\" autocomplete=\"one-time-code\" aria-label=\"Digit 1\" />\n  <input class=\"um-input-otp__field\" type=\"text\" inputmode=\"numeric\" maxlength=\"1\" autocomplete=\"off\" aria-label=\"Digit 2\" />\n  <input class=\"um-input-otp__field\" type=\"text\" inputmode=\"numeric\" maxlength=\"1\" autocomplete=\"off\" aria-label=\"Digit 3\" />\n  <input class=\"um-input-otp__field\" type=\"text\" inputmode=\"numeric\" maxlength=\"1\" autocomplete=\"off\" aria-label=\"Digit 4\" />\n</div>"
+    },
+    {
+      "id": "masked",
+      "title": "Masked",
+      "titleZh": "掩码",
+      "description": "The same row with the boxes masked, so what is typed stays out of sight. The fields are real password fields, so the reader's own password manager still handles them.",
+      "descriptionZh": "同一排,但格子被掩码,打进去的内容不露出来。这些是真的密码框,所以读者自己的密码管理器照样管用。",
+      "markup": "<div class=\"um-input-otp um-input-otp--boxed\" role=\"group\" aria-label=\"One-time code\">\n  <input class=\"um-input-otp__field\" type=\"password\" inputmode=\"numeric\" maxlength=\"1\" autocomplete=\"one-time-code\" aria-label=\"Digit 1\" />\n  <input class=\"um-input-otp__field\" type=\"password\" inputmode=\"numeric\" maxlength=\"1\" autocomplete=\"off\" aria-label=\"Digit 2\" />\n  <input class=\"um-input-otp__field\" type=\"password\" inputmode=\"numeric\" maxlength=\"1\" autocomplete=\"off\" aria-label=\"Digit 3\" />\n  <input class=\"um-input-otp__field\" type=\"password\" inputmode=\"numeric\" maxlength=\"1\" autocomplete=\"off\" aria-label=\"Digit 4\" />\n</div>"
+    },
+    {
+      "id": "states",
+      "title": "States",
+      "titleZh": "状态",
+      "description": "A disabled row. Every box leaves the tab order, and what was typed stays on screen so the reader can still read it.",
+      "descriptionZh": "一排禁用的格子。每个格子都退出 Tab 顺序,打进去的内容还留在屏幕上,读者仍然读得到。",
+      "markup": "<div class=\"um-input-otp um-input-otp--boxed\" role=\"group\" aria-label=\"Verification code\">\n  <input class=\"um-input-otp__field\" type=\"text\" inputmode=\"numeric\" maxlength=\"1\" value=\"4\" autocomplete=\"off\" aria-label=\"Digit 1\" disabled />\n  <input class=\"um-input-otp__field\" type=\"text\" inputmode=\"numeric\" maxlength=\"1\" value=\"2\" autocomplete=\"off\" aria-label=\"Digit 2\" disabled />\n  <input class=\"um-input-otp__field\" type=\"text\" inputmode=\"numeric\" maxlength=\"1\" autocomplete=\"off\" aria-label=\"Digit 3\" disabled />\n  <input class=\"um-input-otp__field\" type=\"text\" inputmode=\"numeric\" maxlength=\"1\" autocomplete=\"off\" aria-label=\"Digit 4\" disabled />\n</div>"
+    }
+  ],
+  "notes": "The boxes are one-character inputs rather than one input with the characters drawn inside it, because a real input keeps the keyboard, the autofill and the password manager — and because a reader who cannot see well may well widen the field to read it. The price is that the caret does not walk from one box to the next on its own: the library has no script, so the host moves it, and the reader can always Tab through the boxes in the meantime.",
+  "notesZh": "这些格子是一个只装一个字符的输入框,而不是一个输入框里把字符画出来,是因为真的输入框保住了键盘、自动填充和密码管理器 —— 也因为看不太清楚的读者很可能把输入框拉宽来读。代价是光标不会自己从一个格子走到下一个:库里没有脚本,所以由宿主来挪,读者在这中间也随时可以用 Tab 一个一个走过去。"
+}

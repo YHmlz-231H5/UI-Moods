@@ -1,0 +1,125 @@
+{
+  "id": "page-header",
+  "name": "PageHeader",
+  "nameZh": "页头",
+  "category": "basic",
+  "element": "header, div, h1, p",
+  "summary": "The title of a page, the line that says what the page is about, and the actions that belong to it. The title is a real heading at the level the page asks for, so the document outline stays right however the header is styled.",
+  "summaryZh": "页面的标题、说明这一页是关于什么的那一行,以及属于这一页的操作。标题是真正的标题元素,层级由页面自己定,所以无论页头怎么改样式,文档大纲都不会乱。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-page-header",
+    "modifier": "um-page-header--",
+    "part": "um-page-header__"
+  },
+  "variants": [
+    {
+      "id": "bordered",
+      "name": "Bordered",
+      "nameZh": "带下边线",
+      "note": "A rule under the header, for a page whose header reads as a band rather than as the first paragraph of the page. It is the modifier um-page-header--bordered."
+    }
+  ],
+  "sizes": [],
+  "states": [],
+  "parts": [
+    {
+      "id": "content",
+      "name": "Content",
+      "nameZh": "标题区",
+      "note": "The title and the subtitle. It is one block so the two stay together when the actions sit beside them."
+    },
+    {
+      "id": "title",
+      "name": "Title",
+      "nameZh": "标题",
+      "note": "The heading of the page. The class sets its size, not its level: the element itself is the heading the page asks for."
+    },
+    {
+      "id": "subtitle",
+      "name": "Subtitle",
+      "nameZh": "副标题",
+      "note": "The line under the title that says what the page is about."
+    },
+    {
+      "id": "actions",
+      "name": "Actions",
+      "nameZh": "操作区",
+      "note": "The actions that belong to the page. It lays them out; the buttons in it are the host's, and the stylesheet only gives a button that arrives without a class of its own a shape."
+    }
+  ],
+  "props": [
+    {
+      "name": "title",
+      "type": "string",
+      "description": "The heading of the page.",
+      "descriptionZh": "页面的标题。"
+    },
+    {
+      "name": "subtitle",
+      "type": "string",
+      "description": "The line under the title that says what the page is about.",
+      "descriptionZh": "标题下面那一行,说明这一页是关于什么的。"
+    },
+    {
+      "name": "level",
+      "type": "enum",
+      "values": ["1", "2", "3"],
+      "default": "1",
+      "description": "Which heading level the title is. The class sets the size, so the level is free to follow the document outline instead of following the size.",
+      "descriptionZh": "标题是第几级标题。类只管字号,所以层级可以跟着文档大纲走,而不是跟着字号走。"
+    },
+    {
+      "name": "variant",
+      "type": "enum",
+      "values": ["plain", "bordered"],
+      "default": "plain",
+      "description": "Whether a rule runs under the header. The plain header is the base class on its own; the bordered header adds um-page-header--bordered.",
+      "descriptionZh": "页头下面有没有那条线。plain 就是只写基类;bordered 再加上 um-page-header--bordered。"
+    }
+  ],
+  "slots": [
+    {
+      "name": "title",
+      "description": "What is inside the heading.",
+      "descriptionZh": "标题元素里的内容。"
+    },
+    {
+      "name": "subtitle",
+      "description": "What is inside the subtitle.",
+      "descriptionZh": "副标题里的内容。"
+    },
+    {
+      "name": "actions",
+      "description": "The actions that belong to the page.",
+      "descriptionZh": "属于这一页的操作。"
+    }
+  ],
+  "events": [],
+  "a11y": {
+    "keyboard": ["Tab"],
+    "notes": "The header is a <header> element, so it is the banner landmark of the section it sits in, and the reader hears it as such. The title is a real heading at the level the page asks for — the class sets the size, the element sets the level — so the reader can jump to it and the outline of the document stays true. The actions come after the title in the source, which is the order they are read in: what the page is, then what can be done to it.",
+    "notesZh": "页头是 <header> 元素,所以它是所在那一节的 banner 地标,读屏会这么播报。标题是真正的标题元素,层级由页面自己定 —— 类管字号,元素管层级 —— 所以读者能跳到它,文档的大纲也还是真的。操作在源码里排在标题之后,播报的顺序也是这个顺序:这一页是什么,然后这一页能做什么。"
+  },
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Basic",
+      "titleZh": "基础用法",
+      "description": "A title, a subtitle and the actions that belong to the page. The buttons arrive without a class of their own, and the actions area gives them a shape; a button that brings its own class keeps it.",
+      "descriptionZh": "一个标题、一行副标题,以及属于这一页的操作。这些按钮没有自己的类,操作区给它们一个样子;自带类的按钮还是它自己的样子。",
+      "markup": "<header class=\"um-page-header\">\n  <div class=\"um-page-header__content\">\n    <h1 class=\"um-page-header__title\">Deployment</h1>\n    <p class=\"um-page-header__subtitle\">Six replicas are moved to the new build, one at a time.</p>\n  </div>\n  <div class=\"um-page-header__actions\">\n    <button type=\"button\">Roll back</button>\n    <button type=\"button\">Redeploy</button>\n  </div>\n</header>"
+    },
+    {
+      "id": "bordered",
+      "title": "Bordered",
+      "titleZh": "带下边线",
+      "description": "The bordered variant runs a rule under the header, so the header reads as a band above the page rather than as the first paragraph of it.",
+      "descriptionZh": "bordered 变体在页头下面划一条线,页头于是读起来像页面上面的一条带子,而不是页面的第一段话。",
+      "markup": "<header class=\"um-page-header um-page-header--bordered\">\n  <div class=\"um-page-header__content\">\n    <h1 class=\"um-page-header__title\">Audit log</h1>\n    <p class=\"um-page-header__subtitle\">Every change the connectors made, in the order they made it.</p>\n  </div>\n  <div class=\"um-page-header__actions\">\n    <button type=\"button\">Export</button>\n  </div>\n</header>"
+    }
+  ],
+  "notes": "The title's level and its size are two different things, and this component keeps them apart: the class sets the size, the element sets the level. A header that is always an <h1> is wrong on every page that has a title of its own above it, and a header whose level follows its size is wrong on every page whose outline is not a list of font sizes.",
+  "notesZh": "标题的层级和标题的字号是两回事,这个组件把它们分开:类管字号,元素管层级。一个永远是 <h1> 的页头,在每个自己还有标题的页面上都是错的;而层级跟着字号走的页头,在每个大纲不是一份字号清单的页面上都是错的。"
+}

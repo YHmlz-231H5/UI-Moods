@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Link · UI Moods</title>
+  <meta name="description" content="A link, in one of the semantic colours. It is text, so it takes the text form of the colour and reads at 4.5:1 on the page, on an overlay and inside a container." />
+
+  <!-- The two files that make the whole thing work.
+       The first is the library; the second carries all thirty-two moods at
+       once, so the picker below changes an attribute instead of loading a
+       file — the switch has no network request to wait for. -->
+  <link rel="stylesheet" id="um-theme" href="../../themes/all.css" />
+  <link rel="stylesheet" href="../../components/um-components.css" />
+  <link rel="stylesheet" href="../../site/assets/site.css" />
+</head>
+<body>
+  <header class="site-header">
+      <a class="site-header__brand" href="../../index.html">UI Moods<span>Component Library</span></a>
+      <div class="site-header__spacer"></div>
+      <div class="switcher">
+        <label class="switcher__label" for="um-theme-picker">Theme</label>
+        <span class="switcher__field">
+          <select class="switcher__select" id="um-theme-picker"></select>
+        </span>
+      </div>
+    </header>
+  <div class="site-body">
+    <nav class="site-sidebar" aria-label="Components">
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Basic · 基础</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/affix.html">Affix <span class="meta">固钉</span></a></li>
+          <li><a href="../component/border.html">Border <span class="meta">边框</span></a></li>
+          <li><a href="../component/color.html">Color <span class="meta">色板</span></a></li>
+          <li><a href="../component/config-provider.html">Config Provider <span class="meta">全局配置</span></a></li>
+          <li><a href="../component/container.html">Container <span class="meta">容器</span></a></li>
+          <li><a href="../component/icon.html">Icon <span class="meta">图标</span></a></li>
+          <li><a href="../component/layout.html">Layout <span class="meta">布局</span></a></li>
+          <li><a href="" aria-current="page">Link <span class="meta">链接</span></a></li>
+          <li><a href="../component/page-header.html">PageHeader <span class="meta">页头</span></a></li>
+          <li><a href="../component/scrollbar.html">Scrollbar <span class="meta">滚动条</span></a></li>
+          <li><a href="../component/space.html">Space <span class="meta">间距</span></a></li>
+          <li><a href="../component/splitter.html">Splitter <span class="meta">分割面板</span></a></li>
+          <li><a href="../component/text.html">Text <span class="meta">文本</span></a></li>
+          <li><a href="../component/typography.html">Typography <span class="meta">文字排版</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Form · 表单</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/autocomplete.html">Autocomplete <span class="meta">自动补全</span></a></li>
+          <li><a href="../component/button.html">Button <span class="meta">按钮</span></a></li>
+          <li><a href="../component/checkbox.html">Checkbox <span class="meta">复选框</span></a></li>
+          <li><a href="../component/checkbox-group.html">Checkbox Group <span class="meta">复选框组</span></a></li>
+          <li><a href="../component/color-picker.html">Color Picker <span class="meta">颜色选择器</span></a></li>
+          <li><a href="../component/color-picker-panel.html">Color Picker Panel <span class="meta">颜色选择面板</span></a></li>
+          <li><a href="../component/date-picker.html">Date Picker <span class="meta">日期选择器</span></a></li>
+          <li><a href="../component/date-picker-panel.html">Date Picker Panel <span class="meta">日期选择面板</span></a></li>
+          <li><a href="../component/date-time-picker.html">Date Time Picker <span class="meta">日期时间选择器</span></a></li>
+          <li><a href="../component/field.html">Field <span class="meta">表单项</span></a></li>
+          <li><a href="../component/input.html">Input / Textarea / Select <span class="meta">输入框 / 文本域 / 选择器</span></a></li>
+          <li><a href="../component/input-number.html">Input Number <span class="meta">数字输入框</span></a></li>
+          <li><a href="../component/input-otp.html">Input OTP <span class="meta">验证码输入</span></a></li>
+          <li><a href="../component/input-tag.html">Input Tag <span class="meta">标签输入</span></a></li>
+          <li><a href="../component/mention.html">Mention <span class="meta">提及</span></a></li>
+          <li><a href="../component/radio.html">Radio <span class="meta">单选框</span></a></li>
+          <li><a href="../component/radio-group.html">Radio Group <span class="meta">单选框组</span></a></li>
+          <li><a href="../component/rate.html">Rate <span class="meta">评分</span></a></li>
+          <li><a href="../component/slider.html">Slider <span class="meta">滑块</span></a></li>
+          <li><a href="../component/switch.html">Switch <span class="meta">开关</span></a></li>
+          <li><a href="../component/time-picker.html">Time Picker <span class="meta">时间选择器</span></a></li>
+          <li><a href="../component/time-select.html">Time Select <span class="meta">时间选择器</span></a></li>
+          <li><a href="../component/tree-select.html">Tree Select <span class="meta">树选择器</span></a></li>
+          <li><a href="../component/upload.html">Upload <span class="meta">上传</span></a></li>
+          <li><a href="../component/virtual-select.html">Virtual Select <span class="meta">虚拟列表选择器</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Data · 数据展示</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/avatar.html">Avatar <span class="meta">头像</span></a></li>
+          <li><a href="../component/badge.html">Badge <span class="meta">徽标</span></a></li>
+          <li><a href="../component/calendar.html">Calendar <span class="meta">日历</span></a></li>
+          <li><a href="../component/card.html">Card <span class="meta">卡片</span></a></li>
+          <li><a href="../component/carousel.html">Carousel <span class="meta">轮播图</span></a></li>
+          <li><a href="../component/cascader.html">Cascader <span class="meta">级联选择器</span></a></li>
+          <li><a href="../component/collapse.html">Collapse <span class="meta">折叠面板</span></a></li>
+          <li><a href="../component/descriptions.html">Descriptions <span class="meta">描述列表</span></a></li>
+          <li><a href="../component/empty.html">Empty <span class="meta">空状态</span></a></li>
+          <li><a href="../component/image.html">Image <span class="meta">图片</span></a></li>
+          <li><a href="../component/infinite-scroll.html">Infinite Scroll <span class="meta">无限滚动</span></a></li>
+          <li><a href="../component/progress.html">Progress <span class="meta">进度条</span></a></li>
+          <li><a href="../component/result.html">Result <span class="meta">结果</span></a></li>
+          <li><a href="../component/segmented.html">Segmented <span class="meta">分段控制器</span></a></li>
+          <li><a href="../component/skeleton.html">Skeleton <span class="meta">骨架屏</span></a></li>
+          <li><a href="../component/statistic.html">Statistic <span class="meta">统计数值</span></a></li>
+          <li><a href="../component/table.html">Table <span class="meta">表格</span></a></li>
+          <li><a href="../component/tag.html">Tag <span class="meta">标签</span></a></li>
+          <li><a href="../component/timeline.html">Timeline <span class="meta">时间线</span></a></li>
+          <li><a href="../component/tour.html">Tour <span class="meta">引导</span></a></li>
+          <li><a href="../component/transfer.html">Transfer <span class="meta">穿梭框</span></a></li>
+          <li><a href="../component/tree.html">Tree <span class="meta">树</span></a></li>
+          <li><a href="../component/virtual-table.html">Virtualized Table <span class="meta">虚拟表格</span></a></li>
+          <li><a href="../component/virtual-tree.html">Virtualized Tree <span class="meta">虚拟树</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Navigation · 导航</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/anchor.html">Anchor <span class="meta">锚点</span></a></li>
+          <li><a href="../component/backtop.html">Backtop <span class="meta">回到顶部</span></a></li>
+          <li><a href="../component/breadcrumb.html">Breadcrumb <span class="meta">面包屑</span></a></li>
+          <li><a href="../component/dropdown.html">Dropdown <span class="meta">下拉菜单</span></a></li>
+          <li><a href="../component/menu.html">Menu <span class="meta">菜单</span></a></li>
+          <li><a href="../component/pagination.html">Pagination <span class="meta">分页</span></a></li>
+          <li><a href="../component/steps.html">Steps <span class="meta">步骤条</span></a></li>
+          <li><a href="../component/tabs.html">Tabs <span class="meta">标签页</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Feedback · 反馈</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/alert.html">Alert <span class="meta">警告</span></a></li>
+          <li><a href="../component/dialog.html">Dialog <span class="meta">对话框</span></a></li>
+          <li><a href="../component/drawer.html">Drawer <span class="meta">抽屉</span></a></li>
+          <li><a href="../component/loading.html">Loading <span class="meta">加载中</span></a></li>
+          <li><a href="../component/message.html">Message <span class="meta">消息</span></a></li>
+          <li><a href="../component/message-box.html">Message Box <span class="meta">消息框</span></a></li>
+          <li><a href="../component/notification.html">Notification <span class="meta">通知</span></a></li>
+          <li><a href="../component/popconfirm.html">Popconfirm <span class="meta">气泡确认</span></a></li>
+          <li><a href="../component/popover.html">Popover <span class="meta">气泡卡片</span></a></li>
+          <li><a href="../component/tooltip.html">Tooltip <span class="meta">文字提示</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Others · 其他</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/divider.html">Divider <span class="meta">分割线</span></a></li>
+          <li><a href="../component/watermark.html">Watermark <span class="meta">水印</span></a></li>
+        </ul>
+      </div>
+    </nav>
+    <main class="site-main">
+      <h1>Link <span class="meta">链接</span></h1>
+      <p class="lede">A link, in one of the semantic colours. It is text, so it takes the text form of the colour and reads at 4.5:1 on the page, on an overlay and inside a container.</p>
+      <p class="meta">
+        <span class="tag">a</span>
+        <span class="tag">basic</span>
+        <span class="tag">since 1.1.0</span>
+      </p>
+      <div class="note">The link takes the text form of the colour, never the raw one: the raw brand colour is a fill colour, and on the brutal theme it is a bright yellow that clears 4.5:1 as a background and nothing at all as writing. The underline is a variant rather than a rule on the base class, because a page may want a link that is underlined at rest and a link that only underlines under the pointer, and the two are not the same thing.</div>
+
+      <h2>Examples</h2>
+<div class="example">
+        <div class="example__title">The types · 各种类型</div>
+        <div class="example__desc">Each type takes the text form of its colour, so the link reads as text on the page, on an overlay and inside a container — the raw colour is a fill colour and is not guaranteed to read as writing.</div>
+        <div class="example__demo">
+<a class="um-link um-link--primary" href="#">Primary</a>
+<a class="um-link um-link--success" href="#">Success</a>
+<a class="um-link um-link--warning" href="#">Warning</a>
+<a class="um-link um-link--danger" href="#">Danger</a>
+<a class="um-link um-link--info" href="#">Info</a>
+        </div>
+        <pre class="example__code">&lt;a class=&quot;um-link um-link--primary&quot; href=&quot;#&quot;&gt;Primary&lt;/a&gt;
+&lt;a class=&quot;um-link um-link--success&quot; href=&quot;#&quot;&gt;Success&lt;/a&gt;
+&lt;a class=&quot;um-link um-link--warning&quot; href=&quot;#&quot;&gt;Warning&lt;/a&gt;
+&lt;a class=&quot;um-link um-link--danger&quot; href=&quot;#&quot;&gt;Danger&lt;/a&gt;
+&lt;a class=&quot;um-link um-link--info&quot; href=&quot;#&quot;&gt;Info&lt;/a&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">States · 状态</div>
+        <div class="example__desc">A disabled link is announced as disabled and cannot be followed. It keeps its place in the tab order, because a reader who cannot follow it still has to know that it is there.</div>
+        <div class="example__demo">
+<a class="um-link um-link--primary" href="#">A link you can follow</a>
+<a class="um-link um-link--primary" href="#" aria-disabled="true">A link you cannot</a>
+        </div>
+        <pre class="example__code">&lt;a class=&quot;um-link um-link--primary&quot; href=&quot;#&quot;&gt;A link you can follow&lt;/a&gt;
+&lt;a class=&quot;um-link um-link--primary&quot; href=&quot;#&quot; aria-disabled=&quot;true&quot;&gt;A link you cannot&lt;/a&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">Underlined · 带下划线</div>
+        <div class="example__desc">The underline is a variant of its own, so it can be combined with a type: a danger link may be underlined too.</div>
+        <div class="example__demo">
+<a class="um-link um-link--primary um-link--underline" href="#">Always underlined</a>
+<a class="um-link um-link--danger um-link--underline" href="#">Danger, underlined</a>
+        </div>
+        <pre class="example__code">&lt;a class=&quot;um-link um-link--primary um-link--underline&quot; href=&quot;#&quot;&gt;Always underlined&lt;/a&gt;
+&lt;a class=&quot;um-link um-link--danger um-link--underline&quot; href=&quot;#&quot;&gt;Danger, underlined&lt;/a&gt;</pre>
+      </div>
+      <h2>Classes</h2>
+<table class="api">
+      <thead><tr><th>Class</th><th>Meaning</th></tr></thead>
+      <tbody>
+      <tr><td><code>um-link</code></td><td>The base class. Every instance carries it.</td></tr>
+      <tr><td><code>um-link--primary</code></td><td>Primary</td></tr>
+      <tr><td><code>um-link--success</code></td><td>Success</td></tr>
+      <tr><td><code>um-link--warning</code></td><td>Warning</td></tr>
+      <tr><td><code>um-link--danger</code></td><td>Danger</td></tr>
+      <tr><td><code>um-link--info</code></td><td>Info</td></tr>
+      <tr><td><code>um-link--underline</code></td><td>Underlined</td></tr>
+      <tr><td><code>um-link--sm</code></td><td>Size: sm</td></tr>
+      <tr><td><code>um-link--md</code></td><td>Size: md</td></tr>
+      <tr><td><code>um-link--lg</code></td><td>Size: lg</td></tr>
+      <tr><td><code>:hover</code></td><td>Hover</td></tr>
+      <tr><td><code>:focus-visible</code></td><td>Focus visible</td></tr>
+      <tr><td><code>[aria-disabled=&quot;true&quot;]</code></td><td>Disabled</td></tr>
+      </tbody>
+    </table>
+      <h2>Props</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>href</code></span></td><td><code>string</code></td><td><code>#</code></td><td>Where the link goes.</td></tr>
+      <tr><td><span class="api__name"><code>variant</code></span></td><td><code>enum = primary | success | warning | danger | info</code></td><td><code>primary</code></td><td>The colour of the link.</td></tr>
+      <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The size of the link text.</td></tr>
+      <tr><td><span class="api__name"><code>underline</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Keeps the underline on the link at all times, not only under the pointer.</td></tr>
+      <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes the link inert. It adds aria-disabled, and the wrapper refuses to follow it.</td></tr>
+      </tbody>
+    </table>
+      <h2>Slots</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>The words of the link.</td></tr>
+      </tbody>
+    </table>
+      <h2>Events</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>click</code></span></td><td>The link was followed. It is not emitted while the link is disabled.</td></tr>
+      </tbody>
+    </table>
+      <h2>Accessibility</h2>
+      <p><strong>Role:</strong> <code>link</code></p>
+        <p><strong>Keyboard:</strong> <code>Tab</code> <code>Enter</code></p>
+        <p>A real &lt;a href&gt;, so it is in the tab order, it is announced as a link and it can be opened in a new tab from the browser's own menu. A disabled link uses aria-disabled rather than a class alone: it keeps its place in the tab order and is still announced, which is what a reader who cannot follow it needs to know. The stylesheet makes it inert to the pointer; a keyboard reader still reaches it, so the page has to refuse the activation — the Vue wrapper does that, and plain HTML has to do it in the link's own handler.</p>
+
+    </main>
+  </div>
+
+  <script>window.UM_THEMES = {"light":["anime","archive","bauhaus","brutal","clay","corporate","eco","fashion","food","forest","ios","luxury","medical","monochrome","nordic","pastel","retro","sakura","swiss","travel","y2k"],"dark":["aurora","blueprint","crypto","finance","gaming","glass","instrument","neon","night","vaporwave","verdant"]};
+  window.UM_DEFAULT_THEME = "aurora";</script>
+  <script src="../../themes/switcher.js"></script>
+  <script src="../../site/assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+/* ============================================================================
+   Date Time Picker
+   ========================================================================== */
+
+/* The field is a box with the real date-time input inside it, borderless, so
+   the date segments and the time segments read as one control rather than as
+   a field with something stuck to it. The single run is the base class on its
+   own; the modifier carries the same rule, so the class list can name it. */
+.um-date-time-picker,
+.um-date-time-picker--single {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--um-space-xs);
+  height: var(--um-height-md);
+  padding: 0 var(--um-space-xs);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-small);
+  background: var(--um-surface-input);
+  color: var(--um-text-primary);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+}
+
+.um-date-time-picker__input {
+  flex: 1 1 auto;
+  min-width: 12em;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: 1;
+  /* The browser's own indicator is left where it is — it is the only way to
+     open the picker without JavaScript, and it is the only affordance here:
+     a field that holds both a date and a time has no single mark to draw.
+     The scheme follows the reader's system so the button is drawn for the
+     surface it lands on. */
+  color-scheme: light dark;
+}
+
+/* The ring goes on the field, because the field is what the reader is typing
+   in — the input is inside it, not beside it. */
+.um-date-time-picker:has(.um-date-time-picker__input:focus-visible) {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+/* A disabled field paints a flat surface and takes the derived disabled
+   colour, the way every other disabled control does. */
+.um-date-time-picker:has(.um-date-time-picker__input:disabled) {
+  background: var(--um-surface-control);
+  color: var(--um-text-disabled);
+  cursor: not-allowed;
+}
+
+/* The border turns to the danger colour when the browser says the value is
+   outside the window it was given. :user-invalid waits for the reader to
+   have been there, so an empty field is not red before anyone has touched
+   it. */
+.um-date-time-picker:has(.um-date-time-picker__input:user-invalid) {
+  border-color: var(--um-color-danger);
+}
+
+/* The range run holds two date-times in one box, with a rule between them. */
+.um-date-time-picker--range {
+  gap: var(--um-space-sm);
+}
+
+.um-date-time-picker__separator {
+  flex: none;
+  align-self: stretch;
+  width: var(--um-border-width);
+  background: var(--um-border-lighter);
+}
+
+.um-date-time-picker--sm {
+  height: var(--um-height-sm);
+  font-size: var(--um-font-size-caption);
+}
+
+.um-date-time-picker--lg {
+  height: var(--um-height-lg);
+}

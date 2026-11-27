@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Carousel · UI Moods</title>
+  <meta name="description" content="Slides the reader scrolls through, with a button at each end of a slide that moves to the neighbouring one. The track is a real scroller, so the browser does the scrolling and the snapping." />
+
+  <!-- The two files that make the whole thing work.
+       The first is the library; the second carries all thirty-two moods at
+       once, so the picker below changes an attribute instead of loading a
+       file — the switch has no network request to wait for. -->
+  <link rel="stylesheet" id="um-theme" href="../../themes/all.css" />
+  <link rel="stylesheet" href="../../components/um-components.css" />
+  <link rel="stylesheet" href="../../site/assets/site.css" />
+</head>
+<body>
+  <header class="site-header">
+      <a class="site-header__brand" href="../../index.html">UI Moods<span>Component Library</span></a>
+      <div class="site-header__spacer"></div>
+      <div class="switcher">
+        <label class="switcher__label" for="um-theme-picker">Theme</label>
+        <span class="switcher__field">
+          <select class="switcher__select" id="um-theme-picker"></select>
+        </span>
+      </div>
+    </header>
+  <div class="site-body">
+    <nav class="site-sidebar" aria-label="Components">
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Basic · 基础</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/affix.html">Affix <span class="meta">固钉</span></a></li>
+          <li><a href="../component/border.html">Border <span class="meta">边框</span></a></li>
+          <li><a href="../component/color.html">Color <span class="meta">色板</span></a></li>
+          <li><a href="../component/config-provider.html">Config Provider <span class="meta">全局配置</span></a></li>
+          <li><a href="../component/container.html">Container <span class="meta">容器</span></a></li>
+          <li><a href="../component/icon.html">Icon <span class="meta">图标</span></a></li>
+          <li><a href="../component/layout.html">Layout <span class="meta">布局</span></a></li>
+          <li><a href="../component/link.html">Link <span class="meta">链接</span></a></li>
+          <li><a href="../component/page-header.html">PageHeader <span class="meta">页头</span></a></li>
+          <li><a href="../component/scrollbar.html">Scrollbar <span class="meta">滚动条</span></a></li>
+          <li><a href="../component/space.html">Space <span class="meta">间距</span></a></li>
+          <li><a href="../component/splitter.html">Splitter <span class="meta">分割面板</span></a></li>
+          <li><a href="../component/text.html">Text <span class="meta">文本</span></a></li>
+          <li><a href="../component/typography.html">Typography <span class="meta">文字排版</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Form · 表单</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/autocomplete.html">Autocomplete <span class="meta">自动补全</span></a></li>
+          <li><a href="../component/button.html">Button <span class="meta">按钮</span></a></li>
+          <li><a href="../component/checkbox.html">Checkbox <span class="meta">复选框</span></a></li>
+          <li><a href="../component/checkbox-group.html">Checkbox Group <span class="meta">复选框组</span></a></li>
+          <li><a href="../component/color-picker.html">Color Picker <span class="meta">颜色选择器</span></a></li>
+          <li><a href="../component/color-picker-panel.html">Color Picker Panel <span class="meta">颜色选择面板</span></a></li>
+          <li><a href="../component/date-picker.html">Date Picker <span class="meta">日期选择器</span></a></li>
+          <li><a href="../component/date-picker-panel.html">Date Picker Panel <span class="meta">日期选择面板</span></a></li>
+          <li><a href="../component/date-time-picker.html">Date Time Picker <span class="meta">日期时间选择器</span></a></li>
+          <li><a href="../component/field.html">Field <span class="meta">表单项</span></a></li>
+          <li><a href="../component/input.html">Input / Textarea / Select <span class="meta">输入框 / 文本域 / 选择器</span></a></li>
+          <li><a href="../component/input-number.html">Input Number <span class="meta">数字输入框</span></a></li>
+          <li><a href="../component/input-otp.html">Input OTP <span class="meta">验证码输入</span></a></li>
+          <li><a href="../component/input-tag.html">Input Tag <span class="meta">标签输入</span></a></li>
+          <li><a href="../component/mention.html">Mention <span class="meta">提及</span></a></li>
+          <li><a href="../component/radio.html">Radio <span class="meta">单选框</span></a></li>
+          <li><a href="../component/radio-group.html">Radio Group <span class="meta">单选框组</span></a></li>
+          <li><a href="../component/rate.html">Rate <span class="meta">评分</span></a></li>
+          <li><a href="../component/slider.html">Slider <span class="meta">滑块</span></a></li>
+          <li><a href="../component/switch.html">Switch <span class="meta">开关</span></a></li>
+          <li><a href="../component/time-picker.html">Time Picker <span class="meta">时间选择器</span></a></li>
+          <li><a href="../component/time-select.html">Time Select <span class="meta">时间选择器</span></a></li>
+          <li><a href="../component/tree-select.html">Tree Select <span class="meta">树选择器</span></a></li>
+          <li><a href="../component/upload.html">Upload <span class="meta">上传</span></a></li>
+          <li><a href="../component/virtual-select.html">Virtual Select <span class="meta">虚拟列表选择器</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Data · 数据展示</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/avatar.html">Avatar <span class="meta">头像</span></a></li>
+          <li><a href="../component/badge.html">Badge <span class="meta">徽标</span></a></li>
+          <li><a href="../component/calendar.html">Calendar <span class="meta">日历</span></a></li>
+          <li><a href="../component/card.html">Card <span class="meta">卡片</span></a></li>
+          <li><a href="" aria-current="page">Carousel <span class="meta">轮播图</span></a></li>
+          <li><a href="../component/cascader.html">Cascader <span class="meta">级联选择器</span></a></li>
+          <li><a href="../component/collapse.html">Collapse <span class="meta">折叠面板</span></a></li>
+          <li><a href="../component/descriptions.html">Descriptions <span class="meta">描述列表</span></a></li>
+          <li><a href="../component/empty.html">Empty <span class="meta">空状态</span></a></li>
+          <li><a href="../component/image.html">Image <span class="meta">图片</span></a></li>
+          <li><a href="../component/infinite-scroll.html">Infinite Scroll <span class="meta">无限滚动</span></a></li>
+          <li><a href="../component/progress.html">Progress <span class="meta">进度条</span></a></li>
+          <li><a href="../component/result.html">Result <span class="meta">结果</span></a></li>
+          <li><a href="../component/segmented.html">Segmented <span class="meta">分段控制器</span></a></li>
+          <li><a href="../component/skeleton.html">Skeleton <span class="meta">骨架屏</span></a></li>
+          <li><a href="../component/statistic.html">Statistic <span class="meta">统计数值</span></a></li>
+          <li><a href="../component/table.html">Table <span class="meta">表格</span></a></li>
+          <li><a href="../component/tag.html">Tag <span class="meta">标签</span></a></li>
+          <li><a href="../component/timeline.html">Timeline <span class="meta">时间线</span></a></li>
+          <li><a href="../component/tour.html">Tour <span class="meta">引导</span></a></li>
+          <li><a href="../component/transfer.html">Transfer <span class="meta">穿梭框</span></a></li>
+          <li><a href="../component/tree.html">Tree <span class="meta">树</span></a></li>
+          <li><a href="../component/virtual-table.html">Virtualized Table <span class="meta">虚拟表格</span></a></li>
+          <li><a href="../component/virtual-tree.html">Virtualized Tree <span class="meta">虚拟树</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Navigation · 导航</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/anchor.html">Anchor <span class="meta">锚点</span></a></li>
+          <li><a href="../component/backtop.html">Backtop <span class="meta">回到顶部</span></a></li>
+          <li><a href="../component/breadcrumb.html">Breadcrumb <span class="meta">面包屑</span></a></li>
+          <li><a href="../component/dropdown.html">Dropdown <span class="meta">下拉菜单</span></a></li>
+          <li><a href="../component/menu.html">Menu <span class="meta">菜单</span></a></li>
+          <li><a href="../component/pagination.html">Pagination <span class="meta">分页</span></a></li>
+          <li><a href="../component/steps.html">Steps <span class="meta">步骤条</span></a></li>
+          <li><a href="../component/tabs.html">Tabs <span class="meta">标签页</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Feedback · 反馈</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/alert.html">Alert <span class="meta">警告</span></a></li>
+          <li><a href="../component/dialog.html">Dialog <span class="meta">对话框</span></a></li>
+          <li><a href="../component/drawer.html">Drawer <span class="meta">抽屉</span></a></li>
+          <li><a href="../component/loading.html">Loading <span class="meta">加载中</span></a></li>
+          <li><a href="../component/message.html">Message <span class="meta">消息</span></a></li>
+          <li><a href="../component/message-box.html">Message Box <span class="meta">消息框</span></a></li>
+          <li><a href="../component/notification.html">Notification <span class="meta">通知</span></a></li>
+          <li><a href="../component/popconfirm.html">Popconfirm <span class="meta">气泡确认</span></a></li>
+          <li><a href="../component/popover.html">Popover <span class="meta">气泡卡片</span></a></li>
+          <li><a href="../component/tooltip.html">Tooltip <span class="meta">文字提示</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Others · 其他</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/divider.html">Divider <span class="meta">分割线</span></a></li>
+          <li><a href="../component/watermark.html">Watermark <span class="meta">水印</span></a></li>
+        </ul>
+      </div>
+    </nav>
+    <main class="site-main">
+      <h1>Carousel <span class="meta">轮播图</span></h1>
+      <p class="lede">Slides the reader scrolls through, with a button at each end of a slide that moves to the neighbouring one. The track is a real scroller, so the browser does the scrolling and the snapping.</p>
+      <p class="meta">
+        <span class="tag">div</span>
+        <span class="tag">data</span>
+        <span class="tag">since 1.1.0</span>
+      </p>
+      <div class="note">The buttons are links, and that is the only way a stylesheet can move a scroller. A checked radio or an open details can change what the page looks like, but no rule in CSS can move a scroll container: the browser scrolls a scroller when a fragment names something inside it, and that is all. So the buttons point at the id of a slide and the browser does the scrolling and the snapping, and the slide they arrive at is the one the fragment names, which is how the current slide is marked. The buttons live in the slide they belong to, so the previous and the next button always point at that slide's neighbours — with a static row of buttons outside the slides, there would be no way to say &quot;the slide before this one&quot; without script. The track is a real scroller, so it is given a tabindex and a name.</div>
+
+      <h2>Examples</h2>
+<div class="example">
+        <div class="example__title">Slides · 轮播</div>
+        <div class="example__desc">Three slides, edge to edge. Each slide carries its own buttons, so the buttons always point at that slide's neighbours; the first slide's previous button wraps around to the last one. The pictures stand in for real ones.</div>
+        <div class="example__demo">
+<div class="um-carousel um-carousel--plain">
+  <div class="um-carousel__track" tabindex="0" role="group" aria-label="Slides">
+    <figure class="um-carousel__slide" id="um-carousel-1-slide-1">
+      <div class="um-carousel__body">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='180'%3E%3Crect width='320' height='180' fill='%23c8ccd4'/%3E%3C/svg%3E" alt="A grey rectangle standing for the first slide" />
+      </div>
+      <figcaption class="um-carousel__caption">The node room, before the upgrade</figcaption>
+      <nav class="um-carousel__nav">
+        <a class="um-carousel__prev" href="#um-carousel-1-slide-3" aria-label="Previous slide"></a>
+        <a class="um-carousel__next" href="#um-carousel-1-slide-2" aria-label="Next slide"></a>
+      </nav>
+    </figure>
+    <figure class="um-carousel__slide" id="um-carousel-1-slide-2">
+      <div class="um-carousel__body">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='180'%3E%3Crect width='320' height='180' fill='%23b6bcc8'/%3E%3C/svg%3E" alt="A grey rectangle standing for the second slide" />
+      </div>
+      <figcaption class="um-carousel__caption">The same room, afterwards</figcaption>
+      <nav class="um-carousel__nav">
+        <a class="um-carousel__prev" href="#um-carousel-1-slide-1" aria-label="Previous slide"></a>
+        <a class="um-carousel__next" href="#um-carousel-1-slide-3" aria-label="Next slide"></a>
+      </nav>
+    </figure>
+    <figure class="um-carousel__slide" id="um-carousel-1-slide-3">
+      <div class="um-carousel__body">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='180'%3E%3Crect width='320' height='180' fill='%23a4abb8'/%3E%3C/svg%3E" alt="A grey rectangle standing for the third slide" />
+      </div>
+      <figcaption class="um-carousel__caption">And the drawings that came with it</figcaption>
+      <nav class="um-carousel__nav">
+        <a class="um-carousel__prev" href="#um-carousel-1-slide-2" aria-label="Previous slide"></a>
+        <a class="um-carousel__next" href="#um-carousel-1-slide-1" aria-label="Next slide"></a>
+      </nav>
+    </figure>
+  </div>
+</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-carousel um-carousel--plain&quot;&gt;
+  &lt;div class=&quot;um-carousel__track&quot; tabindex=&quot;0&quot; role=&quot;group&quot; aria-label=&quot;Slides&quot;&gt;
+    &lt;figure class=&quot;um-carousel__slide&quot; id=&quot;um-carousel-1-slide-1&quot;&gt;
+      &lt;div class=&quot;um-carousel__body&quot;&gt;
+        &lt;img src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='180'%3E%3Crect width='320' height='180' fill='%23c8ccd4'/%3E%3C/svg%3E&quot; alt=&quot;A grey rectangle standing for the first slide&quot; /&gt;
+      &lt;/div&gt;
+      &lt;figcaption class=&quot;um-carousel__caption&quot;&gt;The node room, before the upgrade&lt;/figcaption&gt;
+      &lt;nav class=&quot;um-carousel__nav&quot;&gt;
+        &lt;a class=&quot;um-carousel__prev&quot; href=&quot;#um-carousel-1-slide-3&quot; aria-label=&quot;Previous slide&quot;&gt;&lt;/a&gt;
+        &lt;a class=&quot;um-carousel__next&quot; href=&quot;#um-carousel-1-slide-2&quot; aria-label=&quot;Next slide&quot;&gt;&lt;/a&gt;
+      &lt;/nav&gt;
+    &lt;/figure&gt;
+    &lt;figure class=&quot;um-carousel__slide&quot; id=&quot;um-carousel-1-slide-2&quot;&gt;
+      &lt;div class=&quot;um-carousel__body&quot;&gt;
+        &lt;img src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='180'%3E%3Crect width='320' height='180' fill='%23b6bcc8'/%3E%3C/svg%3E&quot; alt=&quot;A grey rectangle standing for the second slide&quot; /&gt;
+      &lt;/div&gt;
+      &lt;figcaption class=&quot;um-carousel__caption&quot;&gt;The same room, afterwards&lt;/figcaption&gt;
+      &lt;nav class=&quot;um-carousel__nav&quot;&gt;
+        &lt;a class=&quot;um-carousel__prev&quot; href=&quot;#um-carousel-1-slide-1&quot; aria-label=&quot;Previous slide&quot;&gt;&lt;/a&gt;
+        &lt;a class=&quot;um-carousel__next&quot; href=&quot;#um-carousel-1-slide-3&quot; aria-label=&quot;Next slide&quot;&gt;&lt;/a&gt;
+      &lt;/nav&gt;
+    &lt;/figure&gt;
+    &lt;figure class=&quot;um-carousel__slide&quot; id=&quot;um-carousel-1-slide-3&quot;&gt;
+      &lt;div class=&quot;um-carousel__body&quot;&gt;
+        &lt;img src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='180'%3E%3Crect width='320' height='180' fill='%23a4abb8'/%3E%3C/svg%3E&quot; alt=&quot;A grey rectangle standing for the third slide&quot; /&gt;
+      &lt;/div&gt;
+      &lt;figcaption class=&quot;um-carousel__caption&quot;&gt;And the drawings that came with it&lt;/figcaption&gt;
+      &lt;nav class=&quot;um-carousel__nav&quot;&gt;
+        &lt;a class=&quot;um-carousel__prev&quot; href=&quot;#um-carousel-1-slide-2&quot; aria-label=&quot;Previous slide&quot;&gt;&lt;/a&gt;
+        &lt;a class=&quot;um-carousel__next&quot; href=&quot;#um-carousel-1-slide-1&quot; aria-label=&quot;Next slide&quot;&gt;&lt;/a&gt;
+      &lt;/nav&gt;
+    &lt;/figure&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">Spaced · 有间隙</div>
+        <div class="example__desc">The same three slides with a gap between them, so the neighbouring slides show at the edges of the track and the reader can tell there is more than one. Only the modifier class changes; the markup is the same.</div>
+        <div class="example__demo">
+<div class="um-carousel um-carousel--spaced">
+  <div class="um-carousel__track" tabindex="0" role="group" aria-label="Slides">
+    <figure class="um-carousel__slide" id="um-carousel-2-slide-1">
+      <div class="um-carousel__body">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='180'%3E%3Crect width='320' height='180' fill='%23c8ccd4'/%3E%3C/svg%3E" alt="A grey rectangle standing for the first slide" />
+      </div>
+      <figcaption class="um-carousel__caption">The node room, before the upgrade</figcaption>
+      <nav class="um-carousel__nav">
+        <a class="um-carousel__prev" href="#um-carousel-2-slide-3" aria-label="Previous slide"></a>
+        <a class="um-carousel__next" href="#um-carousel-2-slide-2" aria-label="Next slide"></a>
+      </nav>
+    </figure>
+    <figure class="um-carousel__slide" id="um-carousel-2-slide-2">
+      <div class="um-carousel__body">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='180'%3E%3Crect width='320' height='180' fill='%23b6bcc8'/%3E%3C/svg%3E" alt="A grey rectangle standing for the second slide" />
+      </div>
+      <figcaption class="um-carousel__caption">The same room, afterwards</figcaption>
+      <nav class="um-carousel__nav">
+        <a class="um-carousel__prev" href="#um-carousel-2-slide-1" aria-label="Previous slide"></a>
+        <a class="um-carousel__next" href="#um-carousel-2-slide-3" aria-label="Next slide"></a>
+      </nav>
+    </figure>
+    <figure class="um-carousel__slide" id="um-carousel-2-slide-3">
+      <div class="um-carousel__body">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='180'%3E%3Crect width='320' height='180' fill='%23a4abb8'/%3E%3C/svg%3E" alt="A grey rectangle standing for the third slide" />
+      </div>
+      <figcaption class="um-carousel__caption">And the drawings that came with it</figcaption>
+      <nav class="um-carousel__nav">
+        <a class="um-carousel__prev" href="#um-carousel-2-slide-2" aria-label="Previous slide"></a>
+        <a class="um-carousel__next" href="#um-carousel-2-slide-1" aria-label="Next slide"></a>
+      </nav>
+    </figure>
+  </div>
+</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-carousel um-carousel--spaced&quot;&gt;
+  &lt;div class=&quot;um-carousel__track&quot; tabindex=&quot;0&quot; role=&quot;group&quot; aria-label=&quot;Slides&quot;&gt;
+    &lt;figure class=&quot;um-carousel__slide&quot; id=&quot;um-carousel-2-slide-1&quot;&gt;
+      &lt;div class=&quot;um-carousel__body&quot;&gt;
+        &lt;img src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='180'%3E%3Crect width='320' height='180' fill='%23c8ccd4'/%3E%3C/svg%3E&quot; alt=&quot;A grey rectangle standing for the first slide&quot; /&gt;
+      &lt;/div&gt;
+      &lt;figcaption class=&quot;um-carousel__caption&quot;&gt;The node room, before the upgrade&lt;/figcaption&gt;
+      &lt;nav class=&quot;um-carousel__nav&quot;&gt;
+        &lt;a class=&quot;um-carousel__prev&quot; href=&quot;#um-carousel-2-slide-3&quot; aria-label=&quot;Previous slide&quot;&gt;&lt;/a&gt;
+        &lt;a class=&quot;um-carousel__next&quot; href=&quot;#um-carousel-2-slide-2&quot; aria-label=&quot;Next slide&quot;&gt;&lt;/a&gt;
+      &lt;/nav&gt;
+    &lt;/figure&gt;
+    &lt;figure class=&quot;um-carousel__slide&quot; id=&quot;um-carousel-2-slide-2&quot;&gt;
+      &lt;div class=&quot;um-carousel__body&quot;&gt;
+        &lt;img src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='180'%3E%3Crect width='320' height='180' fill='%23b6bcc8'/%3E%3C/svg%3E&quot; alt=&quot;A grey rectangle standing for the second slide&quot; /&gt;
+      &lt;/div&gt;
+      &lt;figcaption class=&quot;um-carousel__caption&quot;&gt;The same room, afterwards&lt;/figcaption&gt;
+      &lt;nav class=&quot;um-carousel__nav&quot;&gt;
+        &lt;a class=&quot;um-carousel__prev&quot; href=&quot;#um-carousel-2-slide-1&quot; aria-label=&quot;Previous slide&quot;&gt;&lt;/a&gt;
+        &lt;a class=&quot;um-carousel__next&quot; href=&quot;#um-carousel-2-slide-3&quot; aria-label=&quot;Next slide&quot;&gt;&lt;/a&gt;
+      &lt;/nav&gt;
+    &lt;/figure&gt;
+    &lt;figure class=&quot;um-carousel__slide&quot; id=&quot;um-carousel-2-slide-3&quot;&gt;
+      &lt;div class=&quot;um-carousel__body&quot;&gt;
+        &lt;img src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='180'%3E%3Crect width='320' height='180' fill='%23a4abb8'/%3E%3C/svg%3E&quot; alt=&quot;A grey rectangle standing for the third slide&quot; /&gt;
+      &lt;/div&gt;
+      &lt;figcaption class=&quot;um-carousel__caption&quot;&gt;And the drawings that came with it&lt;/figcaption&gt;
+      &lt;nav class=&quot;um-carousel__nav&quot;&gt;
+        &lt;a class=&quot;um-carousel__prev&quot; href=&quot;#um-carousel-2-slide-2&quot; aria-label=&quot;Previous slide&quot;&gt;&lt;/a&gt;
+        &lt;a class=&quot;um-carousel__next&quot; href=&quot;#um-carousel-2-slide-1&quot; aria-label=&quot;Next slide&quot;&gt;&lt;/a&gt;
+      &lt;/nav&gt;
+    &lt;/figure&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+      </div>
+      <h2>Classes</h2>
+<table class="api">
+      <thead><tr><th>Class</th><th>Meaning</th></tr></thead>
+      <tbody>
+      <tr><td><code>um-carousel</code></td><td>The base class. Every instance carries it.</td></tr>
+      <tr><td><code>um-carousel--plain</code></td><td>Plain</td></tr>
+      <tr><td><code>um-carousel--spaced</code></td><td>Spaced</td></tr>
+      <tr><td><code>um-carousel--sm</code></td><td>Size: sm</td></tr>
+      <tr><td><code>um-carousel--md</code></td><td>Size: md</td></tr>
+      <tr><td><code>um-carousel--lg</code></td><td>Size: lg</td></tr>
+      <tr><td><code>um-carousel__track</code></td><td>Track</td></tr>
+      <tr><td><code>um-carousel__slide</code></td><td>Slide</td></tr>
+      <tr><td><code>um-carousel__body</code></td><td>Body</td></tr>
+      <tr><td><code>um-carousel__caption</code></td><td>Caption</td></tr>
+      <tr><td><code>um-carousel__nav</code></td><td>Navigation</td></tr>
+      <tr><td><code>um-carousel__prev</code></td><td>Previous</td></tr>
+      <tr><td><code>um-carousel__next</code></td><td>Next</td></tr>
+      <tr><td><code>:target</code></td><td>Current</td></tr>
+      </tbody>
+    </table>
+      <h2>Props</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>name</code></span></td><td><code>string</code></td><td>—</td><td>The prefix of the ids of the slides. Every slide needs an id of its own, because that id is what the buttons point at, and two carousels on one page cannot share ids.</td></tr>
+      <tr><td><span class="api__name"><code>variant</code></span></td><td><code>enum = plain | spaced</code></td><td><code>plain</code></td><td>Whether the slides are edge to edge or have a gap between them. The plain run is the base class on its own; the spaced run adds um-carousel--spaced.</td></tr>
+      <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The size of the caption and of the buttons.</td></tr>
+      <tr><td><span class="api__name"><code>label</code></span></td><td><code>string</code></td><td>—</td><td>The name of the track, read out before the slides. A scrollable region has to carry a name, or the reader is told about a scroll box and nothing else.</td></tr>
+      </tbody>
+    </table>
+      <h2>Slots</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>The slides, one figure per slide. Each figure holds the body, the caption and, at its foot, the buttons that move to its neighbours.</td></tr>
+      </tbody>
+    </table>
+
+      <h2>Accessibility</h2>
+      <p><strong>Role:</strong> <code>group</code></p>
+        <p><strong>Keyboard:</strong> <code>Tab</code> <code>Arrow keys</code> <code>Home</code> <code>End</code></p>
+        <p>The track is a real scroller, so give it tabindex=&quot;0&quot; and a name: a scrollable region that the keyboard cannot reach is not operable. The buttons are real links with names, so the reader hears &quot;Next slide&quot; rather than a picture of an arrow. The arrow itself is drawn from borders and is hidden from the reader, so the name on the link is what carries it. A slide that is moved to is marked by the fragment in the address, which the browser also records in its history — so the back button walks back through the slides.</p>
+
+    </main>
+  </div>
+
+  <script>window.UM_THEMES = {"light":["anime","archive","bauhaus","brutal","clay","corporate","eco","fashion","food","forest","ios","luxury","medical","monochrome","nordic","pastel","retro","sakura","swiss","travel","y2k"],"dark":["aurora","blueprint","crypto","finance","gaming","glass","instrument","neon","night","vaporwave","verdant"]};
+  window.UM_DEFAULT_THEME = "aurora";</script>
+  <script src="../../themes/switcher.js"></script>
+  <script src="../../site/assets/site.js"></script>
+</body>
+</html>

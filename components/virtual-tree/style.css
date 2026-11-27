@@ -1,0 +1,132 @@
+/* ============================================================================
+   Virtual Tree
+   ========================================================================== */
+
+/* A tree so large that the browser is asked to lay out only the branches near
+   the reader. The idiom is the tree component's: every branch is a <details>,
+   so the browser opens and closes it and the state survives a reload.
+
+   The skip happens on the branches. Each branch's children carry
+   `content-visibility: auto`, so the browser does not lay out a branch far from
+   the viewport and gives it a placeholder size instead. */
+.um-virtual-tree,
+.um-virtual-tree--plain {
+  /* The size the browser gives a branch it has not laid out: the label's own
+     height — the theme's tight gap above and below a line of text — in the
+     branch's own type size. It is composed from the theme's own gap rather
+     than written as a number, so the placeholder is the same size as the
+     branch it stands in for in every mood. The `auto` keyword in
+     `contain-intrinsic-size` below makes the placeholder the size the branch
+     really had the last time it was laid out, so a branch that has been read
+     once keeps its height. */
+  --um-virtual-tree-node-size: calc(var(--um-space-xs) * 2 + 1.2em);
+
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+  color: var(--um-text-regular);
+}
+
+/* The scroller owns the surface; the tree inside it paints nothing. */
+.um-virtual-tree__scroller {
+  overflow: auto;
+  background: var(--um-fill-blank);
+}
+
+/* The ring goes on the scrolling box and inside the frame: an outside ring
+   would be cut off by the frame that holds it. */
+.um-virtual-tree__scroller:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: calc(-1 * var(--um-focus-ring-width));
+}
+
+.um-virtual-tree__tree {
+  padding: var(--um-space-xs);
+}
+
+.um-virtual-tree__node {
+  margin: 0;
+}
+
+.um-virtual-tree__label {
+  display: flex;
+  align-items: center;
+  gap: var(--um-space-xs);
+  padding: var(--um-space-xs);
+  border-radius: var(--um-radius-small);
+  color: var(--um-text-regular);
+  font-size: var(--um-font-size-body);
+  list-style: none;
+  cursor: pointer;
+}
+
+.um-virtual-tree__label::-webkit-details-marker { display: none; }
+
+.um-virtual-tree__label:hover {
+  background: var(--um-fill-light);
+  color: var(--um-color-primary-text);
+}
+
+/* The ring goes inside the label, the way the ring on a button in a row goes
+   inside it: an outside ring would be cut off by the next branch. */
+.um-virtual-tree__label:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: calc(-1 * var(--um-focus-ring-width));
+}
+
+.um-virtual-tree__text {
+  flex: 1;
+  min-width: 0;
+}
+
+/* The arrow is a shape drawn from two borders, so it takes the label's own
+   colour rather than a glyph the library would have to ship. */
+.um-virtual-tree__arrow {
+  flex: none;
+  width: 4px;
+  height: 4px;
+  border-top: var(--um-border-width) var(--um-border-style) currentColor;
+  border-right: var(--um-border-width) var(--um-border-style) currentColor;
+  transform: rotate(-45deg);
+  transition: transform var(--um-motion);
+}
+
+.um-virtual-tree__node[open] > .um-virtual-tree__label .um-virtual-tree__arrow {
+  transform: rotate(45deg);
+}
+
+/* The level below is indented rather than drawn over the label, so a long
+   name has the whole width of the level to itself. */
+.um-virtual-tree__children {
+  margin-left: var(--um-space-sm);
+  padding-left: var(--um-space-sm);
+}
+
+/* Each branch's children carry the skip: the browser does not lay out a child
+   that is far from the viewport, and it holds a placeholder size — one
+   branch's worth of height — until the branch comes near.
+
+   The skip is on the children and not on the level they sit in, and that is a
+   measured decision. Skipping the level instead reserves one branch's height
+   for the whole level, so the list the reader can scroll is a third shorter
+   than it is and never catches up: measured in Chrome 158 on a tree of 76
+   nodes, the level's height came to 2519px against a true 3680px, and 2906px
+   after scrolling to the end. Skipping each child reserves its own height, so
+   the level keeps its length: 3539px against the same 3680px. */
+.um-virtual-tree__children > .um-virtual-tree__node {
+  content-visibility: auto;
+  contain-intrinsic-size: auto var(--um-virtual-tree-node-size);
+}
+
+/* The guided run puts a rule down the side of each level, so the depth of a
+   branch can be seen rather than counted. */
+.um-virtual-tree--lines .um-virtual-tree__children {
+  border-left: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+}
+
+.um-virtual-tree--sm .um-virtual-tree__label {
+  font-size: var(--um-font-size-caption);
+}
+
+.um-virtual-tree--lg .um-virtual-tree__label {
+  font-size: var(--um-font-size-title);
+}

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Anchor · UI Moods</title>
+  <meta name="description" content="A column of links to the sections of the page, with a rule down the side so the reader can see that they are a list of places rather than a list of links. The section being read is marked with aria-current, because CSS cannot work out what is on screen." />
+
+  <!-- The two files that make the whole thing work.
+       The first is the library; the second carries all thirty-two moods at
+       once, so the picker below changes an attribute instead of loading a
+       file — the switch has no network request to wait for. -->
+  <link rel="stylesheet" id="um-theme" href="../../themes/all.css" />
+  <link rel="stylesheet" href="../../components/um-components.css" />
+  <link rel="stylesheet" href="../../site/assets/site.css" />
+</head>
+<body>
+  <header class="site-header">
+      <a class="site-header__brand" href="../../index.html">UI Moods<span>Component Library</span></a>
+      <div class="site-header__spacer"></div>
+      <div class="switcher">
+        <label class="switcher__label" for="um-theme-picker">Theme</label>
+        <span class="switcher__field">
+          <select class="switcher__select" id="um-theme-picker"></select>
+        </span>
+      </div>
+    </header>
+  <div class="site-body">
+    <nav class="site-sidebar" aria-label="Components">
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Basic · 基础</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/affix.html">Affix <span class="meta">固钉</span></a></li>
+          <li><a href="../component/border.html">Border <span class="meta">边框</span></a></li>
+          <li><a href="../component/color.html">Color <span class="meta">色板</span></a></li>
+          <li><a href="../component/config-provider.html">Config Provider <span class="meta">全局配置</span></a></li>
+          <li><a href="../component/container.html">Container <span class="meta">容器</span></a></li>
+          <li><a href="../component/icon.html">Icon <span class="meta">图标</span></a></li>
+          <li><a href="../component/layout.html">Layout <span class="meta">布局</span></a></li>
+          <li><a href="../component/link.html">Link <span class="meta">链接</span></a></li>
+          <li><a href="../component/page-header.html">PageHeader <span class="meta">页头</span></a></li>
+          <li><a href="../component/scrollbar.html">Scrollbar <span class="meta">滚动条</span></a></li>
+          <li><a href="../component/space.html">Space <span class="meta">间距</span></a></li>
+          <li><a href="../component/splitter.html">Splitter <span class="meta">分割面板</span></a></li>
+          <li><a href="../component/text.html">Text <span class="meta">文本</span></a></li>
+          <li><a href="../component/typography.html">Typography <span class="meta">文字排版</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Form · 表单</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/autocomplete.html">Autocomplete <span class="meta">自动补全</span></a></li>
+          <li><a href="../component/button.html">Button <span class="meta">按钮</span></a></li>
+          <li><a href="../component/checkbox.html">Checkbox <span class="meta">复选框</span></a></li>
+          <li><a href="../component/checkbox-group.html">Checkbox Group <span class="meta">复选框组</span></a></li>
+          <li><a href="../component/color-picker.html">Color Picker <span class="meta">颜色选择器</span></a></li>
+          <li><a href="../component/color-picker-panel.html">Color Picker Panel <span class="meta">颜色选择面板</span></a></li>
+          <li><a href="../component/date-picker.html">Date Picker <span class="meta">日期选择器</span></a></li>
+          <li><a href="../component/date-picker-panel.html">Date Picker Panel <span class="meta">日期选择面板</span></a></li>
+          <li><a href="../component/date-time-picker.html">Date Time Picker <span class="meta">日期时间选择器</span></a></li>
+          <li><a href="../component/field.html">Field <span class="meta">表单项</span></a></li>
+          <li><a href="../component/input.html">Input / Textarea / Select <span class="meta">输入框 / 文本域 / 选择器</span></a></li>
+          <li><a href="../component/input-number.html">Input Number <span class="meta">数字输入框</span></a></li>
+          <li><a href="../component/input-otp.html">Input OTP <span class="meta">验证码输入</span></a></li>
+          <li><a href="../component/input-tag.html">Input Tag <span class="meta">标签输入</span></a></li>
+          <li><a href="../component/mention.html">Mention <span class="meta">提及</span></a></li>
+          <li><a href="../component/radio.html">Radio <span class="meta">单选框</span></a></li>
+          <li><a href="../component/radio-group.html">Radio Group <span class="meta">单选框组</span></a></li>
+          <li><a href="../component/rate.html">Rate <span class="meta">评分</span></a></li>
+          <li><a href="../component/slider.html">Slider <span class="meta">滑块</span></a></li>
+          <li><a href="../component/switch.html">Switch <span class="meta">开关</span></a></li>
+          <li><a href="../component/time-picker.html">Time Picker <span class="meta">时间选择器</span></a></li>
+          <li><a href="../component/time-select.html">Time Select <span class="meta">时间选择器</span></a></li>
+          <li><a href="../component/tree-select.html">Tree Select <span class="meta">树选择器</span></a></li>
+          <li><a href="../component/upload.html">Upload <span class="meta">上传</span></a></li>
+          <li><a href="../component/virtual-select.html">Virtual Select <span class="meta">虚拟列表选择器</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Data · 数据展示</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/avatar.html">Avatar <span class="meta">头像</span></a></li>
+          <li><a href="../component/badge.html">Badge <span class="meta">徽标</span></a></li>
+          <li><a href="../component/calendar.html">Calendar <span class="meta">日历</span></a></li>
+          <li><a href="../component/card.html">Card <span class="meta">卡片</span></a></li>
+          <li><a href="../component/carousel.html">Carousel <span class="meta">轮播图</span></a></li>
+          <li><a href="../component/cascader.html">Cascader <span class="meta">级联选择器</span></a></li>
+          <li><a href="../component/collapse.html">Collapse <span class="meta">折叠面板</span></a></li>
+          <li><a href="../component/descriptions.html">Descriptions <span class="meta">描述列表</span></a></li>
+          <li><a href="../component/empty.html">Empty <span class="meta">空状态</span></a></li>
+          <li><a href="../component/image.html">Image <span class="meta">图片</span></a></li>
+          <li><a href="../component/infinite-scroll.html">Infinite Scroll <span class="meta">无限滚动</span></a></li>
+          <li><a href="../component/progress.html">Progress <span class="meta">进度条</span></a></li>
+          <li><a href="../component/result.html">Result <span class="meta">结果</span></a></li>
+          <li><a href="../component/segmented.html">Segmented <span class="meta">分段控制器</span></a></li>
+          <li><a href="../component/skeleton.html">Skeleton <span class="meta">骨架屏</span></a></li>
+          <li><a href="../component/statistic.html">Statistic <span class="meta">统计数值</span></a></li>
+          <li><a href="../component/table.html">Table <span class="meta">表格</span></a></li>
+          <li><a href="../component/tag.html">Tag <span class="meta">标签</span></a></li>
+          <li><a href="../component/timeline.html">Timeline <span class="meta">时间线</span></a></li>
+          <li><a href="../component/tour.html">Tour <span class="meta">引导</span></a></li>
+          <li><a href="../component/transfer.html">Transfer <span class="meta">穿梭框</span></a></li>
+          <li><a href="../component/tree.html">Tree <span class="meta">树</span></a></li>
+          <li><a href="../component/virtual-table.html">Virtualized Table <span class="meta">虚拟表格</span></a></li>
+          <li><a href="../component/virtual-tree.html">Virtualized Tree <span class="meta">虚拟树</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Navigation · 导航</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="" aria-current="page">Anchor <span class="meta">锚点</span></a></li>
+          <li><a href="../component/backtop.html">Backtop <span class="meta">回到顶部</span></a></li>
+          <li><a href="../component/breadcrumb.html">Breadcrumb <span class="meta">面包屑</span></a></li>
+          <li><a href="../component/dropdown.html">Dropdown <span class="meta">下拉菜单</span></a></li>
+          <li><a href="../component/menu.html">Menu <span class="meta">菜单</span></a></li>
+          <li><a href="../component/pagination.html">Pagination <span class="meta">分页</span></a></li>
+          <li><a href="../component/steps.html">Steps <span class="meta">步骤条</span></a></li>
+          <li><a href="../component/tabs.html">Tabs <span class="meta">标签页</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Feedback · 反馈</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/alert.html">Alert <span class="meta">警告</span></a></li>
+          <li><a href="../component/dialog.html">Dialog <span class="meta">对话框</span></a></li>
+          <li><a href="../component/drawer.html">Drawer <span class="meta">抽屉</span></a></li>
+          <li><a href="../component/loading.html">Loading <span class="meta">加载中</span></a></li>
+          <li><a href="../component/message.html">Message <span class="meta">消息</span></a></li>
+          <li><a href="../component/message-box.html">Message Box <span class="meta">消息框</span></a></li>
+          <li><a href="../component/notification.html">Notification <span class="meta">通知</span></a></li>
+          <li><a href="../component/popconfirm.html">Popconfirm <span class="meta">气泡确认</span></a></li>
+          <li><a href="../component/popover.html">Popover <span class="meta">气泡卡片</span></a></li>
+          <li><a href="../component/tooltip.html">Tooltip <span class="meta">文字提示</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Others · 其他</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/divider.html">Divider <span class="meta">分割线</span></a></li>
+          <li><a href="../component/watermark.html">Watermark <span class="meta">水印</span></a></li>
+        </ul>
+      </div>
+    </nav>
+    <main class="site-main">
+      <h1>Anchor <span class="meta">锚点</span></h1>
+      <p class="lede">A column of links to the sections of the page, with a rule down the side so the reader can see that they are a list of places rather than a list of links. The section being read is marked with aria-current, because CSS cannot work out what is on screen.</p>
+      <p class="meta">
+        <span class="tag">nav, ul, li, a</span>
+        <span class="tag">navigation</span>
+        <span class="tag">since 1.1.0</span>
+      </p>
+      <div class="note">The rule is drawn on the entries rather than on the list, so it runs through the gaps between them instead of stopping at every word. That is why the column has no gap of its own: the space between two entries is the padding of the entry below. The current entry is marked with aria-current rather than with a class the page toggles, because the marking is information about the page, not about the style — and a screen reader can act on it.</div>
+
+      <h2>Examples</h2>
+<div class="example">
+        <div class="example__title">Basic · 基础用法</div>
+        <div class="example__desc">A column of sections with a rule down the side. The entry for the section being read carries aria-current, so it is the one that takes the brand colour — the stylesheet cannot know which section is on screen, so the page says.</div>
+        <div class="example__demo">
+<nav class="um-anchor" aria-label="On this page">
+  <ul class="um-anchor__list">
+    <li class="um-anchor__item">
+      <a class="um-anchor__link" href="#overview">Overview</a>
+    </li>
+    <li class="um-anchor__item">
+      <a class="um-anchor__link" href="#install" aria-current="location">Installation</a>
+    </li>
+    <li class="um-anchor__item">
+      <a class="um-anchor__link" href="#limits">Limits</a>
+    </li>
+  </ul>
+</nav>
+        </div>
+        <pre class="example__code">&lt;nav class=&quot;um-anchor&quot; aria-label=&quot;On this page&quot;&gt;
+  &lt;ul class=&quot;um-anchor__list&quot;&gt;
+    &lt;li class=&quot;um-anchor__item&quot;&gt;
+      &lt;a class=&quot;um-anchor__link&quot; href=&quot;#overview&quot;&gt;Overview&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;um-anchor__item&quot;&gt;
+      &lt;a class=&quot;um-anchor__link&quot; href=&quot;#install&quot; aria-current=&quot;location&quot;&gt;Installation&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;um-anchor__item&quot;&gt;
+      &lt;a class=&quot;um-anchor__link&quot; href=&quot;#limits&quot;&gt;Limits&lt;/a&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">No rule · 无竖线</div>
+        <div class="example__desc">The plain column drops the rule and moves the text back to the edge, for a margin too narrow to carry a line beside the words.</div>
+        <div class="example__demo">
+<nav class="um-anchor um-anchor--plain" aria-label="On this page">
+  <ul class="um-anchor__list">
+    <li class="um-anchor__item">
+      <a class="um-anchor__link" href="#overview">Overview</a>
+    </li>
+    <li class="um-anchor__item">
+      <a class="um-anchor__link" href="#install" aria-current="location">Installation</a>
+    </li>
+    <li class="um-anchor__item">
+      <a class="um-anchor__link" href="#limits">Limits</a>
+    </li>
+  </ul>
+</nav>
+        </div>
+        <pre class="example__code">&lt;nav class=&quot;um-anchor um-anchor--plain&quot; aria-label=&quot;On this page&quot;&gt;
+  &lt;ul class=&quot;um-anchor__list&quot;&gt;
+    &lt;li class=&quot;um-anchor__item&quot;&gt;
+      &lt;a class=&quot;um-anchor__link&quot; href=&quot;#overview&quot;&gt;Overview&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;um-anchor__item&quot;&gt;
+      &lt;a class=&quot;um-anchor__link&quot; href=&quot;#install&quot; aria-current=&quot;location&quot;&gt;Installation&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;um-anchor__item&quot;&gt;
+      &lt;a class=&quot;um-anchor__link&quot; href=&quot;#limits&quot;&gt;Limits&lt;/a&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</pre>
+      </div>
+      <h2>Classes</h2>
+<table class="api">
+      <thead><tr><th>Class</th><th>Meaning</th></tr></thead>
+      <tbody>
+      <tr><td><code>um-anchor</code></td><td>The base class. Every instance carries it.</td></tr>
+      <tr><td><code>um-anchor--plain</code></td><td>No rule</td></tr>
+      <tr><td><code>um-anchor__list</code></td><td>List</td></tr>
+      <tr><td><code>um-anchor__item</code></td><td>Item</td></tr>
+      <tr><td><code>um-anchor__link</code></td><td>Link</td></tr>
+      <tr><td><code>[aria-current=&quot;location&quot;]</code></td><td>Current section</td></tr>
+      <tr><td><code>:focus-visible</code></td><td>Focus visible</td></tr>
+      </tbody>
+    </table>
+      <h2>Props</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>variant</code></span></td><td><code>enum = line | plain</code></td><td><code>line</code></td><td>Whether a rule runs down the side of the column. The rule is the base class on its own; the plain column adds um-anchor--plain.</td></tr>
+      <tr><td><span class="api__name"><code>label</code></span></td><td><code>string</code></td><td><code>Anchor</code></td><td>The accessible name of the nav element. Every anchor on a page needs its own, or the screen reader announces them all as the same thing.</td></tr>
+      </tbody>
+    </table>
+      <h2>Slots</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>The entries. Each one is an &lt;a&gt; to the fragment of a section; the one for the section being read carries aria-current=&quot;location&quot;.</td></tr>
+      </tbody>
+    </table>
+
+      <h2>Accessibility</h2>
+      <p><strong>Role:</strong> <code>navigation</code></p>
+        <p><strong>Keyboard:</strong> <code>Tab</code> <code>Enter</code></p>
+        <p>The column is a &lt;nav&gt; with an aria-label, so a screen reader can jump past it and knows what it navigates, and an &lt;ul&gt;, so the entries are announced as a list and the reader hears how many there are. The entries are links to fragments, so they are in the tab order and can be followed with Enter. The entry for the section being read carries aria-current=&quot;location&quot; — the value that means &quot;this is where you are inside a set of things&quot; — and it is the only one that takes the brand colour. No stylesheet can work out which section is on screen, so the host marks it; that is the one thing an anchor needs the page to know.</p>
+
+    </main>
+  </div>
+
+  <script>window.UM_THEMES = {"light":["anime","archive","bauhaus","brutal","clay","corporate","eco","fashion","food","forest","ios","luxury","medical","monochrome","nordic","pastel","retro","sakura","swiss","travel","y2k"],"dark":["aurora","blueprint","crypto","finance","gaming","glass","instrument","neon","night","vaporwave","verdant"]};
+  window.UM_DEFAULT_THEME = "aurora";</script>
+  <script src="../../themes/switcher.js"></script>
+  <script src="../../site/assets/site.js"></script>
+</body>
+</html>

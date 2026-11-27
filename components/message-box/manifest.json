@@ -1,0 +1,94 @@
+{
+  "id": "message-box",
+  "name": "Message Box",
+  "nameZh": "消息框",
+  "category": "feedback",
+  "element": "dialog, form, h2, div, button, span",
+  "summary": "The narrow, centred box that asks the reader to confirm: a title, a message, and a pair of buttons, with an icon that carries the type. It is written as a <dialog> with a form around it, so the browser's own close is the one that closes it — the buttons are submits inside a form whose method is dialog, and the library installs no listener anywhere.",
+  "summaryZh": "那个窄窄的、居中的、要读者确认一下的框:标题、消息和一对按钮,图标承担类型。它写成一个 <dialog>,外面包着一个表单,所以关掉它的就是浏览器自己那一下 —— 按钮是 method 为 dialog 的表单里的提交按钮,库一处监听器也没有装。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-message-box",
+    "modifier": "um-message-box--",
+    "part": "um-message-box__"
+  },
+  "variants": [
+    { "id": "info", "name": "Info", "nameZh": "信息", "state": "solid", "note": "The default type. The icon is the information mark and the confirm button takes the neutral state fill." },
+    { "id": "success", "name": "Success", "nameZh": "成功", "state": "solid", "note": "The icon is a tick and the confirm button takes the success fill." },
+    { "id": "warning", "name": "Warning", "nameZh": "警告", "state": "solid", "note": "The icon is an exclamation and the confirm button takes the warning fill." },
+    { "id": "error", "name": "Error", "nameZh": "错误", "state": "solid", "note": "Element Plus calls this type error; the theme calls the same colour danger, so the class paints the danger role." }
+  ],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "A narrow box with a caption-sized body. The width is a measure of the box's own type, so it grows with the mood's text." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default box. The base class is already this width, so it needs no modifier." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "A wide box, for a message with more than one sentence in it." }
+  ],
+  "states": [
+    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The confirm button goes inert. It uses the real disabled attribute, so it leaves the tab order, and it is painted with the flattened control surface and the derived disabled colour, so what is left on the screen can still be measured." }
+  ],
+  "parts": [
+    { "id": "icon", "name": "Icon", "nameZh": "图标", "note": "The type's mark. It is drawn from borders rather than written as a character, so it needs no icon font and it is never read out as a word." },
+    { "id": "title", "name": "Title", "nameZh": "标题", "note": "The heading of the box. The box points at it with aria-labelledby, so the reader hears what the question is about." },
+    { "id": "content", "name": "Content", "nameZh": "正文", "note": "The message itself. The box points at it with aria-describedby, so the reader hears what it says." },
+    { "id": "actions", "name": "Actions", "nameZh": "操作", "note": "The row of buttons at the foot of the box." },
+    { "id": "confirm", "name": "Confirm", "nameZh": "确定", "note": "The button that says yes. It is the filled one, and it takes the type's own fill and the theme's foreground for it." },
+    { "id": "cancel", "name": "Cancel", "nameZh": "取消", "note": "The button that says no. It keeps the neutral shape, so the eye goes to the answer that is being asked for." },
+    { "id": "close", "name": "Close", "nameZh": "关闭", "note": "The cross in the corner. It is a submit button inside the form, so submitting it is the browser's own way of closing a dialog." }
+  ],
+  "props": [
+    { "name": "type", "type": "enum", "values": ["info", "success", "warning", "error"], "default": "info", "description": "What the box is asking about. It sets the icon and the accent of the confirm button.", "descriptionZh": "这个框问的是什么。它决定图标,也决定确定按钮的强调色。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "How wide the box is, and how large its type is.", "descriptionZh": "这个框有多宽,里面的字有多大。" },
+    { "name": "title", "type": "string", "description": "The heading of the box.", "descriptionZh": "框的标题。" },
+    { "name": "confirm-text", "type": "string", "default": "确定", "description": "The label on the confirm button.", "descriptionZh": "确定按钮上的文字。" },
+    { "name": "cancel-text", "type": "string", "default": "取消", "description": "The label on the cancel button.", "descriptionZh": "取消按钮上的文字。" },
+    { "name": "show-close", "type": "boolean", "default": "true", "description": "Whether the box carries the cross in the corner.", "descriptionZh": "框上是否带角上的那个叉。" },
+    { "name": "show-cancel", "type": "boolean", "default": "true", "description": "Whether the box carries the cancel button.", "descriptionZh": "框上是否带取消按钮。" }
+  ],
+  "slots": [
+    { "name": "default", "description": "The message the box asks about.", "descriptionZh": "这个框问的那句话。" }
+  ],
+  "events": [],
+  "a11y": {
+    "role": "dialog",
+    "keyboard": ["Tab", "Enter", "Escape"],
+    "notes": "The box is a <dialog>, so the browser knows it is a dialog. It points at its title with aria-labelledby and at its message with aria-describedby, so the reader hears what the question is about and what it says, rather than a bare \"dialog\". The icon repeats what the type already says, so it is hidden from the reader. Every button is a real button inside a form whose method is dialog: submitting it is the browser's own way of closing a dialog, so the library installs no listener and handles no key, and the value on each button is the answer the host reads back from the dialog's returnValue. A static box is not modal — it does not take the focus, it does not make the page behind it inert, and Escape does not close it, because all three of those belong to showModal(), and that is JavaScript.",
+    "notesZh": "这个框是 <dialog>,所以浏览器知道它是个对话框。它用 aria-labelledby 指向标题、用 aria-describedby 指向正文,读屏听到的就是「这块面板是关于什么的」和「它说了什么」,而不是干巴巴一句「对话框」。图标重复的是类型已经说过的话,所以用 aria-hidden 把它藏掉。每个按钮都是真正的按钮,在一个 method 为 dialog 的表单里:提交它就是浏览器自己关对话框的办法,所以库不装监听器,也不处理按键;每个按钮上的 value 就是宿主从对话框的 returnValue 里读回来的答案。静态形态的框不是模态的 —— 它不接管焦点,不让后面的页面失效,Escape 也关不掉它,因为这三件事都属于 showModal(),而那是 JavaScript。"
+  },
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Basic",
+      "titleZh": "基础用法",
+      "description": "A question with an answer. The three buttons are submits inside a form whose method is dialog, so each of them closes the box the way the browser closes one — and the cross is drawn from two borders, so it needs no icon font.",
+      "descriptionZh": "一个要答案的问题。三个按钮都是 method 为 dialog 的表单里的提交按钮,所以每一个都是用浏览器关对话框的办法把框关掉的 —— 那个叉是用两条边框画出来的,所以不用图标字体。",
+      "markup": "<dialog open class=\"um-message-box um-message-box--info\" aria-labelledby=\"um-message-box-title-basic\" aria-describedby=\"um-message-box-content-basic\">\n  <form method=\"dialog\">\n    <span class=\"um-message-box__icon\" aria-hidden=\"true\"></span>\n    <h2 class=\"um-message-box__title\" id=\"um-message-box-title-basic\">Archive this deployment?</h2>\n    <div class=\"um-message-box__content\" id=\"um-message-box-content-basic\">Build 214 is still running on three nodes. Archiving it stops the queue and keeps the log.</div>\n    <button class=\"um-message-box__close\" type=\"submit\" value=\"close\" aria-label=\"Close\"></button>\n    <div class=\"um-message-box__actions\">\n      <button class=\"um-message-box__cancel\" type=\"submit\" value=\"cancel\">取消</button>\n      <button class=\"um-message-box__confirm\" type=\"submit\" value=\"confirm\">确定</button>\n    </div>\n  </form>\n</dialog>"
+    },
+    {
+      "id": "types",
+      "title": "Types",
+      "titleZh": "类型",
+      "description": "Four types. The icon is the type's own mark and the confirm button takes the same fill with the theme's foreground for it, so the pair on the button is one the theme has measured.",
+      "descriptionZh": "四种类型。图标是这一类型自己的记号,确定按钮用同样的填充色和主题为它备好的前景色,所以按钮上的这一对是主题量过的。",
+      "markup": "<dialog open class=\"um-message-box um-message-box--info\" aria-labelledby=\"um-message-box-title-info\" aria-describedby=\"um-message-box-content-info\">\n  <form method=\"dialog\">\n    <span class=\"um-message-box__icon\" aria-hidden=\"true\"></span>\n    <h2 class=\"um-message-box__title\" id=\"um-message-box-title-info\">A question about the build.</h2>\n    <div class=\"um-message-box__content\" id=\"um-message-box-content-info\">The information state.</div>\n    <button class=\"um-message-box__close\" type=\"submit\" value=\"close\" aria-label=\"Close\"></button>\n    <div class=\"um-message-box__actions\">\n      <button class=\"um-message-box__cancel\" type=\"submit\" value=\"cancel\">取消</button>\n      <button class=\"um-message-box__confirm\" type=\"submit\" value=\"confirm\">确定</button>\n    </div>\n  </form>\n</dialog>\n<dialog open class=\"um-message-box um-message-box--success\" aria-labelledby=\"um-message-box-title-success\" aria-describedby=\"um-message-box-content-success\">\n  <form method=\"dialog\">\n    <span class=\"um-message-box__icon\" aria-hidden=\"true\"></span>\n    <h2 class=\"um-message-box__title\" id=\"um-message-box-title-success\">The build is green.</h2>\n    <div class=\"um-message-box__content\" id=\"um-message-box-content-success\">The success state.</div>\n    <button class=\"um-message-box__close\" type=\"submit\" value=\"close\" aria-label=\"Close\"></button>\n    <div class=\"um-message-box__actions\">\n      <button class=\"um-message-box__cancel\" type=\"submit\" value=\"cancel\">取消</button>\n      <button class=\"um-message-box__confirm\" type=\"submit\" value=\"confirm\">确定</button>\n    </div>\n  </form>\n</dialog>\n<dialog open class=\"um-message-box um-message-box--warning\" aria-labelledby=\"um-message-box-title-warning\" aria-describedby=\"um-message-box-content-warning\">\n  <form method=\"dialog\">\n    <span class=\"um-message-box__icon\" aria-hidden=\"true\"></span>\n    <h2 class=\"um-message-box__title\" id=\"um-message-box-title-warning\">The queue is nearly full.</h2>\n    <div class=\"um-message-box__content\" id=\"um-message-box-content-warning\">The warning state.</div>\n    <button class=\"um-message-box__close\" type=\"submit\" value=\"close\" aria-label=\"Close\"></button>\n    <div class=\"um-message-box__actions\">\n      <button class=\"um-message-box__cancel\" type=\"submit\" value=\"cancel\">取消</button>\n      <button class=\"um-message-box__confirm\" type=\"submit\" value=\"confirm\">确定</button>\n    </div>\n  </form>\n</dialog>\n<dialog open class=\"um-message-box um-message-box--error\" aria-labelledby=\"um-message-box-title-error\" aria-describedby=\"um-message-box-content-error\">\n  <form method=\"dialog\">\n    <span class=\"um-message-box__icon\" aria-hidden=\"true\"></span>\n    <h2 class=\"um-message-box__title\" id=\"um-message-box-title-error\">The sync failed.</h2>\n    <div class=\"um-message-box__content\" id=\"um-message-box-content-error\">The error state.</div>\n    <button class=\"um-message-box__close\" type=\"submit\" value=\"close\" aria-label=\"Close\"></button>\n    <div class=\"um-message-box__actions\">\n      <button class=\"um-message-box__cancel\" type=\"submit\" value=\"cancel\">取消</button>\n      <button class=\"um-message-box__confirm\" type=\"submit\" value=\"confirm\">确定</button>\n    </div>\n  </form>\n</dialog>"
+    },
+    {
+      "id": "sizes",
+      "title": "Sizes",
+      "titleZh": "尺寸",
+      "description": "Three boxes. The middle one is the base class on its own, because the base class is already the medium box. The width is a measure of the box's own type, so it grows with the mood's text instead of holding a fixed number of pixels.",
+      "descriptionZh": "三个框。中间那个只写基础类,因为基础类本来就是中号的框。宽度用的是框自己的字号单位,所以它会跟着 mood 的文字一起变大,而不是卡在一个固定的像素宽度上。",
+      "markup": "<dialog open class=\"um-message-box um-message-box--info um-message-box--sm\" aria-labelledby=\"um-message-box-title-small\" aria-describedby=\"um-message-box-content-small\">\n  <form method=\"dialog\">\n    <span class=\"um-message-box__icon\" aria-hidden=\"true\"></span>\n    <h2 class=\"um-message-box__title\" id=\"um-message-box-title-small\">Rename</h2>\n    <div class=\"um-message-box__content\" id=\"um-message-box-content-small\">A narrow box, for a question with a short answer.</div>\n    <div class=\"um-message-box__actions\">\n      <button class=\"um-message-box__cancel\" type=\"submit\" value=\"cancel\">取消</button>\n      <button class=\"um-message-box__confirm\" type=\"submit\" value=\"confirm\">确定</button>\n    </div>\n  </form>\n</dialog>\n<dialog open class=\"um-message-box um-message-box--info\" aria-labelledby=\"um-message-box-title-medium\" aria-describedby=\"um-message-box-content-medium\">\n  <form method=\"dialog\">\n    <span class=\"um-message-box__icon\" aria-hidden=\"true\"></span>\n    <h2 class=\"um-message-box__title\" id=\"um-message-box-title-medium\">Rename</h2>\n    <div class=\"um-message-box__content\" id=\"um-message-box-content-medium\">The default box.</div>\n    <div class=\"um-message-box__actions\">\n      <button class=\"um-message-box__cancel\" type=\"submit\" value=\"cancel\">取消</button>\n      <button class=\"um-message-box__confirm\" type=\"submit\" value=\"confirm\">确定</button>\n    </div>\n  </form>\n</dialog>\n<dialog open class=\"um-message-box um-message-box--info um-message-box--lg\" aria-labelledby=\"um-message-box-title-large\" aria-describedby=\"um-message-box-content-large\">\n  <form method=\"dialog\">\n    <span class=\"um-message-box__icon\" aria-hidden=\"true\"></span>\n    <h2 class=\"um-message-box__title\" id=\"um-message-box-title-large\">Terms of service</h2>\n    <div class=\"um-message-box__content\" id=\"um-message-box-content-large\">A wide box, for a message with more than one sentence in it.</div>\n    <div class=\"um-message-box__actions\">\n      <button class=\"um-message-box__cancel\" type=\"submit\" value=\"cancel\">取消</button>\n      <button class=\"um-message-box__confirm\" type=\"submit\" value=\"confirm\">确定</button>\n    </div>\n  </form>\n</dialog>"
+    },
+    {
+      "id": "disabled",
+      "title": "Disabled confirm",
+      "titleZh": "禁用确定按钮",
+      "description": "A confirm button that cannot be pressed yet. It is the real disabled attribute, so it leaves the tab order, and it is painted with the flattened control surface and the derived disabled colour rather than being dimmed with an opacity that nothing can measure.",
+      "descriptionZh": "一个还不能按的确定按钮。它用的是原生的 disabled 属性,所以会退出 Tab 顺序;它铺的是扁平的控制面底色和派生出来的禁用色,而不是用 opacity 变淡 —— opacity 不是颜色,无法被校验。",
+      "markup": "<dialog open class=\"um-message-box um-message-box--warning\" aria-labelledby=\"um-message-box-title-disabled\" aria-describedby=\"um-message-box-content-disabled\">\n  <form method=\"dialog\">\n    <span class=\"um-message-box__icon\" aria-hidden=\"true\"></span>\n    <h2 class=\"um-message-box__title\" id=\"um-message-box-title-disabled\">Delete the build?</h2>\n    <div class=\"um-message-box__content\" id=\"um-message-box-content-disabled\">Type the name of the build to make this button usable.</div>\n    <button class=\"um-message-box__close\" type=\"submit\" value=\"close\" aria-label=\"Close\"></button>\n    <div class=\"um-message-box__actions\">\n      <button class=\"um-message-box__cancel\" type=\"submit\" value=\"cancel\">取消</button>\n      <button class=\"um-message-box__confirm\" type=\"submit\" value=\"confirm\" disabled>确定</button>\n    </div>\n  </form>\n</dialog>"
+    }
+  ],
+  "notes": "The icon is drawn from borders rather than written as a character, for the same reason the message bar's is: a character would have to be typed into every markup and would then be read out as a word. The disc of the icon and the fill of the confirm button are the same pair — the type's own colour and the theme's foreground for it — so the mark on the disc and the label on the button are both as legible as the theme has promised. The buttons are submits inside a form whose method is dialog, and the value on each one is the answer the host reads back from the dialog's returnValue, so the box can be closed and answered without a line of JavaScript.",
+  "notesZh": "图标是用边框画出来的,不是写出来的字符,理由和消息条的一样:字符得打进每一份标记里,而且还会被读成一个词。图标那个圆盘和确定按钮的填充色是同一对 —— 这一类型自己的颜色和主题为它备好的前景色 —— 所以圆盘上的记号和按钮上的文字,都和主题承诺的一样清楚。按钮是一个 method 为 dialog 的表单里的提交按钮,每个按钮上的 value 就是宿主从对话框的 returnValue 里读回来的答案,所以这个框不用一行 JavaScript 就能被关掉,也能被回答。"
+}

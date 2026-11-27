@@ -1,0 +1,115 @@
+/* ============================================================================
+   Splitter
+   ========================================================================== */
+
+/* Two panes and a divider. The splitter owns the one surface — the container's
+   — and the panes paint nothing, so the text in a pane sits on a colour the
+   contract has measured. */
+.um-splitter,
+.um-splitter--horizontal {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-base);
+  background: var(--um-bg-container);
+  overflow: hidden;
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+}
+
+.um-splitter--vertical {
+  flex-direction: column;
+}
+
+/* A pane takes an equal share of what is left and is allowed to shrink, so a
+   long name inside it wraps instead of pushing the divider out of the box. */
+.um-splitter__panel {
+  flex: 1;
+  min-width: 0;
+  padding: var(--um-space-sm);
+  color: var(--um-text-regular);
+}
+
+/* The bar is a strip to aim at rather than the line itself: a line one pixel
+   wide is a line, and a line is not something a reader can aim at. The line
+   itself is drawn down the middle of the strip, so the divider stays a
+   hairline while the thing to grab stays wide enough to hit. */
+.um-splitter__bar {
+  position: relative;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 6px;
+}
+
+.um-splitter__bar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: var(--um-border-width);
+  margin-left: calc(-1 * var(--um-border-width) / 2);
+  background: var(--um-border-base);
+}
+
+/* The vertical run stacks the panes, so the divider runs across between them
+   and the strip lies down instead of standing up. */
+.um-splitter--vertical .um-splitter__bar {
+  width: auto;
+  height: 6px;
+}
+
+.um-splitter--vertical .um-splitter__bar::before {
+  top: 50%;
+  bottom: auto;
+  left: 0;
+  right: 0;
+  width: auto;
+  height: var(--um-border-width);
+  margin-top: calc(-1 * var(--um-border-width) / 2);
+  margin-left: 0;
+}
+
+/* The grip is a shape with no label of its own, so it takes the muted-shape
+   role rather than a border colour: in the clay mood the border role is
+   literally the page colour, which is a grip nobody can find. */
+.um-splitter__handle {
+  position: relative;
+  width: 4px;
+  height: var(--um-splitter-grip);
+  border-radius: var(--um-radius-round);
+  background: var(--um-shape-muted);
+  transition: background-color var(--um-motion);
+}
+
+.um-splitter--vertical .um-splitter__handle {
+  width: var(--um-splitter-grip);
+  height: 4px;
+}
+
+.um-splitter__bar:hover .um-splitter__handle {
+  background: var(--um-text-secondary);
+}
+
+/* The ring goes on the bar: it is the element a reader can reach, and the
+   strip is wide enough to show the ring. */
+.um-splitter__bar:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+/* How long the grip is. */
+.um-splitter {
+  --um-splitter-grip: var(--um-height-md);
+}
+
+.um-splitter--sm {
+  --um-splitter-grip: var(--um-height-sm);
+}
+
+.um-splitter--lg {
+  --um-splitter-grip: var(--um-height-lg);
+}

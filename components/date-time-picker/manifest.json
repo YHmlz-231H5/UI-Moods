@@ -1,0 +1,83 @@
+{
+  "id": "date-time-picker",
+  "name": "Date Time Picker",
+  "nameZh": "日期时间选择器",
+  "category": "form",
+  "element": "input",
+  "summary": "A field for a date and a time together. It is a real <input type=\"datetime-local\"> inside a box the library draws, so the browser validates both halves, the arrow keys walk the segments and the reader's own calendar opens it.",
+  "summaryZh": "一个同时填日期和时刻的字段。它是一个真正的 <input type=\"datetime-local\">,放在库画的盒子里,所以两半都由浏览器校验,方向键可以在各段之间走,读者自己的日历也会由它打开。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-date-time-picker",
+    "modifier": "um-date-time-picker--",
+    "part": "um-date-time-picker__"
+  },
+  "variants": [
+    { "id": "single", "name": "Single date and time", "nameZh": "单个日期时间", "note": "One date and one time in one field. The base class on its own is this layout, and the modifier paints the same thing so the class list can name it." },
+    { "id": "range", "name": "Range", "nameZh": "时间区间", "note": "Two date-times in one box, with a rule between them. The markup carries a second input and the separator." }
+  ],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "The field follows the theme's small control height and the value takes the caption size." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default field. The base class is already this height, so it needs no modifier." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "The field follows the theme's large control height." }
+  ],
+  "states": [
+    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The field paints a flat surface and takes the derived disabled colour, so the value stays readable." },
+    { "id": "invalid", "name": "Invalid", "nameZh": "无效", "selector": ":user-invalid", "native": true, "note": "The border turns to the danger colour when the browser says the value is outside the window it was given. The user-invalid pseudo-class waits for the reader to have been there, so an empty field is not red before anyone touches it." },
+    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the field, because the field is what the reader is typing in." }
+  ],
+  "parts": [
+    { "id": "input", "name": "Input", "nameZh": "输入框", "note": "The real <input type=\"datetime-local\">. It is borderless inside the field, so the field and its segments read as one control." },
+    { "id": "separator", "name": "Separator", "nameZh": "分隔线", "note": "The rule between the two date-times of a range." }
+  ],
+  "props": [
+    { "name": "value", "type": "string", "description": "The date and time in the field. It is the input's own value, in the browser's own format — a class cannot carry a moment.", "descriptionZh": "字段里的日期和时刻。它是 input 自己的值,用浏览器自己的格式 —— 类带不了时间点。" },
+    { "name": "min", "type": "string", "description": "The earliest moment the field accepts. It is the input's own min attribute, so the browser enforces it and marks the field out of range when it is not met.", "descriptionZh": "字段接受的最早时间点。它是原生 min 属性,由浏览器来管,不满足时浏览器会把字段标成超出范围。" },
+    { "name": "max", "type": "string", "description": "The latest moment the field accepts. It is the input's own max attribute.", "descriptionZh": "字段接受的最晚时间点。它是原生 max 属性。" },
+    { "name": "step", "type": "number", "default": "60", "description": "How fine the time half is, in seconds. It is the input's own step attribute, so the arrow keys move by it too.", "descriptionZh": "时间那一半有多细,单位是秒。它是原生 step 属性,方向键也按它走。" },
+    { "name": "required", "type": "boolean", "default": "false", "description": "Makes the field necessary. It is the native required attribute, so the browser asks for it.", "descriptionZh": "让字段必填。它是原生 required 属性,由浏览器来问。" },
+    { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes the field inert. It uses the real disabled attribute, so it leaves the tab order.", "descriptionZh": "让字段不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" },
+    { "name": "type", "type": "enum", "values": ["single", "range"], "default": "single", "description": "Whether the field holds one date-time or two. The single field is the base class on its own; the range field adds um-date-time-picker--range.", "descriptionZh": "字段里是一个日期时间还是两个。一个是只写基础类;时间区间再加上 um-date-time-picker--range。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The height of the field.", "descriptionZh": "字段的高度。" }
+  ],
+  "slots": [],
+  "events": [
+    { "name": "change", "description": "Fires when the value changes. It is the browser's own event on the input — the library installs no listener.", "descriptionZh": "值变了的时候触发。这是 input 上的浏览器原生事件 —— 库没有安装任何监听器。" },
+    { "name": "input", "description": "Fires on every keystroke in the field. It is the browser's own event on the input.", "descriptionZh": "在字段里每敲一个字就触发。这是 input 上的浏览器原生事件。" }
+  ],
+  "a11y": {
+    "role": "textbox",
+    "keyboard": ["Tab", "Arrow keys", "Enter"],
+    "notes": "The field is a real <input type=\"datetime-local\">, so the browser validates it, the arrow keys walk through the date and the time segments and a screen reader announces it as a date and time field. Give it a real <label for> or an aria-label — the library draws no glyph beside it, because a field that holds both a date and a time has no single mark to draw. The button that opens the picker is the browser's own and is left where the browser puts it.",
+    "notesZh": "字段是真正的 <input type=\"datetime-local\">,所以浏览器会校验它,方向键可以在日期段和时间段之间走,读屏也会把它当作日期时间字段播报。给它一个真正的 <label for> 或 aria-label —— 库不在旁边画任何图标,因为一个同时装着日期和时刻的字段没有哪一个记号可以代表它。打开选择器的那个按钮是浏览器自己的,库把它留在浏览器放的位置。"
+  },
+  "examples": [
+    {
+      "id": "single",
+      "title": "Single date and time",
+      "titleZh": "单个日期时间",
+      "description": "One date and one time in one field. The browser's own indicator is the only affordance: a field that holds both halves has no single drawn mark to stand for it.",
+      "descriptionZh": "一个日期和一个时刻放在一个字段里。浏览器自己的那个图标是唯一的提示:一个装着两半的字段,没有哪一个画出来的记号能代表它。",
+      "markup": "<div class=\"um-date-time-picker um-date-time-picker--single\">\n  <input class=\"um-date-time-picker__input\" type=\"datetime-local\" id=\"um-date-time-picker-start\" name=\"um-date-time-picker-start\" value=\"2026-03-14T09:30\" step=\"60\" />\n</div>"
+    },
+    {
+      "id": "range",
+      "title": "Range",
+      "titleZh": "时间区间",
+      "description": "Two date-times in one box, with a rule between them. The markup carries a second input and the separator.",
+      "descriptionZh": "一个盒子里两个日期时间,中间一条线。标记里多了一个 input 和那条分隔线。",
+      "markup": "<div class=\"um-date-time-picker um-date-time-picker--range\">\n  <input class=\"um-date-time-picker__input\" type=\"datetime-local\" id=\"um-date-time-picker-from\" name=\"um-date-time-picker-from\" value=\"2026-03-01T09:00\" step=\"60\" />\n  <span class=\"um-date-time-picker__separator\" aria-hidden=\"true\"></span>\n  <input class=\"um-date-time-picker__input\" type=\"datetime-local\" name=\"um-date-time-picker-to\" value=\"2026-03-31T17:30\" step=\"60\" aria-label=\"End of the window\" />\n</div>"
+    },
+    {
+      "id": "out-of-range",
+      "title": "Out of range",
+      "titleZh": "超出范围",
+      "description": "A field with a window the browser enforces. A moment outside the window turns the border to the danger colour — but only after the reader has been there, so an empty field is not red on arrival.",
+      "descriptionZh": "带一个由浏览器来管的窗口。落在窗口之外的时间点会把描边变成危险色 —— 但只在读者动过之后,所以刚打开的空字段不会是红的。",
+      "markup": "<div class=\"um-date-time-picker\">\n  <input class=\"um-date-time-picker__input\" type=\"datetime-local\" id=\"um-date-time-picker-window\" name=\"um-date-time-picker-window\" value=\"2026-04-01T18:30\" min=\"2026-03-01T09:00\" max=\"2026-03-31T17:00\" step=\"60\" required />\n</div>"
+    }
+  ],
+  "notes": "The picker is the browser's own, and the library does not take it away: hiding the native indicator would remove the only way to open the calendar without JavaScript. Unlike the date picker, this field draws no glyph beside itself — the browser's indicator already says \"calendar\", and a drawn clock would contradict the date in front of it.",
+  "notesZh": "选择器是浏览器自己的,库没有把它拿走:把原生的那个图标藏起来,就会断掉不用 JavaScript 时唯一的打开方式。和日期选择器不一样,这个字段旁边没有画任何图标:浏览器自己的图标已经说明了「日历」,而画一个时钟会和它前面那个日期互相矛盾。"
+}

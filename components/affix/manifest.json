@@ -1,0 +1,86 @@
+{
+  "id": "affix",
+  "name": "Affix",
+  "nameZh": "固钉",
+  "category": "basic",
+  "element": "div",
+  "summary": "A bar that stays where the reader put it while the page scrolls past. The bar is held with position: sticky, so the browser keeps it in the flow and pins it to the edge of the scrollport — no scroll listener, no measuring, no JavaScript.",
+  "summaryZh": "一条在页面滚动时留在原处的工具条。用 position: sticky 把它按在滚动视口的边上 —— 浏览器自己把它留在文档流里,不用监听滚动、不用测量、也不用 JavaScript。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-affix",
+    "modifier": "um-affix--",
+    "part": "um-affix__"
+  },
+  "variants": [
+    {
+      "id": "bottom",
+      "name": "Pinned to the bottom",
+      "nameZh": "固定在底部",
+      "note": "The bar sticks to the bottom edge of the scrollport instead of the top one. It is the modifier um-affix--bottom."
+    }
+  ],
+  "sizes": [],
+  "states": [
+    {
+      "id": "focus-within",
+      "name": "Focused inside",
+      "nameZh": "内部聚焦",
+      "selector": ":focus-within",
+      "native": true,
+      "note": "The keyboard has moved into the bar, so it lifts. A pinned bar can cover the thing the reader has just tabbed to, and the deeper shadow says the bar is still on top of it."
+    }
+  ],
+  "parts": [
+    {
+      "id": "bar",
+      "name": "Bar",
+      "nameZh": "工具条",
+      "note": "The strip that is pinned. It paints the surface; the affix itself stays transparent, so exactly one layer of colour sits between the bar and the page."
+    }
+  ],
+  "props": [
+    {
+      "name": "position",
+      "type": "enum",
+      "values": ["top", "bottom"],
+      "default": "top",
+      "description": "Which edge of the scrollport the bar sticks to. The top position is the base class on its own; the bottom position adds um-affix--bottom.",
+      "descriptionZh": "工具条贴在滚动视口的哪一条边上。top 就是只写基类;bottom 再加上 um-affix--bottom。"
+    }
+  ],
+  "slots": [
+    {
+      "name": "default",
+      "description": "What is inside the bar.",
+      "descriptionZh": "工具条里的内容。"
+    }
+  ],
+  "events": [],
+  "a11y": {
+    "keyboard": ["Tab"],
+    "notes": "The affix is a plain container and carries no role: it is a place on the page that happens to stay put, not a landmark. What is inside the bar is ordinary focusable content, and the sticky position does not change where it sits in the tab order. The bar carries a surface of its own because it can cover the page behind it, and a bar that covers content without a surface of its own reads as a hole in the page.",
+    "notesZh": "固钉是一个普通容器,不带角色:它只是页面上一个恰好不动的位置,不是地标。工具条里的东西就是普通的可聚焦内容,吸住的位置不改变它在 Tab 顺序里的位置。工具条自己带一层表面,是因为它会盖住后面的页面 —— 一条盖住内容、却没有自己表面的工具条,读起来像页面上破了个洞。"
+  },
+  "examples": [
+    {
+      "id": "top",
+      "title": "Pinned to the top",
+      "titleZh": "固定在顶部",
+      "description": "A filter bar that holds the top edge of the viewport while the page scrolls under it. The space the bar takes stays reserved, because a sticky element is still in the flow — nothing jumps when the bar pins.",
+      "descriptionZh": "一条筛选工具条,页面从它下面滚过去时它贴在视口上沿。工具条占的位置依然留着 —— 吸住的元素仍在文档流里,所以它固定下来的时候页面不会跳。",
+      "markup": "<div class=\"um-affix\">\n  <div class=\"um-affix__bar\">\n    <span>Only failed builds</span>\n  </div>\n</div>"
+    },
+    {
+      "id": "bottom",
+      "title": "Pinned to the bottom",
+      "titleZh": "固定在底部",
+      "description": "The bottom variant sticks to the lower edge of the viewport, which is where a progress strip belongs. The rule moves to the top of the bar, because that is the edge the bar is attached to.",
+      "descriptionZh": "bottom 变体贴在视口下沿,进度条就该待在那里。那条边线挪到了工具条的上边 —— 工具条是挂在那一侧的。",
+      "markup": "<div class=\"um-affix um-affix--bottom\">\n  <div class=\"um-affix__bar\">\n    <span>3 of 214 builds are running</span>\n  </div>\n</div>"
+    }
+  ],
+  "notes": "The offset is a CSS variable rather than a prop, because it is a length the host knows and the library does not: write --um-affix-offset on the affix (12px, 4rem, anything) and the bar leaves that much room between itself and the edge it sticks to. It stays a variable rather than a class because every length is a length — a scale of offset classes would be a scale of magic numbers wearing a class name.",
+  "notesZh": "偏移量是一个 CSS 变量而不是一个 prop,因为这个长度宿主知道、库不知道:在固钉上写 --um-affix-offset(12px、4rem,随便什么),工具条就会和它贴住的那条边留出这么宽的距离。它保持是一个变量而不是一个类,因为每个长度都是长度 —— 一串按偏移量分的类,不过是一串披着类名外衣的魔法数字。"
+}

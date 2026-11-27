@@ -1,0 +1,64 @@
+/* ============================================================================
+   Anchor
+   ========================================================================== */
+
+/* The column. It paints no surface of its own: it is a list of links that
+   stands on the page, and the page is already a surface. */
+.um-anchor {
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+  color: var(--um-text-regular);
+}
+
+/* No gap here on purpose. The space between two entries is the padding of
+   the entry below, so the rule beside the column runs through the gaps
+   instead of stopping at every word. */
+.um-anchor__list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.um-anchor__item {
+  display: block;
+}
+
+.um-anchor__link {
+  display: block;
+  padding: var(--um-space-xs) var(--um-space-sm);
+  border-left: var(--um-border-width) var(--um-border-style) var(--um-border-light);
+  color: var(--um-text-secondary);
+  text-decoration: none;
+  transition: color var(--um-motion), border-color var(--um-motion);
+}
+
+.um-anchor__link:hover {
+  color: var(--um-color-primary-text);
+}
+
+/* The section the reader is in. `aria-current="location"` is the value that
+   says "this is where you are inside a set of things", and it is the only
+   one the stylesheet gives the brand colour — no stylesheet can work out
+   which section is on screen, so the page has to say it. */
+.um-anchor__link[aria-current="location"] {
+  border-left-color: var(--um-color-primary);
+  color: var(--um-color-primary-text);
+  font-weight: var(--um-font-weight-medium);
+}
+
+/* The ring goes on the link, because the link is what the reader sees of
+   the entry. */
+.um-anchor__link:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+/* The column without a rule. The text moves back to the edge, because a
+   margin too narrow to carry a line should not also carry the space one
+   would have left for it. */
+.um-anchor--plain .um-anchor__link {
+  padding-left: 0;
+  border-left-color: transparent;
+}

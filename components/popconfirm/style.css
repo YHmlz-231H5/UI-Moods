@@ -1,0 +1,177 @@
+/* ============================================================================
+   Popconfirm
+   ========================================================================== */
+
+/* The bubble is the component; the trigger and the two answers are the parts
+   around it. Element Plus opens the bubble from a script; here a checkbox
+   holds the state and the browser does the rest. */
+.um-popconfirm {
+  --um-popconfirm-arrow: 8px;
+
+  position: relative;
+  display: inline-block;
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+}
+
+/* The checkbox is the state, and it is invisible: the label next to it is
+   what the reader sees, clicks and reads. It stays in the tab order, so the
+   keyboard can open the bubble too. */
+.um-popconfirm__toggle {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.um-popconfirm__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--um-space-xs);
+  padding: var(--um-space-xs) var(--um-space-sm);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-small);
+  background: var(--um-fill-blank);
+  color: var(--um-text-regular);
+  cursor: pointer;
+  user-select: none;
+}
+
+/* The ring goes on the trigger, because the checkbox is the control that took
+   the focus and the trigger is the thing the reader believes they are on. */
+.um-popconfirm__toggle:focus-visible ~ .um-popconfirm__trigger {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+/* The bubble is hidden by `display`, not by opacity: a bubble that is only
+   transparent is still in the tab order, and its two buttons would still be
+   reachable while it is not there. */
+.um-popconfirm__panel {
+  position: absolute;
+  top: calc(100% + var(--um-space-xs));
+  left: 0;
+  z-index: 1;
+  display: none;
+  width: max-content;
+  max-width: 20em;
+  padding: var(--um-space-sm);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-base);
+  background: var(--um-bg-overlay);
+  box-shadow: var(--um-shadow-base);
+  color: var(--um-text-regular);
+  line-height: 1.5;
+}
+.um-popconfirm__toggle:checked ~ .um-popconfirm__panel { display: block; }
+
+/* The arrow is a square turned on its corner. The two edges that form the
+   point carry the bubble's border colour, and the square is filled with the
+   bubble's own surface — so where it crosses the bubble's edge the two read
+   as one shape, and the border line stops at the arrow and picks up again on
+   the other side of it. */
+.um-popconfirm__arrow {
+  position: absolute;
+  top: calc(var(--um-popconfirm-arrow) * -0.5);
+  left: 50%;
+  width: var(--um-popconfirm-arrow);
+  height: var(--um-popconfirm-arrow);
+  background: var(--um-bg-overlay);
+  border-right: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-bottom: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  transform: translateX(-50%) rotate(225deg);
+}
+
+.um-popconfirm__message {
+  max-width: 18em;
+  color: var(--um-text-regular);
+  font-size: var(--um-font-size-caption);
+}
+
+/* The answer the reader is pushed towards is last, so the row is aligned to
+   the right. */
+.um-popconfirm__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--um-space-xs);
+  margin-top: var(--um-space-sm);
+}
+
+.um-popconfirm__confirm,
+.um-popconfirm__cancel {
+  height: var(--um-height-sm);
+  padding: 0 var(--um-space-sm);
+  border: var(--um-border-width) var(--um-border-style) transparent;
+  border-radius: var(--um-radius-small);
+  background: transparent;
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-caption);
+  font-weight: var(--um-font-weight-medium);
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.um-popconfirm__confirm {
+  background: var(--um-color-primary);
+  border-color: var(--um-color-primary);
+  color: var(--um-color-primary-on);
+}
+.um-popconfirm__confirm:hover {
+  background: var(--um-color-primary-strong);
+  border-color: var(--um-color-primary-strong);
+}
+
+.um-popconfirm__cancel {
+  background: var(--um-fill-base);
+  border-color: var(--um-border-base);
+  color: var(--um-text-regular);
+}
+.um-popconfirm__cancel:hover {
+  background: var(--um-fill-light);
+  color: var(--um-color-primary-text);
+}
+
+.um-popconfirm__confirm:focus-visible,
+.um-popconfirm__cancel:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+/* Above the trigger, or beside it: the bubble moves, the rest of it does not. */
+.um-popconfirm--top .um-popconfirm__panel {
+  top: auto;
+  bottom: calc(100% + var(--um-space-xs));
+}
+.um-popconfirm--top .um-popconfirm__arrow {
+  top: auto;
+  bottom: calc(var(--um-popconfirm-arrow) * -0.5);
+  transform: translateX(-50%) rotate(45deg);
+}
+.um-popconfirm--left .um-popconfirm__panel {
+  top: 50%;
+  right: calc(100% + var(--um-space-xs));
+  left: auto;
+  transform: translateY(-50%);
+}
+.um-popconfirm--left .um-popconfirm__arrow {
+  top: 50%;
+  right: calc(var(--um-popconfirm-arrow) * -0.5);
+  left: auto;
+  transform: translateY(-50%) rotate(315deg);
+}
+.um-popconfirm--right .um-popconfirm__panel {
+  top: 50%;
+  right: auto;
+  left: calc(100% + var(--um-space-xs));
+  transform: translateY(-50%);
+}
+.um-popconfirm--right .um-popconfirm__arrow {
+  top: 50%;
+  right: auto;
+  left: calc(var(--um-popconfirm-arrow) * -0.5);
+  transform: translateY(-50%) rotate(135deg);
+}
+
+.um-popconfirm--sm .um-popconfirm__panel { max-width: 16em; }
+.um-popconfirm--lg .um-popconfirm__panel { max-width: 24em; }

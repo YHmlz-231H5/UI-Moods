@@ -1,0 +1,140 @@
+/* ============================================================================
+   Input Tag
+   ========================================================================== */
+
+/* Adding a tag and taking one away both need a script, so this component is
+   only the two shapes: the tag and its remove button, in a field that still
+   has room for the next word. */
+.um-input-tag {
+  /* The tag's height is a variable, because the tag and its remove button
+     both have to shrink together when the field does. */
+  --um-input-tag-chip: var(--um-height-sm);
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--um-space-xs);
+  min-height: var(--um-height-md);
+  padding: var(--um-space-xs);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-small);
+  background: var(--um-surface-input);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+}
+
+/* The tag is the outlined member of the soft-chip family, the same shape the
+   tag component uses: a tint for the fill and the derived colour for the
+   outline, because a tint of the fill would sit at about 1.2:1 against it and
+   read as a smear rather than an edge. */
+.um-input-tag__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--um-space-xs);
+  max-width: 100%;
+  height: var(--um-input-tag-chip);
+  padding: 0 var(--um-space-xs);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-small);
+  background: var(--um-fill-blank);
+  color: var(--um-text-regular);
+  font-size: var(--um-font-size-caption);
+  line-height: 1;
+}
+
+/* A long tag is cut rather than allowed to push the field wider than the
+   page. */
+.um-input-tag__text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* The remove mark is two lines crossed, which is the only shape a remove
+   button needs — and it takes the theme's border weight rather than a glyph
+   the library would have to ship. */
+.um-input-tag__remove {
+  position: relative;
+  flex: 0 0 auto;
+  width: calc(var(--um-input-tag-chip) - 4px);
+  height: calc(var(--um-input-tag-chip) - 4px);
+  padding: 0;
+  border: 0;
+  border-radius: var(--um-radius-circle);
+  background: none;
+  color: var(--um-text-secondary);
+  cursor: pointer;
+}
+.um-input-tag__remove::before,
+.um-input-tag__remove::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0.6em;
+  height: 0;
+  border-top: var(--um-border-width) solid currentColor;
+}
+.um-input-tag__remove::before { transform: translate(-50%, -50%) rotate(45deg); }
+.um-input-tag__remove::after { transform: translate(-50%, -50%) rotate(-45deg); }
+.um-input-tag__remove:hover { color: var(--um-text-primary); }
+.um-input-tag__remove:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+.um-input-tag__input {
+  flex: 1 1 6em;
+  min-width: 6em;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--um-text-primary);
+  font: inherit;
+  line-height: 1.5;
+}
+.um-input-tag__input::placeholder { color: var(--um-text-placeholder); }
+
+/* The ring goes on the field, because the field is what the reader is typing
+   in — the input is inside it, not beside it. */
+.um-input-tag:has(.um-input-tag__input:focus-visible) {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+/* A disabled field paints a flat surface and takes the derived disabled
+   colour, the way every other disabled control does. */
+.um-input-tag:has(.um-input-tag__input:disabled) {
+  background: var(--um-surface-control);
+}
+.um-input-tag:has(.um-input-tag__input:disabled) .um-input-tag__input { color: var(--um-text-disabled); }
+
+.um-input-tag--primary .um-input-tag__tag {
+  background: var(--um-color-primary-soft-8);
+  border-color: var(--um-color-primary-text);
+  color: var(--um-color-primary-on-soft);
+}
+.um-input-tag--success .um-input-tag__tag {
+  background: var(--um-color-success-soft-8);
+  border-color: var(--um-color-success-text);
+  color: var(--um-color-success-on-soft);
+}
+.um-input-tag--warning .um-input-tag__tag {
+  background: var(--um-color-warning-soft-8);
+  border-color: var(--um-color-warning-text);
+  color: var(--um-color-warning-on-soft);
+}
+.um-input-tag--danger .um-input-tag__tag {
+  background: var(--um-color-danger-soft-8);
+  border-color: var(--um-color-danger-text);
+  color: var(--um-color-danger-on-soft);
+}
+
+.um-input-tag--sm {
+  --um-input-tag-chip: calc(var(--um-height-sm) - 4px);
+  min-height: var(--um-height-sm);
+}
+.um-input-tag--lg {
+  --um-input-tag-chip: var(--um-height-lg);
+  min-height: var(--um-height-lg);
+}

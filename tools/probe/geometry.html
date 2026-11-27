@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>ui-moods · geometry probe</title>
+
+<!-- The probe is a measuring instrument, not a page anybody looks at. It
+     loads every component's live examples, then walks the whole document once
+     per mood and reports the boxes the browser actually laid out.
+
+     The contrast probe asks whether the colours read. This one asks whether
+     the shapes are where they were meant to be — because a component can be
+     perfectly legible and still be laid out wrong, and a colour measurement
+     cannot see it. A calendar whose date grid is one row of overlapping
+     numbers has no contrast problem at all. -->
+
+<link rel="stylesheet" href="/components/um-components.css" />
+<link rel="stylesheet" href="/themes/all.css" />
+
+<style>
+  body { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; margin: 0; padding: 16px; background: var(--um-bg-page); color: var(--um-text-regular); }
+  h1 { font-size: 15px; margin: 0 0 8px; color: var(--um-text-primary); }
+  #summary { font-size: 13px; margin: 0 0 12px; white-space: pre-wrap; color: var(--um-text-regular); }
+  #report { font-size: 11px; border-collapse: collapse; width: 100%; }
+  #report th, #report td { border: 1px solid var(--um-border-base); padding: 3px 6px; text-align: left; vertical-align: top; }
+  #report th { background: var(--um-fill-light); color: var(--um-text-primary); position: sticky; top: 0; }
+  .fail { background: var(--um-color-danger-soft-4); }
+  #stage { position: absolute; left: -99999px; top: 0; width: 1200px; background: var(--um-bg-page); }
+  /* The probe measures the component as the reader sees it, not the browser's
+     transitional state. A subtree under `content-visibility: auto` is skipped
+     until it comes near the viewport, and a skipped subtree is not laid out:
+     its box is a placeholder rather than the real one. Laying everything out
+     is what scrolling the page would do anyway. */
+  #stage * { content-visibility: visible !important; }
+  #stage *, #stage *::before, #stage *::after { transition: none !important; animation: none !important; }
+</style>
+</head>
+<body>
+
+<h1>ui-moods · geometry probe</h1>
+<div id="summary">running…</div>
+<table id="report"><thead><tr><th>theme</th><th>component</th><th>check</th><th>element</th><th>detail</th></tr></thead><tbody></tbody></table>
+
+<div id="stage"></div>
+
+<script type="module">
+// --- what to measure ---------------------------------------------------------
+
+/** A tolerance for the rounding the layout engine does. */
+const TOL = 1;
+
+/**
+ * The tag and classes of an element, for the report.
+ */
+function label(el) {
+  const cls = (el.className || "").toString().trim().split(/\s+/).filter(Boolean).join(".");
+  return el.tagName.toLowerCase() + (cls ? "." + cls : "");
+}
+
+/**
+ * Is this a box the library paints?
+ *
+ * The probe measures the library, not the examples around it. A bare `<p>`
+ * in a documentation example carries the browser's own paragraph margin, and
+ * that margin sticking out of its parent is the browser's doing and the
+ * host's business — reporting it would bury the findings that are about the
+ * library. So a box is measured when it carries one of the library's own
+ * classes.
+ */
+function isLibraryBox(el) {
+  for (const cls of el.classList ?? []) {
+    if (cls.startsWith("um-")) return true;
+  }
+  return false;
+}
+
+function isHidden(el) {
+  const style = getComputedStyle(el);
+  if (style.display === "none" || style.visibility === "hidden") return true;
+  if (parseFloat(style.opacity) === 0) return true;
+  const rect = el.getBoundingClientRect();
+  if (rect.width === 0 && rect.height === 0) return true;
+  // The content of a closed disclosure is not painted, and the browser does
+  // not count it in the disclosure's height — so its box sits below the
+  // disclosure's own box. That is how a closed disclosure works, not a
+  // layout bug, and measuring it as one would bury the real findings.
+  for (let node = el; node && node.nodeType === 1; node = node.parentElement) {
+    if (node.tagName === "DETAILS" && !node.hasAttribute("open")) return true;
+  }
+  // A subtree the browser has skipped — `content-visibility: auto` keeps it
+  // out of the layout until it comes near the viewport — is not painted, and
+  // its container is holding a placeholder size rather than the real one.
+  // The content is genuinely taller than the box it sits in; that is what
+  // the browser is for, not a mistake in the markup.
+  if (typeof el.checkVisibility === "function") {
+    try {
+      if (!el.checkVisibility({ contentVisibilityAuto: true })) return true;
+    } catch {
+      // the options are not supported everywhere; the checks above stand
+    }
+  }
+  return false;
+}
+
+/** The text an element holds directly. */
+function ownText(el) {
+  let out = "";
+  for (const node of el.childNodes) {
+    if (node.nodeType === 3) out += node.textContent;
+  }
+  return out.trim();
+}
+
+/**
+ * The box the browser laid out, as the numbers the checks compare.
+ *
+ * A box is reported in the coordinates of its own padding box: the border
+ * box minus the border. A child's *border* box is compared against the
+ * parent's *padding* box, because a parent with padding is supposed to be
+ * able to hold a child that fills its content box.
+ */
+function boxes(el) {
+  const rect = el.getBoundingClientRect();
+  const style = getComputedStyle(el);
+  const b = (v) => parseFloat(v) || 0;
+  return {
+    left: rect.left,
+    right: rect.right,
+    top: rect.top,
+    bottom: rect.bottom,
+    width: rect.width,
+    height: rect.height,
+    paddingLeft: rect.left + b(style.borderLeftWidth),
+    paddingRight: rect.right - b(style.borderRightWidth),
+    paddingTop: rect.top + b(style.borderTopWidth),
+    paddingBottom: rect.bottom - b(style.borderBottomWidth),
+    overflowX: style.overflowX,
+    overflowY: style.overflowY,
+    position: style.position,
+    display: style.display,
+  };
+}
+
+// --- the checks --------------------------------------------------------------
+
+/**
+ * A child that sticks out of the box it is in.
+ *
+ * This is the check that finds a calendar whose date grid is laid out in one
+ * row of seven columns: the day cell is a seventh of the width it should be,
+ * and the circle inside it — which has a width of its own — does not fit.
+ * Nothing about the colours is wrong. The boxes are simply wrong.
+ *
+ * Two kinds of overhang are left alone, because both are deliberate: an
+ * absolutely positioned element has left its parent's box on purpose, and a
+ * scroll container is *supposed* to hold content that is larger than it is.
+ */
+function checkOverflow(el, parent, rows) {
+  if (!parent || parent.nodeType !== 1) return;
+  if (!isLibraryBox(el)) return;
+  // A rotated element's *visual* box is larger than the box it occupies: a
+  // leaning slash turns a narrow rectangle into a wide diagonal. Comparing
+  // the transformed bounding box with the parent would report a decoration as
+  // an overflow, so a transformed box is left alone.
+  if (getComputedStyle(el).transform !== "none") return;
+  const p = boxes(parent);
+  const c = boxes(el);
+  if (p.width === 0 || p.height === 0) return;
+  if (c.position === "absolute" || c.position === "fixed") return;
+  if (p.overflowX !== "visible" && p.overflowY !== "visible") return;
+
+  // A negative margin is a deliberate overhang: the author asked for the box
+  // to reach past its neighbour — a separator sitting between two items, a
+  // badge that hangs off the edge. Only the overhang the margin does not
+  // account for is a mistake.
+  const style = getComputedStyle(el);
+  const margin = (name) => -(parseFloat(style[name]) || 0);
+  const allowedLeft = margin("marginLeft");
+  const allowedRight = margin("marginRight");
+  const allowedTop = margin("marginTop");
+  const allowedBottom = margin("marginBottom");
+
+  const overRight = c.right - p.paddingRight - allowedRight;
+  const overLeft = p.paddingLeft - c.left - allowedLeft;
+  const overBottom = c.bottom - p.paddingBottom - allowedBottom;
+  const overTop = p.paddingTop - c.top - allowedTop;
+
+  const worst = Math.max(overRight, overLeft, overBottom, overTop);
+  if (worst <= TOL) return;
+
+  // Which side: the one that sticks out the furthest.
+  const side =
+    worst === overRight ? "right" : worst === overLeft ? "left" : worst === overBottom ? "bottom" : "top";
+  const amount = Math.round(worst);
+
+  rows.push({
+    theme: currentTheme,
+    component: currentComponent,
+    check: "overflow",
+    element: label(el),
+    detail:
+      `${amount}px past the ${side} of ${label(parent)} ` +
+      `(child ${Math.round(c.width)}×${Math.round(c.height)}, parent ${Math.round(p.width)}×${Math.round(p.height)})`,
+  });
+}
+
+/**
+ * Two siblings drawn on top of each other.
+ *
+ * Overlapping boxes are a layout bug whatever the colours are: the reader
+ * sees two things where there should be one. The comparison is generous —
+ * a real overlap has to cover a fifth of the smaller box — because a hair
+ * of rounding and a hair of a shadow should not be reported.
+ */
+function checkOverlap(parent, rows) {
+  const kids = [];
+  for (const child of parent.children) {
+    if (isHidden(child)) continue;
+    const style = getComputedStyle(child);
+    if (style.position === "absolute" || style.position === "fixed") continue;
+    const box = boxes(child);
+    if (box.width === 0 || box.height === 0) continue;
+    kids.push(box);
+  }
+  for (let i = 0; i < kids.length; i++) {
+    for (let j = i + 1; j < kids.length; j++) {
+      const a = kids[i];
+      const b = kids[j];
+      const w = Math.min(a.right, b.right) - Math.max(a.left, b.left);
+      const h = Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top);
+      if (w <= TOL || h <= TOL) continue;
+      const area = w * h;
+      const smaller = Math.min(a.width * a.height, b.width * b.height);
+      if (smaller === 0 || area / smaller < 0.2) continue;
+      rows.push({
+        theme: currentTheme,
+        component: currentComponent,
+        check: "overlap",
+        element: `${label(parent.children[i])} / ${label(parent.children[j])}`,
+        detail: `${Math.round((area / smaller) * 100)}% of the smaller box is covered`,
+      });
+    }
+  }
+}
+
+/**
+ * Text that does not fit the box it is in.
+ *
+ * A box can be exactly where it was asked to be and still hold a word that
+ * does not fit: a date number squeezed into a tenth of its cell keeps the
+ * box the layout gave it and spills the digits over its neighbour. A box
+ * check cannot see that — the box is the right size — but the text's own ink
+ * box can, so the text is measured directly, with a range over the text node.
+ *
+ * This is the check that finds a grid laid out in the wrong number of
+ * columns: the cells are exactly as narrow as they should be, and the
+ * numbers in them are far too wide.
+ */
+function checkTextFit(el, rows) {
+  if (!isLibraryBox(el)) return;
+  const style = getComputedStyle(el);
+  if (style.overflowX !== "visible" || style.overflowY !== "visible") return;
+  if (style.transform !== "none") return;
+  // An inline box has no width of its own — the line box is the parent's —
+  // so there is nothing here to compare the text against.
+  if (el.clientWidth === 0) return;
+
+  const box = boxes(el);
+  for (const node of el.childNodes) {
+    if (node.nodeType !== 3 || !node.textContent.trim()) continue;
+    const range = document.createRange();
+    range.selectNodeContents(node);
+    const ink = range.getBoundingClientRect();
+    if (ink.width === 0 && ink.height === 0) continue;
+
+    const overRight = ink.right - box.paddingRight;
+    const overLeft = box.paddingLeft - ink.left;
+    const worst = Math.max(overRight, overLeft);
+    if (worst <= TOL) continue;
+
+    rows.push({
+      theme: currentTheme,
+      component: currentComponent,
+      check: "text-overflow",
+      element: label(el),
+      detail:
+        `${Math.round(worst)}px of "${node.textContent.trim().slice(0, 12)}" past the ` +
+        `${worst === overRight ? "right" : "left"} of its own box ` +
+        `(text ${Math.round(ink.width)}px, box ${Math.round(box.width)}px)`,
+    });
+  }
+}
+
+/**
+ * Two rows side by side.
+ *
+ * A row is a row: in a grid or a table, one row sits under the next. Two
+ * elements marked `role="row"` whose vertical ranges overlap are laid out
+ * beside each other, which means the container above them has the wrong
+ * number of columns — the layout is wrong in a way no colour measurement can
+ * see, and often in a way no box measurement can see either, because each
+ * box is exactly as large as it was asked to be.
+ *
+ * This is the check that finds a date grid laid out in seven columns when it
+ * should have been laid out in one: the weeks end up side by side, and the
+ * days in them are squeezed into a seventh of their width.
+ */
+function checkRowsStack(el, rows) {
+  if (el.getAttribute("role") !== "row") return;
+  const parent = el.parentElement;
+  if (!parent) return;
+  const siblings = [...parent.children].filter((c) => c.getAttribute("role") === "row");
+  if (siblings.length < 2) return;
+  const a = boxes(el);
+  for (const sib of siblings) {
+    if (sib === el) continue;
+    const b = boxes(sib);
+    const overlap = Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top);
+    if (overlap > TOL) {
+      rows.push({
+        theme: currentTheme,
+        component: currentComponent,
+        check: "rows-side-by-side",
+        element: label(el),
+        detail: `sits beside ${label(sib)} instead of under it`,
+      });
+      return;
+    }
+  }
+}
+
+// --- the run -----------------------------------------------------------------
+
+const stage = document.getElementById("stage");
+const summary = document.getElementById("summary");
+const tbody = document.querySelector("#report tbody");
+
+let currentTheme = "";
+let currentComponent = "";
+
+const catalogue = await fetch("/components/index.json").then((r) => r.json());
+const themeIndex = await fetch("/themes/index.json").then((r) => r.json());
+
+const chunks = [];
+for (const c of catalogue.components) {
+  const html = await fetch(`/site/component/${c.id}.html`).then((r) => r.text());
+  const doc = new DOMParser().parseFromString(html, "text/html");
+  const section = document.createElement("section");
+  section.dataset.component = c.id;
+  for (const demo of doc.querySelectorAll(".example__demo")) {
+    const box = document.createElement("div");
+    box.className = "probe__demo";
+    box.append(...demo.cloneNode(true).childNodes);
+    section.append(box);
+  }
+  chunks.push(section);
+}
+
+const rows = [];
+let measurements = 0;
+
+for (const theme of themeIndex.themes) {
+  currentTheme = theme.id;
+  document.documentElement.setAttribute("data-um-theme", theme.id);
+  void document.body.offsetHeight;
+
+  for (const section of chunks) {
+    currentComponent = section.dataset.component;
+    stage.replaceChildren(section);
+
+    for (const el of section.querySelectorAll("*")) {
+      if (isHidden(el)) continue;
+      measurements++;
+      checkOverflow(el, el.parentElement, rows);
+      checkTextFit(el, rows);
+      checkRowsStack(el, rows);
+      checkOverlap(el.parentElement, rows);
+    }
+  }
+}
+
+stage.replaceChildren();
+
+for (const row of rows) {
+  const tr = document.createElement("tr");
+  tr.className = "fail";
+  for (const key of ["theme", "component", "check", "element", "detail"]) {
+    const td = document.createElement("td");
+    td.textContent = String(row[key]);
+    tr.append(td);
+  }
+  tbody.append(tr);
+}
+
+summary.textContent =
+  `components: ${catalogue.components.length}\n` +
+  `themes: ${themeIndex.themes.length}\n` +
+  `measurements: ${measurements}\n` +
+  `failures: ${rows.length}\n` +
+  (rows.length
+    ? "\n" + rows.slice(0, 40).map((r) => `${r.theme} ${r.component} ${r.check} ${r.element} ${r.detail}`).join("\n")
+    : "");
+
+window.__PROBE__ = { measurements, failures: rows.length, rows };
+document.title = `probe · ${measurements} measurements · ${rows.length} failures`;
+</script>
+</body>
+</html>

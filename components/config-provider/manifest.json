@@ -1,0 +1,53 @@
+{
+  "id": "config-provider",
+  "name": "Config Provider",
+  "nameZh": "全局配置",
+  "category": "basic",
+  "element": "div",
+  "summary": "Element Plus's config provider is a Vue context: it hands the global size, the z-index, the locale and the namespace down to everything beneath it. A CSS-only library has no context to hand anything down, so this one is an attribute contract instead — a wrapper element carrying data-um-size and data-um-radius, and the library's own CSS answering to them. It sets the density and the radius mode of its subtree, and it says plainly that it cannot do the rest: there is no locale for it to set and no z-index for it to hand out.",
+  "summaryZh": "Element Plus 的全局配置是一个 Vue 上下文:它把全局尺寸、层级、语言和命名空间交给下面所有东西。纯 CSS 的库没有上下文可以把东西传下去,所以这里改成一份属性契约 —— 一个带着 data-um-size 和 data-um-radius 的包裹元素,库里的 CSS 对它们作出回应。它设定自己这棵子树的密度和圆角模式,其余的它也明说了做不到:没有语言可设,也没有层级可以发下去。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-config-provider",
+    "modifier": "um-config-provider--"
+  },
+  "variants": [],
+  "sizes": [],
+  "states": [],
+  "parts": [],
+  "props": [
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The density of the subtree. The whole control scale collapses onto that rung — the heights of the controls and the sizes of the type inside the provider. md is the default, and it changes nothing.", "descriptionZh": "这棵子树的密度。整条控件的尺寸梯级都塌到那一级上 —— provider 里面控件的高度和文字的字号。md 是默认值,它什么都不改。" },
+    { "name": "radius", "type": "enum", "values": ["soft", "square"], "default": "soft", "description": "The radius mode of the subtree. square collapses the box radii onto a flat edge; soft is the default, and it changes nothing.", "descriptionZh": "这棵子树的圆角模式。square 把各个盒子的圆角塌成直边;soft 是默认值,它什么都不改。" }
+  ],
+  "slots": [
+    { "name": "default", "description": "Everything the provider governs.", "descriptionZh": "provider 管着的所有东西。" }
+  ],
+  "events": [],
+  "a11y": {
+    "role": "",
+    "keyboard": [],
+    "notes": "The provider carries no role of its own: it is a plain wrapper, and the elements inside it keep the roles they already had. The density is a visual change, and it changes nothing an assistive technology reads — the same sentence is announced in the same place whether the controls around it are small or large. A smaller control is still a control, and the focus ring around it is still the theme's own.",
+    "notesZh": "这个 provider 不带任何角色:它只是一个包裹,里面的元素保留它们本来的角色。密度是视觉上的变化,它不改变读屏读到的任何东西 —— 控件是大是小,同一句话都在同一个地方被读出来。变小的控件仍然是控件,围着它的焦点环还是主题自己的那个。"
+  },
+  "examples": [
+    {
+      "id": "density",
+      "title": "Density",
+      "titleZh": "密度",
+      "description": "Three providers, each with a button, a tag and a field in it. The control scale has collapsed onto a different rung in each one, so the button, the field and the type around them are all smaller or larger. The provider that says md is the default, and it is the one the page would have looked like anyway.",
+      "descriptionZh": "三个 provider,里面各有一个按钮、一个标签和一个输入框。控件的尺寸梯级在每一个里都塌到了不同的一级上,所以按钮、输入框和周围的文字全都跟着变大或变小。写着 md 的那个是默认值,页面本来也就是这个样子。",
+      "markup": "<div class=\"um-config-provider\" data-um-size=\"sm\">\n  <p>Small</p>\n  <button class=\"um-button um-button--primary\">Save</button>\n  <span class=\"um-tag um-tag--success\">Synced</span>\n  <div style=\"max-width: 14em\">\n    <input class=\"um-input\" type=\"text\" placeholder=\"Build number\" aria-label=\"Build number\" />\n  </div>\n</div>\n<div class=\"um-config-provider\" data-um-size=\"md\">\n  <p>Medium</p>\n  <button class=\"um-button um-button--primary\">Save</button>\n  <span class=\"um-tag um-tag--success\">Synced</span>\n  <div style=\"max-width: 14em\">\n    <input class=\"um-input\" type=\"text\" placeholder=\"Build number\" aria-label=\"Build number\" />\n  </div>\n</div>\n<div class=\"um-config-provider\" data-um-size=\"lg\">\n  <p>Large</p>\n  <button class=\"um-button um-button--primary\">Save</button>\n  <span class=\"um-tag um-tag--success\">Synced</span>\n  <div style=\"max-width: 14em\">\n    <input class=\"um-input\" type=\"text\" placeholder=\"Build number\" aria-label=\"Build number\" />\n  </div>\n</div>"
+    },
+    {
+      "id": "radius",
+      "title": "Radius mode",
+      "titleZh": "圆角模式",
+      "description": "Two providers with the same content. The square one collapses the box radii onto a flat edge; the soft one is the default and changes nothing. The pill radius and the circle are left alone in both: a pill is a shape the host asked for, and a circle is round in every mood.",
+      "descriptionZh": "两个 provider,内容一样。square 那个把各个盒子的圆角塌成直边;soft 那个是默认值,什么都不改。药丸的圆角和圆形在两种模式下都不动:药丸是宿主要的一个形状,圆形在每个 mood 里都是圆的。",
+      "markup": "<div class=\"um-config-provider\" data-um-radius=\"soft\">\n  <button class=\"um-button um-button--primary\">Save</button>\n  <span class=\"um-tag um-tag--success\">Synced</span>\n</div>\n<div class=\"um-config-provider\" data-um-radius=\"square\">\n  <button class=\"um-button um-button--primary\">Save</button>\n  <span class=\"um-tag um-tag--success\">Synced</span>\n</div>"
+    }
+  ],
+  "notes": "The density is collapsed onto a rung the provider does not itself override. A custom property cannot be shrunk by re-declaring it in terms of itself — that is a cycle, and the browser throws the value away — so the small rule points the two rungs above it at the small one and leaves the small one alone, and the large rule walks the chain upwards and leaves the large one alone. The circle radius is left alone for the same reason a circle is round in every mood, and the pill radius is left alone because a pill is a shape the host asked for rather than a box. The provider does not pretend to be a context: it cannot set a locale, it has no namespace to prepend, and there is no z-index for it to hand out.",
+  "notesZh": "密度是塌到 provider 自己不去覆盖的那一级上的。自定义属性不能靠重新声明自己来变小 —— 那是一个环,浏览器会把值丢掉 —— 所以小号那一条把上面两级都指向小号,小号自己不动;大号那一条沿着链往上走,大号自己不动。圆形那一档也不动,原因和「圆形在每个 mood 里都是圆的」一样;药丸那一档也不动,因为药丸是宿主要的一个形状,不是一个盒子。这个 provider 不假装自己是上下文:它设不了语言,没有命名空间可以加前缀,也没有层级可以发下去。"
+}

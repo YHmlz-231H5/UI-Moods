@@ -113,6 +113,14 @@ from the specimen's:
   layer ships its own foregrounds (a badge on an accent fill is now measured,
   not assumed), but a block that composes two surfaces in some other new way is
   still not automatically re-validated.
+- **The screens have been measured, and the mood's palette has not passed**
+  — `tools/probe/apps.html` loads all 60 screens and measures what the browser
+  painted: 3 364 measurements, 1 106 below the bar. 961 of them are a mood
+  colour painted as text (`colors.muted` accounts for 823 of those) and 145
+  are a solid fill with the mood's own on-colour. The app packs show the mood
+  as it is, on purpose, so this is the size of the *mood palette's* debt
+  rather than a defect in the generator — but it is a number now, and it was
+  a promise before.
 - **No photography — generated covers instead** — the library ships no image
   assets, so product shots, dish photos and album covers are replaced by
   abstract compositions drawn from the mood's tokens
@@ -130,15 +138,16 @@ from the specimen's:
 
 The component library is new, and the honest limits are these:
 
-- **39 components so far, 39 Element Plus equivalents** — the fifteen the
-  library started with (button, input, textarea, select, field, switch,
+- **83 components so far, covering all 82 Element Plus components** — the
+  library started with fifteen (button, input, textarea, select, field, switch,
   checkbox, radio, slider, badge, tag, alert, card, progress, empty, divider,
-  skeleton), then fourteen more across forms and data display, and ten across
-  navigation and feedback. The `input` manifest covers Input, Textarea and
-  Select, and the `field` manifest covers Form and Form Item. The full
-  Element Plus surface is 82; `docs/component-parity.md` lists what is still
-  missing. A component that does not exist yet cannot be themed, only
-  hand-built.
+  skeleton) and now covers the whole Element Plus surface: Basic, Form, Data,
+  Navigation, Feedback and Others, plus the one Configuration component. The
+  `input` manifest covers Input and Select; the `field` manifest covers Form
+  and Form Item; and two of the manifests — `checkbox-group` and
+  `radio-group` — are forms Element Plus does not list separately.
+  `docs/component-parity.md` lists all 82 against what is here, and names the
+  three places where the answer is not "the same as EP's".
 - **No JavaScript, so no composed components** — a dialog, a dropdown and a
   tooltip need behaviour that `:checked` and `:focus-within` can only partly
   provide. The library ships the parts that can be expressed in CSS and leaves
@@ -159,8 +168,22 @@ The component library is new, and the honest limits are these:
   has a hole in it that only shows up on one surface.
 - **The rendered pages are measured, the host's page is not** — the probe
   measures what the library renders on its own documentation pages, across all
-  32 moods: 11 392 measurements, zero failures. A host that puts the library
+  32 moods: 51 008 measurements, zero failures. A host that puts the library
   on a surface the library does not know is outside that measurement.
+- **There is no scrim role, so an overlay has nothing to dim with** — a dialog,
+  a drawer and a tour all want a curtain between them and the page. The library
+  has no role for it: `bg-overlay` is the *panel's* own surface, not a curtain,
+  and painting one with it would put two layers of the same colour on top of
+  each other — a colour no role names. Adding a mood-level scrim means adding
+  a token to all 32 moods, which is a change to the moods' look and not the
+  library's to make on its own. Until then the overlays are the library's
+  "floating panels carry no curtain" convention, and the modal form of a
+  dialog leans on the browser's own `::backdrop`.
+- **A scrollbar's thumb cannot be measured everywhere** — in WebKit the thumb
+  is a pseudo-element, and the probe walks real elements, so it never sees it.
+  Firefox has `scrollbar-width` but no way to theme the thumb's colour. The
+  `scrollbar` component therefore carries its own `--um-scrollbar-size` and
+  paints what it can paint, and the thumb's contrast is not in the contract.
 - **A mood's own colours are not repaired** — in 20 of the 32 moods
   `colors.muted` is below 4.5:1 as text, and `colors.border` is a hairline in
   several more. The library routes around them with derived roles; it does not

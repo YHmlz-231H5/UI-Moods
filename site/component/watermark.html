@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Watermark · UI Moods</title>
+  <meta name="description" content="A layer of the same word, repeated across a box, to say that what is underneath is a copy. The word is real text in the markup, tiled by the browser rather than baked into a picture." />
+
+  <!-- The two files that make the whole thing work.
+       The first is the library; the second carries all thirty-two moods at
+       once, so the picker below changes an attribute instead of loading a
+       file — the switch has no network request to wait for. -->
+  <link rel="stylesheet" id="um-theme" href="../../themes/all.css" />
+  <link rel="stylesheet" href="../../components/um-components.css" />
+  <link rel="stylesheet" href="../../site/assets/site.css" />
+</head>
+<body>
+  <header class="site-header">
+      <a class="site-header__brand" href="../../index.html">UI Moods<span>Component Library</span></a>
+      <div class="site-header__spacer"></div>
+      <div class="switcher">
+        <label class="switcher__label" for="um-theme-picker">Theme</label>
+        <span class="switcher__field">
+          <select class="switcher__select" id="um-theme-picker"></select>
+        </span>
+      </div>
+    </header>
+  <div class="site-body">
+    <nav class="site-sidebar" aria-label="Components">
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Basic · 基础</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/affix.html">Affix <span class="meta">固钉</span></a></li>
+          <li><a href="../component/border.html">Border <span class="meta">边框</span></a></li>
+          <li><a href="../component/color.html">Color <span class="meta">色板</span></a></li>
+          <li><a href="../component/config-provider.html">Config Provider <span class="meta">全局配置</span></a></li>
+          <li><a href="../component/container.html">Container <span class="meta">容器</span></a></li>
+          <li><a href="../component/icon.html">Icon <span class="meta">图标</span></a></li>
+          <li><a href="../component/layout.html">Layout <span class="meta">布局</span></a></li>
+          <li><a href="../component/link.html">Link <span class="meta">链接</span></a></li>
+          <li><a href="../component/page-header.html">PageHeader <span class="meta">页头</span></a></li>
+          <li><a href="../component/scrollbar.html">Scrollbar <span class="meta">滚动条</span></a></li>
+          <li><a href="../component/space.html">Space <span class="meta">间距</span></a></li>
+          <li><a href="../component/splitter.html">Splitter <span class="meta">分割面板</span></a></li>
+          <li><a href="../component/text.html">Text <span class="meta">文本</span></a></li>
+          <li><a href="../component/typography.html">Typography <span class="meta">文字排版</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Form · 表单</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/autocomplete.html">Autocomplete <span class="meta">自动补全</span></a></li>
+          <li><a href="../component/button.html">Button <span class="meta">按钮</span></a></li>
+          <li><a href="../component/checkbox.html">Checkbox <span class="meta">复选框</span></a></li>
+          <li><a href="../component/checkbox-group.html">Checkbox Group <span class="meta">复选框组</span></a></li>
+          <li><a href="../component/color-picker.html">Color Picker <span class="meta">颜色选择器</span></a></li>
+          <li><a href="../component/color-picker-panel.html">Color Picker Panel <span class="meta">颜色选择面板</span></a></li>
+          <li><a href="../component/date-picker.html">Date Picker <span class="meta">日期选择器</span></a></li>
+          <li><a href="../component/date-picker-panel.html">Date Picker Panel <span class="meta">日期选择面板</span></a></li>
+          <li><a href="../component/date-time-picker.html">Date Time Picker <span class="meta">日期时间选择器</span></a></li>
+          <li><a href="../component/field.html">Field <span class="meta">表单项</span></a></li>
+          <li><a href="../component/input.html">Input / Textarea / Select <span class="meta">输入框 / 文本域 / 选择器</span></a></li>
+          <li><a href="../component/input-number.html">Input Number <span class="meta">数字输入框</span></a></li>
+          <li><a href="../component/input-otp.html">Input OTP <span class="meta">验证码输入</span></a></li>
+          <li><a href="../component/input-tag.html">Input Tag <span class="meta">标签输入</span></a></li>
+          <li><a href="../component/mention.html">Mention <span class="meta">提及</span></a></li>
+          <li><a href="../component/radio.html">Radio <span class="meta">单选框</span></a></li>
+          <li><a href="../component/radio-group.html">Radio Group <span class="meta">单选框组</span></a></li>
+          <li><a href="../component/rate.html">Rate <span class="meta">评分</span></a></li>
+          <li><a href="../component/slider.html">Slider <span class="meta">滑块</span></a></li>
+          <li><a href="../component/switch.html">Switch <span class="meta">开关</span></a></li>
+          <li><a href="../component/time-picker.html">Time Picker <span class="meta">时间选择器</span></a></li>
+          <li><a href="../component/time-select.html">Time Select <span class="meta">时间选择器</span></a></li>
+          <li><a href="../component/tree-select.html">Tree Select <span class="meta">树选择器</span></a></li>
+          <li><a href="../component/upload.html">Upload <span class="meta">上传</span></a></li>
+          <li><a href="../component/virtual-select.html">Virtual Select <span class="meta">虚拟列表选择器</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Data · 数据展示</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/avatar.html">Avatar <span class="meta">头像</span></a></li>
+          <li><a href="../component/badge.html">Badge <span class="meta">徽标</span></a></li>
+          <li><a href="../component/calendar.html">Calendar <span class="meta">日历</span></a></li>
+          <li><a href="../component/card.html">Card <span class="meta">卡片</span></a></li>
+          <li><a href="../component/carousel.html">Carousel <span class="meta">轮播图</span></a></li>
+          <li><a href="../component/cascader.html">Cascader <span class="meta">级联选择器</span></a></li>
+          <li><a href="../component/collapse.html">Collapse <span class="meta">折叠面板</span></a></li>
+          <li><a href="../component/descriptions.html">Descriptions <span class="meta">描述列表</span></a></li>
+          <li><a href="../component/empty.html">Empty <span class="meta">空状态</span></a></li>
+          <li><a href="../component/image.html">Image <span class="meta">图片</span></a></li>
+          <li><a href="../component/infinite-scroll.html">Infinite Scroll <span class="meta">无限滚动</span></a></li>
+          <li><a href="../component/progress.html">Progress <span class="meta">进度条</span></a></li>
+          <li><a href="../component/result.html">Result <span class="meta">结果</span></a></li>
+          <li><a href="../component/segmented.html">Segmented <span class="meta">分段控制器</span></a></li>
+          <li><a href="../component/skeleton.html">Skeleton <span class="meta">骨架屏</span></a></li>
+          <li><a href="../component/statistic.html">Statistic <span class="meta">统计数值</span></a></li>
+          <li><a href="../component/table.html">Table <span class="meta">表格</span></a></li>
+          <li><a href="../component/tag.html">Tag <span class="meta">标签</span></a></li>
+          <li><a href="../component/timeline.html">Timeline <span class="meta">时间线</span></a></li>
+          <li><a href="../component/tour.html">Tour <span class="meta">引导</span></a></li>
+          <li><a href="../component/transfer.html">Transfer <span class="meta">穿梭框</span></a></li>
+          <li><a href="../component/tree.html">Tree <span class="meta">树</span></a></li>
+          <li><a href="../component/virtual-table.html">Virtualized Table <span class="meta">虚拟表格</span></a></li>
+          <li><a href="../component/virtual-tree.html">Virtualized Tree <span class="meta">虚拟树</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Navigation · 导航</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/anchor.html">Anchor <span class="meta">锚点</span></a></li>
+          <li><a href="../component/backtop.html">Backtop <span class="meta">回到顶部</span></a></li>
+          <li><a href="../component/breadcrumb.html">Breadcrumb <span class="meta">面包屑</span></a></li>
+          <li><a href="../component/dropdown.html">Dropdown <span class="meta">下拉菜单</span></a></li>
+          <li><a href="../component/menu.html">Menu <span class="meta">菜单</span></a></li>
+          <li><a href="../component/pagination.html">Pagination <span class="meta">分页</span></a></li>
+          <li><a href="../component/steps.html">Steps <span class="meta">步骤条</span></a></li>
+          <li><a href="../component/tabs.html">Tabs <span class="meta">标签页</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Feedback · 反馈</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/alert.html">Alert <span class="meta">警告</span></a></li>
+          <li><a href="../component/dialog.html">Dialog <span class="meta">对话框</span></a></li>
+          <li><a href="../component/drawer.html">Drawer <span class="meta">抽屉</span></a></li>
+          <li><a href="../component/loading.html">Loading <span class="meta">加载中</span></a></li>
+          <li><a href="../component/message.html">Message <span class="meta">消息</span></a></li>
+          <li><a href="../component/message-box.html">Message Box <span class="meta">消息框</span></a></li>
+          <li><a href="../component/notification.html">Notification <span class="meta">通知</span></a></li>
+          <li><a href="../component/popconfirm.html">Popconfirm <span class="meta">气泡确认</span></a></li>
+          <li><a href="../component/popover.html">Popover <span class="meta">气泡卡片</span></a></li>
+          <li><a href="../component/tooltip.html">Tooltip <span class="meta">文字提示</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Others · 其他</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/divider.html">Divider <span class="meta">分割线</span></a></li>
+          <li><a href="" aria-current="page">Watermark <span class="meta">水印</span></a></li>
+        </ul>
+      </div>
+    </nav>
+    <main class="site-main">
+      <h1>Watermark <span class="meta">水印</span></h1>
+      <p class="lede">A layer of the same word, repeated across a box, to say that what is underneath is a copy. The word is real text in the markup, tiled by the browser rather than baked into a picture.</p>
+      <p class="meta">
+        <span class="tag">div</span>
+        <span class="tag">other</span>
+        <span class="tag">since 1.1.0</span>
+      </p>
+      <div class="note">The tile is real text, and the repetition is in the markup: a gradient paints bands and not glyphs, and a word baked into an SVG would need a font the library does not ship — and could not be translated. So the host writes the tiles out and the layer flows them into a lattice, which is the same thing a picture would have done, except that the word stays a word. The word is painted in the placeholder role, which is the only role the contract has for text that is deliberately faint; a role of its own would be better, and is worth adding to the contract.</div>
+
+      <h2>Examples</h2>
+<div class="example">
+        <div class="example__title">Basic · 基础用法</div>
+        <div class="example__desc">A word repeated across a box. The tiles are written out in the markup and the layer flows them into a lattice; the content sits above them.</div>
+        <div class="example__demo">
+<div class="um-watermark">
+  <div class="um-watermark__layer" aria-hidden="true">
+    <span class="um-watermark__text">Confidential</span>
+    <span class="um-watermark__text">Confidential</span>
+    <span class="um-watermark__text">Confidential</span>
+    <span class="um-watermark__text">Confidential</span>
+    <span class="um-watermark__text">Confidential</span>
+    <span class="um-watermark__text">Confidential</span>
+  </div>
+  <div class="um-watermark__content">
+    <p>Quarterly figures for the northern region. Every page of this export carries the word above it, so a page that leaves the building is still marked as one.</p>
+  </div>
+</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-watermark&quot;&gt;
+  &lt;div class=&quot;um-watermark__layer&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;span class=&quot;um-watermark__text&quot;&gt;Confidential&lt;/span&gt;
+    &lt;span class=&quot;um-watermark__text&quot;&gt;Confidential&lt;/span&gt;
+    &lt;span class=&quot;um-watermark__text&quot;&gt;Confidential&lt;/span&gt;
+    &lt;span class=&quot;um-watermark__text&quot;&gt;Confidential&lt;/span&gt;
+    &lt;span class=&quot;um-watermark__text&quot;&gt;Confidential&lt;/span&gt;
+    &lt;span class=&quot;um-watermark__text&quot;&gt;Confidential&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;um-watermark__content&quot;&gt;
+    &lt;p&gt;Quarterly figures for the northern region. Every page of this export carries the word above it, so a page that leaves the building is still marked as one.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">Variants · 变体</div>
+        <div class="example__desc">The tiles lean or they stand upright. The leaning one is the base class on its own, because the base class is already the leaning lattice.</div>
+        <div class="example__demo">
+<div class="um-watermark um-watermark--diagonal">
+  <div class="um-watermark__layer" aria-hidden="true">
+    <span class="um-watermark__text">Draft</span>
+    <span class="um-watermark__text">Draft</span>
+    <span class="um-watermark__text">Draft</span>
+    <span class="um-watermark__text">Draft</span>
+  </div>
+  <div class="um-watermark__content">
+    <p>The tiles lean, which is the watermark everyone expects.</p>
+  </div>
+</div>
+<div class="um-watermark um-watermark--upright">
+  <div class="um-watermark__layer" aria-hidden="true">
+    <span class="um-watermark__text">Draft</span>
+    <span class="um-watermark__text">Draft</span>
+    <span class="um-watermark__text">Draft</span>
+    <span class="um-watermark__text">Draft</span>
+  </div>
+  <div class="um-watermark__content">
+    <p>The tiles stand upright, for a document that is read rather than glanced at.</p>
+  </div>
+</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-watermark um-watermark--diagonal&quot;&gt;
+  &lt;div class=&quot;um-watermark__layer&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;span class=&quot;um-watermark__text&quot;&gt;Draft&lt;/span&gt;
+    &lt;span class=&quot;um-watermark__text&quot;&gt;Draft&lt;/span&gt;
+    &lt;span class=&quot;um-watermark__text&quot;&gt;Draft&lt;/span&gt;
+    &lt;span class=&quot;um-watermark__text&quot;&gt;Draft&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;um-watermark__content&quot;&gt;
+    &lt;p&gt;The tiles lean, which is the watermark everyone expects.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;um-watermark um-watermark--upright&quot;&gt;
+  &lt;div class=&quot;um-watermark__layer&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;span class=&quot;um-watermark__text&quot;&gt;Draft&lt;/span&gt;
+    &lt;span class=&quot;um-watermark__text&quot;&gt;Draft&lt;/span&gt;
+    &lt;span class=&quot;um-watermark__text&quot;&gt;Draft&lt;/span&gt;
+    &lt;span class=&quot;um-watermark__text&quot;&gt;Draft&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;um-watermark__content&quot;&gt;
+    &lt;p&gt;The tiles stand upright, for a document that is read rather than glanced at.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">Sizes · 尺寸</div>
+        <div class="example__desc">Three lattices. The middle one is the base class on its own. The size is the distance between the tiles and the size of the word, so a tighter lattice needs more of them to cover the same box.</div>
+        <div class="example__demo">
+<div class="um-watermark um-watermark--sm">
+  <div class="um-watermark__layer" aria-hidden="true">
+    <span class="um-watermark__text">Sample</span>
+    <span class="um-watermark__text">Sample</span>
+    <span class="um-watermark__text">Sample</span>
+    <span class="um-watermark__text">Sample</span>
+    <span class="um-watermark__text">Sample</span>
+    <span class="um-watermark__text">Sample</span>
+    <span class="um-watermark__text">Sample</span>
+    <span class="um-watermark__text">Sample</span>
+    <span class="um-watermark__text">Sample</span>
+  </div>
+  <div class="um-watermark__content">
+    <p>A tight lattice.</p>
+  </div>
+</div>
+<div class="um-watermark">
+  <div class="um-watermark__layer" aria-hidden="true">
+    <span class="um-watermark__text">Sample</span>
+    <span class="um-watermark__text">Sample</span>
+    <span class="um-watermark__text">Sample</span>
+    <span class="um-watermark__text">Sample</span>
+    <span class="um-watermark__text">Sample</span>
+    <span class="um-watermark__text">Sample</span>
+  </div>
+  <div class="um-watermark__content">
+    <p>The default lattice.</p>
+  </div>
+</div>
+<div class="um-watermark um-watermark--lg">
+  <div class="um-watermark__layer" aria-hidden="true">
+    <span class="um-watermark__text">Sample</span>
+    <span class="um-watermark__text">Sample</span>
+    <span class="um-watermark__text">Sample</span>
+    <span class="um-watermark__text">Sample</span>
+  </div>
+  <div class="um-watermark__content">
+    <p>A loose lattice.</p>
+  </div>
+</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-watermark um-watermark--sm&quot;&gt;
+  &lt;div class=&quot;um-watermark__layer&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;span class=&quot;um-watermark__text&quot;&gt;Sample&lt;/span&gt;
+    &lt;span class=&quot;um-watermark__text&quot;&gt;Sample&lt;/span&gt;
+    &lt;span class=&quot;um-watermark__text&quot;&gt;Sample&lt;/span&gt;
+    &lt;span class=&quot;um-watermark__text&quot;&gt;Sample&lt;/span&gt;
+    &lt;span class=&quot;um-watermark__text&quot;&gt;Sample&lt;/span&gt;
+    &lt;span class=&quot;um-watermark__text&quot;&gt;Sample&lt;/span&gt;
+    &lt;span class=&quot;um-watermark__text&quot;&gt;Sample&lt;/span&gt;
+    &lt;span class=&quot;um-watermark__text&quot;&gt;Sample&lt;/span&gt;
+    &lt;span class=&quot;um-watermark__text&quot;&gt;Sample&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;um-watermark__content&quot;&gt;
+    &lt;p&gt;A tight lattice.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;um-watermark&quot;&gt;
+  &lt;div class=&quot;um-watermark__layer&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;span class=&quot;um-watermark__text&quot;&gt;Sample&lt;/span&gt;
+    &lt;span class=&quot;um-watermark__text&quot;&gt;Sample&lt;/span&gt;
+    &lt;span class=&quot;um-watermark__text&quot;&gt;Sample&lt;/span&gt;
+    &lt;span class=&quot;um-watermark__text&quot;&gt;Sample&lt;/span&gt;
+    &lt;span class=&quot;um-watermark__text&quot;&gt;Sample&lt;/span&gt;
+    &lt;span class=&quot;um-watermark__text&quot;&gt;Sample&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;um-watermark__content&quot;&gt;
+    &lt;p&gt;The default lattice.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;um-watermark um-watermark--lg&quot;&gt;
+  &lt;div class=&quot;um-watermark__layer&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;span class=&quot;um-watermark__text&quot;&gt;Sample&lt;/span&gt;
+    &lt;span class=&quot;um-watermark__text&quot;&gt;Sample&lt;/span&gt;
+    &lt;span class=&quot;um-watermark__text&quot;&gt;Sample&lt;/span&gt;
+    &lt;span class=&quot;um-watermark__text&quot;&gt;Sample&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;um-watermark__content&quot;&gt;
+    &lt;p&gt;A loose lattice.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+      </div>
+      <h2>Classes</h2>
+<table class="api">
+      <thead><tr><th>Class</th><th>Meaning</th></tr></thead>
+      <tbody>
+      <tr><td><code>um-watermark</code></td><td>The base class. Every instance carries it.</td></tr>
+      <tr><td><code>um-watermark--diagonal</code></td><td>Diagonal</td></tr>
+      <tr><td><code>um-watermark--upright</code></td><td>Upright</td></tr>
+      <tr><td><code>um-watermark--sm</code></td><td>Size: sm</td></tr>
+      <tr><td><code>um-watermark--md</code></td><td>Size: md</td></tr>
+      <tr><td><code>um-watermark--lg</code></td><td>Size: lg</td></tr>
+      <tr><td><code>um-watermark__layer</code></td><td>Layer</td></tr>
+      <tr><td><code>um-watermark__text</code></td><td>Tile</td></tr>
+      <tr><td><code>um-watermark__content</code></td><td>Content</td></tr>
+      </tbody>
+    </table>
+      <h2>Props</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>text</code></span></td><td><code>string</code></td><td><code>Confidential</code></td><td>The word the watermark repeats.</td></tr>
+      <tr><td><span class="api__name"><code>rows</code></span></td><td><code>number</code></td><td><code>3</code></td><td>How many rows of tiles to write.</td></tr>
+      <tr><td><span class="api__name"><code>columns</code></span></td><td><code>number</code></td><td><code>3</code></td><td>How many tiles to write in each row.</td></tr>
+      <tr><td><span class="api__name"><code>variant</code></span></td><td><code>enum = diagonal | upright</code></td><td><code>diagonal</code></td><td>Whether the tiles lean or stand upright.</td></tr>
+      <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>How far apart the tiles sit.</td></tr>
+      </tbody>
+    </table>
+      <h2>Slots</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>The content the watermark is painted over.</td></tr>
+      </tbody>
+    </table>
+
+      <h2>Accessibility</h2>
+      <p>The watermark is decoration and says nothing the content does not already say, so the layer is hidden from the reader with aria-hidden and takes no pointer events. The word is real text rather than a picture, so it is still selectable by a reader who wants to copy it — and it can be translated, which a baked-in picture could not be. Put the word in the content too, if the reader has to know it: a watermark nobody can read is not a notice.</p>
+
+    </main>
+  </div>
+
+  <script>window.UM_THEMES = {"light":["anime","archive","bauhaus","brutal","clay","corporate","eco","fashion","food","forest","ios","luxury","medical","monochrome","nordic","pastel","retro","sakura","swiss","travel","y2k"],"dark":["aurora","blueprint","crypto","finance","gaming","glass","instrument","neon","night","vaporwave","verdant"]};
+  window.UM_DEFAULT_THEME = "aurora";</script>
+  <script src="../../themes/switcher.js"></script>
+  <script src="../../site/assets/site.js"></script>
+</body>
+</html>

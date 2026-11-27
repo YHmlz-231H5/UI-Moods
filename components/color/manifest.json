@@ -1,0 +1,73 @@
+{
+  "id": "color",
+  "name": "Color",
+  "nameZh": "色板",
+  "category": "basic",
+  "element": "ul, li",
+  "summary": "The semantic colours of the mood, drawn as a readable palette. Every cell names the role it shows and the address of the value behind it.",
+  "summaryZh": "把 mood 的语义色画成一块能读的色板。每一格都写清楚它是哪个角色,以及这个值在哪里取。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-color",
+    "modifier": "um-color--",
+    "part": "um-color__"
+  },
+  "variants": [
+    { "id": "primary", "name": "Primary", "nameZh": "主要", "state": "solid", "note": "The brand colour. The swatch is a solid surface with the role's own on-colour as its label." },
+    { "id": "success", "name": "Success", "nameZh": "成功", "state": "solid" },
+    { "id": "warning", "name": "Warning", "nameZh": "警告", "state": "solid" },
+    { "id": "danger", "name": "Danger", "nameZh": "危险", "state": "solid" },
+    { "id": "info", "name": "Info", "nameZh": "信息", "state": "solid" }
+  ],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "The short swatch." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default swatch needs no modifier class." },
+    { "id": "lg", "name": "Large", "nameZh": "大" }
+  ],
+  "states": [],
+  "parts": [
+    { "id": "cell", "name": "Cell", "nameZh": "色格", "note": "One colour. It carries the variant class that names the role." },
+    { "id": "swatch", "name": "Swatch", "nameZh": "色块", "note": "The block of colour. The role's name is written on it, in the role's own on-colour." },
+    { "id": "value", "name": "Value", "nameZh": "色值", "note": "The line under the swatch: the role that carries the colour." }
+  ],
+  "props": [
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The height of the swatch.", "descriptionZh": "色块的高度。" }
+  ],
+  "slots": [],
+  "events": [],
+  "a11y": {
+    "role": "list",
+    "keyboard": [],
+    "notes": "The palette is a <ul>, so the reader hears how many colours there are. The name of the role is written on the swatch in the role's own on-colour — the pairing the contract measures — so it reads on the colour it names in every mood, and the colour never has to carry the meaning alone.",
+    "notesZh": "色板是一个 <ul>,读屏能听出共有几种颜色。角色名写在色块上,用的是这个角色自己的前景色 —— 那是契约里实测过的一对 —— 所以无论哪套 mood,它在自己的颜色上都读得出来,颜色也就不必独自承担语义。"
+  },
+  "examples": [
+    {
+      "id": "palette",
+      "title": "The palette",
+      "titleZh": "色板",
+      "description": "The five semantic roles of the contract. Under each swatch is the role that carries the colour: a resolved hex cannot be printed without JavaScript, so the palette names the address of the value and the host may write the value it resolved into the cell.",
+      "descriptionZh": "契约里的五个语义角色。色块下面写的是承载这个颜色的角色:解析出来的十六进制值没有 JavaScript 就印不出来,所以色板写的是这个值的地址,使用它的页面也可以把自己解析到的值写进这一格。",
+      "markup": "<ul class=\"um-color\">\n  <li class=\"um-color__cell um-color--primary\">\n    <span class=\"um-color__swatch\">primary</span>\n    <span class=\"um-color__value\">--um-color-primary</span>\n  </li>\n  <li class=\"um-color__cell um-color--success\">\n    <span class=\"um-color__swatch\">success</span>\n    <span class=\"um-color__value\">--um-color-success</span>\n  </li>\n  <li class=\"um-color__cell um-color--warning\">\n    <span class=\"um-color__swatch\">warning</span>\n    <span class=\"um-color__value\">--um-color-warning</span>\n  </li>\n  <li class=\"um-color__cell um-color--danger\">\n    <span class=\"um-color__swatch\">danger</span>\n    <span class=\"um-color__value\">--um-color-danger</span>\n  </li>\n  <li class=\"um-color__cell um-color--info\">\n    <span class=\"um-color__swatch\">info</span>\n    <span class=\"um-color__value\">--um-color-info</span>\n  </li>\n</ul>"
+    },
+    {
+      "id": "one",
+      "title": "One cell",
+      "titleZh": "单独一格",
+      "description": "The cell classes are public, so a page can show a single role — the one a piece of text is talking about — without building a palette around it.",
+      "descriptionZh": "色格这些类是公开的,所以页面可以只显示其中一个角色 —— 比如某段文字正在讲的那一个 —— 不必围着它铺一整块色板。",
+      "markup": "<ul class=\"um-color\">\n  <li class=\"um-color__cell um-color--danger\">\n    <span class=\"um-color__swatch\">danger</span>\n    <span class=\"um-color__value\">--um-color-danger</span>\n  </li>\n</ul>"
+    },
+    {
+      "id": "sizes",
+      "title": "Sizes",
+      "titleZh": "尺寸",
+      "description": "The size is the height of the swatch. The medium size is the default and needs no modifier class.",
+      "descriptionZh": "尺寸说的是色块的高度。中号是默认尺寸,不需要修饰类。",
+      "markup": "<ul class=\"um-color um-color--sm\">\n  <li class=\"um-color__cell um-color--primary\">\n    <span class=\"um-color__swatch\">primary</span>\n    <span class=\"um-color__value\">--um-color-primary</span>\n  </li>\n</ul>\n<ul class=\"um-color um-color--lg\">\n  <li class=\"um-color__cell um-color--primary\">\n    <span class=\"um-color__swatch\">primary</span>\n    <span class=\"um-color__value\">--um-color-primary</span>\n  </li>\n</ul>"
+    }
+  ],
+  "notes": "The swatch is a solid surface and the name on it is the role's own on-colour, which is the one pairing the contract derives to 4.5:1 against that fill — so the label reads on the colour it names, in every mood, without anybody measuring it twice. The line under the swatch prints the role rather than the resolved value: CSS cannot read a computed colour back out into text, and a hex written into the markup would be a colour that belongs to one mood and to no other.",
+  "notesZh": "色块是一块实心表面,上面的名字用的是这个角色自己的前景色 —— 契约里就是按这一对派生到 4.5:1 的 —— 所以不管哪套 mood,名字在它所指的那个颜色上都读得出来,谁也不用再量一遍。色块下面那一行印的是角色,不是解析出来的值:CSS 没法把算出来的颜色再读回文本里,而写进标记的十六进制值只属于一套 mood,不属于别的。"
+}

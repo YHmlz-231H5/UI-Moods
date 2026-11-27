@@ -1,0 +1,86 @@
+{
+  "id": "autocomplete",
+  "name": "Autocomplete",
+  "nameZh": "自动补全",
+  "category": "form",
+  "element": "input",
+  "summary": "A text field that offers values while the reader types. The suggestions live in a native <datalist>, so the browser filters them, the arrow keys walk them and the popup opens without a line of script.",
+  "summaryZh": "一个边输入边给出建议的文字字段。建议放在原生的 <datalist> 里,所以过滤由浏览器做,方向键可以在建议之间走,弹层不用一行脚本就能打开。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-autocomplete",
+    "modifier": "um-autocomplete--",
+    "part": "um-autocomplete__"
+  },
+  "variants": [
+    { "id": "bordered", "name": "Bordered", "nameZh": "描边", "note": "The field carries a hairline border. The base class on its own is this field, and the modifier paints the same thing so the class list can name it." },
+    { "id": "filled", "name": "Filled", "nameZh": "填充", "note": "The border goes away and the field sits on a recessed surface, so the field reads as a well rather than as a box." }
+  ],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "The field follows the theme's small control height and the text takes the caption size." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default field. The base class is already this height, so it needs no modifier." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "The field follows the theme's large control height." }
+  ],
+  "states": [
+    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the field, because the field is what the reader is typing in." },
+    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The field paints a flat surface and takes the derived disabled colour, so what is written in it stays readable." },
+    { "id": "invalid", "name": "Invalid", "nameZh": "无效", "selector": ":user-invalid", "native": true, "note": "The border turns to the danger colour when the browser says the value is not acceptable. :user-invalid waits for the reader to have been there, so an empty field is not red on arrival." }
+  ],
+  "parts": [
+    { "id": "input", "name": "Input", "nameZh": "输入框", "note": "The real <input type=\"text\">. It is borderless inside the field, so the field and the suggestions read as one control." },
+    { "id": "list", "name": "Suggestion list", "nameZh": "建议列表", "note": "The <datalist> that holds the suggestions. The browser paints the popup: the library can reach the suggestion text and the surface under it, but the frame around the popup belongs to the reader's system." },
+    { "id": "option", "name": "Suggestion", "nameZh": "建议项", "note": "One suggestion in the list. Its value is what the field takes when the reader picks it." }
+  ],
+  "props": [
+    { "name": "value", "type": "string", "description": "The text in the field. It is the input's own value — a class cannot carry a word.", "descriptionZh": "字段里的文字。它是 input 自己的值 —— 类带不了词。" },
+    { "name": "label", "type": "string", "description": "The accessible name of the field. It becomes the input's aria-label, because the library does not draw a label of its own.", "descriptionZh": "字段的可访问名称。它会变成 input 的 aria-label,因为库自己不画标签。" },
+    { "name": "placeholder", "type": "string", "description": "The hint text in the field. It takes the muted placeholder role, not the body colour.", "descriptionZh": "字段里的提示文字。它用的是弱化的占位文字色,不是正文色。" },
+    { "name": "suggestions", "type": "string", "default": "Amsterdam,Berlin,Copenhagen,Dublin,Edinburgh", "description": "The suggestions, as one comma-separated string. They are the host's data — the list is fixed markup, not something the library fetches.", "descriptionZh": "建议列表,写成一个逗号分隔的字符串。它们是宿主的数据 —— 这个列表是写死的标记,不是库去取的。" },
+    { "name": "required", "type": "boolean", "default": "false", "description": "Makes the field necessary. It is the native required attribute, so the browser asks for it.", "descriptionZh": "让字段必填。它是原生 required 属性,由浏览器来问。" },
+    { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes the field inert. It uses the real disabled attribute, so it leaves the tab order.", "descriptionZh": "让字段不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" },
+    { "name": "variant", "type": "enum", "values": ["bordered", "filled"], "default": "bordered", "description": "The surface of the field. The bordered run is the base class on its own; the filled run adds um-autocomplete--filled.", "descriptionZh": "字段的底面。描边这一跑就是只写基础类;填充这一跑再加上 um-autocomplete--filled。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The height of the field.", "descriptionZh": "字段的高度。" }
+  ],
+  "slots": [],
+  "events": [
+    { "name": "input", "description": "Fires on every keystroke in the field. It is the browser's own event on the input — the library installs no listener.", "descriptionZh": "在字段里每敲一个字就触发。这是 input 上的浏览器原生事件 —— 库没有安装任何监听器。" },
+    { "name": "change", "description": "Fires when the value is committed: when the reader leaves the field, or when they pick a suggestion.", "descriptionZh": "值被提交时触发:读者离开字段时,或者他们选定一条建议时。" },
+    { "name": "focus", "description": "Fires when the field takes focus.", "descriptionZh": "字段获得焦点时触发。" },
+    { "name": "blur", "description": "Fires when the field loses focus.", "descriptionZh": "字段失去焦点时触发。" }
+  ],
+  "a11y": {
+    "role": "combobox",
+    "keyboard": ["Tab", "ArrowDown", "ArrowUp", "Enter", "Escape"],
+    "notes": "The field is a real <input type=\"text\"> with a real <datalist> behind it, so in the browsers that support one the field is announced as a combobox and the arrow keys walk the suggestions. Give the field a real <label for> or an aria-label: the suggestion list is a data source, not a label. The library installs no listener, so it cannot write a chosen suggestion back into the field — the browser does that where it can, and the host does it where it cannot.",
+    "notesZh": "字段是一个真正的 <input type=\"text\">,后面挂着一个真正的 <datalist>,所以在支持它的浏览器里字段会被播报成组合框,方向键可以在建议之间走。给字段一个真正的 <label for> 或者 aria-label:建议列表是数据源,不是标签。库不安装任何监听器,所以它没法把选中的建议写回字段 —— 能做的浏览器自己做,做不到的由宿主做。"
+  },
+  "examples": [
+    {
+      "id": "basic",
+      "title": "A field with suggestions",
+      "titleZh": "带建议的字段",
+      "description": "The suggestions are a <datalist>, so the browser filters them as the reader types. The field names itself for the reader; the library draws no label of its own.",
+      "descriptionZh": "建议放在 <datalist> 里,所以读者输入的时候浏览器会过滤它们。字段自带名字;库不画自己的标签。",
+      "markup": "<div class=\"um-autocomplete um-autocomplete--bordered\">\n  <input class=\"um-autocomplete__input\" type=\"text\" id=\"um-autocomplete-city\" name=\"um-autocomplete-city\" list=\"um-autocomplete-cities\" placeholder=\"Start typing a city\" aria-label=\"City\" autocomplete=\"off\" />\n  <datalist class=\"um-autocomplete__list\" id=\"um-autocomplete-cities\">\n    <option class=\"um-autocomplete__option\" value=\"Amsterdam\"></option>\n    <option class=\"um-autocomplete__option\" value=\"Berlin\"></option>\n    <option class=\"um-autocomplete__option\" value=\"Copenhagen\"></option>\n    <option class=\"um-autocomplete__option\" value=\"Dublin\"></option>\n    <option class=\"um-autocomplete__option\" value=\"Edinburgh\"></option>\n  </datalist>\n</div>"
+    },
+    {
+      "id": "filled",
+      "title": "Filled",
+      "titleZh": "填充",
+      "description": "The same field with the border gone and a recessed surface under it. Only the modifier class changes.",
+      "descriptionZh": "同一个字段,描边去掉,底下换成一层凹陷的面。只改修饰类。",
+      "markup": "<div class=\"um-autocomplete um-autocomplete--filled\">\n  <input class=\"um-autocomplete__input\" type=\"text\" id=\"um-autocomplete-station\" name=\"um-autocomplete-station\" list=\"um-autocomplete-stations\" placeholder=\"Nearest station\" aria-label=\"Nearest station\" autocomplete=\"off\" />\n  <datalist class=\"um-autocomplete__list\" id=\"um-autocomplete-stations\">\n    <option class=\"um-autocomplete__option\" value=\"Central\"></option>\n    <option class=\"um-autocomplete__option\" value=\"Harbour\"></option>\n    <option class=\"um-autocomplete__option\" value=\"Lakeside\"></option>\n  </datalist>\n</div>"
+    },
+    {
+      "id": "states",
+      "title": "States",
+      "titleZh": "状态",
+      "description": "A disabled field and a field the browser has rejected. The rejected field is red only after the reader has been there, so an empty field is not red on arrival.",
+      "descriptionZh": "一个禁用的字段,和一个被浏览器判定为无效的字段。被判无效的字段只有在读者动过之后才是红的,所以刚打开的空字段不会是红的。",
+      "markup": "<div class=\"um-autocomplete um-autocomplete--bordered\">\n  <input class=\"um-autocomplete__input\" type=\"text\" id=\"um-autocomplete-off\" name=\"um-autocomplete-off\" list=\"um-autocomplete-cities-off\" placeholder=\"Disabled\" aria-label=\"Disabled field\" disabled />\n  <datalist class=\"um-autocomplete__list\" id=\"um-autocomplete-cities-off\">\n    <option class=\"um-autocomplete__option\" value=\"Amsterdam\"></option>\n    <option class=\"um-autocomplete__option\" value=\"Berlin\"></option>\n  </datalist>\n</div>\n<div class=\"um-autocomplete um-autocomplete--bordered\">\n  <input class=\"um-autocomplete__input\" type=\"text\" id=\"um-autocomplete-required\" name=\"um-autocomplete-required\" list=\"um-autocomplete-cities-required\" placeholder=\"Required\" aria-label=\"Required field\" required />\n  <datalist class=\"um-autocomplete__list\" id=\"um-autocomplete-cities-required\">\n    <option class=\"um-autocomplete__option\" value=\"Amsterdam\"></option>\n    <option class=\"um-autocomplete__option\" value=\"Berlin\"></option>\n  </datalist>\n</div>"
+    }
+  ],
+  "notes": "The suggestions are a <datalist> and not a disclosure: a <details> panel would let the library paint every row of the list, but it would not filter, it would not follow the caret, and the reader would have to open and close it by hand. The <datalist> gives up the paint of the popup — the frame around it belongs to the reader's system — and buys filtering, the arrow keys and the combobox announcement for nothing. The list is static markup, so what it holds is the host's data and the library never fetches it.",
+  "notesZh": "建议用的是 <datalist> 而不是展开控件:<details> 面板能让库把列表的每一行都画成主题的样子,但它不会过滤,不会跟着光标走,读者还得自己开开关。<datalist> 放弃的是弹层那层外观 —— 它外框归读者的系统管 —— 换来的是过滤、方向键和组合框播报,不花任何代价。列表是写死的标记,所以里面装什么由宿主决定,库不会去取。"
+}

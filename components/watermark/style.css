@@ -1,0 +1,69 @@
+/* ============================================================================
+   Watermark
+   ========================================================================== */
+
+/* The watermark is a layer of the same word, repeated across a box. The
+   repetition is in the markup: a gradient paints bands and not glyphs, and a
+   word baked into an SVG would need a font the library does not ship — and
+   could not be translated. So the tiles are real text and the layer flows
+   them into a lattice. */
+.um-watermark {
+  position: relative;
+  overflow: hidden;
+  min-height: 12em;
+  padding: var(--um-space-sm);
+  color: var(--um-text-regular);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+}
+
+/* The layer sits behind the content and takes no pointer, so the box stays
+   usable: the reader can still select the text under the watermark, and a
+   link under it still takes the click. */
+.um-watermark__layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* One tile of the lattice. The box around the word is what sets the pitch:
+   the tiles are placed side by side, so the distance between them is the
+   width of the tile rather than a number the stylesheet has to guess. The
+   box is measured in the tile's own em, so the word always fits inside it —
+   a mood with a large title size would otherwise push the words of two
+   neighbouring tiles into each other. */
+.um-watermark__text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 10em;
+  height: 6em;
+  /* The word is deliberately faint: it is decoration that repeats what the
+     content already says, so it takes the contract's role for faint text. */
+  color: var(--um-text-placeholder);
+  font-size: var(--um-font-size-body);
+  font-weight: var(--um-font-weight-bold);
+  letter-spacing: var(--um-letter-spacing-wide);
+  text-transform: uppercase;
+  white-space: nowrap;
+  transform: rotate(-20deg);
+}
+
+/* The content is positioned, so it paints above the layer: the watermark must
+   never stand between the reader and the text it is painted over. */
+.um-watermark__content { position: relative; }
+
+.um-watermark--diagonal .um-watermark__text { transform: rotate(-20deg); }
+.um-watermark--upright .um-watermark__text { transform: none; }
+
+/* The size is the pitch of the lattice: the word and the box around it grow
+   together, so a tight lattice needs more tiles to cover the box. */
+.um-watermark--sm .um-watermark__text { font-size: var(--um-font-size-caption); }
+.um-watermark--lg .um-watermark__text { font-size: var(--um-font-size-title); }

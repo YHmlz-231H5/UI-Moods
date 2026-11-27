@@ -1,0 +1,260 @@
+/* ============================================================================
+   Date Picker Panel
+   ========================================================================== */
+
+/* The panel is the frame: it carries the surface, and it holds the month
+   blocks and the footer. */
+.um-date-picker-panel,
+.um-date-picker-panel--single {
+  display: flex;
+  flex-direction: column;
+  gap: var(--um-space-sm);
+  padding: var(--um-space-sm);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-base);
+  background: var(--um-bg-overlay);
+  color: var(--um-text-regular);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+}
+
+/* The range run puts two months side by side. The footer drops below them
+   and spans the whole panel, because there is one range to confirm and not
+   two months to confirm. */
+.um-date-picker-panel--range {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.um-date-picker-panel--range .um-date-picker-panel__footer {
+  flex: 1 0 100%;
+}
+
+/* One month of the panel. It does not shrink: the days are laid out in
+   seven columns, and a squeezed month would squeeze the days. */
+.um-date-picker-panel__panel {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--um-space-xs);
+}
+
+/* The header holds the month and the two buttons that change it. */
+.um-date-picker-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--um-space-sm);
+}
+
+.um-date-picker-panel__title {
+  color: var(--um-text-primary);
+  font-size: var(--um-font-size-title);
+  font-weight: var(--um-font-weight-medium);
+}
+
+/* The two buttons are real buttons, so they are in the tab order and the
+   browser announces them. The arrow is a shape drawn from two borders, so it
+   carries no text of its own. */
+.um-date-picker-panel__prev,
+.um-date-picker-panel__next {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--um-height-sm);
+  height: var(--um-height-sm);
+  padding: 0;
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-small);
+  background: var(--um-fill-blank);
+  color: var(--um-text-secondary);
+  cursor: pointer;
+}
+
+.um-date-picker-panel__prev::after,
+.um-date-picker-panel__next::after {
+  content: "";
+  width: 4px;
+  height: 4px;
+  border-top: var(--um-border-width) var(--um-border-style) currentColor;
+  border-right: var(--um-border-width) var(--um-border-style) currentColor;
+}
+
+/* The shape is a corner: the top and right borders of a square. Turned 45°
+   the corner points right, and turned -135° it points left. */
+.um-date-picker-panel__next::after {
+  transform: rotate(45deg);
+}
+.um-date-picker-panel__prev::after {
+  transform: rotate(-135deg);
+}
+
+.um-date-picker-panel__prev:focus-visible,
+.um-date-picker-panel__next:focus-visible,
+.um-date-picker-panel__today:focus-visible,
+.um-date-picker-panel__confirm:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+/* The grid holds the *weeks*, not the days: a week is the row, and the days
+   are the cells in it. Laying the grid itself out in seven columns would put
+   the weeks side by side instead of one under another, and every day would
+   be squeezed into a seventh of a week's width. The grid is a column of
+   rows; the row is the grid of seven days. */
+.um-date-picker-panel__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.um-date-picker-panel__week {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 2px;
+}
+
+.um-date-picker-panel__weekday {
+  padding: var(--um-space-xs) 0;
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+  text-align: center;
+}
+
+.um-date-picker-panel__cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--um-height-md);
+  border-radius: var(--um-radius-small);
+  color: var(--um-text-regular);
+  font-size: var(--um-font-size-body);
+}
+
+/* The number is a circle of its own, so the today marker can fill it without
+   changing the size of the day. */
+.um-date-picker-panel__number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--um-height-md);
+  height: var(--um-height-md);
+  border-radius: var(--um-radius-circle);
+}
+
+/* The selected day is a ring and nothing else, so it is a shape: it takes
+   the graphic form of the brand colour, which is contracted to 3:1 against
+   the page and the container. */
+.um-date-picker-panel__cell--selected .um-date-picker-panel__number {
+  color: var(--um-color-primary-text);
+  outline: var(--um-border-width) solid var(--um-color-primary-graphic);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+/* Today is the one day the reader is looking for. Its number sits in a
+   filled circle: a solid brand surface with the brand's own foreground on
+   it, which is the pair the contract measures for a filled surface that
+   carries text. */
+.um-date-picker-panel__cell--today .um-date-picker-panel__number {
+  background: var(--um-color-primary);
+  color: var(--um-color-primary-on);
+  font-weight: var(--um-font-weight-medium);
+}
+
+/* The days between the two ends of a range are one run. The fill is the
+   brand's barely-there tint and the foreground on it is the one the
+   contract writes for that tint. The shadow runs the band a pixel into the
+   gap on either side, so the run reads as one band and not as seven
+   separate squares. */
+.um-date-picker-panel__cell--in-range {
+  background: var(--um-color-primary-soft-8);
+  color: var(--um-color-primary-on-soft);
+  box-shadow: 0 0 0 1px var(--um-color-primary-soft-8);
+}
+
+/* A selected day that stands inside a range stands on the brand's tint
+   rather than on the panel's surface, and the brand colour as text is
+   contracted to 3:1 on that tint rather than to the 4.5:1 it reaches on the
+   surface. So there the number takes the foreground the contract writes
+   for the tint, and the ring takes the brand colour as text — the pair the
+   contract writes for an outline on a soft surface.
+
+   A day that is also today keeps today's treatment: its number sits on a
+   solid fill, not on the tint. */
+.um-date-picker-panel__cell--selected.um-date-picker-panel__cell--in-range:not(.um-date-picker-panel__cell--today) .um-date-picker-panel__number {
+  color: var(--um-color-primary-on-soft);
+  outline-color: var(--um-color-primary-text);
+}
+
+/* A day that cannot be picked takes the derived disabled colour, the way
+   every other disabled control in the library dims.
+
+   The state is written as `aria-disabled` and not as a class of its own: a
+   grid cell has no `disabled` attribute, so a class alone would leave the
+   reader unaware that the day cannot be picked — and leave the audit unable
+   to tell a dimmed day from an ordinary one. */
+.um-date-picker-panel__cell[aria-disabled="true"] {
+  color: var(--um-text-disabled);
+}
+
+/* The footer is the row of the two actions. */
+.um-date-picker-panel__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--um-space-sm);
+  padding-top: var(--um-space-xs);
+  border-top: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+}
+
+.um-date-picker-panel__today,
+.um-date-picker-panel__confirm {
+  height: var(--um-height-sm);
+  padding: 0 var(--um-space-sm);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-small);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-caption);
+  cursor: pointer;
+}
+
+/* The shortcut carries no fill, so the brand colour comes as its text. */
+.um-date-picker-panel__today {
+  background: transparent;
+  border-color: transparent;
+  color: var(--um-color-primary-text);
+}
+
+/* The confirm button is the one that acts, so it carries the brand's fill
+   and the brand's own foreground on it. */
+.um-date-picker-panel__confirm {
+  background: var(--um-color-primary);
+  border-color: var(--um-color-primary);
+  color: var(--um-color-primary-on);
+  font-weight: var(--um-font-weight-medium);
+}
+
+.um-date-picker-panel--sm .um-date-picker-panel__cell {
+  min-height: var(--um-height-sm);
+  font-size: var(--um-font-size-caption);
+}
+
+.um-date-picker-panel--sm .um-date-picker-panel__number {
+  width: var(--um-height-sm);
+  height: var(--um-height-sm);
+}
+
+.um-date-picker-panel--sm .um-date-picker-panel__title {
+  font-size: var(--um-font-size-body);
+}
+
+.um-date-picker-panel--lg .um-date-picker-panel__cell {
+  min-height: var(--um-height-lg);
+  font-size: var(--um-font-size-title);
+}
+
+.um-date-picker-panel--lg .um-date-picker-panel__number {
+  width: var(--um-height-lg);
+  height: var(--um-height-lg);
+}

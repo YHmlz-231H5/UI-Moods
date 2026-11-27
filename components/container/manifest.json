@@ -1,0 +1,68 @@
+{
+  "id": "container",
+  "name": "Container",
+  "nameZh": "容器",
+  "category": "basic",
+  "element": "div",
+  "summary": "A fixed width, centred block of content. The width is a step of the type size rather than a number of pixels, so a mood with larger type gets a larger container.",
+  "summaryZh": "一块定宽居中的内容。宽度是字号的一步而不是像素数,所以字号更大的 mood 得到的容器也更大。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-container",
+    "modifier": "um-container--"
+  },
+  "variants": [
+    { "id": "left", "name": "Left aligned", "nameZh": "左对齐", "state": "ghost", "note": "The container sits against the left edge of its parent instead of in the middle of it." }
+  ],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "The narrow tier." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default tier needs no modifier class." },
+    { "id": "lg", "name": "Large", "nameZh": "大" },
+    { "id": "xl", "name": "Extra large", "nameZh": "特大" },
+    { "id": "full", "name": "Full width", "nameZh": "满宽", "note": "No cap at all: the container is as wide as its parent." }
+  ],
+  "states": [],
+  "parts": [],
+  "props": [
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg", "xl", "full"], "default": "md", "description": "The width tier.", "descriptionZh": "宽度档。" },
+    { "name": "centered", "type": "boolean", "default": "true", "description": "Whether the container is centred in its parent. When it is not, it adds um-container--left.", "descriptionZh": "容器是否在父级里居中。不居中时会加上 um-container--left。" }
+  ],
+  "slots": [
+    { "name": "default", "description": "The content the container holds.", "descriptionZh": "容器里的内容。" }
+  ],
+  "events": [],
+  "a11y": {
+    "keyboard": [],
+    "notes": "The container is a div and adds nothing to the accessibility tree: it is a width, not a thing. It draws no frame of its own, so the content inside it is read as it is and the reader is not told about a box that has no name.",
+    "notesZh": "容器是个 div,不给无障碍树增加任何东西:它是一个宽度,不是一个东西。它自己也不画框,所以里面的内容照常读,读屏不会告诉读者这里有个没有名字的盒子。"
+  },
+  "examples": [
+    {
+      "id": "widths",
+      "title": "The width tiers",
+      "titleZh": "宽度档",
+      "description": "Each tier is a step of the type size, so the container grows with the text instead of staying the same number of pixels in every mood. The medium tier is the default and needs no modifier class.",
+      "descriptionZh": "每一档都是字号的一步,所以容器是跟着文字长的,而不是在每套 mood 里都守着同一个像素数。中号是默认档,不需要修饰类。",
+      "markup": "<div class=\"um-container um-container--sm\">\n  <p>A narrow column of text, for the side of a page.</p>\n</div>\n<div class=\"um-container\">\n  <p>The default column. The text stops here, and the rest of the page is left alone.</p>\n</div>\n<div class=\"um-container um-container--lg\">\n  <p>A wide column, for a page that has to hold a table and the sentence that explains it.</p>\n</div>"
+    },
+    {
+      "id": "left",
+      "title": "Not centred",
+      "titleZh": "不居中",
+      "description": "The left variant puts the container against the edge of its parent. A page that is already inside a frame of its own does not want a second one in the middle.",
+      "descriptionZh": "左对齐这一式把容器贴到父级的边上。一个页面本身已经在某个框里的时候,不需要中间再来一个。",
+      "markup": "<div class=\"um-container um-container--left\">\n  <p>This container is against the left edge of its parent.</p>\n</div>"
+    },
+    {
+      "id": "full",
+      "title": "Full width",
+      "titleZh": "满宽",
+      "description": "The full tier drops the cap altogether. It is still centred — a block that fills its parent has nothing to centre — and it still carries the padding, so the text does not touch the edge of the screen.",
+      "descriptionZh": "满宽这一档把上限整个去掉。它仍然是居中的 —— 一个撑满父级的块没什么可居中的 —— 也仍然带着内边距,所以文字不会贴到屏幕边上。",
+      "markup": "<div class=\"um-container um-container--full\">\n  <p>This container is as wide as the page it is in.</p>\n</div>"
+    }
+  ],
+  "notes": "The width is written in em, not in pixels: a container is a measure of text, and a measure that does not follow the type size stops being a measure the moment a mood changes its type. The padding is inside the width, so the text a reader reaches is the same distance from the edge at every tier.",
+  "notesZh": "宽度用的是 em 而不是像素:容器是文字的一行长短,而长短不跟着字号走的话,mood 一换字号它就不再是长短了。内边距算在宽度里面,所以每一档里,读者看到的文字离边缘都是同一个距离。"
+}

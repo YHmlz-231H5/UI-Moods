@@ -1,0 +1,158 @@
+{
+  "id": "dialog",
+  "name": "Dialog",
+  "nameZh": "对话框",
+  "category": "feedback",
+  "element": "dialog, form, h2, div, button",
+  "summary": "A panel that asks the reader something, written as a <dialog>. It is shown the way a dialog is shown without JavaScript — open in the markup — and it is closed the way the browser closes one: the close button submits the form around it, and the form's method is dialog.",
+  "summaryZh": "一块用来跟读者说话的浮层,写成 <dialog>。它不用 JavaScript 就以对话框该有的样子出现 —— 标记里直接是 open —— 也用浏览器关对话框的办法来关:关闭按钮提交包着它的那个表单,而那个表单的 method 是 dialog。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-dialog",
+    "modifier": "um-dialog--",
+    "part": "um-dialog__"
+  },
+  "variants": [
+    {
+      "id": "center",
+      "name": "Centred",
+      "nameZh": "居中",
+      "note": "The title and the actions are centred instead of being pushed to the two ends of the panel. It is the modifier um-dialog--center."
+    }
+  ],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "A narrow panel. The width is a measure of the panel's own type, so it grows with the mood's text." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default panel. The base class is already this width, so it needs no modifier." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "A wide panel, for a body of text rather than a line of it." }
+  ],
+  "states": [
+    {
+      "id": "open",
+      "name": "Open",
+      "nameZh": "打开",
+      "selector": "[open]",
+      "note": "The browser hides a dialog that has no open attribute, so the static form of this component is the open one."
+    }
+  ],
+  "parts": [
+    {
+      "id": "form",
+      "name": "Form",
+      "nameZh": "表单",
+      "note": "The form around the content. Its method is dialog, which is what makes the close button work without a line of JavaScript."
+    },
+    {
+      "id": "header",
+      "name": "Header",
+      "nameZh": "头部",
+      "note": "The top strip. It holds the title and the close button."
+    },
+    {
+      "id": "title",
+      "name": "Title",
+      "nameZh": "标题",
+      "note": "The heading of the panel. The dialog points at it with aria-labelledby, so the reader hears what the panel is about."
+    },
+    {
+      "id": "body",
+      "name": "Body",
+      "nameZh": "正文",
+      "note": "The text of the panel."
+    },
+    {
+      "id": "footer",
+      "name": "Footer",
+      "nameZh": "底部",
+      "note": "The row at the bottom of the panel, where the actions live."
+    },
+    {
+      "id": "action",
+      "name": "Action",
+      "nameZh": "主要操作",
+      "note": "The one action the panel is asking for. It is the filled button; the other buttons in the footer keep the neutral shape."
+    },
+    {
+      "id": "close",
+      "name": "Close",
+      "nameZh": "关闭",
+      "note": "The cross in the corner. It is a submit button inside the form, so submitting is the browser's own way of closing a dialog."
+    }
+  ],
+  "props": [
+    {
+      "name": "title",
+      "type": "string",
+      "description": "The heading of the panel.",
+      "descriptionZh": "浮层的标题。"
+    },
+    {
+      "name": "align",
+      "type": "enum",
+      "values": ["start", "center"],
+      "default": "start",
+      "description": "Where the title and the actions sit. The start alignment is the base class on its own; the centred one adds um-dialog--center.",
+      "descriptionZh": "标题和操作放在哪儿。start 就是只写基类;居中再加上 um-dialog--center。"
+    },
+    {
+      "name": "size",
+      "type": "enum",
+      "values": ["sm", "md", "lg"],
+      "default": "md",
+      "description": "How wide the panel is. The width is a measure of the panel's own type, so the panel grows with the mood's text instead of holding a fixed pixel width.",
+      "descriptionZh": "浮层有多宽。这几档用的是浮层自己的字号单位,所以浮层会跟着 mood 的文字一起变大,而不是卡在一个固定的像素宽度上。"
+    }
+  ],
+  "slots": [
+    {
+      "name": "title",
+      "description": "What is inside the heading.",
+      "descriptionZh": "标题元素里的内容。"
+    },
+    {
+      "name": "default",
+      "description": "The body of the panel.",
+      "descriptionZh": "浮层的正文。"
+    },
+    {
+      "name": "actions",
+      "description": "The actions in the footer.",
+      "descriptionZh": "底部里的操作。"
+    }
+  ],
+  "events": [],
+  "a11y": {
+    "role": "dialog",
+    "keyboard": ["Tab", "Enter", "Escape"],
+    "notes": "The panel is a <dialog>, so the browser knows it is a dialog, and the dialog points at its title with aria-labelledby so the reader hears what the panel is about instead of a bare \"dialog\". The close button is a real button inside a form whose method is dialog: submitting it is the browser's own way of closing a dialog, so the library installs no listener and handles no key. A static dialog is not modal — it does not take the focus, it does not make the page behind it inert, and Escape does not close it, because all three of those belong to showModal(), and that is JavaScript. Put the panel in the flow where the reader expects it, and give the host a way to open it.",
+    "notesZh": "这块浮层是 <dialog>,所以浏览器知道它是个对话框;浮层用 aria-labelledby 指向标题,读屏听到的就是「这块面板是关于什么的」,而不是干巴巴一句「对话框」。关闭按钮是一个真正的按钮,在一个 method 为 dialog 的表单里:提交它就是浏览器自己关对话框的办法,所以库不用装监听器,也不用处理按键。静态的对话框不是模态的 —— 它不接管焦点,不让后面的页面失效,Escape 也关不掉它,因为这三件事都属于 showModal(),而那是 JavaScript。把浮层放在读者以为它在的位置,再由宿主给它一个打开的办法。"
+  },
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Basic",
+      "titleZh": "基础用法",
+      "description": "A panel with a title, a body and two actions. The close button is a submit button inside a form whose method is dialog, so it closes the panel the way the browser closes one — and the cross is drawn from two borders, so it needs no icon font.",
+      "descriptionZh": "一块有标题、正文和两个操作的浮层。关闭按钮是 method 为 dialog 的表单里的提交按钮,所以它是用浏览器关对话框的办法把浮层关掉的 —— 那个叉是用两条边框画出来的,所以不用图标字体。",
+      "markup": "<dialog open class=\"um-dialog\" aria-labelledby=\"um-dialog-title\">\n  <form method=\"dialog\" class=\"um-dialog__form\">\n    <div class=\"um-dialog__header\">\n      <h2 class=\"um-dialog__title\" id=\"um-dialog-title\">Archive this deployment?</h2>\n      <button class=\"um-dialog__close\" type=\"submit\" aria-label=\"Close\"></button>\n    </div>\n    <div class=\"um-dialog__body\">\n      <p>Build 214 is still running on three nodes. Archiving it stops the queue and keeps the log.</p>\n    </div>\n    <div class=\"um-dialog__footer\">\n      <button type=\"button\">Cancel</button>\n      <button class=\"um-dialog__action\" type=\"button\">Archive</button>\n    </div>\n  </form>\n</dialog>"
+    },
+    {
+      "id": "center",
+      "title": "Centred",
+      "titleZh": "居中",
+      "description": "The centred variant puts the title and the actions in the middle of their rows instead of at the two ends. The close button stays in the corner, because that is where a corner is.",
+      "descriptionZh": "居中变体把标题和操作放在各自那一行的中间,而不是两端。关闭按钮还在角上 —— 角就该在角上。",
+      "markup": "<dialog open class=\"um-dialog um-dialog--center\" aria-labelledby=\"um-dialog-centre-title\">\n  <form method=\"dialog\" class=\"um-dialog__form\">\n    <div class=\"um-dialog__header\">\n      <h2 class=\"um-dialog__title\" id=\"um-dialog-centre-title\">Discard the draft?</h2>\n      <button class=\"um-dialog__close\" type=\"submit\" aria-label=\"Close\"></button>\n    </div>\n    <div class=\"um-dialog__body\">\n      <p>Nothing has been saved yet. Discarding it cannot be undone.</p>\n    </div>\n    <div class=\"um-dialog__footer\">\n      <button type=\"button\">Keep editing</button>\n      <button class=\"um-dialog__action\" type=\"button\">Discard</button>\n    </div>\n  </form>\n</dialog>"
+    },
+    {
+      "id": "sizes",
+      "title": "Sizes",
+      "titleZh": "尺寸",
+      "description": "Three widths. The middle one is the base class on its own, because the base class is already the medium panel.",
+      "descriptionZh": "三种宽度。中间那个只写基础类,因为基础类本来就是中号浮层。",
+      "markup": "<dialog open class=\"um-dialog um-dialog--sm\" aria-labelledby=\"um-dialog-small-title\">\n  <form method=\"dialog\" class=\"um-dialog__form\">\n    <div class=\"um-dialog__header\">\n      <h2 class=\"um-dialog__title\" id=\"um-dialog-small-title\">Rename</h2>\n      <button class=\"um-dialog__close\" type=\"submit\" aria-label=\"Close\"></button>\n    </div>\n    <div class=\"um-dialog__body\">\n      <p>A narrow panel, for a question with a short answer.</p>\n    </div>\n  </form>\n</dialog>\n<dialog open class=\"um-dialog\" aria-labelledby=\"um-dialog-medium-title\">\n  <form method=\"dialog\" class=\"um-dialog__form\">\n    <div class=\"um-dialog__header\">\n      <h2 class=\"um-dialog__title\" id=\"um-dialog-medium-title\">Rename</h2>\n      <button class=\"um-dialog__close\" type=\"submit\" aria-label=\"Close\"></button>\n    </div>\n    <div class=\"um-dialog__body\">\n      <p>The default panel.</p>\n    </div>\n  </form>\n</dialog>\n<dialog open class=\"um-dialog um-dialog--lg\" aria-labelledby=\"um-dialog-large-title\">\n  <form method=\"dialog\" class=\"um-dialog__form\">\n    <div class=\"um-dialog__header\">\n      <h2 class=\"um-dialog__title\" id=\"um-dialog-large-title\">Terms of service</h2>\n      <button class=\"um-dialog__close\" type=\"submit\" aria-label=\"Close\"></button>\n    </div>\n    <div class=\"um-dialog__body\">\n      <p>A wide panel, for a body of text rather than a line of it.</p>\n    </div>\n  </form>\n</dialog>"
+    }
+  ],
+  "notes": "The close button is the browser's own, not a handler of the library's. A <form method=\"dialog\"> inside the dialog turns a submit into a close, so the button needs no listener and the component needs no JavaScript at all — which also means the button keeps working when the host opens the panel with showModal(). What the library does not paint is the mask: the backdrop of a modal dialog belongs to the browser, and the static form has none, because there is no role in the contract for a scrim and a second translucent layer over the page is a colour no role names.",
+  "notesZh": "关闭按钮是浏览器自己的,不是库写的处理器。浮层里的 <form method=\"dialog\"> 把一次提交变成一次关闭,所以按钮不需要监听器,组件也一行 JavaScript 都没有 —— 这也意味着宿主用 showModal() 打开浮层时,按钮照样管用。库不画的是那层遮罩:模态对话框的背景属于浏览器,静态形态没有遮罩 —— 契约里没有给遮罩留角色,而盖在页面上的第二层半透明表面,是任何一个角色都没命名的颜色。"
+}

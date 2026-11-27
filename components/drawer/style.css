@@ -1,0 +1,162 @@
+/* ============================================================================
+   Drawer
+   ========================================================================== */
+
+/* The panel. It is held against the edge of the viewport with fixed
+   positioning, so the page moves behind it rather than under it — a drawer
+   that scrolled away with the content would not be a drawer.
+
+   It paints one surface and nothing inside it paints another: the header,
+   the body and the footer are separated by rules rather than by fills, so
+   the surface the reader sees is the surface the contract describes. */
+.um-drawer {
+  --um-drawer-size: 24em;
+
+  position: fixed;
+  inset: 0 0 0 auto;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  width: var(--um-drawer-size);
+  max-width: 100%;
+  border-left: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  background: var(--um-bg-overlay);
+  box-shadow: var(--um-shadow-base);
+  color: var(--um-text-regular);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+}
+
+/* The rule sits on the edge the panel hangs from, so it moves with the
+   panel: on the right for a panel that came from the right. */
+.um-drawer--left {
+  inset: 0 auto 0 0;
+  border-right: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-left: 0;
+}
+
+/* A panel that comes from the top or the bottom lies across the page, so it
+   measures down instead of across. */
+.um-drawer--top {
+  inset: 0 0 auto 0;
+  width: auto;
+  height: var(--um-drawer-size);
+  max-height: 100%;
+  border-bottom: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-left: 0;
+}
+
+.um-drawer--bottom {
+  inset: auto 0 0 0;
+  width: auto;
+  height: var(--um-drawer-size);
+  max-height: 100%;
+  border-top: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-left: 0;
+}
+
+.um-drawer--sm {
+  --um-drawer-size: 18em;
+}
+
+.um-drawer--lg {
+  --um-drawer-size: 32em;
+}
+
+/* The panel as part of the layout rather than over it — a side panel that is
+   always there instead of one that slides in and out. */
+.um-drawer--inline {
+  position: static;
+}
+
+.um-drawer__header {
+  display: flex;
+  align-items: center;
+  gap: var(--um-space-sm);
+  padding: var(--um-space-sm) var(--um-space-md);
+  border-bottom: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+}
+
+.um-drawer__title {
+  margin: 0;
+  color: var(--um-text-primary);
+  font-size: var(--um-font-size-title);
+  font-weight: var(--um-font-weight-bold);
+}
+
+.um-drawer__body {
+  flex: 1;
+  padding: var(--um-space-md);
+  overflow: auto;
+}
+
+.um-drawer__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--um-space-xs);
+  padding: var(--um-space-sm) var(--um-space-md);
+  border-top: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+}
+
+/* The footer gives a button that arrives without a class of its own a shape,
+   so the panel reads as finished. The whole selector sits inside :where, so
+   it carries no weight: a host that brings its own button class keeps it. */
+:where(.um-drawer__footer button) {
+  height: var(--um-height-md);
+  padding: 0 var(--um-space-sm);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-base);
+  background: var(--um-fill-base);
+  color: var(--um-text-regular);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+  cursor: pointer;
+}
+
+/* The cross is two lines drawn by the button's own borders, so it takes the
+   button's colour and the library ships no icon font. */
+.um-drawer__close {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--um-height-sm);
+  height: var(--um-height-sm);
+  margin-left: auto;
+  padding: 0;
+  border: 0;
+  border-radius: var(--um-radius-small);
+  background: none;
+  color: var(--um-text-secondary);
+  cursor: pointer;
+}
+
+.um-drawer__close::before,
+.um-drawer__close::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: var(--um-border-width);
+  background: currentColor;
+}
+
+.um-drawer__close::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.um-drawer__close::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.um-drawer__close:hover {
+  color: var(--um-color-primary-text);
+}
+
+.um-drawer__close:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: var(--um-focus-ring-offset);
+}

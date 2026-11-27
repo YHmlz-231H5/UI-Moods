@@ -1,0 +1,163 @@
+/* ============================================================================
+   Virtual Table
+   ========================================================================== */
+
+/* A long table the browser is not asked to lay out in full.
+
+   The table is an ARIA grid of divs rather than a real <table>, and that is a
+   measured decision rather than a preference. The browser skips the layout of
+   the parts far from the viewport only for an element it is allowed to size
+   on its own, and a table row is sized by its table. Measured in Chrome 158
+   on a 200-row table:
+
+     control (no content-visibility)        scroll height 6030px, every row 30px
+     content-visibility on the <tr>          scroll height 6030px, every row 30px
+     content-visibility on the <td>s        scroll height 2817px, rows 9px
+     the same rule on a grid of divs        35 of 200 rows laid out, 165 skipped
+
+   The rule on the <tr> changed nothing at all: the placeholder size was never
+   used, so every row was laid out. The rule on the <td>s broke the table
+   instead — the rows collapsed to a third of their height and the total
+   height changed while the reader scrolled. The grid of divs is the only one
+   of the three the browser can skip, and it reads the same as a table: the
+   column names travel with the cells and a screen reader reads a row across. */
+.um-virtual-table,
+.um-virtual-table--plain {
+  /* The size the browser gives a row it has not laid out. It is the *content*
+     of one row — the line box — and not the row's whole height: the padding
+     and the line are added on top of a placeholder, so a placeholder that
+     counted them twice would make the list longer than it is. One line of the
+     row's own type size, so it grows with the mood's rhythm and with the size
+     modifier rather than sitting at a number of its own. */
+  --um-virtual-table-row-size: 1.2em;
+
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+  color: var(--um-text-regular);
+}
+
+/* The scroller owns the surface. The rows inside it paint nothing: a second
+   translucent layer over the first is a colour no role names. */
+.um-virtual-table__scroller {
+  overflow: auto;
+  background: var(--um-fill-blank);
+}
+
+/* The ring goes on the scrolling box and inside the frame: an outside ring
+   would be cut off by the frame that holds it. */
+.um-virtual-table__scroller:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: calc(-1 * var(--um-focus-ring-width));
+}
+
+/* The header stays put while the body scrolls, and it brings its own opaque
+   surface so the rows cannot show through it. */
+.um-virtual-table__header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 2fr);
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  padding: var(--um-space-xs) var(--um-space-sm);
+  border-bottom: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  background: var(--um-surface-table-header);
+  color: var(--um-text-primary);
+  font-weight: var(--um-font-weight-medium);
+  line-height: 1.2;
+}
+
+.um-virtual-table__head-cell {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* The body is a plain block flow: the rows stack in it. The line under the
+   last of them is the frame's, not the row's. */
+.um-virtual-table__body {
+  display: block;
+}
+
+.um-virtual-table__body .um-virtual-table__row:last-child {
+  border-bottom: none;
+}
+
+/* A row is a grid of its own, and it is laid out with the same column
+   template as the header, so the names travel with the cells: the first
+   column is the wide one and the rest share what is left. The column count is
+   the host's business, so the tracks after the first are implicit — a grid of
+   any width lines up with the header above it. */
+.um-virtual-table__row {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr);
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  padding: var(--um-space-xs) var(--um-space-sm);
+  border-bottom: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+
+  /* The row's own line height is stated, so the placeholder below is the same
+     size as the row it stands in for. */
+  line-height: 1.2;
+
+  /* The row the reader cannot see is not laid out. The browser gives it the
+     placeholder size instead and lays it out when it comes near the viewport.
+     The `auto` keyword is what makes the placeholder the size the row really
+     had the last time it was laid out, so a list that is read twice does not
+     jump the second time. */
+  content-visibility: auto;
+  contain-intrinsic-size: auto var(--um-virtual-table-row-size);
+}
+
+.um-virtual-table__cell {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* The row under the pointer takes the light fill, the way the plain table's
+   does — a virtualised table is still a table. The row under the pointer is by
+   definition on the screen, so it is laid out and the fill is painted. */
+.um-virtual-table__row:hover {
+  background: var(--um-fill-light);
+}
+
+/* The empty state is a row of its own. It says the fact and leaves the reason
+   to the page that owns the data, and it stops being a grid so the one cell
+   in it spans the whole width. */
+.um-virtual-table__row.um-virtual-table__empty {
+  display: block;
+  padding: 0;
+}
+
+.um-virtual-table__empty .um-virtual-table__cell {
+  display: block;
+  padding: var(--um-space-lg) var(--um-space-sm);
+  color: var(--um-text-secondary);
+  text-align: center;
+}
+
+/* The bordered run draws a frame around the scroller and a line between the
+   columns, so a table with many columns can be read down one of them. */
+.um-virtual-table--bordered .um-virtual-table__scroller {
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-base);
+}
+
+.um-virtual-table--bordered .um-virtual-table__header .um-virtual-table__head-cell:not(:last-child),
+.um-virtual-table--bordered .um-virtual-table__row .um-virtual-table__cell:not(:last-child) {
+  border-right: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+}
+
+.um-virtual-table--sm .um-virtual-table__header,
+.um-virtual-table--sm .um-virtual-table__row {
+  font-size: var(--um-font-size-caption);
+}
+
+.um-virtual-table--lg .um-virtual-table__header,
+.um-virtual-table--lg .um-virtual-table__row {
+  font-size: var(--um-font-size-title);
+}

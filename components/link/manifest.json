@@ -1,0 +1,81 @@
+{
+  "id": "link",
+  "name": "Link",
+  "nameZh": "链接",
+  "category": "basic",
+  "element": "a",
+  "summary": "A link, in one of the semantic colours. It is text, so it takes the text form of the colour and reads at 4.5:1 on the page, on an overlay and inside a container.",
+  "summaryZh": "一个链接,可以有各种语义色。它是文字,所以取的是颜色的文字形态,在页面上、在浮层里、在容器里都读得到 4.5:1。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-link",
+    "modifier": "um-link--"
+  },
+  "variants": [
+    { "id": "primary", "name": "Primary", "nameZh": "主要", "state": "ghost", "note": "The brand colour, in the form that is guaranteed to read as text." },
+    { "id": "success", "name": "Success", "nameZh": "成功", "state": "ghost" },
+    { "id": "warning", "name": "Warning", "nameZh": "警告", "state": "ghost" },
+    { "id": "danger", "name": "Danger", "nameZh": "危险", "state": "ghost" },
+    { "id": "info", "name": "Info", "nameZh": "信息", "state": "ghost" },
+    { "id": "underline", "name": "Underlined", "nameZh": "带下划线", "state": "ghost", "note": "The line is always there. It is a variant of its own, because a type and an underline can be combined: a danger link may be underlined too." }
+  ],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "The caption size." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The body size. It needs no modifier class." },
+    { "id": "lg", "name": "Large", "nameZh": "大" }
+  ],
+  "states": [
+    { "id": "hover", "name": "Hover", "nameZh": "悬停", "selector": ":hover", "native": true, "note": "The underline arrives. It is the affordance a reader looks for, and it does not draw a line through every link on the page." },
+    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The focus ring. The shared layer paints one for the controls it knows, and a link is not among them." },
+    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": "[aria-disabled=\"true\"]", "note": "An <a> has no disabled attribute, so the state is aria-disabled: the link stays in the tab order and is still announced, which is what a reader who cannot follow it needs to know." }
+  ],
+  "parts": [],
+  "props": [
+    { "name": "href", "type": "string", "default": "#", "description": "Where the link goes.", "descriptionZh": "链接指向哪里。" },
+    { "name": "variant", "type": "enum", "values": ["primary", "success", "warning", "danger", "info"], "default": "primary", "description": "The colour of the link.", "descriptionZh": "链接的颜色。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The size of the link text.", "descriptionZh": "链接文字的大小。" },
+    { "name": "underline", "type": "boolean", "default": "false", "description": "Keeps the underline on the link at all times, not only under the pointer.", "descriptionZh": "让下划线一直留在链接上,而不只是在指针经过时才有。" },
+    { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes the link inert. It adds aria-disabled, and the wrapper refuses to follow it.", "descriptionZh": "让链接不可用。它会加上 aria-disabled,封装也不会再跟过去。" }
+  ],
+  "slots": [
+    { "name": "default", "description": "The words of the link.", "descriptionZh": "链接上的字。" }
+  ],
+  "events": [
+    { "name": "click", "description": "The link was followed. It is not emitted while the link is disabled.", "descriptionZh": "链接被跟随时触发。链接禁用时不会触发。" }
+  ],
+  "a11y": {
+    "role": "link",
+    "keyboard": ["Tab", "Enter"],
+    "notes": "A real <a href>, so it is in the tab order, it is announced as a link and it can be opened in a new tab from the browser's own menu. A disabled link uses aria-disabled rather than a class alone: it keeps its place in the tab order and is still announced, which is what a reader who cannot follow it needs to know. The stylesheet makes it inert to the pointer; a keyboard reader still reaches it, so the page has to refuse the activation — the Vue wrapper does that, and plain HTML has to do it in the link's own handler.",
+    "notesZh": "这是真的 <a href>,所以它在 Tab 顺序里,读屏会播报它是一个链接,浏览器自己的菜单也能在新标签页里打开它。禁用态用 aria-disabled,而不只是加一个类:它留在 Tab 顺序里,也会被播报,这正是跟不了它的读者需要知道的。样式表让它对指针无效,键盘仍然够得到它,所以还得由页面来拒绝这次激活 —— Vue 封装会这么做,纯 HTML 就得在自己的处理函数里做。"
+  },
+  "examples": [
+    {
+      "id": "types",
+      "title": "The types",
+      "titleZh": "各种类型",
+      "description": "Each type takes the text form of its colour, so the link reads as text on the page, on an overlay and inside a container — the raw colour is a fill colour and is not guaranteed to read as writing.",
+      "descriptionZh": "每一种类型取的都是对应颜色的文字形态,所以链接在页面上、在浮层里、在容器里都读得出来 —— 颜色本身是填充色,拿来写字是保证不了的。",
+      "markup": "<a class=\"um-link um-link--primary\" href=\"#\">Primary</a>\n<a class=\"um-link um-link--success\" href=\"#\">Success</a>\n<a class=\"um-link um-link--warning\" href=\"#\">Warning</a>\n<a class=\"um-link um-link--danger\" href=\"#\">Danger</a>\n<a class=\"um-link um-link--info\" href=\"#\">Info</a>"
+    },
+    {
+      "id": "states",
+      "title": "States",
+      "titleZh": "状态",
+      "description": "A disabled link is announced as disabled and cannot be followed. It keeps its place in the tab order, because a reader who cannot follow it still has to know that it is there.",
+      "descriptionZh": "禁用的链接会被播报为禁用,而且跟不过去。它留在 Tab 顺序里,因为跟不了它的读者仍然得知道它在那儿。",
+      "markup": "<a class=\"um-link um-link--primary\" href=\"#\">A link you can follow</a>\n<a class=\"um-link um-link--primary\" href=\"#\" aria-disabled=\"true\">A link you cannot</a>"
+    },
+    {
+      "id": "underline",
+      "title": "Underlined",
+      "titleZh": "带下划线",
+      "description": "The underline is a variant of its own, so it can be combined with a type: a danger link may be underlined too.",
+      "descriptionZh": "下划线是它自己的一种变体,所以它可以跟类型组合:危险色的链接同样可以带下划线。",
+      "markup": "<a class=\"um-link um-link--primary um-link--underline\" href=\"#\">Always underlined</a>\n<a class=\"um-link um-link--danger um-link--underline\" href=\"#\">Danger, underlined</a>"
+    }
+  ],
+  "notes": "The link takes the text form of the colour, never the raw one: the raw brand colour is a fill colour, and on the brutal theme it is a bright yellow that clears 4.5:1 as a background and nothing at all as writing. The underline is a variant rather than a rule on the base class, because a page may want a link that is underlined at rest and a link that only underlines under the pointer, and the two are not the same thing.",
+  "notesZh": "链接取的是颜色的文字形态,不是原始色:原始的品牌色是填充色,在 brutal 这套 mood 里它是一个亮黄色,当底色能到 4.5:1,当写字什么都保证不了。下划线做成变体而不是基类上的规则,因为页面可能想要一条一直有下划线的链接,也可能只想要指针经过时才出现下划线的链接,这两件事不是一回事。"
+}

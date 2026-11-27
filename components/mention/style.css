@@ -1,0 +1,132 @@
+/* ============================================================================
+   Mention
+   ========================================================================== */
+
+/* Element Plus opens the list when the reader types an @ and closes it when
+   they stop; here the list is a container and the host decides whether it is
+   on the page. The field and the list are what is left, and neither of them
+   needs a script. */
+.um-mention {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--um-space-xs);
+  min-width: 14em;
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+}
+
+/* The field is the box, and it owns the field's fill and border: the input
+   inside it paints none of its own, because two translucent layers would be a
+   colour no role names. */
+.um-mention__field {
+  display: flex;
+  align-items: center;
+  min-height: var(--um-height-md);
+  padding: 0 var(--um-space-xs);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-small);
+  background: var(--um-surface-input);
+  transition: border-color var(--um-motion);
+}
+
+.um-mention--bordered .um-mention__field { border-color: var(--um-border-base); }
+
+/* The plain field drops its border and its fill, so it reads as a line of
+   text on the page rather than as a box. */
+.um-mention--plain .um-mention__field {
+  border-color: transparent;
+  background: transparent;
+}
+
+.um-mention--round .um-mention__field { border-radius: var(--um-radius-round); }
+
+.um-mention__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--um-text-primary);
+  font: inherit;
+  line-height: 1.5;
+}
+.um-mention__input::placeholder { color: var(--um-text-placeholder); }
+
+/* The ring goes on the field, because the field is what the reader is typing
+   in — the input is inside it, not beside it. */
+.um-mention:has(.um-mention__input:focus-visible) .um-mention__field {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+/* A disabled field paints a flat surface and takes the derived disabled
+   colour, the way every other disabled control does. */
+.um-mention:has(.um-mention__input:disabled) .um-mention__field {
+  background: var(--um-surface-control);
+  color: var(--um-text-disabled);
+  cursor: not-allowed;
+}
+.um-mention:has(.um-mention__input:disabled) .um-mention__input { color: var(--um-text-disabled); }
+
+/* The list is a floating panel: it sits on the overlay surface and carries
+   its own shadow, because it is above the page rather than on it. */
+.um-mention__list {
+  margin: 0;
+  padding: var(--um-space-xs) 0;
+  list-style: none;
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-base);
+  background: var(--um-bg-overlay);
+  box-shadow: var(--um-shadow-base);
+}
+
+/* Each name is a real button, so it is focusable and can be pressed with the
+   keyboard without the library installing a listener. */
+.um-mention__item {
+  display: flex;
+  align-items: center;
+  gap: var(--um-space-xs);
+  width: 100%;
+  padding: var(--um-space-xs) var(--um-space-sm);
+  border: 0;
+  background: none;
+  color: var(--um-text-regular);
+  font: inherit;
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.um-mention__item:hover { background: var(--um-fill-light); }
+.um-mention__item:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+/* The avatar is a disc the host fills with initials. It is the same shape the
+   avatar component uses, drawn here because a component may not lean on
+   another's class — with one difference: the disc carries a hairline, because
+   the list it sits in is a card, and a fill one step off the card's own
+   surface disappears into it. */
+.um-mention__avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: var(--um-height-sm);
+  height: var(--um-height-sm);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-circle);
+  background: var(--um-fill-light);
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+  font-weight: var(--um-font-weight-medium);
+  line-height: 1;
+}
+
+.um-mention__name { color: var(--um-text-primary); }
+
+.um-mention--sm { font-size: var(--um-font-size-caption); }
+.um-mention--sm .um-mention__field { min-height: var(--um-height-sm); }
+.um-mention--lg { font-size: var(--um-font-size-title); }
+.um-mention--lg .um-mention__field { min-height: var(--um-height-lg); }

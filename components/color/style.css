@@ -1,0 +1,62 @@
+/* ============================================================================
+   Color
+   ========================================================================== */
+
+/* The palette is only a frame: it paints no colour of its own, so what is on
+   screen is the colour the role carries and nothing mixed under it. */
+.um-color {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--um-space-sm);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+}
+
+.um-color__cell {
+  display: flex;
+  flex-direction: column;
+  gap: var(--um-space-xs);
+  min-width: 8em;
+}
+
+/* The swatch is a solid surface with the role's own on-colour as its label.
+   That pairing is the one the contract derives: the foreground on a solid
+   fill is held to 4.5:1, so the name stays readable on the colour it names
+   in every mood. A cell with no colour class falls back to the plain fill
+   rather than to a hole in the page. */
+.um-color__swatch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--um-height-lg);
+  padding: var(--um-space-xs);
+  border-radius: var(--um-radius-base);
+  background: var(--um-fill-base);
+  color: var(--um-text-regular);
+  font-size: var(--um-font-size-caption);
+  font-weight: var(--um-font-weight-medium);
+  text-align: center;
+}
+
+.um-color--primary .um-color__swatch { background: var(--um-color-primary); color: var(--um-color-primary-on); }
+.um-color--success .um-color__swatch { background: var(--um-color-success); color: var(--um-color-success-on); }
+.um-color--warning .um-color__swatch { background: var(--um-color-warning); color: var(--um-color-warning-on); }
+.um-color--danger .um-color__swatch { background: var(--um-color-danger); color: var(--um-color-danger-on); }
+.um-color--info .um-color__swatch { background: var(--um-color-info); color: var(--um-color-info-on); }
+
+/* The value line prints the role, not the resolved colour. CSS cannot read a
+   computed colour back out into text, and a hex written into the markup
+   would belong to one mood and to no other. */
+.um-color__value {
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+  word-break: break-all;
+}
+
+/* The size is the height of the swatch; the name and the value keep their
+   own sizes, because they are read and not looked at. */
+.um-color--sm .um-color__swatch { height: var(--um-height-md); }
+.um-color--lg .um-color__swatch { height: calc(var(--um-height-lg) + var(--um-space-lg)); }

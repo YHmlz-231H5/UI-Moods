@@ -1,0 +1,142 @@
+/* ============================================================================
+   Infinite Scroll
+   ========================================================================== */
+
+/* A feed the reader can scroll a long way through, and a sentinel at the end
+   of it that says what the next moment will bring.
+
+   The library cannot load anything: the host owns the data. What the library
+   owns is the container, the skipped layout and the sentinel — the place the
+   reader reaches, where the host decides whether to fetch more.
+
+   The items are skipped the way the virtualized components skip their rows:
+   the browser does not lay out an item far from the viewport and gives it a
+   placeholder size instead. So the cost of a long feed is what is near the
+   reader, which is the same effect an infinite scroll has in practice. */
+.um-infinite-scroll,
+.um-infinite-scroll--plain {
+  /* The size the browser gives an item it has not laid out. It is the *content*
+     of one item — the line box — and not the item's whole height: the padding
+     and the line are added on top of a placeholder, so a placeholder that
+     counted them twice would make the feed longer than it is. */
+  --um-infinite-scroll-item-size: 1.2em;
+
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+  color: var(--um-text-regular);
+}
+
+.um-infinite-scroll__scroller {
+  overflow: auto;
+}
+
+/* The ring goes on the scrolling box and inside the frame: an outside ring
+   would be cut off by the frame that holds it. */
+.um-infinite-scroll__scroller:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: calc(-1 * var(--um-focus-ring-width));
+}
+
+/* The bordered run puts the feed in a panel: the scroller draws the frame and
+   the plain fill, and the items sit on it. The plain run leaves the surface to
+   the page. */
+.um-infinite-scroll--bordered .um-infinite-scroll__scroller {
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-base);
+  background: var(--um-fill-blank);
+}
+
+/* The feed is a plain block flow: the items stack in it, and the host appends
+   to it. */
+.um-infinite-scroll__feed {
+  display: block;
+}
+
+.um-infinite-scroll__item {
+  padding: var(--um-space-xs) var(--um-space-sm);
+  border-bottom: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+
+  /* An item is one line of text, and the line height is stated, so the
+     placeholder below is the same size as the item it stands in for. */
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  content-visibility: auto;
+  contain-intrinsic-size: auto var(--um-infinite-scroll-item-size);
+}
+
+/* The sentinel is the last thing in the scroller and it says which of the
+   three moments this is. The state is a class the markup carries, so the
+   library never has to know what the host is doing. */
+.um-infinite-scroll__sentinel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--um-space-sm);
+  padding: var(--um-space-sm);
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+
+/* The loading state puts the ring beside the words, closer than the gap the
+   other two states leave between their line and the edge. */
+.um-infinite-scroll__sentinel--loading {
+  gap: var(--um-space-xs);
+}
+
+/* The ring is the loading component's ring: two borders with the top side left
+   out, so the shape is drawn rather than fetched. It takes the graphic form
+   of the brand colour, because it is a picture and not a background for text.
+   It turns only when the reader has not asked for less motion. */
+.um-infinite-scroll__spinner {
+  flex: none;
+  width: var(--um-space-sm);
+  height: var(--um-space-sm);
+  border: 2px solid var(--um-color-primary-graphic);
+  border-top-color: transparent;
+  border-radius: var(--um-radius-circle);
+}
+
+/* The ring belongs to the loading state alone: the other two say the words
+   and nothing else. */
+.um-infinite-scroll__sentinel--loaded .um-infinite-scroll__spinner,
+.um-infinite-scroll__sentinel--end .um-infinite-scroll__spinner {
+  display: none;
+}
+
+.um-infinite-scroll__line {
+  color: var(--um-text-secondary);
+}
+
+/* The line on either side of the words is a rule drawn with a border, so it
+   takes the border colour rather than a colour of its own. */
+.um-infinite-scroll__sentinel--loaded .um-infinite-scroll__line,
+.um-infinite-scroll__sentinel--end .um-infinite-scroll__line {
+  display: flex;
+  align-items: center;
+  gap: var(--um-space-xs);
+  flex: 1;
+}
+
+.um-infinite-scroll__sentinel--loaded .um-infinite-scroll__line::before,
+.um-infinite-scroll__sentinel--end .um-infinite-scroll__line::before,
+.um-infinite-scroll__sentinel--loaded .um-infinite-scroll__line::after,
+.um-infinite-scroll__sentinel--end .um-infinite-scroll__line::after {
+  content: "";
+  flex: 1;
+  border-top: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .um-infinite-scroll__spinner { animation: um-spin 0.7s linear infinite; }
+}
+
+.um-infinite-scroll--sm .um-infinite-scroll__item {
+  font-size: var(--um-font-size-caption);
+}
+
+.um-infinite-scroll--lg .um-infinite-scroll__item {
+  font-size: var(--um-font-size-title);
+}

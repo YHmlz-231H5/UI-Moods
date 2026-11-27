@@ -1,0 +1,83 @@
+{
+  "id": "tour",
+  "name": "Tour",
+  "nameZh": "引导",
+  "category": "data",
+  "element": "div",
+  "summary": "A walkthrough that points at one thing on the page and says what to do with it. The ring is the thing being pointed at, the card is what the tour says, and the dots are how far along the walkthrough is. Moving from one step to the next is the host's job.",
+  "summaryZh": "一段指着页面上某个东西、告诉你该怎么做的引导。那道圈是被指的东西,那张卡片是引导要说的话,那些点是走到第几步了。从一步走到下一步是宿主的事。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-tour",
+    "modifier": "um-tour--",
+    "part": "um-tour__"
+  },
+  "variants": [
+    { "id": "bottom", "name": "Below the target", "nameZh": "目标下方", "note": "The card sits below the thing it points at and the arrow points up at it. The base class on its own is this placement, and the modifier paints the same thing so the class list can name it." },
+    { "id": "top", "name": "Above the target", "nameZh": "目标上方", "note": "The card sits above the thing it points at and the arrow points down at it." },
+    { "id": "left", "name": "Left of the target", "nameZh": "目标左侧", "note": "The card sits to the left of the thing it points at and the arrow points right at it." },
+    { "id": "right", "name": "Right of the target", "nameZh": "目标右侧", "note": "The card sits to the right of the thing it points at and the arrow points left at it." }
+  ],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "The title takes the body size." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default size. The base class is already this size, so it needs no modifier." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "The title takes the display size." }
+  ],
+  "states": [
+    { "id": "active", "name": "Active step", "nameZh": "当前步", "selector": ".um-tour__dot--active", "note": "The dot of the step the walkthrough is on. It is a shape that carries the meaning on its own — there is no label saying which step this is — so it takes the brand colour's graphic form." },
+    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The action is inert. It takes the flattened control surface and the derived disabled colour, the way every other disabled control in the library does." },
+    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the action, because the action is the only thing in the card the reader can act on." }
+  ],
+  "parts": [
+    { "id": "panel", "name": "Panel", "nameZh": "面板", "note": "The card that carries the step. It is a floating surface above the page, and it hangs off the thing it points at." },
+    { "id": "arrow", "name": "Arrow", "nameZh": "箭头", "note": "The pointer between the card and the thing it points at. It is a triangle drawn from borders, so it carries no text of its own, and it is the card's own surface reaching past the card's edge." },
+    { "id": "title", "name": "Title", "nameZh": "标题", "note": "The name of the step. The element it is written in belongs to the host: the level of a heading is the host's to choose, and this library only decides how big it looks." },
+    { "id": "content", "name": "Content", "nameZh": "正文", "note": "The sentence that says what to do. It is body text on the card's own surface." },
+    { "id": "footer", "name": "Footer", "nameZh": "底部", "note": "The row under the text: the dots on one side and the action on the other." },
+    { "id": "dots", "name": "Dots", "nameZh": "步骤点", "note": "The row of dots, one per step. The dots carry no text, so the row is what the host labels with the step it is on." },
+    { "id": "dot", "name": "Dot", "nameZh": "点", "note": "One step of the walkthrough." },
+    { "id": "action", "name": "Action", "nameZh": "操作", "note": "The button that moves the walkthrough on. It is a real button in a real form-free element, so it is in the tab order and the browser's own space and enter press it." }
+  ],
+  "props": [
+    { "name": "placement", "type": "enum", "values": ["bottom", "top", "left", "right"], "default": "bottom", "description": "Where the card sits relative to the thing it points at. The card below is the base class on its own; the other three add um-tour--top, um-tour--left and um-tour--right.", "descriptionZh": "卡片相对被指的东西待在哪里。下方是只写基础类;另外三个分别加上 um-tour--top、um-tour--left 和 um-tour--right。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The size of the step's title.", "descriptionZh": "这一步标题的尺寸。" },
+    { "name": "title", "type": "string", "description": "The name of the step.", "descriptionZh": "这一步的名字。" },
+    { "name": "content", "type": "string", "description": "The sentence that says what to do.", "descriptionZh": "告诉你该怎么做的那句话。" },
+    { "name": "step", "type": "number", "default": "1", "description": "Which step the walkthrough is on. It is the dot that is filled in.", "descriptionZh": "引导走到第几步。被填上的那个点就是它。" },
+    { "name": "total", "type": "number", "default": "3", "description": "How many steps the walkthrough has. It is how many dots there are.", "descriptionZh": "这段引导一共几步。点就有几个。" }
+  ],
+  "slots": [
+    { "name": "default", "description": "The thing the walkthrough points at. The ring is drawn around it.", "descriptionZh": "引导指着的那个东西。那道圈就画在它外面。" },
+    { "name": "title", "description": "The name of the step.", "descriptionZh": "这一步的名字。" },
+    { "name": "content", "description": "The sentence that says what to do.", "descriptionZh": "告诉你该怎么做的那句话。" },
+    { "name": "action", "description": "The label of the button that moves the walkthrough on.", "descriptionZh": "把引导往前推一步那个按钮上的字。" }
+  ],
+  "events": [],
+  "a11y": {
+    "role": "group",
+    "keyboard": ["Tab", "Enter", "Space"],
+    "notes": "The card is a plain group of text with one real button in it, so the reader reaches the button with Tab and presses it with space or enter — the browser's own. The ring around the target is a shape and carries no text: what the walkthrough is about is said by the card, not by the circle, so the ring is hidden from the reader. The dots are the same — they carry no text, so the row of them is what the host labels with the step it is on. There is no scrim here: dimming the page needs a colour the vocabulary does not name, and the library does not invent one. A host that wants the walkthrough to move the reader's attention has to move the focus and announce the step itself.",
+    "notesZh": "卡片是一段文字加一个真正的按钮,所以读者 Tab 能走到按钮上,空格或回车能按下去 —— 都是浏览器自己的。目标外面那道圈是一个形状,自己不带文字:引导在讲什么由卡片说,不由那个圈说,所以圈对读屏是藏起来的。那些点也一样 —— 它们不带文字,所以是哪一步由宿主写在点那一组上。这里没有遮罩:把页面压暗需要一个词汇表里没有命名的颜色,而库不自己发明一个。想让引导把读者的注意力挪过去的宿主,得自己去挪焦点、自己去播报这一步。"
+  },
+  "examples": [
+    {
+      "id": "bottom",
+      "title": "A card below the target",
+      "titleZh": "卡片在目标下方",
+      "description": "The ring is drawn around the thing the walkthrough points at, and the card hangs below it with the arrow pointing back up. The dots say how far along the walkthrough is: the one that is filled in is the step it is on.",
+      "descriptionZh": "圈画在引导指着的那个东西外面,卡片吊在它下面,箭头指回去。点说明引导走到哪儿了:被填上的那个就是当前这一步。",
+      "markup": "<div class=\"um-tour um-tour--bottom\" role=\"group\" aria-label=\"Getting started\">\n  <span>Invite a teammate</span>\n  <div class=\"um-tour__panel\">\n    <span class=\"um-tour__arrow\" aria-hidden=\"true\"></span>\n    <p class=\"um-tour__title\">Invite your team</p>\n    <p class=\"um-tour__content\">Start with the people you work with most. They can be moved into another group later.</p>\n    <div class=\"um-tour__footer\">\n      <div class=\"um-tour__dots\" aria-label=\"Step 1 of 3\">\n        <span class=\"um-tour__dot um-tour__dot--active\"></span>\n        <span class=\"um-tour__dot\"></span>\n        <span class=\"um-tour__dot\"></span>\n      </div>\n      <button class=\"um-tour__action\" type=\"button\">Next</button>\n    </div>\n  </div>\n</div>"
+    },
+    {
+      "id": "right",
+      "title": "A card beside the target",
+      "titleZh": "卡片在目标旁边",
+      "description": "The same card to the right of the target, with the arrow turned to point back at it. Only the modifier class changes; the markup is the same.",
+      "descriptionZh": "同一张卡片挪到目标的右边,箭头转过来指着它。只有那个修饰类变了,标记是同一份。",
+      "markup": "<div class=\"um-tour um-tour--right\" role=\"group\" aria-label=\"Getting started\">\n  <span>Invite a teammate</span>\n  <div class=\"um-tour__panel\">\n    <span class=\"um-tour__arrow\" aria-hidden=\"true\"></span>\n    <p class=\"um-tour__title\">Invite your team</p>\n    <p class=\"um-tour__content\">Start with the people you work with most.</p>\n    <div class=\"um-tour__footer\">\n      <div class=\"um-tour__dots\" aria-label=\"Step 1 of 3\">\n        <span class=\"um-tour__dot um-tour__dot--active\"></span>\n        <span class=\"um-tour__dot\"></span>\n        <span class=\"um-tour__dot\"></span>\n      </div>\n      <button class=\"um-tour__action\" type=\"button\">Next</button>\n    </div>\n  </div>\n</div>"
+    }
+  ],
+  "notes": "The root is the target, not the card: the ring is drawn around the thing the walkthrough points at, and the card hangs off it. The card is the only floating surface here — the ring is transparent, so the page behind it is still the page. The arrow is the card's own surface reaching past the card's edge, so it is one colour rather than two: a triangle in a second colour would have to be a colour the vocabulary does not name. The dots are shapes that carry the meaning on their own, so they take the graphic form of the brand colour rather than the fill form.",
+  "notesZh": "根元素是被指的那个东西,不是卡片:圈画在引导指着的目标外面,卡片从它上面吊下来。这里只有卡片这一层浮起来的表面 —— 圈是透明的,所以它背后的还是页面。那个箭头是卡片自己的表面伸到卡片边缘之外,所以是一个颜色而不是两个:三角形要是第二个颜色,那个颜色是词汇表里没有命名的。点是靠自己扛住意思的形状,所以它们用品牌色的 graphic 那一档,不用填充那一档。"
+}

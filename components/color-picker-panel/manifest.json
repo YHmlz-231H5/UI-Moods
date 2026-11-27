@@ -1,0 +1,83 @@
+{
+  "id": "color-picker-panel",
+  "name": "Color Picker Panel",
+  "nameZh": "颜色选择面板",
+  "category": "form",
+  "element": "div",
+  "summary": "The panel a colour picker drops: the colours the host has predefined, a choice among the theme's own named colours, and the hexadecimal value written out. Every swatch is a real radio, so the choice is in the tab order and the browser announces it.",
+  "summaryZh": "取色器落下来的那块面板:宿主预先给好的颜色、主题自己那几个命名颜色里的一个选择,以及写出来的十六进制值。每个色块都是真的单选按钮,所以这个选择在 Tab 顺序里,浏览器也会播报它。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-color-picker-panel",
+    "modifier": "um-color-picker-panel--",
+    "part": "um-color-picker-panel__"
+  },
+  "variants": [
+    { "id": "inline", "name": "Inline", "nameZh": "内嵌", "state": "outline", "note": "The panel sits on the page: the container surface with a frame around it. The base class on its own is this layout, and the modifier paints the same thing so the class list can name it." },
+    { "id": "popover", "name": "Popover", "nameZh": "浮层", "state": "solid", "note": "The panel is raised above the page: the overlay surface with a shadow, the way a dropdown sits above what is behind it." }
+  ],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "The swatches take the small step and the value field takes the caption size." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default panel. The base class is already this size, so it needs no modifier." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "The swatches take the large control height and the value field takes the body size." }
+  ],
+  "states": [
+    { "id": "checked", "name": "Checked", "nameZh": "选中", "selector": ":checked", "native": true, "note": "The chosen swatch says so. The host's own colour gets a ring in the brand colour's graphic form, because a host's colour cannot be relied on to contrast with anything; the theme's colour gets a tick drawn on it, because there the colour is the swatch's own fill." },
+    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the swatch of the radio the reader is on, and on the value field." }
+  ],
+  "parts": [
+    { "id": "panel", "name": "Panel", "nameZh": "面板", "note": "The surface the three parts sit on. It is the panel's own frame, so the parts can be lifted out of it and still read." },
+    { "id": "predefine", "name": "Predefined colours", "nameZh": "预设颜色", "note": "The row of the host's own colours. It is a group, and the radios in it are the choice." },
+    { "id": "swatch", "name": "Swatch", "nameZh": "色块", "note": "One of the host's colours. It is a label around a real radio, so clicking the swatch picks its colour." },
+    { "id": "hue", "name": "Theme colour", "nameZh": "主题色", "note": "The row of the theme's own named colours. It is a second radio group." },
+    { "id": "hue-swatch", "name": "Theme swatch", "nameZh": "主题色块", "note": "One of the theme's named colours. It paints itself with the role its own radio names." },
+    { "id": "value", "name": "Value", "nameZh": "颜色值", "note": "The row that holds the hexadecimal field and the preview chip." },
+    { "id": "input", "name": "Hexadecimal field", "nameZh": "十六进制字段", "note": "The real text field that spells the value out. It is where a colour that is not in the swatches is typed." },
+    { "id": "preview", "name": "Preview", "nameZh": "预览", "note": "The chip that shows the colour that is chosen right now." }
+  ],
+  "props": [
+    { "name": "predefine", "type": "string", "default": "Blue #2f6feb,Green #12b886,Amber #f59f00,Red #e03131,Violet #7048e8", "description": "The colours the panel offers, as a comma-separated list. Each entry is written as \"name #rrggbb\", so the radio announces the name rather than a string of digits; an entry that is only a colour is announced as it is written.", "descriptionZh": "面板给的那些颜色,写成一个逗号分隔的列表。每一项写成「名字 #rrggbb」,这样单选按钮播报的是名字而不是一串数字;只写颜色的那一项,就按它写的样子播报。" },
+    { "name": "hue", "type": "enum", "values": ["primary", "success", "warning", "danger", "info"], "default": "primary", "description": "Which of the theme's named colours is chosen. It is the radio that is checked in the theme colour row.", "descriptionZh": "主题的哪一个命名颜色被选中了。它就是主题色那一排里被勾上的那个单选按钮。" },
+    { "name": "value", "type": "string", "default": "#2f6feb", "description": "The colour in the panel, written as a hexadecimal value. It is the text in the value field and the value of the checked swatch.", "descriptionZh": "面板里的那个颜色,写成十六进制。它是颜色值字段里的文字,也是被选中的那个色块的值。" },
+    { "name": "show-preview", "type": "boolean", "default": "true", "description": "Whether the preview chip is shown. Without it the panel has no chip in the value row.", "descriptionZh": "要不要显示预览色块。不显示的时候,面板的颜色值那一行里就没有这一小块。" }
+  ],
+  "slots": [],
+  "events": [
+    { "name": "change", "description": "Fires when a colour is picked or the value field is edited. It is the browser's own event on the radios and on the field — the library installs no listener.", "descriptionZh": "选了颜色或者改了颜色值字段的时候触发。这是单选按钮和字段上的浏览器原生事件 —— 库没有安装任何监听器。" }
+  ],
+  "a11y": {
+    "role": "group",
+    "keyboard": ["Tab", "Arrow keys", "Space"],
+    "notes": "The swatches are real radios, in two groups, so the arrow keys move between the colours of one group and the browser announces the picked one. Every radio names itself, because a swatch is a painted colour and a painted colour carries no text. The hexadecimal field is a real input, so it needs a name of its own. The colour the reader picks is data, not a theme value: nothing in the library can promise that an arbitrary colour reads against an arbitrary surface, which is why the picked swatch is marked by a ring around it rather than by the colour itself.",
+    "notesZh": "色块是真的单选按钮,而且分成两组,所以方向键在同一组的颜色之间走,浏览器会播报选中的那一个。每个单选按钮都自带名字,因为色块是画出来的颜色,画出来的颜色不带文字。十六进制字段是真正的输入框,所以它自己得有一个名字。读者挑的颜色是数据,不是主题的值:库里没有任何东西能保证一个任意的颜色在任意的表面上读得出来,所以选中的色块用外面一圈环来标记,而不是靠颜色本身。"
+  },
+  "examples": [
+    {
+      "id": "basic",
+      "title": "The three parts",
+      "titleZh": "三部分",
+      "description": "The host's five colours, the theme's five named colours, and the value written out. Each swatch is a label around a real radio, so clicking it picks that colour and the keyboard can reach it too. The preview chip shows the colour that is chosen.",
+      "descriptionZh": "宿主给的五个颜色、主题自己的五个命名颜色,以及写出来的值。每个色块都是包着一个真单选按钮的 label,所以点它就选中那个颜色,键盘也够得到。预览色块显示的就是当前选中的那个颜色。",
+      "markup": "<div class=\"um-color-picker-panel um-color-picker-panel--inline\">\n  <div class=\"um-color-picker-panel__panel\">\n    <div class=\"um-color-picker-panel__predefine\" role=\"group\" aria-label=\"Predefined colours\">\n      <label class=\"um-color-picker-panel__swatch\" style=\"--um-color-picker-panel-swatch: #2f6feb\">\n        <input type=\"radio\" name=\"um-color-picker-panel-predefine\" value=\"#2f6feb\" aria-label=\"Blue\" checked />\n      </label>\n      <label class=\"um-color-picker-panel__swatch\" style=\"--um-color-picker-panel-swatch: #12b886\">\n        <input type=\"radio\" name=\"um-color-picker-panel-predefine\" value=\"#12b886\" aria-label=\"Green\" />\n      </label>\n      <label class=\"um-color-picker-panel__swatch\" style=\"--um-color-picker-panel-swatch: #f59f00\">\n        <input type=\"radio\" name=\"um-color-picker-panel-predefine\" value=\"#f59f00\" aria-label=\"Amber\" />\n      </label>\n      <label class=\"um-color-picker-panel__swatch\" style=\"--um-color-picker-panel-swatch: #e03131\">\n        <input type=\"radio\" name=\"um-color-picker-panel-predefine\" value=\"#e03131\" aria-label=\"Red\" />\n      </label>\n      <label class=\"um-color-picker-panel__swatch\" style=\"--um-color-picker-panel-swatch: #7048e8\">\n        <input type=\"radio\" name=\"um-color-picker-panel-predefine\" value=\"#7048e8\" aria-label=\"Violet\" />\n      </label>\n    </div>\n    <div class=\"um-color-picker-panel__hue\" role=\"group\" aria-label=\"Theme colour\">\n      <label class=\"um-color-picker-panel__hue-swatch\">\n        <input type=\"radio\" name=\"um-color-picker-panel-hue\" value=\"primary\" aria-label=\"Primary\" checked />\n      </label>\n      <label class=\"um-color-picker-panel__hue-swatch\">\n        <input type=\"radio\" name=\"um-color-picker-panel-hue\" value=\"success\" aria-label=\"Success\" />\n      </label>\n      <label class=\"um-color-picker-panel__hue-swatch\">\n        <input type=\"radio\" name=\"um-color-picker-panel-hue\" value=\"warning\" aria-label=\"Warning\" />\n      </label>\n      <label class=\"um-color-picker-panel__hue-swatch\">\n        <input type=\"radio\" name=\"um-color-picker-panel-hue\" value=\"danger\" aria-label=\"Danger\" />\n      </label>\n      <label class=\"um-color-picker-panel__hue-swatch\">\n        <input type=\"radio\" name=\"um-color-picker-panel-hue\" value=\"info\" aria-label=\"Info\" />\n      </label>\n    </div>\n    <div class=\"um-color-picker-panel__value\">\n      <input class=\"um-color-picker-panel__input\" type=\"text\" value=\"#2f6feb\" maxlength=\"7\" spellcheck=\"false\" aria-label=\"Hexadecimal value\" />\n      <span class=\"um-color-picker-panel__preview\" style=\"--um-color-picker-panel-swatch: #2f6feb\"></span>\n    </div>\n  </div>\n</div>"
+    },
+    {
+      "id": "popover",
+      "title": "Popover",
+      "titleZh": "浮层",
+      "description": "The same panel raised above the page: the overlay surface with a shadow. Only the modifier class changes; the markup is the same.",
+      "descriptionZh": "同一块面板浮在页面之上:用浮层的底色,再加一道影子。变的只有那个修饰类,标记是同一份。",
+      "markup": "<div class=\"um-color-picker-panel um-color-picker-panel--popover\">\n  <div class=\"um-color-picker-panel__panel\">\n    <div class=\"um-color-picker-panel__predefine\" role=\"group\" aria-label=\"Predefined colours\">\n      <label class=\"um-color-picker-panel__swatch\" style=\"--um-color-picker-panel-swatch: #e03131\">\n        <input type=\"radio\" name=\"um-color-picker-panel-predefine-popover\" value=\"#e03131\" aria-label=\"Red\" checked />\n      </label>\n      <label class=\"um-color-picker-panel__swatch\" style=\"--um-color-picker-panel-swatch: #f59f00\">\n        <input type=\"radio\" name=\"um-color-picker-panel-predefine-popover\" value=\"#f59f00\" aria-label=\"Amber\" />\n      </label>\n      <label class=\"um-color-picker-panel__swatch\" style=\"--um-color-picker-panel-swatch: #12b886\">\n        <input type=\"radio\" name=\"um-color-picker-panel-predefine-popover\" value=\"#12b886\" aria-label=\"Green\" />\n      </label>\n    </div>\n    <div class=\"um-color-picker-panel__hue\" role=\"group\" aria-label=\"Theme colour\">\n      <label class=\"um-color-picker-panel__hue-swatch\">\n        <input type=\"radio\" name=\"um-color-picker-panel-hue-popover\" value=\"primary\" aria-label=\"Primary\" />\n      </label>\n      <label class=\"um-color-picker-panel__hue-swatch\">\n        <input type=\"radio\" name=\"um-color-picker-panel-hue-popover\" value=\"success\" aria-label=\"Success\" />\n      </label>\n      <label class=\"um-color-picker-panel__hue-swatch\">\n        <input type=\"radio\" name=\"um-color-picker-panel-hue-popover\" value=\"warning\" aria-label=\"Warning\" checked />\n      </label>\n      <label class=\"um-color-picker-panel__hue-swatch\">\n        <input type=\"radio\" name=\"um-color-picker-panel-hue-popover\" value=\"danger\" aria-label=\"Danger\" />\n      </label>\n      <label class=\"um-color-picker-panel__hue-swatch\">\n        <input type=\"radio\" name=\"um-color-picker-panel-hue-popover\" value=\"info\" aria-label=\"Info\" />\n      </label>\n    </div>\n    <div class=\"um-color-picker-panel__value\">\n      <input class=\"um-color-picker-panel__input\" type=\"text\" value=\"#e03131\" maxlength=\"7\" spellcheck=\"false\" aria-label=\"Hexadecimal value\" />\n      <span class=\"um-color-picker-panel__preview\" style=\"--um-color-picker-panel-swatch: #e03131\"></span>\n    </div>\n  </div>\n</div>"
+    },
+    {
+      "id": "sizes",
+      "title": "Sizes",
+      "titleZh": "尺寸",
+      "description": "The same panel small and large. The swatches, the value field and the type all follow the size; only the modifier class changes.",
+      "descriptionZh": "同一块面板,小一号和大一号。色块、颜色值字段和字号都跟着尺寸走;变的只有那个修饰类。",
+      "markup": "<div class=\"um-color-picker-panel um-color-picker-panel--sm\">\n  <div class=\"um-color-picker-panel__panel\">\n    <div class=\"um-color-picker-panel__predefine\" role=\"group\" aria-label=\"Predefined colours\">\n      <label class=\"um-color-picker-panel__swatch\" style=\"--um-color-picker-panel-swatch: #2f6feb\">\n        <input type=\"radio\" name=\"um-color-picker-panel-predefine-sm\" value=\"#2f6feb\" aria-label=\"Blue\" checked />\n      </label>\n      <label class=\"um-color-picker-panel__swatch\" style=\"--um-color-picker-panel-swatch: #7048e8\">\n        <input type=\"radio\" name=\"um-color-picker-panel-predefine-sm\" value=\"#7048e8\" aria-label=\"Violet\" />\n      </label>\n    </div>\n    <div class=\"um-color-picker-panel__value\">\n      <input class=\"um-color-picker-panel__input\" type=\"text\" value=\"#2f6feb\" maxlength=\"7\" spellcheck=\"false\" aria-label=\"Hexadecimal value\" />\n      <span class=\"um-color-picker-panel__preview\" style=\"--um-color-picker-panel-swatch: #2f6feb\"></span>\n    </div>\n  </div>\n</div>\n<div class=\"um-color-picker-panel um-color-picker-panel--lg\">\n  <div class=\"um-color-picker-panel__panel\">\n    <div class=\"um-color-picker-panel__predefine\" role=\"group\" aria-label=\"Predefined colours\">\n      <label class=\"um-color-picker-panel__swatch\" style=\"--um-color-picker-panel-swatch: #2f6feb\">\n        <input type=\"radio\" name=\"um-color-picker-panel-predefine-lg\" value=\"#2f6feb\" aria-label=\"Blue\" checked />\n      </label>\n      <label class=\"um-color-picker-panel__swatch\" style=\"--um-color-picker-panel-swatch: #7048e8\">\n        <input type=\"radio\" name=\"um-color-picker-panel-predefine-lg\" value=\"#7048e8\" aria-label=\"Violet\" />\n      </label>\n    </div>\n    <div class=\"um-color-picker-panel__value\">\n      <input class=\"um-color-picker-panel__input\" type=\"text\" value=\"#2f6feb\" maxlength=\"7\" spellcheck=\"false\" aria-label=\"Hexadecimal value\" />\n      <span class=\"um-color-picker-panel__preview\" style=\"--um-color-picker-panel-swatch: #2f6feb\"></span>\n    </div>\n  </div>\n</div>"
+    }
+  ],
+  "notes": "The colours of the predefine row are data, not theme values: they arrive as a custom property the host sets, so the library itself carries no colour literal — a colour picker without the caller's colours is not a colour picker. The preview chip is the same: the host writes the chosen colour into it, because the library has no colour maths and cannot follow a radio by itself. The theme row is not a colour wheel: it is the theme's own named colours, each painted with its own role in its graphic form, because a swatch's colour is the meaning and no text speaks for it.",
+  "notesZh": "预设颜色那一排里的颜色是数据,不是主题的值:它们由宿主用一个自定义属性送进来,所以库里自己一个颜色字面量都没有 —— 没有宿主颜色的取色器不是取色器。预览色块也是一样:宿主把选中的颜色写进去,因为库里没有颜色运算,没法自己跟着单选按钮走。主题色那一排不是色轮:它是主题自己的几个命名颜色,每一个用对应的角色上色,而且用的是 graphic 形态,因为色块的颜色就是它的意思,没有文字替它说话。"
+}

@@ -1,0 +1,74 @@
+{
+  "id": "tree",
+  "name": "Tree",
+  "nameZh": "树",
+  "category": "data",
+  "element": "div",
+  "summary": "Things inside things. Every branch is a disclosure, so the browser opens and closes it and the state survives a reload.",
+  "summaryZh": "东西里面还有东西。每一层分支都是一个展开控件,所以开关由浏览器负责,展开的状态也能扛过一次刷新。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-tree",
+    "modifier": "um-tree--",
+    "part": "um-tree__"
+  },
+  "variants": [
+    { "id": "plain", "name": "Plain", "nameZh": "无辅助线", "state": "ghost", "note": "The levels are held apart by indentation alone. The base class on its own is this, and the modifier paints the same thing so the class list can name it." },
+    { "id": "lines", "name": "With guides", "nameZh": "带辅助线", "state": "outline", "note": "A rule runs down the side of each level, so the depth of a branch can be seen rather than counted." }
+  ],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "The label takes the caption size." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default size. The base class is already this size, so it needs no modifier." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "The label takes the title size." }
+  ],
+  "states": [
+    { "id": "open", "name": "Open", "nameZh": "展开", "selector": "[open]", "native": true, "note": "The branch is open. The browser announces it, and the arrow turns over." },
+    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the label, because the label is what the reader is on." }
+  ],
+  "parts": [
+    { "id": "node", "name": "Node", "nameZh": "节点", "note": "One branch. It is a <details>, so it is the element that knows whether it is open." },
+    { "id": "label", "name": "Label", "nameZh": "标签", "note": "The summary. It is the element the browser turns into a disclosure button, so it carries the focus and the keyboard." },
+    { "id": "text", "name": "Text", "nameZh": "文字", "note": "The name of the thing the branch holds." },
+    { "id": "arrow", "name": "Arrow", "nameZh": "箭头", "note": "The mark that says the branch holds something. It is drawn from two borders, so it carries no text of its own." },
+    { "id": "children", "name": "Children", "nameZh": "子节点", "note": "The level below. It holds the branches inside this one, each of which is a node of its own." }
+  ],
+  "props": [
+    { "name": "open", "type": "boolean", "default": "false", "description": "Opens the branch. It is the native open attribute on the details, so the browser keeps the state.", "descriptionZh": "展开这一支。它是 details 上的原生 open 属性,所以状态由浏览器记着。" },
+    { "name": "variant", "type": "enum", "values": ["plain", "lines"], "default": "plain", "description": "How the levels are held apart. The plain run is the base class on its own; the guided run adds um-tree--lines.", "descriptionZh": "各层之间怎么区分。无辅助线是只写基类;带辅助线再加上 um-tree--lines。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The size of the label text.", "descriptionZh": "标签文字的尺寸。" },
+    { "name": "label", "type": "string", "description": "The name of the thing the branch holds. A branch with no text needs an accessible name of its own.", "descriptionZh": "这一支里那个东西的名字。没有文字的分支也得有自己的可访问名称。" }
+  ],
+  "slots": [
+    { "name": "children", "description": "The level below: one node per branch inside this one.", "descriptionZh": "下面那一层:这一支里的每个分支放一个节点。" }
+  ],
+  "events": [
+    { "name": "toggle", "description": "Fires when a branch opens or closes. It is the browser's own event on the details — the library installs no listener.", "descriptionZh": "某一支展开或收起时触发。这是 details 上的浏览器原生事件 —— 库没有安装任何监听器。" }
+  ],
+  "a11y": {
+    "role": "group",
+    "keyboard": ["Tab", "Enter", "Space"],
+    "notes": "Every branch is a real <details> and every label is a real <summary>, so the browser announces each label as a disclosure button and says whether its branch is open. The keyboard is the browser's own: Tab reaches the labels, Enter or Space opens the branch. The arrow is drawn from borders, so it carries no text — the state is announced by the browser, not by the mark. The tree role is not used on purpose: it promises tree items and arrow-key navigation, and a tree of disclosures does not deliver either.",
+    "notesZh": "每一支都是真正的 <details>,每一个标签都是真正的 <summary>,所以浏览器会把每个标签播报成展开按钮,并说明它那一支是开着还是关着。键盘也是浏览器自己的:Tab 走到标签上,Enter 或空格展开那一支。那个箭头是边框画出来的,所以它自己不带文字 —— 状态是浏览器播报的,不是那个记号播报的。这里刻意不用 tree 这个角色:它承诺的是树节点和方向键导航,而一棵由展开控件组成的树两者都给不了。"
+  },
+  "examples": [
+    {
+      "id": "plain",
+      "title": "A tree",
+      "titleZh": "一棵树",
+      "description": "Three levels. The levels are held apart by indentation alone, and the arrow says which branch holds something.",
+      "descriptionZh": "三层。各层只靠缩进区分,那个箭头说明哪一支里还有东西。",
+      "markup": "<div class=\"um-tree um-tree--plain\" role=\"group\" aria-label=\"Project files\">\n  <details class=\"um-tree__node\" open>\n    <summary class=\"um-tree__label\">\n      <span class=\"um-tree__arrow\" aria-hidden=\"true\"></span>\n      <span class=\"um-tree__text\">src</span>\n    </summary>\n    <div class=\"um-tree__children\">\n      <details class=\"um-tree__node\" open>\n        <summary class=\"um-tree__label\">\n          <span class=\"um-tree__arrow\" aria-hidden=\"true\"></span>\n          <span class=\"um-tree__text\">components</span>\n        </summary>\n        <div class=\"um-tree__children\">\n          <details class=\"um-tree__node\">\n            <summary class=\"um-tree__label\">\n              <span class=\"um-tree__arrow\" aria-hidden=\"true\"></span>\n              <span class=\"um-tree__text\">button.css</span>\n            </summary>\n          </details>\n          <details class=\"um-tree__node\">\n            <summary class=\"um-tree__label\">\n              <span class=\"um-tree__arrow\" aria-hidden=\"true\"></span>\n              <span class=\"um-tree__text\">badge.css</span>\n            </summary>\n          </details>\n        </div>\n      </details>\n      <details class=\"um-tree__node\">\n        <summary class=\"um-tree__label\">\n          <span class=\"um-tree__arrow\" aria-hidden=\"true\"></span>\n          <span class=\"um-tree__text\">themes</span>\n        </summary>\n        <div class=\"um-tree__children\"></div>\n      </details>\n    </div>\n  </details>\n</div>"
+    },
+    {
+      "id": "lines",
+      "title": "With guides",
+      "titleZh": "带辅助线",
+      "description": "A rule runs down the side of each level, so the depth of a branch can be seen rather than counted. Only the modifier class changes; the markup is the same.",
+      "descriptionZh": "每一层旁边都有一道竖线,所以一支有多深是看得见的,不用数。只有那个修饰类变了,标记是同一份。",
+      "markup": "<div class=\"um-tree um-tree--lines\" role=\"group\" aria-label=\"Project files\">\n  <details class=\"um-tree__node\" open>\n    <summary class=\"um-tree__label\">\n      <span class=\"um-tree__arrow\" aria-hidden=\"true\"></span>\n      <span class=\"um-tree__text\">src</span>\n    </summary>\n    <div class=\"um-tree__children\">\n      <details class=\"um-tree__node\" open>\n        <summary class=\"um-tree__label\">\n          <span class=\"um-tree__arrow\" aria-hidden=\"true\"></span>\n          <span class=\"um-tree__text\">components</span>\n        </summary>\n        <div class=\"um-tree__children\">\n          <details class=\"um-tree__node\">\n            <summary class=\"um-tree__label\">\n              <span class=\"um-tree__arrow\" aria-hidden=\"true\"></span>\n              <span class=\"um-tree__text\">button.css</span>\n            </summary>\n          </details>\n          <details class=\"um-tree__node\">\n            <summary class=\"um-tree__label\">\n              <span class=\"um-tree__arrow\" aria-hidden=\"true\"></span>\n              <span class=\"um-tree__text\">badge.css</span>\n            </summary>\n          </details>\n        </div>\n      </details>\n      <details class=\"um-tree__node\">\n        <summary class=\"um-tree__label\">\n          <span class=\"um-tree__arrow\" aria-hidden=\"true\"></span>\n          <span class=\"um-tree__text\">themes</span>\n        </summary>\n        <div class=\"um-tree__children\"></div>\n      </details>\n    </div>\n  </details>\n</div>"
+    }
+  ],
+  "notes": "A branch is a disclosure and not a menu: the browser owns the open state, so the branch stays open across a reload and the reader gets the collapsed and expanded announcement for free. The level below is indented rather than drawn over the label, so a long name has the whole width of the level to itself. The arrow is drawn from two borders, so it takes the label's own colour and a branch that is dimmed dims with it.",
+  "notesZh": "一支是一个展开控件,不是一个菜单:开关状态归浏览器管,所以这一支在刷新之后还是开着的,读者也能免费得到「已折叠」「被展开」的播报。下面那一层是靠缩进让出来的,不是盖在标签上面的,所以一个很长的名字有整层的宽度可用。那个箭头是用两条边框画出来的,所以它跟着标签自己的颜色走,变暗的分支也会跟着变暗。"
+}

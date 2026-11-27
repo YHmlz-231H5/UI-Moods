@@ -1,0 +1,50 @@
+/* ============================================================================
+   Text
+   ========================================================================== */
+
+/* The inline text atom: a colour and a size, and nothing else. The blocks a
+   page is written in are the typography component; this is the coloured run
+   inside one of them.
+
+   The base class is the neutral text, so a plain um-text is already the
+   regular colour — the modifier for it says the same thing out loud, for the
+   host who would rather be explicit. */
+.um-text {
+  color: var(--um-text-regular);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+  line-height: 1.5;
+  /* The component may be asked for as a paragraph, and the browser's own
+     paragraph margin would then be part of the text component's box: a
+     margin the reader sees as the text's, in a size the component never
+     chose. The margin belongs to whatever the host writes around the text. */
+  margin: 0;
+}
+
+/* The colour types. Each one takes the role that is guaranteed to read on the
+   surface it lands on: the -text form of a brand colour, never the fill form,
+   because a fill colour used as writing can sit under 4.5:1 on a page. */
+.um-text--regular { color: var(--um-text-regular); }
+.um-text--primary { color: var(--um-color-primary-text); }
+.um-text--secondary { color: var(--um-text-secondary); }
+.um-text--placeholder { color: var(--um-text-placeholder); }
+.um-text--success { color: var(--um-color-success-text); }
+.um-text--warning { color: var(--um-color-warning-text); }
+.um-text--danger { color: var(--um-color-danger-text); }
+.um-text--info { color: var(--um-color-info-text); }
+
+/* The three sizes. The middle one is the base class on its own. */
+.um-text--sm { font-size: var(--um-font-size-caption); }
+.um-text--lg { font-size: var(--um-font-size-title); }
+
+/* Truncation. The clip needs a box that is narrower than the text, and the
+   width of that box is the host's — the class clips whatever box it is given
+   and never decides how long a line may be. */
+.um-text--truncate {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: bottom;
+}

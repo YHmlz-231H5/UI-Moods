@@ -1,0 +1,75 @@
+{
+  "id": "watermark",
+  "name": "Watermark",
+  "nameZh": "水印",
+  "category": "other",
+  "element": "div",
+  "summary": "A layer of the same word, repeated across a box, to say that what is underneath is a copy. The word is real text in the markup, tiled by the browser rather than baked into a picture.",
+  "summaryZh": "同一句话重复铺满一整块,说明底下的东西是副本。这句话是标记里真正的文字,由浏览器平铺,不是烤进图片里的。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-watermark",
+    "modifier": "um-watermark--",
+    "part": "um-watermark__"
+  },
+  "variants": [
+    { "id": "diagonal", "name": "Diagonal", "nameZh": "倾斜", "note": "The tiles lean, which is the watermark everyone expects. The base class on its own is already this." },
+    { "id": "upright", "name": "Upright", "nameZh": "平铺", "note": "The tiles stand upright, for a document that is read rather than glanced at." }
+  ],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "A tight lattice: the word is smaller and the tiles sit closer together, so the box needs more of them to be covered." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default lattice needs no modifier class." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "A loose lattice: the word is larger and the tiles sit further apart, so a few of them cover the box." }
+  ],
+  "states": [],
+  "parts": [
+    { "id": "layer", "name": "Layer", "nameZh": "水印层", "note": "The layer the tiles sit in. It is hidden from the reader and takes no pointer, so the content underneath stays usable." },
+    { "id": "text", "name": "Tile", "nameZh": "水印文字", "note": "One word of the watermark. The layer repeats as many of them as the box needs." },
+    { "id": "content", "name": "Content", "nameZh": "内容", "note": "What the watermark is painted over. It sits above the layer, so the word never stands between the reader and the text." }
+  ],
+  "props": [
+    { "name": "text", "type": "string", "default": "Confidential", "description": "The word the watermark repeats.", "descriptionZh": "水印重复的那句话。" },
+    { "name": "rows", "type": "number", "default": "3", "description": "How many rows of tiles to write.", "descriptionZh": "写几行水印。" },
+    { "name": "columns", "type": "number", "default": "3", "description": "How many tiles to write in each row.", "descriptionZh": "每行写几个水印。" },
+    { "name": "variant", "type": "enum", "values": ["diagonal", "upright"], "default": "diagonal", "description": "Whether the tiles lean or stand upright.", "descriptionZh": "水印是倾斜的还是平铺的。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "How far apart the tiles sit.", "descriptionZh": "水印之间隔多远。" }
+  ],
+  "slots": [
+    { "name": "default", "description": "The content the watermark is painted over.", "descriptionZh": "水印盖在上面的内容。" }
+  ],
+  "events": [],
+  "a11y": {
+    "keyboard": [],
+    "notes": "The watermark is decoration and says nothing the content does not already say, so the layer is hidden from the reader with aria-hidden and takes no pointer events. The word is real text rather than a picture, so it is still selectable by a reader who wants to copy it — and it can be translated, which a baked-in picture could not be. Put the word in the content too, if the reader has to know it: a watermark nobody can read is not a notice.",
+    "notesZh": "水印是装饰,并不比内容多说一个字,所以水印层用 aria-hidden 藏起来,也不吃指针事件。这句话是真的文字,不是图片,所以想复制的读者仍然可以选它 —— 而且它可以被翻译,烤进图片里的字不行。如果读者必须知道这句话,也把它写进内容里:没人看得见的水印不是通知。"
+  },
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Basic",
+      "titleZh": "基础用法",
+      "description": "A word repeated across a box. The tiles are written out in the markup and the layer flows them into a lattice; the content sits above them.",
+      "descriptionZh": "一句话铺满一整块。水印在标记里一个个写出来,水印层把它们排成格子;内容压在它们上面。",
+      "markup": "<div class=\"um-watermark\">\n  <div class=\"um-watermark__layer\" aria-hidden=\"true\">\n    <span class=\"um-watermark__text\">Confidential</span>\n    <span class=\"um-watermark__text\">Confidential</span>\n    <span class=\"um-watermark__text\">Confidential</span>\n    <span class=\"um-watermark__text\">Confidential</span>\n    <span class=\"um-watermark__text\">Confidential</span>\n    <span class=\"um-watermark__text\">Confidential</span>\n  </div>\n  <div class=\"um-watermark__content\">\n    <p>Quarterly figures for the northern region. Every page of this export carries the word above it, so a page that leaves the building is still marked as one.</p>\n  </div>\n</div>"
+    },
+    {
+      "id": "variants",
+      "title": "Variants",
+      "titleZh": "变体",
+      "description": "The tiles lean or they stand upright. The leaning one is the base class on its own, because the base class is already the leaning lattice.",
+      "descriptionZh": "水印要么倾斜,要么平铺。倾斜的是基础类,因为基础类本来就是倾斜的。",
+      "markup": "<div class=\"um-watermark um-watermark--diagonal\">\n  <div class=\"um-watermark__layer\" aria-hidden=\"true\">\n    <span class=\"um-watermark__text\">Draft</span>\n    <span class=\"um-watermark__text\">Draft</span>\n    <span class=\"um-watermark__text\">Draft</span>\n    <span class=\"um-watermark__text\">Draft</span>\n  </div>\n  <div class=\"um-watermark__content\">\n    <p>The tiles lean, which is the watermark everyone expects.</p>\n  </div>\n</div>\n<div class=\"um-watermark um-watermark--upright\">\n  <div class=\"um-watermark__layer\" aria-hidden=\"true\">\n    <span class=\"um-watermark__text\">Draft</span>\n    <span class=\"um-watermark__text\">Draft</span>\n    <span class=\"um-watermark__text\">Draft</span>\n    <span class=\"um-watermark__text\">Draft</span>\n  </div>\n  <div class=\"um-watermark__content\">\n    <p>The tiles stand upright, for a document that is read rather than glanced at.</p>\n  </div>\n</div>"
+    },
+    {
+      "id": "sizes",
+      "title": "Sizes",
+      "titleZh": "尺寸",
+      "description": "Three lattices. The middle one is the base class on its own. The size is the distance between the tiles and the size of the word, so a tighter lattice needs more of them to cover the same box.",
+      "descriptionZh": "三种间距。中间那个只写基础类。尺寸是水印之间的距离,所以排得越密,盖住同一块地方就越需要多写几个。",
+      "markup": "<div class=\"um-watermark um-watermark--sm\">\n  <div class=\"um-watermark__layer\" aria-hidden=\"true\">\n    <span class=\"um-watermark__text\">Sample</span>\n    <span class=\"um-watermark__text\">Sample</span>\n    <span class=\"um-watermark__text\">Sample</span>\n    <span class=\"um-watermark__text\">Sample</span>\n    <span class=\"um-watermark__text\">Sample</span>\n    <span class=\"um-watermark__text\">Sample</span>\n    <span class=\"um-watermark__text\">Sample</span>\n    <span class=\"um-watermark__text\">Sample</span>\n    <span class=\"um-watermark__text\">Sample</span>\n  </div>\n  <div class=\"um-watermark__content\">\n    <p>A tight lattice.</p>\n  </div>\n</div>\n<div class=\"um-watermark\">\n  <div class=\"um-watermark__layer\" aria-hidden=\"true\">\n    <span class=\"um-watermark__text\">Sample</span>\n    <span class=\"um-watermark__text\">Sample</span>\n    <span class=\"um-watermark__text\">Sample</span>\n    <span class=\"um-watermark__text\">Sample</span>\n    <span class=\"um-watermark__text\">Sample</span>\n    <span class=\"um-watermark__text\">Sample</span>\n  </div>\n  <div class=\"um-watermark__content\">\n    <p>The default lattice.</p>\n  </div>\n</div>\n<div class=\"um-watermark um-watermark--lg\">\n  <div class=\"um-watermark__layer\" aria-hidden=\"true\">\n    <span class=\"um-watermark__text\">Sample</span>\n    <span class=\"um-watermark__text\">Sample</span>\n    <span class=\"um-watermark__text\">Sample</span>\n    <span class=\"um-watermark__text\">Sample</span>\n  </div>\n  <div class=\"um-watermark__content\">\n    <p>A loose lattice.</p>\n  </div>\n</div>"
+    }
+  ],
+  "notes": "The tile is real text, and the repetition is in the markup: a gradient paints bands and not glyphs, and a word baked into an SVG would need a font the library does not ship — and could not be translated. So the host writes the tiles out and the layer flows them into a lattice, which is the same thing a picture would have done, except that the word stays a word. The word is painted in the placeholder role, which is the only role the contract has for text that is deliberately faint; a role of its own would be better, and is worth adding to the contract.",
+  "notesZh": "水印是真的文字,重复这件事写在标记里:渐变画出来的是条纹,不是字形,而把一句话烤进 SVG 就得带上库里并不存在的字体 —— 而且那句话也没法翻译。所以由使用方把水印一个个写出来,水印层把它们排成格子,和图片干的是同一件事,区别只在于这句话仍然是话。这句话用的是 placeholder 那个角色 —— 契约里唯一为「故意画得很淡的文字」准备的角色;给它一个自己的角色会更好,值得加进契约里。"
+}

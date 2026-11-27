@@ -1,0 +1,68 @@
+{
+  "id": "splitter",
+  "name": "Splitter",
+  "nameZh": "分割面板",
+  "category": "basic",
+  "element": "div",
+  "summary": "Two panes with a divider between them. The divider is a line with a grip on it, and the grip says which way the thing can be moved. Moving it is the host's job: the library draws the shape and stops there.",
+  "summaryZh": "两块内容,中间一道分隔线。分隔线是一道线加一个把手,把手指出来的是「这东西可以往哪边挪」。挪动是宿主的事:库把样子画出来就停在这儿。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-splitter",
+    "modifier": "um-splitter--",
+    "part": "um-splitter__"
+  },
+  "variants": [
+    { "id": "horizontal", "name": "Horizontal", "nameZh": "横向", "note": "The panes stand side by side and the divider runs down between them. The base class on its own is this layout, and the modifier paints the same thing so the class list can name it." },
+    { "id": "vertical", "name": "Vertical", "nameZh": "纵向", "note": "The panes are stacked one above the other and the divider runs across between them." }
+  ],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "A short grip." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default size. The base class is already this size, so it needs no modifier." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "A long grip, easier to find." }
+  ],
+  "states": [
+    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the bar. The bar is the element that can be reached with the keyboard, and it is wide enough to show the ring." }
+  ],
+  "parts": [
+    { "id": "panel", "name": "Panel", "nameZh": "面板", "note": "One of the two panes. It takes an equal share of what is left and is allowed to shrink, so a long name inside it wraps instead of pushing the divider out of the box." },
+    { "id": "bar", "name": "Bar", "nameZh": "分隔条", "note": "The divider. It is a strip to aim at rather than the line itself, so the divider can stay a hairline while the thing to grab stays wide enough to hit. The line is drawn down its middle." },
+    { "id": "handle", "name": "Handle", "nameZh": "把手", "note": "The grip on the bar. It is a shape with no label of its own, so it takes the muted-shape role, and it comes forward on hover." }
+  ],
+  "props": [
+    { "name": "layout", "type": "enum", "values": ["horizontal", "vertical"], "default": "horizontal", "description": "How the two panes are laid out. The horizontal run is the base class on its own; the vertical run adds um-splitter--vertical.", "descriptionZh": "两块面板怎么排。横排是只写基础类;竖排再加上 um-splitter--vertical。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "How long the grip is.", "descriptionZh": "把手有多长。" }
+  ],
+  "slots": [
+    { "name": "start", "description": "The first pane: the one on the left in the horizontal run and the one on top in the vertical one.", "descriptionZh": "第一块面板:横排时在左边,竖排时在上边。" },
+    { "name": "end", "description": "The second pane: the one on the right in the horizontal run and the one at the bottom in the vertical one.", "descriptionZh": "第二块面板:横排时在右边,竖排时在下边。" }
+  ],
+  "events": [],
+  "a11y": {
+    "role": "separator",
+    "keyboard": ["Tab"],
+    "notes": "The divider is a separator, and it says which way it runs through aria-orientation. It is reachable with Tab, because a divider the reader cannot reach is a divider the reader cannot find. The library does not move it: there is no JavaScript here, so the size of the two panes is fixed by the markup, and a host that wants to drag it has to set aria-valuenow, aria-valuemin and aria-valuemax on the bar as well, so that the position is announced rather than only seen. The grip is a shape with no label, so it is hidden from the reader; the bar's own role says what it is.",
+    "notesZh": "分隔条是一个 separator,它靠 aria-orientation 说明自己横着还是竖着。它能被 Tab 走到 —— 走不到的分隔条就是读者找不到的分隔条。库不去挪它:这里没有 JavaScript,所以两块面板的大小是标记定死的;要靠拖动的宿主还得在分隔条上写上 aria-valuenow、aria-valuemin 和 aria-valuemax,好让这个位置被播报出来,而不是只被看见。那个把手是一个没有标签的形状,所以对读屏藏起来;分隔条自己的角色说明了它是什么。"
+  },
+  "examples": [
+    {
+      "id": "horizontal",
+      "title": "Side by side",
+      "titleZh": "左右两块",
+      "description": "Two panes and a divider between them. The divider is a hairline with a grip on it, and the grip is what says the thing between the panes can be moved. Only the modifier class changes the layout.",
+      "descriptionZh": "两块面板,中间一道分隔线。分隔线是一根细线加一个把手,而把手说的就是「这两块中间的东西能动」。换布局只改那个修饰类。",
+      "markup": "<div class=\"um-splitter um-splitter--horizontal\">\n  <div class=\"um-splitter__panel\">\n    <p>Filters</p>\n    <p>Everything filed under Inbox.</p>\n  </div>\n  <div class=\"um-splitter__bar\" role=\"separator\" aria-orientation=\"vertical\" tabindex=\"0\">\n    <span class=\"um-splitter__handle\" aria-hidden=\"true\"></span>\n  </div>\n  <div class=\"um-splitter__panel\">\n    <p>Results</p>\n    <p>What the filters left.</p>\n  </div>\n</div>"
+    },
+    {
+      "id": "vertical",
+      "title": "Stacked",
+      "titleZh": "上下两块",
+      "description": "The same two panes stacked, with the divider running across between them. The grip turns on its side with the divider.",
+      "descriptionZh": "同样的两块面板上下排着,分隔线横在中间。把手也跟着转了方向。",
+      "markup": "<div class=\"um-splitter um-splitter--vertical\">\n  <div class=\"um-splitter__panel\">\n    <p>Filters</p>\n  </div>\n  <div class=\"um-splitter__bar\" role=\"separator\" aria-orientation=\"horizontal\" tabindex=\"0\">\n    <span class=\"um-splitter__handle\" aria-hidden=\"true\"></span>\n  </div>\n  <div class=\"um-splitter__panel\">\n    <p>Results</p>\n  </div>\n</div>"
+    }
+  ],
+  "notes": "The divider is a hairline and the thing to grab is a strip around it, not the other way round: a line one pixel wide is a line, and a line is not something a reader can aim at. The splitter owns one surface — the container's — and the panes paint nothing, so the text in a pane sits on a colour the contract has measured. The grip takes the muted-shape role rather than a border colour, because in the clay mood the border role is literally the page colour, which is a grip nobody can find.",
+  "notesZh": "分隔线是细线,能抓的是围着它的一道条,不是反过来:一像素宽的线是线,而线不是读者瞄得准的东西。分割面板只占一层表面 —— 容器那一层,两块面板什么都不画,所以面板里的字落在一个被量过的颜色上。把手用 muted 形状的角色,不用描边色,因为在 clay 那套 mood 里描边色就是页面色,那是一个谁也找不到的把手。"
+}

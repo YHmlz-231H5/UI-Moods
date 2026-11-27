@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dialog · UI Moods</title>
+  <meta name="description" content="A panel that asks the reader something, written as a &lt;dialog&gt;. It is shown the way a dialog is shown without JavaScript — open in the markup — and it is closed the way the browser closes one: the close button submits the form around it, and the form's method is dialog." />
+
+  <!-- The two files that make the whole thing work.
+       The first is the library; the second carries all thirty-two moods at
+       once, so the picker below changes an attribute instead of loading a
+       file — the switch has no network request to wait for. -->
+  <link rel="stylesheet" id="um-theme" href="../../themes/all.css" />
+  <link rel="stylesheet" href="../../components/um-components.css" />
+  <link rel="stylesheet" href="../../site/assets/site.css" />
+</head>
+<body>
+  <header class="site-header">
+      <a class="site-header__brand" href="../../index.html">UI Moods<span>Component Library</span></a>
+      <div class="site-header__spacer"></div>
+      <div class="switcher">
+        <label class="switcher__label" for="um-theme-picker">Theme</label>
+        <span class="switcher__field">
+          <select class="switcher__select" id="um-theme-picker"></select>
+        </span>
+      </div>
+    </header>
+  <div class="site-body">
+    <nav class="site-sidebar" aria-label="Components">
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Basic · 基础</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/affix.html">Affix <span class="meta">固钉</span></a></li>
+          <li><a href="../component/border.html">Border <span class="meta">边框</span></a></li>
+          <li><a href="../component/color.html">Color <span class="meta">色板</span></a></li>
+          <li><a href="../component/config-provider.html">Config Provider <span class="meta">全局配置</span></a></li>
+          <li><a href="../component/container.html">Container <span class="meta">容器</span></a></li>
+          <li><a href="../component/icon.html">Icon <span class="meta">图标</span></a></li>
+          <li><a href="../component/layout.html">Layout <span class="meta">布局</span></a></li>
+          <li><a href="../component/link.html">Link <span class="meta">链接</span></a></li>
+          <li><a href="../component/page-header.html">PageHeader <span class="meta">页头</span></a></li>
+          <li><a href="../component/scrollbar.html">Scrollbar <span class="meta">滚动条</span></a></li>
+          <li><a href="../component/space.html">Space <span class="meta">间距</span></a></li>
+          <li><a href="../component/splitter.html">Splitter <span class="meta">分割面板</span></a></li>
+          <li><a href="../component/text.html">Text <span class="meta">文本</span></a></li>
+          <li><a href="../component/typography.html">Typography <span class="meta">文字排版</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Form · 表单</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/autocomplete.html">Autocomplete <span class="meta">自动补全</span></a></li>
+          <li><a href="../component/button.html">Button <span class="meta">按钮</span></a></li>
+          <li><a href="../component/checkbox.html">Checkbox <span class="meta">复选框</span></a></li>
+          <li><a href="../component/checkbox-group.html">Checkbox Group <span class="meta">复选框组</span></a></li>
+          <li><a href="../component/color-picker.html">Color Picker <span class="meta">颜色选择器</span></a></li>
+          <li><a href="../component/color-picker-panel.html">Color Picker Panel <span class="meta">颜色选择面板</span></a></li>
+          <li><a href="../component/date-picker.html">Date Picker <span class="meta">日期选择器</span></a></li>
+          <li><a href="../component/date-picker-panel.html">Date Picker Panel <span class="meta">日期选择面板</span></a></li>
+          <li><a href="../component/date-time-picker.html">Date Time Picker <span class="meta">日期时间选择器</span></a></li>
+          <li><a href="../component/field.html">Field <span class="meta">表单项</span></a></li>
+          <li><a href="../component/input.html">Input / Textarea / Select <span class="meta">输入框 / 文本域 / 选择器</span></a></li>
+          <li><a href="../component/input-number.html">Input Number <span class="meta">数字输入框</span></a></li>
+          <li><a href="../component/input-otp.html">Input OTP <span class="meta">验证码输入</span></a></li>
+          <li><a href="../component/input-tag.html">Input Tag <span class="meta">标签输入</span></a></li>
+          <li><a href="../component/mention.html">Mention <span class="meta">提及</span></a></li>
+          <li><a href="../component/radio.html">Radio <span class="meta">单选框</span></a></li>
+          <li><a href="../component/radio-group.html">Radio Group <span class="meta">单选框组</span></a></li>
+          <li><a href="../component/rate.html">Rate <span class="meta">评分</span></a></li>
+          <li><a href="../component/slider.html">Slider <span class="meta">滑块</span></a></li>
+          <li><a href="../component/switch.html">Switch <span class="meta">开关</span></a></li>
+          <li><a href="../component/time-picker.html">Time Picker <span class="meta">时间选择器</span></a></li>
+          <li><a href="../component/time-select.html">Time Select <span class="meta">时间选择器</span></a></li>
+          <li><a href="../component/tree-select.html">Tree Select <span class="meta">树选择器</span></a></li>
+          <li><a href="../component/upload.html">Upload <span class="meta">上传</span></a></li>
+          <li><a href="../component/virtual-select.html">Virtual Select <span class="meta">虚拟列表选择器</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Data · 数据展示</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/avatar.html">Avatar <span class="meta">头像</span></a></li>
+          <li><a href="../component/badge.html">Badge <span class="meta">徽标</span></a></li>
+          <li><a href="../component/calendar.html">Calendar <span class="meta">日历</span></a></li>
+          <li><a href="../component/card.html">Card <span class="meta">卡片</span></a></li>
+          <li><a href="../component/carousel.html">Carousel <span class="meta">轮播图</span></a></li>
+          <li><a href="../component/cascader.html">Cascader <span class="meta">级联选择器</span></a></li>
+          <li><a href="../component/collapse.html">Collapse <span class="meta">折叠面板</span></a></li>
+          <li><a href="../component/descriptions.html">Descriptions <span class="meta">描述列表</span></a></li>
+          <li><a href="../component/empty.html">Empty <span class="meta">空状态</span></a></li>
+          <li><a href="../component/image.html">Image <span class="meta">图片</span></a></li>
+          <li><a href="../component/infinite-scroll.html">Infinite Scroll <span class="meta">无限滚动</span></a></li>
+          <li><a href="../component/progress.html">Progress <span class="meta">进度条</span></a></li>
+          <li><a href="../component/result.html">Result <span class="meta">结果</span></a></li>
+          <li><a href="../component/segmented.html">Segmented <span class="meta">分段控制器</span></a></li>
+          <li><a href="../component/skeleton.html">Skeleton <span class="meta">骨架屏</span></a></li>
+          <li><a href="../component/statistic.html">Statistic <span class="meta">统计数值</span></a></li>
+          <li><a href="../component/table.html">Table <span class="meta">表格</span></a></li>
+          <li><a href="../component/tag.html">Tag <span class="meta">标签</span></a></li>
+          <li><a href="../component/timeline.html">Timeline <span class="meta">时间线</span></a></li>
+          <li><a href="../component/tour.html">Tour <span class="meta">引导</span></a></li>
+          <li><a href="../component/transfer.html">Transfer <span class="meta">穿梭框</span></a></li>
+          <li><a href="../component/tree.html">Tree <span class="meta">树</span></a></li>
+          <li><a href="../component/virtual-table.html">Virtualized Table <span class="meta">虚拟表格</span></a></li>
+          <li><a href="../component/virtual-tree.html">Virtualized Tree <span class="meta">虚拟树</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Navigation · 导航</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/anchor.html">Anchor <span class="meta">锚点</span></a></li>
+          <li><a href="../component/backtop.html">Backtop <span class="meta">回到顶部</span></a></li>
+          <li><a href="../component/breadcrumb.html">Breadcrumb <span class="meta">面包屑</span></a></li>
+          <li><a href="../component/dropdown.html">Dropdown <span class="meta">下拉菜单</span></a></li>
+          <li><a href="../component/menu.html">Menu <span class="meta">菜单</span></a></li>
+          <li><a href="../component/pagination.html">Pagination <span class="meta">分页</span></a></li>
+          <li><a href="../component/steps.html">Steps <span class="meta">步骤条</span></a></li>
+          <li><a href="../component/tabs.html">Tabs <span class="meta">标签页</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Feedback · 反馈</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/alert.html">Alert <span class="meta">警告</span></a></li>
+          <li><a href="" aria-current="page">Dialog <span class="meta">对话框</span></a></li>
+          <li><a href="../component/drawer.html">Drawer <span class="meta">抽屉</span></a></li>
+          <li><a href="../component/loading.html">Loading <span class="meta">加载中</span></a></li>
+          <li><a href="../component/message.html">Message <span class="meta">消息</span></a></li>
+          <li><a href="../component/message-box.html">Message Box <span class="meta">消息框</span></a></li>
+          <li><a href="../component/notification.html">Notification <span class="meta">通知</span></a></li>
+          <li><a href="../component/popconfirm.html">Popconfirm <span class="meta">气泡确认</span></a></li>
+          <li><a href="../component/popover.html">Popover <span class="meta">气泡卡片</span></a></li>
+          <li><a href="../component/tooltip.html">Tooltip <span class="meta">文字提示</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Others · 其他</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/divider.html">Divider <span class="meta">分割线</span></a></li>
+          <li><a href="../component/watermark.html">Watermark <span class="meta">水印</span></a></li>
+        </ul>
+      </div>
+    </nav>
+    <main class="site-main">
+      <h1>Dialog <span class="meta">对话框</span></h1>
+      <p class="lede">A panel that asks the reader something, written as a &lt;dialog&gt;. It is shown the way a dialog is shown without JavaScript — open in the markup — and it is closed the way the browser closes one: the close button submits the form around it, and the form's method is dialog.</p>
+      <p class="meta">
+        <span class="tag">dialog, form, h2, div, button</span>
+        <span class="tag">feedback</span>
+        <span class="tag">since 1.1.0</span>
+      </p>
+      <div class="note">The close button is the browser's own, not a handler of the library's. A &lt;form method=&quot;dialog&quot;&gt; inside the dialog turns a submit into a close, so the button needs no listener and the component needs no JavaScript at all — which also means the button keeps working when the host opens the panel with showModal(). What the library does not paint is the mask: the backdrop of a modal dialog belongs to the browser, and the static form has none, because there is no role in the contract for a scrim and a second translucent layer over the page is a colour no role names.</div>
+
+      <h2>Examples</h2>
+<div class="example">
+        <div class="example__title">Basic · 基础用法</div>
+        <div class="example__desc">A panel with a title, a body and two actions. The close button is a submit button inside a form whose method is dialog, so it closes the panel the way the browser closes one — and the cross is drawn from two borders, so it needs no icon font.</div>
+        <div class="example__demo">
+<dialog open class="um-dialog" aria-labelledby="um-dialog-title">
+  <form method="dialog" class="um-dialog__form">
+    <div class="um-dialog__header">
+      <h2 class="um-dialog__title" id="um-dialog-title">Archive this deployment?</h2>
+      <button class="um-dialog__close" type="submit" aria-label="Close"></button>
+    </div>
+    <div class="um-dialog__body">
+      <p>Build 214 is still running on three nodes. Archiving it stops the queue and keeps the log.</p>
+    </div>
+    <div class="um-dialog__footer">
+      <button type="button">Cancel</button>
+      <button class="um-dialog__action" type="button">Archive</button>
+    </div>
+  </form>
+</dialog>
+        </div>
+        <pre class="example__code">&lt;dialog open class=&quot;um-dialog&quot; aria-labelledby=&quot;um-dialog-title&quot;&gt;
+  &lt;form method=&quot;dialog&quot; class=&quot;um-dialog__form&quot;&gt;
+    &lt;div class=&quot;um-dialog__header&quot;&gt;
+      &lt;h2 class=&quot;um-dialog__title&quot; id=&quot;um-dialog-title&quot;&gt;Archive this deployment?&lt;/h2&gt;
+      &lt;button class=&quot;um-dialog__close&quot; type=&quot;submit&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;um-dialog__body&quot;&gt;
+      &lt;p&gt;Build 214 is still running on three nodes. Archiving it stops the queue and keeps the log.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;um-dialog__footer&quot;&gt;
+      &lt;button type=&quot;button&quot;&gt;Cancel&lt;/button&gt;
+      &lt;button class=&quot;um-dialog__action&quot; type=&quot;button&quot;&gt;Archive&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+&lt;/dialog&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">Centred · 居中</div>
+        <div class="example__desc">The centred variant puts the title and the actions in the middle of their rows instead of at the two ends. The close button stays in the corner, because that is where a corner is.</div>
+        <div class="example__demo">
+<dialog open class="um-dialog um-dialog--center" aria-labelledby="um-dialog-centre-title">
+  <form method="dialog" class="um-dialog__form">
+    <div class="um-dialog__header">
+      <h2 class="um-dialog__title" id="um-dialog-centre-title">Discard the draft?</h2>
+      <button class="um-dialog__close" type="submit" aria-label="Close"></button>
+    </div>
+    <div class="um-dialog__body">
+      <p>Nothing has been saved yet. Discarding it cannot be undone.</p>
+    </div>
+    <div class="um-dialog__footer">
+      <button type="button">Keep editing</button>
+      <button class="um-dialog__action" type="button">Discard</button>
+    </div>
+  </form>
+</dialog>
+        </div>
+        <pre class="example__code">&lt;dialog open class=&quot;um-dialog um-dialog--center&quot; aria-labelledby=&quot;um-dialog-centre-title&quot;&gt;
+  &lt;form method=&quot;dialog&quot; class=&quot;um-dialog__form&quot;&gt;
+    &lt;div class=&quot;um-dialog__header&quot;&gt;
+      &lt;h2 class=&quot;um-dialog__title&quot; id=&quot;um-dialog-centre-title&quot;&gt;Discard the draft?&lt;/h2&gt;
+      &lt;button class=&quot;um-dialog__close&quot; type=&quot;submit&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;um-dialog__body&quot;&gt;
+      &lt;p&gt;Nothing has been saved yet. Discarding it cannot be undone.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;um-dialog__footer&quot;&gt;
+      &lt;button type=&quot;button&quot;&gt;Keep editing&lt;/button&gt;
+      &lt;button class=&quot;um-dialog__action&quot; type=&quot;button&quot;&gt;Discard&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+&lt;/dialog&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">Sizes · 尺寸</div>
+        <div class="example__desc">Three widths. The middle one is the base class on its own, because the base class is already the medium panel.</div>
+        <div class="example__demo">
+<dialog open class="um-dialog um-dialog--sm" aria-labelledby="um-dialog-small-title">
+  <form method="dialog" class="um-dialog__form">
+    <div class="um-dialog__header">
+      <h2 class="um-dialog__title" id="um-dialog-small-title">Rename</h2>
+      <button class="um-dialog__close" type="submit" aria-label="Close"></button>
+    </div>
+    <div class="um-dialog__body">
+      <p>A narrow panel, for a question with a short answer.</p>
+    </div>
+  </form>
+</dialog>
+<dialog open class="um-dialog" aria-labelledby="um-dialog-medium-title">
+  <form method="dialog" class="um-dialog__form">
+    <div class="um-dialog__header">
+      <h2 class="um-dialog__title" id="um-dialog-medium-title">Rename</h2>
+      <button class="um-dialog__close" type="submit" aria-label="Close"></button>
+    </div>
+    <div class="um-dialog__body">
+      <p>The default panel.</p>
+    </div>
+  </form>
+</dialog>
+<dialog open class="um-dialog um-dialog--lg" aria-labelledby="um-dialog-large-title">
+  <form method="dialog" class="um-dialog__form">
+    <div class="um-dialog__header">
+      <h2 class="um-dialog__title" id="um-dialog-large-title">Terms of service</h2>
+      <button class="um-dialog__close" type="submit" aria-label="Close"></button>
+    </div>
+    <div class="um-dialog__body">
+      <p>A wide panel, for a body of text rather than a line of it.</p>
+    </div>
+  </form>
+</dialog>
+        </div>
+        <pre class="example__code">&lt;dialog open class=&quot;um-dialog um-dialog--sm&quot; aria-labelledby=&quot;um-dialog-small-title&quot;&gt;
+  &lt;form method=&quot;dialog&quot; class=&quot;um-dialog__form&quot;&gt;
+    &lt;div class=&quot;um-dialog__header&quot;&gt;
+      &lt;h2 class=&quot;um-dialog__title&quot; id=&quot;um-dialog-small-title&quot;&gt;Rename&lt;/h2&gt;
+      &lt;button class=&quot;um-dialog__close&quot; type=&quot;submit&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;um-dialog__body&quot;&gt;
+      &lt;p&gt;A narrow panel, for a question with a short answer.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+&lt;/dialog&gt;
+&lt;dialog open class=&quot;um-dialog&quot; aria-labelledby=&quot;um-dialog-medium-title&quot;&gt;
+  &lt;form method=&quot;dialog&quot; class=&quot;um-dialog__form&quot;&gt;
+    &lt;div class=&quot;um-dialog__header&quot;&gt;
+      &lt;h2 class=&quot;um-dialog__title&quot; id=&quot;um-dialog-medium-title&quot;&gt;Rename&lt;/h2&gt;
+      &lt;button class=&quot;um-dialog__close&quot; type=&quot;submit&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;um-dialog__body&quot;&gt;
+      &lt;p&gt;The default panel.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+&lt;/dialog&gt;
+&lt;dialog open class=&quot;um-dialog um-dialog--lg&quot; aria-labelledby=&quot;um-dialog-large-title&quot;&gt;
+  &lt;form method=&quot;dialog&quot; class=&quot;um-dialog__form&quot;&gt;
+    &lt;div class=&quot;um-dialog__header&quot;&gt;
+      &lt;h2 class=&quot;um-dialog__title&quot; id=&quot;um-dialog-large-title&quot;&gt;Terms of service&lt;/h2&gt;
+      &lt;button class=&quot;um-dialog__close&quot; type=&quot;submit&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;um-dialog__body&quot;&gt;
+      &lt;p&gt;A wide panel, for a body of text rather than a line of it.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+&lt;/dialog&gt;</pre>
+      </div>
+      <h2>Classes</h2>
+<table class="api">
+      <thead><tr><th>Class</th><th>Meaning</th></tr></thead>
+      <tbody>
+      <tr><td><code>um-dialog</code></td><td>The base class. Every instance carries it.</td></tr>
+      <tr><td><code>um-dialog--center</code></td><td>Centred</td></tr>
+      <tr><td><code>um-dialog--sm</code></td><td>Size: sm</td></tr>
+      <tr><td><code>um-dialog--md</code></td><td>Size: md</td></tr>
+      <tr><td><code>um-dialog--lg</code></td><td>Size: lg</td></tr>
+      <tr><td><code>um-dialog__form</code></td><td>Form</td></tr>
+      <tr><td><code>um-dialog__header</code></td><td>Header</td></tr>
+      <tr><td><code>um-dialog__title</code></td><td>Title</td></tr>
+      <tr><td><code>um-dialog__body</code></td><td>Body</td></tr>
+      <tr><td><code>um-dialog__footer</code></td><td>Footer</td></tr>
+      <tr><td><code>um-dialog__action</code></td><td>Action</td></tr>
+      <tr><td><code>um-dialog__close</code></td><td>Close</td></tr>
+      <tr><td><code>[open]</code></td><td>Open</td></tr>
+      </tbody>
+    </table>
+      <h2>Props</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>title</code></span></td><td><code>string</code></td><td>—</td><td>The heading of the panel.</td></tr>
+      <tr><td><span class="api__name"><code>align</code></span></td><td><code>enum = start | center</code></td><td><code>start</code></td><td>Where the title and the actions sit. The start alignment is the base class on its own; the centred one adds um-dialog--center.</td></tr>
+      <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>How wide the panel is. The width is a measure of the panel's own type, so the panel grows with the mood's text instead of holding a fixed pixel width.</td></tr>
+      </tbody>
+    </table>
+      <h2>Slots</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>title</code></span></td><td>What is inside the heading.</td></tr>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>The body of the panel.</td></tr>
+      <tr><td><span class="api__name"><code>actions</code></span></td><td>The actions in the footer.</td></tr>
+      </tbody>
+    </table>
+
+      <h2>Accessibility</h2>
+      <p><strong>Role:</strong> <code>dialog</code></p>
+        <p><strong>Keyboard:</strong> <code>Tab</code> <code>Enter</code> <code>Escape</code></p>
+        <p>The panel is a &lt;dialog&gt;, so the browser knows it is a dialog, and the dialog points at its title with aria-labelledby so the reader hears what the panel is about instead of a bare &quot;dialog&quot;. The close button is a real button inside a form whose method is dialog: submitting it is the browser's own way of closing a dialog, so the library installs no listener and handles no key. A static dialog is not modal — it does not take the focus, it does not make the page behind it inert, and Escape does not close it, because all three of those belong to showModal(), and that is JavaScript. Put the panel in the flow where the reader expects it, and give the host a way to open it.</p>
+
+    </main>
+  </div>
+
+  <script>window.UM_THEMES = {"light":["anime","archive","bauhaus","brutal","clay","corporate","eco","fashion","food","forest","ios","luxury","medical","monochrome","nordic","pastel","retro","sakura","swiss","travel","y2k"],"dark":["aurora","blueprint","crypto","finance","gaming","glass","instrument","neon","night","vaporwave","verdant"]};
+  window.UM_DEFAULT_THEME = "aurora";</script>
+  <script src="../../themes/switcher.js"></script>
+  <script src="../../site/assets/site.js"></script>
+</body>
+</html>

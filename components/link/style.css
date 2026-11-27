@@ -1,0 +1,53 @@
+/* ============================================================================
+   Link
+   ========================================================================== */
+
+/* A link is text, so it takes the text form of the brand colour. The raw
+   colour is a fill colour: on the brutal theme the accent is a bright yellow
+   that clears 4.5:1 as a background and nothing at all as writing. */
+.um-link {
+  color: var(--um-color-primary-text);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color var(--um-motion);
+}
+
+.um-link--primary { color: var(--um-color-primary-text); }
+.um-link--success { color: var(--um-color-success-text); }
+.um-link--warning { color: var(--um-color-warning-text); }
+.um-link--danger { color: var(--um-color-danger-text); }
+.um-link--info { color: var(--um-color-info-text); }
+
+/* The underline arrives under the pointer. It is the affordance a reader
+   looks for, and it does not draw a line through every link on the page. */
+.um-link:hover { text-decoration: underline; }
+
+/* The underlined variant keeps the line on at rest. It is a variant of its
+   own because a type and an underline can be combined. */
+.um-link--underline { text-decoration: underline; }
+
+/* The focus ring. The shared layer paints one for the controls it knows, and
+   a link is not among them, so the link paints its own. */
+.um-link:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+/* The disabled link. An <a> has no disabled attribute, so the state is
+   aria-disabled: the link keeps its place in the tab order and is still
+   announced, which is what a reader who cannot follow it needs to know.
+
+   It is inert to the pointer, so the cursor does not change — the point of
+   the state is that the link cannot be followed, not that it warns. */
+.um-link[aria-disabled="true"] {
+  color: var(--um-text-disabled);
+  pointer-events: none;
+  text-decoration: none;
+}
+
+/* The sizes come after the base, because the base is the medium size and the
+   two are written with the same weight. */
+.um-link--sm { font-size: var(--um-font-size-caption); }
+.um-link--lg { font-size: var(--um-font-size-title); }

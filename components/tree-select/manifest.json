@@ -1,0 +1,83 @@
+{
+  "id": "tree-select",
+  "name": "Tree Select",
+  "nameZh": "树选择器",
+  "category": "form",
+  "element": "div",
+  "summary": "A tree you pick a leaf from. The branches are disclosures, so the browser opens and closes them, and the leaf that is picked is a real radio, so the browser keeps exactly one of them picked.",
+  "summaryZh": "一棵可以从叶子里挑的树。分支是展开控件,所以开关由浏览器负责;被挑中的叶子是一个真正的单选框,所以浏览器保证组里恰好只有一个被选中。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-tree-select",
+    "modifier": "um-tree-select--",
+    "part": "um-tree-select__"
+  },
+  "variants": [
+    { "id": "plain", "name": "Plain", "nameZh": "无辅助线", "state": "ghost", "note": "The levels are held apart by indentation alone. The base class on its own is this layout, and the modifier paints the same thing so the class list can name it." },
+    { "id": "lines", "name": "With guides", "nameZh": "带辅助线", "state": "outline", "note": "A rule runs down the side of each level, so the depth of a branch can be seen rather than counted." }
+  ],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "The text takes the caption size." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default size. The base class is already this size, so it needs no modifier." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "The text takes the title size." }
+  ],
+  "states": [
+    { "id": "open", "name": "Open", "nameZh": "展开", "selector": "[open]", "native": true, "note": "The branch is open. The browser announces it, and the arrow turns over." },
+    { "id": "checked", "name": "Checked", "nameZh": "选中", "selector": ":checked", "native": true, "note": "The picked leaf takes the brand colour's soft tint and its own text colour, and the circle next to it fills in." },
+    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The leaf is inert. Its text takes the derived disabled colour and the circle dims, the way every other disabled control in the library dims." },
+    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the circle, because the circle is what the reader is on." }
+  ],
+  "parts": [
+    { "id": "node", "name": "Node", "nameZh": "节点", "note": "One branch. It is a <details>, so it is the element that knows whether it is open." },
+    { "id": "option", "name": "Option", "nameZh": "选项", "note": "One row. It is the <summary> of a branch and the <label> of a leaf, and it is the element that can be asked whether its input is picked." },
+    { "id": "text", "name": "Text", "nameZh": "文字", "note": "The name of the thing the row holds." },
+    { "id": "arrow", "name": "Arrow", "nameZh": "箭头", "note": "The mark that says the branch holds something. It is drawn from two borders, so it carries no text of its own, and it takes the room the circle takes on a leaf so that the names line up." },
+    { "id": "children", "name": "Children", "nameZh": "子节点", "note": "The level below. It holds the rows inside this one, each of which is a leaf or a node of its own." },
+    { "id": "input", "name": "Input", "nameZh": "输入框", "note": "The real radio. It is hidden visually rather than removed from the accessibility tree, so it keeps its place in the tab order and its name." },
+    { "id": "dot", "name": "Dot", "nameZh": "圆点", "note": "The circle drawn next to a leaf. The mark inside it is the same one the radio component draws, so a picked leaf looks like a picked radio." }
+  ],
+  "props": [
+    { "name": "variant", "type": "enum", "values": ["plain", "lines"], "default": "plain", "description": "How the levels are held apart. The plain run is the base class on its own; the guided run adds um-tree-select--lines.", "descriptionZh": "各层之间怎么区分。无辅助线是只写基类;带辅助线再加上 um-tree-select--lines。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The size of the text in a row.", "descriptionZh": "每一行文字的尺寸。" },
+    { "name": "name", "type": "string", "description": "The name every leaf in the tree shares. It is the native name attribute, and it is what makes the leaves a group: the browser keeps exactly one of them picked.", "descriptionZh": "树上所有叶子共用的名字。它是原生 name 属性,也正是它让这些叶子成为一组:浏览器保证组里恰好只有一个被选中。" },
+    { "name": "value", "type": "string", "description": "The value one leaf submits while it is picked. It is also what the leaf says when the caller gives it no name of its own.", "descriptionZh": "某个叶子选中时提交的值。调用方没有另外给名字的时候,它也是这个叶子显示的字。" },
+    { "name": "label", "type": "string", "description": "The name of the thing the branch holds.", "descriptionZh": "这一支里那个东西的名字。" },
+    { "name": "checked", "type": "boolean", "default": "false", "description": "Picks the leaf. It is the native checked attribute, not a class.", "descriptionZh": "选中这个叶子。它是原生 checked 属性,不是某个类。" },
+    { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes the leaf inert. It uses the real disabled attribute, so it leaves the tab order.", "descriptionZh": "让这个叶子不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" }
+  ],
+  "slots": [
+    { "name": "branch", "description": "The name of the thing the branch holds.", "descriptionZh": "这一支里那个东西的名字。" },
+    { "name": "children", "description": "The level below: one row per leaf inside this branch.", "descriptionZh": "下面那一层:这一支里的每个叶子放一行。" }
+  ],
+  "events": [
+    { "name": "change", "description": "Fires when the picked leaf changes. It is the browser's own event on the input — the library installs no listener.", "descriptionZh": "被选中的叶子换了一个时触发。这是 input 上的浏览器原生事件 —— 库没有安装任何监听器。" },
+    { "name": "toggle", "description": "Fires when a branch opens or closes. It is the browser's own event on the details — the library installs no listener.", "descriptionZh": "某一支展开或收起时触发。这是 details 上的浏览器原生事件 —— 库没有安装任何监听器。" }
+  ],
+  "a11y": {
+    "role": "group",
+    "keyboard": ["Tab", "Enter", "Space", "Arrow keys"],
+    "notes": "Every branch is a real <details> and every branch name is a real <summary>, so the browser announces each one as a disclosure button and says whether it is open. The leaves are real radios that share one name, so the browser keeps exactly one of them picked, the arrow keys move the pick inside the group and Tab moves between groups. The input is hidden visually rather than removed from the accessibility tree, so it keeps its place in the tab order and its label. The row knows it is picked because it holds the input: :has() is the only way CSS can ask an element what its child is doing.",
+    "notesZh": "每一支都是真正的 <details>,每一个分支名都是真正的 <summary>,所以浏览器会把它们各自播报成展开按钮,并说明它是开着还是关着。叶子是共用一个名字的真单选框,所以浏览器保证组里恰好只有一个被选中,方向键在组内移动选中项,Tab 在组与组之间移动。这个 input 只是视觉隐藏,没有被移出无障碍树,因此它仍在 Tab 顺序里,也仍然有标签。哪一行被选中,这一行知道,是因为 input 就在它里面:问元素「你孩子现在怎么样」,CSS 只有 :has() 这一种办法。"
+  },
+  "examples": [
+    {
+      "id": "plain",
+      "title": "A tree to pick from",
+      "titleZh": "一棵可以挑的树",
+      "description": "One branch, open, with a leaf under it. The leaf that is picked is a real radio, so the pick is the browser's and not a class. The levels are held apart by indentation alone.",
+      "descriptionZh": "一支分支,开着,底下挂一个叶子。被挑中的叶子是一个真正的单选框,所以选中是浏览器做的事,不是某个类。各层只靠缩进区分。",
+      "markup": "<div class=\"um-tree-select um-tree-select--plain\" role=\"group\" aria-label=\"Team\">\n  <details class=\"um-tree-select__node\" open>\n    <summary class=\"um-tree-select__option\">\n      <span class=\"um-tree-select__arrow\" aria-hidden=\"true\"></span>\n      <span class=\"um-tree-select__text\">Engineering</span>\n    </summary>\n    <div class=\"um-tree-select__children\">\n      <label class=\"um-tree-select__option\">\n        <input class=\"um-tree-select__input\" type=\"radio\" name=\"um-tree-select-team\" value=\"frontend\" checked />\n        <span class=\"um-tree-select__dot\"></span>\n        <span class=\"um-tree-select__text\">Frontend</span>\n      </label>\n      <label class=\"um-tree-select__option\">\n        <input class=\"um-tree-select__input\" type=\"radio\" name=\"um-tree-select-team\" value=\"backend\" />\n        <span class=\"um-tree-select__dot\"></span>\n        <span class=\"um-tree-select__text\">Backend</span>\n      </label>\n    </div>\n  </details>\n</div>"
+    },
+    {
+      "id": "lines",
+      "title": "With guides",
+      "titleZh": "带辅助线",
+      "description": "The same tree with a rule down the side of each level, so the depth of a branch can be seen rather than counted. Only the modifier class changes; the markup is the same.",
+      "descriptionZh": "同一棵树,只是每一层旁边都有一道竖线,所以一支有多深是看得见的,不用数。只有那个修饰类变了,标记是同一份。",
+      "markup": "<div class=\"um-tree-select um-tree-select--lines\" role=\"group\" aria-label=\"Team\">\n  <details class=\"um-tree-select__node\" open>\n    <summary class=\"um-tree-select__option\">\n      <span class=\"um-tree-select__arrow\" aria-hidden=\"true\"></span>\n      <span class=\"um-tree-select__text\">Engineering</span>\n    </summary>\n    <div class=\"um-tree-select__children\">\n      <label class=\"um-tree-select__option\">\n        <input class=\"um-tree-select__input\" type=\"radio\" name=\"um-tree-select-team\" value=\"frontend\" checked />\n        <span class=\"um-tree-select__dot\"></span>\n        <span class=\"um-tree-select__text\">Frontend</span>\n      </label>\n      <label class=\"um-tree-select__option\">\n        <input class=\"um-tree-select__input\" type=\"radio\" name=\"um-tree-select-team\" value=\"backend\" disabled />\n        <span class=\"um-tree-select__dot\"></span>\n        <span class=\"um-tree-select__text\">Backend</span>\n      </label>\n    </div>\n  </details>\n</div>"
+    }
+  ],
+  "notes": "A branch is a disclosure and a leaf is a radio, and the two answer different questions: the disclosure says what is inside, the radio says what is chosen. The circle is drawn by this component rather than borrowed from the radio component, because a class the stylesheet does not declare paints nothing — and the drawn mark is the same one the radio draws, so the two look alike. The arrow takes the room the circle takes on a leaf, so a branch name and a leaf name start at the same place.",
+  "notesZh": "分支是展开控件,叶子是单选框,这两个回答的是不同的问题:展开控件说明里面有什么,单选框说明挑中了哪个。圆圈由这个组件自己画,不去借单选框组件的,因为样式表没有声明过的类画不出任何东西 —— 而画出来的那个记号跟单选框画的是同一个,所以两处看起来一样。箭头占的是叶子上圆圈占的那点位置,所以分支的名字和叶子的名字从同一条线开始。"
+}
