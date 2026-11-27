@@ -38,6 +38,8 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const PROBES = {
   contrast: { page: "contrast.html", title: "component layer" },
   geometry: { page: "geometry.html", title: "component layout" },
+  motion: { page: "motion.html", title: "the motion contract" },
+  package: { page: "package.html", title: "the published package" },
   apps: { page: "apps.html", title: "app packs" },
 };
 
@@ -350,6 +352,20 @@ try {
 
   const client = await connect(page.webSocketDebuggerUrl);
   await sendWithRetry(client, "Runtime.enable");
+
+  // Tell the browser what the reader has asked for.
+  //
+  // The motion contract only holds when the reader has actually asked for
+  // reduced motion, and a browser on a machine that has not asked for it
+  // cannot be talked out of the question — the preference has to be emulated
+  // at the browser's level, where the media query reads it.
+  if (args.includes("--reduced-motion")) {
+    await sendWithRetry(client, "Emulation.setEmulatedMedia", {
+      media: "",
+      features: [{ name: "prefers-reduced-motion", value: "reduce" }],
+    });
+  }
+
   await waitUntilReady(client);
 
   const budgetMs = Number(valueOf("timeout") ?? 600000);
@@ -376,6 +392,14 @@ try {
   console.log(`  failures: ${failures}`);
   if (report.unmeasurable !== undefined) console.log(`  unmeasurable: ${report.unmeasurable}`);
   if (report.screens !== undefined) console.log(`  screens: ${report.screens}`);
+  // The motion probe reports what the reader asked for and how much the
+  // library would have moved without being asked — the baseline is what makes
+  // the reduced-motion number mean something.
+  if (report.reduced !== undefined) {
+    console.log(`  reader asked for reduced motion: ${report.reduced}`);
+    console.log(`  elements with a declared duration: ${report.timed}`);
+    console.log(`  elements that visibly move: ${report.moving}`);
+  }
 
   if (rows.length) {
     // Grouped by the second column: that is the component (or the app

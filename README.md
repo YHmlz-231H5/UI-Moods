@@ -48,9 +48,25 @@ npx ui-moods validate
 npx ui-moods bundle glass > glass.prompt.md
 ```
 
-> Distribution model (v1): **GitHub-only**. `npx ui-moods …` works after
-> `npm install` inside the cloned repository; a standalone npm registry
-> publish is a post-v1 milestone. Release steps: `docs/release.md`.
+Using the **component library** in your own project is a different door:
+
+```html
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/button.css">
+<link rel="stylesheet" href="themes/glass.css">
+```
+
+```html
+<button class="um-button um-button--primary">Save</button>
+```
+
+See [Using it in your own project](#using-it-in-your-own-project).
+
+> Distribution model (v1): **GitHub-first, npm-ready**. `npx ui-moods …` works
+> after `npm install` inside the cloned repository. The component library is
+> also packaged for the registry — `css/`, `themes/`, `vue/` and `types/` are
+> published, with an `exports` map for every public name — but the publish
+> itself is not done yet. Release steps: `docs/release.md`.
 
 > Windows PowerShell users: use `npx ui-moods bundle glass | Out-File -Encoding utf8 glass.prompt.md`
 > so the prompt file is written as UTF-8.
@@ -201,6 +217,64 @@ they are plain ES modules with render functions. See
 [`docs/vue-components.md`](docs/vue-components.md) for the contract, and
 `node tools/check-vue.mjs` for the check that keeps a wrapper honest.
 
+### Using it in your own project
+
+Three ways, from the simplest to the smallest.
+
+**Plain HTML — two links and a class.**
+
+```html
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/button.css">
+<link rel="stylesheet" href="themes/glass.css">
+```
+
+`css/base.css` is linked once. It holds the layer constants, the one focus
+treatment, the one disabled treatment and the box model. Then one file per
+component you actually use — the same shape Element Plus ships
+(`theme-chalk/base.css` plus `theme-chalk/el-button.css`).
+
+**Vue 3 — the plugin, or the components one at a time.**
+
+```js
+import { createApp } from "vue";
+import UM from "ui-moods/vue";
+import "ui-moods/css/all.css";
+import "ui-moods/themes/all.css";
+
+createApp(App).use(UM).mount("#app");
+```
+
+Or, without the plugin, one component at a time:
+
+```js
+import { UMButton } from "ui-moods/vue/button";   // one component
+import { UMButton, UMTag } from "ui-moods/vue";   // the whole library
+```
+
+**A mood that changes at runtime.**
+
+```js
+import { useTheme } from "ui-moods/vue";
+
+const { theme, setTheme, themes } = useTheme();
+```
+
+Or, without Vue — the switcher is the only JavaScript the project ships:
+
+```html
+<script src="themes/switcher.js"></script>
+<script>UMTheme.set("night")</script>
+```
+
+**What lands in your bundle.** `css/all.css` is the whole library, 288 KB
+uncompressed. If that is more than you use, link `css/base.css` and one file
+per component instead. Both are published, and
+`node tools/check-package.mjs` proves that every public name in
+`package.json` resolves to a file that exists, that the Vue package imports
+through those same names and renders, and that the split stylesheet is
+byte-for-byte the stylesheet the whole sheet is cut from.
+
 ### The contract
 
 `tokens/roles.json` is the single source of the variable vocabulary. It
@@ -221,7 +295,16 @@ The rules the component layer obeys, and `validate` enforces:
   examples, walks the whole document once per mood and measures what the
   browser actually painted: **51 008 measurements, zero failures**. A second
   probe measures the *geometry* — whether the boxes the browser laid out are
-  the boxes the markup asked for — and a third measures the app packs.
+  the boxes the markup asked for — a third measures the app packs, and a
+  fourth measures the *published* package: the same 51 008 measurements against
+  the split stylesheet, so a host that links one file per component is measured
+  the same way as one that links the whole sheet.
+- **Motion is a reader's choice.** 371 of the library's elements move when the
+  reader does something. When the reader has asked the system for reduced
+  motion, **none of them do**: the durations drop to a hundredth of a
+  millisecond, which is short enough that nothing visibly moves and long
+  enough that `transitionend` still fires. The probe measures both states in a
+  browser, with the preference emulated where the media query reads it.
 - **The boxes fit.** The library states its own box model for the elements it
   paints, so an input at `width: 100%` is as wide as its column and not a
   padding wider. A host's own layout is left alone.
@@ -277,6 +360,9 @@ invisible. Measured against the real surface, it reads.
   examples.
 - `components/<id>/style.css` — that component's styles.
 - `components/um-components.css` — the assembled stylesheet (generated).
+- `css/` — **the same stylesheet, cut into pieces** (generated): `base.css`
+  once, then one file per component, plus `all.css` for a host that wants one
+  file.
 - `site/` — the **documentation site** (generated): an overview plus one page
   per component, with the examples, the API tables and the class list.
 - `types/index.d.ts` — the type declarations (generated).
@@ -295,6 +381,7 @@ else is generated from it:
 ```
 components/<id>/manifest.json
    ├── →  components/um-components.css   (the styles)
+   ├── →  css/base.css + css/<id>.css    (the same styles, cut into pieces)
    ├── →  site/component/<id>.html        (the documentation page)
    ├── →  types/index.d.ts                (the type declarations)
    ├── →  vue/components/index.js         (the Vue barrel and plugin)
@@ -398,6 +485,7 @@ ui-moods/
 ├─ moods/<id>/        # specimen.html + tokens.json + prompt.md + checklist.yaml
 ├─ apps/<id>/         # app.json (screen data) + screens/*.html (generated)
 ├─ components/<id>/   # manifest.json + style.css  (one directory per component)
+├─ css/               # the stylesheet cut into pieces: base.css + one per component
 ├─ themes/<id>.css    # 32 generated theme files (variables only)
 ├─ themes/all.css     # all 32 moods in one sheet, switched by attribute
 ├─ themes/switcher.js # the runtime switcher (optional, framework-agnostic)
@@ -410,10 +498,12 @@ ui-moods/
 │  ├─ mood/           # specimen shell + sections/*.html partials
 │  └─ app/            # app.css (shared screen stylesheet)
 ├─ tools/             # cli · build-specimen · build-apps · build-themes
-│                     # · build-components · build-docs · build-types · build-vue
-│                     # · validate · check-vue · check-component · audit-contrast
-│                     # · audit-render · verify-themes · serve · scaffold
-│                     # · probe/ (the measuring instruments: contrast · geometry)
+│                     # · build-components · build-dist · build-docs · build-types
+│                     # · build-vue · validate · check-vue · check-component
+│                     # · check-package · audit-contrast · audit-render
+│                     # · verify-themes · serve · scaffold
+│                     # · probe/ (the measuring instruments:
+│                     #   contrast · geometry · motion · package · apps)
 ├─ docs/              # mapping convention · checklist semantics · parity checklist
 │                     # · contribution guide · vue-components · known gaps
 ├─ AGENTS.md          # protocol for AI agents

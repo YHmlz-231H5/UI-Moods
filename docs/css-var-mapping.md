@@ -400,6 +400,86 @@ A measuring instrument that has never been shown to fail is not known to
 work, so the broken layout was put back on purpose: the probe reported 384
 failures on it, and 0 once it was fixed again.
 
+### The third instrument: motion
+
+The library moves in two ways. Some of it moves on its own — a loading ring
+turns, a skeleton shimmers — and some of it moves when the reader does
+something: a button changes colour, a drawer slides, a carousel advances.
+
+The first kind was already opt-in. Every animation the library starts by
+itself is written inside `prefers-reduced-motion: no-preference`, so a reader
+who has asked for less motion never sees it.
+
+The second kind was not. Thirty-four transition rules — hover fills, focus
+rings, the slide of a drawer — moved for everybody. WCAG asks for
+interaction-triggered motion to be switchable off, and there was no way to
+switch this one off.
+
+So the library now answers it once, in `tools/lib/motion.mjs`: when the
+reader has asked for reduced motion, the durations of every element the
+library paints drop to **a hundredth of a millisecond**.
+
+Not to zero. A transition of zero length never fires `transitionend`, and a
+host that waits for that event to know a panel has finished moving would wait
+for ever. A hundredth of a millisecond is short enough that nothing visibly
+moves and long enough that the event still comes. The rule is generated from
+the manifests, so it covers every component without anyone remembering to add
+it, and it is scoped to the library's own elements — a host's own motion is
+left alone.
+
+The measurement is a command, and the preference has to be emulated where the
+media query reads it, which is inside the browser:
+
+```
+audit-render · the motion contract · motion
+  measurements: 3962
+  failures: 0
+  reader asked for reduced motion: true
+  elements with a declared duration: 3959
+  elements that visibly move: 0
+```
+
+The baseline is the number that makes it mean something — **371 elements
+visibly move** when the reader has not asked otherwise. And the instrument was
+shown to fail: with the motion rule taken out, the same run reported **362
+failures** — every one of them an element moving for 0.4s, against a reader
+who had asked for stillness.
+
+### The fourth instrument: the published package
+
+A library that is correct in the repository and broken in the tarball is a
+library that is broken. The package therefore has its own check, and it does
+not re-implement the resolver: it uses Node's own, resolving the package by
+its own name through the `exports` field.
+
+```
+package: PASS — 206 public names resolved, 83 components and 32 moods published, Vue renders
+```
+
+That is 206 names — every component's Vue wrapper, every component's CSS
+file, every mood's CSS file, and the fixed entries — each one resolved
+through the public name a consumer would type, and each one checked to be
+inside a directory `package.json` actually publishes. The Vue package is then
+imported *through those names* and rendered with the server renderer, because
+a package whose entry points resolve but whose components do not render is
+still broken.
+
+And the stylesheet is measured twice. `components/um-components.css` is the
+whole sheet; `css/` is the same sheet cut into pieces — `base.css` once, then
+one file per component, which is the shape Element Plus ships
+(`theme-chalk/base.css` plus `theme-chalk/el-button.css`). Both are cut from
+one chunk list, so they cannot drift, and the cut sheet is measured in the
+browser the same way the whole sheet is:
+
+```
+audit-render · the published package · package
+  measurements: 51008
+  failures: 0
+```
+
+The same 51 008 measurements and the same zero failures. A host that links one
+file per component gets the library the whole sheet would have given it.
+
 ### The other half of the library: the app packs
 
 The app packs are the other thing this repository renders: 14 product screen

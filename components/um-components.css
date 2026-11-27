@@ -207,6 +207,112 @@
 .um-virtual-tree, .um-virtual-tree *,
 .um-watermark, .um-watermark * { box-sizing: border-box; }
 
+/* --- the library's own motion contract ------------------------------------
+   The library moves when the reader does something: a fill changes, a
+   drawer slides. That is motion, and a reader who has asked the system
+   for less motion should not get it.
+  
+   The durations are a hundredth of a millisecond rather than zero, because
+   a transition of zero length never fires `transitionend` — and a host that
+   waits for that event to know a panel has finished would wait for ever.
+  
+   The rule names the library's own components and what is inside them, so a
+   host's own motion is left exactly as it was.
+   ------------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  .um-affix, .um-affix *,
+.um-alert, .um-alert *,
+.um-anchor, .um-anchor *,
+.um-autocomplete, .um-autocomplete *,
+.um-avatar, .um-avatar *,
+.um-backtop, .um-backtop *,
+.um-badge, .um-badge *,
+.um-border, .um-border *,
+.um-breadcrumb, .um-breadcrumb *,
+.um-button, .um-button *,
+.um-calendar, .um-calendar *,
+.um-card, .um-card *,
+.um-carousel, .um-carousel *,
+.um-cascader, .um-cascader *,
+.um-checkbox, .um-checkbox *,
+.um-checkbox-group, .um-checkbox-group *,
+.um-collapse, .um-collapse *,
+.um-color, .um-color *,
+.um-color-picker, .um-color-picker *,
+.um-color-picker-panel, .um-color-picker-panel *,
+.um-config-provider, .um-config-provider *,
+.um-container, .um-container *,
+.um-date-picker, .um-date-picker *,
+.um-date-picker-panel, .um-date-picker-panel *,
+.um-date-time-picker, .um-date-time-picker *,
+.um-descriptions, .um-descriptions *,
+.um-dialog, .um-dialog *,
+.um-divider, .um-divider *,
+.um-drawer, .um-drawer *,
+.um-dropdown, .um-dropdown *,
+.um-empty, .um-empty *,
+.um-field, .um-field *,
+.um-icon, .um-icon *,
+.um-image, .um-image *,
+.um-infinite-scroll, .um-infinite-scroll *,
+.um-input, .um-input *,
+.um-input-number, .um-input-number *,
+.um-input-otp, .um-input-otp *,
+.um-input-tag, .um-input-tag *,
+.um-layout, .um-layout *,
+.um-link, .um-link *,
+.um-loading, .um-loading *,
+.um-mention, .um-mention *,
+.um-menu, .um-menu *,
+.um-message, .um-message *,
+.um-message-box, .um-message-box *,
+.um-notification, .um-notification *,
+.um-page-header, .um-page-header *,
+.um-pagination, .um-pagination *,
+.um-popconfirm, .um-popconfirm *,
+.um-popover, .um-popover *,
+.um-progress, .um-progress *,
+.um-radio, .um-radio *,
+.um-radio-group, .um-radio-group *,
+.um-rate, .um-rate *,
+.um-result, .um-result *,
+.um-scrollbar, .um-scrollbar *,
+.um-segmented, .um-segmented *,
+.um-select, .um-select *,
+.um-skeleton, .um-skeleton *,
+.um-slider, .um-slider *,
+.um-space, .um-space *,
+.um-splitter, .um-splitter *,
+.um-statistic, .um-statistic *,
+.um-steps, .um-steps *,
+.um-switch, .um-switch *,
+.um-table, .um-table *,
+.um-tabs, .um-tabs *,
+.um-tag, .um-tag *,
+.um-text, .um-text *,
+.um-textarea, .um-textarea *,
+.um-time-picker, .um-time-picker *,
+.um-time-select, .um-time-select *,
+.um-timeline, .um-timeline *,
+.um-tooltip, .um-tooltip *,
+.um-tour, .um-tour *,
+.um-transfer, .um-transfer *,
+.um-tree, .um-tree *,
+.um-tree-select, .um-tree-select *,
+.um-typography, .um-typography *,
+.um-upload, .um-upload *,
+.um-virtual-select, .um-virtual-select *,
+.um-virtual-table, .um-virtual-table *,
+.um-virtual-tree, .um-virtual-tree *,
+.um-watermark, .um-watermark * {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
 /* ============================================================================
    Affix
    ========================================================================== */

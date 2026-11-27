@@ -170,6 +170,18 @@ The component library is new, and the honest limits are these:
   measures what the library renders on its own documentation pages, across all
   32 moods: 51 008 measurements, zero failures. A host that puts the library
   on a surface the library does not know is outside that measurement.
+- **The package is checked, but it is not published** — the tarball is
+  correct: 206 public names resolve through the `exports` map, the Vue package
+  imports through those names and renders, and the split stylesheet in `css/`
+  measures the same 51 008 times with the same zero failures as the whole
+  sheet. What has not happened is `npm publish`; until it does, the library is
+  consumed from the repository or from a local `npm install ./path`.
+- **Motion is reduced, not removed** — when a reader has asked for reduced
+  motion, the library's durations drop to a hundredth of a millisecond rather
+  than to zero, because a zero-length transition never fires `transitionend`.
+  A host that *requires* the event to fire will see it; a host that requires
+  the transition to be absent from the computed style will not. The probe
+  measures the visible duration, which is the thing the reader sees.
 - **There is no scrim role, so an overlay has nothing to dim with** — a dialog,
   a drawer and a tour all want a curtain between them and the page. The library
   has no role for it: `bg-overlay` is the *panel's* own surface, not a curtain,

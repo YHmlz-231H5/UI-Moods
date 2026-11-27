@@ -17,6 +17,7 @@ import { join } from "node:path";
 import { contrastRatio, parseColor } from "./state-colors.mjs";
 import { loadManifests } from "./manifest.mjs";
 import { boxModelCss } from "./box-model.mjs";
+import { motionCss } from "./motion.mjs";
 
 const stripComments = (css) => css.replace(/\/\*[\s\S]*?\*\//g, "");
 
@@ -253,9 +254,11 @@ export function checkComponentLibrary(root) {
     // The box-model rule is generated from the manifests, and it sits between
     // the shared layer and the components. It is generated in one place, so
     // that the builder and this check cannot disagree about what it is.
+    // The motion contract sits next to it, for the same reason.
     const expected = [
       ...shared,
       boxModelCss(manifests),
+      motionCss(manifests),
       ...perComponent,
       ...hooks,
     ].join("\n\n");
@@ -285,6 +288,25 @@ export function checkComponentLibrary(root) {
     for (const c of catalogue.components ?? []) {
       if (!existsSync(join(root, c.doc))) {
         note(`${c.doc} is missing — run \`ui-moods build-docs\``);
+      }
+    }
+  }
+
+  // --- 11. the motion contract answers for every component --------------------
+  //
+  // The library moves when the reader does something — a fill changes, a
+  // drawer slides. That is motion, and a reader who has asked the system for
+  // less motion should not get it. The contract is generated from the
+  // manifests, so it cannot fall behind the component list; the check is that
+  // it is actually in the shipped sheet and actually names each component.
+  const motion = motionCss(manifests);
+  if (!css.includes("@media (prefers-reduced-motion: reduce)")) {
+    note("components/um-components.css has no reduced-motion contract");
+  }
+  for (const m of manifests) {
+    for (const cls of [m.class.base, ...(m.class.also ?? [])]) {
+      if (!motion.includes(`.${cls}`)) {
+        note(`the reduced-motion contract does not name ${cls}`);
       }
     }
   }

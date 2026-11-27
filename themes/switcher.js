@@ -251,4 +251,15 @@
     attribute: ATTR,
     storageKey: KEY,
   };
-})(typeof window !== "undefined" ? window : this);
+// The global it installs itself on.
+//
+// `window` is the browser's. `globalThis` is the one that also exists in a
+// worker, in Node and in a server-rendered pass — where this file must not
+// throw on import, because a bundler that pulls it in for a page the server
+// rendered would take the whole bundle down. The document check below is what
+// decides whether there is anything to do; this only decides what "the
+// global" is named.
+//
+// `this` is not an option: in an ES module — and this file is one, because the
+// package is `"type": "module"` — the top-level `this` is `undefined`.
+})(typeof window !== "undefined" ? window : typeof globalThis !== "undefined" ? globalThis : {});

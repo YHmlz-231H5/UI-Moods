@@ -46,8 +46,10 @@ function resolveFile(pathname) {
     pathname.startsWith("/apps/") ||
     // The component library, its theme packages and the documentation site
     // are served from the repository root, exactly as a consumer would link
-    // them.
+    // them. `css/` is the same stylesheet cut into pieces — the shared layer
+    // and one file per component — and a host links it the same way.
     pathname.startsWith("/components/") ||
+    pathname.startsWith("/css/") ||
     pathname.startsWith("/themes/") ||
     pathname.startsWith("/tokens/") ||
     pathname.startsWith("/site/") ||

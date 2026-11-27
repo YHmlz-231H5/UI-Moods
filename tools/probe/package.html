@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>ui-moods · package probe</title>
+
+<!-- The probe is a measuring instrument, not a page anybody looks at. It
+     loads every component's live examples, then walks the whole document
+     once per mood and reports what the browser actually painted.
+
+     The difference from contrast.html is the stylesheet. This one links the
+     library the way a host links it — the shared layer once, then one file
+     per component — instead of the whole sheet in one file. The measurement
+     is the same measurement, so the two pages are comparable: if the split
+     stylesheet painted anything differently, the numbers would differ, and
+     the difference would be a bug in the distribution rather than in the
+     library. -->
+
+<style>
+  /* The probe paints itself the way a real page does: the page background and
+     the body colour come from the theme's own variables. A probe with a
+     hard-coded white body would measure every mood against white, which is
+     the one surface the library never promised anything about. */
+  body { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; margin: 0; padding: 16px; background: var(--um-bg-page); color: var(--um-text-regular); }
+  h1 { font-size: 15px; margin: 0 0 8px; color: var(--um-text-primary); }
+  #summary { font-size: 13px; margin: 0 0 12px; white-space: pre-wrap; color: var(--um-text-regular); }
+  #report { font-size: 11px; border-collapse: collapse; width: 100%; }
+  #report th, #report td { border: 1px solid var(--um-border-base); padding: 3px 6px; text-align: left; vertical-align: top; }
+  #report th { background: var(--um-fill-light); color: var(--um-text-primary); position: sticky; top: 0; }
+  .fail { background: var(--um-color-danger-soft-4); }
+  #stage { position: absolute; left: -99999px; top: 0; width: 1200px; background: var(--um-bg-page); }
+  /* The probe measures the component as the reader sees it, not the browser's
+     transitional state. A subtree under `content-visibility: auto` is skipped
+     until it comes near the viewport, and a skipped subtree is not laid out:
+     its text would go unmeasured and its box would be a placeholder rather
+     than the real one. Laying everything out is what scrolling the page
+     would do anyway. */
+  #stage * { content-visibility: visible !important; }
+  /* A transition would let the probe measure a frame between two states. */
+  #stage *, #stage *::before, #stage *::after { transition: none !important; animation: none !important; }
+</style>
+</head>
+<body>
+
+<h1>ui-moods · package probe</h1>
+<div id="summary">running…</div>
+<table id="report"><thead><tr><th>theme</th><th>component</th><th>element</th><th>fg</th><th>bg</th><th>ratio</th><th>need</th></tr></thead><tbody></tbody></table>
+
+<div id="stage"></div>
+
+<script type="module">
+import { measureContrast } from "./contrast-measure.js";
+
+const report = await measureContrast({ mode: "split" });
+
+const tbody = document.querySelector("#report tbody");
+for (const row of report.rows) {
+  const tr = document.createElement("tr");
+  tr.className = "fail";
+  for (const key of ["theme", "component", "element", "fg", "bg", "ratio", "need"]) {
+    const td = document.createElement("td");
+    td.textContent = String(row[key]);
+    tr.append(td);
+  }
+  tbody.append(tr);
+}
+
+document.getElementById("summary").textContent =
+  `stylesheet: css/base.css plus one file per component\n` +
+  `measurements: ${report.measurements}\n` +
+  `failures: ${report.failures}\n` +
+  (report.rows.length
+    ? "\n" + report.rows.slice(0, 40).map((r) => `${r.theme} ${r.component} ${r.element} ${r.ratio}<${r.need} ${r.fg} on ${r.bg} "${r.text}"`).join("\n")
+    : "");
+
+window.__PROBE__ = report;
+document.title = `probe · ${report.measurements} measurements · ${report.failures} failures`;
+</script>
+</body>
+</html>

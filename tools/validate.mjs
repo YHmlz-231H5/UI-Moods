@@ -16,6 +16,7 @@ import { checkRenderedStates } from "./lib/render-check.mjs";
 import { checkComponentLibrary } from "./lib/component-check.mjs";
 import { checkTypes } from "./lib/typecheck.mjs";
 import { checkVueComponents } from "./lib/vue-check.mjs";
+import { checkPackage } from "./lib/package-check.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const ajv = new Ajv({ strict: false, allErrors: true });
@@ -668,6 +669,19 @@ if (vueResult.skipped) {
   for (const e of vueResult.errors) console.log(`  - ${e}`);
 } else {
   console.log("vue: PASS");
+}
+
+// package: the public names have to resolve, and the library has to render
+const packageResult = await checkPackage(root);
+if (packageResult.problems.length > 0) {
+  failed++;
+  console.log(`package: FAIL (${packageResult.problems.length} errors)`);
+  for (const e of packageResult.problems) console.log(`  - ${e}`);
+} else {
+  console.log(
+    `package: PASS (${packageResult.stats.resolved} public names, ` +
+      `${packageResult.stats.components} components, ${packageResult.stats.themes} moods)`,
+  );
 }
 
 process.exit(failed ? 1 : 0);

@@ -6,10 +6,13 @@
 
 <!-- The probe is a measuring instrument, not a page anybody looks at. It
      loads every component's live examples, then walks the whole document
-     once per mood and reports what the browser actually painted. -->
+     once per mood and reports what the browser actually painted.
 
-<link rel="stylesheet" href="/components/um-components.css" />
-<link rel="stylesheet" href="/themes/all.css" />
+     The stylesheet is linked inside the measurement module rather than here,
+     because the same measurement is run twice: once against the whole
+     stylesheet and once against the split one a host would link. The page
+     and the measurement have to be identical, or the two numbers are not
+     comparable. -->
 
 <style>
   /* The probe paints itself the way a real page does: the page background and
@@ -44,319 +47,12 @@
 <div id="stage"></div>
 
 <script type="module">
-// --- colour maths ------------------------------------------------------------
+import { measureContrast } from "./contrast-measure.js";
 
-function parse(value) {
-  const s = String(value).trim();
-  if (!s) return null;
-  const m = s.match(/rgba?\(([^)]+)\)/);
-  if (m) {
-    const parts = m[1].split(/[\s,\/]+/).filter(Boolean).map(Number);
-    return { r: parts[0], g: parts[1], b: parts[2], a: parts.length > 3 ? parts[3] : 1 };
-  }
-  // A role's own value can be written as a hex colour, and a probe that only
-  // understood `rgb()` would read every such role as missing. That is not a
-  // cosmetic gap: the placeholder role is written as a hex in most moods, and
-  // a probe that cannot read it holds a placeholder to the bar for body text
-  // instead of the bar for a placeholder.
-  const h = s.match(/^#([0-9a-f]{3,8})$/i);
-  if (h) {
-    const digits = h[1].length <= 4 ? h[1].split("").map((c) => c + c).join("") : h[1];
-    return {
-      r: parseInt(digits.slice(0, 2), 16),
-      g: parseInt(digits.slice(2, 4), 16),
-      b: parseInt(digits.slice(4, 6), 16),
-      a: digits.length >= 8 ? parseInt(digits.slice(6, 8), 16) / 255 : 1,
-    };
-  }
-  return null;
-}
+const report = await measureContrast({ mode: "whole" });
 
-function over(fg, bg) {
-  const a = fg.a;
-  return { r: fg.r * a + bg.r * (1 - a), g: fg.g * a + bg.g * (1 - a), b: fg.b * a + bg.b * (1 - a), a: 1 };
-}
-
-function luminance({ r, g, b }) {
-  const f = (v) => {
-    const s = v / 255;
-    return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4);
-  };
-  return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b);
-}
-
-function ratio(fg, bg) {
-  const l1 = luminance(fg);
-  const l2 = luminance(bg);
-  return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
-}
-
-const hex = (c) =>
-  "#" + [c.r, c.g, c.b].map((v) => Math.round(v).toString(16).padStart(2, "0")).join("");
-
-// --- the surface a thing actually sits on ------------------------------------
-
-/**
- * Do two boxes share any area?
- *
- * Touching edges do not count: a panel that starts exactly where its parent
- * ends is not standing on it.
- */
-function rectIntersects(a, b) {
-  return a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom;
-}
-
-/**
- * The canvas colour: what is painted where nothing else is.
- *
- * The body's own background propagates to the canvas, so it is the floor of
- * every stack — including the stack of a panel that has flown off to the side
- * of the page and left the body's box behind. A probe that walked up to the
- * body and found nothing there would fall back to white, and a white floor
- * measures every dark mood against a light surface.
- */
-function canvasColor() {
-  const white = { r: 255, g: 255, b: 255, a: 1 };
-  const html = parse(getComputedStyle(document.documentElement).backgroundColor);
-  if (html && html.a > 0) return over(html, white);
-  const body = parse(getComputedStyle(document.body).backgroundColor);
-  if (body && body.a > 0) return over(body, white);
-  return white;
-}
-
-/**
- * The effective background of an element: every background colour between it
- * and the page, composited. A translucent fill over a translucent container is
- * a colour that neither token names on its own, so the walk is the only way
- * to know what the reader sees.
- *
- * The walk also asks whether the ancestor's box is actually behind the thing
- * being measured. A panel that flies out of its parent with
- * `position: absolute` lands outside that parent's box, so the parent's fill
- * is not behind it — and counting it would invent a stack the reader never
- * sees.
- */
-function effectiveBackground(el) {
-  const layers = [];
-  let node = el;
-  let opacity = 1;
-  let rect = el.getBoundingClientRect();
-  while (node && node.nodeType === 1 && node !== document.body && node !== document.documentElement) {
-    const style = getComputedStyle(node);
-    const own = parse(style.backgroundColor);
-    const box = node.getBoundingClientRect();
-    // A clipping ancestor — a scroll box — holds its content inside its own
-    // box: the content is painted over that background whether or not the
-    // content's own rectangle reaches that far, because scrolling moves the
-    // content and not the background. Past the clip, the content's position
-    // stops mattering and the clip's own box takes over.
-    const clips = style.overflowX !== "visible" || style.overflowY !== "visible";
-    const behind = clips || box.width === 0 || box.height === 0 || rectIntersects(rect, box);
-    if (own && own.a > 0 && behind) layers.push(own);
-    const o = parseFloat(style.opacity);
-    if (!Number.isNaN(o) && o < 1) opacity *= o;
-    if (own && own.a >= 1) break;
-    if (clips) rect = box;
-    node = node.parentElement;
-  }
-  let result = canvasColor();
-  for (let i = layers.length - 1; i >= 0; i--) result = over(layers[i], result);
-  return { ...result, a: 1, alpha: opacity };
-}
-
-// --- what to measure ---------------------------------------------------------
-
-/**
- * The shapes whose colour carries the meaning on their own.
- *
- * Only shapes with no label of their own belong here. A badge, a step icon
- * and a pagination link carry their meaning in the text inside them, and that
- * text is measured as text; measuring their fill a second time, against the
- * page, would ask a question nobody asked.
- */
-const GRAPHICS = [
-  ".um-timeline__node",
-  ".um-rate__active",
-  ".um-rate__icon",
-  ".um-progress__bar",
-  ".um-loading__spinner",
-];
-
-/**
- * A disabled control is exempt from the contrast rules; the library still
- * paints it, and holds it to a bar of its own.
- *
- * The disabled control is often a *sibling* of the text rather than its
- * ancestor — the label of a disabled checkbox sits next to the input, not
- * inside it — so the walk has to reach the component root and ask whether
- * that root holds a disabled control.
- *
- * What counts is the *state*, not the picture: a class that paints a dimmed
- * day is not a disabled day until the markup says so. A component that dims a
- * control without saying `aria-disabled` has not declared a disabled state,
- * it has drawn one, and the reader is no better off than before — so the
- * probe holds it to the bar of ordinary text and reports it. That is the
- * point of the instrument: a dimmed picture and a dimmed state are not the
- * same thing, and only one of them can be announced.
- */
-function isDisabled(el) {
-  let node = el;
-  while (node && node.nodeType === 1) {
-    if (node.disabled) return true;
-    if (node.getAttribute && node.getAttribute("aria-disabled") === "true") return true;
-    if (node.classList) {
-      for (const cls of node.classList) {
-        if (/^um-[a-z0-9-]+$/.test(cls) && node.querySelector(":disabled")) return true;
-      }
-    }
-    node = node.parentElement;
-  }
-  return false;
-}
-
-function isHidden(el) {
-  const style = getComputedStyle(el);
-  if (style.display === "none" || style.visibility === "hidden") return true;
-  if (parseFloat(style.opacity) === 0) return true;
-  const rect = el.getBoundingClientRect();
-  return rect.width === 0 && rect.height === 0;
-}
-
-function ownText(el) {
-  let out = "";
-  for (const node of el.childNodes) {
-    if (node.nodeType === 3) out += node.textContent;
-  }
-  return out.trim();
-}
-
-// --- the run -----------------------------------------------------------------
-
-const stage = document.getElementById("stage");
-const summary = document.getElementById("summary");
 const tbody = document.querySelector("#report tbody");
-
-const catalogue = await fetch("/components/index.json").then((r) => r.json());
-const themeIndex = await fetch("/themes/index.json").then((r) => r.json());
-
-// Every component's live examples, lifted out of its documentation page.
-const chunks = [];
-for (const c of catalogue.components) {
-  const html = await fetch(`/site/component/${c.id}.html`).then((r) => r.text());
-  const doc = new DOMParser().parseFromString(html, "text/html");
-  const section = document.createElement("section");
-  section.dataset.component = c.id;
-  for (const demo of doc.querySelectorAll(".example__demo")) {
-    const box = document.createElement("div");
-    box.className = "probe__demo";
-    box.append(...demo.cloneNode(true).childNodes);
-    section.append(box);
-  }
-  chunks.push(section);
-}
-
-const rows = [];
-let measurements = 0;
-
-for (const theme of themeIndex.themes) {
-  document.documentElement.setAttribute("data-um-theme", theme.id);
-  // The attribute write is synchronous for the cascade, but the browser may
-  // still be holding the old computed values; a forced layout settles it.
-  void document.body.offsetHeight;
-
-  // The placeholder role is contracted at 2.5:1, not 4.5:1 — a placeholder is
-  // a hint, and WCAG treats it as exempt when the field carries a visible
-  // label. The probe has to know that, or it reports the contract as a
-  // failure.
-  const rootStyle = getComputedStyle(document.documentElement);
-  const placeholderColor = (rootStyle.getPropertyValue("--um-text-placeholder") || "").trim();
-  const placeholderRgb = placeholderColor ? parse(placeholderColor) : null;
-
-  for (const section of chunks) {
-    stage.replaceChildren(section);
-    const id = section.dataset.component;
-
-    // --- text ------------------------------------------------------------
-    for (const el of section.querySelectorAll("*")) {
-      const text = ownText(el);
-      if (!text) continue;
-      if (isHidden(el)) continue;
-      const style = getComputedStyle(el);
-      const fg = parse(style.color);
-      if (!fg) continue;
-      // A label hidden with a transparent colour is not text: the spinner that
-      // replaced it is. Measuring it would report an invisible word as an
-      // unreadable one.
-      if (fg.a === 0) continue;
-      const bg = effectiveBackground(el);
-      const composite = fg.a < 1 ? over(fg, bg) : fg;
-      const size = parseFloat(style.fontSize);
-      const weight = parseInt(style.fontWeight, 10) || 400;
-      const large = size >= 24 || (size >= 18.66 && weight >= 700);
-      const disabled = isDisabled(el);
-      const isPlaceholder =
-        placeholderRgb &&
-        fg.r === placeholderRgb.r &&
-        fg.g === placeholderRgb.g &&
-        fg.b === placeholderRgb.b;
-      const need = disabled ? 2 : isPlaceholder ? 2.5 : large ? 3 : 4.5;
-      const r = ratio(composite, bg);
-      measurements++;
-      if (r < need) {
-        rows.push({
-          theme: theme.id,
-          component: id,
-          element: el.tagName.toLowerCase() + "." + (el.className || "").toString().split(/\s+/).filter(Boolean).join("."),
-          fg: hex(composite),
-          bg: hex(bg),
-          ratio: Number(r.toFixed(2)),
-          need,
-          text: text.slice(0, 40),
-        });
-      }
-    }
-
-    // --- shapes ----------------------------------------------------------
-    for (const sel of GRAPHICS) {
-      for (const el of section.querySelectorAll(sel)) {
-        if (isHidden(el)) continue;
-        const style = getComputedStyle(el);
-        const bg = effectiveBackground(el.parentElement ?? el);
-        // A shape reads if either its fill reads or its outline does. The
-        // spinner is drawn with borders and the star with a fill, and a probe
-        // that only looked at one of them would miss half the library.
-        const candidates = [];
-        const fill = parse(style.backgroundColor);
-        if (fill && fill.a > 0) candidates.push(over(fill, bg));
-        for (const side of ["borderTopColor", "borderRightColor", "borderBottomColor", "borderLeftColor"]) {
-          const c = parse(style[side]);
-          if (c && c.a > 0) candidates.push(over(c, bg));
-        }
-        if (!candidates.length) continue;
-        let best = candidates[0];
-        for (const c of candidates) if (ratio(c, bg) > ratio(best, bg)) best = c;
-        const r = ratio(best, bg);
-        measurements++;
-        if (r < 3) {
-          rows.push({
-            theme: theme.id,
-            component: id,
-            element: sel,
-            fg: hex(best),
-            bg: hex(bg),
-            ratio: Number(r.toFixed(2)),
-            need: 3,
-            text: "(graphic)",
-          });
-        }
-      }
-    }
-  }
-}
-
-stage.replaceChildren();
-
-for (const row of rows) {
+for (const row of report.rows) {
   const tr = document.createElement("tr");
   tr.className = "fail";
   for (const key of ["theme", "component", "element", "fg", "bg", "ratio", "need"]) {
@@ -367,15 +63,16 @@ for (const row of rows) {
   tbody.append(tr);
 }
 
-summary.textContent =
-  `components: ${catalogue.components.length}\n` +
-  `themes: ${themeIndex.themes.length}\n` +
-  `measurements: ${measurements}\n` +
-  `failures: ${rows.length}\n` +
-  (rows.length ? "\n" + rows.slice(0, 40).map((r) => `${r.theme} ${r.component} ${r.element} ${r.ratio}<${r.need} ${r.fg} on ${r.bg} "${r.text}"`).join("\n") : "");
+document.getElementById("summary").textContent =
+  `stylesheet: the whole sheet\n` +
+  `measurements: ${report.measurements}\n` +
+  `failures: ${report.failures}\n` +
+  (report.rows.length
+    ? "\n" + report.rows.slice(0, 40).map((r) => `${r.theme} ${r.component} ${r.element} ${r.ratio}<${r.need} ${r.fg} on ${r.bg} "${r.text}"`).join("\n")
+    : "");
 
-window.__PROBE__ = { measurements, failures: rows.length, rows };
-document.title = `probe · ${measurements} measurements · ${rows.length} failures`;
+window.__PROBE__ = report;
+document.title = `probe · ${report.measurements} measurements · ${report.failures} failures`;
 </script>
 </body>
 </html>

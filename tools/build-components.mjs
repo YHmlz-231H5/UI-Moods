@@ -11,19 +11,25 @@
 // paints. The build refuses to emit a stylesheet whose manifest and CSS
 // disagree: a variant the manifest advertises but the CSS never paints is
 // an error, not a surprise.
+//
+// The order of the partials is computed in `tools/lib/component-chunks.mjs`,
+// because three files need it — this builder, the validator that proves the
+// stylesheet on disk is current, and the distributor that writes one file per
+// component. Three readers of one order is three chances to drift.
 
-import { readFileSync, writeFileSync, existsSync, readdirSync } from "node:fs";
+import { writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { loadManifests, catalogue, declaredClasses, modifierClass, partClass } from "./lib/manifest.mjs";
-import { boxModelCss } from "./lib/box-model.mjs";
+import { catalogue, declaredClasses, modifierClass, partClass } from "./lib/manifest.mjs";
+import { assembleChunks, joinChunks } from "./lib/component-chunks.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const componentsDir = join(root, "components");
 
-const { manifests, problems } = loadManifests(root);
+const { chunks, manifests, problems } = assembleChunks(root);
+
 if (problems.length) {
-  for (const p of problems) console.error(`manifest: ${p}`);
+  for (const p of problems) console.error(`components: ${p}`);
   console.log(`components: FAIL (${problems.length} errors)`);
   process.exit(1);
 }
@@ -36,88 +42,18 @@ function classesIn(css) {
   return out;
 }
 
-const chunks = [];
+const perComponent = new Map(
+  chunks.filter((c) => c.kind === "component").map((c) => [c.id, c.css]),
+);
 
-// The shared layers are files rather than components — they have no
-// manifest and no documentation page. `_base.css` holds the layer constants
-// and the shared focus and disabled treatment, so it comes first;
-// `_hooks.css` holds the quality hooks, which sit on top of everything
-// else, so it comes last. The position is not cosmetic: a rule that sets a
-// property another rule also sets is resolved by order, and moving it would
-// change what is painted.
-const sharedFiles = readdirSync(componentsDir)
-  .filter((f) => f.startsWith("_") && f.endsWith(".css"))
-  .sort();
-const first = sharedFiles.filter((f) => f === "_base.css");
-const last = sharedFiles.filter((f) => f === "_hooks.css");
-const middle = sharedFiles.filter((f) => !first.includes(f) && !last.includes(f));
-
-for (const name of [...first, ...middle]) {
-  chunks.push({
-    id: name.replace(/\.css$/, ""),
-    title: "shared layer",
-    css: readFileSync(join(componentsDir, name), "utf8").trim(),
-  });
-}
-if (!first.length) {
-  console.error("components/_base.css missing — the shared layer has to exist");
-  process.exit(1);
-}
-
-// --- the library's own box model ---------------------------------------------
-
-/**
- * Every box the library paints measures itself from the outside in.
- *
- * The rule is generated from the manifests, so a component that is added
- * tomorrow is covered without anyone remembering to add it, and it is
- * generated in one place — `tools/lib/box-model.mjs` — so that the builder
- * and the validator cannot disagree about what it is.
- */
-chunks.push({
-  id: "_box-model",
-  title: "box model",
-  css: boxModelCss(manifests),
-});
-
-const perComponent = new Map();
 // The shared text a component's own state selector may live in: the shared
 // layers *and* the quality hooks. A hook is painted by the shared layer on
 // purpose — `.um-button--glow` belongs to the button, but the rule belongs
 // to the hooks — so a state selector that names one has to be found there.
-const sharedText = [
-  ...chunks.map((c) => c.css),
-  ...last.map((name) => readFileSync(join(componentsDir, name), "utf8").trim()),
-].join("\n");
-
-for (const m of manifests) {
-  const stylePath = join(componentsDir, m.id, m.style);
-  if (!existsSync(stylePath)) {
-    problems.push(`components/${m.id}/${m.style} missing`);
-    continue;
-  }
-  const css = readFileSync(stylePath, "utf8").trim();
-  perComponent.set(m.id, css);
-  chunks.push({ id: m.id, title: m.name, css });
-}
-
-// The quality hooks close the sheet.
-for (const name of last) {
-  chunks.push({
-    id: name.replace(/\.css$/, ""),
-    title: "quality hooks",
-    css: readFileSync(join(componentsDir, name), "utf8").trim(),
-  });
-}
-
-if (problems.length) {
-  for (const p of problems) console.error(`components: ${p}`);
-  console.log(`components: FAIL (${problems.length} errors)`);
-  process.exit(1);
-}
+const sharedText = chunks.map((c) => c.css).join("\n");
 
 // --- the manifest and the stylesheet must agree --------------------------
-const assembled = chunks.map((c) => c.css).join("\n\n");
+const assembled = joinChunks(chunks);
 const defined = classesIn(assembled);
 
 for (const m of manifests) {
@@ -188,7 +124,7 @@ const header = [
   ``,
 ].join("\n");
 
-writeFileSync(join(componentsDir, "um-components.css"), `${header}${chunks.map((c) => c.css).join("\n\n")}\n`, "utf8");
+writeFileSync(join(componentsDir, "um-components.css"), `${header}${assembled}\n`, "utf8");
 writeFileSync(
   join(componentsDir, "index.json"),
   JSON.stringify(catalogue(manifests), null, 2) + "\n",

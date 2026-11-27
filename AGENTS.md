@@ -151,6 +151,29 @@ language in every mood, and it is the only path whose contrast is measured.
     `badge`, `menu`, `segmented`, `tag` and `transfer` all use the `on-soft`
     form, and so must anything else that paints a word on a tint.
 
+13. If a component **moves**, the reader decides whether it does. The library
+    states its own motion contract: when the reader has asked the system for
+    reduced motion, the durations drop to a hundredth of a millisecond — short
+    enough that nothing visibly moves, long enough that `transitionend` still
+    fires. The rule is generated from the manifests (`tools/lib/motion.mjs`),
+    so it covers every component without anyone remembering to add it. The
+    rendered audit measures both states: `node tools/audit-render.mjs motion`
+    is the baseline (371 elements move) and
+    `node tools/audit-render.mjs motion --reduced-motion` is the contract
+    (none of them do).
+
+14. If you change **the distribution**, keep the two copies of the stylesheet
+    in step. `components/um-components.css` is the whole sheet; `css/` is the
+    same sheet cut into pieces — `base.css` once, then one file per component.
+    They are cut from one chunk list (`tools/lib/component-chunks.mjs`), so
+    they cannot drift, and `node tools/check-package.mjs` proves it: it
+    resolves every public name in `package.json` through Node's own resolver,
+    imports the Vue package through those names and renders it, and compares
+    the split stylesheet with the whole one. The rendered package probe
+    (`node tools/audit-render.mjs package`) then measures the split stylesheet
+    the same way the whole one is measured, so a host that links one file per
+    component is held to the same number.
+
 `site/index.html` is the documentation: an overview plus one page per
 component, with the examples, the API tables and the class list, and a live
 switcher over all 32 themes.
