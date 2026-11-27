@@ -256,6 +256,7 @@
       <tr><td><span class="api__name"><code>variant</code></span></td><td><code>enum = boxed | underline</code></td><td><code>boxed</code></td><td>The shape of the boxes. The boxed run is the base class on its own; the underline run adds um-input-otp--underline.</td></tr>
       <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The size of each box.</td></tr>
       <tr><td><span class="api__name"><code>readonly</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Keeps the code visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only box — it is not a state it measures.</td></tr>
+      <tr><td><span class="api__name"><code>model-value</code></span></td><td><code>string</code></td><td>—</td><td>The bound code. It answers to `v-model` as well as to `value`, and the binding wins when it is there.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>

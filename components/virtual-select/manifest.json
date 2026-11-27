@@ -109,6 +109,13 @@
       "descriptionZh": "被选中的那个选项,写成它的名字。它是单选按钮自己的值,所以这个选择是浏览器做的,不是库做的。"
     },
     {
+      "name": "model-value",
+      "type": "string",
+      "since": "1.1.0",
+      "description": "The bound value. It answers to `v-model` as well as to `value`, and the binding wins when it is there.",
+      "descriptionZh": "绑定的值。它和 `value` 一样能接 `v-model`,而且绑定在的时候以绑定为准。"
+    },
+    {
       "name": "options",
       "type": "string",
       "default": "Aardvark,Albatross,Badger,Barracuda,Beetle,Bison,Butterfly,Capybara,Caribou,Chameleon,Cheetah,Chinchilla",

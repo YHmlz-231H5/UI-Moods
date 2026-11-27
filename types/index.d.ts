@@ -569,6 +569,8 @@ export interface InputOtpProps {
   disabled?: boolean;
   /** Keeps the code visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only box — it is not a state it measures. */
   readonly?: boolean;
+  /** The bound code. It answers to `v-model` as well as to `value`, and the binding wins when it is there. */
+  modelValue?: string;
 }
 
 /** Input Tag · 标签输入 — A field that holds the tags already chosen, and an empty place to type the next one. Removing a tag needs a script; the shapes of the tag and of its remove button do not. */
@@ -590,6 +592,8 @@ export interface InputTagProps {
   disabled?: boolean;
   /** Keeps the text visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures. */
   readonly?: boolean;
+  /** The bound value. It answers to `v-model` as well as to `value`, and the binding wins when it is there. */
+  modelValue?: string;
 }
 
 /** Mention · 提及 — A field with a list of people under it. The reader types, the host decides which names to offer, and each name is a button that carries an avatar slot and an @name. */
@@ -841,6 +845,8 @@ export interface VirtualSelectProps {
   size?: VirtualSelectSize;
   /** The label of the option that is chosen. It is the radio's own value, so the choice is the browser's and not the library's. */
   value?: string;
+  /** The bound value. It answers to `v-model` as well as to `value`, and the binding wins when it is there. */
+  modelValue?: string;
   /** The labels in the list, separated by commas. The wrapper draws one option per label; the markup writes the options out. */
   options?: string;
   /** The text that names the list and stands in for a choice. It is the accessible name of the listbox, so the browser announces it when the reader reaches the list. The library has no field to write a selection into, so the placeholder is what the list is called. */

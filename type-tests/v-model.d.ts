@@ -19,18 +19,24 @@
 import type {
   UMCheckboxGroupProps,
   UMInputProps,
+  UMInputOtpProps,
+  UMInputTagProps,
   UMRadioGroupProps,
   UMRateProps,
   UMSliderProps,
   UMSwitchProps,
+  UMVirtualSelectProps,
 } from "../vue/components/index.js";
 import {
   UMCheckboxGroup,
   UMInput,
+  UMInputOtp,
+  UMInputTag,
   UMRadioGroup,
   UMRate,
   UMSlider,
   UMSwitch,
+  UMVirtualSelect,
 } from "../vue/components/index.js";
 
 /** Fails to compile unless the condition holds. */
@@ -74,4 +80,22 @@ export type SliderModelIsNumber = Expect<
 export type RateEvent = Expect<Event<typeof UMRate>>;
 export type RateModelIsNumber = Expect<
   NonNullable<UMRateProps["modelValue"]> extends number ? true : false
+>;
+
+/** A tag field holds the text in it. */
+export type InputTagEvent = Expect<Event<typeof UMInputTag>>;
+export type InputTagModelIsString = Expect<
+  NonNullable<UMInputTagProps["modelValue"]> extends string ? true : false
+>;
+
+/** A one-time-code row holds the code. */
+export type InputOtpEvent = Expect<Event<typeof UMInputOtp>>;
+export type InputOtpModelIsString = Expect<
+  NonNullable<UMInputOtpProps["modelValue"]> extends string ? true : false
+>;
+
+/** A virtualised list holds the option that is chosen. */
+export type VirtualSelectEvent = Expect<Event<typeof UMVirtualSelect>>;
+export type VirtualSelectModelIsString = Expect<
+  NonNullable<UMVirtualSelectProps["modelValue"]> extends string ? true : false
 >;

@@ -34,7 +34,7 @@
 
 | | 覆盖 | 改名 | 等价 | 跳过 | 差口 | 合计 |
 | --- | --- | --- | --- | --- | --- | --- |
-| 属性 | 240 | 1 | 12 | 996 | 287 | 1536 |
+| 属性 | 243 | 1 | 12 | 996 | 284 | 1536 |
 | 插槽 | 67 | 0 | 0 | 14 | 125 | 206 |
 | 事件 | 30 | 0 | 0 | 81 | 17 | 128 |
 
@@ -79,8 +79,8 @@
 | `infinite-scroll` | — | none | 0 | 0 | 0 | 0 | 0 | 0 |
 | `input` | el-input, el-select, el-option, el-option-group | web-types | 75 | 5 | 0 | 0 | 54 | 16 |
 | `input-number` | el-input-number | web-types | 24 | 7 | 0 | 0 | 13 | 4 |
-| `input-otp` | el-input-otp | web-types | 13 | 4 | 0 | 0 | 6 | 3 |
-| `input-tag` | el-input-tag | web-types | 26 | 4 | 0 | 0 | 16 | 6 |
+| `input-otp` | el-input-otp | web-types | 13 | 5 | 0 | 0 | 6 | 2 |
+| `input-tag` | el-input-tag | web-types | 26 | 5 | 0 | 0 | 16 | 5 |
 | `layout` | el-row, el-col | web-types | 13 | 1 | 0 | 0 | 10 | 2 |
 | `link` | el-link | web-types | 6 | 3 | 0 | 1 | 2 | 0 |
 | `loading` | loading | declarations | 8 | 3 | 0 | 0 | 4 | 1 |
@@ -121,7 +121,7 @@
 | `tree-select` | el-select, el-tree | web-types | 76 | 5 | 0 | 0 | 53 | 18 |
 | `typography` | — | none | 0 | 0 | 0 | 0 | 0 | 0 |
 | `upload` | el-upload | web-types | 27 | 5 | 0 | 0 | 21 | 1 |
-| `virtual-select` | el-virtualized-select | web-types | 55 | 3 | 0 | 0 | 37 | 15 |
+| `virtual-select` | el-virtualized-select | web-types | 55 | 4 | 0 | 0 | 37 | 14 |
 | `virtual-table` | el-table-v2 | web-types | 31 | 2 | 0 | 0 | 27 | 2 |
 | `virtual-tree` | el-tree-v2 | web-types | 17 | 1 | 0 | 0 | 12 | 4 |
 | `watermark` | el-watermark | web-types | 9 | 0 | 0 | 0 | 9 | 0 |
@@ -413,7 +413,6 @@
 ### `input-otp`
 
 - prop · `mask` —— Whether to enable password mode
-- prop · `model-value` —— The value of the OTP fields. Since numbers must not have leading zeros, `modelValue` is allowed to be a number only during initialization.
 - prop · `type` —— The type of the OTP fields
 
 ### `input-tag`
@@ -421,7 +420,6 @@
 - prop · `clearable` —— whether to show clear button
 - prop · `collapse-tags` —— whether to collapse tags to a text when multiple selecting
 - prop · `effect` —— tooltip theme, built-in theme: `dark` / `light`
-- prop · `model-value` —— binding value
 - prop · `tag-effect` —— tag effect
 - prop · `tag-type` —— tag type
 - slot · `tag`
@@ -723,7 +721,6 @@
 - prop · `filterable` —— whether Select is filterable
 - prop · `fit-input-width` —— whether the width of the dropdown is the same as the input, if the value is `number`, then the width is fixed
 - prop · `loading` —— whether Select is loading data from server
-- prop · `model-value` —— binding value
 - prop · `scrollbar-always-on` —— Controls whether the scrollbar is always displayed
 - prop · `show-arrow` —— whether the dropdown has an arrow
 - prop · `size` —— size of component

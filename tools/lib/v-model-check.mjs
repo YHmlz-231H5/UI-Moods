@@ -238,6 +238,29 @@ export async function checkVModel(root) {
     }
   }
 
+  {
+    const html = await render(UM.UMInputTag, { modelValue: "typed" });
+    if (!html.includes('value="typed"')) {
+      note(`input-tag: a bound value did not reach the markup — ${html}`);
+    }
+  }
+
+  {
+    // The code is spread over the boxes, so a bound code has to reach the box
+    // at the position of its character.
+    const html = await render(UM.UMInputOtp, { modelValue: "4821" });
+    if (!html.includes('value="4"') || !html.includes('value="1"')) {
+      note(`input-otp: a bound code did not reach the boxes — ${html}`);
+    }
+  }
+
+  {
+    const html = await render(UM.UMVirtualSelect, { modelValue: "Badger" });
+    if (!/value="Badger"[^>]*checked|checked[^>]*value="Badger"/.test(html)) {
+      note(`virtual-select: a bound value did not select its option — ${html}`);
+    }
+  }
+
   // --- 2. a binding has to change something ---------------------------------
   //
   // The older props have to keep working, and the only way to know that is to
@@ -251,6 +274,34 @@ export async function checkVModel(root) {
     }
   }
 
+  /**
+   * Mount a control and type into it.
+   *
+   * A text control reports what was typed on its `input` event, not on its
+   * `change` event, so the handler the test reaches is a different one.
+   *
+   * @param {object} component the component
+   * @param {object} props the props to render it with
+   * @param {object} event the DOM event to deliver
+   * @returns {Array} the events, in the order they were published
+   */
+  function type(component, props, event) {
+    const emitted = [];
+    const { root } = mount(component, {
+      ...props,
+      "onUpdate:modelValue": (v) => emitted.push(["update:modelValue", v]),
+      onInput: (e) => emitted.push(["input", e]),
+      onChange: (e) => emitted.push(["change", e]),
+    });
+    const input = find(root, (el) => el.type === "input");
+    if (!input) {
+      emitted.push(["no-input"]);
+      return emitted;
+    }
+    input.props.onInput(event);
+    return emitted;
+  }
+
   // --- 3. a change publishes the new value ----------------------------------
 
   {
@@ -261,6 +312,38 @@ export async function checkVModel(root) {
     }
     if (emitted[1]?.[0] !== "change") {
       note(`input: update:modelValue did not come before change — ${JSON.stringify(emitted)}`);
+    }
+  }
+
+  {
+    const emitted = type(UM.UMInputTag, {}, { target: { value: "typed" } });
+    if (emitted[0]?.[0] !== "update:modelValue" || emitted[0]?.[1] !== "typed") {
+      note(`input-tag: a change did not publish the new value — ${JSON.stringify(emitted)}`);
+    }
+    if (emitted[1]?.[0] !== "input") {
+      note(`input-tag: update:modelValue did not come before input — ${JSON.stringify(emitted)}`);
+    }
+  }
+
+  {
+    // The code is one string spread over several boxes, so the whole code is
+    // published rather than the one character that changed. The test reaches
+    // the first box, so the first character is the one that changed.
+    const emitted = type(UM.UMInputOtp, { value: "1234" }, { target: { value: "9" } });
+    if (emitted[0]?.[0] !== "update:modelValue" || emitted[0]?.[1] !== "9234") {
+      note(`input-otp: a change did not publish the whole code — ${JSON.stringify(emitted)}`);
+    }
+  }
+
+  {
+    const emitted = press(UM.UMVirtualSelect, {}, { target: { value: "Badger" } });
+    if (emitted[0]?.[0] !== "update:modelValue" || emitted[0]?.[1] !== "Badger") {
+      note(`virtual-select: a change did not publish the picked option — ${JSON.stringify(emitted)}`);
+    }
+    if (emitted[1]?.[0] !== "change") {
+      note(
+        `virtual-select: update:modelValue did not come before change — ${JSON.stringify(emitted)}`,
+      );
     }
   }
 

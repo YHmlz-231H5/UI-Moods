@@ -43,7 +43,8 @@
     { "name": "placeholder", "type": "string", "default": "Add a tag", "description": "The hint in the empty part of the field.", "descriptionZh": "输入框空着的那一格里的提示。" },
     { "name": "label", "type": "string", "default": "", "description": "The accessible name of the field. It becomes the input's aria-label.", "descriptionZh": "输入框的可访问名称,它会变成 input 的 aria-label。" },
     { "name": "disabled", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Makes the field inert. It uses the real disabled attribute on the input, so it leaves the tab order and the field paints the flat control surface.", "descriptionZh": "让输入框不可用。它用的是 input 上的原生 disabled 属性,因此会退出 Tab 顺序,输入框也会铺上扁平的控件底色。" },
-    { "name": "readonly", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Keeps the text visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures.", "descriptionZh": "文字仍然可见,但不能编辑。它是原生 readonly 属性,浏览器会拒绝编辑。库不会给只读字段单独配色 —— 这不是它测量过的状态。" }
+    { "name": "readonly", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Keeps the text visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures.", "descriptionZh": "文字仍然可见,但不能编辑。它是原生 readonly 属性,浏览器会拒绝编辑。库不会给只读字段单独配色 —— 这不是它测量过的状态。" },
+    { "name": "model-value", "type": "string", "since": "1.1.0", "description": "The bound value. It answers to `v-model` as well as to `value`, and the binding wins when it is there.", "descriptionZh": "绑定的值。它和 `value` 一样能接 `v-model`,而且绑定在的时候以绑定为准。" }
   ],
   "slots": [
     { "name": "default", "description": "The tags already chosen. Each one is a tag holding its text and its remove button.", "descriptionZh": "已经选好的标签,每个标签里装着它的文字和删除按钮。" },

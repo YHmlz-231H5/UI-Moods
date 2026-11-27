@@ -490,7 +490,7 @@
       "sizes": 3,
       "states": 2,
       "parts": 2,
-      "props": 8
+      "props": 9
     },
     {
       "id": "input-tag",
@@ -507,7 +507,7 @@
       "sizes": 3,
       "states": 2,
       "parts": 6,
-      "props": 7
+      "props": 8
     },
     {
       "id": "mention",
@@ -694,7 +694,7 @@
       "sizes": 3,
       "states": 2,
       "parts": 5,
-      "props": 4
+      "props": 5
     },
     {
       "id": "avatar",

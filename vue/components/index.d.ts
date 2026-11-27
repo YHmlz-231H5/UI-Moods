@@ -610,9 +610,11 @@ export interface UMInputOtpProps {
   size?: "sm" | "md" | "lg";
   /** Keeps the code visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only box — it is not a state it measures. */
   readonly?: boolean;
+  /** The bound code. It answers to `v-model` as well as to `value`, and the binding wins when it is there. */
+  modelValue?: string;
 }
 
-export declare const UMInputOtp: DefineComponent<UMInputOtpProps>;
+export declare const UMInputOtp: DefineComponent<UMInputOtpProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
 
 /** Input Tag · 标签输入 — A field that holds the tags already chosen, and an empty place to type the next one. Removing a tag needs a script; the shapes of the tag and of its remove button do not. */
 export interface UMInputTagProps {
@@ -630,9 +632,11 @@ export interface UMInputTagProps {
   disabled?: boolean;
   /** Keeps the text visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures. */
   readonly?: boolean;
+  /** The bound value. It answers to `v-model` as well as to `value`, and the binding wins when it is there. */
+  modelValue?: string;
 }
 
-export declare const UMInputTag: DefineComponent<UMInputTagProps>;
+export declare const UMInputTag: DefineComponent<UMInputTagProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
 
 /** Layout · 布局 — The skeleton of a page: a header, a side column, the content and a footer. It draws the rules that separate them and leaves the surfaces to the page behind it. */
 export interface UMLayoutProps {
@@ -1330,6 +1334,8 @@ export declare const UMUpload: DefineComponent<UMUploadProps>;
 export interface UMVirtualSelectProps {
   /** The label of the option that is chosen. It is the radio's own value, so the choice is the browser's and not the library's. */
   value?: string;
+  /** The bound value. It answers to `v-model` as well as to `value`, and the binding wins when it is there. */
+  modelValue?: string;
   /** The labels in the list, separated by commas. The wrapper draws one option per label; the markup writes the options out. */
   options?: string;
   /** The text that names the list and stands in for a choice. It is the accessible name of the listbox, so the browser announces it when the reader reaches the list. The library has no field to write a selection into, so the placeholder is what the list is called. */
@@ -1338,7 +1344,7 @@ export interface UMVirtualSelectProps {
   height?: string;
 }
 
-export declare const UMVirtualSelect: DefineComponent<UMVirtualSelectProps>;
+export declare const UMVirtualSelect: DefineComponent<UMVirtualSelectProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
 
 /** Virtualized Table · 虚拟表格 — A long table the browser is not asked to lay out in full. The rows far from the viewport are skipped and given a placeholder size, so the cost of the list is what is near it. */
 export interface UMVirtualTableProps {

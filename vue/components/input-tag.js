@@ -7,8 +7,13 @@
 //
 // The tone belongs to the field rather than to one tag, because in CSS the
 // modifier class sits on the root.
+//
+// It answers to `v-model` as well as to `value`: a host that binds the field
+// gets its own text back, and a host that writes `:value` gets exactly what
+// it got before.
 
 import { defineComponent, h } from "vue";
+import { modelValue, eventValue } from "../lib/model.mjs";
 
 /** The tones the stylesheet paints; the base class is the neutral tag. */
 const VARIANTS = ["primary", "success", "warning", "danger"];
@@ -24,8 +29,9 @@ export const UMInputTag = defineComponent({
     label: { type: String, default: "" },
     disabled: { type: Boolean, default: false },
     readonly: { type: Boolean, default: false },
+    modelValue: { type: String, default: undefined },
   },
-  emits: ["input"],
+  emits: ["input", "update:modelValue"],
   setup(props, { slots, emit }) {
     return () =>
       h(
@@ -47,12 +53,15 @@ export const UMInputTag = defineComponent({
           h("input", {
             class: "um-input-tag__input",
             type: "text",
-            value: props.value || undefined,
+            value: modelValue(props, props.value) || undefined,
             placeholder: props.placeholder || undefined,
             disabled: props.disabled,
             readonly: props.readonly,
             "aria-label": props.label || undefined,
-            onInput: (e) => emit("input", e),
+            onInput: (e) => {
+              emit("update:modelValue", eventValue(e));
+              emit("input", e);
+            },
           }),
           h(
             "span",
