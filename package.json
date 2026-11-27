@@ -73,6 +73,17 @@
     "node": ">=18"
   },
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YHmlz-231H5/UI-Moods.git"
+  },
+  "bugs": {
+    "url": "https://github.com/YHmlz-231H5/UI-Moods/issues"
+  },
+  "homepage": "https://github.com/YHmlz-231H5/UI-Moods#readme",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "ajv": "^8.17.1",
     "js-yaml": "^4.1.0"

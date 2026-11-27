@@ -62,17 +62,19 @@ run on the tag commit is the release gate.
 
 ## Publishing to the npm registry
 
-The package is ready to publish and has not been published. Two things are
-still missing, and both are decisions rather than code:
+The package is ready to publish and has not been published. The name
+`ui-moods` is free on the npm registry. The metadata is in `package.json`:
+`repository`, `bugs` and `homepage` point at the GitHub repository, and
+`publishConfig.access` is `public` — an unscoped package can only be public,
+so the field states the intent rather than changing the outcome.
 
-- `repository`, `bugs` and `homepage` in `package.json`.
-- `publishConfig.access` — the registry the publish goes to.
-
-After those:
+What is left is one step, and it is yours because the registry asks for a
+login this session cannot answer:
 
 ```bash
-npm run build:package         # the published files are generated
-npm pack --dry-run            # 588 files, 823 KB — check what went in
+npm login             # or: npm adduser
+npm run build:package # the published files are generated
+npm pack --dry-run    # 601 files, 862 KB — check what went in
 npm publish
 ```
 
@@ -82,6 +84,10 @@ schemas, the build tools and the mood/app *sources*. The generated specimen
 pages and app screens are not in it — they are large, they are generated, and
 they live in the repository. A CLI command that needs them says so rather
 than failing on a missing file.
+
+The example application under `examples/vue-app/` ships as source — its
+`node_modules` and its `dist` are kept out by an `.npmignore` beside it, so
+a consumer who installs the package can read a working project that uses it.
 
 ## Regenerating after a template change
 
