@@ -239,6 +239,29 @@ language in every mood, and it is the only path whose contrast is measured.
     reports every box whose asymmetry did not travel with the direction. The
     current run is **3 713 boxes read in two directions, zero failures**.
 
+18. If you change the **public API**, hold it against Element Plus. The
+    comparison is against what Element Plus itself publishes — the
+    `web-types.json` its documentation build generates and the TypeScript
+    declarations in its package — not against a prose description of it. Every
+    prop Element Plus declares is **covered**, **renamed**, **equivalent**,
+    **skipped** with a stated reason, or a **gap**.
+
+    Two rules hold that:
+
+    - A prop this library does not carry has to say why, and the reasons are
+      seven kinds, not one per prop: a prop that needs JavaScript, a value the
+      host supplies, data for the host to render, a component to put in a slot,
+      a place in the DOM, a duration, an attribute of the native element, or a
+      style string the host passes. A prop that is none of those is a **state
+      the stylesheet can switch on**, and a stylesheet that cannot switch on it
+      is a gap.
+    - `docs/ep-api-parity.md` is generated and checked. `validate` fails when
+      it no longer matches the sources, so a manifest edited without the report
+      being regenerated does not pass the build.
+
+    `node tools/ep-api-parity.mjs --dump` prints the gaps; they are the work
+    list, and they are counted in the report.
+
 `site/index.html` is the documentation: an overview plus one page per
 component, with the examples, the API tables and the class list, and a live
 switcher over all 32 themes.

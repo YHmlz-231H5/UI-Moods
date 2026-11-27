@@ -672,6 +672,35 @@ Every probe exits 0 when it found nothing, 1 when it found something, and 2
 when the run itself went wrong — so it can be a step in a pipeline rather
 than a ritual.
 
+### The API is compared against Element Plus itself
+
+Covering all 82 of Element Plus's components is one thing; offering the same
+**API** is another. The library is compared against Element Plus's own
+published metadata — the `web-types.json` its documentation build generates,
+and the TypeScript declarations in the published package — not against a
+prose description of it.
+
+```bash
+npm run audit-ep-api          # write the report, fail while gaps are left
+node tools/ep-api-parity.mjs --check   # fail if the report is out of date
+```
+
+Every prop Element Plus declares gets one of five verdicts: **covered**
+(this library declares a prop with that name), **renamed** (it declares it
+under another name, and the table says which), **equivalent** (this library
+expresses it as a value of another prop), **skipped** (this library does not
+carry it, and says why), or a **gap** (it does not carry it and has not said
+why — a gap is the work list).
+
+The skips are grouped into seven reasons, not written out one prop at a time:
+a prop that needs JavaScript, a value the host supplies, data for the host to
+render, a component to put in a slot, a place in the DOM, a duration, an
+attribute of the native element, or a style string the host passes.
+
+The report lives in [`docs/ep-api-parity.md`](./docs/ep-api-parity.md), and
+`validate` checks that it still matches the sources — a stale report is a
+wrong report.
+
 ## Current moods
 
 32 style specimens, from quiet editorial to loud arcade:

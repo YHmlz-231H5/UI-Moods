@@ -18,6 +18,7 @@ import { checkTypes } from "./lib/typecheck.mjs";
 import { checkVueComponents } from "./lib/vue-check.mjs";
 import { checkPackage } from "./lib/package-check.mjs";
 import { checkVModel } from "./lib/v-model-check.mjs";
+import { checkEpApi } from "./lib/ep-api-check.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const ajv = new Ajv({ strict: false, allErrors: true });
@@ -696,6 +697,21 @@ if (modelResult.skipped) {
   for (const e of modelResult.errors) console.log(`  - ${e}`);
 } else {
   console.log("v-model: PASS");
+}
+
+// element-plus: the API comparison has to still match the library
+const epResult = checkEpApi(root);
+if (epResult.skipped.length) {
+  for (const s of epResult.skipped) console.log(`element-plus: skip — ${s}`);
+} else if (epResult.errors.length > 0) {
+  failed++;
+  console.log(`element-plus: FAIL (${epResult.errors.length} errors)`);
+  for (const e of epResult.errors) console.log(`  - ${e}`);
+} else {
+  console.log(
+    `element-plus: PASS (${epResult.stats.version} compared, ` +
+      `${epResult.stats.gaps} gaps left — docs/ep-api-parity.md)`,
+  );
 }
 
 process.exit(failed ? 1 : 0);

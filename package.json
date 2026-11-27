@@ -103,6 +103,7 @@
     "check-vue": "node tools/check-vue.mjs",
     "check-component": "node tools/check-component.mjs",
     "check-package": "node tools/check-package.mjs",
+    "audit-ep-api": "node tools/ep-api-parity.mjs",
     "audit-contrast": "node tools/audit-contrast.mjs",
     "audit-render": "node tools/audit-render.mjs",
     "audit-render:apps": "node tools/audit-render.mjs apps",
@@ -128,6 +129,7 @@
   ],
   "devDependencies": {
     "@vue/server-renderer": "^3.5.46",
+    "element-plus": "2.14.9",
     "typescript": "^5.6.3",
     "vue": "^3.5.46"
   }
