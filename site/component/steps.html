@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Steps · UI Moods</title>
+  <meta name="description" content="The order of a job, one step per entry, with the step you are on picked out and the steps already done marked as finished." />
+
+  <!-- The two files that make the whole thing work.
+       The first is the library; the second carries all thirty-two moods at
+       once, so the picker below changes an attribute instead of loading a
+       file — the switch has no network request to wait for. -->
+  <link rel="stylesheet" id="um-theme" href="../../themes/all.css" />
+  <link rel="stylesheet" href="../../components/um-components.css" />
+  <link rel="stylesheet" href="../../site/assets/site.css" />
+</head>
+<body>
+  <header class="site-header">
+      <a class="site-header__brand" href="../../index.html">UI Moods<span>Component Library</span></a>
+      <div class="site-header__spacer"></div>
+      <div class="switcher">
+        <label class="switcher__label" for="um-theme-picker">Theme</label>
+        <span class="switcher__field">
+          <select class="switcher__select" id="um-theme-picker"></select>
+        </span>
+      </div>
+    </header>
+  <div class="site-body">
+    <nav class="site-sidebar" aria-label="Components">
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Basic · 基础</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/typography.html">Typography <span class="meta">文字排版</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Form · 表单</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/button.html">Button <span class="meta">按钮</span></a></li>
+          <li><a href="../component/checkbox.html">Checkbox <span class="meta">复选框</span></a></li>
+          <li><a href="../component/checkbox-group.html">Checkbox Group <span class="meta">复选框组</span></a></li>
+          <li><a href="../component/date-picker.html">Date Picker <span class="meta">日期选择器</span></a></li>
+          <li><a href="../component/field.html">Field <span class="meta">表单项</span></a></li>
+          <li><a href="../component/input.html">Input / Textarea / Select <span class="meta">输入框 / 文本域 / 选择器</span></a></li>
+          <li><a href="../component/input-number.html">Input Number <span class="meta">数字输入框</span></a></li>
+          <li><a href="../component/radio.html">Radio <span class="meta">单选框</span></a></li>
+          <li><a href="../component/radio-group.html">Radio Group <span class="meta">单选框组</span></a></li>
+          <li><a href="../component/rate.html">Rate <span class="meta">评分</span></a></li>
+          <li><a href="../component/slider.html">Slider <span class="meta">滑块</span></a></li>
+          <li><a href="../component/switch.html">Switch <span class="meta">开关</span></a></li>
+          <li><a href="../component/upload.html">Upload <span class="meta">上传</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Data · 数据展示</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/avatar.html">Avatar <span class="meta">头像</span></a></li>
+          <li><a href="../component/badge.html">Badge <span class="meta">徽标</span></a></li>
+          <li><a href="../component/card.html">Card <span class="meta">卡片</span></a></li>
+          <li><a href="../component/cascader.html">Cascader <span class="meta">级联选择器</span></a></li>
+          <li><a href="../component/descriptions.html">Descriptions <span class="meta">描述列表</span></a></li>
+          <li><a href="../component/empty.html">Empty <span class="meta">空状态</span></a></li>
+          <li><a href="../component/progress.html">Progress <span class="meta">进度条</span></a></li>
+          <li><a href="../component/result.html">Result <span class="meta">结果</span></a></li>
+          <li><a href="../component/skeleton.html">Skeleton <span class="meta">骨架屏</span></a></li>
+          <li><a href="../component/statistic.html">Statistic <span class="meta">统计数值</span></a></li>
+          <li><a href="../component/table.html">Table <span class="meta">表格</span></a></li>
+          <li><a href="../component/tag.html">Tag <span class="meta">标签</span></a></li>
+          <li><a href="../component/timeline.html">Timeline <span class="meta">时间线</span></a></li>
+          <li><a href="../component/transfer.html">Transfer <span class="meta">穿梭框</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Navigation · 导航</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/breadcrumb.html">Breadcrumb <span class="meta">面包屑</span></a></li>
+          <li><a href="../component/dropdown.html">Dropdown <span class="meta">下拉菜单</span></a></li>
+          <li><a href="../component/menu.html">Menu <span class="meta">菜单</span></a></li>
+          <li><a href="../component/pagination.html">Pagination <span class="meta">分页</span></a></li>
+          <li><a href="" aria-current="page">Steps <span class="meta">步骤条</span></a></li>
+          <li><a href="../component/tabs.html">Tabs <span class="meta">标签页</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Feedback · 反馈</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/alert.html">Alert <span class="meta">警告</span></a></li>
+          <li><a href="../component/loading.html">Loading <span class="meta">加载中</span></a></li>
+          <li><a href="../component/popover.html">Popover <span class="meta">气泡卡片</span></a></li>
+          <li><a href="../component/tooltip.html">Tooltip <span class="meta">文字提示</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Others · 其他</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/divider.html">Divider <span class="meta">分割线</span></a></li>
+        </ul>
+      </div>
+    </nav>
+    <main class="site-main">
+      <h1>Steps <span class="meta">步骤条</span></h1>
+      <p class="lede">The order of a job, one step per entry, with the step you are on picked out and the steps already done marked as finished.</p>
+      <p class="meta">
+        <span class="tag">ol, li, span</span>
+        <span class="tag">navigation</span>
+        <span class="tag">since 1.1.0</span>
+      </p>
+      <div class="note">The status is a class on the step rather than a variant on the whole component, because a run of steps is a mix of states: one step done, the next one running, the rest waiting. A component-level variant would paint every step the same. The line is kept neutral in every state, so the only coloured thing on the bar is the step it belongs to.</div>
+
+      <h2>Examples</h2>
+<div class="example">
+        <div class="example__title">Horizontal · 横向</div>
+        <div class="example__desc">The usual run: one step is done, one is being worked on, one is waiting. The status is a class on the item, so the three can be different.</div>
+        <div class="example__demo">
+<ol class="um-steps">
+  <li class="um-steps__item um-steps__item--success">
+    <span class="um-steps__icon">1</span>
+    <span class="um-steps__content">
+      <span class="um-steps__title">Request</span>
+      <span class="um-steps__description">The form the order came in on.</span>
+    </span>
+    <span class="um-steps__line" aria-hidden="true"></span>
+  </li>
+  <li class="um-steps__item um-steps__item--active">
+    <span class="um-steps__icon">2</span>
+    <span class="um-steps__content">
+      <span class="um-steps__title">Review</span>
+      <span class="um-steps__description">Someone checks the details.</span>
+    </span>
+    <span class="um-steps__line" aria-hidden="true"></span>
+  </li>
+  <li class="um-steps__item">
+    <span class="um-steps__icon">3</span>
+    <span class="um-steps__content">
+      <span class="um-steps__title">Ship</span>
+      <span class="um-steps__description">The parcel leaves the warehouse.</span>
+    </span>
+    <span class="um-steps__line" aria-hidden="true"></span>
+  </li>
+</ol>
+        </div>
+        <pre class="example__code">&lt;ol class=&quot;um-steps&quot;&gt;
+  &lt;li class=&quot;um-steps__item um-steps__item--success&quot;&gt;
+    &lt;span class=&quot;um-steps__icon&quot;&gt;1&lt;/span&gt;
+    &lt;span class=&quot;um-steps__content&quot;&gt;
+      &lt;span class=&quot;um-steps__title&quot;&gt;Request&lt;/span&gt;
+      &lt;span class=&quot;um-steps__description&quot;&gt;The form the order came in on.&lt;/span&gt;
+    &lt;/span&gt;
+    &lt;span class=&quot;um-steps__line&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;um-steps__item um-steps__item--active&quot;&gt;
+    &lt;span class=&quot;um-steps__icon&quot;&gt;2&lt;/span&gt;
+    &lt;span class=&quot;um-steps__content&quot;&gt;
+      &lt;span class=&quot;um-steps__title&quot;&gt;Review&lt;/span&gt;
+      &lt;span class=&quot;um-steps__description&quot;&gt;Someone checks the details.&lt;/span&gt;
+    &lt;/span&gt;
+    &lt;span class=&quot;um-steps__line&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;um-steps__item&quot;&gt;
+    &lt;span class=&quot;um-steps__icon&quot;&gt;3&lt;/span&gt;
+    &lt;span class=&quot;um-steps__content&quot;&gt;
+      &lt;span class=&quot;um-steps__title&quot;&gt;Ship&lt;/span&gt;
+      &lt;span class=&quot;um-steps__description&quot;&gt;The parcel leaves the warehouse.&lt;/span&gt;
+    &lt;/span&gt;
+    &lt;span class=&quot;um-steps__line&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">Vertical · 纵向</div>
+        <div class="example__desc">The vertical run puts each step under the one before it. The line hangs below the icon and is centred on the icon's axis.</div>
+        <div class="example__demo">
+<ol class="um-steps um-steps--vertical">
+  <li class="um-steps__item um-steps__item--success">
+    <span class="um-steps__icon">1</span>
+    <span class="um-steps__content">
+      <span class="um-steps__title">Cart</span>
+      <span class="um-steps__description">The customer picks the items.</span>
+    </span>
+    <span class="um-steps__line" aria-hidden="true"></span>
+  </li>
+  <li class="um-steps__item um-steps__item--active">
+    <span class="um-steps__icon">2</span>
+    <span class="um-steps__content">
+      <span class="um-steps__title">Payment</span>
+      <span class="um-steps__description">The card is charged once the order is placed.</span>
+    </span>
+    <span class="um-steps__line" aria-hidden="true"></span>
+  </li>
+  <li class="um-steps__item um-steps__item--danger">
+    <span class="um-steps__icon">3</span>
+    <span class="um-steps__content">
+      <span class="um-steps__title">Delivery</span>
+      <span class="um-steps__description">The carrier has not come back yet.</span>
+    </span>
+    <span class="um-steps__line" aria-hidden="true"></span>
+  </li>
+</ol>
+        </div>
+        <pre class="example__code">&lt;ol class=&quot;um-steps um-steps--vertical&quot;&gt;
+  &lt;li class=&quot;um-steps__item um-steps__item--success&quot;&gt;
+    &lt;span class=&quot;um-steps__icon&quot;&gt;1&lt;/span&gt;
+    &lt;span class=&quot;um-steps__content&quot;&gt;
+      &lt;span class=&quot;um-steps__title&quot;&gt;Cart&lt;/span&gt;
+      &lt;span class=&quot;um-steps__description&quot;&gt;The customer picks the items.&lt;/span&gt;
+    &lt;/span&gt;
+    &lt;span class=&quot;um-steps__line&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;um-steps__item um-steps__item--active&quot;&gt;
+    &lt;span class=&quot;um-steps__icon&quot;&gt;2&lt;/span&gt;
+    &lt;span class=&quot;um-steps__content&quot;&gt;
+      &lt;span class=&quot;um-steps__title&quot;&gt;Payment&lt;/span&gt;
+      &lt;span class=&quot;um-steps__description&quot;&gt;The card is charged once the order is placed.&lt;/span&gt;
+    &lt;/span&gt;
+    &lt;span class=&quot;um-steps__line&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;um-steps__item um-steps__item--danger&quot;&gt;
+    &lt;span class=&quot;um-steps__icon&quot;&gt;3&lt;/span&gt;
+    &lt;span class=&quot;um-steps__content&quot;&gt;
+      &lt;span class=&quot;um-steps__title&quot;&gt;Delivery&lt;/span&gt;
+      &lt;span class=&quot;um-steps__description&quot;&gt;The carrier has not come back yet.&lt;/span&gt;
+    &lt;/span&gt;
+    &lt;span class=&quot;um-steps__line&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;</pre>
+      </div>
+      <h2>Classes</h2>
+<table class="api">
+      <thead><tr><th>Class</th><th>Meaning</th></tr></thead>
+      <tbody>
+      <tr><td><code>um-steps</code></td><td>The base class. Every instance carries it.</td></tr>
+      <tr><td><code>um-steps--vertical</code></td><td>Vertical</td></tr>
+      <tr><td><code>um-steps__item</code></td><td>Item</td></tr>
+      <tr><td><code>um-steps__icon</code></td><td>Icon</td></tr>
+      <tr><td><code>um-steps__content</code></td><td>Content</td></tr>
+      <tr><td><code>um-steps__title</code></td><td>Title</td></tr>
+      <tr><td><code>um-steps__description</code></td><td>Description</td></tr>
+      <tr><td><code>um-steps__line</code></td><td>Line</td></tr>
+      <tr><td><code>.um-steps__item--active</code></td><td>Active</td></tr>
+      <tr><td><code>.um-steps__item--success</code></td><td>Success</td></tr>
+      <tr><td><code>.um-steps__item--error</code></td><td>Error</td></tr>
+      <tr><td><code>.um-steps__item--danger</code></td><td>Danger</td></tr>
+      </tbody>
+    </table>
+      <h2>Props</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>direction</code></span></td><td><code>enum = horizontal | vertical</code></td><td><code>horizontal</code></td><td>Which way the steps run. The horizontal run is the base class on its own; the vertical run adds um-steps--vertical.</td></tr>
+      <tr><td><span class="api__name"><code>status</code></span></td><td><code>enum = default | active | success | error | danger</code></td><td><code>default</code></td><td>Where the step stands. It is a class on the item: no class is the waiting state, and the other four are um-steps__item--active, um-steps__item--success, um-steps__item--error and um-steps__item--danger.</td></tr>
+      </tbody>
+    </table>
+      <h2>Slots</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>icon</code></span></td><td>The number or mark in the round slot. It is text in the markup, so it can be a number, a word or a tick.</td></tr>
+      </tbody>
+    </table>
+
+      <h2>Accessibility</h2>
+      <p><strong>Role:</strong> <code>list</code></p>
+        <p>The steps are an &lt;ol&gt;, so they are announced in order and the reader hears how many there are. The status is a class on the item and not an attribute, which means the state is not announced — a finished step sounds like a waiting one. The number in the icon is the text the screen reader reads, so it has to say where the step stands, or the class has to be carried into the markup as well.</p>
+
+    </main>
+  </div>
+
+  <script>window.UM_THEMES = {"light":["anime","archive","bauhaus","brutal","clay","corporate","eco","fashion","food","forest","ios","luxury","medical","monochrome","nordic","pastel","retro","sakura","swiss","travel","y2k"],"dark":["aurora","blueprint","crypto","finance","gaming","glass","instrument","neon","night","vaporwave","verdant"]};
+  window.UM_DEFAULT_THEME = "aurora";</script>
+  <script src="../../themes/switcher.js"></script>
+  <script src="../../site/assets/site.js"></script>
+</body>
+</html>

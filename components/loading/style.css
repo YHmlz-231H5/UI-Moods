@@ -1,0 +1,88 @@
+/* ============================================================================
+   Loading
+   ========================================================================== */
+
+/* The wrapper is a row: the ring and the caption sit on one line. The gap
+   lives on the modifier, because a wrapper with one child has nothing to
+   put a gap between. */
+.um-loading {
+  display: inline-flex;
+  align-items: center;
+}
+
+.um-loading--text { gap: var(--um-space-xs); }
+
+/* The plain spinner is the base class on its own. The modifier exists so the
+   markup can name the shape it is using, and it names it by dropping the
+   caption: a ring with words beside it is the next variant, not this one. */
+.um-loading--spinner .um-loading__text { display: none; }
+
+/* The ring is two borders with the top side left out — the gap in the ring
+   is that missing side, and the keyframe turns the whole shape. Its diameter
+   follows the theme's spacing steps, so the ring grows with the mood's
+   rhythm rather than sitting at a size of its own.
+
+   The ring takes the graphic form of the brand colour: it is a picture, not
+   a background for text, so it is held to 3:1 rather than to 4.5:1. The raw
+   brand colour clears neither — in the brutal mood it sits at 1.43:1 on a
+   container, which is a spinner nobody can see. */
+.um-loading__spinner {
+  flex-shrink: 0;
+  display: inline-block;
+  width: var(--um-space-md);
+  height: var(--um-space-md);
+  border: 2px solid var(--um-color-primary-graphic);
+  border-top-color: transparent;
+  border-radius: var(--um-radius-circle);
+}
+.um-loading--small .um-loading__spinner { width: var(--um-space-sm); height: var(--um-space-sm); }
+.um-loading--large .um-loading__spinner { width: var(--um-space-lg); height: var(--um-space-lg); }
+
+/* The caption carries the message, so it takes the muted text colour rather
+   than the colour of the ring beside it. */
+.um-loading__text {
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+  line-height: 1.4;
+}
+
+/* The overlay covers the page with a veil and centres the panel on it. The
+   vocabulary has no translucent surface, so the veil is the page colour at
+   half strength: what is behind it fades instead of changing hue. */
+.um-loading--overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.um-loading--overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--um-bg-page);
+  opacity: 0.55;
+}
+
+/* The panel sits above the veil, so it brings its own surface and shadow. */
+.um-loading__panel {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--um-space-sm);
+  padding: var(--um-space-md) var(--um-space-lg);
+  border-radius: var(--um-radius-large);
+  background: var(--um-bg-container);
+  box-shadow: var(--um-shadow-base);
+}
+
+/* The ring turns only when the reader has not asked for less motion — the
+   library never overrides that preference. The keyframe is the one the
+   loading button already uses, because it is the same ring turning the
+   same way. */
+@media (prefers-reduced-motion: no-preference) {
+  .um-loading__spinner { animation: um-spin 0.7s linear infinite; }
+}

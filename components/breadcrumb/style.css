@@ -1,0 +1,62 @@
+/* ============================================================================
+   Breadcrumb
+   ========================================================================== */
+.um-breadcrumb {
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+  color: var(--um-text-regular);
+}
+
+.um-breadcrumb__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--um-space-xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.um-breadcrumb__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--um-space-xs);
+}
+
+.um-breadcrumb__link {
+  color: var(--um-text-regular);
+  text-decoration: none;
+  transition: color var(--um-motion);
+}
+
+.um-breadcrumb__link:hover { color: var(--um-color-primary-text); }
+
+/* The separator is a shape, not a character: a chevron drawn from two
+   borders, so it takes the theme's border colour and its border weight and
+   needs no icon font. */
+.um-breadcrumb__separator {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-top: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-right: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  transform: rotate(45deg);
+}
+
+/* The page the reader is on is not a link, and it is not the same colour as
+   the path that leads to it. */
+.um-breadcrumb__link[aria-current="page"] {
+  color: var(--um-text-primary);
+  font-weight: var(--um-font-weight-medium);
+}
+
+/* The slash separator is one line, leaning the way a slash leans. It is
+   sized in em because it has to follow the text it stands between, and the
+   theme's spacing steps do not. */
+.um-breadcrumb--slash .um-breadcrumb__separator {
+  width: var(--um-border-width);
+  height: 1em;
+  border: 0;
+  background: var(--um-border-base);
+  transform: rotate(15deg);
+}

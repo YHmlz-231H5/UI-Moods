@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Result · UI Moods</title>
+  <meta name="description" content="The end of a flow: one statement of what happened, a line of explanation, and the way out. It is the whole answer on one screen, not a toast that disappears." />
+
+  <!-- The two files that make the whole thing work.
+       The first is the library; the second carries all thirty-two moods at
+       once, so the picker below changes an attribute instead of loading a
+       file — the switch has no network request to wait for. -->
+  <link rel="stylesheet" id="um-theme" href="../../themes/all.css" />
+  <link rel="stylesheet" href="../../components/um-components.css" />
+  <link rel="stylesheet" href="../../site/assets/site.css" />
+</head>
+<body>
+  <header class="site-header">
+      <a class="site-header__brand" href="../../index.html">UI Moods<span>Component Library</span></a>
+      <div class="site-header__spacer"></div>
+      <div class="switcher">
+        <label class="switcher__label" for="um-theme-picker">Theme</label>
+        <span class="switcher__field">
+          <select class="switcher__select" id="um-theme-picker"></select>
+        </span>
+      </div>
+    </header>
+  <div class="site-body">
+    <nav class="site-sidebar" aria-label="Components">
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Basic · 基础</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/typography.html">Typography <span class="meta">文字排版</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Form · 表单</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/button.html">Button <span class="meta">按钮</span></a></li>
+          <li><a href="../component/checkbox.html">Checkbox <span class="meta">复选框</span></a></li>
+          <li><a href="../component/checkbox-group.html">Checkbox Group <span class="meta">复选框组</span></a></li>
+          <li><a href="../component/date-picker.html">Date Picker <span class="meta">日期选择器</span></a></li>
+          <li><a href="../component/field.html">Field <span class="meta">表单项</span></a></li>
+          <li><a href="../component/input.html">Input / Textarea / Select <span class="meta">输入框 / 文本域 / 选择器</span></a></li>
+          <li><a href="../component/input-number.html">Input Number <span class="meta">数字输入框</span></a></li>
+          <li><a href="../component/radio.html">Radio <span class="meta">单选框</span></a></li>
+          <li><a href="../component/radio-group.html">Radio Group <span class="meta">单选框组</span></a></li>
+          <li><a href="../component/rate.html">Rate <span class="meta">评分</span></a></li>
+          <li><a href="../component/slider.html">Slider <span class="meta">滑块</span></a></li>
+          <li><a href="../component/switch.html">Switch <span class="meta">开关</span></a></li>
+          <li><a href="../component/upload.html">Upload <span class="meta">上传</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Data · 数据展示</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/avatar.html">Avatar <span class="meta">头像</span></a></li>
+          <li><a href="../component/badge.html">Badge <span class="meta">徽标</span></a></li>
+          <li><a href="../component/card.html">Card <span class="meta">卡片</span></a></li>
+          <li><a href="../component/cascader.html">Cascader <span class="meta">级联选择器</span></a></li>
+          <li><a href="../component/descriptions.html">Descriptions <span class="meta">描述列表</span></a></li>
+          <li><a href="../component/empty.html">Empty <span class="meta">空状态</span></a></li>
+          <li><a href="../component/progress.html">Progress <span class="meta">进度条</span></a></li>
+          <li><a href="" aria-current="page">Result <span class="meta">结果</span></a></li>
+          <li><a href="../component/skeleton.html">Skeleton <span class="meta">骨架屏</span></a></li>
+          <li><a href="../component/statistic.html">Statistic <span class="meta">统计数值</span></a></li>
+          <li><a href="../component/table.html">Table <span class="meta">表格</span></a></li>
+          <li><a href="../component/tag.html">Tag <span class="meta">标签</span></a></li>
+          <li><a href="../component/timeline.html">Timeline <span class="meta">时间线</span></a></li>
+          <li><a href="../component/transfer.html">Transfer <span class="meta">穿梭框</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Navigation · 导航</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/breadcrumb.html">Breadcrumb <span class="meta">面包屑</span></a></li>
+          <li><a href="../component/dropdown.html">Dropdown <span class="meta">下拉菜单</span></a></li>
+          <li><a href="../component/menu.html">Menu <span class="meta">菜单</span></a></li>
+          <li><a href="../component/pagination.html">Pagination <span class="meta">分页</span></a></li>
+          <li><a href="../component/steps.html">Steps <span class="meta">步骤条</span></a></li>
+          <li><a href="../component/tabs.html">Tabs <span class="meta">标签页</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Feedback · 反馈</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/alert.html">Alert <span class="meta">警告</span></a></li>
+          <li><a href="../component/loading.html">Loading <span class="meta">加载中</span></a></li>
+          <li><a href="../component/popover.html">Popover <span class="meta">气泡卡片</span></a></li>
+          <li><a href="../component/tooltip.html">Tooltip <span class="meta">文字提示</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Others · 其他</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/divider.html">Divider <span class="meta">分割线</span></a></li>
+        </ul>
+      </div>
+    </nav>
+    <main class="site-main">
+      <h1>Result <span class="meta">结果</span></h1>
+      <p class="lede">The end of a flow: one statement of what happened, a line of explanation, and the way out. It is the whole answer on one screen, not a toast that disappears.</p>
+      <p class="meta">
+        <span class="tag">div, span, h2, p, button</span>
+        <span class="tag">data</span>
+        <span class="tag">since 1.1.0</span>
+      </p>
+      <div class="note">The library draws the plate the icon sits on and the size of the box, and stops there. The icon itself is the host's: an icon font would pull a font file into every consumer, and an emoji looks different on every operating system, so the slot ships empty and the host fills it with its own SVG.</div>
+
+      <h2>Examples</h2>
+<div class="example">
+        <div class="example__title">A result · 一个结果</div>
+        <div class="example__desc">The icon slot is empty: the host is meant to put its own SVG in it, so the library does not ship an icon font or an emoji. What the host puts inside inherits the colour of the plate.</div>
+        <div class="example__demo">
+<div class="um-result">
+  <span class="um-result__icon" aria-hidden="true"></span>
+  <h2 class="um-result__title">Deployment finished</h2>
+  <p class="um-result__subtitle">Build 214 passed on all three nodes.</p>
+  <div class="um-result__extra">
+    <button>View build</button>
+  </div>
+</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-result&quot;&gt;
+  &lt;span class=&quot;um-result__icon&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+  &lt;h2 class=&quot;um-result__title&quot;&gt;Deployment finished&lt;/h2&gt;
+  &lt;p class=&quot;um-result__subtitle&quot;&gt;Build 214 passed on all three nodes.&lt;/p&gt;
+  &lt;div class=&quot;um-result__extra&quot;&gt;
+    &lt;button&gt;View build&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">Tones · 状态</div>
+        <div class="example__desc">Four variants tint the plate behind the icon. The tint is the soft one, and the icon takes the foreground derived for that tint, so it stays readable in every mood.</div>
+        <div class="example__demo">
+<div class="um-result um-result--success">
+  <span class="um-result__icon" aria-hidden="true"></span>
+  <h2 class="um-result__title">Order placed</h2>
+  <p class="um-result__subtitle">We will send the confirmation by email.</p>
+</div>
+<div class="um-result um-result--warning">
+  <span class="um-result__icon" aria-hidden="true"></span>
+  <h2 class="um-result__title">Certificate expiring</h2>
+  <p class="um-result__subtitle">Renew it before 12 December to keep the link alive.</p>
+</div>
+<div class="um-result um-result--danger">
+  <span class="um-result__icon" aria-hidden="true"></span>
+  <h2 class="um-result__title">Payment refused</h2>
+  <p class="um-result__subtitle">The card was declined by the issuer.</p>
+</div>
+<div class="um-result um-result--info">
+  <span class="um-result__icon" aria-hidden="true"></span>
+  <h2 class="um-result__title">Nothing scheduled</h2>
+  <p class="um-result__subtitle">There is no run in the next seven days.</p>
+</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-result um-result--success&quot;&gt;
+  &lt;span class=&quot;um-result__icon&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+  &lt;h2 class=&quot;um-result__title&quot;&gt;Order placed&lt;/h2&gt;
+  &lt;p class=&quot;um-result__subtitle&quot;&gt;We will send the confirmation by email.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;um-result um-result--warning&quot;&gt;
+  &lt;span class=&quot;um-result__icon&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+  &lt;h2 class=&quot;um-result__title&quot;&gt;Certificate expiring&lt;/h2&gt;
+  &lt;p class=&quot;um-result__subtitle&quot;&gt;Renew it before 12 December to keep the link alive.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;um-result um-result--danger&quot;&gt;
+  &lt;span class=&quot;um-result__icon&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+  &lt;h2 class=&quot;um-result__title&quot;&gt;Payment refused&lt;/h2&gt;
+  &lt;p class=&quot;um-result__subtitle&quot;&gt;The card was declined by the issuer.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;um-result um-result--info&quot;&gt;
+  &lt;span class=&quot;um-result__icon&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+  &lt;h2 class=&quot;um-result__title&quot;&gt;Nothing scheduled&lt;/h2&gt;
+  &lt;p class=&quot;um-result__subtitle&quot;&gt;There is no run in the next seven days.&lt;/p&gt;
+&lt;/div&gt;</pre>
+      </div>
+      <h2>Classes</h2>
+<table class="api">
+      <thead><tr><th>Class</th><th>Meaning</th></tr></thead>
+      <tbody>
+      <tr><td><code>um-result</code></td><td>The base class. Every instance carries it.</td></tr>
+      <tr><td><code>um-result--success</code></td><td>Success</td></tr>
+      <tr><td><code>um-result--warning</code></td><td>Warning</td></tr>
+      <tr><td><code>um-result--danger</code></td><td>Danger</td></tr>
+      <tr><td><code>um-result--info</code></td><td>Info</td></tr>
+      <tr><td><code>um-result__icon</code></td><td>Icon</td></tr>
+      <tr><td><code>um-result__title</code></td><td>Title</td></tr>
+      <tr><td><code>um-result__subtitle</code></td><td>Subtitle</td></tr>
+      <tr><td><code>um-result__extra</code></td><td>Extra</td></tr>
+      </tbody>
+    </table>
+      <h2>Props</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>variant</code></span></td><td><code>enum = success | warning | danger | info</code></td><td>—</td><td>The tone of the plate behind the icon. Without a variant the plate takes the brand colour.</td></tr>
+      <tr><td><span class="api__name"><code>title</code></span></td><td><code>string</code></td><td>—</td><td>What happened. It should be a real heading element, so the page keeps its outline.</td></tr>
+      <tr><td><span class="api__name"><code>subtitle</code></span></td><td><code>string</code></td><td>—</td><td>The line under the title.</td></tr>
+      </tbody>
+    </table>
+      <h2>Slots</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>icon</code></span></td><td>The icon. The slot is empty and takes an SVG from the host.</td></tr>
+      <tr><td><span class="api__name"><code>title</code></span></td><td>The headline.</td></tr>
+      <tr><td><span class="api__name"><code>subtitle</code></span></td><td>The line under the headline.</td></tr>
+      <tr><td><span class="api__name"><code>extra</code></span></td><td>The actions.</td></tr>
+      </tbody>
+    </table>
+
+      <h2>Accessibility</h2>
+      <p>The title should be a real heading element — the class sets its size, so the document outline stays right. The icon is decoration: mark the slot aria-hidden, because an icon that repeats the title is read twice. The buttons in the actions area are real buttons, so they are focusable and reachable by keyboard.</p>
+
+    </main>
+  </div>
+
+  <script>window.UM_THEMES = {"light":["anime","archive","bauhaus","brutal","clay","corporate","eco","fashion","food","forest","ios","luxury","medical","monochrome","nordic","pastel","retro","sakura","swiss","travel","y2k"],"dark":["aurora","blueprint","crypto","finance","gaming","glass","instrument","neon","night","vaporwave","verdant"]};
+  window.UM_DEFAULT_THEME = "aurora";</script>
+  <script src="../../themes/switcher.js"></script>
+  <script src="../../site/assets/site.js"></script>
+</body>
+</html>

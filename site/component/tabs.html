@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tabs · UI Moods</title>
+  <meta name="description" content="One row of tabs over several panels of content. The tabs are radio inputs, so the browser keeps the selection, the focus and the arrow keys without a line of script." />
+
+  <!-- The two files that make the whole thing work.
+       The first is the library; the second carries all thirty-two moods at
+       once, so the picker below changes an attribute instead of loading a
+       file — the switch has no network request to wait for. -->
+  <link rel="stylesheet" id="um-theme" href="../../themes/all.css" />
+  <link rel="stylesheet" href="../../components/um-components.css" />
+  <link rel="stylesheet" href="../../site/assets/site.css" />
+</head>
+<body>
+  <header class="site-header">
+      <a class="site-header__brand" href="../../index.html">UI Moods<span>Component Library</span></a>
+      <div class="site-header__spacer"></div>
+      <div class="switcher">
+        <label class="switcher__label" for="um-theme-picker">Theme</label>
+        <span class="switcher__field">
+          <select class="switcher__select" id="um-theme-picker"></select>
+        </span>
+      </div>
+    </header>
+  <div class="site-body">
+    <nav class="site-sidebar" aria-label="Components">
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Basic · 基础</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/typography.html">Typography <span class="meta">文字排版</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Form · 表单</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/button.html">Button <span class="meta">按钮</span></a></li>
+          <li><a href="../component/checkbox.html">Checkbox <span class="meta">复选框</span></a></li>
+          <li><a href="../component/checkbox-group.html">Checkbox Group <span class="meta">复选框组</span></a></li>
+          <li><a href="../component/date-picker.html">Date Picker <span class="meta">日期选择器</span></a></li>
+          <li><a href="../component/field.html">Field <span class="meta">表单项</span></a></li>
+          <li><a href="../component/input.html">Input / Textarea / Select <span class="meta">输入框 / 文本域 / 选择器</span></a></li>
+          <li><a href="../component/input-number.html">Input Number <span class="meta">数字输入框</span></a></li>
+          <li><a href="../component/radio.html">Radio <span class="meta">单选框</span></a></li>
+          <li><a href="../component/radio-group.html">Radio Group <span class="meta">单选框组</span></a></li>
+          <li><a href="../component/rate.html">Rate <span class="meta">评分</span></a></li>
+          <li><a href="../component/slider.html">Slider <span class="meta">滑块</span></a></li>
+          <li><a href="../component/switch.html">Switch <span class="meta">开关</span></a></li>
+          <li><a href="../component/upload.html">Upload <span class="meta">上传</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Data · 数据展示</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/avatar.html">Avatar <span class="meta">头像</span></a></li>
+          <li><a href="../component/badge.html">Badge <span class="meta">徽标</span></a></li>
+          <li><a href="../component/card.html">Card <span class="meta">卡片</span></a></li>
+          <li><a href="../component/cascader.html">Cascader <span class="meta">级联选择器</span></a></li>
+          <li><a href="../component/descriptions.html">Descriptions <span class="meta">描述列表</span></a></li>
+          <li><a href="../component/empty.html">Empty <span class="meta">空状态</span></a></li>
+          <li><a href="../component/progress.html">Progress <span class="meta">进度条</span></a></li>
+          <li><a href="../component/result.html">Result <span class="meta">结果</span></a></li>
+          <li><a href="../component/skeleton.html">Skeleton <span class="meta">骨架屏</span></a></li>
+          <li><a href="../component/statistic.html">Statistic <span class="meta">统计数值</span></a></li>
+          <li><a href="../component/table.html">Table <span class="meta">表格</span></a></li>
+          <li><a href="../component/tag.html">Tag <span class="meta">标签</span></a></li>
+          <li><a href="../component/timeline.html">Timeline <span class="meta">时间线</span></a></li>
+          <li><a href="../component/transfer.html">Transfer <span class="meta">穿梭框</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Navigation · 导航</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/breadcrumb.html">Breadcrumb <span class="meta">面包屑</span></a></li>
+          <li><a href="../component/dropdown.html">Dropdown <span class="meta">下拉菜单</span></a></li>
+          <li><a href="../component/menu.html">Menu <span class="meta">菜单</span></a></li>
+          <li><a href="../component/pagination.html">Pagination <span class="meta">分页</span></a></li>
+          <li><a href="../component/steps.html">Steps <span class="meta">步骤条</span></a></li>
+          <li><a href="" aria-current="page">Tabs <span class="meta">标签页</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Feedback · 反馈</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/alert.html">Alert <span class="meta">警告</span></a></li>
+          <li><a href="../component/loading.html">Loading <span class="meta">加载中</span></a></li>
+          <li><a href="../component/popover.html">Popover <span class="meta">气泡卡片</span></a></li>
+          <li><a href="../component/tooltip.html">Tooltip <span class="meta">文字提示</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Others · 其他</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/divider.html">Divider <span class="meta">分割线</span></a></li>
+        </ul>
+      </div>
+    </nav>
+    <main class="site-main">
+      <h1>Tabs <span class="meta">标签页</span></h1>
+      <p class="lede">One row of tabs over several panels of content. The tabs are radio inputs, so the browser keeps the selection, the focus and the arrow keys without a line of script.</p>
+      <p class="meta">
+        <span class="tag">input, label, section</span>
+        <span class="tag">navigation</span>
+        <span class="tag">since 1.1.0</span>
+      </p>
+      <div class="note">The tabs are radio inputs, and the stylesheet pairs the Nth radio with the Nth tab and the Nth panel by position. That is why the radios come first in the markup, the header second and the panels last, and why the panels are &lt;section&gt;s: `nth-of-type` has to count them apart from the &lt;div&gt; that holds the header. Four tabs are wired out of the box; a fifth needs one more selector in this file, not a line of JavaScript.</div>
+
+      <h2>Examples</h2>
+<div class="example">
+        <div class="example__title">Basic · 基础用法</div>
+        <div class="example__desc">Three tabs over three panels. The radios come first, the header second and the panels last: the stylesheet pairs the Nth radio with the Nth tab and the Nth panel by position.</div>
+        <div class="example__demo">
+<div class="um-tabs">
+  <input class="um-tabs__radio" type="radio" name="um-tabs-account" id="um-tabs-account-1" aria-controls="um-tabs-account-panel-1" checked />
+  <input class="um-tabs__radio" type="radio" name="um-tabs-account" id="um-tabs-account-2" aria-controls="um-tabs-account-panel-2" />
+  <input class="um-tabs__radio" type="radio" name="um-tabs-account" id="um-tabs-account-3" aria-controls="um-tabs-account-panel-3" />
+
+  <div class="um-tabs__header" role="tablist" aria-label="Account">
+    <label class="um-tabs__item" id="um-tabs-account-tab-1" role="tab" for="um-tabs-account-1">
+      <span class="um-tabs__label">Profile</span>
+      <span class="um-tabs__indicator" aria-hidden="true"></span>
+    </label>
+    <label class="um-tabs__item" id="um-tabs-account-tab-2" role="tab" for="um-tabs-account-2">
+      <span class="um-tabs__label">Billing</span>
+      <span class="um-tabs__indicator" aria-hidden="true"></span>
+    </label>
+    <label class="um-tabs__item" id="um-tabs-account-tab-3" role="tab" for="um-tabs-account-3">
+      <span class="um-tabs__label">Settings</span>
+      <span class="um-tabs__indicator" aria-hidden="true"></span>
+    </label>
+  </div>
+
+  <section class="um-tabs__panel" id="um-tabs-account-panel-1" role="tabpanel" aria-labelledby="um-tabs-account-tab-1" tabindex="0">
+    The name, the avatar and the short bio other people see.
+  </section>
+  <section class="um-tabs__panel" id="um-tabs-account-panel-2" role="tabpanel" aria-labelledby="um-tabs-account-tab-2" tabindex="0">
+    The card on file, the invoices and the next payment date.
+  </section>
+  <section class="um-tabs__panel" id="um-tabs-account-panel-3" role="tabpanel" aria-labelledby="um-tabs-account-tab-3" tabindex="0">
+    Notification addresses, connected accounts and the password.
+  </section>
+</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-tabs&quot;&gt;
+  &lt;input class=&quot;um-tabs__radio&quot; type=&quot;radio&quot; name=&quot;um-tabs-account&quot; id=&quot;um-tabs-account-1&quot; aria-controls=&quot;um-tabs-account-panel-1&quot; checked /&gt;
+  &lt;input class=&quot;um-tabs__radio&quot; type=&quot;radio&quot; name=&quot;um-tabs-account&quot; id=&quot;um-tabs-account-2&quot; aria-controls=&quot;um-tabs-account-panel-2&quot; /&gt;
+  &lt;input class=&quot;um-tabs__radio&quot; type=&quot;radio&quot; name=&quot;um-tabs-account&quot; id=&quot;um-tabs-account-3&quot; aria-controls=&quot;um-tabs-account-panel-3&quot; /&gt;
+
+  &lt;div class=&quot;um-tabs__header&quot; role=&quot;tablist&quot; aria-label=&quot;Account&quot;&gt;
+    &lt;label class=&quot;um-tabs__item&quot; id=&quot;um-tabs-account-tab-1&quot; role=&quot;tab&quot; for=&quot;um-tabs-account-1&quot;&gt;
+      &lt;span class=&quot;um-tabs__label&quot;&gt;Profile&lt;/span&gt;
+      &lt;span class=&quot;um-tabs__indicator&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;um-tabs__item&quot; id=&quot;um-tabs-account-tab-2&quot; role=&quot;tab&quot; for=&quot;um-tabs-account-2&quot;&gt;
+      &lt;span class=&quot;um-tabs__label&quot;&gt;Billing&lt;/span&gt;
+      &lt;span class=&quot;um-tabs__indicator&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;um-tabs__item&quot; id=&quot;um-tabs-account-tab-3&quot; role=&quot;tab&quot; for=&quot;um-tabs-account-3&quot;&gt;
+      &lt;span class=&quot;um-tabs__label&quot;&gt;Settings&lt;/span&gt;
+      &lt;span class=&quot;um-tabs__indicator&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+
+  &lt;section class=&quot;um-tabs__panel&quot; id=&quot;um-tabs-account-panel-1&quot; role=&quot;tabpanel&quot; aria-labelledby=&quot;um-tabs-account-tab-1&quot; tabindex=&quot;0&quot;&gt;
+    The name, the avatar and the short bio other people see.
+  &lt;/section&gt;
+  &lt;section class=&quot;um-tabs__panel&quot; id=&quot;um-tabs-account-panel-2&quot; role=&quot;tabpanel&quot; aria-labelledby=&quot;um-tabs-account-tab-2&quot; tabindex=&quot;0&quot;&gt;
+    The card on file, the invoices and the next payment date.
+  &lt;/section&gt;
+  &lt;section class=&quot;um-tabs__panel&quot; id=&quot;um-tabs-account-panel-3&quot; role=&quot;tabpanel&quot; aria-labelledby=&quot;um-tabs-account-tab-3&quot; tabindex=&quot;0&quot;&gt;
+    Notification addresses, connected accounts and the password.
+  &lt;/section&gt;
+&lt;/div&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">Card · 卡片式</div>
+        <div class="example__desc">The card variant puts the tabs in a bordered strip and fills the selected one. The fill and the label colour are chosen by the variant, so the rule that matches the checked radio stays the same.</div>
+        <div class="example__demo">
+<div class="um-tabs um-tabs--card">
+  <input class="um-tabs__radio" type="radio" name="um-tabs-card" id="um-tabs-card-1" aria-controls="um-tabs-card-panel-1" checked />
+  <input class="um-tabs__radio" type="radio" name="um-tabs-card" id="um-tabs-card-2" aria-controls="um-tabs-card-panel-2" />
+  <input class="um-tabs__radio" type="radio" name="um-tabs-card" id="um-tabs-card-3" aria-controls="um-tabs-card-panel-3" />
+
+  <div class="um-tabs__header" role="tablist" aria-label="Project">
+    <label class="um-tabs__item" id="um-tabs-card-tab-1" role="tab" for="um-tabs-card-1">
+      <span class="um-tabs__label">Overview</span>
+      <span class="um-tabs__indicator" aria-hidden="true"></span>
+    </label>
+    <label class="um-tabs__item" id="um-tabs-card-tab-2" role="tab" for="um-tabs-card-2">
+      <span class="um-tabs__label">Files</span>
+      <span class="um-tabs__indicator" aria-hidden="true"></span>
+    </label>
+    <label class="um-tabs__item" id="um-tabs-card-tab-3" role="tab" for="um-tabs-card-3">
+      <span class="um-tabs__label">Activity</span>
+      <span class="um-tabs__indicator" aria-hidden="true"></span>
+    </label>
+  </div>
+
+  <section class="um-tabs__panel" id="um-tabs-card-panel-1" role="tabpanel" aria-labelledby="um-tabs-card-tab-1" tabindex="0">
+    Three files changed in the last week.
+  </section>
+  <section class="um-tabs__panel" id="um-tabs-card-panel-2" role="tabpanel" aria-labelledby="um-tabs-card-tab-2" tabindex="0">
+    Everything in the project, newest first.
+  </section>
+  <section class="um-tabs__panel" id="um-tabs-card-panel-3" role="tabpanel" aria-labelledby="um-tabs-card-tab-3" tabindex="0">
+    Who touched what, and when.
+  </section>
+</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-tabs um-tabs--card&quot;&gt;
+  &lt;input class=&quot;um-tabs__radio&quot; type=&quot;radio&quot; name=&quot;um-tabs-card&quot; id=&quot;um-tabs-card-1&quot; aria-controls=&quot;um-tabs-card-panel-1&quot; checked /&gt;
+  &lt;input class=&quot;um-tabs__radio&quot; type=&quot;radio&quot; name=&quot;um-tabs-card&quot; id=&quot;um-tabs-card-2&quot; aria-controls=&quot;um-tabs-card-panel-2&quot; /&gt;
+  &lt;input class=&quot;um-tabs__radio&quot; type=&quot;radio&quot; name=&quot;um-tabs-card&quot; id=&quot;um-tabs-card-3&quot; aria-controls=&quot;um-tabs-card-panel-3&quot; /&gt;
+
+  &lt;div class=&quot;um-tabs__header&quot; role=&quot;tablist&quot; aria-label=&quot;Project&quot;&gt;
+    &lt;label class=&quot;um-tabs__item&quot; id=&quot;um-tabs-card-tab-1&quot; role=&quot;tab&quot; for=&quot;um-tabs-card-1&quot;&gt;
+      &lt;span class=&quot;um-tabs__label&quot;&gt;Overview&lt;/span&gt;
+      &lt;span class=&quot;um-tabs__indicator&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;um-tabs__item&quot; id=&quot;um-tabs-card-tab-2&quot; role=&quot;tab&quot; for=&quot;um-tabs-card-2&quot;&gt;
+      &lt;span class=&quot;um-tabs__label&quot;&gt;Files&lt;/span&gt;
+      &lt;span class=&quot;um-tabs__indicator&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;um-tabs__item&quot; id=&quot;um-tabs-card-tab-3&quot; role=&quot;tab&quot; for=&quot;um-tabs-card-3&quot;&gt;
+      &lt;span class=&quot;um-tabs__label&quot;&gt;Activity&lt;/span&gt;
+      &lt;span class=&quot;um-tabs__indicator&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+
+  &lt;section class=&quot;um-tabs__panel&quot; id=&quot;um-tabs-card-panel-1&quot; role=&quot;tabpanel&quot; aria-labelledby=&quot;um-tabs-card-tab-1&quot; tabindex=&quot;0&quot;&gt;
+    Three files changed in the last week.
+  &lt;/section&gt;
+  &lt;section class=&quot;um-tabs__panel&quot; id=&quot;um-tabs-card-panel-2&quot; role=&quot;tabpanel&quot; aria-labelledby=&quot;um-tabs-card-tab-2&quot; tabindex=&quot;0&quot;&gt;
+    Everything in the project, newest first.
+  &lt;/section&gt;
+  &lt;section class=&quot;um-tabs__panel&quot; id=&quot;um-tabs-card-panel-3&quot; role=&quot;tabpanel&quot; aria-labelledby=&quot;um-tabs-card-tab-3&quot; tabindex=&quot;0&quot;&gt;
+    Who touched what, and when.
+  &lt;/section&gt;
+&lt;/div&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">Four tabs · 四个标签页</div>
+        <div class="example__desc">Four tabs is the extent of the wiring in the stylesheet. A fifth tab needs one more selector in style.css — still no JavaScript.</div>
+        <div class="example__demo">
+<div class="um-tabs">
+  <input class="um-tabs__radio" type="radio" name="um-tabs-four" id="um-tabs-four-1" aria-controls="um-tabs-four-panel-1" checked />
+  <input class="um-tabs__radio" type="radio" name="um-tabs-four" id="um-tabs-four-2" aria-controls="um-tabs-four-panel-2" />
+  <input class="um-tabs__radio" type="radio" name="um-tabs-four" id="um-tabs-four-3" aria-controls="um-tabs-four-panel-3" />
+  <input class="um-tabs__radio" type="radio" name="um-tabs-four" id="um-tabs-four-4" aria-controls="um-tabs-four-panel-4" />
+
+  <div class="um-tabs__header" role="tablist" aria-label="Report">
+    <label class="um-tabs__item" id="um-tabs-four-tab-1" role="tab" for="um-tabs-four-1">
+      <span class="um-tabs__label">Summary</span>
+      <span class="um-tabs__indicator" aria-hidden="true"></span>
+    </label>
+    <label class="um-tabs__item" id="um-tabs-four-tab-2" role="tab" for="um-tabs-four-2">
+      <span class="um-tabs__label">Sources</span>
+      <span class="um-tabs__indicator" aria-hidden="true"></span>
+    </label>
+    <label class="um-tabs__item" id="um-tabs-four-tab-3" role="tab" for="um-tabs-four-3">
+      <span class="um-tabs__label">Notes</span>
+      <span class="um-tabs__indicator" aria-hidden="true"></span>
+    </label>
+    <label class="um-tabs__item" id="um-tabs-four-tab-4" role="tab" for="um-tabs-four-4">
+      <span class="um-tabs__label">History</span>
+      <span class="um-tabs__indicator" aria-hidden="true"></span>
+    </label>
+  </div>
+
+  <section class="um-tabs__panel" id="um-tabs-four-panel-1" role="tabpanel" aria-labelledby="um-tabs-four-tab-1" tabindex="0">
+    The numbers the report is about.
+  </section>
+  <section class="um-tabs__panel" id="um-tabs-four-panel-2" role="tabpanel" aria-labelledby="um-tabs-four-tab-2" tabindex="0">
+    Where the numbers came from.
+  </section>
+  <section class="um-tabs__panel" id="um-tabs-four-panel-3" role="tabpanel" aria-labelledby="um-tabs-four-tab-3" tabindex="0">
+    What the numbers do not say.
+  </section>
+  <section class="um-tabs__panel" id="um-tabs-four-panel-4" role="tabpanel" aria-labelledby="um-tabs-four-tab-4" tabindex="0">
+    What the numbers said last time.
+  </section>
+</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-tabs&quot;&gt;
+  &lt;input class=&quot;um-tabs__radio&quot; type=&quot;radio&quot; name=&quot;um-tabs-four&quot; id=&quot;um-tabs-four-1&quot; aria-controls=&quot;um-tabs-four-panel-1&quot; checked /&gt;
+  &lt;input class=&quot;um-tabs__radio&quot; type=&quot;radio&quot; name=&quot;um-tabs-four&quot; id=&quot;um-tabs-four-2&quot; aria-controls=&quot;um-tabs-four-panel-2&quot; /&gt;
+  &lt;input class=&quot;um-tabs__radio&quot; type=&quot;radio&quot; name=&quot;um-tabs-four&quot; id=&quot;um-tabs-four-3&quot; aria-controls=&quot;um-tabs-four-panel-3&quot; /&gt;
+  &lt;input class=&quot;um-tabs__radio&quot; type=&quot;radio&quot; name=&quot;um-tabs-four&quot; id=&quot;um-tabs-four-4&quot; aria-controls=&quot;um-tabs-four-panel-4&quot; /&gt;
+
+  &lt;div class=&quot;um-tabs__header&quot; role=&quot;tablist&quot; aria-label=&quot;Report&quot;&gt;
+    &lt;label class=&quot;um-tabs__item&quot; id=&quot;um-tabs-four-tab-1&quot; role=&quot;tab&quot; for=&quot;um-tabs-four-1&quot;&gt;
+      &lt;span class=&quot;um-tabs__label&quot;&gt;Summary&lt;/span&gt;
+      &lt;span class=&quot;um-tabs__indicator&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;um-tabs__item&quot; id=&quot;um-tabs-four-tab-2&quot; role=&quot;tab&quot; for=&quot;um-tabs-four-2&quot;&gt;
+      &lt;span class=&quot;um-tabs__label&quot;&gt;Sources&lt;/span&gt;
+      &lt;span class=&quot;um-tabs__indicator&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;um-tabs__item&quot; id=&quot;um-tabs-four-tab-3&quot; role=&quot;tab&quot; for=&quot;um-tabs-four-3&quot;&gt;
+      &lt;span class=&quot;um-tabs__label&quot;&gt;Notes&lt;/span&gt;
+      &lt;span class=&quot;um-tabs__indicator&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;um-tabs__item&quot; id=&quot;um-tabs-four-tab-4&quot; role=&quot;tab&quot; for=&quot;um-tabs-four-4&quot;&gt;
+      &lt;span class=&quot;um-tabs__label&quot;&gt;History&lt;/span&gt;
+      &lt;span class=&quot;um-tabs__indicator&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+
+  &lt;section class=&quot;um-tabs__panel&quot; id=&quot;um-tabs-four-panel-1&quot; role=&quot;tabpanel&quot; aria-labelledby=&quot;um-tabs-four-tab-1&quot; tabindex=&quot;0&quot;&gt;
+    The numbers the report is about.
+  &lt;/section&gt;
+  &lt;section class=&quot;um-tabs__panel&quot; id=&quot;um-tabs-four-panel-2&quot; role=&quot;tabpanel&quot; aria-labelledby=&quot;um-tabs-four-tab-2&quot; tabindex=&quot;0&quot;&gt;
+    Where the numbers came from.
+  &lt;/section&gt;
+  &lt;section class=&quot;um-tabs__panel&quot; id=&quot;um-tabs-four-panel-3&quot; role=&quot;tabpanel&quot; aria-labelledby=&quot;um-tabs-four-tab-3&quot; tabindex=&quot;0&quot;&gt;
+    What the numbers do not say.
+  &lt;/section&gt;
+  &lt;section class=&quot;um-tabs__panel&quot; id=&quot;um-tabs-four-panel-4&quot; role=&quot;tabpanel&quot; aria-labelledby=&quot;um-tabs-four-tab-4&quot; tabindex=&quot;0&quot;&gt;
+    What the numbers said last time.
+  &lt;/section&gt;
+&lt;/div&gt;</pre>
+      </div>
+      <h2>Classes</h2>
+<table class="api">
+      <thead><tr><th>Class</th><th>Meaning</th></tr></thead>
+      <tbody>
+      <tr><td><code>um-tabs</code></td><td>The base class. Every instance carries it.</td></tr>
+      <tr><td><code>um-tabs--card</code></td><td>Card</td></tr>
+      <tr><td><code>um-tabs__radio</code></td><td>Radio</td></tr>
+      <tr><td><code>um-tabs__header</code></td><td>Header</td></tr>
+      <tr><td><code>um-tabs__item</code></td><td>Item</td></tr>
+      <tr><td><code>um-tabs__label</code></td><td>Label</td></tr>
+      <tr><td><code>um-tabs__indicator</code></td><td>Indicator</td></tr>
+      <tr><td><code>um-tabs__panel</code></td><td>Panel</td></tr>
+      <tr><td><code>:checked</code></td><td>Selected</td></tr>
+      </tbody>
+    </table>
+      <h2>Props</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>name</code></span></td><td><code>string</code></td><td>—</td><td>The name the radios share. Two tab groups with different names can be open at the same time.</td></tr>
+      <tr><td><span class="api__name"><code>type</code></span></td><td><code>enum = line | card</code></td><td><code>line</code></td><td>The shape of the tab row. The line type is the base class on its own; the card type adds um-tabs--card.</td></tr>
+      <tr><td><span class="api__name"><code>selected</code></span></td><td><code>number</code></td><td><code>1</code></td><td>Which tab starts open. It is the checked attribute on that radio.</td></tr>
+      </tbody>
+    </table>
+      <h2>Slots</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>panel</code></span></td><td>The content of one tab. It goes inside the panel section.</td></tr>
+      </tbody>
+    </table>
+      <h2>Events</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>change</code></span></td><td>Fires when another tab is picked. It is the radio group's own change event — the library installs no listener.</td></tr>
+      </tbody>
+    </table>
+      <h2>Accessibility</h2>
+      <p><strong>Role:</strong> <code>tablist</code></p>
+        <p><strong>Keyboard:</strong> <code>Tab</code> <code>Arrow keys</code> <code>Space</code></p>
+        <p>The header is a tablist, the items are tabs and the panels are tabpanels, but the control under each tab is a radio input. What the markup cannot say is aria-selected: that value follows the selection, and writing it without JavaScript would leave it stale. The selection is therefore announced by the radio itself, which is the focused element, the checked one, and named after the tab it belongs to. Arrow keys move between the radios, because the browser treats a group of same-named radios as one control.</p>
+
+    </main>
+  </div>
+
+  <script>window.UM_THEMES = {"light":["anime","archive","bauhaus","brutal","clay","corporate","eco","fashion","food","forest","ios","luxury","medical","monochrome","nordic","pastel","retro","sakura","swiss","travel","y2k"],"dark":["aurora","blueprint","crypto","finance","gaming","glass","instrument","neon","night","vaporwave","verdant"]};
+  window.UM_DEFAULT_THEME = "aurora";</script>
+  <script src="../../themes/switcher.js"></script>
+  <script src="../../site/assets/site.js"></script>
+</body>
+</html>

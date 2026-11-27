@@ -1,0 +1,46 @@
+/* ============================================================================
+   Statistic
+   ========================================================================== */
+.um-statistic {
+  display: flex;
+  flex-direction: column;
+  gap: var(--um-space-xs);
+  color: var(--um-text-regular);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+}
+.um-statistic__title {
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+
+/* The number is the thing the eye lands on, so it takes the display size and
+   the unit beside it takes the title size. The two share a baseline, so the
+   unit sits on the line of the digits rather than floating above them. */
+.um-statistic__content {
+  display: flex;
+  align-items: baseline;
+  gap: var(--um-space-xs);
+  color: var(--um-text-primary);
+  font-size: var(--um-font-size-display);
+  font-weight: var(--um-font-weight-bold);
+  line-height: 1.1;
+}
+
+/* Equal-width digits: a column of statistics has to line up, and proportional
+   digits move the whole number sideways every time the value changes. */
+.um-statistic__value {
+  font-variant-numeric: tabular-nums;
+}
+.um-statistic__prefix,
+.um-statistic__suffix {
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-title);
+  font-weight: var(--um-font-weight-medium);
+}
+
+/* The state colours are the ones derived for text, not the raw fill colours:
+   the number is read, and a fill colour is not guaranteed to read as text. */
+.um-statistic--success .um-statistic__content { color: var(--um-color-success-text); }
+.um-statistic--warning .um-statistic__content { color: var(--um-color-warning-text); }
+.um-statistic--danger .um-statistic__content { color: var(--um-color-danger-text); }

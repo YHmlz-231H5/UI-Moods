@@ -1,0 +1,121 @@
+/* ============================================================================
+   Steps
+   ========================================================================== */
+
+/* A step is a number in a round slot, a title, and the line that joins it to
+   the next step. The line belongs to the step before it, which is why it is
+   the last child of the item and why the last item drops it. */
+.um-steps {
+  display: flex;
+  gap: var(--um-space-xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+}
+
+.um-steps__item {
+  display: flex;
+  flex: 1;
+  align-items: flex-start;
+  gap: var(--um-space-xs);
+}
+
+.um-steps__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: var(--um-height-sm);
+  height: var(--um-height-sm);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-circle);
+  background: var(--um-fill-blank);
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+  font-weight: var(--um-font-weight-medium);
+}
+
+.um-steps__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--um-space-xs);
+  min-width: 0;
+}
+
+.um-steps__title {
+  color: var(--um-text-regular);
+  font-weight: var(--um-font-weight-medium);
+}
+
+.um-steps__description {
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+
+/* The line sits on the icon's axis, not on the middle of the item: a step
+   with a long description would otherwise push its line away from the
+   number it belongs to. */
+.um-steps__line {
+  flex: 1;
+  align-self: flex-start;
+  height: var(--um-border-width);
+  margin: calc(var(--um-height-sm) / 2) var(--um-space-xs) 0;
+  background: var(--um-border-base);
+}
+
+.um-steps__item:last-child .um-steps__line { display: none; }
+
+/* The status is a class on the item, so one step can be finished while the
+   next one is still running. A step with no status class is the waiting
+   state: an outlined number on the plain surface. */
+.um-steps__item--active .um-steps__icon {
+  border-color: var(--um-color-primary);
+  background: var(--um-color-primary);
+  color: var(--um-color-primary-on);
+}
+
+.um-steps__item--active .um-steps__title { color: var(--um-color-primary-text); }
+
+.um-steps__item--success .um-steps__icon {
+  border-color: var(--um-color-success);
+  background: var(--um-color-success);
+  color: var(--um-color-success-on);
+}
+
+.um-steps__item--success .um-steps__title { color: var(--um-color-success-text); }
+
+/* `error` is Element Plus's name for the state and `danger` is this
+   library's; the vocabulary has one colour for it, so the two paint the
+   same step. */
+.um-steps__item--error .um-steps__icon,
+.um-steps__item--danger .um-steps__icon {
+  border-color: var(--um-color-danger);
+  background: var(--um-color-danger);
+  color: var(--um-color-danger-on);
+}
+
+.um-steps__item--error .um-steps__title,
+.um-steps__item--danger .um-steps__title { color: var(--um-color-danger-text); }
+
+/* In a vertical run the line hangs under the icon instead of running beside
+   it, and it is centred on the icon's axis. */
+.um-steps--vertical {
+  flex-direction: column;
+  gap: var(--um-space-sm);
+}
+
+.um-steps--vertical .um-steps__item {
+  flex: none;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--um-space-xs);
+}
+
+.um-steps--vertical .um-steps__line {
+  flex: none;
+  width: var(--um-border-width);
+  height: var(--um-space-lg);
+  margin: 0 0 0 calc((var(--um-height-sm) - var(--um-border-width)) / 2);
+}

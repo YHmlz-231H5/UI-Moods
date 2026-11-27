@@ -1,0 +1,116 @@
+/* ============================================================================
+   Date Picker
+   ========================================================================== */
+
+/* The field is a box with the real date input inside it, borderless, so the
+   input and the calendar glyph read as one control rather than as a field
+   with something stuck to it. The single run is the base class on its own;
+   the modifier carries the same rule, so the class list can name it. */
+.um-date-picker,
+.um-date-picker--single {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--um-space-xs);
+  height: var(--um-height-md);
+  padding: 0 var(--um-space-xs);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-small);
+  background: var(--um-surface-input);
+  color: var(--um-text-primary);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+}
+
+.um-date-picker__input {
+  flex: 1 1 auto;
+  min-width: 8em;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: 1;
+  /* The browser's own calendar button is left where it is — it is the only
+     way to open the picker without JavaScript. The scheme follows the
+     reader's system so the button is drawn for the surface it lands on. */
+  color-scheme: light dark;
+}
+
+/* The calendar is a shape drawn from borders: a box with a rule across the
+   top and two hangers above it. It is decorative; the button that opens
+   the picker is the browser's own, on the other side of the field. */
+.um-date-picker__icon {
+  position: relative;
+  flex: none;
+  width: var(--um-space-sm);
+  height: var(--um-space-sm);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-small);
+  color: var(--um-text-secondary);
+}
+
+.um-date-picker__icon::before {
+  content: "";
+  position: absolute;
+  top: calc(var(--um-space-sm) / 4);
+  left: 0;
+  right: 0;
+  height: var(--um-border-width);
+  background: currentColor;
+}
+
+/* The two hangers are drawn the way the checkbox draws its mark: a box with
+   only its left and right edges, so they are lines and not a glyph. */
+.um-date-picker__icon::after {
+  content: "";
+  position: absolute;
+  top: calc(-1 * var(--um-space-xs) / 4);
+  left: calc(var(--um-space-sm) / 4);
+  width: calc(var(--um-space-sm) / 2);
+  height: calc(var(--um-space-xs) / 2);
+  border-left: var(--um-border-width) var(--um-border-style) currentColor;
+  border-right: var(--um-border-width) var(--um-border-style) currentColor;
+}
+
+/* The ring goes on the field, because the field is what the reader is
+   typing in — the input is inside it, not beside it. */
+.um-date-picker:has(.um-date-picker__input:focus-visible) {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+/* A disabled date field paints a flat surface and takes the derived
+   disabled colour, the way every other disabled control does. */
+.um-date-picker:has(.um-date-picker__input:disabled) {
+  background: var(--um-surface-control);
+  color: var(--um-text-disabled);
+  cursor: not-allowed;
+}
+
+/* The border turns to the danger colour when the browser says the date is
+   out of range. :user-invalid waits for the reader to have been there, so
+   an empty field is not red before anyone has touched it. */
+.um-date-picker:has(.um-date-picker__input:user-invalid) {
+  border-color: var(--um-color-danger);
+}
+
+/* The range run holds two dates in one box, with a rule between them. */
+.um-date-picker--range {
+  gap: var(--um-space-sm);
+}
+
+.um-date-picker__separator {
+  flex: none;
+  align-self: stretch;
+  width: var(--um-border-width);
+  background: var(--um-border-lighter);
+}
+
+.um-date-picker--sm {
+  height: var(--um-height-sm);
+  font-size: var(--um-font-size-caption);
+}
+
+.um-date-picker--lg {
+  height: var(--um-height-lg);
+}

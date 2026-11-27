@@ -1,0 +1,99 @@
+/* ============================================================================
+   Dropdown
+   ========================================================================== */
+
+/* The trigger is a <summary>, so the panel opens and closes with the
+   browser's own disclosure behaviour and the state survives a reload. */
+.um-dropdown {
+  position: relative;
+  display: inline-block;
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+}
+
+.um-dropdown__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--um-space-xs);
+  padding: var(--um-space-xs) var(--um-space-sm);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-small);
+  background: var(--um-fill-blank);
+  color: var(--um-text-regular);
+  cursor: pointer;
+  list-style: none;
+}
+
+.um-dropdown__trigger::-webkit-details-marker { display: none; }
+
+/* The marker is a shape drawn from two borders, so it takes the theme's
+   border colour rather than a glyph the library would have to ship.
+
+   The shape is a corner: the top and right borders of a square, so the
+   corner it turns on points up and to the right. Rotating it 45° would put
+   that corner at the right — a marker pointing at nothing. The menu opens
+   below the trigger, so the marker points down, and 135° is the rotation
+   that does it. */
+.um-dropdown__trigger::after {
+  content: "";
+  width: 4px;
+  height: 4px;
+  border-top: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-right: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  transform: rotate(135deg);
+}
+
+/* The panel is hidden by `display` rather than left to the browser's
+   closed-details rendering: an absolutely positioned child is the one case
+   where the two are not guaranteed to agree. */
+.um-dropdown__menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1;
+  display: none;
+  min-width: 100%;
+  margin-top: var(--um-space-xs);
+  padding: var(--um-space-xs) 0;
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-base);
+  background: var(--um-bg-overlay);
+  box-shadow: var(--um-shadow-base);
+}
+
+.um-dropdown[open] > .um-dropdown__menu { display: block; }
+
+.um-dropdown__item {
+  display: flex;
+  align-items: center;
+  gap: var(--um-space-xs);
+  width: 100%;
+  padding: var(--um-space-xs) var(--um-space-sm);
+  border: 0;
+  background: none;
+  color: var(--um-text-regular);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--um-motion), color var(--um-motion);
+}
+
+.um-dropdown__item:hover {
+  background: var(--um-fill-light);
+  color: var(--um-color-primary-text);
+}
+
+.um-dropdown__divider {
+  height: var(--um-border-width);
+  margin: var(--um-space-xs) 0;
+  border: 0;
+  background: var(--um-border-lighter);
+}
+
+/* A dropdown that is aligned to the right edge of its trigger. */
+.um-dropdown--end .um-dropdown__menu {
+  right: 0;
+  left: auto;
+}

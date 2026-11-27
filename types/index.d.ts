@@ -43,10 +43,43 @@ export type ThemeId =
   | "verdant"
   | "y2k";
 
+/** Whether a theme reads as light or as dark. */
+export type ThemeAppearance = "light" | "dark";
+
+/** One entry of the theme catalogue. */
+export interface ThemeEntry {
+  id: ThemeId;
+  name: string;
+  nameZh: string;
+  appearance: ThemeAppearance;
+  file: string;
+  roles: number;
+}
+
+/** Every theme the library ships, as `themes/index.json` lists them. */
+export type ThemeCatalogue = ThemeEntry[];
+
 /** The themes that read as light, and the ones that read as dark. */
-export interface ThemeCatalogue {
-  light: ThemeId[];
-  dark: ThemeId[];
+export interface ThemeIndex {
+  version: string;
+  prefix: string;
+  default: ThemeId;
+  combined: string;
+  switcher: string;
+  themes: ThemeCatalogue;
+}
+
+/** Typography · 文字排版 — The set of text styles a page is written in: a title, a subtitle, a paragraph, supporting text, a link and a quote. The library paints the sizes, the colours and the leading; the words and the heading levels are the host's. */
+export type TypographyVariant = "primary" | "success" | "warning" | "danger" | "info";
+/** Typography — the sizes it can be rendered at. */
+export type TypographySize = "small" | "medium" | "large";
+export interface TypographyProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "typography";
+  variant?: TypographyVariant;
+  size?: TypographySize;
+  /** The colour of the text. The regular text colour is the base class on its own; the five modifiers paint the text with the matching colour. */
+  color?: "primary" | "success" | "warning" | "danger" | "info";
 }
 
 /** Button · 按钮 — An action the user takes. The one component every interface needs, and the one that has to look right in thirty-two different moods. */
@@ -81,6 +114,49 @@ export interface CheckboxProps {
   value?: string;
 }
 
+/** Checkbox Group · 复选框组 — A set of checkboxes that share one name and belong to one field. The group is a fieldset, so the browser groups the boxes for the form and for the screen reader. */
+export type CheckboxGroupVariant = "stacked" | "inline";
+export interface CheckboxGroupProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "checkbox-group";
+  variant?: CheckboxGroupVariant;
+  /** The name every option in the group submits under. It is the native name attribute, so the form posts every ticked option as one field. */
+  name?: string;
+  /** The value one option submits while it is ticked. */
+  value?: string;
+  /** Ticks one option. It is the native checked attribute, not a class. */
+  checked?: boolean;
+  /** Makes one option inert. It uses the real disabled attribute, so it leaves the tab order. */
+  disabled?: boolean;
+  /** Which way the options run. The stacked run is the base class on its own; the inline run adds um-checkbox-group--inline. */
+  direction?: "stacked" | "inline";
+  /** The text of the group's legend. A group with no legend still needs an accessible name of its own. */
+  label?: string;
+}
+
+/** Date Picker · 日期选择器 — A field for a date. It is a real <input type="date"> inside a box the library draws, so the browser validates the date, the arrow keys walk through it and the reader's own calendar opens it. */
+export type DatePickerVariant = "single" | "range";
+/** Date Picker — the sizes it can be rendered at. */
+export type DatePickerSize = "sm" | "md" | "lg";
+export interface DatePickerProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "date-picker";
+  variant?: DatePickerVariant;
+  size?: DatePickerSize;
+  /** The date in the field. It is the input's own value, in the browser's own format — a class cannot carry a date. */
+  value?: string;
+  /** The earliest date the field accepts. It is the input's own min attribute, so the browser enforces it and marks the field out of range when it is not met. */
+  min?: string;
+  /** The latest date the field accepts. It is the input's own max attribute. */
+  max?: string;
+  /** Makes the date necessary. It is the native required attribute, so the browser asks for it. */
+  required?: boolean;
+  /** Makes the field inert. It uses the real disabled attribute, so it leaves the tab order. */
+  disabled?: boolean;
+  /** Whether the field holds one date or two. The single field is the base class on its own; the range field adds um-date-picker--range. */
+  type?: "single" | "range";
+}
+
 export interface FieldProps {
   /** The component's own id, so a registry can be keyed by it. */
   id: "field";
@@ -101,6 +177,29 @@ export interface InputProps {
   readonly?: boolean;
 }
 
+/** Input Number · 数字输入框 — A field for a number, with a pair of buttons that step it up and down. The buttons are real buttons, so they are in the tab order and the browser announces them; the browser's own spin buttons are taken away so there is only one pair. */
+export type InputNumberVariant = "left";
+/** Input Number — the sizes it can be rendered at. */
+export type InputNumberSize = "small" | "medium" | "large";
+export interface InputNumberProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "input-number";
+  variant?: InputNumberVariant;
+  size?: InputNumberSize;
+  /** The number in the field. It is the input's own value, not a class — a class cannot carry a number. */
+  value?: number;
+  /** The smallest number the field accepts. It is the input's own min attribute, so the browser enforces it. */
+  min?: number;
+  /** The largest number the field accepts. It is the input's own max attribute. */
+  max?: number;
+  /** How much one press of a button changes the value. It is the input's own step attribute, and the browser's arrow keys use it too. */
+  step?: number;
+  /** Which side of the field the pair of buttons sits on. The right position is the base class on its own; the left position adds um-input-number--left. */
+  controlsPosition?: "right" | "left";
+  /** Makes the field and both buttons inert. It uses the real disabled attribute, so they leave the tab order. */
+  disabled?: boolean;
+}
+
 export interface RadioProps {
   /** The component's own id, so a registry can be keyed by it. */
   id: "radio";
@@ -112,6 +211,45 @@ export interface RadioProps {
   name?: string;
   /** The value submitted while this option is selected. */
   value?: string;
+}
+
+/** Radio Group · 单选框组 — A set of radios that share one name and belong to one field. The group is a fieldset, so the browser groups the circles for the form and for the screen reader. */
+export type RadioGroupVariant = "stacked" | "inline";
+export interface RadioGroupProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "radio-group";
+  variant?: RadioGroupVariant;
+  /** The name every option in the group shares. It is the native name attribute, and it is what makes the group a group: the browser keeps exactly one of the options picked. */
+  name?: string;
+  /** The value one option submits while it is picked. */
+  value?: string;
+  /** Picks one option. It is the native checked attribute, not a class. */
+  checked?: boolean;
+  /** Makes one option inert. It uses the real disabled attribute, so it leaves the tab order. */
+  disabled?: boolean;
+  /** Which way the options run. The stacked run is the base class on its own; the inline run adds um-radio-group--inline. */
+  direction?: "stacked" | "inline";
+  /** The text of the group's legend. A group with no legend still needs an accessible name of its own. */
+  label?: string;
+}
+
+/** Rate · 评分 — A row of stars the reader sets by choosing one. The stars are real radio buttons under a drawn shape, so the value is the browser's own value and the group is the browser's own group. */
+export type RateVariant = "success" | "warning" | "danger";
+/** Rate — the sizes it can be rendered at. */
+export type RateSize = "small" | "medium" | "large";
+export interface RateProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "rate";
+  variant?: RateVariant;
+  size?: RateSize;
+  /** How many stars are filled. It is the checked radio's value, not a class — a class cannot carry a number. */
+  value?: number;
+  /** How many stars the group has. The stylesheet ships five positions, so a group longer than that needs more rules. */
+  max?: number;
+  /** The colour of the filled stars. The primary colour is the base class on its own; the other three add um-rate--success, um-rate--warning or um-rate--danger. */
+  color?: "primary" | "success" | "warning" | "danger";
+  /** Makes the group inert. It uses the real disabled attribute on the radios, so it leaves the tab order. */
+  disabled?: boolean;
 }
 
 export interface SliderProps {
@@ -142,6 +280,42 @@ export interface SwitchProps {
   value?: string;
 }
 
+/** Upload · 上传 — A file input and the list of the files that were chosen. The input is a real one, so the browser's own dialog opens and the files are chosen with the browser's own picker. */
+export type UploadVariant = "list" | "text";
+/** Upload — the sizes it can be rendered at. */
+export type UploadSize = "sm" | "md" | "lg";
+export interface UploadProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "upload";
+  variant?: UploadVariant;
+  size?: UploadSize;
+  /** Lets more than one file be chosen at a time. It is the native multiple attribute. */
+  multiple?: boolean;
+  /** Which file types the picker offers. It is the native accept attribute, so the browser filters the list. */
+  accept?: string;
+  /** Makes the upload inert. It uses the real disabled attribute, so it leaves the tab order. */
+  disabled?: boolean;
+  /** The name the chosen files are submitted under. It is the native name attribute. */
+  name?: string;
+  /** How the chosen files are shown. The list layout is the base class on its own; the text layout adds um-upload--text. */
+  layout?: "list" | "text";
+  /** Where one file has got to. It is a class on the item: no class is the waiting state, and the other three are um-upload__item--uploading, um-upload__item--done and um-upload__item--error. */
+  status?: "default" | "uploading" | "done" | "error";
+}
+
+/** Avatar · 头像 — A small picture of a person. It takes a photo, a pair of initials or an icon, and it keeps the shape of whichever mood it is in. */
+export type AvatarVariant = "circle" | "square";
+/** Avatar — the sizes it can be rendered at. */
+export type AvatarSize = "sm" | "md" | "lg" | "xl";
+export interface AvatarProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "avatar";
+  variant?: AvatarVariant;
+  size?: AvatarSize;
+  /** The alternative text of the photo. Leave it empty when the name is already written next to the avatar. */
+  alt?: string;
+}
+
 /** Badge · 徽标 — A small marker that counts or names a state, attached to something else. It comes in a solid fill and a soft tint, so a page can let what matters come forward and the rest recede. */
 export type BadgeVariant = "primary" | "success" | "warning" | "danger" | "info" | "soft-primary" | "soft-success" | "soft-warning" | "soft-danger" | "soft-info";
 export interface BadgeProps {
@@ -158,6 +332,35 @@ export interface CardProps {
   /** The component's own id, so a registry can be keyed by it. */
   id: "card";
   variant?: CardVariant;
+}
+
+/** Cascader · 级联选择器 — Options in levels, opened one level at a time. Every level is a disclosure, so the browser does the opening and the closing and the state survives a reload. */
+export type CascaderVariant = "inline" | "flyout";
+/** Cascader — the sizes it can be rendered at. */
+export type CascaderSize = "sm" | "md" | "lg";
+export interface CascaderProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "cascader";
+  variant?: CascaderVariant;
+  size?: CascaderSize;
+  /** Opens a level. It is the native open attribute on the details, so the browser keeps the state. */
+  open?: boolean;
+  /** Where the level below opens. The inline run is the base class on its own; the flyout run adds um-cascader--flyout. */
+  layout?: "inline" | "flyout";
+  /** The text of one option. An option with no text needs an accessible name of its own. */
+  label?: string;
+}
+
+/** Descriptions · 描述列表 — The facts about one thing, as label and value pairs. It is a definition list, so a screen reader announces each label before the value it belongs to. */
+export type DescriptionsVariant = "plain" | "bordered";
+export interface DescriptionsProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "descriptions";
+  variant?: DescriptionsVariant;
+  /** How many pairs sit in one row. It is written to the `--um-descriptions-columns` custom property, because a class cannot carry a number. */
+  columns?: number;
+  /** The width of the label column, so the values line up under each other. It is written to the `--um-descriptions-label-width` custom property. */
+  labelWidth?: string;
 }
 
 export interface EmptyProps {
@@ -177,6 +380,18 @@ export interface ProgressProps {
   label?: string;
 }
 
+/** Result · 结果 — The end of a flow: one statement of what happened, a line of explanation, and the way out. It is the whole answer on one screen, not a toast that disappears. */
+export type ResultVariant = "success" | "warning" | "danger" | "info";
+export interface ResultProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "result";
+  variant?: ResultVariant;
+  /** What happened. It should be a real heading element, so the page keeps its outline. */
+  title?: string;
+  /** The line under the title. */
+  subtitle?: string;
+}
+
 /** Skeleton · 骨架屏 — The shape of content that has not arrived yet. Three placeholder shapes and, if the motion is welcome, a shimmer over them. */
 export type SkeletonVariant = "text" | "circle" | "block";
 export interface SkeletonProps {
@@ -191,6 +406,28 @@ export interface SkeletonProps {
   width?: number;
 }
 
+/** Statistic · 统计数值 — One number with the name of what it counts. The number is the largest thing on the block and everything else is sized around it. */
+export type StatisticVariant = "success" | "warning" | "danger";
+export interface StatisticProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "statistic";
+  variant?: StatisticVariant;
+  /** What the number counts. */
+  title?: string;
+  /** The number, written the way it should be read: `9,999` and not `9999.0`. */
+  value?: string;
+}
+
+/** Table · 表格 — Rows of records in columns. It is a real table, so the column names travel with the cells and a screen reader can read a row across. */
+export type TableVariant = "striped" | "bordered";
+export interface TableProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "table";
+  variant?: TableVariant;
+  /** What the empty cell says when there are no records. */
+  emptyText?: string;
+}
+
 /** Tag · 标签 — A label for one piece of data — a category, a state, a filter. The outlined member of the chip family, so it can sit beside a filled badge without either of them winning. */
 export type TagVariant = "primary" | "success" | "warning" | "danger";
 export interface TagProps {
@@ -199,12 +436,161 @@ export interface TagProps {
   variant?: TagVariant;
 }
 
+/** Timeline · 时间线 — What happened, in order. An ordered list with a rail down one side and a dot at each entry, so the order is in the structure and not only in the picture. */
+export type TimelineVariant = "success" | "warning" | "danger";
+export interface TimelineProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "timeline";
+  variant?: TimelineVariant;
+  /** When it happened. It is a time element inside the wrapper, so the machine-readable value and the written one travel together. */
+  timestamp?: string;
+}
+
+/** Transfer · 穿梭框 — Two lists side by side with a button between them: what is available on one side, what has been chosen on the other. The whole thing is a form, so the move is a submission. */
+export type TransferVariant = "horizontal" | "vertical";
+/** Transfer — the sizes it can be rendered at. */
+export type TransferSize = "sm" | "md" | "lg";
+export interface TransferProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "transfer";
+  variant?: TransferVariant;
+  size?: TransferSize;
+  /** The name the ticked options are submitted under. It is the native name attribute, and the source and the target list use different names so the host can tell them apart. */
+  name?: string;
+  /** The value one option submits while it is ticked. */
+  value?: string;
+  /** Ticks one option. It is the native checked attribute, not a class. */
+  checked?: boolean;
+  /** Makes one option, or one of the move buttons, inert. It uses the real disabled attribute, so it leaves the tab order. */
+  disabled?: boolean;
+  /** Which way the two panels are laid out. The horizontal run is the base class on its own; the vertical run adds um-transfer--vertical. */
+  direction?: "horizontal" | "vertical";
+}
+
+/** Breadcrumb · 面包屑 — The path to the page you are on, as a list of links. The separators between the steps are drawn by the stylesheet, not written into the markup as characters. */
+export type BreadcrumbVariant = "slash";
+export interface BreadcrumbProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "breadcrumb";
+  variant?: BreadcrumbVariant;
+  /** The mark between the steps. The chevron is the base class on its own; the slash adds um-breadcrumb--slash. */
+  separator?: "chevron" | "slash";
+  /** The accessible name of the nav element. Every breadcrumb on a page needs its own, or the screen reader announces them all as the same thing. */
+  label?: string;
+}
+
+/** Dropdown · 下拉菜单 — A row of actions that stays out of the way until it is wanted. The trigger is a <summary>, so the panel opens and closes with the browser's own disclosure behaviour. */
+export type DropdownVariant = "end";
+export interface DropdownProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "dropdown";
+  variant?: DropdownVariant;
+  /** Which edge of the trigger the panel lines up with. The start placement is the base class on its own; the end placement adds um-dropdown--end. */
+  placement?: "start" | "end";
+  /** The text on the trigger. A trigger with no text still needs an accessible name of its own. */
+  label?: string;
+}
+
+/** Menu · 菜单 — A list of places to go, with groups that fold away. The groups are <details> elements, so the browser opens and closes them and keeps them open across a reload. */
+export type MenuVariant = "horizontal";
+export interface MenuProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "menu";
+  variant?: MenuVariant;
+  /** Which way the entries run. The vertical menu is the base class on its own; the horizontal menu adds um-menu--horizontal. */
+  direction?: "vertical" | "horizontal";
+  /** Which entry is the current one. It is the um-menu__active class on that entry's item. */
+  active?: string;
+}
+
+/** Pagination — the sizes it can be rendered at. */
+export type PaginationSize = "sm";
+export interface PaginationProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "pagination";
+  size?: PaginationSize;
+  /** How many records there are. It is what the total line and the last page number are counted from. */
+  total?: number;
+  /** Which page is open. It is the aria-current="page" on that page's item. */
+  currentPage?: number;
+  /** How many records one page holds. */
+  pageSize?: "10" | "20" | "50" | "100";
+}
+
+/** Steps · 步骤条 — The order of a job, one step per entry, with the step you are on picked out and the steps already done marked as finished. */
+export type StepsVariant = "vertical";
+export interface StepsProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "steps";
+  variant?: StepsVariant;
+  /** Which way the steps run. The horizontal run is the base class on its own; the vertical run adds um-steps--vertical. */
+  direction?: "horizontal" | "vertical";
+  /** Where the step stands. It is a class on the item: no class is the waiting state, and the other four are um-steps__item--active, um-steps__item--success, um-steps__item--error and um-steps__item--danger. */
+  status?: "default" | "active" | "success" | "error" | "danger";
+}
+
+/** Tabs · 标签页 — One row of tabs over several panels of content. The tabs are radio inputs, so the browser keeps the selection, the focus and the arrow keys without a line of script. */
+export type TabsVariant = "card";
+export interface TabsProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "tabs";
+  variant?: TabsVariant;
+  /** The name the radios share. Two tab groups with different names can be open at the same time. */
+  name?: string;
+  /** The shape of the tab row. The line type is the base class on its own; the card type adds um-tabs--card. */
+  type?: "line" | "card";
+  /** Which tab starts open. It is the checked attribute on that radio. */
+  selected?: number;
+}
+
 /** Alert · 警告 — A message that stays in the page and says what the reader has to know: the run failed, the quota is nearly gone, the sync is through. The variant colours the border and the mark, not the text. */
 export type AlertVariant = "primary" | "success" | "warning" | "danger" | "info";
 export interface AlertProps {
   /** The component's own id, so a registry can be keyed by it. */
   id: "alert";
   variant?: AlertVariant;
+}
+
+/** Loading · 加载中 — A ring that turns while the library waits for something. The ring is two borders with one side left out, and the turn is a keyframe, so it needs neither a timer nor a script. */
+export type LoadingVariant = "spinner" | "text" | "overlay";
+/** Loading — the sizes it can be rendered at. */
+export type LoadingSize = "small" | "medium" | "large";
+export interface LoadingProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "loading";
+  variant?: LoadingVariant;
+  size?: LoadingSize;
+  /** The caption beside the ring. It is the message, so it is written as text in the page and not as an attribute. */
+  text?: string;
+}
+
+/** Popover · 气泡卡片 — A card that floats next to a trigger and holds more than a note: a heading, a body and a row of actions. The trigger is a <summary>, so the card opens and closes with the browser's own disclosure behaviour. */
+export type PopoverVariant = "top" | "left" | "right";
+/** Popover — the sizes it can be rendered at. */
+export type PopoverSize = "small" | "medium" | "large";
+export interface PopoverProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "popover";
+  variant?: PopoverVariant;
+  size?: PopoverSize;
+  /** Where the card opens relative to the trigger. The bottom placement is the base class on its own; the other three add um-popover--top, um-popover--left or um-popover--right. */
+  placement?: "bottom" | "top" | "left" | "right";
+  /** How wide the card is. The measures are in the card's own type, so the card grows with the mood's text instead of holding a fixed pixel width. */
+  width?: "small" | "medium" | "large";
+  /** The heading of the card. It is a real heading element, not a bold paragraph, so the reader can jump to it. */
+  title?: string;
+}
+
+/** Tooltip · 文字提示 — A short note that appears when the reader points at a word or tabs to it. The bubble is drawn by the stylesheet and placed with absolute positioning; the trigger is a real button, so the keyboard opens it as well as the pointer. */
+export type TooltipVariant = "top" | "left" | "right";
+export interface TooltipProps {
+  /** The component's own id, so a registry can be keyed by it. */
+  id: "tooltip";
+  variant?: TooltipVariant;
+  /** Where the bubble sits relative to the trigger. The bottom placement is the base class on its own; the other three add um-tooltip--top, um-tooltip--left or um-tooltip--right. */
+  placement?: "bottom" | "top" | "left" | "right";
+  /** The words in the bubble. It is written as text in the page, and the trigger points at it with aria-describedby so the reader hears it as a description rather than as a stray paragraph. */
+  text?: string;
 }
 
 /** Divider · 分割线 — A rule between two things. It can carry a label in the middle, drop the rules and keep the label, or stand up as a vertical rule. */
@@ -217,20 +603,44 @@ export interface DividerProps {
 
 /** Every component the library ships, keyed by id. */
 export interface ComponentRegistry {
+  typography: TypographyProps;
   button: ButtonProps;
   checkbox: CheckboxProps;
+  "checkbox-group": CheckboxGroupProps;
+  "date-picker": DatePickerProps;
   field: FieldProps;
   input: InputProps;
+  "input-number": InputNumberProps;
   radio: RadioProps;
+  "radio-group": RadioGroupProps;
+  rate: RateProps;
   slider: SliderProps;
   switch: SwitchProps;
+  upload: UploadProps;
+  avatar: AvatarProps;
   badge: BadgeProps;
   card: CardProps;
+  cascader: CascaderProps;
+  descriptions: DescriptionsProps;
   empty: EmptyProps;
   progress: ProgressProps;
+  result: ResultProps;
   skeleton: SkeletonProps;
+  statistic: StatisticProps;
+  table: TableProps;
   tag: TagProps;
+  timeline: TimelineProps;
+  transfer: TransferProps;
+  breadcrumb: BreadcrumbProps;
+  dropdown: DropdownProps;
+  menu: MenuProps;
+  pagination: PaginationProps;
+  steps: StepsProps;
+  tabs: TabsProps;
   alert: AlertProps;
+  loading: LoadingProps;
+  popover: PopoverProps;
+  tooltip: TooltipProps;
   divider: DividerProps;
 }
 
@@ -253,5 +663,48 @@ export interface ComponentCatalogueEntry {
   props: number;
 }
 
+/** Every component the library ships, by id. */
+export type ComponentId =
+  | "typography"
+  | "button"
+  | "checkbox"
+  | "checkbox-group"
+  | "date-picker"
+  | "field"
+  | "input"
+  | "input-number"
+  | "radio"
+  | "radio-group"
+  | "rate"
+  | "slider"
+  | "switch"
+  | "upload"
+  | "avatar"
+  | "badge"
+  | "card"
+  | "cascader"
+  | "descriptions"
+  | "empty"
+  | "progress"
+  | "result"
+  | "skeleton"
+  | "statistic"
+  | "table"
+  | "tag"
+  | "timeline"
+  | "transfer"
+  | "breadcrumb"
+  | "dropdown"
+  | "menu"
+  | "pagination"
+  | "steps"
+  | "tabs"
+  | "alert"
+  | "loading"
+  | "popover"
+  | "tooltip"
+  | "divider";
+
 export declare const themes: ThemeCatalogue;
 export declare const components: ComponentCatalogueEntry[];
+export declare const themeIndex: ThemeIndex;

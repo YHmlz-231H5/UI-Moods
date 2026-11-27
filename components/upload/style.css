@@ -1,0 +1,144 @@
+/* ============================================================================
+   Upload
+   ========================================================================== */
+
+/* The trigger is a label with the real file input inside it. The input is
+   hidden the way the checkbox hides its own, so it keeps its place in the
+   tab order and its name, and the label is what the pointer reaches. */
+.um-upload {
+  display: flex;
+  flex-direction: column;
+  gap: var(--um-space-xs);
+  font-family: var(--um-font-family);
+}
+
+.um-upload__trigger {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  cursor: pointer;
+}
+
+.um-upload__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.um-upload__button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--um-space-xs);
+  height: var(--um-height-md);
+  padding: 0 var(--um-space-sm);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-base);
+  background: var(--um-fill-base);
+  color: var(--um-text-regular);
+  font-size: var(--um-font-size-body);
+  font-weight: var(--um-font-weight-medium);
+  line-height: 1;
+  transition: background-color var(--um-motion), color var(--um-motion);
+}
+
+.um-upload__trigger:hover .um-upload__button {
+  background: var(--um-fill-light);
+  color: var(--um-color-primary-text);
+}
+
+/* The ring goes on the button, because the button is what the user sees of
+   the control; the input underneath is one pixel wide. */
+.um-upload__input:focus-visible + .um-upload__button {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+/* A disabled upload paints a flat surface and takes the derived disabled
+   colour, the way every other disabled control in the library does. */
+.um-upload__input:disabled + .um-upload__button {
+  background: var(--um-surface-control);
+  color: var(--um-text-disabled);
+  cursor: not-allowed;
+}
+
+.um-upload__trigger:has(.um-upload__input:disabled) { cursor: not-allowed; }
+
+/* The list of the chosen files. The names are authored in the markup: the
+   library has no JavaScript, so it cannot read the input's own file list.
+   The list run is the base class on its own; the modifier carries the same
+   rule, so the class list can name it. */
+.um-upload__list,
+.um-upload--list .um-upload__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--um-space-xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.um-upload__item {
+  display: flex;
+  align-items: center;
+  gap: var(--um-space-xs);
+  padding: var(--um-space-xs) var(--um-space-sm);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-small);
+  background: var(--um-bg-overlay);
+}
+
+.um-upload__name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--um-text-regular);
+  font-size: var(--um-font-size-body);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.um-upload__size {
+  flex: none;
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+
+.um-upload__status {
+  flex: none;
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+
+/* The status is text about a file, so it takes the derived text colour of
+   that state rather than the fill colour, which is not guaranteed to read
+   on a surface. */
+.um-upload__item--done .um-upload__status { color: var(--um-color-success-text); }
+.um-upload__item--uploading .um-upload__status { color: var(--um-color-primary-text); }
+.um-upload__item--error .um-upload__status { color: var(--um-color-danger-text); }
+
+/* The text run keeps the files on one line, and drops the boxes around
+   them: it is a summary, not a list of cards. */
+.um-upload--text .um-upload__list {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--um-space-xs) var(--um-space-sm);
+}
+.um-upload--text .um-upload__item {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.um-upload--sm .um-upload__button {
+  height: var(--um-height-sm);
+  padding: 0 var(--um-space-xs);
+  font-size: var(--um-font-size-caption);
+}
+.um-upload--sm .um-upload__name { font-size: var(--um-font-size-caption); }
+
+.um-upload--lg .um-upload__button {
+  height: var(--um-height-lg);
+  padding: 0 var(--um-space-md);
+}
+.um-upload--lg .um-upload__name { font-size: var(--um-font-size-title); }

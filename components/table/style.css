@@ -1,0 +1,68 @@
+/* ============================================================================
+   Table
+   ========================================================================== */
+
+/* The wrapper owns the frame *and* the surface. A surface painted twice —
+   once by the wrapper and once by the table — is two translucent layers where
+   the contract expects one, and the reader sees a colour that no role names:
+   in the frosted moods the table came out a step lighter than the panel
+   around it. The wrapper also keeps the surface still while the table scrolls
+   sideways inside it. */
+.um-table__wrapper {
+  overflow-x: auto;
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-base);
+  background: var(--um-fill-blank);
+}
+.um-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--um-text-regular);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+}
+.um-table__cell {
+  padding: var(--um-space-xs) var(--um-space-sm);
+  border-bottom: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+  text-align: left;
+  vertical-align: middle;
+}
+/* The header is a band of its own, not just darker text.
+
+   The fill is the recessed surface rather than the light one, so the header
+   cannot be mistaken for a hovered row — the hover is a light fill, the
+   header is the fill below it. The rule under the header does the rest of
+   the work: in the moods whose palette is nearly flat, no two fills are
+   three-to-one apart, so a header that relies on its background alone is a
+   header nobody can find. A line and a heavier label read in every mood. */
+.um-table__header .um-table__cell {
+  background: var(--um-fill-base);
+  border-bottom: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  color: var(--um-text-primary);
+  font-weight: var(--um-font-weight-medium);
+  white-space: nowrap;
+}
+
+/* The frame is the wrapper's and the lines are the cells', so the outer edge
+   is one line all the way round and the inner lines meet it instead of
+   doubling it. */
+.um-table__body .um-table__row:last-child .um-table__cell { border-bottom: none; }
+
+/* The stripe is the lighter fill and the hovered row takes the light fill,
+   so the pointer still says which row it is on when the row under it happens
+   to be striped. The second rule carries the same weight as the stripe, so it
+   has to come after it. The hovered row is never the header's fill, so a row
+   under the pointer never looks like a second header. */
+.um-table--striped .um-table__body .um-table__row:nth-child(even) { background: var(--um-fill-lighter); }
+.um-table__body .um-table__row:hover { background: var(--um-fill-light); }
+.um-table--striped .um-table__body .um-table__row:hover { background: var(--um-fill-light); }
+
+.um-table--bordered .um-table__cell:not(:last-child) {
+  border-right: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+}
+
+.um-table__empty {
+  padding: var(--um-space-lg) var(--um-space-sm);
+  color: var(--um-text-secondary);
+  text-align: center;
+}

@@ -1,0 +1,123 @@
+/* ============================================================================
+   Cascader
+   ========================================================================== */
+
+/* One level is one <details>, so the browser opens and closes it and the
+   state survives a reload. The children of an option are the level below
+   it, so a branch is a details inside a details. The inline run is the base
+   class on its own; the modifier carries the same rule, so the class list
+   can name it. */
+.um-cascader,
+.um-cascader--inline {
+  position: relative;
+  display: inline-block;
+  min-width: 12em;
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-base);
+  background: var(--um-bg-overlay);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+}
+
+.um-cascader__panel {
+  position: relative;
+  margin: 0;
+}
+
+.um-cascader__option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--um-space-xs);
+  padding: var(--um-space-xs) var(--um-space-sm);
+  color: var(--um-text-regular);
+  font-size: var(--um-font-size-body);
+  list-style: none;
+  cursor: pointer;
+}
+
+.um-cascader__option::-webkit-details-marker { display: none; }
+
+/* The ring goes inside the option, the way the ring on a button that sits
+   in a row goes inside it: an outside ring would be cut off by the next
+   row. */
+.um-cascader__option:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: calc(-1 * var(--um-focus-ring-width));
+}
+
+.um-cascader__option:hover {
+  background: var(--um-fill-light);
+  color: var(--um-color-primary-text);
+}
+
+.um-cascader__label {
+  flex: 1;
+  min-width: 0;
+}
+
+/* The arrow is a shape drawn from two borders, so it takes the option's own
+   colour rather than a glyph the library would have to ship. It points the
+   way the level opens: down for the inline run, which opens below the
+   option, and right for the flyout run, which opens beside it. */
+.um-cascader__arrow {
+  flex: none;
+  width: 4px;
+  height: 4px;
+  border-top: var(--um-border-width) var(--um-border-style) currentColor;
+  border-right: var(--um-border-width) var(--um-border-style) currentColor;
+  transform: rotate(135deg);
+}
+
+/* The children are hidden by `display` rather than left to the browser's
+   closed-details rendering: in the flyout run the panel is taken out of the
+   flow, and the browser's own hiding is not guaranteed to catch that. */
+.um-cascader__children {
+  display: none;
+}
+
+.um-cascader__panel[open] > .um-cascader__children {
+  display: block;
+}
+
+/* The inline run opens the level below under the option it hangs off, and
+   a rule marks where the branch begins. */
+.um-cascader--inline .um-cascader__children {
+  margin-left: var(--um-space-sm);
+  padding-left: var(--um-space-sm);
+  border-left: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+}
+
+/* An open level turns its mark over, so the reader can see that the level
+   below is already there. */
+.um-cascader--inline .um-cascader__panel[open] > .um-cascader__option .um-cascader__arrow {
+  transform: rotate(-45deg);
+}
+
+/* The flyout run puts the level below beside the one it hangs off, which is
+   how a cascader is drawn when it floats over the page. */
+.um-cascader--flyout .um-cascader__children {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  z-index: 1;
+  min-width: 100%;
+  width: max-content;
+  padding: var(--um-space-xs) 0;
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-base);
+  background: var(--um-bg-overlay);
+  box-shadow: var(--um-shadow-base);
+}
+
+.um-cascader--flyout .um-cascader__arrow {
+  transform: rotate(45deg);
+}
+
+.um-cascader--sm .um-cascader__option {
+  font-size: var(--um-font-size-caption);
+}
+
+.um-cascader--lg .um-cascader__option {
+  font-size: var(--um-font-size-title);
+}

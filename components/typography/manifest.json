@@ -1,0 +1,157 @@
+{
+  "id": "typography",
+  "name": "Typography",
+  "nameZh": "文字排版",
+  "category": "basic",
+  "element": "div, h1, h2, p, span, a, blockquote",
+  "summary": "The set of text styles a page is written in: a title, a subtitle, a paragraph, supporting text, a link and a quote. The library paints the sizes, the colours and the leading; the words and the heading levels are the host's.",
+  "summaryZh": "一个页面用来写字的那套样式:标题、副标题、一段正文、辅助文字、一个链接和一段引文。库来画字号、颜色和行距;文字本身和标题级别归使用它的页面。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-typography",
+    "modifier": "um-typography--",
+    "part": "um-typography__"
+  },
+  "variants": [
+    {
+      "id": "primary",
+      "name": "Primary",
+      "nameZh": "主要",
+      "state": "soft",
+      "note": "The text takes the brand colour, in the role that is guaranteed to read on the page, the overlay and the container."
+    },
+    {
+      "id": "success",
+      "name": "Success",
+      "nameZh": "成功",
+      "state": "soft",
+      "note": "The text takes the success colour."
+    },
+    {
+      "id": "warning",
+      "name": "Warning",
+      "nameZh": "警告",
+      "state": "soft",
+      "note": "The text takes the warning colour."
+    },
+    {
+      "id": "danger",
+      "name": "Danger",
+      "nameZh": "危险",
+      "state": "soft",
+      "note": "The text takes the danger colour."
+    },
+    {
+      "id": "info",
+      "name": "Info",
+      "nameZh": "信息",
+      "state": "soft",
+      "note": "The text takes the info colour."
+    }
+  ],
+  "sizes": [
+    { "id": "small", "name": "Small", "nameZh": "小", "note": "The text of the block steps down to the theme's caption size." },
+    { "id": "medium", "name": "Medium", "nameZh": "中", "default": true, "note": "The default text. The base class is already this size, so it needs no modifier." },
+    { "id": "large", "name": "Large", "nameZh": "大", "note": "The text of the block steps up to the theme's title size." }
+  ],
+  "states": [],
+  "parts": [
+    {
+      "id": "title",
+      "name": "Title",
+      "nameZh": "标题",
+      "note": "The heading of the block. It is marked up as a heading, and the level is the host's to choose."
+    },
+    {
+      "id": "subtitle",
+      "name": "Subtitle",
+      "nameZh": "副标题",
+      "note": "The line under the title. It is a heading too, one level down."
+    },
+    {
+      "id": "text",
+      "name": "Text",
+      "nameZh": "正文",
+      "note": "The paragraph. It takes the colour of the block and the size of the block."
+    },
+    {
+      "id": "secondary",
+      "name": "Secondary",
+      "nameZh": "次要文字",
+      "note": "Supporting text: the size of the body, in the muted colour."
+    },
+    {
+      "id": "extra",
+      "name": "Extra small",
+      "nameZh": "极小文字",
+      "note": "The smallest text the theme has, and muted with it — a timestamp, a footnote."
+    },
+    {
+      "id": "link",
+      "name": "Link",
+      "nameZh": "链接",
+      "note": "A link inside a block of text. It takes the brand colour in the role that reads on every surface."
+    },
+    {
+      "id": "quote",
+      "name": "Quote",
+      "nameZh": "引用",
+      "note": "A quotation, set off by a rule rather than by italics — not every type family has italics."
+    }
+  ],
+  "props": [
+    {
+      "name": "color",
+      "type": "enum",
+      "values": ["primary", "success", "warning", "danger", "info"],
+      "default": "primary",
+      "description": "The colour of the text. The regular text colour is the base class on its own; the five modifiers paint the text with the matching colour.",
+      "descriptionZh": "文字的颜色。常规文字色就是只写基础类;五个修饰类分别把文字染成对应的颜色。"
+    },
+    {
+      "name": "size",
+      "type": "enum",
+      "values": ["small", "medium", "large"],
+      "default": "medium",
+      "description": "The size of the text of the block. The heading keeps its own level whatever this is set to.",
+      "descriptionZh": "这一块正文的字号。标题不论这里设成什么,都保持自己的级别。"
+    }
+  ],
+  "slots": [],
+  "events": [],
+  "a11y": {
+    "role": "",
+    "keyboard": [],
+    "notes": "The library paints the type, and the host supplies the structure: the title and the subtitle are real heading elements, and the level is chosen to fit the page — a title that is not an <h1> is invisible to someone navigating by heading. The quote is a <blockquote>, which is what tells a screen reader that the words are someone else's. The link is a real <a>, so it is in the tab order and it can be opened in a new tab.",
+    "notesZh": "库来画字形,结构由使用它的页面来给:标题和副标题是真的标题元素,级别要按页面来选 —— 不是 <h1> 的标题,靠标题跳转的人是看不见它的。引用是 <blockquote>,它会告诉读屏这些字是别人说的。链接是真的 <a>,所以它在 Tab 顺序里,也能在新标签页里打开。"
+  },
+  "examples": [
+    {
+      "id": "the-set",
+      "title": "The set",
+      "titleZh": "整套",
+      "description": "Every part of the set in one block: the title, the subtitle, the paragraph, the supporting text, the small text, a link and a quote.",
+      "descriptionZh": "一套样式都放进一块:标题、副标题、一段正文、辅助文字、小字、一个链接和一段引文。",
+      "markup": "<div class=\"um-typography\">\n  <h2 class=\"um-typography__title\">Deployment runbook</h2>\n  <h3 class=\"um-typography__subtitle\">Nightly, 02:00 to 02:30</h3>\n  <p class=\"um-typography__text\">Six replicas are moved to the new build one at a time. Each step waits for a health check before the next one starts, so a failure stops the run where it happened rather than halfway through.</p>\n  <p class=\"um-typography__secondary\">The run takes about four minutes when nothing goes wrong.</p>\n  <span class=\"um-typography__extra\">Last run: 02:11, no differences</span>\n  <p class=\"um-typography__text\">The whole procedure is in <a class=\"um-typography__link\" href=\"#um-typography-runbook\">the runbook</a>, with the rollback steps at the end.</p>\n  <blockquote class=\"um-typography__quote\">Move one replica at a time, and read the health check before you move the next.</blockquote>\n</div>"
+    },
+    {
+      "id": "colors",
+      "title": "Colours",
+      "titleZh": "颜色",
+      "description": "The base class is the regular text colour. The five modifiers colour the text, and the heading keeps the heading colour either way.",
+      "descriptionZh": "基础类是常规文字色。五个修饰类给文字上色,标题两种情况下都保持标题的颜色。",
+      "markup": "<div class=\"um-typography um-typography--primary\">\n  <p class=\"um-typography__text\">The primary text colour.</p>\n</div>\n<div class=\"um-typography um-typography--success\">\n  <p class=\"um-typography__text\">The success text colour.</p>\n</div>\n<div class=\"um-typography um-typography--warning\">\n  <p class=\"um-typography__text\">The warning text colour.</p>\n</div>\n<div class=\"um-typography um-typography--danger\">\n  <p class=\"um-typography__text\">The danger text colour.</p>\n</div>\n<div class=\"um-typography um-typography--info\">\n  <p class=\"um-typography__text\">The info text colour.</p>\n</div>"
+    },
+    {
+      "id": "sizes",
+      "title": "Sizes",
+      "titleZh": "尺寸",
+      "description": "Three sizes for the text of the block. The middle one is the base class on its own, because the base class is already the medium text.",
+      "descriptionZh": "三种正文尺寸。中间那个只写基础类,因为基础类本来就是中号正文。",
+      "markup": "<div class=\"um-typography um-typography--small\">\n  <p class=\"um-typography__text\">The small text of the block.</p>\n</div>\n<div class=\"um-typography\">\n  <p class=\"um-typography__text\">The default text of the block.</p>\n</div>\n<div class=\"um-typography um-typography--large\">\n  <p class=\"um-typography__text\">The large text of the block.</p>\n</div>"
+    }
+  ],
+  "notes": "The variant colours the text and nothing else — the title and the subtitle keep the heading colours, because a heading that changed colour with the paragraph would stop being a heading. And the variant takes the text roles rather than the fill roles: the brand colour is made to be a fill, and a fill colour used as writing can sit under 4.5:1 on a page.",
+  "notesZh": "变体只给文字上色,别的都不动 —— 标题和副标题还是标题的颜色,因为一个跟着正文变色的标题就不像标题了。而且变体用的是文字角色,不是填充角色:品牌色是拿来做填充的,拿来当正文写出来,在页面上可能不到 4.5:1。"
+}

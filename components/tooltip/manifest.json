@@ -1,0 +1,137 @@
+{
+  "id": "tooltip",
+  "name": "Tooltip",
+  "nameZh": "文字提示",
+  "category": "feedback",
+  "element": "button, span",
+  "summary": "A short note that appears when the reader points at a word or tabs to it. The bubble is drawn by the stylesheet and placed with absolute positioning; the trigger is a real button, so the keyboard opens it as well as the pointer.",
+  "summaryZh": "读者指向一个词、或者用 Tab 走到它时出现的一小段说明。气泡由样式表画出来,靠绝对定位摆好;触发器是一个真正的 button,所以键盘和指针都能打开它。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-tooltip",
+    "modifier": "um-tooltip--",
+    "part": "um-tooltip__"
+  },
+  "variants": [
+    {
+      "id": "top",
+      "name": "Above the trigger",
+      "nameZh": "上方",
+      "note": "The bubble hangs above the trigger and its arrow points down at it."
+    },
+    {
+      "id": "left",
+      "name": "Left of the trigger",
+      "nameZh": "左侧",
+      "note": "The bubble stands to the left of the trigger and its arrow points across at it."
+    },
+    {
+      "id": "right",
+      "name": "Right of the trigger",
+      "nameZh": "右侧",
+      "note": "The bubble stands to the right of the trigger and its arrow points across at it."
+    }
+  ],
+  "sizes": [],
+  "states": [
+    {
+      "id": "hover",
+      "name": "Pointed at",
+      "nameZh": "指向",
+      "selector": ":hover",
+      "native": true,
+      "note": "The pointer is over the wrapper, so the bubble is shown."
+    },
+    {
+      "id": "focus",
+      "name": "Focused",
+      "nameZh": "聚焦",
+      "selector": ":focus-within",
+      "native": true,
+      "note": "The focus is inside the wrapper, so the bubble is shown. This is the keyboard half: it fires for the trigger whatever element it is."
+    },
+    {
+      "id": "focus-ring",
+      "name": "Focus ring",
+      "nameZh": "焦点环",
+      "selector": ":focus-visible",
+      "native": true,
+      "note": "The trigger takes the shared focus ring, so a keyboard reader can see where they are."
+    }
+  ],
+  "parts": [
+    {
+      "id": "trigger",
+      "name": "Trigger",
+      "nameZh": "触发器",
+      "note": "The button or link the bubble belongs to. It has to be focusable: a span the library drew is not, and a tooltip the keyboard cannot open is half a tooltip."
+    },
+    {
+      "id": "content",
+      "name": "Content",
+      "nameZh": "内容",
+      "note": "The bubble. It is absolutely positioned and hidden until the wrapper is pointed at or focused."
+    },
+    {
+      "id": "arrow",
+      "name": "Arrow",
+      "nameZh": "箭头",
+      "note": "A square turned on its corner. It sits inside the bubble, because the bubble is what it is positioned against, and its edges take the bubble's border colour so the point reads as part of the bubble rather than as a shape stuck on it."
+    }
+  ],
+  "props": [
+    {
+      "name": "placement",
+      "type": "enum",
+      "values": ["bottom", "top", "left", "right"],
+      "default": "bottom",
+      "description": "Where the bubble sits relative to the trigger. The bottom placement is the base class on its own; the other three add um-tooltip--top, um-tooltip--left or um-tooltip--right.",
+      "descriptionZh": "气泡相对触发器的位置。bottom 就是只写基础类;另外三个分别加上 um-tooltip--top、um-tooltip--left、um-tooltip--right。"
+    },
+    {
+      "name": "text",
+      "type": "string",
+      "description": "The words in the bubble. It is written as text in the page, and the trigger points at it with aria-describedby so the reader hears it as a description rather than as a stray paragraph.",
+      "descriptionZh": "气泡里的那段话。它以正文写进页面,触发器用 aria-describedby 指向它,这样读屏会把它当作描述,而不是一段冒出来的文字。"
+    }
+  ],
+  "slots": [
+    { "name": "content", "description": "The words in the bubble.", "descriptionZh": "气泡里的那段话。" }
+  ],
+  "events": [],
+  "a11y": {
+    "role": "tooltip",
+    "keyboard": ["Tab", "Enter", "Space"],
+    "notes": "The trigger is a real <button> or <a>, so it is in the tab order and the browser announces it; the bubble is a plain span with role=\"tooltip\", and the trigger points at it with aria-describedby so the reader hears the note as a description of the trigger. The bubble opens on focus as well as on hover, so the keyboard reaches everything the pointer reaches. A CSS-only tooltip cannot be dismissed with Escape — the bubble closes when the focus leaves the trigger.",
+    "notesZh": "触发器是真正的 <button> 或 <a>,所以它在 Tab 顺序里,浏览器也会播报它;气泡是一个带 role=\"tooltip\" 的 span,触发器用 aria-describedby 指向它,读屏就会把这段说明当作触发器的描述。气泡在聚焦时也会打开,不只是鼠标悬停时,所以键盘能碰到的东西和指针能碰到的一样多。纯 CSS 的文字提示没法用 Escape 关掉 —— 焦点离开触发器时它就收起来。"
+  },
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Basic",
+      "titleZh": "基础用法",
+      "description": "A button with a note under it. The bubble is written after the trigger and points at it with aria-describedby.",
+      "descriptionZh": "一个按钮,底下跟一段说明。气泡写在触发器后面,并用 aria-describedby 指向它。",
+      "markup": "<span class=\"um-tooltip\">\n  <button class=\"um-tooltip__trigger\" type=\"button\" aria-describedby=\"um-tooltip-note\">Reconcile</button>\n  <span class=\"um-tooltip__content\" id=\"um-tooltip-note\" role=\"tooltip\">Compares the two ledgers and writes the differences back.<span class=\"um-tooltip__arrow\" aria-hidden=\"true\"></span></span>\n</span>"
+    },
+    {
+      "id": "placements",
+      "title": "Placements",
+      "titleZh": "位置",
+      "description": "The base class puts the bubble under the trigger. The three modifiers move it above, to the left or to the right, and turn the arrow to match.",
+      "descriptionZh": "基础类把气泡放在触发器下面。三个修饰类把它挪到上面、左边或右边,箭头也跟着转。",
+      "markup": "<span class=\"um-tooltip um-tooltip--top\">\n  <button class=\"um-tooltip__trigger\" type=\"button\">Above</button>\n  <span class=\"um-tooltip__content\" role=\"tooltip\">The bubble hangs above the trigger.<span class=\"um-tooltip__arrow\" aria-hidden=\"true\"></span></span>\n</span>\n<span class=\"um-tooltip um-tooltip--left\">\n  <button class=\"um-tooltip__trigger\" type=\"button\">Left</button>\n  <span class=\"um-tooltip__content\" role=\"tooltip\">The bubble stands to the left.<span class=\"um-tooltip__arrow\" aria-hidden=\"true\"></span></span>\n</span>\n<span class=\"um-tooltip um-tooltip--right\">\n  <button class=\"um-tooltip__trigger\" type=\"button\">Right</button>\n  <span class=\"um-tooltip__content\" role=\"tooltip\">The bubble stands to the right.<span class=\"um-tooltip__arrow\" aria-hidden=\"true\"></span></span>\n</span>"
+    },
+    {
+      "id": "link-trigger",
+      "title": "A link as the trigger",
+      "titleZh": "链接做触发器",
+      "description": "The trigger does not have to be a button. A link works the same way, and it is announced as a link rather than as a button.",
+      "descriptionZh": "触发器不一定是按钮。链接一样能用,而且它会被播报成链接,不是按钮。",
+      "markup": "<span class=\"um-tooltip\">\n  <a class=\"um-tooltip__trigger\" href=\"#um-tooltip-doc\" aria-describedby=\"um-tooltip-link-note\">the runbook</a>\n  <span class=\"um-tooltip__content\" id=\"um-tooltip-link-note\" role=\"tooltip\">How a failed run is put back in order, step by step.<span class=\"um-tooltip__arrow\" aria-hidden=\"true\"></span></span>\n</span>"
+    }
+  ],
+  "notes": "The arrow is a square turned on its corner, with its two lower edges carrying the bubble's border colour and its fill taken from the bubble's own surface. That is what makes the point read as part of the bubble instead of a shape glued to it — the border line stops at the arrow and picks up on the other side.",
+  "notesZh": "箭头是一个转过 45 度的方块,靠两条边带着气泡的描边色,填充用的是气泡自己的底色。这样那个尖角才读得出是气泡的一部分,而不是粘上去的一个形状 —— 描边走到箭头这里断一下,再从另一边接上。"
+}

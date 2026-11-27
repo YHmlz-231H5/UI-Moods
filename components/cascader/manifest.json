@@ -1,0 +1,75 @@
+{
+  "id": "cascader",
+  "name": "Cascader",
+  "nameZh": "级联选择器",
+  "category": "data",
+  "element": "details, summary",
+  "summary": "Options in levels, opened one level at a time. Every level is a disclosure, so the browser does the opening and the closing and the state survives a reload.",
+  "summaryZh": "分层的选项,一次展开一层。每一层都是一个展开控件,所以开关由浏览器负责,展开的状态也能扛过一次刷新。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-cascader",
+    "modifier": "um-cascader--",
+    "part": "um-cascader__"
+  },
+  "variants": [
+    { "id": "inline", "name": "Inline", "nameZh": "内联", "note": "The level below opens under the option it hangs off, and a rule marks where the branch begins. The base class on its own is this layout, and the modifier paints the same thing so the class list can name it." },
+    { "id": "flyout", "name": "Flyout", "nameZh": "浮层", "note": "The level below opens beside the one it hangs off, as a floating column over the page." }
+  ],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "The option text takes the caption size." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default size. The base class is already this size, so it needs no modifier." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "The option text takes the title size." }
+  ],
+  "states": [
+    { "id": "open", "name": "Open", "nameZh": "展开", "selector": "[open]", "note": "The level is open. The browser announces it, and the arrow turns over in the inline run." },
+    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the option, because the option is what the reader is on." }
+  ],
+  "parts": [
+    { "id": "panel", "name": "Panel", "nameZh": "层级", "note": "One level of the cascader. It is a <details>, and it is the element that knows whether it is open." },
+    { "id": "option", "name": "Option", "nameZh": "选项", "note": "One option in a level. It is the <summary>, so it is focusable and the browser toggles it." },
+    { "id": "label", "name": "Label", "nameZh": "文字", "note": "The text of an option." },
+    { "id": "arrow", "name": "Arrow", "nameZh": "箭头", "note": "The mark that says the option has a level below it. It is drawn from two borders, so it carries no text of its own." },
+    { "id": "children", "name": "Children", "nameZh": "下一层", "note": "The level below an option. It holds the next set of options, each of which is a panel of its own." }
+  ],
+  "props": [
+    { "name": "open", "type": "boolean", "default": "false", "description": "Opens a level. It is the native open attribute on the details, so the browser keeps the state.", "descriptionZh": "展开某一层。它是 details 上的原生 open 属性,所以状态由浏览器记着。" },
+    { "name": "layout", "type": "enum", "values": ["inline", "flyout"], "default": "inline", "description": "Where the level below opens. The inline run is the base class on its own; the flyout run adds um-cascader--flyout.", "descriptionZh": "下一层往哪里开。内联是只写基础类;浮层再加上 um-cascader--flyout。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The size of the option text.", "descriptionZh": "选项文字的尺寸。" },
+    { "name": "label", "type": "string", "description": "The text of one option. An option with no text needs an accessible name of its own.", "descriptionZh": "某一个选项的文字。没有文字的选项也得有自己的可访问名称。" }
+  ],
+  "slots": [
+    { "name": "option", "description": "One option: its text and the mark that says there is a level below it.", "descriptionZh": "一个选项:它的文字,以及那个表示下面还有一层的记号。" },
+    { "name": "children", "description": "The level below, holding one option per branch.", "descriptionZh": "下面那一层,每个分支放一个选项。" }
+  ],
+  "events": [
+    { "name": "toggle", "description": "Fires when a level opens or closes. It is the browser's own event on the details — the library installs no listener.", "descriptionZh": "某一层展开或收起时触发。这是 details 上的浏览器原生事件 —— 库没有安装任何监听器。" }
+  ],
+  "a11y": {
+    "role": "group",
+    "keyboard": ["Tab", "Enter", "Space"],
+    "notes": "Every level is a real <details> and every option is a real <summary>, so the browser announces each option as a disclosure button and says whether its level is open. The keyboard is the browser's own: Tab reaches the options, Enter or Space opens the level below. The arrow is drawn from borders, so it carries no text — the level below is announced by the browser, not by the mark. A library with no JavaScript cannot work out the chosen path, so the path a reader has picked is the host's to write.",
+    "notesZh": "每一层都是真正的 <details>,每一个选项都是真正的 <summary>,所以浏览器会把每个选项播报成展开按钮,并说明它那一层是开着还是关着。键盘也是浏览器自己的:Tab 走到选项上,Enter 或空格展开下面那层。那个箭头是边框画出来的,所以它自己不带文字 —— 下面还有一层这件事是浏览器说的,不是那个记号说的。没有 JavaScript 的库算不出读者选中的那条路径,所以选中的路径由宿主来写。"
+  },
+  "examples": [
+    {
+      "id": "inline",
+      "title": "Inline",
+      "titleZh": "内联",
+      "description": "Three levels. Opening an option opens the level below it under the option, and a rule marks where the branch begins. Only the modifier class would change this.",
+      "descriptionZh": "三层。展开一个选项,下面那一层就在它底下打开,一条线标出分支从哪里开始。只改修饰类的话就是这个样子。",
+      "markup": "<div class=\"um-cascader um-cascader--inline\">\n  <details class=\"um-cascader__panel\">\n    <summary class=\"um-cascader__option\">\n      <span class=\"um-cascader__label\">Asia</span>\n      <span class=\"um-cascader__arrow\" aria-hidden=\"true\"></span>\n    </summary>\n    <div class=\"um-cascader__children\">\n      <details class=\"um-cascader__panel\">\n        <summary class=\"um-cascader__option\">\n          <span class=\"um-cascader__label\">China</span>\n          <span class=\"um-cascader__arrow\" aria-hidden=\"true\"></span>\n        </summary>\n        <div class=\"um-cascader__children\">\n          <details class=\"um-cascader__panel\">\n            <summary class=\"um-cascader__option\">\n              <span class=\"um-cascader__label\">Beijing</span>\n            </summary>\n          </details>\n          <details class=\"um-cascader__panel\">\n            <summary class=\"um-cascader__option\">\n              <span class=\"um-cascader__label\">Hangzhou</span>\n            </summary>\n          </details>\n        </div>\n      </details>\n      <details class=\"um-cascader__panel\">\n        <summary class=\"um-cascader__option\">\n          <span class=\"um-cascader__label\">Japan</span>\n          <span class=\"um-cascader__arrow\" aria-hidden=\"true\"></span>\n        </summary>\n        <div class=\"um-cascader__children\">\n          <details class=\"um-cascader__panel\">\n            <summary class=\"um-cascader__option\">\n              <span class=\"um-cascader__label\">Osaka</span>\n            </summary>\n          </details>\n        </div>\n      </details>\n    </div>\n  </details>\n</div>"
+    },
+    {
+      "id": "flyout",
+      "title": "Flyout",
+      "titleZh": "浮层",
+      "description": "The same levels, with the level below opening beside the one it hangs off. The first level is open, so the second one is already showing.",
+      "descriptionZh": "同样的层级,只是下面那层开在旁边而不是下面。第一层是开着的,所以第二层已经露出来了。",
+      "markup": "<div class=\"um-cascader um-cascader--flyout\">\n  <details class=\"um-cascader__panel\" open>\n    <summary class=\"um-cascader__option\">\n      <span class=\"um-cascader__label\">Asia</span>\n      <span class=\"um-cascader__arrow\" aria-hidden=\"true\"></span>\n    </summary>\n    <div class=\"um-cascader__children\">\n      <details class=\"um-cascader__panel\" open>\n        <summary class=\"um-cascader__option\">\n          <span class=\"um-cascader__label\">China</span>\n          <span class=\"um-cascader__arrow\" aria-hidden=\"true\"></span>\n        </summary>\n        <div class=\"um-cascader__children\">\n          <details class=\"um-cascader__panel\">\n            <summary class=\"um-cascader__option\">\n              <span class=\"um-cascader__label\">Beijing</span>\n            </summary>\n          </details>\n          <details class=\"um-cascader__panel\">\n            <summary class=\"um-cascader__option\">\n              <span class=\"um-cascader__label\">Hangzhou</span>\n            </summary>\n          </details>\n        </div>\n      </details>\n      <details class=\"um-cascader__panel\">\n        <summary class=\"um-cascader__option\">\n          <span class=\"um-cascader__label\">Japan</span>\n          <span class=\"um-cascader__arrow\" aria-hidden=\"true\"></span>\n        </summary>\n        <div class=\"um-cascader__children\">\n          <details class=\"um-cascader__panel\">\n            <summary class=\"um-cascader__option\">\n              <span class=\"um-cascader__label\">Osaka</span>\n            </summary>\n          </details>\n        </div>\n      </details>\n    </div>\n  </details>\n</div>"
+    }
+  ],
+  "notes": "A level is a disclosure, not a menu: the browser owns the open state, so the branch stays open across a reload and the reader gets the \"collapsed\" and \"expanded\" announcement for free. The level below is hidden with `display: none` and shown again by `[open]`, because in the flyout run the panel is taken out of the flow and the browser's own hiding is not guaranteed to catch that. The mark that says there is a level below is drawn from two borders, so it takes the option's own colour.",
+  "notesZh": "一层是一个展开控件,不是一个菜单:开关状态归浏览器管,所以分支在刷新之后还是开着的,读者也能免费得到「已折叠」「已展开」的播报。下面那一层是用 `display: none` 藏起来的,再由 `[open]` 放出来,因为在浮层这一跑里面板是被拿出文档流的,浏览器自己的隐藏不保证能盖住它。那个表示下面还有一层的记号是用两条边框画出来的,所以它跟着选项自己的颜色走。"
+}

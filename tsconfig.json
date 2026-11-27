@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "strict": true,
+    "noEmit": true,
+    "noImplicitAny": true,
+    "skipLibCheck": false,
+    "allowJs": true,
+    "checkJs": true,
+    "types": []
+  },
+  "//": "The public surface: what a consumer's editor sees. The per-component wrappers live in tsconfig.wrappers.json — see the comment there.",
+  "include": [
+    "types/**/*.d.ts",
+    "vue/index.js",
+    "vue/index.d.ts",
+    "vue/components/index.js",
+    "vue/components/index.d.ts",
+    "themes/switcher.js",
+    "themes/switcher.d.ts"
+  ]
+}

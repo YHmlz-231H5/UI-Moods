@@ -1,0 +1,122 @@
+/* ============================================================================
+   Tooltip
+   ========================================================================== */
+
+/* The wrapper holds the trigger and the bubble, and is the positioning
+   context both of them are placed in. */
+.um-tooltip {
+  --um-tooltip-arrow: 8px;
+
+  position: relative;
+  display: inline-flex;
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+}
+
+/* The trigger is a real button or link, so the browser keeps it in the tab
+   order and announces it. The library only replaces the browser's own
+   outline with the shared ring. */
+.um-tooltip__trigger {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--um-color-primary-text);
+  font: inherit;
+  text-decoration: underline dotted;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+.um-tooltip__trigger:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+/* The bubble is hidden with visibility rather than with display, so it can
+   fade — and visibility still takes it out of the tab order and away from
+   the pointer, which is what a hidden bubble has to do. */
+.um-tooltip__content {
+  position: absolute;
+  top: calc(100% + var(--um-space-xs));
+  left: 50%;
+  z-index: 1;
+  width: max-content;
+  max-width: 22em;
+  padding: var(--um-space-xs) var(--um-space-sm);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-base);
+  background: var(--um-bg-overlay);
+  box-shadow: var(--um-shadow-base);
+  color: var(--um-text-regular);
+  font-size: var(--um-font-size-caption);
+  line-height: 1.5;
+  transform: translateX(-50%);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--um-motion), visibility var(--um-motion);
+}
+
+/* The arrow is a square turned on its corner. The two edges that form the
+   point carry the bubble's border colour, and the square is filled with the
+   bubble's own surface — so where it crosses the bubble's edge the two read
+   as one shape, and the border line stops at the arrow and picks up again
+   on the other side of it. */
+.um-tooltip__arrow {
+  position: absolute;
+  top: calc(var(--um-tooltip-arrow) * -0.5);
+  left: 50%;
+  width: var(--um-tooltip-arrow);
+  height: var(--um-tooltip-arrow);
+  background: var(--um-bg-overlay);
+  border-right: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-bottom: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  transform: translateX(-50%) rotate(225deg);
+}
+
+/* The bubble opens under a pointer and under a keyboard. `:focus-within` is
+   the keyboard half: it fires for the trigger whatever it is, without the
+   markup having to promise that the trigger and the bubble are siblings. */
+.um-tooltip:hover .um-tooltip__content,
+.um-tooltip:focus-within .um-tooltip__content {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Above the trigger: the bubble hangs from the top and its arrow points
+   down at the trigger. */
+.um-tooltip--top .um-tooltip__content {
+  top: auto;
+  bottom: calc(100% + var(--um-space-xs));
+}
+.um-tooltip--top .um-tooltip__arrow {
+  top: auto;
+  bottom: calc(var(--um-tooltip-arrow) * -0.5);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+/* Beside the trigger: the bubble stands to one side and its arrow points
+   across at the trigger. */
+.um-tooltip--left .um-tooltip__content {
+  top: 50%;
+  right: calc(100% + var(--um-space-xs));
+  left: auto;
+  transform: translateY(-50%);
+}
+.um-tooltip--left .um-tooltip__arrow {
+  top: 50%;
+  right: calc(var(--um-tooltip-arrow) * -0.5);
+  left: auto;
+  transform: translateY(-50%) rotate(315deg);
+}
+
+.um-tooltip--right .um-tooltip__content {
+  top: 50%;
+  right: auto;
+  left: calc(100% + var(--um-space-xs));
+  transform: translateY(-50%);
+}
+.um-tooltip--right .um-tooltip__arrow {
+  top: 50%;
+  right: auto;
+  left: calc(var(--um-tooltip-arrow) * -0.5);
+  transform: translateY(-50%) rotate(135deg);
+}

@@ -1,0 +1,92 @@
+/* ============================================================================
+   Rate
+   ========================================================================== */
+
+/* The filled count is read off the checked radio: the container matches the
+   radio's position in the group and writes it into a variable, and the items
+   up to that position are the filled ones. CSS cannot compare two positions,
+   so there is one rule per star. */
+.um-rate {
+  --um-rate-filled: 0;
+  --um-rate-active-color: var(--um-color-primary);
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--um-space-xs);
+}
+.um-rate:has(.um-rate__input:nth-of-type(1):checked) { --um-rate-filled: 1; }
+.um-rate:has(.um-rate__input:nth-of-type(2):checked) { --um-rate-filled: 2; }
+.um-rate:has(.um-rate__input:nth-of-type(3):checked) { --um-rate-filled: 3; }
+.um-rate:has(.um-rate__input:nth-of-type(4):checked) { --um-rate-filled: 4; }
+.um-rate:has(.um-rate__input:nth-of-type(5):checked) { --um-rate-filled: 5; }
+
+/* The colour of the filled stars. The filled star is the message — it says
+   how many — so it takes the graphic form of the tone rather than the fill
+   form. The raw fill colour clears 4.5:1 as a background for text and clears
+   nothing as a picture: the warning tone sits at 1.39:1 on a container, which
+   is a row of stars nobody can see. */
+.um-rate--success { --um-rate-active-color: var(--um-color-success-graphic); }
+.um-rate--warning { --um-rate-active-color: var(--um-color-warning-graphic); }
+.um-rate--danger { --um-rate-active-color: var(--um-color-danger-graphic); }
+
+/* The radio is the control. It is hidden visually but not taken out of the
+   accessibility tree, so it keeps its place in the tab order and its name. */
+.um-rate__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+/* The star is a shape, not a glyph: a ten-point polygon cut out of a square.
+   The library ships no icon font, so the shape has to be drawn. */
+.um-rate__icon,
+.um-rate__active {
+  display: block;
+  width: var(--um-height-sm);
+  height: var(--um-height-sm);
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+/* The empty star is the scale. A hairline border is allowed to be faint
+   because the label beside it carries the meaning, but a star has no label:
+   without the empty ones, three filled stars are just three shapes and the
+   reader cannot tell a five-star rating from a three-star one. So the empty
+   star takes the muted-shape role, which is held to 3:1. */
+.um-rate__icon { background: var(--um-shape-muted); }
+
+/* The filled star is the same shape, drawn on top of the empty one and
+   revealed when the item is one of the filled ones. */
+.um-rate__active {
+  position: absolute;
+  inset: 0;
+  background: var(--um-rate-active-color);
+  opacity: 0;
+  transition: opacity var(--um-motion);
+}
+
+.um-rate__item {
+  position: relative;
+  display: inline-flex;
+  cursor: pointer;
+  line-height: 0;
+}
+
+/* The filled stars are the ones up to the checked radio's position. */
+.um-rate__item:nth-of-type(-n+var(--um-rate-filled)) .um-rate__active { opacity: 1; }
+
+.um-rate--small .um-rate__icon,
+.um-rate--small .um-rate__active { width: calc(var(--um-height-sm) * 0.75); height: calc(var(--um-height-sm) * 0.75); }
+.um-rate--large .um-rate__icon,
+.um-rate--large .um-rate__active { width: var(--um-height-md); height: var(--um-height-md); }
+
+/* The ring goes on the item rather than on the star: the star is cut out of
+   a polygon, and a clipped element cannot show an outline. */
+.um-rate__input:focus-visible + .um-rate__item {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+.um-rate__input:disabled + .um-rate__item {
+  cursor: not-allowed;
+  opacity: 0.45;
+}

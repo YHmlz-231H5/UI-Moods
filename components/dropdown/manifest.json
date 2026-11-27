@@ -1,0 +1,116 @@
+{
+  "id": "dropdown",
+  "name": "Dropdown",
+  "nameZh": "下拉菜单",
+  "category": "navigation",
+  "element": "details, summary, button",
+  "summary": "A row of actions that stays out of the way until it is wanted. The trigger is a <summary>, so the panel opens and closes with the browser's own disclosure behaviour.",
+  "summaryZh": "一排平时不占地方、需要时才出现的操作。触发器是 <summary>,所以面板的开关由浏览器自己的展开行为负责。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-dropdown",
+    "modifier": "um-dropdown--",
+    "part": "um-dropdown__"
+  },
+  "variants": [
+    {
+      "id": "end",
+      "name": "Aligned to the end",
+      "nameZh": "右对齐",
+      "note": "The panel lines up with the right edge of the trigger instead of the left one."
+    }
+  ],
+  "sizes": [],
+  "states": [
+    {
+      "id": "open",
+      "name": "Open",
+      "nameZh": "展开",
+      "selector": "[open]",
+      "note": "The trigger's <details> is open, so the panel is shown."
+    }
+  ],
+  "parts": [
+    {
+      "id": "trigger",
+      "name": "Trigger",
+      "nameZh": "触发器",
+      "note": "The <summary> that opens the panel. Its marker is a shape drawn from two borders."
+    },
+    {
+      "id": "menu",
+      "name": "Menu",
+      "nameZh": "菜单",
+      "note": "The floating panel. It sits on the overlay surface and carries its own shadow, because it is above the page rather than on it."
+    },
+    {
+      "id": "item",
+      "name": "Item",
+      "nameZh": "菜单项",
+      "note": "One action in the panel."
+    },
+    {
+      "id": "divider",
+      "name": "Divider",
+      "nameZh": "分隔线",
+      "note": "A rule between two groups of actions."
+    }
+  ],
+  "props": [
+    {
+      "name": "placement",
+      "type": "enum",
+      "values": ["start", "end"],
+      "default": "start",
+      "description": "Which edge of the trigger the panel lines up with. The start placement is the base class on its own; the end placement adds um-dropdown--end.",
+      "descriptionZh": "面板对齐触发器的哪一边。start 是只写基类;end 再加上 um-dropdown--end。"
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "description": "The text on the trigger. A trigger with no text still needs an accessible name of its own.",
+      "descriptionZh": "触发器上的文字。没有文字的触发器也得有自己的可访问名称。"
+    }
+  ],
+  "slots": [
+    {
+      "name": "trigger",
+      "description": "What is inside the trigger, next to the marker.",
+      "descriptionZh": "触发器里除标记之外的内容。"
+    }
+  ],
+  "events": [
+    {
+      "name": "toggle",
+      "description": "Fires when the panel opens or closes. It is the browser's own event on the <details> — the library installs no listener.",
+      "descriptionZh": "面板打开或关闭时触发。这是 <details> 上的浏览器原生事件 —— 库没有安装任何监听器。"
+    }
+  ],
+  "a11y": {
+    "role": "button",
+    "keyboard": ["Tab", "Enter", "Space", "Escape"],
+    "notes": "The trigger is a <summary>, so the browser announces it as a disclosure button and says whether the panel is open. The panel is hidden with `display: none` rather than left to the browser's closed-details rendering, because an absolutely positioned child is the one case where the two are not guaranteed to agree. The items are buttons, so they are in the tab order and can be pressed; a menu of links would be a list of <a>s instead.",
+    "notesZh": "触发器是 <summary>,浏览器会把它当作展开按钮播报,并说明面板是开着还是关着。面板用 `display: none` 藏起来,而不是交给浏览器关闭 <details> 时的渲染 —— 绝对定位的子元素正好是这两种做法不保证一致的那一种。菜单项是 button,所以在 Tab 顺序里、可以按;如果菜单项要的是链接,那就该换成一批 <a>。"
+  },
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Basic",
+      "titleZh": "基础用法",
+      "description": "A trigger with three actions and a divider. The panel lines up with the left edge of the trigger.",
+      "descriptionZh": "一个触发器,三个操作,中间一条分隔线。面板和触发器的左边对齐。",
+      "markup": "<details class=\"um-dropdown\">\n  <summary class=\"um-dropdown__trigger\">Actions</summary>\n  <div class=\"um-dropdown__menu\">\n    <button class=\"um-dropdown__item\" type=\"button\">Rename</button>\n    <button class=\"um-dropdown__item\" type=\"button\">Duplicate</button>\n    <hr class=\"um-dropdown__divider\" />\n    <button class=\"um-dropdown__item\" type=\"button\">Delete</button>\n  </div>\n</details>"
+    },
+    {
+      "id": "end",
+      "title": "Aligned to the end",
+      "titleZh": "右对齐",
+      "description": "The end variant lines the panel up with the right edge of the trigger, which is what a menu on the right edge of a toolbar usually wants.",
+      "descriptionZh": "end 变体让面板和触发器的右边对齐。工具栏右端挂的菜单通常要的就是这样。",
+      "markup": "<details class=\"um-dropdown um-dropdown--end\">\n  <summary class=\"um-dropdown__trigger\">More</summary>\n  <div class=\"um-dropdown__menu\">\n    <button class=\"um-dropdown__item\" type=\"button\">Export</button>\n    <button class=\"um-dropdown__item\" type=\"button\">Share</button>\n    <hr class=\"um-dropdown__divider\" />\n    <button class=\"um-dropdown__item\" type=\"button\">Archive</button>\n  </div>\n</details>"
+    }
+  ],
+  "notes": "The panel is hidden with `display: none` and shown again by `[open]`, rather than left to the browser's rendering of a closed <details>. The browser hides a closed details with a slot, which is not guaranteed to catch a child that has been taken out of the flow — and this panel is absolutely positioned, so it has been. Two lines of CSS buy a guarantee that the closed panel is really gone.",
+  "notesZh": "面板是用 `display: none` 藏起来的,再由 `[open]` 放出来,而不是交给浏览器对关闭状态下的 <details> 的渲染。浏览器用一个 slot 来藏关闭的 details,这个做法不保证能盖住被拿出文档流的子元素 —— 而这块面板正是绝对定位的,也就是被拿出了文档流。多写两行 CSS,换来的是\"关着的面板真的不在了\"这个保证。"
+}

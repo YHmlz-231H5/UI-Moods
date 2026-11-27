@@ -1,0 +1,151 @@
+{
+  "id": "pagination",
+  "name": "Pagination",
+  "nameZh": "分页",
+  "category": "navigation",
+  "element": "nav, ul, li, a, button, input",
+  "summary": "The pages of a long list, with the previous and next arrows at either end and the current page filled in. The arrows are chevrons drawn from two borders.",
+  "summaryZh": "长列表的页码,两端是上一页和下一页,当前页填上底色。箭头是用两条边框画出来的尖角。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-pagination",
+    "modifier": "um-pagination--",
+    "part": "um-pagination__"
+  },
+  "variants": [],
+  "sizes": [
+    {
+      "id": "sm",
+      "name": "Small",
+      "nameZh": "小",
+      "default": false,
+      "note": "Shorter buttons and a smaller label, for a pager that sits in a table footer."
+    }
+  ],
+  "states": [
+    {
+      "id": "disabled",
+      "name": "Disabled",
+      "nameZh": "禁用",
+      "selector": ":disabled",
+      "native": true,
+      "note": "The arrow at the end of the run has nowhere to go, so it is a real disabled button."
+    }
+  ],
+  "parts": [
+    {
+      "id": "list",
+      "name": "List",
+      "nameZh": "页码列表",
+      "note": "The <ul> that holds the pages."
+    },
+    {
+      "id": "item",
+      "name": "Item",
+      "nameZh": "条目",
+      "note": "One page in the row."
+    },
+    {
+      "id": "link",
+      "name": "Link",
+      "nameZh": "页码",
+      "note": "The page itself. It is an <a> for a page you can go to and a <button> for the two arrows, because an arrow can be disabled and a link cannot."
+    },
+    {
+      "id": "active",
+      "name": "Active",
+      "nameZh": "当前页",
+      "note": "The page the reader is on. Its number is filled in, and it carries aria-current=\"page\"."
+    },
+    {
+      "id": "prev",
+      "name": "Previous",
+      "nameZh": "上一页",
+      "note": "The arrow that goes back one page."
+    },
+    {
+      "id": "next",
+      "name": "Next",
+      "nameZh": "下一页",
+      "note": "The arrow that goes forward one page."
+    },
+    {
+      "id": "total",
+      "name": "Total",
+      "nameZh": "总数",
+      "note": "How many records there are in all."
+    },
+    {
+      "id": "jumper",
+      "name": "Jumper",
+      "nameZh": "跳页",
+      "note": "The field that takes a page number and goes there."
+    },
+    {
+      "id": "input",
+      "name": "Input",
+      "nameZh": "输入框",
+      "note": "The number field inside the jumper."
+    }
+  ],
+  "props": [
+    {
+      "name": "total",
+      "type": "number",
+      "description": "How many records there are. It is what the total line and the last page number are counted from.",
+      "descriptionZh": "一共多少条记录。总数那行和最后一个页码都是从它算出来的。"
+    },
+    {
+      "name": "currentPage",
+      "type": "number",
+      "default": "1",
+      "description": "Which page is open. It is the aria-current=\"page\" on that page's item.",
+      "descriptionZh": "当前是第几页。它是那一页条目上的 aria-current=\"page\"。"
+    },
+    {
+      "name": "pageSize",
+      "type": "enum",
+      "values": ["10", "20", "50", "100"],
+      "default": "10",
+      "description": "How many records one page holds.",
+      "descriptionZh": "一页放多少条记录。"
+    },
+    {
+      "name": "size",
+      "type": "enum",
+      "values": ["sm", "md"],
+      "default": "md",
+      "description": "How big the buttons are. The default size is the base class on its own; the small size adds um-pagination--sm.",
+      "descriptionZh": "按钮有多大。默认大小是只写基类;小号再加上 um-pagination--sm。"
+    }
+  ],
+  "slots": [],
+  "events": [],
+  "a11y": {
+    "role": "navigation",
+    "keyboard": ["Tab"],
+    "notes": "The pager is a <nav> with an aria-label, so a screen reader can jump past it. The current page carries aria-current=\"page\", which is what tells the reader where they are without relying on the fill. The two arrows are <button>s rather than links, because an arrow at the end of the run has to be disableable and a link cannot be disabled.",
+    "notesZh": "分页器是一条带 aria-label 的 <nav>,读屏可以直接跳过。当前页带 aria-current=\"page\",靠它告诉读者人在哪一页,而不是靠那块底色。两个箭头是 <button> 而不是链接 —— 走到头时箭头得能被禁用,而链接不能禁用。"
+  },
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Basic",
+      "titleZh": "基础用法",
+      "description": "Five pages, the first one open. The previous arrow is a disabled button, because there is no page before the first one.",
+      "descriptionZh": "五页,停在第一页。上一页是禁用状态的按钮,因为第一页前面没有页了。",
+      "markup": "<nav class=\"um-pagination\" aria-label=\"Pagination\">\n  <ul class=\"um-pagination__list\">\n    <li class=\"um-pagination__item um-pagination__prev\">\n      <button class=\"um-pagination__link\" type=\"button\" disabled aria-label=\"Previous page\"></button>\n    </li>\n    <li class=\"um-pagination__item um-pagination__active\">\n      <a class=\"um-pagination__link\" href=\"#\" aria-current=\"page\">1</a>\n    </li>\n    <li class=\"um-pagination__item\">\n      <a class=\"um-pagination__link\" href=\"#\">2</a>\n    </li>\n    <li class=\"um-pagination__item\">\n      <a class=\"um-pagination__link\" href=\"#\">3</a>\n    </li>\n    <li class=\"um-pagination__item\">\n      <a class=\"um-pagination__link\" href=\"#\">4</a>\n    </li>\n    <li class=\"um-pagination__item\">\n      <a class=\"um-pagination__link\" href=\"#\">5</a>\n    </li>\n    <li class=\"um-pagination__item um-pagination__next\">\n      <button class=\"um-pagination__link\" type=\"button\" aria-label=\"Next page\"></button>\n    </li>\n  </ul>\n</nav>"
+    },
+    {
+      "id": "full",
+      "title": "With a total and a jumper",
+      "titleZh": "带总数和跳页",
+      "description": "The total line, the page size and the jumper field. The jumper is a real number field with its own label, so it announces what it wants.",
+      "descriptionZh": "总数那行、每页条数和跳页输入框。跳页是一个真正的数字输入框,有自己的标签,所以读屏会说明它要什么。",
+      "markup": "<nav class=\"um-pagination um-pagination--sm\" aria-label=\"Pagination\">\n  <ul class=\"um-pagination__list\">\n    <li class=\"um-pagination__item um-pagination__prev\">\n      <button class=\"um-pagination__link\" type=\"button\" aria-label=\"Previous page\"></button>\n    </li>\n    <li class=\"um-pagination__item\">\n      <a class=\"um-pagination__link\" href=\"#\">1</a>\n    </li>\n    <li class=\"um-pagination__item um-pagination__active\">\n      <a class=\"um-pagination__link\" href=\"#\" aria-current=\"page\">2</a>\n    </li>\n    <li class=\"um-pagination__item\">\n      <a class=\"um-pagination__link\" href=\"#\">3</a>\n    </li>\n    <li class=\"um-pagination__item um-pagination__next\">\n      <button class=\"um-pagination__link\" type=\"button\" aria-label=\"Next page\"></button>\n    </li>\n  </ul>\n  <span class=\"um-pagination__total\">240 records</span>\n  <span class=\"um-pagination__jumper\">\n    <label for=\"um-pagination-jump\">Go to</label>\n    <input class=\"um-pagination__input\" id=\"um-pagination-jump\" type=\"number\" min=\"1\" max=\"24\" value=\"2\" />\n    <span>of 24 pages</span>\n  </span>\n</nav>"
+    }
+  ],
+  "notes": "The arrows are chevrons drawn from two borders, and they take `currentColor`, so an arrow is disabled by the same rule as the label beside it. A text arrow would have to be a character in the markup, and the library would have to choose which one — `‹`, `«` or an image — and the choice would then sit in the document instead of in the theme.",
+  "notesZh": "箭头是用两条边框画出来的尖角,用的是 `currentColor`,所以箭头变灰和旁边的文字走的是同一条规则。用字符做箭头的话,库就得挑一个 —— `‹`、`«` 还是一张图 —— 而且这个选择会散落到文档里,而不是留在主题里。"
+}

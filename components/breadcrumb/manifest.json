@@ -1,0 +1,105 @@
+{
+  "id": "breadcrumb",
+  "name": "Breadcrumb",
+  "nameZh": "面包屑",
+  "category": "navigation",
+  "element": "nav, ol, li, a",
+  "summary": "The path to the page you are on, as a list of links. The separators between the steps are drawn by the stylesheet, not written into the markup as characters.",
+  "summaryZh": "当前页面的路径,做成一串链接。步骤之间的分隔符由样式表画出来,而不是把字符写进标记里。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-breadcrumb",
+    "modifier": "um-breadcrumb--",
+    "part": "um-breadcrumb__"
+  },
+  "variants": [
+    {
+      "id": "slash",
+      "name": "Slash separator",
+      "nameZh": "斜线分隔符",
+      "note": "The chevron between the steps becomes a leaning line."
+    }
+  ],
+  "sizes": [],
+  "states": [
+    {
+      "id": "current",
+      "name": "Current page",
+      "nameZh": "当前页",
+      "selector": "[aria-current=\"page\"]",
+      "note": "The last step. It is not a link, and it takes the page's own text colour instead of the link colour."
+    }
+  ],
+  "parts": [
+    {
+      "id": "list",
+      "name": "List",
+      "nameZh": "列表",
+      "note": "The <ol> that holds the steps."
+    },
+    {
+      "id": "item",
+      "name": "Item",
+      "nameZh": "条目",
+      "note": "One step. It holds the separator and the link."
+    },
+    {
+      "id": "separator",
+      "name": "Separator",
+      "nameZh": "分隔符",
+      "note": "The mark between two steps. It is an empty element, hidden from the screen reader, and the chevron is drawn with two borders."
+    },
+    {
+      "id": "link",
+      "name": "Link",
+      "nameZh": "链接",
+      "note": "The step itself. It is an <a> for the steps you can go back to and a <span> for the page you are on."
+    }
+  ],
+  "props": [
+    {
+      "name": "separator",
+      "type": "enum",
+      "values": ["chevron", "slash"],
+      "default": "chevron",
+      "description": "The mark between the steps. The chevron is the base class on its own; the slash adds um-breadcrumb--slash.",
+      "descriptionZh": "步骤之间的标记。chevron 就是只写基类;slash 再加上 um-breadcrumb--slash。"
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "default": "Breadcrumb",
+      "description": "The accessible name of the nav element. Every breadcrumb on a page needs its own, or the screen reader announces them all as the same thing.",
+      "descriptionZh": "nav 元素的可访问名称。同一个页面上每条面包屑都要有各自的名称,否则读屏会把它们当成同一个东西。"
+    }
+  ],
+  "slots": [],
+  "events": [],
+  "a11y": {
+    "role": "navigation",
+    "keyboard": ["Tab"],
+    "notes": "The trail is a <nav> with an aria-label, so a screen reader can jump past it, and an <ol>, so the steps are announced in order. The last step carries aria-current=\"page\" and is a <span>: it is where the reader already is, so making it a link would offer a trip back to the current page. The separators are empty elements with aria-hidden, because a chevron is a shape and has nothing to say.",
+    "notesZh": "路径是一条带 aria-label 的 <nav>,读屏可以直接跳过;里面是 <ol>,步骤会按顺序播报。最后一步带 aria-current=\"page\",而且是 <span> —— 读者已经在这一页了,再做成链接等于请他原路返回。分隔符是空的元素,加了 aria-hidden:一个尖角是个形状,没有需要念出来的话。"
+  },
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Basic",
+      "titleZh": "基础用法",
+      "description": "The path from the root to the page you are on. Only the steps after the first carry a separator, and the last one is not a link.",
+      "descriptionZh": "从根目录到当前页的路径。只有第一步之后才有分隔符,最后一步不是链接。",
+      "markup": "<nav class=\"um-breadcrumb\" aria-label=\"Breadcrumb\">\n  <ol class=\"um-breadcrumb__list\">\n    <li class=\"um-breadcrumb__item\">\n      <a class=\"um-breadcrumb__link\" href=\"#\">Home</a>\n    </li>\n    <li class=\"um-breadcrumb__item\">\n      <span class=\"um-breadcrumb__separator\" aria-hidden=\"true\"></span>\n      <a class=\"um-breadcrumb__link\" href=\"#\">Library</a>\n    </li>\n    <li class=\"um-breadcrumb__item\">\n      <span class=\"um-breadcrumb__separator\" aria-hidden=\"true\"></span>\n      <span class=\"um-breadcrumb__link\" aria-current=\"page\">Annual report</span>\n    </li>\n  </ol>\n</nav>"
+    },
+    {
+      "id": "slash",
+      "title": "Slash separator",
+      "titleZh": "斜线分隔符",
+      "description": "The slash variant draws one line instead of a chevron. It is still a shape: the line takes the theme's border colour and its weight.",
+      "descriptionZh": "斜线变体把尖角换成一条线。它仍然是个形状:这条线用的是主题的描边色和描边粗细。",
+      "markup": "<nav class=\"um-breadcrumb um-breadcrumb--slash\" aria-label=\"Breadcrumb\">\n  <ol class=\"um-breadcrumb__list\">\n    <li class=\"um-breadcrumb__item\">\n      <a class=\"um-breadcrumb__link\" href=\"#\">Orders</a>\n    </li>\n    <li class=\"um-breadcrumb__item\">\n      <span class=\"um-breadcrumb__separator\" aria-hidden=\"true\"></span>\n      <a class=\"um-breadcrumb__link\" href=\"#\">2026</a>\n    </li>\n    <li class=\"um-breadcrumb__item\">\n      <span class=\"um-breadcrumb__separator\" aria-hidden=\"true\"></span>\n      <span class=\"um-breadcrumb__link\" aria-current=\"page\">March</span>\n    </li>\n  </ol>\n</nav>"
+    }
+  ],
+  "notes": "The separator is drawn from two borders rather than written as a character. A text separator has to be typed into every markup — `›`, `/` or `»` — and the choice then sits in the document instead of in the theme, where the line weight and the colour are decided. Drawing it means the chevron takes the theme's border colour, and the same stylesheet can offer a second separator without a second character.",
+  "notesZh": "分隔符是用两条边框画出来的,不是写进标记的字符。用字符的话,每个页面都得手打一次 `›`、`/` 或 `»`,选哪种就散落在文档里了,而线宽和颜色是主题说了算的。画出来之后,尖角用的是主题的描边色,而且同一份样式表还能换一种分隔符,不用再多打一个字符。"
+}

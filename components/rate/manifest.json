@@ -1,0 +1,185 @@
+{
+  "id": "rate",
+  "name": "Rate",
+  "nameZh": "评分",
+  "category": "form",
+  "element": "input, label, span",
+  "summary": "A row of stars the reader sets by choosing one. The stars are real radio buttons under a drawn shape, so the value is the browser's own value and the group is the browser's own group.",
+  "summaryZh": "一排星星,读者选一颗就把分定下来。星星底下是真的 radio 按钮,上面盖着一个画出来的形状,所以分数是浏览器自己的值,这一组也是浏览器自己的一组。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-rate",
+    "modifier": "um-rate--",
+    "part": "um-rate__"
+  },
+  "variants": [
+    {
+      "id": "success",
+      "name": "Success",
+      "nameZh": "成功",
+      "state": "solid",
+      "note": "The filled stars take the success colour. The base class is already the primary colour, so it needs no modifier."
+    },
+    {
+      "id": "warning",
+      "name": "Warning",
+      "nameZh": "警告",
+      "state": "solid",
+      "note": "The filled stars take the warning colour."
+    },
+    {
+      "id": "danger",
+      "name": "Danger",
+      "nameZh": "危险",
+      "state": "solid",
+      "note": "The filled stars take the danger colour."
+    }
+  ],
+  "sizes": [
+    { "id": "small", "name": "Small", "nameZh": "小", "note": "A smaller star." },
+    { "id": "medium", "name": "Medium", "nameZh": "中", "default": true, "note": "The default star. The base class is already this size, so it needs no modifier." },
+    { "id": "large", "name": "Large", "nameZh": "大", "note": "A larger star." }
+  ],
+  "states": [
+    {
+      "id": "checked",
+      "name": "Checked",
+      "nameZh": "选中",
+      "selector": ":checked",
+      "native": true,
+      "note": "The radio that carries the value. The filled count is read off it, so the markup a browser reads is the same one the stylesheet reads."
+    },
+    {
+      "id": "disabled",
+      "name": "Disabled",
+      "nameZh": "禁用",
+      "selector": ":disabled",
+      "native": true,
+      "note": "The star dims and the pointer is refused. It uses the real disabled attribute, so the group leaves the tab order."
+    },
+    {
+      "id": "focus-ring",
+      "name": "Focus ring",
+      "nameZh": "焦点环",
+      "selector": ":focus-visible",
+      "native": true,
+      "note": "The checked star of the group takes the shared focus ring, so a keyboard reader can see which star they are on."
+    }
+  ],
+  "parts": [
+    {
+      "id": "input",
+      "name": "Input",
+      "nameZh": "输入框",
+      "note": "The radio that carries the value. It is hidden by size and opacity rather than removed, so it keeps its place in the tab order and its name. The stylesheet counts the checked radio's position to know how many stars are filled."
+    },
+    {
+      "id": "item",
+      "name": "Item",
+      "nameZh": "星位",
+      "note": "One star and the label that goes with it. The label is what the reader clicks and what the browser ties the radio to."
+    },
+    {
+      "id": "icon",
+      "name": "Icon",
+      "nameZh": "星形",
+      "note": "The empty star: a polygon cut out of a square. The library ships no icon font, so the shape is drawn."
+    },
+    {
+      "id": "active",
+      "name": "Active",
+      "nameZh": "已填",
+      "note": "The filled star, drawn on top of the empty one. It is the same shape in the theme's colour."
+    }
+  ],
+  "props": [
+    {
+      "name": "value",
+      "type": "number",
+      "default": "0",
+      "description": "How many stars are filled. It is the checked radio's value, not a class — a class cannot carry a number.",
+      "descriptionZh": "填了几颗星。它是那个被选中的 radio 的值,不是某个类 —— 类带不了数字。"
+    },
+    {
+      "name": "max",
+      "type": "number",
+      "default": "5",
+      "description": "How many stars the group has. The stylesheet ships five positions, so a group longer than that needs more rules.",
+      "descriptionZh": "这一组有几颗星。样式表里写的是五个位置,所以超过五个的一组得再加规则。"
+    },
+    {
+      "name": "color",
+      "type": "enum",
+      "values": ["primary", "success", "warning", "danger"],
+      "default": "primary",
+      "description": "The colour of the filled stars. The primary colour is the base class on its own; the other three add um-rate--success, um-rate--warning or um-rate--danger.",
+      "descriptionZh": "填上的星星是什么颜色。主色就是只写基础类;另外三个分别加上 um-rate--success、um-rate--warning、um-rate--danger。"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "description": "Makes the group inert. It uses the real disabled attribute on the radios, so it leaves the tab order.",
+      "descriptionZh": "让这一组不可用。它用的是 radio 上的原生 disabled 属性,因此会退出 Tab 顺序。"
+    },
+    {
+      "name": "size",
+      "type": "enum",
+      "values": ["small", "medium", "large"],
+      "default": "medium",
+      "description": "How big the stars are. The medium size is the base class on its own, so it needs no modifier class.",
+      "descriptionZh": "星星有多大。中号是默认尺寸,不需要修饰类。"
+    }
+  ],
+  "slots": [],
+  "events": [
+    {
+      "name": "change",
+      "description": "Fires when the reader picks another star. It is the browser's own event on the radio underneath — the library installs no listener.",
+      "descriptionZh": "读者换了一颗星时触发。这是底下那个 radio 的浏览器原生事件 —— 库没有安装任何监听器。"
+    }
+  ],
+  "a11y": {
+    "role": "radiogroup",
+    "keyboard": ["Tab", "ArrowLeft", "ArrowRight"],
+    "notes": "The stars are five real radio buttons in one group, so the browser announces the group, moves between the stars with the arrow keys and keeps the chosen one. Each radio needs an accessible name of its own — the label beside it carries no text, because the star is a drawn shape — so give every radio an aria-label such as \"3 out of 5\". The drawn star is a picture and is hidden from the accessibility tree by the radio's own name; the focus ring goes on the item, because a clipped element cannot show an outline.",
+    "notesZh": "星星是同一组里的五个真 radio 按钮,所以浏览器会播报这一组、用方向键在星星之间移动,并记住选中的那颗。每个 radio 都得有自己的可访问名称 —— 旁边的标签里没有文字,因为星星是画出来的形状 —— 所以给每个 radio 写一个 aria-label,比如\"第 3 星,共 5 星\"。焦点环画在星位上,因为被裁剪过的元素没法显示 outline。"
+  },
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Basic",
+      "titleZh": "基础用法",
+      "description": "Five stars with the third one chosen. Every radio carries its own name, because the label beside it is a drawn shape with no text in it.",
+      "descriptionZh": "五颗星,选了第三颗。每个 radio 都带着自己的名字,因为旁边的标签是一个没有文字的形状。",
+      "markup": "<div class=\"um-rate\" role=\"radiogroup\" aria-label=\"Rating\">\n  <input class=\"um-rate__input\" type=\"radio\" name=\"um-rate-basic\" id=\"um-rate-basic-1\" value=\"1\" aria-label=\"1 out of 5\" />\n  <label class=\"um-rate__item\" for=\"um-rate-basic-1\"><span class=\"um-rate__icon\"></span><span class=\"um-rate__active\"></span></label>\n  <input class=\"um-rate__input\" type=\"radio\" name=\"um-rate-basic\" id=\"um-rate-basic-2\" value=\"2\" aria-label=\"2 out of 5\" />\n  <label class=\"um-rate__item\" for=\"um-rate-basic-2\"><span class=\"um-rate__icon\"></span><span class=\"um-rate__active\"></span></label>\n  <input class=\"um-rate__input\" type=\"radio\" name=\"um-rate-basic\" id=\"um-rate-basic-3\" value=\"3\" checked aria-label=\"3 out of 5\" />\n  <label class=\"um-rate__item\" for=\"um-rate-basic-3\"><span class=\"um-rate__icon\"></span><span class=\"um-rate__active\"></span></label>\n  <input class=\"um-rate__input\" type=\"radio\" name=\"um-rate-basic\" id=\"um-rate-basic-4\" value=\"4\" aria-label=\"4 out of 5\" />\n  <label class=\"um-rate__item\" for=\"um-rate-basic-4\"><span class=\"um-rate__icon\"></span><span class=\"um-rate__active\"></span></label>\n  <input class=\"um-rate__input\" type=\"radio\" name=\"um-rate-basic\" id=\"um-rate-basic-5\" value=\"5\" aria-label=\"5 out of 5\" />\n  <label class=\"um-rate__item\" for=\"um-rate-basic-5\"><span class=\"um-rate__icon\"></span><span class=\"um-rate__active\"></span></label>\n</div>"
+    },
+    {
+      "id": "colors",
+      "title": "Colours",
+      "titleZh": "颜色",
+      "description": "The base class fills the stars with the brand colour. The three modifiers use the success, warning and danger colours instead.",
+      "descriptionZh": "基础类用品牌色填星星。三个修饰类分别换成成功、警告和危险色。",
+      "markup": "<div class=\"um-rate um-rate--success\" role=\"radiogroup\" aria-label=\"How it went\">\n  <input class=\"um-rate__input\" type=\"radio\" name=\"um-rate-success\" id=\"um-rate-success-1\" value=\"1\" aria-label=\"1 out of 3\" />\n  <label class=\"um-rate__item\" for=\"um-rate-success-1\"><span class=\"um-rate__icon\"></span><span class=\"um-rate__active\"></span></label>\n  <input class=\"um-rate__input\" type=\"radio\" name=\"um-rate-success\" id=\"um-rate-success-2\" value=\"2\" checked aria-label=\"2 out of 3\" />\n  <label class=\"um-rate__item\" for=\"um-rate-success-2\"><span class=\"um-rate__icon\"></span><span class=\"um-rate__active\"></span></label>\n  <input class=\"um-rate__input\" type=\"radio\" name=\"um-rate-success\" id=\"um-rate-success-3\" value=\"3\" aria-label=\"3 out of 3\" />\n  <label class=\"um-rate__item\" for=\"um-rate-success-3\"><span class=\"um-rate__icon\"></span><span class=\"um-rate__active\"></span></label>\n</div>"
+    },
+    {
+      "id": "disabled",
+      "title": "Disabled",
+      "titleZh": "禁用",
+      "description": "A disabled group leaves the tab order and refuses the pointer. The value it already carries stays on screen.",
+      "descriptionZh": "禁用的这一组会退出 Tab 顺序,也不理指针。它已经带着的那个分数仍然留在屏幕上。",
+      "markup": "<div class=\"um-rate\" role=\"radiogroup\" aria-label=\"Rating given last month\">\n  <input class=\"um-rate__input\" type=\"radio\" name=\"um-rate-locked\" id=\"um-rate-locked-1\" value=\"1\" aria-label=\"1 out of 4\" disabled />\n  <label class=\"um-rate__item\" for=\"um-rate-locked-1\"><span class=\"um-rate__icon\"></span><span class=\"um-rate__active\"></span></label>\n  <input class=\"um-rate__input\" type=\"radio\" name=\"um-rate-locked\" id=\"um-rate-locked-2\" value=\"2\" aria-label=\"2 out of 4\" checked disabled />\n  <label class=\"um-rate__item\" for=\"um-rate-locked-2\"><span class=\"um-rate__icon\"></span><span class=\"um-rate__active\"></span></label>\n  <input class=\"um-rate__input\" type=\"radio\" name=\"um-rate-locked\" id=\"um-rate-locked-3\" value=\"3\" aria-label=\"3 out of 4\" disabled />\n  <label class=\"um-rate__item\" for=\"um-rate-locked-3\"><span class=\"um-rate__icon\"></span><span class=\"um-rate__active\"></span></label>\n  <input class=\"um-rate__input\" type=\"radio\" name=\"um-rate-locked\" id=\"um-rate-locked-4\" value=\"4\" aria-label=\"4 out of 4\" disabled />\n  <label class=\"um-rate__item\" for=\"um-rate-locked-4\"><span class=\"um-rate__icon\"></span><span class=\"um-rate__active\"></span></label>\n</div>"
+    },
+    {
+      "id": "sizes",
+      "title": "Sizes",
+      "titleZh": "尺寸",
+      "description": "Three sizes. The middle one is the base class on its own, because the base class is already the medium star.",
+      "descriptionZh": "三种尺寸。中间那个只写基础类,因为基础类本来就是中号星。",
+      "markup": "<div class=\"um-rate um-rate--small\" role=\"radiogroup\" aria-label=\"Small rating\">\n  <input class=\"um-rate__input\" type=\"radio\" name=\"um-rate-small\" id=\"um-rate-small-1\" value=\"1\" aria-label=\"1 out of 2\" checked />\n  <label class=\"um-rate__item\" for=\"um-rate-small-1\"><span class=\"um-rate__icon\"></span><span class=\"um-rate__active\"></span></label>\n  <input class=\"um-rate__input\" type=\"radio\" name=\"um-rate-small\" id=\"um-rate-small-2\" value=\"2\" aria-label=\"2 out of 2\" />\n  <label class=\"um-rate__item\" for=\"um-rate-small-2\"><span class=\"um-rate__icon\"></span><span class=\"um-rate__active\"></span></label>\n</div>\n<div class=\"um-rate\" role=\"radiogroup\" aria-label=\"Medium rating\">\n  <input class=\"um-rate__input\" type=\"radio\" name=\"um-rate-medium\" id=\"um-rate-medium-1\" value=\"1\" aria-label=\"1 out of 2\" checked />\n  <label class=\"um-rate__item\" for=\"um-rate-medium-1\"><span class=\"um-rate__icon\"></span><span class=\"um-rate__active\"></span></label>\n  <input class=\"um-rate__input\" type=\"radio\" name=\"um-rate-medium\" id=\"um-rate-medium-2\" value=\"2\" aria-label=\"2 out of 2\" />\n  <label class=\"um-rate__item\" for=\"um-rate-medium-2\"><span class=\"um-rate__icon\"></span><span class=\"um-rate__active\"></span></label>\n</div>\n<div class=\"um-rate um-rate--large\" role=\"radiogroup\" aria-label=\"Large rating\">\n  <input class=\"um-rate__input\" type=\"radio\" name=\"um-rate-large\" id=\"um-rate-large-1\" value=\"1\" aria-label=\"1 out of 2\" checked />\n  <label class=\"um-rate__item\" for=\"um-rate-large-1\"><span class=\"um-rate__icon\"></span><span class=\"um-rate__active\"></span></label>\n  <input class=\"um-rate__input\" type=\"radio\" name=\"um-rate-large\" id=\"um-rate-large-2\" value=\"2\" aria-label=\"2 out of 2\" />\n  <label class=\"um-rate__item\" for=\"um-rate-large-2\"><span class=\"um-rate__icon\"></span><span class=\"um-rate__active\"></span></label>\n</div>"
+    }
+  ],
+  "notes": "How many stars are filled is read off the checked radio with `:has()`, and written into a variable the items count against — because CSS cannot compare two positions, so the stylesheet carries one rule per star and stops at five. The star itself is a polygon cut out of a square: the library ships no icon font, and a filled star and an empty star are the same shape in two colours, which a glyph font would have had to ship twice.",
+  "notesZh": "填了几颗星,是用 `:has()` 从那个被选中的 radio 上读出来的,再写进一个变量,由各个星位去数 —— 因为 CSS 比不了两个位置,所以样式表里是每颗星一条规则,到五颗为止。星星本身是一个从方块上裁出来的多边形:库里不带图标字体,而填满的星和空的星是同一个形状的两种颜色,图标字体得为此准备两份。"
+}

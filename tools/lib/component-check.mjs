@@ -129,9 +129,20 @@ export function checkComponentLibrary(root) {
     const themeCss = stripComments(readFileSync(path, "utf8"));
     const declared = declaredVars(themeCss);
     for (const role of Object.keys(roles)) {
-      if (optional.has(role)) continue;
       const v = `${prefix}-${role}`;
-      if (!declared.has(v)) note(`themes/${theme.id}.css does not define ${v}`);
+      if (declared.has(v)) continue;
+      if (optional.has(role)) {
+        // An optional role is optional in the *mood*, not in the theme file.
+        // A theme that leaves it out inherits it from whichever theme file
+        // was linked after it, so a mood with no glow ends up wearing
+        // another mood's glow — and only in the combined sheet.
+        note(
+          `themes/${theme.id}.css does not define ${v}; an optional role must still be ` +
+            `declared (${contract.optionalAbsent?.[role] ?? "none"}) so it cannot inherit another theme's value`,
+        );
+      } else {
+        note(`themes/${theme.id}.css does not define ${v}`);
+      }
     }
     for (const v of declared) {
       if (!roleVars.has(v)) {

@@ -1,0 +1,128 @@
+/* ============================================================================
+   Input Number
+   ========================================================================== */
+
+.um-input-number {
+  display: inline-flex;
+}
+
+/* The wrapper is the field. It carries the border and the surface, and the
+   input inside it is borderless, so the two halves of the control read as
+   one box rather than as a field with something stuck to it. */
+.um-input-number__wrapper {
+  display: inline-flex;
+  align-items: stretch;
+  height: var(--um-height-md);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-small);
+  background: var(--um-surface-input);
+  /* The buttons are painted over the wrapper's corners, so the wrapper
+     clips them to its own radius. */
+  overflow: hidden;
+}
+
+.um-input-number__input {
+  width: 4em;
+  min-width: 0;
+  padding: 0 var(--um-space-xs);
+  border: 0;
+  background: transparent;
+  color: var(--um-text-primary);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+  text-align: center;
+  /* The browser's own spin buttons would sit beside the custom ones, so
+     they are removed rather than left to fight for the same corner. */
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+.um-input-number__input::-webkit-outer-spin-button,
+.um-input-number__input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.um-input-number__controls {
+  display: flex;
+  flex-direction: column;
+  border-left: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+}
+.um-input-number__increase,
+.um-input-number__decrease {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  width: var(--um-space-md);
+  padding: 0;
+  border: 0;
+  background: var(--um-fill-base);
+  color: var(--um-text-regular);
+  cursor: pointer;
+}
+.um-input-number__increase {
+  border-bottom: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+}
+
+/* The two marks are drawn from the button's own colour, so they follow the
+   button's state — a disabled control's marks fade with it. */
+.um-input-number__increase::before,
+.um-input-number__increase::after,
+.um-input-number__decrease::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+}
+.um-input-number__increase::before,
+.um-input-number__decrease::before {
+  width: var(--um-space-xs);
+  height: calc(var(--um-border-width) * 2);
+}
+.um-input-number__increase::after {
+  width: calc(var(--um-border-width) * 2);
+  height: var(--um-space-xs);
+}
+
+.um-input-number__increase:hover:not(:disabled),
+.um-input-number__decrease:hover:not(:disabled) {
+  background: var(--um-fill-light);
+  color: var(--um-color-primary-text);
+}
+
+/* The ring goes inside the button: the wrapper clips what sticks out of it,
+   and a clipped ring is no ring at all. */
+.um-input-number__increase:focus-visible,
+.um-input-number__decrease:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: calc(-1 * var(--um-focus-ring-width));
+}
+
+/* The ring around the whole field, because the field is what the reader is
+   typing in — the buttons are separate controls with their own rings. */
+.um-input-number__wrapper:has(.um-input-number__input:focus-visible) {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+.um-input-number__input:disabled,
+.um-input-number__increase:disabled,
+.um-input-number__decrease:disabled {
+  background: var(--um-surface-control);
+  color: var(--um-text-disabled);
+  cursor: not-allowed;
+}
+
+/* The controls on the left of the field. They move with `order`, so the
+   markup — and the tab order — stays the same. */
+.um-input-number--left .um-input-number__controls {
+  order: -1;
+  border-right: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-left: 0;
+}
+
+.um-input-number--small .um-input-number__wrapper { height: var(--um-height-sm); }
+.um-input-number--large .um-input-number__wrapper { height: var(--um-height-lg); }

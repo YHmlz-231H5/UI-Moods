@@ -64,7 +64,14 @@ if (!first.length) {
 }
 
 const perComponent = new Map();
-const sharedText = chunks.map((c) => c.css).join("\n");
+// The shared text a component's own state selector may live in: the shared
+// layers *and* the quality hooks. A hook is painted by the shared layer on
+// purpose — `.um-button--glow` belongs to the button, but the rule belongs
+// to the hooks — so a state selector that names one has to be found there.
+const sharedText = [
+  ...chunks.map((c) => c.css),
+  ...last.map((name) => readFileSync(join(componentsDir, name), "utf8").trim()),
+].join("\n");
 
 for (const m of manifests) {
   const stylePath = join(componentsDir, m.id, m.style);

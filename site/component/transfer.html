@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Transfer · UI Moods</title>
+  <meta name="description" content="Two lists side by side with a button between them: what is available on one side, what has been chosen on the other. The whole thing is a form, so the move is a submission." />
+
+  <!-- The two files that make the whole thing work.
+       The first is the library; the second carries all thirty-two moods at
+       once, so the picker below changes an attribute instead of loading a
+       file — the switch has no network request to wait for. -->
+  <link rel="stylesheet" id="um-theme" href="../../themes/all.css" />
+  <link rel="stylesheet" href="../../components/um-components.css" />
+  <link rel="stylesheet" href="../../site/assets/site.css" />
+</head>
+<body>
+  <header class="site-header">
+      <a class="site-header__brand" href="../../index.html">UI Moods<span>Component Library</span></a>
+      <div class="site-header__spacer"></div>
+      <div class="switcher">
+        <label class="switcher__label" for="um-theme-picker">Theme</label>
+        <span class="switcher__field">
+          <select class="switcher__select" id="um-theme-picker"></select>
+        </span>
+      </div>
+    </header>
+  <div class="site-body">
+    <nav class="site-sidebar" aria-label="Components">
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Basic · 基础</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/typography.html">Typography <span class="meta">文字排版</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Form · 表单</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/button.html">Button <span class="meta">按钮</span></a></li>
+          <li><a href="../component/checkbox.html">Checkbox <span class="meta">复选框</span></a></li>
+          <li><a href="../component/checkbox-group.html">Checkbox Group <span class="meta">复选框组</span></a></li>
+          <li><a href="../component/date-picker.html">Date Picker <span class="meta">日期选择器</span></a></li>
+          <li><a href="../component/field.html">Field <span class="meta">表单项</span></a></li>
+          <li><a href="../component/input.html">Input / Textarea / Select <span class="meta">输入框 / 文本域 / 选择器</span></a></li>
+          <li><a href="../component/input-number.html">Input Number <span class="meta">数字输入框</span></a></li>
+          <li><a href="../component/radio.html">Radio <span class="meta">单选框</span></a></li>
+          <li><a href="../component/radio-group.html">Radio Group <span class="meta">单选框组</span></a></li>
+          <li><a href="../component/rate.html">Rate <span class="meta">评分</span></a></li>
+          <li><a href="../component/slider.html">Slider <span class="meta">滑块</span></a></li>
+          <li><a href="../component/switch.html">Switch <span class="meta">开关</span></a></li>
+          <li><a href="../component/upload.html">Upload <span class="meta">上传</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Data · 数据展示</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/avatar.html">Avatar <span class="meta">头像</span></a></li>
+          <li><a href="../component/badge.html">Badge <span class="meta">徽标</span></a></li>
+          <li><a href="../component/card.html">Card <span class="meta">卡片</span></a></li>
+          <li><a href="../component/cascader.html">Cascader <span class="meta">级联选择器</span></a></li>
+          <li><a href="../component/descriptions.html">Descriptions <span class="meta">描述列表</span></a></li>
+          <li><a href="../component/empty.html">Empty <span class="meta">空状态</span></a></li>
+          <li><a href="../component/progress.html">Progress <span class="meta">进度条</span></a></li>
+          <li><a href="../component/result.html">Result <span class="meta">结果</span></a></li>
+          <li><a href="../component/skeleton.html">Skeleton <span class="meta">骨架屏</span></a></li>
+          <li><a href="../component/statistic.html">Statistic <span class="meta">统计数值</span></a></li>
+          <li><a href="../component/table.html">Table <span class="meta">表格</span></a></li>
+          <li><a href="../component/tag.html">Tag <span class="meta">标签</span></a></li>
+          <li><a href="../component/timeline.html">Timeline <span class="meta">时间线</span></a></li>
+          <li><a href="" aria-current="page">Transfer <span class="meta">穿梭框</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Navigation · 导航</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/breadcrumb.html">Breadcrumb <span class="meta">面包屑</span></a></li>
+          <li><a href="../component/dropdown.html">Dropdown <span class="meta">下拉菜单</span></a></li>
+          <li><a href="../component/menu.html">Menu <span class="meta">菜单</span></a></li>
+          <li><a href="../component/pagination.html">Pagination <span class="meta">分页</span></a></li>
+          <li><a href="../component/steps.html">Steps <span class="meta">步骤条</span></a></li>
+          <li><a href="../component/tabs.html">Tabs <span class="meta">标签页</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Feedback · 反馈</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/alert.html">Alert <span class="meta">警告</span></a></li>
+          <li><a href="../component/loading.html">Loading <span class="meta">加载中</span></a></li>
+          <li><a href="../component/popover.html">Popover <span class="meta">气泡卡片</span></a></li>
+          <li><a href="../component/tooltip.html">Tooltip <span class="meta">文字提示</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Others · 其他</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/divider.html">Divider <span class="meta">分割线</span></a></li>
+        </ul>
+      </div>
+    </nav>
+    <main class="site-main">
+      <h1>Transfer <span class="meta">穿梭框</span></h1>
+      <p class="lede">Two lists side by side with a button between them: what is available on one side, what has been chosen on the other. The whole thing is a form, so the move is a submission.</p>
+      <p class="meta">
+        <span class="tag">form, input, button, ul</span>
+        <span class="tag">data</span>
+        <span class="tag">since 1.1.0</span>
+      </p>
+      <div class="note">The move is a submission, not an animation. The buttons are real submit buttons that carry their direction in their value, and the ticked options are the form's own fields, so a host that receives the post can move them and write the two lists back. The library draws the two panels, the rows and the arrows; the arrows are shapes made of borders, so they take the button's colour and need no glyph of its own.</div>
+
+      <h2>Examples</h2>
+<div class="example">
+        <div class="example__title">Horizontal · 横向</div>
+        <div class="example__desc">The two panels side by side. The move buttons are real submit buttons, so the form posts what is ticked and in which direction; the host that receives it does the moving.</div>
+        <div class="example__demo">
+<form class="um-transfer" method="post">
+  <section class="um-transfer__panel">
+    <header class="um-transfer__header">
+      <span class="um-transfer__title">Available</span>
+      <span class="um-transfer__count">3 / 5</span>
+    </header>
+    <ul class="um-transfer__list">
+      <li class="um-transfer__item">
+        <label class="um-transfer__option">
+          <input class="um-checkbox__input" type="checkbox" name="um-transfer-source" value="alpine" checked />
+          <span class="um-checkbox__box"></span>
+          <span class="um-transfer__text">Alpine</span>
+        </label>
+      </li>
+      <li class="um-transfer__item">
+        <label class="um-transfer__option">
+          <input class="um-checkbox__input" type="checkbox" name="um-transfer-source" value="harbour" />
+          <span class="um-checkbox__box"></span>
+          <span class="um-transfer__text">Harbour</span>
+        </label>
+      </li>
+      <li class="um-transfer__item">
+        <label class="um-transfer__option">
+          <input class="um-checkbox__input" type="checkbox" name="um-transfer-source" value="lagoon" disabled />
+          <span class="um-checkbox__box"></span>
+          <span class="um-transfer__text">Lagoon</span>
+        </label>
+      </li>
+    </ul>
+  </section>
+  <div class="um-transfer__controls">
+    <button class="um-transfer__move" type="submit" name="move" value="to-target" aria-label="Move to the chosen list"></button>
+    <button class="um-transfer__move-back" type="submit" name="move" value="to-source" aria-label="Move back to the available list"></button>
+  </div>
+  <section class="um-transfer__panel">
+    <header class="um-transfer__header">
+      <span class="um-transfer__title">Chosen</span>
+      <span class="um-transfer__count">2 / 5</span>
+    </header>
+    <ul class="um-transfer__list">
+      <li class="um-transfer__item">
+        <label class="um-transfer__option">
+          <input class="um-checkbox__input" type="checkbox" name="um-transfer-target" value="basil" checked />
+          <span class="um-checkbox__box"></span>
+          <span class="um-transfer__text">Basil</span>
+        </label>
+      </li>
+      <li class="um-transfer__item">
+        <label class="um-transfer__option">
+          <input class="um-checkbox__input" type="checkbox" name="um-transfer-target" value="cobalt" />
+          <span class="um-checkbox__box"></span>
+          <span class="um-transfer__text">Cobalt</span>
+        </label>
+      </li>
+    </ul>
+  </section>
+</form>
+        </div>
+        <pre class="example__code">&lt;form class=&quot;um-transfer&quot; method=&quot;post&quot;&gt;
+  &lt;section class=&quot;um-transfer__panel&quot;&gt;
+    &lt;header class=&quot;um-transfer__header&quot;&gt;
+      &lt;span class=&quot;um-transfer__title&quot;&gt;Available&lt;/span&gt;
+      &lt;span class=&quot;um-transfer__count&quot;&gt;3 / 5&lt;/span&gt;
+    &lt;/header&gt;
+    &lt;ul class=&quot;um-transfer__list&quot;&gt;
+      &lt;li class=&quot;um-transfer__item&quot;&gt;
+        &lt;label class=&quot;um-transfer__option&quot;&gt;
+          &lt;input class=&quot;um-checkbox__input&quot; type=&quot;checkbox&quot; name=&quot;um-transfer-source&quot; value=&quot;alpine&quot; checked /&gt;
+          &lt;span class=&quot;um-checkbox__box&quot;&gt;&lt;/span&gt;
+          &lt;span class=&quot;um-transfer__text&quot;&gt;Alpine&lt;/span&gt;
+        &lt;/label&gt;
+      &lt;/li&gt;
+      &lt;li class=&quot;um-transfer__item&quot;&gt;
+        &lt;label class=&quot;um-transfer__option&quot;&gt;
+          &lt;input class=&quot;um-checkbox__input&quot; type=&quot;checkbox&quot; name=&quot;um-transfer-source&quot; value=&quot;harbour&quot; /&gt;
+          &lt;span class=&quot;um-checkbox__box&quot;&gt;&lt;/span&gt;
+          &lt;span class=&quot;um-transfer__text&quot;&gt;Harbour&lt;/span&gt;
+        &lt;/label&gt;
+      &lt;/li&gt;
+      &lt;li class=&quot;um-transfer__item&quot;&gt;
+        &lt;label class=&quot;um-transfer__option&quot;&gt;
+          &lt;input class=&quot;um-checkbox__input&quot; type=&quot;checkbox&quot; name=&quot;um-transfer-source&quot; value=&quot;lagoon&quot; disabled /&gt;
+          &lt;span class=&quot;um-checkbox__box&quot;&gt;&lt;/span&gt;
+          &lt;span class=&quot;um-transfer__text&quot;&gt;Lagoon&lt;/span&gt;
+        &lt;/label&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/section&gt;
+  &lt;div class=&quot;um-transfer__controls&quot;&gt;
+    &lt;button class=&quot;um-transfer__move&quot; type=&quot;submit&quot; name=&quot;move&quot; value=&quot;to-target&quot; aria-label=&quot;Move to the chosen list&quot;&gt;&lt;/button&gt;
+    &lt;button class=&quot;um-transfer__move-back&quot; type=&quot;submit&quot; name=&quot;move&quot; value=&quot;to-source&quot; aria-label=&quot;Move back to the available list&quot;&gt;&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;section class=&quot;um-transfer__panel&quot;&gt;
+    &lt;header class=&quot;um-transfer__header&quot;&gt;
+      &lt;span class=&quot;um-transfer__title&quot;&gt;Chosen&lt;/span&gt;
+      &lt;span class=&quot;um-transfer__count&quot;&gt;2 / 5&lt;/span&gt;
+    &lt;/header&gt;
+    &lt;ul class=&quot;um-transfer__list&quot;&gt;
+      &lt;li class=&quot;um-transfer__item&quot;&gt;
+        &lt;label class=&quot;um-transfer__option&quot;&gt;
+          &lt;input class=&quot;um-checkbox__input&quot; type=&quot;checkbox&quot; name=&quot;um-transfer-target&quot; value=&quot;basil&quot; checked /&gt;
+          &lt;span class=&quot;um-checkbox__box&quot;&gt;&lt;/span&gt;
+          &lt;span class=&quot;um-transfer__text&quot;&gt;Basil&lt;/span&gt;
+        &lt;/label&gt;
+      &lt;/li&gt;
+      &lt;li class=&quot;um-transfer__item&quot;&gt;
+        &lt;label class=&quot;um-transfer__option&quot;&gt;
+          &lt;input class=&quot;um-checkbox__input&quot; type=&quot;checkbox&quot; name=&quot;um-transfer-target&quot; value=&quot;cobalt&quot; /&gt;
+          &lt;span class=&quot;um-checkbox__box&quot;&gt;&lt;/span&gt;
+          &lt;span class=&quot;um-transfer__text&quot;&gt;Cobalt&lt;/span&gt;
+        &lt;/label&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/section&gt;
+&lt;/form&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">Vertical · 纵向</div>
+        <div class="example__desc">The same two panels stacked one above the other, with the buttons between them in a row. Only the modifier class changes.</div>
+        <div class="example__demo">
+<form class="um-transfer um-transfer--vertical" method="post">
+  <section class="um-transfer__panel">
+    <header class="um-transfer__header">
+      <span class="um-transfer__title">Available</span>
+      <span class="um-transfer__count">1 / 2</span>
+    </header>
+    <ul class="um-transfer__list">
+      <li class="um-transfer__item">
+        <label class="um-transfer__option">
+          <input class="um-checkbox__input" type="checkbox" name="um-transfer-vertical-source" value="sage" />
+          <span class="um-checkbox__box"></span>
+          <span class="um-transfer__text">Sage</span>
+        </label>
+      </li>
+    </ul>
+  </section>
+  <div class="um-transfer__controls">
+    <button class="um-transfer__move" type="submit" name="move" value="to-target" aria-label="Move to the chosen list"></button>
+    <button class="um-transfer__move-back" type="submit" name="move" value="to-source" aria-label="Move back to the available list"></button>
+  </div>
+  <section class="um-transfer__panel">
+    <header class="um-transfer__header">
+      <span class="um-transfer__title">Chosen</span>
+      <span class="um-transfer__count">1 / 2</span>
+    </header>
+    <ul class="um-transfer__list">
+      <li class="um-transfer__item">
+        <label class="um-transfer__option">
+          <input class="um-checkbox__input" type="checkbox" name="um-transfer-vertical-target" value="clay" checked />
+          <span class="um-checkbox__box"></span>
+          <span class="um-transfer__text">Clay</span>
+        </label>
+      </li>
+    </ul>
+  </section>
+</form>
+        </div>
+        <pre class="example__code">&lt;form class=&quot;um-transfer um-transfer--vertical&quot; method=&quot;post&quot;&gt;
+  &lt;section class=&quot;um-transfer__panel&quot;&gt;
+    &lt;header class=&quot;um-transfer__header&quot;&gt;
+      &lt;span class=&quot;um-transfer__title&quot;&gt;Available&lt;/span&gt;
+      &lt;span class=&quot;um-transfer__count&quot;&gt;1 / 2&lt;/span&gt;
+    &lt;/header&gt;
+    &lt;ul class=&quot;um-transfer__list&quot;&gt;
+      &lt;li class=&quot;um-transfer__item&quot;&gt;
+        &lt;label class=&quot;um-transfer__option&quot;&gt;
+          &lt;input class=&quot;um-checkbox__input&quot; type=&quot;checkbox&quot; name=&quot;um-transfer-vertical-source&quot; value=&quot;sage&quot; /&gt;
+          &lt;span class=&quot;um-checkbox__box&quot;&gt;&lt;/span&gt;
+          &lt;span class=&quot;um-transfer__text&quot;&gt;Sage&lt;/span&gt;
+        &lt;/label&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/section&gt;
+  &lt;div class=&quot;um-transfer__controls&quot;&gt;
+    &lt;button class=&quot;um-transfer__move&quot; type=&quot;submit&quot; name=&quot;move&quot; value=&quot;to-target&quot; aria-label=&quot;Move to the chosen list&quot;&gt;&lt;/button&gt;
+    &lt;button class=&quot;um-transfer__move-back&quot; type=&quot;submit&quot; name=&quot;move&quot; value=&quot;to-source&quot; aria-label=&quot;Move back to the available list&quot;&gt;&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;section class=&quot;um-transfer__panel&quot;&gt;
+    &lt;header class=&quot;um-transfer__header&quot;&gt;
+      &lt;span class=&quot;um-transfer__title&quot;&gt;Chosen&lt;/span&gt;
+      &lt;span class=&quot;um-transfer__count&quot;&gt;1 / 2&lt;/span&gt;
+    &lt;/header&gt;
+    &lt;ul class=&quot;um-transfer__list&quot;&gt;
+      &lt;li class=&quot;um-transfer__item&quot;&gt;
+        &lt;label class=&quot;um-transfer__option&quot;&gt;
+          &lt;input class=&quot;um-checkbox__input&quot; type=&quot;checkbox&quot; name=&quot;um-transfer-vertical-target&quot; value=&quot;clay&quot; checked /&gt;
+          &lt;span class=&quot;um-checkbox__box&quot;&gt;&lt;/span&gt;
+          &lt;span class=&quot;um-transfer__text&quot;&gt;Clay&lt;/span&gt;
+        &lt;/label&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/section&gt;
+&lt;/form&gt;</pre>
+      </div>
+      <h2>Classes</h2>
+<table class="api">
+      <thead><tr><th>Class</th><th>Meaning</th></tr></thead>
+      <tbody>
+      <tr><td><code>um-transfer</code></td><td>The base class. Every instance carries it.</td></tr>
+      <tr><td><code>um-transfer--horizontal</code></td><td>Horizontal</td></tr>
+      <tr><td><code>um-transfer--vertical</code></td><td>Vertical</td></tr>
+      <tr><td><code>um-transfer--sm</code></td><td>Size: sm</td></tr>
+      <tr><td><code>um-transfer--md</code></td><td>Size: md</td></tr>
+      <tr><td><code>um-transfer--lg</code></td><td>Size: lg</td></tr>
+      <tr><td><code>um-transfer__panel</code></td><td>Panel</td></tr>
+      <tr><td><code>um-transfer__header</code></td><td>Header</td></tr>
+      <tr><td><code>um-transfer__title</code></td><td>Title</td></tr>
+      <tr><td><code>um-transfer__count</code></td><td>Count</td></tr>
+      <tr><td><code>um-transfer__list</code></td><td>List</td></tr>
+      <tr><td><code>um-transfer__item</code></td><td>Item</td></tr>
+      <tr><td><code>um-transfer__option</code></td><td>Option</td></tr>
+      <tr><td><code>um-transfer__text</code></td><td>Text</td></tr>
+      <tr><td><code>um-transfer__controls</code></td><td>Controls</td></tr>
+      <tr><td><code>um-transfer__move</code></td><td>Move</td></tr>
+      <tr><td><code>um-transfer__move-back</code></td><td>Move back</td></tr>
+      <tr><td><code>:checked</code></td><td>Checked</td></tr>
+      <tr><td><code>:disabled</code></td><td>Disabled</td></tr>
+      <tr><td><code>:focus-visible</code></td><td>Focus visible</td></tr>
+      </tbody>
+    </table>
+      <h2>Props</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>name</code></span></td><td><code>string</code></td><td>—</td><td>The name the ticked options are submitted under. It is the native name attribute, and the source and the target list use different names so the host can tell them apart.</td></tr>
+      <tr><td><span class="api__name"><code>value</code></span></td><td><code>string</code></td><td>—</td><td>The value one option submits while it is ticked.</td></tr>
+      <tr><td><span class="api__name"><code>checked</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Ticks one option. It is the native checked attribute, not a class.</td></tr>
+      <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes one option, or one of the move buttons, inert. It uses the real disabled attribute, so it leaves the tab order.</td></tr>
+      <tr><td><span class="api__name"><code>direction</code></span></td><td><code>enum = horizontal | vertical</code></td><td><code>horizontal</code></td><td>Which way the two panels are laid out. The horizontal run is the base class on its own; the vertical run adds um-transfer--vertical.</td></tr>
+      <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The size of the names and of the move buttons.</td></tr>
+      </tbody>
+    </table>
+      <h2>Slots</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>source</code></span></td><td>The options of the panel on the left.</td></tr>
+      <tr><td><span class="api__name"><code>target</code></span></td><td>The options of the panel on the right.</td></tr>
+      </tbody>
+    </table>
+      <h2>Events</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>change</code></span></td><td>Fires when an option is ticked or unticked. It is the browser's own event on the input — the library installs no listener.</td></tr>
+      <tr><td><span class="api__name"><code>submit</code></span></td><td>Fires when the form is submitted, which is how a move happens: the buttons carry the direction in their value and the ticked items in the form's own fields.</td></tr>
+      </tbody>
+    </table>
+      <h2>Accessibility</h2>
+      <p><strong>Role:</strong> <code>group</code></p>
+        <p><strong>Keyboard:</strong> <code>Tab</code> <code>Space</code> <code>Enter</code></p>
+        <p>Every option is a real &lt;input type=&quot;checkbox&quot;&gt; inside a &lt;label&gt;, so ticking it is the browser's :checked and the value submits with the form. The two move buttons are real buttons, so they are in the tab order and can be pressed — but their arrows are drawn from borders, so each one needs an aria-label saying which way it moves. The move itself is a submission: the library has no JavaScript, so the host that receives the form does the moving and writes the two lists back.</p>
+
+    </main>
+  </div>
+
+  <script>window.UM_THEMES = {"light":["anime","archive","bauhaus","brutal","clay","corporate","eco","fashion","food","forest","ios","luxury","medical","monochrome","nordic","pastel","retro","sakura","swiss","travel","y2k"],"dark":["aurora","blueprint","crypto","finance","gaming","glass","instrument","neon","night","vaporwave","verdant"]};
+  window.UM_DEFAULT_THEME = "aurora";</script>
+  <script src="../../themes/switcher.js"></script>
+  <script src="../../site/assets/site.js"></script>
+</body>
+</html>

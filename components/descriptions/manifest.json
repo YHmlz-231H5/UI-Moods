@@ -1,0 +1,69 @@
+{
+  "id": "descriptions",
+  "name": "Descriptions",
+  "nameZh": "描述列表",
+  "category": "data",
+  "element": "dl, div",
+  "summary": "The facts about one thing, as label and value pairs. It is a definition list, so a screen reader announces each label before the value it belongs to.",
+  "summaryZh": "关于一件事的一组事实,每条是一个标签加一个值。它本身就是定义列表,所以读屏会先念标签,再念对应的值。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-descriptions",
+    "modifier": "um-descriptions--",
+    "part": "um-descriptions__"
+  },
+  "variants": [
+    { "id": "plain", "name": "Plain", "nameZh": "无边框", "note": "The plain form: the pairs sit straight on the page with no frame around them. The base class on its own is already this, so the modifier is only needed to name the state." },
+    { "id": "bordered", "name": "Bordered", "nameZh": "带边框", "state": "outline", "note": "Every pair gets a cell, and the whole list gets a frame." }
+  ],
+  "sizes": [],
+  "states": [],
+  "parts": [
+    { "id": "item", "name": "Item", "nameZh": "条目", "note": "One pair. It holds the label and the value." },
+    { "id": "label", "name": "Label", "nameZh": "标签", "note": "The name of the field. It is a dt, so it is read before the value." },
+    { "id": "content", "name": "Content", "nameZh": "内容", "note": "The value. It is a dd, so it is read as the definition of the label above it." }
+  ],
+  "props": [
+    { "name": "variant", "type": "enum", "values": ["plain", "bordered"], "default": "plain", "description": "Whether the list is framed. The base class is already the plain form.", "descriptionZh": "这份列表要不要加框。基础类本身就是无边框的那一种。" },
+    { "name": "columns", "type": "number", "default": "1", "description": "How many pairs sit in one row. It is written to the `--um-descriptions-columns` custom property, because a class cannot carry a number.", "descriptionZh": "一行里放几对。它写进 `--um-descriptions-columns` 这个自定义属性 —— 类带不了数字。" },
+    { "name": "labelWidth", "type": "string", "default": "6em", "description": "The width of the label column, so the values line up under each other. It is written to the `--um-descriptions-label-width` custom property.", "descriptionZh": "标签列的宽度,值才能上下对齐。它写进 `--um-descriptions-label-width` 这个自定义属性。" }
+  ],
+  "slots": [
+    { "name": "item", "description": "One label and its value.", "descriptionZh": "一个标签和它对应的值。" }
+  ],
+  "events": [],
+  "a11y": {
+    "keyboard": [],
+    "notes": "The list is a real dl, and each pair is a div holding a dt and a dd. A screen reader then reads the label and its value as a term and its definition, and lets the reader step from pair to pair — a grid of divs cannot do that. The div wrapper is part of the HTML standard: a dl may hold div groups.",
+    "notesZh": "这份列表是真的 dl,每一对是一个 div,里面放 dt 和 dd。读屏于是会把标签和值当成「术语 + 定义」来念,读者还能按对往下走 —— 一堆 div 做不到这件事。这层 div 包装是 HTML 标准允许的:dl 里可以放 div 分组。"
+  },
+  "examples": [
+    {
+      "id": "pairs",
+      "title": "Pairs",
+      "titleZh": "键值对",
+      "description": "The plain form: the pairs sit on the page with no frame. The label column is a fixed width, so the values line up under each other.",
+      "descriptionZh": "无边框的形态:各对直接排在页面上,没有外框。标签列宽度是固定的,所以各个值上下对齐。",
+      "markup": "<dl class=\"um-descriptions\">\n  <div class=\"um-descriptions__item\">\n    <dt class=\"um-descriptions__label\">Owner</dt>\n    <dd class=\"um-descriptions__content\">Flight operations</dd>\n  </div>\n  <div class=\"um-descriptions__item\">\n    <dt class=\"um-descriptions__label\">Region</dt>\n    <dd class=\"um-descriptions__content\">North Europe</dd>\n  </div>\n  <div class=\"um-descriptions__item\">\n    <dt class=\"um-descriptions__label\">Updated</dt>\n    <dd class=\"um-descriptions__content\">28 November 2026, 14:20</dd>\n  </div>\n</dl>"
+    },
+    {
+      "id": "bordered",
+      "title": "Bordered",
+      "titleZh": "带边框",
+      "description": "The bordered form puts every pair in a cell. The line between two cells is the gap between them, so the cells line up without the stylesheet having to know which one is last.",
+      "descriptionZh": "带边框的形态把每一对放进一个格子里。两个格子之间那道线就是它们之间的间隙,所以各格自然对齐,样式表不必知道哪一个是最后一个。",
+      "markup": "<dl class=\"um-descriptions um-descriptions--bordered\">\n  <div class=\"um-descriptions__item\">\n    <dt class=\"um-descriptions__label\">Owner</dt>\n    <dd class=\"um-descriptions__content\">Flight operations</dd>\n  </div>\n  <div class=\"um-descriptions__item\">\n    <dt class=\"um-descriptions__label\">Region</dt>\n    <dd class=\"um-descriptions__content\">North Europe</dd>\n  </div>\n  <div class=\"um-descriptions__item\">\n    <dt class=\"um-descriptions__label\">Updated</dt>\n    <dd class=\"um-descriptions__content\">28 November 2026, 14:20</dd>\n  </div>\n</dl>"
+    },
+    {
+      "id": "columns",
+      "title": "Columns",
+      "titleZh": "分栏",
+      "description": "Three pairs per row. The column count is a custom property rather than a class, because it is a number and a class cannot carry one.",
+      "descriptionZh": "一行三对。栏数是自定义属性而不是类,因为它是个数字,类带不了数字。",
+      "markup": "<dl class=\"um-descriptions um-descriptions--bordered\" style=\"--um-descriptions-columns: 3\">\n  <div class=\"um-descriptions__item\">\n    <dt class=\"um-descriptions__label\">Owner</dt>\n    <dd class=\"um-descriptions__content\">Flight operations</dd>\n  </div>\n  <div class=\"um-descriptions__item\">\n    <dt class=\"um-descriptions__label\">Region</dt>\n    <dd class=\"um-descriptions__content\">North Europe</dd>\n  </div>\n  <div class=\"um-descriptions__item\">\n    <dt class=\"um-descriptions__label\">Updated</dt>\n    <dd class=\"um-descriptions__content\">28 November 2026</dd>\n  </div>\n</dl>"
+    }
+  ],
+  "notes": "Two things a class name cannot carry are carried by custom properties instead: `--um-descriptions-columns`, the number of pairs per row, and `--um-descriptions-label-width`, the width of the label column. Both are measurements, and a class is a name rather than a number.",
+  "notesZh": "有两样东西类名带不了,只能交给自定义属性:`--um-descriptions-columns`(一行放几对)和 `--um-descriptions-label-width`(标签列的宽度)。这两个都是尺寸 —— 类是一个名字,不是一个数字。"
+}

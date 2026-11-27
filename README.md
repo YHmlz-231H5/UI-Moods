@@ -13,8 +13,11 @@ education, social, fitness, music, workspace, logistics, real estate,
 automotive, pet care) rendered from the same design tokens, so an agent can
 copy a *layout and flow* as well as a *style*.
 
-> Not a React/Vue/Svelte component library. Not a UI generator. No cloud
-> service. Just files, tokens, and a clear contract for agents.
+> The component layer is plain HTML and CSS classes — no build step, no
+> runtime. A **Vue 3 package** sits on top of it (`ui-moods/vue`), generated
+> from the same manifests, so a Vue project gets `UMButton` without giving up
+> the plain-CSS path. Not a UI generator. No cloud service. Just files,
+> tokens, and a clear contract for agents and for people.
 
 ## Why
 
@@ -125,18 +128,83 @@ Two links and one class. Which theme file is linked decides everything else —
 swap `themes/glass.css` for `themes/ios.css` and the same markup becomes an
 iOS control, with no other change.
 
-### Why it is not a framework
+### Switching a mood at runtime
 
-Element Plus and Arco Design both ship framework components. This library does
-not: it is **plain HTML and CSS classes**, no build step, no runtime, no
-framework. That is deliberate — the repository's whole consumption model is
-"an agent copies a class", and a `.um-button` is exactly that, with the CSS
-available for a framework project to wrap if it wants to.
+Link every mood once, and the mood becomes an attribute on the document:
+
+```html
+<link rel="stylesheet" href="components/um-components.css">
+<link rel="stylesheet" href="themes/all.css">
+```
+
+```js
+document.documentElement.setAttribute('data-um-theme', 'night');
+```
+
+`themes/all.css` carries all 32 moods — 116 KB, one request, gzipping to a
+fraction of that. Each mood claims its own scope at a specificity one step
+above `:root`, so the mood that matches the attribute wins the cascade
+whatever order the files were linked in. **Switching costs no network
+request at all.** Measured over 96 switches: a median of 1.4 ms and a
+maximum of 3.4 ms, which is inside a single frame — the style is already
+correct before the browser has a chance to paint.
+
+`themes/switcher.js` is the same thing with the remembering attached, and it
+is the only JavaScript the project ships:
+
+```html
+<script src="themes/switcher.js"></script>
+```
+
+```js
+UMTheme.set('night');     // apply a mood
+UMTheme.get();            // the mood in force
+UMTheme.cycle();          // the next one
+UMTheme.list();           // the catalogue
+```
+
+It reads `?theme=` from the URL first (a link with `?theme=glass` shows
+glass, whatever the last visit chose), remembers the choice in
+`localStorage`, and follows another tab that changes it. It is
+framework-agnostic on purpose: a Vue app, a React app and a plain HTML page
+all call the same three lines.
+
+### The CSS is the product; Vue is a thin layer on top
+
+Element Plus and Arco Design both ship framework components. This library is
+built the other way round: the **CSS layer is the product**, and the manifest
+is the source both layers are generated from. A `.um-button` is exactly
+"an agent copies a class" — and the same split Element Plus uses, where
+`theme-chalk` is plain CSS and the Vue components sit on top of it.
+
+The Vue package therefore adds nothing of its own. Every wrapper renders the
+same markup the documentation shows, exposes the props the manifest declares,
+and lets the stylesheet decide what it looks like — so a page wearing a
+mood looks the same whether it was written in HTML or in Vue.
+
+```js
+import { createApp } from "vue";
+import UM from "ui-moods/vue";
+import "ui-moods/components/um-components.css";
+import "ui-moods/themes/all.css";
+
+createApp(App).use(UM).mount("#app");
+```
+
+```html
+<UMButton variant="primary" size="lg">Save</UMButton>
+```
+
+Every component is registered twice — `UMButton` and `um-button` — so a
+template can use whichever reads better. The wrappers need no build step:
+they are plain ES modules with render functions. See
+[`docs/vue-components.md`](docs/vue-components.md) for the contract, and
+`node tools/check-vue.mjs` for the check that keeps a wrapper honest.
 
 ### The contract
 
 `tokens/roles.json` is the single source of the variable vocabulary. It
-declares **88 roles** (`--um-*`) and **49 contrast guarantees**, and every
+declares **95 roles** (`--um-*`) and **68 contrast guarantees**, and every
 theme file is generated from it.
 
 The rules the component layer obeys, and `validate` enforces:
@@ -147,8 +215,15 @@ The rules the component layer obeys, and `validate` enforces:
   state is `:checked` and `:disabled`.
 - **Every theme defines every role.** A missing role is invisible in a
   screenshot of one theme and breaks the component in every other one.
-- **Every guarantee holds in every theme.** 49 pairs × 32 themes = **1 568
+- **Every guarantee holds in every theme.** 68 pairs × 32 themes = **2 176
   measurements**, all green.
+- **The rendered pages hold too.** A probe loads every component's live
+  examples, walks the whole document once per mood and measures what the
+  browser actually painted: **11 392 measurements, zero failures**.
+- **A shape has its own bar.** Text is held to 4.5:1; a shape whose colour
+  carries the meaning on its own is held to 3:1, and the `graphic` form of
+  each status colour exists for it. The raw warning colour sits at 1.39:1 on
+  a container — a timeline node nobody can see.
 
 ### How a colour is derived
 
@@ -200,10 +275,14 @@ invisible. Measured against the real surface, it reads.
 - `site/` — the **documentation site** (generated): an overview plus one page
   per component, with the examples, the API tables and the class list.
 - `types/index.d.ts` — the type declarations (generated).
+- `vue/components/<id>.js` — the **Vue 3 wrappers**, one per component.
+- `vue/components/index.js` — the barrel and the plugin (generated).
 - `themes/<id>.css` — 32 generated theme files, variables only.
+- `themes/all.css` — all 32 moods in one sheet, switched by attribute.
+- `themes/switcher.js` — the runtime switcher (optional, framework-agnostic).
 - `tokens/roles.json` — the role contract.
 
-### One file in, three things out
+### One file in, four things out
 
 The manifest is the only hand-written description of a component. Everything
 else is generated from it:
@@ -213,6 +292,7 @@ components/<id>/manifest.json
    ├── →  components/um-components.css   (the styles)
    ├── →  site/component/<id>.html        (the documentation page)
    ├── →  types/index.d.ts                (the type declarations)
+   ├── →  vue/components/index.js         (the Vue barrel and plugin)
    └── →  components/index.json           (the catalogue)
 ```
 
@@ -221,14 +301,17 @@ hand-written documentation page is a second copy of the component, and the two
 copies drift; here they cannot, because there is only one copy.
 
 It also means the manifest is **framework-neutral**: a CSS generator reads the
-class names, and a component generator reads the variant and prop names.
-The same file describes the plain-HTML library today and a Vue 3 wrapper
-tomorrow — the way Element Plus ships `theme-chalk` separately from its Vue
-components, and Arco ships `theme.css` separately from its React ones.
+class names, and a component generator reads the variant and prop names. The
+same file describes the plain-HTML library and the Vue 3 wrapper — the way
+Element Plus ships `theme-chalk` separately from its Vue components, and Arco
+ships `theme.css` separately from its React ones.
 
 `validate` enforces the agreement: a manifest that advertises a variant the
 stylesheet never paints is an error, and a stylesheet that is out of date with
-its partials is an error too.
+its partials is an error too. `node tools/check-vue.mjs` enforces the same
+agreement for the wrappers: it mounts every wrapper with
+`@vue/server-renderer` and compares the rendered markup with the manifest —
+the props, the classes, the parts.
 
 ### Where it is going
 
@@ -238,22 +321,30 @@ of the eighty-two can be expressed with native elements and CSS alone; only
 `Message`, `MessageBox`, `Notification`, `Config Provider` and the three
 virtualized components genuinely need JavaScript.
 
-### What is in the first batch
+### What is in the library now
 
-15 components, 17 Element Plus equivalents — the difference is that one
-manifest can cover more than one native control:
+**39 components, covering 39 of Element Plus's 82** — one manifest can cover
+more than one native control, and two of them are forms EP does not list
+separately:
 
 | Manifest | Covers | Element Plus |
 | --- | --- | --- |
 | `input` | `um-input`, `um-textarea`, `um-select` | Input, Select |
 | `field` | `um-field`, `um-field__label`, `um-field__message` | Form, Form Item |
-| the other 13 | one each | one each |
+| the other 37 | one each | one each |
 
-So: button, input, field, switch, checkbox, radio, slider, badge, tag, alert,
-card, progress, empty, divider, skeleton.
+- **Basic** — divider, typography, card, tag, badge, skeleton, empty, avatar
+- **Form** — button, input, field, checkbox, radio, switch, slider, rate,
+  input-number, checkbox-group, radio-group, upload, date-picker
+- **Data** — progress, statistic, descriptions, table, timeline, result, transfer, cascader
+- **Navigation** — tabs, breadcrumb, steps, pagination, menu, dropdown
+- **Feedback** — alert, loading, tooltip, popover
 
-The next batch adds tabs, table, dialog, dropdown, menu, pagination, avatar,
-tooltip and message.
+[`docs/component-parity.md`](./docs/component-parity.md) lists all 82 against
+what is here, and names the 43 that are not.
+
+Each of them has a Vue 3 wrapper, so the library is usable from plain HTML and
+from a Vue project with the same markup underneath.
 
 ## Using with an AI agent
 
@@ -296,7 +387,10 @@ ui-moods/
 ├─ apps/<id>/         # app.json (screen data) + screens/*.html (generated)
 ├─ components/<id>/   # manifest.json + style.css  (one directory per component)
 ├─ themes/<id>.css    # 32 generated theme files (variables only)
+├─ themes/all.css     # all 32 moods in one sheet, switched by attribute
+├─ themes/switcher.js # the runtime switcher (optional, framework-agnostic)
 ├─ site/              # generated documentation site (one page per component)
+├─ vue/               # the Vue 3 package: index.js · components/<id>.js
 ├─ types/             # generated type declarations
 ├─ tokens/            # roles.json — the component layer's role contract
 ├─ schemas/           # tokens.schema.json · checklist.schema.json · allowlist.json
@@ -304,8 +398,11 @@ ui-moods/
 │  ├─ mood/           # specimen shell + sections/*.html partials
 │  └─ app/            # app.css (shared screen stylesheet)
 ├─ tools/             # cli · build-specimen · build-apps · build-themes
-│                     # · build-components · build-docs · build-types · validate · serve · scaffold
-├─ docs/              # mapping convention · checklist semantics · parity checklist · contribution guide
+│                     # · build-components · build-docs · build-types · build-vue
+│                     # · validate · check-vue · audit-contrast · verify-themes
+│                     # · serve · scaffold
+├─ docs/              # mapping convention · checklist semantics · parity checklist
+│                     # · contribution guide · vue-components
 ├─ AGENTS.md          # protocol for AI agents
 ├─ moods.json         # style registry index
 └─ apps.json          # app registry index
@@ -391,8 +488,13 @@ And for the component library:
   `schemas/component-allowlist.json`, with a stated reason;
 - **every theme defines every role** in the contract, and defines nothing
   that is not in it;
-- every contrast guarantee in the contract holds in every theme — 49 pairs ×
-  32 themes = 1 568 measurements;
+- every contrast guarantee in the contract holds in every theme — 68 pairs ×
+  32 themes = 2 176 measurements;
+- every Vue wrapper agrees with the manifest it was written from — the props
+  are the manifest's props, and every class it paints is a class the
+  stylesheet declares;
+- every declaration compiles — `tsc --noEmit` over `types/`, `vue/` and the
+  switcher;
 - the component browser lists exactly the themes that exist.
 
 ## Current moods

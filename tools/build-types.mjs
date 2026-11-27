@@ -35,6 +35,25 @@ const typeName = (id) =>
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join("");
 
+/** A TypeScript identifier. Anything else has to be quoted or renamed. */
+const isIdentifier = (name) => /^[A-Za-z_$][A-Za-z0-9_$]*$/.test(name);
+
+/**
+ * `max-length` → `maxLength`.
+ *
+ * The manifests may spell a prop the way the HTML attribute is spelled, but a
+ * TypeScript property cannot contain a hyphen, so it is camelCased here. The
+ * manifest keeps the HTML spelling; only the declaration is renamed.
+ */
+const propName = (name) => {
+  if (isIdentifier(name)) return name;
+  const camel = name.replace(/-([a-z0-9])/g, (_, c) => c.toUpperCase());
+  return isIdentifier(camel) ? camel : name;
+};
+
+/** A property name that has to be quoted to be legal TypeScript. */
+const member = (name) => (isIdentifier(name) ? name : `"${name}"`);
+
 const union = (values) => (values.length ? values.map((v) => `"${v}"`).join(" | ") : "never");
 
 const lines = [];
@@ -56,10 +75,30 @@ lines.push(`/** Every theme the library ships. */`);
 lines.push(`export type ThemeId =`);
 lines.push(`  | ${themeIds.map((id) => `"${id}"`).join("\n  | ")};`);
 lines.push("");
+lines.push(`/** Whether a theme reads as light or as dark. */`);
+lines.push(`export type ThemeAppearance = "light" | "dark";`);
+lines.push("");
+lines.push(`/** One entry of the theme catalogue. */`);
+lines.push(`export interface ThemeEntry {`);
+lines.push(`  id: ThemeId;`);
+lines.push(`  name: string;`);
+lines.push(`  nameZh: string;`);
+lines.push(`  appearance: ThemeAppearance;`);
+lines.push(`  file: string;`);
+lines.push(`  roles: number;`);
+lines.push(`}`);
+lines.push("");
+lines.push(`/** Every theme the library ships, as \`themes/index.json\` lists them. */`);
+lines.push(`export type ThemeCatalogue = ThemeEntry[];`);
+lines.push("");
 lines.push(`/** The themes that read as light, and the ones that read as dark. */`);
-lines.push(`export interface ThemeCatalogue {`);
-lines.push(`  light: ThemeId[];`);
-lines.push(`  dark: ThemeId[];`);
+lines.push(`export interface ThemeIndex {`);
+lines.push(`  version: string;`);
+lines.push(`  prefix: string;`);
+lines.push(`  default: ThemeId;`);
+lines.push(`  combined: string;`);
+lines.push(`  switcher: string;`);
+lines.push(`  themes: ThemeCatalogue;`);
 lines.push(`}`);
 lines.push("");
 
@@ -92,7 +131,7 @@ for (const m of manifests) {
     else if (p.type === "enum") type = union(p.values ?? []);
     else if (p.type === "string") type = "string";
     lines.push(`  /** ${(p.description ?? p.descriptionZh ?? p.name).replace(/\*\//g, "*\\/")} */`);
-    lines.push(`  ${p.name}?: ${type};`);
+    lines.push(`  ${propName(p.name)}?: ${type};`);
   }
   lines.push(`}`);
   lines.push("");
@@ -102,7 +141,7 @@ for (const m of manifests) {
 lines.push(`/** Every component the library ships, keyed by id. */`);
 lines.push(`export interface ComponentRegistry {`);
 for (const m of manifests) {
-  lines.push(`  ${m.id}: ${typeName(m.id)}Props;`);
+  lines.push(`  ${member(m.id)}: ${typeName(m.id)}Props;`);
 }
 lines.push(`}`);
 lines.push("");
@@ -125,9 +164,14 @@ lines.push(`  parts: number;`);
 lines.push(`  props: number;`);
 lines.push(`}`);
 lines.push("");
+lines.push(`/** Every component the library ships, by id. */`);
+lines.push(`export type ComponentId =`);
+lines.push(`  | ${manifests.map((m) => `"${m.id}"`).join("\n  | ")};`);
+lines.push("");
 lines.push(`export declare const themes: ThemeCatalogue;`);
 lines.push(`export declare const components: ComponentCatalogueEntry[];`);
-
+lines.push(`export declare const themeIndex: ThemeIndex;`);
+lines.push("");
 const outDir = join(root, "types");
 mkdirSync(outDir, { recursive: true });
 writeFileSync(join(outDir, "index.d.ts"), lines.join("\n"), "utf8");

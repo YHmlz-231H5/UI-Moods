@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rate · UI Moods</title>
+  <meta name="description" content="A row of stars the reader sets by choosing one. The stars are real radio buttons under a drawn shape, so the value is the browser's own value and the group is the browser's own group." />
+
+  <!-- The two files that make the whole thing work.
+       The first is the library; the second carries all thirty-two moods at
+       once, so the picker below changes an attribute instead of loading a
+       file — the switch has no network request to wait for. -->
+  <link rel="stylesheet" id="um-theme" href="../../themes/all.css" />
+  <link rel="stylesheet" href="../../components/um-components.css" />
+  <link rel="stylesheet" href="../../site/assets/site.css" />
+</head>
+<body>
+  <header class="site-header">
+      <a class="site-header__brand" href="../../index.html">UI Moods<span>Component Library</span></a>
+      <div class="site-header__spacer"></div>
+      <div class="switcher">
+        <label class="switcher__label" for="um-theme-picker">Theme</label>
+        <span class="switcher__field">
+          <select class="switcher__select" id="um-theme-picker"></select>
+        </span>
+      </div>
+    </header>
+  <div class="site-body">
+    <nav class="site-sidebar" aria-label="Components">
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Basic · 基础</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/typography.html">Typography <span class="meta">文字排版</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Form · 表单</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/button.html">Button <span class="meta">按钮</span></a></li>
+          <li><a href="../component/checkbox.html">Checkbox <span class="meta">复选框</span></a></li>
+          <li><a href="../component/checkbox-group.html">Checkbox Group <span class="meta">复选框组</span></a></li>
+          <li><a href="../component/date-picker.html">Date Picker <span class="meta">日期选择器</span></a></li>
+          <li><a href="../component/field.html">Field <span class="meta">表单项</span></a></li>
+          <li><a href="../component/input.html">Input / Textarea / Select <span class="meta">输入框 / 文本域 / 选择器</span></a></li>
+          <li><a href="../component/input-number.html">Input Number <span class="meta">数字输入框</span></a></li>
+          <li><a href="../component/radio.html">Radio <span class="meta">单选框</span></a></li>
+          <li><a href="../component/radio-group.html">Radio Group <span class="meta">单选框组</span></a></li>
+          <li><a href="" aria-current="page">Rate <span class="meta">评分</span></a></li>
+          <li><a href="../component/slider.html">Slider <span class="meta">滑块</span></a></li>
+          <li><a href="../component/switch.html">Switch <span class="meta">开关</span></a></li>
+          <li><a href="../component/upload.html">Upload <span class="meta">上传</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Data · 数据展示</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/avatar.html">Avatar <span class="meta">头像</span></a></li>
+          <li><a href="../component/badge.html">Badge <span class="meta">徽标</span></a></li>
+          <li><a href="../component/card.html">Card <span class="meta">卡片</span></a></li>
+          <li><a href="../component/cascader.html">Cascader <span class="meta">级联选择器</span></a></li>
+          <li><a href="../component/descriptions.html">Descriptions <span class="meta">描述列表</span></a></li>
+          <li><a href="../component/empty.html">Empty <span class="meta">空状态</span></a></li>
+          <li><a href="../component/progress.html">Progress <span class="meta">进度条</span></a></li>
+          <li><a href="../component/result.html">Result <span class="meta">结果</span></a></li>
+          <li><a href="../component/skeleton.html">Skeleton <span class="meta">骨架屏</span></a></li>
+          <li><a href="../component/statistic.html">Statistic <span class="meta">统计数值</span></a></li>
+          <li><a href="../component/table.html">Table <span class="meta">表格</span></a></li>
+          <li><a href="../component/tag.html">Tag <span class="meta">标签</span></a></li>
+          <li><a href="../component/timeline.html">Timeline <span class="meta">时间线</span></a></li>
+          <li><a href="../component/transfer.html">Transfer <span class="meta">穿梭框</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Navigation · 导航</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/breadcrumb.html">Breadcrumb <span class="meta">面包屑</span></a></li>
+          <li><a href="../component/dropdown.html">Dropdown <span class="meta">下拉菜单</span></a></li>
+          <li><a href="../component/menu.html">Menu <span class="meta">菜单</span></a></li>
+          <li><a href="../component/pagination.html">Pagination <span class="meta">分页</span></a></li>
+          <li><a href="../component/steps.html">Steps <span class="meta">步骤条</span></a></li>
+          <li><a href="../component/tabs.html">Tabs <span class="meta">标签页</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Feedback · 反馈</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/alert.html">Alert <span class="meta">警告</span></a></li>
+          <li><a href="../component/loading.html">Loading <span class="meta">加载中</span></a></li>
+          <li><a href="../component/popover.html">Popover <span class="meta">气泡卡片</span></a></li>
+          <li><a href="../component/tooltip.html">Tooltip <span class="meta">文字提示</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Others · 其他</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/divider.html">Divider <span class="meta">分割线</span></a></li>
+        </ul>
+      </div>
+    </nav>
+    <main class="site-main">
+      <h1>Rate <span class="meta">评分</span></h1>
+      <p class="lede">A row of stars the reader sets by choosing one. The stars are real radio buttons under a drawn shape, so the value is the browser's own value and the group is the browser's own group.</p>
+      <p class="meta">
+        <span class="tag">input, label, span</span>
+        <span class="tag">form</span>
+        <span class="tag">since 1.1.0</span>
+      </p>
+      <div class="note">How many stars are filled is read off the checked radio with `:has()`, and written into a variable the items count against — because CSS cannot compare two positions, so the stylesheet carries one rule per star and stops at five. The star itself is a polygon cut out of a square: the library ships no icon font, and a filled star and an empty star are the same shape in two colours, which a glyph font would have had to ship twice.</div>
+
+      <h2>Examples</h2>
+<div class="example">
+        <div class="example__title">Basic · 基础用法</div>
+        <div class="example__desc">Five stars with the third one chosen. Every radio carries its own name, because the label beside it is a drawn shape with no text in it.</div>
+        <div class="example__demo">
+<div class="um-rate" role="radiogroup" aria-label="Rating">
+  <input class="um-rate__input" type="radio" name="um-rate-basic" id="um-rate-basic-1" value="1" aria-label="1 out of 5" />
+  <label class="um-rate__item" for="um-rate-basic-1"><span class="um-rate__icon"></span><span class="um-rate__active"></span></label>
+  <input class="um-rate__input" type="radio" name="um-rate-basic" id="um-rate-basic-2" value="2" aria-label="2 out of 5" />
+  <label class="um-rate__item" for="um-rate-basic-2"><span class="um-rate__icon"></span><span class="um-rate__active"></span></label>
+  <input class="um-rate__input" type="radio" name="um-rate-basic" id="um-rate-basic-3" value="3" checked aria-label="3 out of 5" />
+  <label class="um-rate__item" for="um-rate-basic-3"><span class="um-rate__icon"></span><span class="um-rate__active"></span></label>
+  <input class="um-rate__input" type="radio" name="um-rate-basic" id="um-rate-basic-4" value="4" aria-label="4 out of 5" />
+  <label class="um-rate__item" for="um-rate-basic-4"><span class="um-rate__icon"></span><span class="um-rate__active"></span></label>
+  <input class="um-rate__input" type="radio" name="um-rate-basic" id="um-rate-basic-5" value="5" aria-label="5 out of 5" />
+  <label class="um-rate__item" for="um-rate-basic-5"><span class="um-rate__icon"></span><span class="um-rate__active"></span></label>
+</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-rate&quot; role=&quot;radiogroup&quot; aria-label=&quot;Rating&quot;&gt;
+  &lt;input class=&quot;um-rate__input&quot; type=&quot;radio&quot; name=&quot;um-rate-basic&quot; id=&quot;um-rate-basic-1&quot; value=&quot;1&quot; aria-label=&quot;1 out of 5&quot; /&gt;
+  &lt;label class=&quot;um-rate__item&quot; for=&quot;um-rate-basic-1&quot;&gt;&lt;span class=&quot;um-rate__icon&quot;&gt;&lt;/span&gt;&lt;span class=&quot;um-rate__active&quot;&gt;&lt;/span&gt;&lt;/label&gt;
+  &lt;input class=&quot;um-rate__input&quot; type=&quot;radio&quot; name=&quot;um-rate-basic&quot; id=&quot;um-rate-basic-2&quot; value=&quot;2&quot; aria-label=&quot;2 out of 5&quot; /&gt;
+  &lt;label class=&quot;um-rate__item&quot; for=&quot;um-rate-basic-2&quot;&gt;&lt;span class=&quot;um-rate__icon&quot;&gt;&lt;/span&gt;&lt;span class=&quot;um-rate__active&quot;&gt;&lt;/span&gt;&lt;/label&gt;
+  &lt;input class=&quot;um-rate__input&quot; type=&quot;radio&quot; name=&quot;um-rate-basic&quot; id=&quot;um-rate-basic-3&quot; value=&quot;3&quot; checked aria-label=&quot;3 out of 5&quot; /&gt;
+  &lt;label class=&quot;um-rate__item&quot; for=&quot;um-rate-basic-3&quot;&gt;&lt;span class=&quot;um-rate__icon&quot;&gt;&lt;/span&gt;&lt;span class=&quot;um-rate__active&quot;&gt;&lt;/span&gt;&lt;/label&gt;
+  &lt;input class=&quot;um-rate__input&quot; type=&quot;radio&quot; name=&quot;um-rate-basic&quot; id=&quot;um-rate-basic-4&quot; value=&quot;4&quot; aria-label=&quot;4 out of 5&quot; /&gt;
+  &lt;label class=&quot;um-rate__item&quot; for=&quot;um-rate-basic-4&quot;&gt;&lt;span class=&quot;um-rate__icon&quot;&gt;&lt;/span&gt;&lt;span class=&quot;um-rate__active&quot;&gt;&lt;/span&gt;&lt;/label&gt;
+  &lt;input class=&quot;um-rate__input&quot; type=&quot;radio&quot; name=&quot;um-rate-basic&quot; id=&quot;um-rate-basic-5&quot; value=&quot;5&quot; aria-label=&quot;5 out of 5&quot; /&gt;
+  &lt;label class=&quot;um-rate__item&quot; for=&quot;um-rate-basic-5&quot;&gt;&lt;span class=&quot;um-rate__icon&quot;&gt;&lt;/span&gt;&lt;span class=&quot;um-rate__active&quot;&gt;&lt;/span&gt;&lt;/label&gt;
+&lt;/div&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">Colours · 颜色</div>
+        <div class="example__desc">The base class fills the stars with the brand colour. The three modifiers use the success, warning and danger colours instead.</div>
+        <div class="example__demo">
+<div class="um-rate um-rate--success" role="radiogroup" aria-label="How it went">
+  <input class="um-rate__input" type="radio" name="um-rate-success" id="um-rate-success-1" value="1" aria-label="1 out of 3" />
+  <label class="um-rate__item" for="um-rate-success-1"><span class="um-rate__icon"></span><span class="um-rate__active"></span></label>
+  <input class="um-rate__input" type="radio" name="um-rate-success" id="um-rate-success-2" value="2" checked aria-label="2 out of 3" />
+  <label class="um-rate__item" for="um-rate-success-2"><span class="um-rate__icon"></span><span class="um-rate__active"></span></label>
+  <input class="um-rate__input" type="radio" name="um-rate-success" id="um-rate-success-3" value="3" aria-label="3 out of 3" />
+  <label class="um-rate__item" for="um-rate-success-3"><span class="um-rate__icon"></span><span class="um-rate__active"></span></label>
+</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-rate um-rate--success&quot; role=&quot;radiogroup&quot; aria-label=&quot;How it went&quot;&gt;
+  &lt;input class=&quot;um-rate__input&quot; type=&quot;radio&quot; name=&quot;um-rate-success&quot; id=&quot;um-rate-success-1&quot; value=&quot;1&quot; aria-label=&quot;1 out of 3&quot; /&gt;
+  &lt;label class=&quot;um-rate__item&quot; for=&quot;um-rate-success-1&quot;&gt;&lt;span class=&quot;um-rate__icon&quot;&gt;&lt;/span&gt;&lt;span class=&quot;um-rate__active&quot;&gt;&lt;/span&gt;&lt;/label&gt;
+  &lt;input class=&quot;um-rate__input&quot; type=&quot;radio&quot; name=&quot;um-rate-success&quot; id=&quot;um-rate-success-2&quot; value=&quot;2&quot; checked aria-label=&quot;2 out of 3&quot; /&gt;
+  &lt;label class=&quot;um-rate__item&quot; for=&quot;um-rate-success-2&quot;&gt;&lt;span class=&quot;um-rate__icon&quot;&gt;&lt;/span&gt;&lt;span class=&quot;um-rate__active&quot;&gt;&lt;/span&gt;&lt;/label&gt;
+  &lt;input class=&quot;um-rate__input&quot; type=&quot;radio&quot; name=&quot;um-rate-success&quot; id=&quot;um-rate-success-3&quot; value=&quot;3&quot; aria-label=&quot;3 out of 3&quot; /&gt;
+  &lt;label class=&quot;um-rate__item&quot; for=&quot;um-rate-success-3&quot;&gt;&lt;span class=&quot;um-rate__icon&quot;&gt;&lt;/span&gt;&lt;span class=&quot;um-rate__active&quot;&gt;&lt;/span&gt;&lt;/label&gt;
+&lt;/div&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">Disabled · 禁用</div>
+        <div class="example__desc">A disabled group leaves the tab order and refuses the pointer. The value it already carries stays on screen.</div>
+        <div class="example__demo">
+<div class="um-rate" role="radiogroup" aria-label="Rating given last month">
+  <input class="um-rate__input" type="radio" name="um-rate-locked" id="um-rate-locked-1" value="1" aria-label="1 out of 4" disabled />
+  <label class="um-rate__item" for="um-rate-locked-1"><span class="um-rate__icon"></span><span class="um-rate__active"></span></label>
+  <input class="um-rate__input" type="radio" name="um-rate-locked" id="um-rate-locked-2" value="2" aria-label="2 out of 4" checked disabled />
+  <label class="um-rate__item" for="um-rate-locked-2"><span class="um-rate__icon"></span><span class="um-rate__active"></span></label>
+  <input class="um-rate__input" type="radio" name="um-rate-locked" id="um-rate-locked-3" value="3" aria-label="3 out of 4" disabled />
+  <label class="um-rate__item" for="um-rate-locked-3"><span class="um-rate__icon"></span><span class="um-rate__active"></span></label>
+  <input class="um-rate__input" type="radio" name="um-rate-locked" id="um-rate-locked-4" value="4" aria-label="4 out of 4" disabled />
+  <label class="um-rate__item" for="um-rate-locked-4"><span class="um-rate__icon"></span><span class="um-rate__active"></span></label>
+</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-rate&quot; role=&quot;radiogroup&quot; aria-label=&quot;Rating given last month&quot;&gt;
+  &lt;input class=&quot;um-rate__input&quot; type=&quot;radio&quot; name=&quot;um-rate-locked&quot; id=&quot;um-rate-locked-1&quot; value=&quot;1&quot; aria-label=&quot;1 out of 4&quot; disabled /&gt;
+  &lt;label class=&quot;um-rate__item&quot; for=&quot;um-rate-locked-1&quot;&gt;&lt;span class=&quot;um-rate__icon&quot;&gt;&lt;/span&gt;&lt;span class=&quot;um-rate__active&quot;&gt;&lt;/span&gt;&lt;/label&gt;
+  &lt;input class=&quot;um-rate__input&quot; type=&quot;radio&quot; name=&quot;um-rate-locked&quot; id=&quot;um-rate-locked-2&quot; value=&quot;2&quot; aria-label=&quot;2 out of 4&quot; checked disabled /&gt;
+  &lt;label class=&quot;um-rate__item&quot; for=&quot;um-rate-locked-2&quot;&gt;&lt;span class=&quot;um-rate__icon&quot;&gt;&lt;/span&gt;&lt;span class=&quot;um-rate__active&quot;&gt;&lt;/span&gt;&lt;/label&gt;
+  &lt;input class=&quot;um-rate__input&quot; type=&quot;radio&quot; name=&quot;um-rate-locked&quot; id=&quot;um-rate-locked-3&quot; value=&quot;3&quot; aria-label=&quot;3 out of 4&quot; disabled /&gt;
+  &lt;label class=&quot;um-rate__item&quot; for=&quot;um-rate-locked-3&quot;&gt;&lt;span class=&quot;um-rate__icon&quot;&gt;&lt;/span&gt;&lt;span class=&quot;um-rate__active&quot;&gt;&lt;/span&gt;&lt;/label&gt;
+  &lt;input class=&quot;um-rate__input&quot; type=&quot;radio&quot; name=&quot;um-rate-locked&quot; id=&quot;um-rate-locked-4&quot; value=&quot;4&quot; aria-label=&quot;4 out of 4&quot; disabled /&gt;
+  &lt;label class=&quot;um-rate__item&quot; for=&quot;um-rate-locked-4&quot;&gt;&lt;span class=&quot;um-rate__icon&quot;&gt;&lt;/span&gt;&lt;span class=&quot;um-rate__active&quot;&gt;&lt;/span&gt;&lt;/label&gt;
+&lt;/div&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">Sizes · 尺寸</div>
+        <div class="example__desc">Three sizes. The middle one is the base class on its own, because the base class is already the medium star.</div>
+        <div class="example__demo">
+<div class="um-rate um-rate--small" role="radiogroup" aria-label="Small rating">
+  <input class="um-rate__input" type="radio" name="um-rate-small" id="um-rate-small-1" value="1" aria-label="1 out of 2" checked />
+  <label class="um-rate__item" for="um-rate-small-1"><span class="um-rate__icon"></span><span class="um-rate__active"></span></label>
+  <input class="um-rate__input" type="radio" name="um-rate-small" id="um-rate-small-2" value="2" aria-label="2 out of 2" />
+  <label class="um-rate__item" for="um-rate-small-2"><span class="um-rate__icon"></span><span class="um-rate__active"></span></label>
+</div>
+<div class="um-rate" role="radiogroup" aria-label="Medium rating">
+  <input class="um-rate__input" type="radio" name="um-rate-medium" id="um-rate-medium-1" value="1" aria-label="1 out of 2" checked />
+  <label class="um-rate__item" for="um-rate-medium-1"><span class="um-rate__icon"></span><span class="um-rate__active"></span></label>
+  <input class="um-rate__input" type="radio" name="um-rate-medium" id="um-rate-medium-2" value="2" aria-label="2 out of 2" />
+  <label class="um-rate__item" for="um-rate-medium-2"><span class="um-rate__icon"></span><span class="um-rate__active"></span></label>
+</div>
+<div class="um-rate um-rate--large" role="radiogroup" aria-label="Large rating">
+  <input class="um-rate__input" type="radio" name="um-rate-large" id="um-rate-large-1" value="1" aria-label="1 out of 2" checked />
+  <label class="um-rate__item" for="um-rate-large-1"><span class="um-rate__icon"></span><span class="um-rate__active"></span></label>
+  <input class="um-rate__input" type="radio" name="um-rate-large" id="um-rate-large-2" value="2" aria-label="2 out of 2" />
+  <label class="um-rate__item" for="um-rate-large-2"><span class="um-rate__icon"></span><span class="um-rate__active"></span></label>
+</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-rate um-rate--small&quot; role=&quot;radiogroup&quot; aria-label=&quot;Small rating&quot;&gt;
+  &lt;input class=&quot;um-rate__input&quot; type=&quot;radio&quot; name=&quot;um-rate-small&quot; id=&quot;um-rate-small-1&quot; value=&quot;1&quot; aria-label=&quot;1 out of 2&quot; checked /&gt;
+  &lt;label class=&quot;um-rate__item&quot; for=&quot;um-rate-small-1&quot;&gt;&lt;span class=&quot;um-rate__icon&quot;&gt;&lt;/span&gt;&lt;span class=&quot;um-rate__active&quot;&gt;&lt;/span&gt;&lt;/label&gt;
+  &lt;input class=&quot;um-rate__input&quot; type=&quot;radio&quot; name=&quot;um-rate-small&quot; id=&quot;um-rate-small-2&quot; value=&quot;2&quot; aria-label=&quot;2 out of 2&quot; /&gt;
+  &lt;label class=&quot;um-rate__item&quot; for=&quot;um-rate-small-2&quot;&gt;&lt;span class=&quot;um-rate__icon&quot;&gt;&lt;/span&gt;&lt;span class=&quot;um-rate__active&quot;&gt;&lt;/span&gt;&lt;/label&gt;
+&lt;/div&gt;
+&lt;div class=&quot;um-rate&quot; role=&quot;radiogroup&quot; aria-label=&quot;Medium rating&quot;&gt;
+  &lt;input class=&quot;um-rate__input&quot; type=&quot;radio&quot; name=&quot;um-rate-medium&quot; id=&quot;um-rate-medium-1&quot; value=&quot;1&quot; aria-label=&quot;1 out of 2&quot; checked /&gt;
+  &lt;label class=&quot;um-rate__item&quot; for=&quot;um-rate-medium-1&quot;&gt;&lt;span class=&quot;um-rate__icon&quot;&gt;&lt;/span&gt;&lt;span class=&quot;um-rate__active&quot;&gt;&lt;/span&gt;&lt;/label&gt;
+  &lt;input class=&quot;um-rate__input&quot; type=&quot;radio&quot; name=&quot;um-rate-medium&quot; id=&quot;um-rate-medium-2&quot; value=&quot;2&quot; aria-label=&quot;2 out of 2&quot; /&gt;
+  &lt;label class=&quot;um-rate__item&quot; for=&quot;um-rate-medium-2&quot;&gt;&lt;span class=&quot;um-rate__icon&quot;&gt;&lt;/span&gt;&lt;span class=&quot;um-rate__active&quot;&gt;&lt;/span&gt;&lt;/label&gt;
+&lt;/div&gt;
+&lt;div class=&quot;um-rate um-rate--large&quot; role=&quot;radiogroup&quot; aria-label=&quot;Large rating&quot;&gt;
+  &lt;input class=&quot;um-rate__input&quot; type=&quot;radio&quot; name=&quot;um-rate-large&quot; id=&quot;um-rate-large-1&quot; value=&quot;1&quot; aria-label=&quot;1 out of 2&quot; checked /&gt;
+  &lt;label class=&quot;um-rate__item&quot; for=&quot;um-rate-large-1&quot;&gt;&lt;span class=&quot;um-rate__icon&quot;&gt;&lt;/span&gt;&lt;span class=&quot;um-rate__active&quot;&gt;&lt;/span&gt;&lt;/label&gt;
+  &lt;input class=&quot;um-rate__input&quot; type=&quot;radio&quot; name=&quot;um-rate-large&quot; id=&quot;um-rate-large-2&quot; value=&quot;2&quot; aria-label=&quot;2 out of 2&quot; /&gt;
+  &lt;label class=&quot;um-rate__item&quot; for=&quot;um-rate-large-2&quot;&gt;&lt;span class=&quot;um-rate__icon&quot;&gt;&lt;/span&gt;&lt;span class=&quot;um-rate__active&quot;&gt;&lt;/span&gt;&lt;/label&gt;
+&lt;/div&gt;</pre>
+      </div>
+      <h2>Classes</h2>
+<table class="api">
+      <thead><tr><th>Class</th><th>Meaning</th></tr></thead>
+      <tbody>
+      <tr><td><code>um-rate</code></td><td>The base class. Every instance carries it.</td></tr>
+      <tr><td><code>um-rate--success</code></td><td>Success</td></tr>
+      <tr><td><code>um-rate--warning</code></td><td>Warning</td></tr>
+      <tr><td><code>um-rate--danger</code></td><td>Danger</td></tr>
+      <tr><td><code>um-rate--small</code></td><td>Size: small</td></tr>
+      <tr><td><code>um-rate--medium</code></td><td>Size: medium</td></tr>
+      <tr><td><code>um-rate--large</code></td><td>Size: large</td></tr>
+      <tr><td><code>um-rate__input</code></td><td>Input</td></tr>
+      <tr><td><code>um-rate__item</code></td><td>Item</td></tr>
+      <tr><td><code>um-rate__icon</code></td><td>Icon</td></tr>
+      <tr><td><code>um-rate__active</code></td><td>Active</td></tr>
+      <tr><td><code>:checked</code></td><td>Checked</td></tr>
+      <tr><td><code>:disabled</code></td><td>Disabled</td></tr>
+      <tr><td><code>:focus-visible</code></td><td>Focus ring</td></tr>
+      </tbody>
+    </table>
+      <h2>Props</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>value</code></span></td><td><code>number</code></td><td><code>0</code></td><td>How many stars are filled. It is the checked radio's value, not a class — a class cannot carry a number.</td></tr>
+      <tr><td><span class="api__name"><code>max</code></span></td><td><code>number</code></td><td><code>5</code></td><td>How many stars the group has. The stylesheet ships five positions, so a group longer than that needs more rules.</td></tr>
+      <tr><td><span class="api__name"><code>color</code></span></td><td><code>enum = primary | success | warning | danger</code></td><td><code>primary</code></td><td>The colour of the filled stars. The primary colour is the base class on its own; the other three add um-rate--success, um-rate--warning or um-rate--danger.</td></tr>
+      <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes the group inert. It uses the real disabled attribute on the radios, so it leaves the tab order.</td></tr>
+      <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = small | medium | large</code></td><td><code>medium</code></td><td>How big the stars are. The medium size is the base class on its own, so it needs no modifier class.</td></tr>
+      </tbody>
+    </table>
+
+      <h2>Events</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>change</code></span></td><td>Fires when the reader picks another star. It is the browser's own event on the radio underneath — the library installs no listener.</td></tr>
+      </tbody>
+    </table>
+      <h2>Accessibility</h2>
+      <p><strong>Role:</strong> <code>radiogroup</code></p>
+        <p><strong>Keyboard:</strong> <code>Tab</code> <code>ArrowLeft</code> <code>ArrowRight</code></p>
+        <p>The stars are five real radio buttons in one group, so the browser announces the group, moves between the stars with the arrow keys and keeps the chosen one. Each radio needs an accessible name of its own — the label beside it carries no text, because the star is a drawn shape — so give every radio an aria-label such as &quot;3 out of 5&quot;. The drawn star is a picture and is hidden from the accessibility tree by the radio's own name; the focus ring goes on the item, because a clipped element cannot show an outline.</p>
+
+    </main>
+  </div>
+
+  <script>window.UM_THEMES = {"light":["anime","archive","bauhaus","brutal","clay","corporate","eco","fashion","food","forest","ios","luxury","medical","monochrome","nordic","pastel","retro","sakura","swiss","travel","y2k"],"dark":["aurora","blueprint","crypto","finance","gaming","glass","instrument","neon","night","vaporwave","verdant"]};
+  window.UM_DEFAULT_THEME = "aurora";</script>
+  <script src="../../themes/switcher.js"></script>
+  <script src="../../site/assets/site.js"></script>
+</body>
+</html>

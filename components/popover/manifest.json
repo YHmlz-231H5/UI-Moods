@@ -1,0 +1,160 @@
+{
+  "id": "popover",
+  "name": "Popover",
+  "nameZh": "气泡卡片",
+  "category": "feedback",
+  "element": "details, summary, div",
+  "summary": "A card that floats next to a trigger and holds more than a note: a heading, a body and a row of actions. The trigger is a <summary>, so the card opens and closes with the browser's own disclosure behaviour.",
+  "summaryZh": "浮在触发器旁边的一块卡片,比一句提示能装的东西多:一个标题、一段正文和一排操作。触发器是 <summary>,所以卡片的开关由浏览器自己的展开行为负责。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-popover",
+    "modifier": "um-popover--",
+    "part": "um-popover__"
+  },
+  "variants": [
+    {
+      "id": "top",
+      "name": "Above the trigger",
+      "nameZh": "上方",
+      "note": "The card opens above the trigger instead of below it."
+    },
+    {
+      "id": "left",
+      "name": "Left of the trigger",
+      "nameZh": "左侧",
+      "note": "The card opens to the left of the trigger."
+    },
+    {
+      "id": "right",
+      "name": "Right of the trigger",
+      "nameZh": "右侧",
+      "note": "The card opens to the right of the trigger."
+    }
+  ],
+  "sizes": [
+    { "id": "small", "name": "Small", "nameZh": "小", "note": "A narrow card. The width is a measure of the card's own type, so it grows with the mood's text." },
+    { "id": "medium", "name": "Medium", "nameZh": "中", "default": true, "note": "The default card. The base class is already this width, so it needs no modifier." },
+    { "id": "large", "name": "Large", "nameZh": "大", "note": "A wide card, for a body of text rather than a line of it." }
+  ],
+  "states": [
+    {
+      "id": "open",
+      "name": "Open",
+      "nameZh": "展开",
+      "selector": "[open]",
+      "note": "The trigger's <details> is open, so the card is shown."
+    }
+  ],
+  "parts": [
+    {
+      "id": "trigger",
+      "name": "Trigger",
+      "nameZh": "触发器",
+      "note": "The <summary> that opens the card. Its marker is a shape drawn from two borders."
+    },
+    {
+      "id": "content",
+      "name": "Content",
+      "nameZh": "内容",
+      "note": "The floating card. It sits on the overlay surface and carries its own shadow, because it is above the page rather than on it."
+    },
+    {
+      "id": "header",
+      "name": "Header",
+      "nameZh": "标题",
+      "note": "The heading of the card. It is separated from the body by a rule."
+    },
+    {
+      "id": "body",
+      "name": "Body",
+      "nameZh": "正文",
+      "note": "The text of the card. The body is optional — a card can hold a header and a footer alone."
+    },
+    {
+      "id": "footer",
+      "name": "Footer",
+      "nameZh": "底部",
+      "note": "The row at the bottom of the card, usually the actions."
+    }
+  ],
+  "props": [
+    {
+      "name": "placement",
+      "type": "enum",
+      "values": ["bottom", "top", "left", "right"],
+      "default": "bottom",
+      "description": "Where the card opens relative to the trigger. The bottom placement is the base class on its own; the other three add um-popover--top, um-popover--left or um-popover--right.",
+      "descriptionZh": "卡片相对触发器从哪里打开。bottom 就是只写基础类;另外三个分别加上 um-popover--top、um-popover--left、um-popover--right。"
+    },
+    {
+      "name": "width",
+      "type": "enum",
+      "values": ["small", "medium", "large"],
+      "default": "medium",
+      "description": "How wide the card is. The measures are in the card's own type, so the card grows with the mood's text instead of holding a fixed pixel width.",
+      "descriptionZh": "卡片有多宽。这几档用的是卡片自己的字号单位,所以卡片会跟着 mood 的文字一起变大,而不是卡在一个固定的像素宽度上。"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "The heading of the card. It is a real heading element, not a bold paragraph, so the reader can jump to it.",
+      "descriptionZh": "卡片的标题。它是一个真正的标题元素,不是加粗的段落,读者可以跳到它。"
+    }
+  ],
+  "slots": [
+    { "name": "header", "description": "The heading of the card.", "descriptionZh": "卡片的标题。" },
+    { "name": "body", "description": "The text of the card.", "descriptionZh": "卡片的正文。" },
+    { "name": "footer", "description": "The row at the bottom of the card.", "descriptionZh": "卡片底部的一行。" }
+  ],
+  "events": [
+    {
+      "name": "toggle",
+      "description": "Fires when the card opens or closes. It is the browser's own event on the <details> — the library installs no listener.",
+      "descriptionZh": "卡片打开或关闭时触发。这是 <details> 上的浏览器原生事件 —— 库没有安装任何监听器。"
+    }
+  ],
+  "a11y": {
+    "role": "dialog",
+    "keyboard": ["Tab", "Enter", "Space"],
+    "notes": "The trigger is a <summary>, so the browser announces it as a disclosure button and says whether the card is open. The card is not modal: it does not trap the focus, and whatever is inside it is an ordinary focusable element. Escape does not close it — a CSS-only library has no key handling to add — so the reader closes it with the same trigger they opened it with. Put the heading in a real heading element, so the reader can navigate by it.",
+    "notesZh": "触发器是 <summary>,浏览器会把它当作展开按钮播报,并说明卡片是开着还是关着。这张卡片不是模态的:它不困住焦点,里面的东西就是普通的可聚焦元素。Escape 关不掉它 —— 纯 CSS 的库没有键位处理可加 —— 所以读者用打开它的那个触发器把它关掉。标题要放在真正的标题元素里,读者才能靠它跳转。"
+  },
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Basic",
+      "titleZh": "基础用法",
+      "description": "A card with a heading, a body and a row of actions. The trigger opens it; the browser owns the open state.",
+      "descriptionZh": "一张带标题、正文和一排操作的卡片。触发器负责打开,打开状态由浏览器自己管。",
+      "markup": "<details class=\"um-popover\">\n  <summary class=\"um-popover__trigger\">Deployment</summary>\n  <div class=\"um-popover__content\">\n    <div class=\"um-popover__header\">Nightly deployment</div>\n    <div class=\"um-popover__body\">Six replicas are moved to the new build, one at a time, with a health check between each.</div>\n    <div class=\"um-popover__footer\">Last run finished in 4 minutes with no differences.</div>\n  </div>\n</details>"
+    },
+    {
+      "id": "without-a-footer",
+      "title": "Without a footer",
+      "titleZh": "没有底部",
+      "description": "The footer is optional. Without it the card is a heading and a paragraph, and the body keeps its own padding.",
+      "descriptionZh": "底部是可选的。没有它,卡片就是一个标题加一段话,正文仍然保留自己的内边距。",
+      "markup": "<details class=\"um-popover\">\n  <summary class=\"um-popover__trigger\">Quota</summary>\n  <div class=\"um-popover__content\">\n    <div class=\"um-popover__header\">68% of the plan limit</div>\n    <div class=\"um-popover__body\">Two more connectors will exceed the limit. The next billing cycle starts on the first of the month.</div>\n  </div>\n</details>"
+    },
+    {
+      "id": "placements",
+      "title": "Placements",
+      "titleZh": "位置",
+      "description": "The base class opens the card below the trigger. The three modifiers open it above, to the left or to the right.",
+      "descriptionZh": "基础类把卡片开在触发器下面。三个修饰类把它开在上面、左边或右边。",
+      "markup": "<details class=\"um-popover um-popover--top\">\n  <summary class=\"um-popover__trigger\">Above</summary>\n  <div class=\"um-popover__content\">\n    <div class=\"um-popover__body\">The card opens above the trigger.</div>\n  </div>\n</details>\n<details class=\"um-popover um-popover--left\">\n  <summary class=\"um-popover__trigger\">Left</summary>\n  <div class=\"um-popover__content\">\n    <div class=\"um-popover__body\">The card opens to the left of the trigger.</div>\n  </div>\n</details>\n<details class=\"um-popover um-popover--right\">\n  <summary class=\"um-popover__trigger\">Right</summary>\n  <div class=\"um-popover__content\">\n    <div class=\"um-popover__body\">The card opens to the right of the trigger.</div>\n  </div>\n</details>"
+    },
+    {
+      "id": "sizes",
+      "title": "Sizes",
+      "titleZh": "尺寸",
+      "description": "Three widths. The middle one is the base class on its own, because the base class is already the medium card.",
+      "descriptionZh": "三种宽度。中间那个只写基础类,因为基础类本来就是中号卡片。",
+      "markup": "<details class=\"um-popover um-popover--small\">\n  <summary class=\"um-popover__trigger\">Small</summary>\n  <div class=\"um-popover__content\">\n    <div class=\"um-popover__body\">A narrow card.</div>\n  </div>\n</details>\n<details class=\"um-popover\">\n  <summary class=\"um-popover__trigger\">Medium</summary>\n  <div class=\"um-popover__content\">\n    <div class=\"um-popover__body\">The default card.</div>\n  </div>\n</details>\n<details class=\"um-popover um-popover--large\">\n  <summary class=\"um-popover__trigger\">Large</summary>\n  <div class=\"um-popover__content\">\n    <div class=\"um-popover__body\">A wide card.</div>\n  </div>\n</details>"
+    }
+  ],
+  "notes": "The card is hidden with `display: none` and shown again by `[open]`, rather than left to the browser's rendering of a closed <details>. The browser hides a closed details with a slot, which is not guaranteed to catch a child that has been taken out of the flow — and this card is absolutely positioned, so it has been. Two lines of CSS buy a guarantee that the closed card is really gone.",
+  "notesZh": "卡片是用 `display: none` 藏起来的,再由 `[open]` 放出来,而不是交给浏览器对关闭状态下的 <details> 的渲染。浏览器用一个 slot 来藏关闭的 details,这个做法不保证能盖住被拿出文档流的子元素 —— 而这张卡片正是绝对定位的,也就是被拿出了文档流。多写两行 CSS,换来的是\"关着的卡片真的不在了\"这个保证。"
+}

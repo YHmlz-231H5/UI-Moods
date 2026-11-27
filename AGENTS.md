@@ -49,6 +49,19 @@ language in every mood, and it is the only path whose contrast is measured.
    <link rel="stylesheet" href="themes/glass.css">
    ```
 
+   If the page lets the user pick a mood, link every mood once and name it on
+   the document instead — the switch then costs no network request:
+
+   ```html
+   <link rel="stylesheet" href="components/um-components.css">
+   <link rel="stylesheet" href="themes/all.css">
+   <script src="themes/switcher.js"></script>
+   ```
+
+   ```js
+   UMTheme.set("night");
+   ```
+
 2. Use the `um-` classes. The variants are `--primary` `--default` `--text`
    `--success` `--warning` `--danger`, the sizes are `--sm` `--md` `--lg`,
    and the states are the real form states (`:checked`, `:disabled`,
@@ -70,6 +83,43 @@ language in every mood, and it is the only path whose contrast is measured.
    the catalogue are all generated from those two files
    (`ui-moods build-components`, `ui-moods build-docs`, `ui-moods build-types`).
    Never hand-edit `components/um-components.css` or anything under `site/`.
+
+5. If you are **changing a theme file**, change `moods/<id>/tokens.json` and
+   regenerate. `themes/<id>.css` is generated, and its scope selectors are
+   load-bearing: `:root[data-um-theme="<id>"]` has to stay one step more
+   specific than `:root`, or several moods on one page will fight over
+   `:root` and the mood in force will depend on the order the files were
+   linked in.
+
+6. If you are **adding a Vue component**, the wrapper lives in
+   `vue/components/<id>.js` and follows `docs/vue-components.md`: the name is
+   `UM<PascalCase>`, the props are the manifest's props, and the classes it
+   paints are the classes the stylesheet declares. `node tools/check-vue.mjs`
+   checks that, and `vue/components/index.js` is generated — never edit it by
+   hand.
+
+7. If you are **painting a shape whose colour carries the meaning on its
+   own** — a timeline node, a rating star — use the `graphic` form of the
+   status colour (`--um-color-warning-graphic`), not the fill form. The fill
+   form clears 4.5:1 as a background for text and clears nothing as a picture:
+   measured across the 32 moods, the raw warning colour sits at 1.39:1 on a
+   container. The `graphic` roles are contracted to 3:1 and hold in every mood.
+
+8. If you are **painting a surface**, paint it once. A frame that owns a
+   surface paints it and the thing inside the frame paints nothing: two
+   translucent layers are a colour no role names, and a guarantee made against
+   one of them is a guarantee about a surface nobody sees. And a line colour
+   never sits under a translucent cell — a cell with a line under it paints
+   the flattened surface (`surface-panel`) instead.
+
+9. If you change the **component layer or the role contract**, measure the
+   result, do not eyeball it. `node tools/audit-contrast.mjs` prints every
+   contract pair across the 32 moods and exits 1 when one falls short; the
+   rendered pages are measured by `tools/probe/contrast.html`, which loads
+   every component's examples, walks the document once per mood and measures
+   what the browser actually painted. The current run is 11 392 measurements
+   with zero failures, and a change that moves it is a change to the library's
+   promise.
 
 `site/index.html` is the documentation: an overview plus one page per
 component, with the examples, the API tables and the class list, and a live

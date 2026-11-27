@@ -6,6 +6,38 @@
   "bin": {
     "ui-moods": "./tools/cli.mjs"
   },
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "default": "./tools/cli.mjs"
+    },
+    "./vue": {
+      "types": "./vue/index.d.ts",
+      "default": "./vue/index.js"
+    },
+    "./types": {
+      "types": "./types/index.d.ts",
+      "default": "./types/index.d.ts"
+    },
+    "./themes/all.css": "./themes/all.css",
+    "./themes/switcher": {
+      "types": "./themes/switcher.d.ts",
+      "default": "./themes/switcher.js"
+    },
+    "./themes/switcher.js": "./themes/switcher.js",
+    "./components/um-components.css": "./components/um-components.css",
+    "./themes/index.json": "./themes/index.json",
+    "./package.json": "./package.json"
+  },
+  "types": "./types/index.d.ts",
+  "peerDependencies": {
+    "vue": "^3.5.0"
+  },
+  "peerDependenciesMeta": {
+    "vue": {
+      "optional": true
+    }
+  },
   "engines": {
     "node": ">=18"
   },
@@ -17,6 +49,16 @@
   "scripts": {
     "build-specimen": "node tools/build-specimen.mjs",
     "build-apps": "node tools/build-apps.mjs --all",
+    "build-components": "node tools/build-components.mjs",
+    "build-themes": "node tools/build-themes.mjs",
+    "build-docs": "node tools/build-docs.mjs",
+    "build-types": "node tools/build-types.mjs",
+    "build-vue": "node tools/build-vue.mjs",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "typecheck:wrappers": "tsc -p tsconfig.wrappers.json --noEmit",
+    "check-vue": "node tools/check-vue.mjs",
+    "audit-contrast": "node tools/audit-contrast.mjs",
+    "verify-themes": "node tools/verify-themes.mjs",
     "validate": "node tools/validate.mjs",
     "bundle": "node tools/bundle.mjs",
     "serve": "node tools/serve.mjs",
@@ -30,5 +72,10 @@
     "ai-agents",
     "specimen",
     "mobile-ui"
-  ]
+  ],
+  "devDependencies": {
+    "@vue/server-renderer": "^3.5.46",
+    "typescript": "^5.6.3",
+    "vue": "^3.5.46"
+  }
 }

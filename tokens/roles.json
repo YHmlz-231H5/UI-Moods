@@ -369,6 +369,24 @@
       ],
       "doc": "The effective surface of a text field inside a container, flattened to one opaque colour. See surface-control."
     },
+    "surface-panel": {
+      "op": "flatten",
+      "stack": [
+        "fill-blank",
+        "bg-page"
+      ],
+      "doc": "The effective surface of a panel cell, flattened to one opaque colour. It carries the same colour as the plain fill over the page, but it is a different job: this one is painted rather than only measured. A cell that sits on a line — a bordered table of key and value, where the gap between the cells *is* the line — cannot paint a translucent fill, because the line colour would come through it and lift the cell off the surface the contract describes. Painting the flattened colour gives the cell the colour it would have had anyway, in one layer, and the line stays in the gap."
+    },
+    "surface-table-header": {
+      "op": "flatten",
+      "stack": [
+        "fill-base",
+        "fill-blank",
+        "bg-container",
+        "bg-page"
+      ],
+      "doc": "The effective surface of a table's header cell: the recessed fill over the table's own fill, flattened to one opaque colour. A table paints its surface once, but the header paints a fill of its own on top of it, and a header measured against the fill alone is measured against a colour nobody sees."
+    },
     "border-base": {
       "from": "colors.border",
       "doc": "Default border."
@@ -601,12 +619,89 @@
       "target": 4.5,
       "mode": "atleast",
       "doc": "The info colour used as text. Derived against the page, the overlay and the container together"
+    },
+    "color-primary-graphic": {
+      "op": "contrast",
+      "base": "color-primary",
+      "toward": "text-primary",
+      "against": [
+        "bg-page",
+        "bg-container"
+      ],
+      "target": 3,
+      "mode": "atleast",
+      "doc": "The brand colour used as a shape rather than as a fill — a timeline node, a checked box, a rating star. WCAG asks 3:1 of a graphic that has to be seen to be understood, not the 4.5:1 it asks of text, so the brand colour is moved just far enough to read as a shape. The raw colour is not enough: the brutal accent on a light container sits at 1.43:1, which is a checked checkbox nobody can see."
+    },
+    "color-success-graphic": {
+      "op": "contrast",
+      "base": "color-success",
+      "toward": "text-primary",
+      "against": [
+        "bg-page",
+        "bg-container"
+      ],
+      "target": 3,
+      "mode": "atleast",
+      "doc": "The success colour used as a shape — a timeline node, a finished step."
+    },
+    "color-warning-graphic": {
+      "op": "contrast",
+      "base": "color-warning",
+      "toward": "text-primary",
+      "against": [
+        "bg-page",
+        "bg-container"
+      ],
+      "target": 3,
+      "mode": "atleast",
+      "doc": "The warning colour used as a shape — a timeline node, a rate's warning stars."
+    },
+    "color-danger-graphic": {
+      "op": "contrast",
+      "base": "color-danger",
+      "toward": "text-primary",
+      "against": [
+        "bg-page",
+        "bg-container"
+      ],
+      "target": 3,
+      "mode": "atleast",
+      "doc": "The danger colour used as a shape — a timeline node, an errored step."
+    },
+    "color-info-graphic": {
+      "op": "contrast",
+      "base": "color-info",
+      "toward": "text-primary",
+      "against": [
+        "bg-page",
+        "bg-container"
+      ],
+      "target": 3,
+      "mode": "atleast",
+      "doc": "The info colour used as a shape."
+    },
+    "shape-muted": {
+      "op": "fade",
+      "base": "text-secondary",
+      "toward": "bg-page",
+      "away": "text-primary",
+      "against": [
+        "bg-page",
+        "bg-container"
+      ],
+      "target": 3,
+      "doc": "A shape that is only a placeholder and still has to be seen — the empty star of a rating, the empty box of a checkbox. The border roles are lines: a hairline is allowed to be faint, because the label beside it carries the meaning. A shape has no label. The empty star of a five-star rating is the scale: without it the three filled stars are just three shapes, and the reader cannot tell whether they are looking at a five-star rating or a three-star one. It is faded from the muted text colour — the faintest colour that still clears 3:1 — rather than from the border colour, because a mood may declare its border transparent (clay does), and a shape cannot be transparent and still be a shape."
     }
   },
   "optional": [
     "glow",
     "backdrop"
   ],
+  "optionalAbsentNote": "The value an optional role takes when the mood does not declare it. It is written into the theme file all the same, because a role that is simply missing from a declaration list is a role that inherits from whichever theme file was linked after it — a mood with no glow would end up wearing another mood's glow.",
+  "optionalAbsent": {
+    "glow": "none",
+    "backdrop": "none"
+  },
   "componentConstantsNote": "Shape and layout constants that are not theme parameters. A theme changes colours and metrics, not the fact that a circle is round. The component layer declares all of them; `validate` checks that it does and that it reads nothing else.",
   "componentConstants": {
     "--um-radius-circle": "50% — a circle is round in every mood.",
@@ -964,6 +1059,153 @@
       "bg": "bg-container",
       "min": 4.5,
       "doc": "A caption inside a container."
+    },
+    {
+      "name": "primary graphic on page",
+      "fg": "color-primary-graphic",
+      "bg": "bg-page",
+      "min": 3,
+      "doc": "A brand-coloured shape on the page — a timeline node, a checked box, a rating star. 3:1 is the bar WCAG sets for a graphic that has to be seen to be understood; the label beside it is held to 4.5 by the text pairs above."
+    },
+    {
+      "name": "primary graphic on container",
+      "fg": "color-primary-graphic",
+      "bg": "bg-container",
+      "min": 3,
+      "doc": "A brand-coloured shape inside a card."
+    },
+    {
+      "name": "success graphic on page",
+      "fg": "color-success-graphic",
+      "bg": "bg-page",
+      "min": 3,
+      "doc": "A success-coloured shape on the page."
+    },
+    {
+      "name": "success graphic on container",
+      "fg": "color-success-graphic",
+      "bg": "bg-container",
+      "min": 3,
+      "doc": "A success-coloured shape inside a card."
+    },
+    {
+      "name": "warning graphic on page",
+      "fg": "color-warning-graphic",
+      "bg": "bg-page",
+      "min": 3,
+      "doc": "A warning-coloured shape on the page."
+    },
+    {
+      "name": "warning graphic on container",
+      "fg": "color-warning-graphic",
+      "bg": "bg-container",
+      "min": 3,
+      "doc": "A warning-coloured shape inside a card."
+    },
+    {
+      "name": "danger graphic on page",
+      "fg": "color-danger-graphic",
+      "bg": "bg-page",
+      "min": 3,
+      "doc": "A danger-coloured shape on the page."
+    },
+    {
+      "name": "danger graphic on container",
+      "fg": "color-danger-graphic",
+      "bg": "bg-container",
+      "min": 3,
+      "doc": "A danger-coloured shape inside a card."
+    },
+    {
+      "name": "info graphic on page",
+      "fg": "color-info-graphic",
+      "bg": "bg-page",
+      "min": 3,
+      "doc": "An info-coloured shape on the page."
+    },
+    {
+      "name": "info graphic on container",
+      "fg": "color-info-graphic",
+      "bg": "bg-container",
+      "min": 3,
+      "doc": "An info-coloured shape inside a card."
+    },
+    {
+      "name": "header on the recessed fill",
+      "fg": "text-primary",
+      "bg": "fill-base",
+      "min": 4.5,
+      "doc": "A table's header label. The header sits on the recessed fill rather than the light one, so that a hovered row — which takes the light fill — never looks like a second header."
+    },
+    {
+      "name": "body on the recessed fill",
+      "fg": "text-regular",
+      "bg": "fill-base",
+      "min": 4.5,
+      "doc": "Body text on the recessed fill, for a table that paints its whole surface that way."
+    },
+    {
+      "name": "a muted shape on the page",
+      "fg": "shape-muted",
+      "bg": "bg-page",
+      "min": 3,
+      "doc": "A placeholder shape on the page — the empty star of a rating, the empty box of a checkbox. 3:1: a shape that carries no meaning of its own still has to be perceivable, or the meaning-carrying shape beside it has no scale."
+    },
+    {
+      "name": "a muted shape in a container",
+      "fg": "shape-muted",
+      "bg": "bg-container",
+      "min": 3,
+      "doc": "A placeholder shape inside a card."
+    },
+    {
+      "name": "muted on the plain surface",
+      "fg": "text-secondary",
+      "bg": "fill-blank",
+      "min": 4.5,
+      "doc": "A caption on a panel that paints the plain fill — a table's empty cell, a description's label. The plain fill is the same colour as the overlay surface, so the muted role is held to the same bar there."
+    },
+    {
+      "name": "body on the plain surface",
+      "fg": "text-regular",
+      "bg": "fill-blank",
+      "min": 4.5,
+      "doc": "Body text inside a panel that paints the plain fill — the cells of a table."
+    },
+    {
+      "name": "muted on a bordered cell",
+      "fg": "text-secondary",
+      "bg": "surface-panel",
+      "min": 4.5,
+      "doc": "The label of a key and value pair in its bordered form. The cell paints the flattened surface, because the line colour of the border cannot come through a translucent cell."
+    },
+    {
+      "name": "heading on a bordered cell",
+      "fg": "text-primary",
+      "bg": "surface-panel",
+      "min": 4.5,
+      "doc": "The value of a key and value pair in its bordered form."
+    },
+    {
+      "name": "header on the table surface",
+      "fg": "text-primary",
+      "bg": "surface-table-header",
+      "min": 4.5,
+      "doc": "A table's column heading, which sits on the recessed fill over the table's own fill."
+    },
+    {
+      "name": "body on a light fill",
+      "fg": "text-regular",
+      "bg": "fill-light",
+      "min": 4.5,
+      "doc": "Body text on the light fill — a hovered table row, a hovered menu item."
+    },
+    {
+      "name": "body on a lighter fill",
+      "fg": "text-regular",
+      "bg": "fill-lighter",
+      "min": 4.5,
+      "doc": "Body text on the lighter fill — the striped row of a table."
     }
   ]
 }

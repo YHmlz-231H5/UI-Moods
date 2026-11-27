@@ -130,13 +130,15 @@ from the specimen's:
 
 The component library is new, and the honest limits are these:
 
-- **15 components so far, 17 Element Plus equivalents** — button, input,
-  textarea, select, field, switch, checkbox, radio, slider, badge, tag, alert,
-  card, progress, empty, divider, skeleton. The `input` manifest covers Input,
-  Textarea and Select, and the `field` manifest covers Form and Form Item.
-  Tabs, table, dialog, dropdown, menu, pagination, avatar, tooltip
-  and message are the next batch. A component that does not exist yet cannot be
-  themed, only hand-built.
+- **39 components so far, 39 Element Plus equivalents** — the fifteen the
+  library started with (button, input, textarea, select, field, switch,
+  checkbox, radio, slider, badge, tag, alert, card, progress, empty, divider,
+  skeleton), then fourteen more across forms and data display, and ten across
+  navigation and feedback. The `input` manifest covers Input, Textarea and
+  Select, and the `field` manifest covers Form and Form Item. The full
+  Element Plus surface is 82; `docs/component-parity.md` lists what is still
+  missing. A component that does not exist yet cannot be themed, only
+  hand-built.
 - **No JavaScript, so no composed components** — a dialog, a dropdown and a
   tooltip need behaviour that `:checked` and `:focus-within` can only partly
   provide. The library ships the parts that can be expressed in CSS and leaves
@@ -149,11 +151,16 @@ The component library is new, and the honest limits are these:
   against the page, an overlay, a container and the library's own control
   fills. A host that stacks a component inside a surface the library does not
   know about (a coloured panel, a photograph) is outside what is measured.
-  `surface-control` and `surface-input` name the two stacks the library does
-  know, both flattened to one opaque colour. The library's own derived fills
-  (`fill-base`, `fill-light`, `fill-lighter`) are covered for the roles the
-  component layer paints on them; a role added later has to name them too, or
-  the contract has a hole in it that only shows up on one surface.
+  `surface-control`, `surface-input`, `surface-panel` and
+  `surface-table-header` name the stacks the library does know, each flattened
+  to one opaque colour. The library's own derived fills (`fill-base`,
+  `fill-light`, `fill-lighter`) are covered for the roles the component layer
+  paints on them; a role added later has to name them too, or the contract
+  has a hole in it that only shows up on one surface.
+- **The rendered pages are measured, the host's page is not** — the probe
+  measures what the library renders on its own documentation pages, across all
+  32 moods: 11 392 measurements, zero failures. A host that puts the library
+  on a surface the library does not know is outside that measurement.
 - **A mood's own colours are not repaired** — in 20 of the 32 moods
   `colors.muted` is below 4.5:1 as text, and `colors.border` is a hairline in
   several more. The library routes around them with derived roles; it does not
@@ -161,11 +168,20 @@ The component library is new, and the honest limits are these:
   to change the mood.
 - **The theme files are static** — `themes/<id>.css` is generated once from
   `moods/<id>/tokens.json`. Changing a mood means regenerating the themes
-  (`ui-moods build-themes`), not editing the CSS by hand.
-- **No Vue 3 package yet** — the component layer is plain HTML and CSS. The
-  manifest is framework-neutral on purpose, so a Vue wrapper can be generated
-  from the same files later, but it does not exist yet and the repository has
-  no build toolchain, no peer dependencies and no published package.
+  (`ui-moods build-themes`), not editing the CSS by hand. What a *host* does
+  with a theme is not static, though: `themes/all.css` carries all 32 moods
+  at once and the mood in force is one attribute on the document, so a
+  runtime switch costs no request and a median of 1.4 ms.
+- **The Vue 3 package exists, but it is thin** — `vue/` ships one wrapper per
+  component, generated from the same manifests as the CSS, and every wrapper is
+  checked against its manifest by `tools/check-vue.mjs`. It applies the
+  variant and size classes, exposes the manifest's props and puts the caller's
+  content in a slot; it re-implements nothing. There is no build step (the
+  wrappers are render functions), no test suite and no published package, and
+  a component whose behaviour needs JavaScript still needs the host to write
+  it. A project that wants no framework can skip the package entirely: link
+  `components/um-components.css` and `themes/all.css`, write the `um-`
+  classes, and switch the mood by setting one attribute.
 - **The documentation site is generated, not written** — every page comes
   from a manifest, which is what keeps it honest, but it means a component
   whose behaviour deserves prose has to put that prose in its manifest's

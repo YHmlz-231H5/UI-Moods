@@ -11,6 +11,10 @@
 //   build-components  assemble the component stylesheet from the manifests
 //   build-docs      generate the component documentation site
 //   build-types     generate types/index.d.ts from the manifests
+//   build-vue       generate the Vue 3 package from the manifests
+//   check-vue       check every Vue wrapper against the manifest it was written from
+//   audit-contrast  print the measured contrast of the contract across every mood
+//   verify-themes   check themes/all.css against the single-file themes
 //   scaffold        create a new mood package from the template
 
 const commands = [
@@ -23,6 +27,10 @@ const commands = [
   "build-components",
   "build-docs",
   "build-types",
+  "build-vue",
+  "check-vue",
+  "audit-contrast",
+  "verify-themes",
   "scaffold",
 ];
 
@@ -41,6 +49,10 @@ Usage:
   ui-moods build-components               Assemble components/um-components.css
   ui-moods build-docs                     Generate the component documentation site
   ui-moods build-types                    Generate types/index.d.ts
+  ui-moods build-vue                       Generate the Vue 3 package
+  ui-moods check-vue                       Check the Vue wrappers against the manifests
+  ui-moods audit-contrast                  Print the measured contrast of every mood
+  ui-moods verify-themes                   Check themes/all.css against the single-file themes
   ui-moods scaffold <id> [--mood <id>]    Create a new mood package from the template
   ui-moods --help                         Show this help
 `);

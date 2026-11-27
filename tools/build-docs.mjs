@@ -135,8 +135,10 @@ function page({ title, description, depthPrefix, body, activeId }) {
   <meta name="description" content="${esc(description)}" />
 
   <!-- The two files that make the whole thing work.
-       Swapping the second one re-skins every component on the page. -->
-  <link rel="stylesheet" id="um-theme" href="${depthPrefix}themes/${defaultTheme}.css" />
+       The first is the library; the second carries all thirty-two moods at
+       once, so the picker below changes an attribute instead of loading a
+       file — the switch has no network request to wait for. -->
+  <link rel="stylesheet" id="um-theme" href="${depthPrefix}themes/all.css" />
   <link rel="stylesheet" href="${depthPrefix}components/um-components.css" />
   <link rel="stylesheet" href="${depthPrefix}site/assets/site.css" />
 </head>
@@ -151,7 +153,9 @@ ${body}
     </main>
   </div>
 
-  <script>window.UM_THEMES = ${JSON.stringify(themes)};</script>
+  <script>window.UM_THEMES = ${JSON.stringify(themes)};
+  window.UM_DEFAULT_THEME = ${JSON.stringify(defaultTheme)};</script>
+  <script src="${depthPrefix}themes/switcher.js"></script>
   <script src="${depthPrefix}site/assets/site.js"></script>
 </body>
 </html>

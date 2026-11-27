@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Avatar · UI Moods</title>
+  <meta name="description" content="A small picture of a person. It takes a photo, a pair of initials or an icon, and it keeps the shape of whichever mood it is in." />
+
+  <!-- The two files that make the whole thing work.
+       The first is the library; the second carries all thirty-two moods at
+       once, so the picker below changes an attribute instead of loading a
+       file — the switch has no network request to wait for. -->
+  <link rel="stylesheet" id="um-theme" href="../../themes/all.css" />
+  <link rel="stylesheet" href="../../components/um-components.css" />
+  <link rel="stylesheet" href="../../site/assets/site.css" />
+</head>
+<body>
+  <header class="site-header">
+      <a class="site-header__brand" href="../../index.html">UI Moods<span>Component Library</span></a>
+      <div class="site-header__spacer"></div>
+      <div class="switcher">
+        <label class="switcher__label" for="um-theme-picker">Theme</label>
+        <span class="switcher__field">
+          <select class="switcher__select" id="um-theme-picker"></select>
+        </span>
+      </div>
+    </header>
+  <div class="site-body">
+    <nav class="site-sidebar" aria-label="Components">
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Basic · 基础</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/typography.html">Typography <span class="meta">文字排版</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Form · 表单</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/button.html">Button <span class="meta">按钮</span></a></li>
+          <li><a href="../component/checkbox.html">Checkbox <span class="meta">复选框</span></a></li>
+          <li><a href="../component/checkbox-group.html">Checkbox Group <span class="meta">复选框组</span></a></li>
+          <li><a href="../component/date-picker.html">Date Picker <span class="meta">日期选择器</span></a></li>
+          <li><a href="../component/field.html">Field <span class="meta">表单项</span></a></li>
+          <li><a href="../component/input.html">Input / Textarea / Select <span class="meta">输入框 / 文本域 / 选择器</span></a></li>
+          <li><a href="../component/input-number.html">Input Number <span class="meta">数字输入框</span></a></li>
+          <li><a href="../component/radio.html">Radio <span class="meta">单选框</span></a></li>
+          <li><a href="../component/radio-group.html">Radio Group <span class="meta">单选框组</span></a></li>
+          <li><a href="../component/rate.html">Rate <span class="meta">评分</span></a></li>
+          <li><a href="../component/slider.html">Slider <span class="meta">滑块</span></a></li>
+          <li><a href="../component/switch.html">Switch <span class="meta">开关</span></a></li>
+          <li><a href="../component/upload.html">Upload <span class="meta">上传</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Data · 数据展示</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="" aria-current="page">Avatar <span class="meta">头像</span></a></li>
+          <li><a href="../component/badge.html">Badge <span class="meta">徽标</span></a></li>
+          <li><a href="../component/card.html">Card <span class="meta">卡片</span></a></li>
+          <li><a href="../component/cascader.html">Cascader <span class="meta">级联选择器</span></a></li>
+          <li><a href="../component/descriptions.html">Descriptions <span class="meta">描述列表</span></a></li>
+          <li><a href="../component/empty.html">Empty <span class="meta">空状态</span></a></li>
+          <li><a href="../component/progress.html">Progress <span class="meta">进度条</span></a></li>
+          <li><a href="../component/result.html">Result <span class="meta">结果</span></a></li>
+          <li><a href="../component/skeleton.html">Skeleton <span class="meta">骨架屏</span></a></li>
+          <li><a href="../component/statistic.html">Statistic <span class="meta">统计数值</span></a></li>
+          <li><a href="../component/table.html">Table <span class="meta">表格</span></a></li>
+          <li><a href="../component/tag.html">Tag <span class="meta">标签</span></a></li>
+          <li><a href="../component/timeline.html">Timeline <span class="meta">时间线</span></a></li>
+          <li><a href="../component/transfer.html">Transfer <span class="meta">穿梭框</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Navigation · 导航</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/breadcrumb.html">Breadcrumb <span class="meta">面包屑</span></a></li>
+          <li><a href="../component/dropdown.html">Dropdown <span class="meta">下拉菜单</span></a></li>
+          <li><a href="../component/menu.html">Menu <span class="meta">菜单</span></a></li>
+          <li><a href="../component/pagination.html">Pagination <span class="meta">分页</span></a></li>
+          <li><a href="../component/steps.html">Steps <span class="meta">步骤条</span></a></li>
+          <li><a href="../component/tabs.html">Tabs <span class="meta">标签页</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Feedback · 反馈</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/alert.html">Alert <span class="meta">警告</span></a></li>
+          <li><a href="../component/loading.html">Loading <span class="meta">加载中</span></a></li>
+          <li><a href="../component/popover.html">Popover <span class="meta">气泡卡片</span></a></li>
+          <li><a href="../component/tooltip.html">Tooltip <span class="meta">文字提示</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Others · 其他</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/divider.html">Divider <span class="meta">分割线</span></a></li>
+        </ul>
+      </div>
+    </nav>
+    <main class="site-main">
+      <h1>Avatar <span class="meta">头像</span></h1>
+      <p class="lede">A small picture of a person. It takes a photo, a pair of initials or an icon, and it keeps the shape of whichever mood it is in.</p>
+      <p class="meta">
+        <span class="tag">span, img</span>
+        <span class="tag">data</span>
+        <span class="tag">since 1.1.0</span>
+      </p>
+      <div class="note">The library cannot fall back on its own — no script may run — so the host decides which of the three forms is written: the image, the initials or the icon. A CSS-only fallback would need to know whether the picture loaded, and that is exactly the kind of thing the browser will not tell it.</div>
+
+      <h2>Examples</h2>
+<div class="example">
+        <div class="example__title">Sizes · 尺寸</div>
+        <div class="example__desc">Four sizes, each one a step of the mood's own control height, so an avatar in a list of controls lines up with them.</div>
+        <div class="example__demo">
+<span class="um-avatar um-avatar--sm">ZM</span>
+<span class="um-avatar">ZM</span>
+<span class="um-avatar um-avatar--lg">ZM</span>
+<span class="um-avatar um-avatar--xl">ZM</span>
+        </div>
+        <pre class="example__code">&lt;span class=&quot;um-avatar um-avatar--sm&quot;&gt;ZM&lt;/span&gt;
+&lt;span class=&quot;um-avatar&quot;&gt;ZM&lt;/span&gt;
+&lt;span class=&quot;um-avatar um-avatar--lg&quot;&gt;ZM&lt;/span&gt;
+&lt;span class=&quot;um-avatar um-avatar--xl&quot;&gt;ZM&lt;/span&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">Shapes · 形状</div>
+        <div class="example__desc">The round one is the base class. The square one takes the mood's own corner radius rather than a fixed one.</div>
+        <div class="example__demo">
+<span class="um-avatar um-avatar--circle">ZM</span>
+<span class="um-avatar um-avatar--square">ZM</span>
+        </div>
+        <pre class="example__code">&lt;span class=&quot;um-avatar um-avatar--circle&quot;&gt;ZM&lt;/span&gt;
+&lt;span class=&quot;um-avatar um-avatar--square&quot;&gt;ZM&lt;/span&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">A photo · 照片</div>
+        <div class="example__desc">The photo is the host's own: an img element with a src the host chooses. This example points at an empty placeholder, so the page asks for nothing and the avatar's own surface shows through.</div>
+        <div class="example__demo">
+<span class="um-avatar um-avatar--lg">
+  <img class="um-avatar__image" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3C/svg%3E" alt="Zhao Ming">
+</span>
+        </div>
+        <pre class="example__code">&lt;span class=&quot;um-avatar um-avatar--lg&quot;&gt;
+  &lt;img class=&quot;um-avatar__image&quot; src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3C/svg%3E&quot; alt=&quot;Zhao Ming&quot;&gt;
+&lt;/span&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">An icon · 图标</div>
+        <div class="example__desc">The icon slot is empty and takes an SVG from the host. The SVG inherits the colour of the slot, so it follows the mood.</div>
+        <div class="example__demo">
+<span class="um-avatar um-avatar--lg">
+  <span class="um-avatar__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></span>
+</span>
+        </div>
+        <pre class="example__code">&lt;span class=&quot;um-avatar um-avatar--lg&quot;&gt;
+  &lt;span class=&quot;um-avatar__icon&quot; aria-hidden=&quot;true&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt;&lt;path d=&quot;M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2&quot;&gt;&lt;/path&gt;&lt;circle cx=&quot;12&quot; cy=&quot;7&quot; r=&quot;4&quot;&gt;&lt;/circle&gt;&lt;/svg&gt;&lt;/span&gt;
+&lt;/span&gt;</pre>
+      </div>
+      <h2>Classes</h2>
+<table class="api">
+      <thead><tr><th>Class</th><th>Meaning</th></tr></thead>
+      <tbody>
+      <tr><td><code>um-avatar</code></td><td>The base class. Every instance carries it.</td></tr>
+      <tr><td><code>um-avatar--circle</code></td><td>Circle</td></tr>
+      <tr><td><code>um-avatar--square</code></td><td>Square</td></tr>
+      <tr><td><code>um-avatar--sm</code></td><td>Size: sm</td></tr>
+      <tr><td><code>um-avatar--md</code></td><td>Size: md</td></tr>
+      <tr><td><code>um-avatar--lg</code></td><td>Size: lg</td></tr>
+      <tr><td><code>um-avatar--xl</code></td><td>Size: xl</td></tr>
+      <tr><td><code>um-avatar__image</code></td><td>Image</td></tr>
+      <tr><td><code>um-avatar__icon</code></td><td>Icon</td></tr>
+      </tbody>
+    </table>
+      <h2>Props</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>variant</code></span></td><td><code>enum = circle | square</code></td><td><code>circle</code></td><td>The shape of the avatar. The base class is already the round one.</td></tr>
+      <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg | xl</code></td><td><code>md</code></td><td>The width and height of the box, and the size of the initials in it.</td></tr>
+      <tr><td><span class="api__name"><code>alt</code></span></td><td><code>string</code></td><td>—</td><td>The alternative text of the photo. Leave it empty when the name is already written next to the avatar.</td></tr>
+      </tbody>
+    </table>
+      <h2>Slots</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>image</code></span></td><td>The photo, as an img element.</td></tr>
+      <tr><td><span class="api__name"><code>icon</code></span></td><td>An icon, as an SVG. The slot itself is empty.</td></tr>
+      </tbody>
+    </table>
+
+      <h2>Accessibility</h2>
+      <p>The avatar is usually next to the name, so the photo is often decoration: give the img an empty alt when the name is already there, and the person's name when it is not. The initials are read as the characters they are, so two letters read as two letters.</p>
+
+    </main>
+  </div>
+
+  <script>window.UM_THEMES = {"light":["anime","archive","bauhaus","brutal","clay","corporate","eco","fashion","food","forest","ios","luxury","medical","monochrome","nordic","pastel","retro","sakura","swiss","travel","y2k"],"dark":["aurora","blueprint","crypto","finance","gaming","glass","instrument","neon","night","vaporwave","verdant"]};
+  window.UM_DEFAULT_THEME = "aurora";</script>
+  <script src="../../themes/switcher.js"></script>
+  <script src="../../site/assets/site.js"></script>
+</body>
+</html>

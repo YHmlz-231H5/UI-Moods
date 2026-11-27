@@ -7,8 +7,10 @@
   <meta name="description" content="UI Moods component library — one implementation, 32 skins." />
 
   <!-- The two files that make the whole thing work.
-       Swapping the second one re-skins every component on the page. -->
-  <link rel="stylesheet" id="um-theme" href="../themes/aurora.css" />
+       The first is the library; the second carries all thirty-two moods at
+       once, so the picker below changes an attribute instead of loading a
+       file — the switch has no network request to wait for. -->
+  <link rel="stylesheet" id="um-theme" href="../themes/all.css" />
   <link rel="stylesheet" href="../components/um-components.css" />
   <link rel="stylesheet" href="../site/assets/site.css" />
 </head>
@@ -25,35 +27,67 @@
     </header>
   <div class="site-body">
     <nav class="site-sidebar" aria-label="Components">
-      
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Basic · 基础</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/typography.html">Typography <span class="meta">文字排版</span></a></li>
+        </ul>
+      </div>
       <div class="site-sidebar__group">
         <h2 class="site-sidebar__title">Form · 表单</h2>
         <ul class="site-sidebar__list">
           <li><a href="../component/button.html">Button <span class="meta">按钮</span></a></li>
           <li><a href="../component/checkbox.html">Checkbox <span class="meta">复选框</span></a></li>
+          <li><a href="../component/checkbox-group.html">Checkbox Group <span class="meta">复选框组</span></a></li>
+          <li><a href="../component/date-picker.html">Date Picker <span class="meta">日期选择器</span></a></li>
           <li><a href="../component/field.html">Field <span class="meta">表单项</span></a></li>
           <li><a href="../component/input.html">Input / Textarea / Select <span class="meta">输入框 / 文本域 / 选择器</span></a></li>
+          <li><a href="../component/input-number.html">Input Number <span class="meta">数字输入框</span></a></li>
           <li><a href="../component/radio.html">Radio <span class="meta">单选框</span></a></li>
+          <li><a href="../component/radio-group.html">Radio Group <span class="meta">单选框组</span></a></li>
+          <li><a href="../component/rate.html">Rate <span class="meta">评分</span></a></li>
           <li><a href="../component/slider.html">Slider <span class="meta">滑块</span></a></li>
           <li><a href="../component/switch.html">Switch <span class="meta">开关</span></a></li>
+          <li><a href="../component/upload.html">Upload <span class="meta">上传</span></a></li>
         </ul>
       </div>
       <div class="site-sidebar__group">
         <h2 class="site-sidebar__title">Data · 数据展示</h2>
         <ul class="site-sidebar__list">
+          <li><a href="../component/avatar.html">Avatar <span class="meta">头像</span></a></li>
           <li><a href="../component/badge.html">Badge <span class="meta">徽标</span></a></li>
           <li><a href="../component/card.html">Card <span class="meta">卡片</span></a></li>
+          <li><a href="../component/cascader.html">Cascader <span class="meta">级联选择器</span></a></li>
+          <li><a href="../component/descriptions.html">Descriptions <span class="meta">描述列表</span></a></li>
           <li><a href="../component/empty.html">Empty <span class="meta">空状态</span></a></li>
           <li><a href="../component/progress.html">Progress <span class="meta">进度条</span></a></li>
+          <li><a href="../component/result.html">Result <span class="meta">结果</span></a></li>
           <li><a href="../component/skeleton.html">Skeleton <span class="meta">骨架屏</span></a></li>
+          <li><a href="../component/statistic.html">Statistic <span class="meta">统计数值</span></a></li>
+          <li><a href="../component/table.html">Table <span class="meta">表格</span></a></li>
           <li><a href="../component/tag.html">Tag <span class="meta">标签</span></a></li>
+          <li><a href="../component/timeline.html">Timeline <span class="meta">时间线</span></a></li>
+          <li><a href="../component/transfer.html">Transfer <span class="meta">穿梭框</span></a></li>
         </ul>
       </div>
-      
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Navigation · 导航</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/breadcrumb.html">Breadcrumb <span class="meta">面包屑</span></a></li>
+          <li><a href="../component/dropdown.html">Dropdown <span class="meta">下拉菜单</span></a></li>
+          <li><a href="../component/menu.html">Menu <span class="meta">菜单</span></a></li>
+          <li><a href="../component/pagination.html">Pagination <span class="meta">分页</span></a></li>
+          <li><a href="../component/steps.html">Steps <span class="meta">步骤条</span></a></li>
+          <li><a href="../component/tabs.html">Tabs <span class="meta">标签页</span></a></li>
+        </ul>
+      </div>
       <div class="site-sidebar__group">
         <h2 class="site-sidebar__title">Feedback · 反馈</h2>
         <ul class="site-sidebar__list">
           <li><a href="../component/alert.html">Alert <span class="meta">警告</span></a></li>
+          <li><a href="../component/loading.html">Loading <span class="meta">加载中</span></a></li>
+          <li><a href="../component/popover.html">Popover <span class="meta">气泡卡片</span></a></li>
+          <li><a href="../component/tooltip.html">Tooltip <span class="meta">文字提示</span></a></li>
         </ul>
       </div>
       <div class="site-sidebar__group">
@@ -71,7 +105,7 @@
         entirely by the theme file linked above.
       </p>
       <p class="meta">
-        15 components documented. Every page is generated from the
+        39 components documented. Every page is generated from the
         component's <code>manifest.json</code> — the examples, the API tables and the
         class names all come from one file.
       </p>
@@ -80,8 +114,14 @@
         <code>themes/&lt;id&gt;.css</code>, then write the classes.
         There is no build step and no JavaScript in the library.
       </div>
-
-<h2 id="form">Form · 表单 <span class="meta">7</span></h2>
+<h2 id="basic">Basic · 基础 <span class="meta">1</span></h2>
+    <div class="grid">
+      <a class="card" href="component/typography.html">
+        <span class="card__name">Typography <span class="card__zh">文字排版</span></span>
+        <span class="card__summary">The set of text styles a page is written in: a title, a subtitle, a paragraph, supporting text, a link and a quote. The library paints the sizes, the colours and the leading; the words and the heading levels are the host's.</span>
+      </a>
+    </div>
+<h2 id="form">Form · 表单 <span class="meta">13</span></h2>
     <div class="grid">
       <a class="card" href="component/button.html">
         <span class="card__name">Button <span class="card__zh">按钮</span></span>
@@ -91,6 +131,14 @@
         <span class="card__name">Checkbox <span class="card__zh">复选框</span></span>
         <span class="card__summary">A box that either is ticked or is not, for choosing one or many things out of a list. The tick is a shape drawn in CSS, not a character.</span>
       </a>
+      <a class="card" href="component/checkbox-group.html">
+        <span class="card__name">Checkbox Group <span class="card__zh">复选框组</span></span>
+        <span class="card__summary">A set of checkboxes that share one name and belong to one field. The group is a fieldset, so the browser groups the boxes for the form and for the screen reader.</span>
+      </a>
+      <a class="card" href="component/date-picker.html">
+        <span class="card__name">Date Picker <span class="card__zh">日期选择器</span></span>
+        <span class="card__summary">A field for a date. It is a real &lt;input type=&quot;date&quot;&gt; inside a box the library draws, so the browser validates the date, the arrow keys walk through it and the reader's own calendar opens it.</span>
+      </a>
       <a class="card" href="component/field.html">
         <span class="card__name">Field <span class="card__zh">表单项</span></span>
         <span class="card__summary">The scaffolding around a control: a label, the control itself, and a line of text that says what to do next. It owns the spacing, so a form does not have to.</span>
@@ -99,9 +147,21 @@
         <span class="card__name">Input / Textarea / Select <span class="card__zh">输入框 / 文本域 / 选择器</span></span>
         <span class="card__summary">The three text controls a form is mostly made of: a single-line input, a multi-line textarea and a native select. One stylesheet gives all three the same border, focus ring and disabled treatment, so a form reads as one form.</span>
       </a>
+      <a class="card" href="component/input-number.html">
+        <span class="card__name">Input Number <span class="card__zh">数字输入框</span></span>
+        <span class="card__summary">A field for a number, with a pair of buttons that step it up and down. The buttons are real buttons, so they are in the tab order and the browser announces them; the browser's own spin buttons are taken away so there is only one pair.</span>
+      </a>
       <a class="card" href="component/radio.html">
         <span class="card__name">Radio <span class="card__zh">单选框</span></span>
         <span class="card__summary">A round control for choosing exactly one option out of a set. Radios that share a name form a group, and the browser owns the exclusivity.</span>
+      </a>
+      <a class="card" href="component/radio-group.html">
+        <span class="card__name">Radio Group <span class="card__zh">单选框组</span></span>
+        <span class="card__summary">A set of radios that share one name and belong to one field. The group is a fieldset, so the browser groups the circles for the form and for the screen reader.</span>
+      </a>
+      <a class="card" href="component/rate.html">
+        <span class="card__name">Rate <span class="card__zh">评分</span></span>
+        <span class="card__summary">A row of stars the reader sets by choosing one. The stars are real radio buttons under a drawn shape, so the value is the browser's own value and the group is the browser's own group.</span>
       </a>
       <a class="card" href="component/slider.html">
         <span class="card__name">Slider <span class="card__zh">滑块</span></span>
@@ -111,9 +171,17 @@
         <span class="card__name">Switch <span class="card__zh">开关</span></span>
         <span class="card__summary">A binary setting that takes effect the moment it is flipped. The visible switch is drawn by the library; the control underneath it is a real checkbox.</span>
       </a>
+      <a class="card" href="component/upload.html">
+        <span class="card__name">Upload <span class="card__zh">上传</span></span>
+        <span class="card__summary">A file input and the list of the files that were chosen. The input is a real one, so the browser's own dialog opens and the files are chosen with the browser's own picker.</span>
+      </a>
     </div>
-<h2 id="data">Data · 数据展示 <span class="meta">6</span></h2>
+<h2 id="data">Data · 数据展示 <span class="meta">14</span></h2>
     <div class="grid">
+      <a class="card" href="component/avatar.html">
+        <span class="card__name">Avatar <span class="card__zh">头像</span></span>
+        <span class="card__summary">A small picture of a person. It takes a photo, a pair of initials or an icon, and it keeps the shape of whichever mood it is in.</span>
+      </a>
       <a class="card" href="component/badge.html">
         <span class="card__name">Badge <span class="card__zh">徽标</span></span>
         <span class="card__summary">A small marker that counts or names a state, attached to something else. It comes in a solid fill and a soft tint, so a page can let what matters come forward and the rest recede.</span>
@@ -121,6 +189,14 @@
       <a class="card" href="component/card.html">
         <span class="card__name">Card <span class="card__zh">卡片</span></span>
         <span class="card__summary">A surface that groups one thing: a title, a body, a footer. Its border, radius, shadow and fill all come from the mood, so one card reads correctly in all thirty-two of them.</span>
+      </a>
+      <a class="card" href="component/cascader.html">
+        <span class="card__name">Cascader <span class="card__zh">级联选择器</span></span>
+        <span class="card__summary">Options in levels, opened one level at a time. Every level is a disclosure, so the browser does the opening and the closing and the state survives a reload.</span>
+      </a>
+      <a class="card" href="component/descriptions.html">
+        <span class="card__name">Descriptions <span class="card__zh">描述列表</span></span>
+        <span class="card__summary">The facts about one thing, as label and value pairs. It is a definition list, so a screen reader announces each label before the value it belongs to.</span>
       </a>
       <a class="card" href="component/empty.html">
         <span class="card__name">Empty <span class="card__zh">空状态</span></span>
@@ -130,21 +206,79 @@
         <span class="card__name">Progress <span class="card__zh">进度条</span></span>
         <span class="card__summary">How much of something is done. The bar is a groove with a fill inside it, and the fill takes its width from the host.</span>
       </a>
+      <a class="card" href="component/result.html">
+        <span class="card__name">Result <span class="card__zh">结果</span></span>
+        <span class="card__summary">The end of a flow: one statement of what happened, a line of explanation, and the way out. It is the whole answer on one screen, not a toast that disappears.</span>
+      </a>
       <a class="card" href="component/skeleton.html">
         <span class="card__name">Skeleton <span class="card__zh">骨架屏</span></span>
         <span class="card__summary">The shape of content that has not arrived yet. Three placeholder shapes and, if the motion is welcome, a shimmer over them.</span>
+      </a>
+      <a class="card" href="component/statistic.html">
+        <span class="card__name">Statistic <span class="card__zh">统计数值</span></span>
+        <span class="card__summary">One number with the name of what it counts. The number is the largest thing on the block and everything else is sized around it.</span>
+      </a>
+      <a class="card" href="component/table.html">
+        <span class="card__name">Table <span class="card__zh">表格</span></span>
+        <span class="card__summary">Rows of records in columns. It is a real table, so the column names travel with the cells and a screen reader can read a row across.</span>
       </a>
       <a class="card" href="component/tag.html">
         <span class="card__name">Tag <span class="card__zh">标签</span></span>
         <span class="card__summary">A label for one piece of data — a category, a state, a filter. The outlined member of the chip family, so it can sit beside a filled badge without either of them winning.</span>
       </a>
+      <a class="card" href="component/timeline.html">
+        <span class="card__name">Timeline <span class="card__zh">时间线</span></span>
+        <span class="card__summary">What happened, in order. An ordered list with a rail down one side and a dot at each entry, so the order is in the structure and not only in the picture.</span>
+      </a>
+      <a class="card" href="component/transfer.html">
+        <span class="card__name">Transfer <span class="card__zh">穿梭框</span></span>
+        <span class="card__summary">Two lists side by side with a button between them: what is available on one side, what has been chosen on the other. The whole thing is a form, so the move is a submission.</span>
+      </a>
     </div>
-
-<h2 id="feedback">Feedback · 反馈 <span class="meta">1</span></h2>
+<h2 id="navigation">Navigation · 导航 <span class="meta">6</span></h2>
+    <div class="grid">
+      <a class="card" href="component/breadcrumb.html">
+        <span class="card__name">Breadcrumb <span class="card__zh">面包屑</span></span>
+        <span class="card__summary">The path to the page you are on, as a list of links. The separators between the steps are drawn by the stylesheet, not written into the markup as characters.</span>
+      </a>
+      <a class="card" href="component/dropdown.html">
+        <span class="card__name">Dropdown <span class="card__zh">下拉菜单</span></span>
+        <span class="card__summary">A row of actions that stays out of the way until it is wanted. The trigger is a &lt;summary&gt;, so the panel opens and closes with the browser's own disclosure behaviour.</span>
+      </a>
+      <a class="card" href="component/menu.html">
+        <span class="card__name">Menu <span class="card__zh">菜单</span></span>
+        <span class="card__summary">A list of places to go, with groups that fold away. The groups are &lt;details&gt; elements, so the browser opens and closes them and keeps them open across a reload.</span>
+      </a>
+      <a class="card" href="component/pagination.html">
+        <span class="card__name">Pagination <span class="card__zh">分页</span></span>
+        <span class="card__summary">The pages of a long list, with the previous and next arrows at either end and the current page filled in. The arrows are chevrons drawn from two borders.</span>
+      </a>
+      <a class="card" href="component/steps.html">
+        <span class="card__name">Steps <span class="card__zh">步骤条</span></span>
+        <span class="card__summary">The order of a job, one step per entry, with the step you are on picked out and the steps already done marked as finished.</span>
+      </a>
+      <a class="card" href="component/tabs.html">
+        <span class="card__name">Tabs <span class="card__zh">标签页</span></span>
+        <span class="card__summary">One row of tabs over several panels of content. The tabs are radio inputs, so the browser keeps the selection, the focus and the arrow keys without a line of script.</span>
+      </a>
+    </div>
+<h2 id="feedback">Feedback · 反馈 <span class="meta">4</span></h2>
     <div class="grid">
       <a class="card" href="component/alert.html">
         <span class="card__name">Alert <span class="card__zh">警告</span></span>
         <span class="card__summary">A message that stays in the page and says what the reader has to know: the run failed, the quota is nearly gone, the sync is through. The variant colours the border and the mark, not the text.</span>
+      </a>
+      <a class="card" href="component/loading.html">
+        <span class="card__name">Loading <span class="card__zh">加载中</span></span>
+        <span class="card__summary">A ring that turns while the library waits for something. The ring is two borders with one side left out, and the turn is a keyframe, so it needs neither a timer nor a script.</span>
+      </a>
+      <a class="card" href="component/popover.html">
+        <span class="card__name">Popover <span class="card__zh">气泡卡片</span></span>
+        <span class="card__summary">A card that floats next to a trigger and holds more than a note: a heading, a body and a row of actions. The trigger is a &lt;summary&gt;, so the card opens and closes with the browser's own disclosure behaviour.</span>
+      </a>
+      <a class="card" href="component/tooltip.html">
+        <span class="card__name">Tooltip <span class="card__zh">文字提示</span></span>
+        <span class="card__summary">A short note that appears when the reader points at a word or tabs to it. The bubble is drawn by the stylesheet and placed with absolute positioning; the trigger is a real button, so the keyboard opens it as well as the pointer.</span>
       </a>
     </div>
 <h2 id="other">Others · 其他 <span class="meta">1</span></h2>
@@ -157,7 +291,9 @@
     </main>
   </div>
 
-  <script>window.UM_THEMES = {"light":["anime","archive","bauhaus","brutal","clay","corporate","eco","fashion","food","forest","ios","luxury","medical","monochrome","nordic","pastel","retro","sakura","swiss","travel","y2k"],"dark":["aurora","blueprint","crypto","finance","gaming","glass","instrument","neon","night","vaporwave","verdant"]};</script>
+  <script>window.UM_THEMES = {"light":["anime","archive","bauhaus","brutal","clay","corporate","eco","fashion","food","forest","ios","luxury","medical","monochrome","nordic","pastel","retro","sakura","swiss","travel","y2k"],"dark":["aurora","blueprint","crypto","finance","gaming","glass","instrument","neon","night","vaporwave","verdant"]};
+  window.UM_DEFAULT_THEME = "aurora";</script>
+  <script src="../themes/switcher.js"></script>
   <script src="../site/assets/site.js"></script>
 </body>
 </html>

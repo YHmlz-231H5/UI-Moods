@@ -1,0 +1,82 @@
+{
+  "id": "avatar",
+  "name": "Avatar",
+  "nameZh": "头像",
+  "category": "data",
+  "element": "span, img",
+  "summary": "A small picture of a person. It takes a photo, a pair of initials or an icon, and it keeps the shape of whichever mood it is in.",
+  "summaryZh": "一个人的小像。可以放照片、放首字母缩写,也可以放图标,形状随所在的那套 mood 走。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-avatar",
+    "modifier": "um-avatar--",
+    "part": "um-avatar__"
+  },
+  "variants": [
+    { "id": "circle", "name": "Circle", "nameZh": "圆形", "note": "The round form. The base class on its own is already this, so the modifier is only needed to name the shape." },
+    { "id": "square", "name": "Square", "nameZh": "方形", "note": "A square avatar with the mood's own corner radius." }
+  ],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小" },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default size needs no modifier class." },
+    { "id": "lg", "name": "Large", "nameZh": "大" },
+    { "id": "xl", "name": "Extra large", "nameZh": "特大" }
+  ],
+  "states": [],
+  "parts": [
+    { "id": "image", "name": "Image", "nameZh": "图片", "note": "The photo. It is an img element, and it is cropped to the shape of the avatar." },
+    { "id": "icon", "name": "Icon", "nameZh": "图标", "note": "The slot for an icon. It ships empty and takes an SVG from the host." }
+  ],
+  "props": [
+    { "name": "variant", "type": "enum", "values": ["circle", "square"], "default": "circle", "description": "The shape of the avatar. The base class is already the round one.", "descriptionZh": "头像的形状。基础类本身就是圆的。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg", "xl"], "default": "md", "description": "The width and height of the box, and the size of the initials in it.", "descriptionZh": "盒子的宽和高,以及里面首字母缩写的大小。" },
+    { "name": "alt", "type": "string", "description": "The alternative text of the photo. Leave it empty when the name is already written next to the avatar.", "descriptionZh": "照片的替代文字。如果名字已经写在头像旁边,就留空。" }
+  ],
+  "slots": [
+    { "name": "image", "description": "The photo, as an img element.", "descriptionZh": "照片,用一个 img 元素。" },
+    { "name": "icon", "description": "An icon, as an SVG. The slot itself is empty.", "descriptionZh": "图标,用一个 SVG。插槽本身是空的。" }
+  ],
+  "events": [],
+  "a11y": {
+    "keyboard": [],
+    "notes": "The avatar is usually next to the name, so the photo is often decoration: give the img an empty alt when the name is already there, and the person's name when it is not. The initials are read as the characters they are, so two letters read as two letters.",
+    "notesZh": "头像通常紧挨着名字,所以照片多半是装饰:名字已经在旁边时,给 img 一个空的 alt;不在旁边时,alt 就写这个人的名字。首字母缩写会按字符念,所以两个字母就是念两个字母。"
+  },
+  "examples": [
+    {
+      "id": "sizes",
+      "title": "Sizes",
+      "titleZh": "尺寸",
+      "description": "Four sizes, each one a step of the mood's own control height, so an avatar in a list of controls lines up with them.",
+      "descriptionZh": "四种尺寸,每一种都是 mood 自己控件高度的一档,所以头像和旁边一排控件是齐的。",
+      "markup": "<span class=\"um-avatar um-avatar--sm\">ZM</span>\n<span class=\"um-avatar\">ZM</span>\n<span class=\"um-avatar um-avatar--lg\">ZM</span>\n<span class=\"um-avatar um-avatar--xl\">ZM</span>"
+    },
+    {
+      "id": "shapes",
+      "title": "Shapes",
+      "titleZh": "形状",
+      "description": "The round one is the base class. The square one takes the mood's own corner radius rather than a fixed one.",
+      "descriptionZh": "圆形是基础类。方形取的是 mood 自己的圆角,不是写死的圆角。",
+      "markup": "<span class=\"um-avatar um-avatar--circle\">ZM</span>\n<span class=\"um-avatar um-avatar--square\">ZM</span>"
+    },
+    {
+      "id": "image",
+      "title": "A photo",
+      "titleZh": "照片",
+      "description": "The photo is the host's own: an img element with a src the host chooses. This example points at an empty placeholder, so the page asks for nothing and the avatar's own surface shows through.",
+      "descriptionZh": "照片是用得着的:一个 img 元素,src 由使用方决定。这个例子指向一个空占位,所以页面不请求任何东西,头像自己的底色就露了出来。",
+      "markup": "<span class=\"um-avatar um-avatar--lg\">\n  <img class=\"um-avatar__image\" src=\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3C/svg%3E\" alt=\"Zhao Ming\">\n</span>"
+    },
+    {
+      "id": "icon",
+      "title": "An icon",
+      "titleZh": "图标",
+      "description": "The icon slot is empty and takes an SVG from the host. The SVG inherits the colour of the slot, so it follows the mood.",
+      "descriptionZh": "图标插槽是空的,由使用方放 SVG 进去。这个 SVG 继承插槽的颜色,所以它跟着 mood 走。",
+      "markup": "<span class=\"um-avatar um-avatar--lg\">\n  <span class=\"um-avatar__icon\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2\"></path><circle cx=\"12\" cy=\"7\" r=\"4\"></circle></svg></span>\n</span>"
+    }
+  ],
+  "notes": "The library cannot fall back on its own — no script may run — so the host decides which of the three forms is written: the image, the initials or the icon. A CSS-only fallback would need to know whether the picture loaded, and that is exactly the kind of thing the browser will not tell it.",
+  "notesZh": "库里没法自己退回默认形态 —— 库里不跑脚本 —— 所以用哪种形态由使用方决定:图片、首字母缩写,还是图标。要靠 CSS 自己退回,就得先知道图片加载成功没有,而这件事浏览器恰恰不会告诉样式表。"
+}

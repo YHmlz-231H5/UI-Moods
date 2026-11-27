@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Radio Group · UI Moods</title>
+  <meta name="description" content="A set of radios that share one name and belong to one field. The group is a fieldset, so the browser groups the circles for the form and for the screen reader." />
+
+  <!-- The two files that make the whole thing work.
+       The first is the library; the second carries all thirty-two moods at
+       once, so the picker below changes an attribute instead of loading a
+       file — the switch has no network request to wait for. -->
+  <link rel="stylesheet" id="um-theme" href="../../themes/all.css" />
+  <link rel="stylesheet" href="../../components/um-components.css" />
+  <link rel="stylesheet" href="../../site/assets/site.css" />
+</head>
+<body>
+  <header class="site-header">
+      <a class="site-header__brand" href="../../index.html">UI Moods<span>Component Library</span></a>
+      <div class="site-header__spacer"></div>
+      <div class="switcher">
+        <label class="switcher__label" for="um-theme-picker">Theme</label>
+        <span class="switcher__field">
+          <select class="switcher__select" id="um-theme-picker"></select>
+        </span>
+      </div>
+    </header>
+  <div class="site-body">
+    <nav class="site-sidebar" aria-label="Components">
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Basic · 基础</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/typography.html">Typography <span class="meta">文字排版</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Form · 表单</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/button.html">Button <span class="meta">按钮</span></a></li>
+          <li><a href="../component/checkbox.html">Checkbox <span class="meta">复选框</span></a></li>
+          <li><a href="../component/checkbox-group.html">Checkbox Group <span class="meta">复选框组</span></a></li>
+          <li><a href="../component/date-picker.html">Date Picker <span class="meta">日期选择器</span></a></li>
+          <li><a href="../component/field.html">Field <span class="meta">表单项</span></a></li>
+          <li><a href="../component/input.html">Input / Textarea / Select <span class="meta">输入框 / 文本域 / 选择器</span></a></li>
+          <li><a href="../component/input-number.html">Input Number <span class="meta">数字输入框</span></a></li>
+          <li><a href="../component/radio.html">Radio <span class="meta">单选框</span></a></li>
+          <li><a href="" aria-current="page">Radio Group <span class="meta">单选框组</span></a></li>
+          <li><a href="../component/rate.html">Rate <span class="meta">评分</span></a></li>
+          <li><a href="../component/slider.html">Slider <span class="meta">滑块</span></a></li>
+          <li><a href="../component/switch.html">Switch <span class="meta">开关</span></a></li>
+          <li><a href="../component/upload.html">Upload <span class="meta">上传</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Data · 数据展示</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/avatar.html">Avatar <span class="meta">头像</span></a></li>
+          <li><a href="../component/badge.html">Badge <span class="meta">徽标</span></a></li>
+          <li><a href="../component/card.html">Card <span class="meta">卡片</span></a></li>
+          <li><a href="../component/cascader.html">Cascader <span class="meta">级联选择器</span></a></li>
+          <li><a href="../component/descriptions.html">Descriptions <span class="meta">描述列表</span></a></li>
+          <li><a href="../component/empty.html">Empty <span class="meta">空状态</span></a></li>
+          <li><a href="../component/progress.html">Progress <span class="meta">进度条</span></a></li>
+          <li><a href="../component/result.html">Result <span class="meta">结果</span></a></li>
+          <li><a href="../component/skeleton.html">Skeleton <span class="meta">骨架屏</span></a></li>
+          <li><a href="../component/statistic.html">Statistic <span class="meta">统计数值</span></a></li>
+          <li><a href="../component/table.html">Table <span class="meta">表格</span></a></li>
+          <li><a href="../component/tag.html">Tag <span class="meta">标签</span></a></li>
+          <li><a href="../component/timeline.html">Timeline <span class="meta">时间线</span></a></li>
+          <li><a href="../component/transfer.html">Transfer <span class="meta">穿梭框</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Navigation · 导航</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/breadcrumb.html">Breadcrumb <span class="meta">面包屑</span></a></li>
+          <li><a href="../component/dropdown.html">Dropdown <span class="meta">下拉菜单</span></a></li>
+          <li><a href="../component/menu.html">Menu <span class="meta">菜单</span></a></li>
+          <li><a href="../component/pagination.html">Pagination <span class="meta">分页</span></a></li>
+          <li><a href="../component/steps.html">Steps <span class="meta">步骤条</span></a></li>
+          <li><a href="../component/tabs.html">Tabs <span class="meta">标签页</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Feedback · 反馈</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/alert.html">Alert <span class="meta">警告</span></a></li>
+          <li><a href="../component/loading.html">Loading <span class="meta">加载中</span></a></li>
+          <li><a href="../component/popover.html">Popover <span class="meta">气泡卡片</span></a></li>
+          <li><a href="../component/tooltip.html">Tooltip <span class="meta">文字提示</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Others · 其他</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/divider.html">Divider <span class="meta">分割线</span></a></li>
+        </ul>
+      </div>
+    </nav>
+    <main class="site-main">
+      <h1>Radio Group <span class="meta">单选框组</span></h1>
+      <p class="lede">A set of radios that share one name and belong to one field. The group is a fieldset, so the browser groups the circles for the form and for the screen reader.</p>
+      <p class="meta">
+        <span class="tag">fieldset, input, label</span>
+        <span class="tag">form</span>
+        <span class="tag">since 1.1.0</span>
+      </p>
+      <div class="note">The group owns the row and the text of an option, but not the circle: the circle and the real input are the radio component's own classes, so a picked option is drawn exactly like a lone radio. The group has no sizes of its own, because the circle's size belongs to the circle — a group cannot make the control it holds bigger without redrawing it. The selected row is found with :has(), which is the only way CSS can ask an element what its child is doing.</div>
+
+      <h2>Examples</h2>
+<div class="example">
+        <div class="example__title">Stacked · 纵向</div>
+        <div class="example__desc">One option per row. The picked option takes the brand colour's soft tint, and the row knows it is picked because it holds the input.</div>
+        <div class="example__demo">
+<fieldset class="um-radio-group">
+  <legend class="um-radio-group__legend">Plan</legend>
+  <div class="um-radio-group__options">
+    <label class="um-radio-group__option">
+      <input class="um-radio__input" type="radio" name="um-radio-group-plan" value="monthly" checked />
+      <span class="um-radio__dot"></span>
+      <span class="um-radio-group__label">Monthly</span>
+    </label>
+    <label class="um-radio-group__option">
+      <input class="um-radio__input" type="radio" name="um-radio-group-plan" value="yearly" />
+      <span class="um-radio__dot"></span>
+      <span class="um-radio-group__label">Yearly</span>
+    </label>
+    <label class="um-radio-group__option">
+      <input class="um-radio__input" type="radio" name="um-radio-group-plan" value="lifetime" disabled />
+      <span class="um-radio__dot"></span>
+      <span class="um-radio-group__label">Lifetime</span>
+    </label>
+  </div>
+</fieldset>
+        </div>
+        <pre class="example__code">&lt;fieldset class=&quot;um-radio-group&quot;&gt;
+  &lt;legend class=&quot;um-radio-group__legend&quot;&gt;Plan&lt;/legend&gt;
+  &lt;div class=&quot;um-radio-group__options&quot;&gt;
+    &lt;label class=&quot;um-radio-group__option&quot;&gt;
+      &lt;input class=&quot;um-radio__input&quot; type=&quot;radio&quot; name=&quot;um-radio-group-plan&quot; value=&quot;monthly&quot; checked /&gt;
+      &lt;span class=&quot;um-radio__dot&quot;&gt;&lt;/span&gt;
+      &lt;span class=&quot;um-radio-group__label&quot;&gt;Monthly&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;um-radio-group__option&quot;&gt;
+      &lt;input class=&quot;um-radio__input&quot; type=&quot;radio&quot; name=&quot;um-radio-group-plan&quot; value=&quot;yearly&quot; /&gt;
+      &lt;span class=&quot;um-radio__dot&quot;&gt;&lt;/span&gt;
+      &lt;span class=&quot;um-radio-group__label&quot;&gt;Yearly&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;um-radio-group__option&quot;&gt;
+      &lt;input class=&quot;um-radio__input&quot; type=&quot;radio&quot; name=&quot;um-radio-group-plan&quot; value=&quot;lifetime&quot; disabled /&gt;
+      &lt;span class=&quot;um-radio__dot&quot;&gt;&lt;/span&gt;
+      &lt;span class=&quot;um-radio-group__label&quot;&gt;Lifetime&lt;/span&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+&lt;/fieldset&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">Inline · 横向</div>
+        <div class="example__desc">The options run across the panel and wrap onto the next line. Only the modifier class changes; the markup is the same.</div>
+        <div class="example__demo">
+<fieldset class="um-radio-group um-radio-group--inline">
+  <legend class="um-radio-group__legend">Size</legend>
+  <div class="um-radio-group__options">
+    <label class="um-radio-group__option">
+      <input class="um-radio__input" type="radio" name="um-radio-group-size" value="s" />
+      <span class="um-radio__dot"></span>
+      <span class="um-radio-group__label">Small</span>
+    </label>
+    <label class="um-radio-group__option">
+      <input class="um-radio__input" type="radio" name="um-radio-group-size" value="m" checked />
+      <span class="um-radio__dot"></span>
+      <span class="um-radio-group__label">Medium</span>
+    </label>
+    <label class="um-radio-group__option">
+      <input class="um-radio__input" type="radio" name="um-radio-group-size" value="l" />
+      <span class="um-radio__dot"></span>
+      <span class="um-radio-group__label">Large</span>
+    </label>
+  </div>
+</fieldset>
+        </div>
+        <pre class="example__code">&lt;fieldset class=&quot;um-radio-group um-radio-group--inline&quot;&gt;
+  &lt;legend class=&quot;um-radio-group__legend&quot;&gt;Size&lt;/legend&gt;
+  &lt;div class=&quot;um-radio-group__options&quot;&gt;
+    &lt;label class=&quot;um-radio-group__option&quot;&gt;
+      &lt;input class=&quot;um-radio__input&quot; type=&quot;radio&quot; name=&quot;um-radio-group-size&quot; value=&quot;s&quot; /&gt;
+      &lt;span class=&quot;um-radio__dot&quot;&gt;&lt;/span&gt;
+      &lt;span class=&quot;um-radio-group__label&quot;&gt;Small&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;um-radio-group__option&quot;&gt;
+      &lt;input class=&quot;um-radio__input&quot; type=&quot;radio&quot; name=&quot;um-radio-group-size&quot; value=&quot;m&quot; checked /&gt;
+      &lt;span class=&quot;um-radio__dot&quot;&gt;&lt;/span&gt;
+      &lt;span class=&quot;um-radio-group__label&quot;&gt;Medium&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;um-radio-group__option&quot;&gt;
+      &lt;input class=&quot;um-radio__input&quot; type=&quot;radio&quot; name=&quot;um-radio-group-size&quot; value=&quot;l&quot; /&gt;
+      &lt;span class=&quot;um-radio__dot&quot;&gt;&lt;/span&gt;
+      &lt;span class=&quot;um-radio-group__label&quot;&gt;Large&lt;/span&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+&lt;/fieldset&gt;</pre>
+      </div>
+      <h2>Classes</h2>
+<table class="api">
+      <thead><tr><th>Class</th><th>Meaning</th></tr></thead>
+      <tbody>
+      <tr><td><code>um-radio-group</code></td><td>The base class. Every instance carries it.</td></tr>
+      <tr><td><code>um-radio-group--stacked</code></td><td>Stacked</td></tr>
+      <tr><td><code>um-radio-group--inline</code></td><td>Inline</td></tr>
+      <tr><td><code>um-radio-group__legend</code></td><td>Legend</td></tr>
+      <tr><td><code>um-radio-group__options</code></td><td>Options</td></tr>
+      <tr><td><code>um-radio-group__option</code></td><td>Option</td></tr>
+      <tr><td><code>um-radio-group__label</code></td><td>Label</td></tr>
+      <tr><td><code>:checked</code></td><td>Checked</td></tr>
+      <tr><td><code>:disabled</code></td><td>Disabled</td></tr>
+      <tr><td><code>:focus-visible</code></td><td>Focus visible</td></tr>
+      </tbody>
+    </table>
+      <h2>Props</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>name</code></span></td><td><code>string</code></td><td>—</td><td>The name every option in the group shares. It is the native name attribute, and it is what makes the group a group: the browser keeps exactly one of the options picked.</td></tr>
+      <tr><td><span class="api__name"><code>value</code></span></td><td><code>string</code></td><td>—</td><td>The value one option submits while it is picked.</td></tr>
+      <tr><td><span class="api__name"><code>checked</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Picks one option. It is the native checked attribute, not a class.</td></tr>
+      <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes one option inert. It uses the real disabled attribute, so it leaves the tab order.</td></tr>
+      <tr><td><span class="api__name"><code>direction</code></span></td><td><code>enum = stacked | inline</code></td><td><code>stacked</code></td><td>Which way the options run. The stacked run is the base class on its own; the inline run adds um-radio-group--inline.</td></tr>
+      <tr><td><span class="api__name"><code>label</code></span></td><td><code>string</code></td><td>—</td><td>The text of the group's legend. A group with no legend still needs an accessible name of its own.</td></tr>
+      </tbody>
+    </table>
+      <h2>Slots</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>legend</code></span></td><td>The legend text, above the options.</td></tr>
+      <tr><td><span class="api__name"><code>option</code></span></td><td>One option: the real input, the radio component's circle and the text.</td></tr>
+      </tbody>
+    </table>
+      <h2>Events</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>change</code></span></td><td>Fires when the selection moves to an option. It is the browser's own event on the input — the library installs no listener.</td></tr>
+      </tbody>
+    </table>
+      <h2>Accessibility</h2>
+      <p><strong>Role:</strong> <code>radiogroup</code></p>
+        <p><strong>Keyboard:</strong> <code>Tab</code> <code>Space</code> <code>Arrow keys</code></p>
+        <p>The group is a real &lt;fieldset&gt; with a real &lt;legend&gt;, so the screen reader announces the group's name before the options and reports how many there are. Every option is a real &lt;input type=&quot;radio&quot;&gt; inside a &lt;label&gt;, so the browser keeps exactly one of them picked, the arrow keys move the selection inside the group and Tab moves between groups. The input is hidden visually rather than removed from the accessibility tree, so it keeps its place in the tab order and its label.</p>
+
+    </main>
+  </div>
+
+  <script>window.UM_THEMES = {"light":["anime","archive","bauhaus","brutal","clay","corporate","eco","fashion","food","forest","ios","luxury","medical","monochrome","nordic","pastel","retro","sakura","swiss","travel","y2k"],"dark":["aurora","blueprint","crypto","finance","gaming","glass","instrument","neon","night","vaporwave","verdant"]};
+  window.UM_DEFAULT_THEME = "aurora";</script>
+  <script src="../../themes/switcher.js"></script>
+  <script src="../../site/assets/site.js"></script>
+</body>
+</html>

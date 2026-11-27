@@ -1,0 +1,49 @@
+/* ============================================================================
+   Avatar
+   ========================================================================== */
+.um-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--um-height-md);
+  height: var(--um-height-md);
+  overflow: hidden;
+  border-radius: var(--um-radius-circle);
+  background: var(--um-fill-light);
+  color: var(--um-text-secondary);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+  font-weight: var(--um-font-weight-medium);
+  line-height: 1;
+  text-align: center;
+}
+
+/* The picture is cropped, not scaled: a square photo in a round avatar has to
+   lose its edges rather than be squashed into them. */
+.um-avatar__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* The icon slot is empty and takes an SVG from the host. The slot is smaller
+   than the box, so the icon sits in the middle of it with room around. */
+.um-avatar__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60%;
+  height: 60%;
+}
+.um-avatar__icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.um-avatar--sm { width: var(--um-height-sm); height: var(--um-height-sm); font-size: var(--um-font-size-caption); }
+.um-avatar--md { width: var(--um-height-md); height: var(--um-height-md); font-size: var(--um-font-size-body); }
+.um-avatar--lg { width: var(--um-height-lg); height: var(--um-height-lg); font-size: var(--um-font-size-title); }
+.um-avatar--xl { width: calc(var(--um-height-lg) * 1.5); height: calc(var(--um-height-lg) * 1.5); font-size: var(--um-font-size-display); }
+
+.um-avatar--circle { border-radius: var(--um-radius-circle); }
+.um-avatar--square { border-radius: var(--um-radius-base); }

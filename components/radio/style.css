@@ -9,7 +9,11 @@
   justify-content: center;
   width: var(--um-height-sm);
   height: var(--um-height-sm);
-  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  /* The dot is the control, not a divider: it has no label of its own, so its
+     outline is held to the muted-shape role (3:1) rather than to the border
+     role a hairline would use. In the clay mood the border role is literally
+     the page colour, which is a radio nobody can find. */
+  border: var(--um-border-width) var(--um-border-style) var(--um-shape-muted);
   border-radius: var(--um-radius-circle);
   background: var(--um-fill-blank);
   transition: background-color var(--um-motion), border-color var(--um-motion);

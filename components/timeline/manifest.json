@@ -1,0 +1,63 @@
+{
+  "id": "timeline",
+  "name": "Timeline",
+  "nameZh": "时间线",
+  "category": "data",
+  "element": "ol, li, span, div",
+  "summary": "What happened, in order. An ordered list with a rail down one side and a dot at each entry, so the order is in the structure and not only in the picture.",
+  "summaryZh": "先后发生过的事。一条有序列表,一侧是竖线,每个条目一个圆点,所以顺序写在结构里,不只画在图上。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-timeline",
+    "modifier": "um-timeline__item--",
+    "part": "um-timeline__"
+  },
+  "variants": [
+    { "id": "success", "name": "Success", "nameZh": "成功", "state": "solid", "note": "The node of this entry takes the success colour." },
+    { "id": "warning", "name": "Warning", "nameZh": "警告", "state": "solid", "note": "The node of this entry takes the warning colour." },
+    { "id": "danger", "name": "Danger", "nameZh": "危险", "state": "solid", "note": "The node of this entry takes the danger colour." }
+  ],
+  "sizes": [],
+  "states": [],
+  "parts": [
+    { "id": "item", "name": "Item", "nameZh": "条目", "note": "One entry. It carries the tone modifier, so one timeline can mix states." },
+    { "id": "node", "name": "Node", "nameZh": "节点", "note": "The dot. It is drawn in CSS and carries the colour of the entry." },
+    { "id": "tail", "name": "Tail", "nameZh": "竖线", "note": "The rail between two entries. It is decoration and is hidden on the last entry." },
+    { "id": "wrapper", "name": "Wrapper", "nameZh": "内容", "note": "The column beside the rail. It holds the timestamp and the text of the entry." }
+  ],
+  "props": [
+    { "name": "variant", "type": "enum", "values": ["success", "warning", "danger"], "description": "The tone of the entry. It is written on the item, not on the timeline.", "descriptionZh": "这一条的状态。它写在条目上,不写在整个时间线上。" },
+    { "name": "timestamp", "type": "string", "description": "When it happened. It is a time element inside the wrapper, so the machine-readable value and the written one travel together.", "descriptionZh": "发生的时间。它是内容区里的 time 元素,所以机器可读的值和写出来的值在一起。" }
+  ],
+  "slots": [
+    { "name": "wrapper", "description": "The body of the entry: the timestamp and the text.", "descriptionZh": "这一条的内容:时间和文字。" }
+  ],
+  "events": [],
+  "a11y": {
+    "role": "list",
+    "keyboard": [],
+    "notes": "The timeline is an ol, so the reader is told how many entries there are and can step through them. The node and the rail carry no information the text does not already carry: mark them aria-hidden, and the entry is read as one line of text.",
+    "notesZh": "时间线是 ol,读屏会告诉读者一共几条,也能按条走。节点和竖线不带文字以外的信息:给它们加上 aria-hidden,这一条就读成一行文字。"
+  },
+  "examples": [
+    {
+      "id": "timeline",
+      "title": "A timeline",
+      "titleZh": "一条时间线",
+      "description": "The rail is drawn by the tail and the dot by the node. The last entry has no rail below it.",
+      "descriptionZh": "竖线由 tail 画出,圆点由 node 画出。最后一条下面没有竖线。",
+      "markup": "<ol class=\"um-timeline\">\n  <li class=\"um-timeline__item\">\n    <span class=\"um-timeline__node\" aria-hidden=\"true\"></span>\n    <span class=\"um-timeline__tail\" aria-hidden=\"true\"></span>\n    <div class=\"um-timeline__wrapper\">\n      <time datetime=\"2026-11-28T09:12\">28 November, 09:12</time>\n      <span>Build 214 started on node A.</span>\n    </div>\n  </li>\n  <li class=\"um-timeline__item\">\n    <span class=\"um-timeline__node\" aria-hidden=\"true\"></span>\n    <span class=\"um-timeline__tail\" aria-hidden=\"true\"></span>\n    <div class=\"um-timeline__wrapper\">\n      <time datetime=\"2026-11-28T14:20\">28 November, 14:20</time>\n      <span>Three nodes reported the same result.</span>\n    </div>\n  </li>\n  <li class=\"um-timeline__item\">\n    <span class=\"um-timeline__node\" aria-hidden=\"true\"></span>\n    <div class=\"um-timeline__wrapper\">\n      <time datetime=\"2026-11-28T16:05\">28 November, 16:05</time>\n      <span>The build was marked as passing.</span>\n    </div>\n  </li>\n</ol>"
+    },
+    {
+      "id": "tones",
+      "title": "Tones",
+      "titleZh": "状态",
+      "description": "The tone is written on the entry, not on the timeline, because one timeline usually holds a success, a warning and a plain entry together.",
+      "descriptionZh": "状态写在条目上,不写在时间线上,因为一条时间线里通常同时有成功、警告和普通三种条目。",
+      "markup": "<ol class=\"um-timeline\">\n  <li class=\"um-timeline__item um-timeline__item--success\">\n    <span class=\"um-timeline__node\" aria-hidden=\"true\"></span>\n    <span class=\"um-timeline__tail\" aria-hidden=\"true\"></span>\n    <div class=\"um-timeline__wrapper\">\n      <time datetime=\"2026-11-28T09:12\">28 November, 09:12</time>\n      <span>The certificate was renewed.</span>\n    </div>\n  </li>\n  <li class=\"um-timeline__item um-timeline__item--warning\">\n    <span class=\"um-timeline__node\" aria-hidden=\"true\"></span>\n    <span class=\"um-timeline__tail\" aria-hidden=\"true\"></span>\n    <div class=\"um-timeline__wrapper\">\n      <time datetime=\"2026-11-28T11:40\">28 November, 11:40</time>\n      <span>Two devices were replaced under warranty.</span>\n    </div>\n  </li>\n  <li class=\"um-timeline__item um-timeline__item--danger\">\n    <span class=\"um-timeline__node\" aria-hidden=\"true\"></span>\n    <div class=\"um-timeline__wrapper\">\n      <time datetime=\"2026-11-28T16:05\">28 November, 16:05</time>\n      <span>The rollback was called off by hand.</span>\n    </div>\n  </li>\n</ol>"
+    }
+  ],
+  "notes": "The tone modifier hangs off the item rather than off the base class, so the manifest's modifier prefix is `um-timeline__item--`: one timeline usually carries a success, a warning and a plain entry at once, and a tone on the whole list could only say one thing. The rail is positioned against the item, not against the text, so it stays under the dots when the text beside it wraps.",
+  "notesZh": "状态的修饰类挂在条目上而不是基类上,所以这份清单里的修饰类前缀是 `um-timeline__item--`:一条时间线通常同时有成功、警告和普通三种条目,而整条列表只有一个色调的话就只能说一件事。竖线是相对条目定位的,不是相对文字,所以文字换行时它还停在圆点下面。"
+}

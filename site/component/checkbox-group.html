@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Checkbox Group · UI Moods</title>
+  <meta name="description" content="A set of checkboxes that share one name and belong to one field. The group is a fieldset, so the browser groups the boxes for the form and for the screen reader." />
+
+  <!-- The two files that make the whole thing work.
+       The first is the library; the second carries all thirty-two moods at
+       once, so the picker below changes an attribute instead of loading a
+       file — the switch has no network request to wait for. -->
+  <link rel="stylesheet" id="um-theme" href="../../themes/all.css" />
+  <link rel="stylesheet" href="../../components/um-components.css" />
+  <link rel="stylesheet" href="../../site/assets/site.css" />
+</head>
+<body>
+  <header class="site-header">
+      <a class="site-header__brand" href="../../index.html">UI Moods<span>Component Library</span></a>
+      <div class="site-header__spacer"></div>
+      <div class="switcher">
+        <label class="switcher__label" for="um-theme-picker">Theme</label>
+        <span class="switcher__field">
+          <select class="switcher__select" id="um-theme-picker"></select>
+        </span>
+      </div>
+    </header>
+  <div class="site-body">
+    <nav class="site-sidebar" aria-label="Components">
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Basic · 基础</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/typography.html">Typography <span class="meta">文字排版</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Form · 表单</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/button.html">Button <span class="meta">按钮</span></a></li>
+          <li><a href="../component/checkbox.html">Checkbox <span class="meta">复选框</span></a></li>
+          <li><a href="" aria-current="page">Checkbox Group <span class="meta">复选框组</span></a></li>
+          <li><a href="../component/date-picker.html">Date Picker <span class="meta">日期选择器</span></a></li>
+          <li><a href="../component/field.html">Field <span class="meta">表单项</span></a></li>
+          <li><a href="../component/input.html">Input / Textarea / Select <span class="meta">输入框 / 文本域 / 选择器</span></a></li>
+          <li><a href="../component/input-number.html">Input Number <span class="meta">数字输入框</span></a></li>
+          <li><a href="../component/radio.html">Radio <span class="meta">单选框</span></a></li>
+          <li><a href="../component/radio-group.html">Radio Group <span class="meta">单选框组</span></a></li>
+          <li><a href="../component/rate.html">Rate <span class="meta">评分</span></a></li>
+          <li><a href="../component/slider.html">Slider <span class="meta">滑块</span></a></li>
+          <li><a href="../component/switch.html">Switch <span class="meta">开关</span></a></li>
+          <li><a href="../component/upload.html">Upload <span class="meta">上传</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Data · 数据展示</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/avatar.html">Avatar <span class="meta">头像</span></a></li>
+          <li><a href="../component/badge.html">Badge <span class="meta">徽标</span></a></li>
+          <li><a href="../component/card.html">Card <span class="meta">卡片</span></a></li>
+          <li><a href="../component/cascader.html">Cascader <span class="meta">级联选择器</span></a></li>
+          <li><a href="../component/descriptions.html">Descriptions <span class="meta">描述列表</span></a></li>
+          <li><a href="../component/empty.html">Empty <span class="meta">空状态</span></a></li>
+          <li><a href="../component/progress.html">Progress <span class="meta">进度条</span></a></li>
+          <li><a href="../component/result.html">Result <span class="meta">结果</span></a></li>
+          <li><a href="../component/skeleton.html">Skeleton <span class="meta">骨架屏</span></a></li>
+          <li><a href="../component/statistic.html">Statistic <span class="meta">统计数值</span></a></li>
+          <li><a href="../component/table.html">Table <span class="meta">表格</span></a></li>
+          <li><a href="../component/tag.html">Tag <span class="meta">标签</span></a></li>
+          <li><a href="../component/timeline.html">Timeline <span class="meta">时间线</span></a></li>
+          <li><a href="../component/transfer.html">Transfer <span class="meta">穿梭框</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Navigation · 导航</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/breadcrumb.html">Breadcrumb <span class="meta">面包屑</span></a></li>
+          <li><a href="../component/dropdown.html">Dropdown <span class="meta">下拉菜单</span></a></li>
+          <li><a href="../component/menu.html">Menu <span class="meta">菜单</span></a></li>
+          <li><a href="../component/pagination.html">Pagination <span class="meta">分页</span></a></li>
+          <li><a href="../component/steps.html">Steps <span class="meta">步骤条</span></a></li>
+          <li><a href="../component/tabs.html">Tabs <span class="meta">标签页</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Feedback · 反馈</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/alert.html">Alert <span class="meta">警告</span></a></li>
+          <li><a href="../component/loading.html">Loading <span class="meta">加载中</span></a></li>
+          <li><a href="../component/popover.html">Popover <span class="meta">气泡卡片</span></a></li>
+          <li><a href="../component/tooltip.html">Tooltip <span class="meta">文字提示</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Others · 其他</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/divider.html">Divider <span class="meta">分割线</span></a></li>
+        </ul>
+      </div>
+    </nav>
+    <main class="site-main">
+      <h1>Checkbox Group <span class="meta">复选框组</span></h1>
+      <p class="lede">A set of checkboxes that share one name and belong to one field. The group is a fieldset, so the browser groups the boxes for the form and for the screen reader.</p>
+      <p class="meta">
+        <span class="tag">fieldset, input, label</span>
+        <span class="tag">form</span>
+        <span class="tag">since 1.1.0</span>
+      </p>
+      <div class="note">The group owns the row and the text of an option, but not the box: the box and the real input are the checkbox component's own classes, so a tick inside a group is drawn exactly like a tick outside one. The group has no sizes of its own, because the box's size belongs to the box — a group cannot make the control it holds bigger without redrawing it. The selected row is found with :has(), which is the only way CSS can ask an element what its child is doing.</div>
+
+      <h2>Examples</h2>
+<div class="example">
+        <div class="example__title">Stacked · 纵向</div>
+        <div class="example__desc">One option per row. A ticked option takes the brand colour's soft tint, and the row knows it is ticked because it holds the input.</div>
+        <div class="example__demo">
+<fieldset class="um-checkbox-group">
+  <legend class="um-checkbox-group__legend">Delivery</legend>
+  <div class="um-checkbox-group__options">
+    <label class="um-checkbox-group__option">
+      <input class="um-checkbox__input" type="checkbox" name="um-checkbox-group-delivery" value="standard" checked />
+      <span class="um-checkbox__box"></span>
+      <span class="um-checkbox-group__label">Standard</span>
+    </label>
+    <label class="um-checkbox-group__option">
+      <input class="um-checkbox__input" type="checkbox" name="um-checkbox-group-delivery" value="express" />
+      <span class="um-checkbox__box"></span>
+      <span class="um-checkbox-group__label">Express</span>
+    </label>
+    <label class="um-checkbox-group__option">
+      <input class="um-checkbox__input" type="checkbox" name="um-checkbox-group-delivery" value="pickup" disabled />
+      <span class="um-checkbox__box"></span>
+      <span class="um-checkbox-group__label">Collect in store</span>
+    </label>
+  </div>
+</fieldset>
+        </div>
+        <pre class="example__code">&lt;fieldset class=&quot;um-checkbox-group&quot;&gt;
+  &lt;legend class=&quot;um-checkbox-group__legend&quot;&gt;Delivery&lt;/legend&gt;
+  &lt;div class=&quot;um-checkbox-group__options&quot;&gt;
+    &lt;label class=&quot;um-checkbox-group__option&quot;&gt;
+      &lt;input class=&quot;um-checkbox__input&quot; type=&quot;checkbox&quot; name=&quot;um-checkbox-group-delivery&quot; value=&quot;standard&quot; checked /&gt;
+      &lt;span class=&quot;um-checkbox__box&quot;&gt;&lt;/span&gt;
+      &lt;span class=&quot;um-checkbox-group__label&quot;&gt;Standard&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;um-checkbox-group__option&quot;&gt;
+      &lt;input class=&quot;um-checkbox__input&quot; type=&quot;checkbox&quot; name=&quot;um-checkbox-group-delivery&quot; value=&quot;express&quot; /&gt;
+      &lt;span class=&quot;um-checkbox__box&quot;&gt;&lt;/span&gt;
+      &lt;span class=&quot;um-checkbox-group__label&quot;&gt;Express&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;um-checkbox-group__option&quot;&gt;
+      &lt;input class=&quot;um-checkbox__input&quot; type=&quot;checkbox&quot; name=&quot;um-checkbox-group-delivery&quot; value=&quot;pickup&quot; disabled /&gt;
+      &lt;span class=&quot;um-checkbox__box&quot;&gt;&lt;/span&gt;
+      &lt;span class=&quot;um-checkbox-group__label&quot;&gt;Collect in store&lt;/span&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+&lt;/fieldset&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">Inline · 横向</div>
+        <div class="example__desc">The options run across the panel and wrap onto the next line. Only the modifier class changes; the markup is the same.</div>
+        <div class="example__demo">
+<fieldset class="um-checkbox-group um-checkbox-group--inline">
+  <legend class="um-checkbox-group__legend">Channels</legend>
+  <div class="um-checkbox-group__options">
+    <label class="um-checkbox-group__option">
+      <input class="um-checkbox__input" type="checkbox" name="um-checkbox-group-channel" value="email" checked />
+      <span class="um-checkbox__box"></span>
+      <span class="um-checkbox-group__label">Email</span>
+    </label>
+    <label class="um-checkbox-group__option">
+      <input class="um-checkbox__input" type="checkbox" name="um-checkbox-group-channel" value="sms" />
+      <span class="um-checkbox__box"></span>
+      <span class="um-checkbox-group__label">SMS</span>
+    </label>
+    <label class="um-checkbox-group__option">
+      <input class="um-checkbox__input" type="checkbox" name="um-checkbox-group-channel" value="push" />
+      <span class="um-checkbox__box"></span>
+      <span class="um-checkbox-group__label">Push</span>
+    </label>
+  </div>
+</fieldset>
+        </div>
+        <pre class="example__code">&lt;fieldset class=&quot;um-checkbox-group um-checkbox-group--inline&quot;&gt;
+  &lt;legend class=&quot;um-checkbox-group__legend&quot;&gt;Channels&lt;/legend&gt;
+  &lt;div class=&quot;um-checkbox-group__options&quot;&gt;
+    &lt;label class=&quot;um-checkbox-group__option&quot;&gt;
+      &lt;input class=&quot;um-checkbox__input&quot; type=&quot;checkbox&quot; name=&quot;um-checkbox-group-channel&quot; value=&quot;email&quot; checked /&gt;
+      &lt;span class=&quot;um-checkbox__box&quot;&gt;&lt;/span&gt;
+      &lt;span class=&quot;um-checkbox-group__label&quot;&gt;Email&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;um-checkbox-group__option&quot;&gt;
+      &lt;input class=&quot;um-checkbox__input&quot; type=&quot;checkbox&quot; name=&quot;um-checkbox-group-channel&quot; value=&quot;sms&quot; /&gt;
+      &lt;span class=&quot;um-checkbox__box&quot;&gt;&lt;/span&gt;
+      &lt;span class=&quot;um-checkbox-group__label&quot;&gt;SMS&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;um-checkbox-group__option&quot;&gt;
+      &lt;input class=&quot;um-checkbox__input&quot; type=&quot;checkbox&quot; name=&quot;um-checkbox-group-channel&quot; value=&quot;push&quot; /&gt;
+      &lt;span class=&quot;um-checkbox__box&quot;&gt;&lt;/span&gt;
+      &lt;span class=&quot;um-checkbox-group__label&quot;&gt;Push&lt;/span&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+&lt;/fieldset&gt;</pre>
+      </div>
+      <h2>Classes</h2>
+<table class="api">
+      <thead><tr><th>Class</th><th>Meaning</th></tr></thead>
+      <tbody>
+      <tr><td><code>um-checkbox-group</code></td><td>The base class. Every instance carries it.</td></tr>
+      <tr><td><code>um-checkbox-group--stacked</code></td><td>Stacked</td></tr>
+      <tr><td><code>um-checkbox-group--inline</code></td><td>Inline</td></tr>
+      <tr><td><code>um-checkbox-group__legend</code></td><td>Legend</td></tr>
+      <tr><td><code>um-checkbox-group__options</code></td><td>Options</td></tr>
+      <tr><td><code>um-checkbox-group__option</code></td><td>Option</td></tr>
+      <tr><td><code>um-checkbox-group__label</code></td><td>Label</td></tr>
+      <tr><td><code>:checked</code></td><td>Checked</td></tr>
+      <tr><td><code>:disabled</code></td><td>Disabled</td></tr>
+      <tr><td><code>:focus-visible</code></td><td>Focus visible</td></tr>
+      </tbody>
+    </table>
+      <h2>Props</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>name</code></span></td><td><code>string</code></td><td>—</td><td>The name every option in the group submits under. It is the native name attribute, so the form posts every ticked option as one field.</td></tr>
+      <tr><td><span class="api__name"><code>value</code></span></td><td><code>string</code></td><td>—</td><td>The value one option submits while it is ticked.</td></tr>
+      <tr><td><span class="api__name"><code>checked</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Ticks one option. It is the native checked attribute, not a class.</td></tr>
+      <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes one option inert. It uses the real disabled attribute, so it leaves the tab order.</td></tr>
+      <tr><td><span class="api__name"><code>direction</code></span></td><td><code>enum = stacked | inline</code></td><td><code>stacked</code></td><td>Which way the options run. The stacked run is the base class on its own; the inline run adds um-checkbox-group--inline.</td></tr>
+      <tr><td><span class="api__name"><code>label</code></span></td><td><code>string</code></td><td>—</td><td>The text of the group's legend. A group with no legend still needs an accessible name of its own.</td></tr>
+      </tbody>
+    </table>
+      <h2>Slots</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>legend</code></span></td><td>The legend text, above the options.</td></tr>
+      <tr><td><span class="api__name"><code>option</code></span></td><td>One option: the real input, the checkbox component's box and the text.</td></tr>
+      </tbody>
+    </table>
+      <h2>Events</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>change</code></span></td><td>Fires when an option is ticked or unticked. It is the browser's own event on the input — the library installs no listener.</td></tr>
+      </tbody>
+    </table>
+      <h2>Accessibility</h2>
+      <p><strong>Role:</strong> <code>group</code></p>
+        <p><strong>Keyboard:</strong> <code>Tab</code> <code>Space</code></p>
+        <p>The group is a real &lt;fieldset&gt; with a real &lt;legend&gt;, so the screen reader announces the group's name before the options and reports how many boxes there are. Every option is a real &lt;input type=&quot;checkbox&quot;&gt; inside a &lt;label&gt;, so ticking it is the browser's :checked, the value submits with the form and nothing needs JavaScript. The input is hidden visually rather than removed from the accessibility tree, so it keeps its place in the tab order and its label.</p>
+
+    </main>
+  </div>
+
+  <script>window.UM_THEMES = {"light":["anime","archive","bauhaus","brutal","clay","corporate","eco","fashion","food","forest","ios","luxury","medical","monochrome","nordic","pastel","retro","sakura","swiss","travel","y2k"],"dark":["aurora","blueprint","crypto","finance","gaming","glass","instrument","neon","night","vaporwave","verdant"]};
+  window.UM_DEFAULT_THEME = "aurora";</script>
+  <script src="../../themes/switcher.js"></script>
+  <script src="../../site/assets/site.js"></script>
+</body>
+</html>

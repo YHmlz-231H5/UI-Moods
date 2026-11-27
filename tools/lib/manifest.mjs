@@ -31,12 +31,25 @@ export const CATEGORIES = [
 
 const ajv = new Ajv({ strict: false, allErrors: true });
 
+/**
+ * The compiled schema.
+ *
+ * The schema carries an `$id`, and Ajv refuses to compile the same id twice
+ * on one instance — so the validator is compiled once and reused. The check
+ * is called more than once in a process (the component layer and the Vue
+ * layer both load the manifests), and the second call used to throw.
+ */
+let validateManifest = null;
+
 /** Load and schema-check every manifest under `components/`. */
 export function loadManifests(root) {
-  const schema = JSON.parse(
-    readFileSync(join(root, "schemas", "component.schema.json"), "utf8").replace(/^\uFEFF/, ""),
-  );
-  const validate = ajv.compile(schema);
+  if (!validateManifest) {
+    const schema = JSON.parse(
+      readFileSync(join(root, "schemas", "component.schema.json"), "utf8").replace(/^\uFEFF/, ""),
+    );
+    validateManifest = ajv.compile(schema);
+  }
+  const validate = validateManifest;
 
   const dir = join(root, "components");
   const problems = [];
@@ -91,6 +104,10 @@ export function partClass(manifest, id) {
  */
 export function declaredClasses(manifest) {
   const out = new Set([manifest.class.base]);
+  // A component that covers a family of native controls paints more than one
+  // base class: `um-input` also paints `um-textarea` and `um-select`, and the
+  // instance carries one of them.
+  for (const c of manifest.class.also ?? []) out.add(c);
   for (const v of manifest.variants ?? []) {
     if (v.default) continue; // the default variant is the base class itself
     out.add(modifierClass(manifest, v.id));

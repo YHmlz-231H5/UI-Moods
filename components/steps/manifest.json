@@ -1,0 +1,145 @@
+{
+  "id": "steps",
+  "name": "Steps",
+  "nameZh": "步骤条",
+  "category": "navigation",
+  "element": "ol, li, span",
+  "summary": "The order of a job, one step per entry, with the step you are on picked out and the steps already done marked as finished.",
+  "summaryZh": "一件事的先后顺序,每一步一个条目,当前这一步被标出来,已经做完的步骤标成已完成。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-steps",
+    "modifier": "um-steps--",
+    "part": "um-steps__"
+  },
+  "variants": [
+    {
+      "id": "vertical",
+      "name": "Vertical",
+      "nameZh": "纵向",
+      "note": "The steps run downwards and the line hangs under each icon instead of running beside it."
+    }
+  ],
+  "sizes": [],
+  "states": [
+    {
+      "id": "active",
+      "name": "Active",
+      "nameZh": "进行中",
+      "selector": ".um-steps__item--active",
+      "note": "The step being worked on. Its icon takes the brand colour."
+    },
+    {
+      "id": "success",
+      "name": "Success",
+      "nameZh": "已完成",
+      "selector": ".um-steps__item--success",
+      "note": "A step that is done. Its icon takes the success colour."
+    },
+    {
+      "id": "error",
+      "name": "Error",
+      "nameZh": "出错",
+      "selector": ".um-steps__item--error",
+      "note": "A step that failed. Element Plus calls this state error; the vocabulary's name for the colour is danger, so the two classes paint the same step."
+    },
+    {
+      "id": "danger",
+      "name": "Danger",
+      "nameZh": "危险",
+      "selector": ".um-steps__item--danger",
+      "note": "The library's name for the same state, kept so the class matches the colour roles used everywhere else."
+    }
+  ],
+  "parts": [
+    {
+      "id": "item",
+      "name": "Item",
+      "nameZh": "步骤",
+      "note": "One step. It carries the status class when the step is not waiting."
+    },
+    {
+      "id": "icon",
+      "name": "Icon",
+      "nameZh": "序号",
+      "note": "The round slot that holds the number."
+    },
+    {
+      "id": "content",
+      "name": "Content",
+      "nameZh": "内容",
+      "note": "The title and the description, side by side or one above the other."
+    },
+    {
+      "id": "title",
+      "name": "Title",
+      "nameZh": "标题",
+      "note": "The name of the step."
+    },
+    {
+      "id": "description",
+      "name": "Description",
+      "nameZh": "描述",
+      "note": "The line under the title. Optional."
+    },
+    {
+      "id": "line",
+      "name": "Line",
+      "nameZh": "连接线",
+      "note": "The rule that joins a step to the next one. It belongs to the step before it, so the last step drops it."
+    }
+  ],
+  "props": [
+    {
+      "name": "direction",
+      "type": "enum",
+      "values": ["horizontal", "vertical"],
+      "default": "horizontal",
+      "description": "Which way the steps run. The horizontal run is the base class on its own; the vertical run adds um-steps--vertical.",
+      "descriptionZh": "步骤往哪个方向排。横向是只写基类;纵向再加上 um-steps--vertical。"
+    },
+    {
+      "name": "status",
+      "type": "enum",
+      "values": ["default", "active", "success", "error", "danger"],
+      "default": "default",
+      "description": "Where the step stands. It is a class on the item: no class is the waiting state, and the other four are um-steps__item--active, um-steps__item--success, um-steps__item--error and um-steps__item--danger.",
+      "descriptionZh": "这一步走到哪儿了。它是条目上的一个类:不加类就是等待状态,另外四个分别是 um-steps__item--active、um-steps__item--success、um-steps__item--error 和 um-steps__item--danger。"
+    }
+  ],
+  "slots": [
+    {
+      "name": "icon",
+      "description": "The number or mark in the round slot. It is text in the markup, so it can be a number, a word or a tick.",
+      "descriptionZh": "圆槽里的序号或标记。标记里写的是文字,所以可以是数字、单词或者一个对勾。"
+    }
+  ],
+  "events": [],
+  "a11y": {
+    "role": "list",
+    "keyboard": [],
+    "notes": "The steps are an <ol>, so they are announced in order and the reader hears how many there are. The status is a class on the item and not an attribute, which means the state is not announced — a finished step sounds like a waiting one. The number in the icon is the text the screen reader reads, so it has to say where the step stands, or the class has to be carried into the markup as well.",
+    "notesZh": "步骤是一个 <ol>,所以会按顺序播报,读屏能听出共有几步。状态是条目上的类而不是属性,也就是说状态本身不会被播报 —— 做完的一步听起来和等待的一步一样。圆槽里的序号是读屏读到的文字,所以它得说得清这一步走到哪儿了;不然状态就得同时写进标记里。"
+  },
+  "examples": [
+    {
+      "id": "horizontal",
+      "title": "Horizontal",
+      "titleZh": "横向",
+      "description": "The usual run: one step is done, one is being worked on, one is waiting. The status is a class on the item, so the three can be different.",
+      "descriptionZh": "常见的样子:一步做完了,一步正在做,一步还在排队。状态是条目上的类,所以这三步可以各不相同。",
+      "markup": "<ol class=\"um-steps\">\n  <li class=\"um-steps__item um-steps__item--success\">\n    <span class=\"um-steps__icon\">1</span>\n    <span class=\"um-steps__content\">\n      <span class=\"um-steps__title\">Request</span>\n      <span class=\"um-steps__description\">The form the order came in on.</span>\n    </span>\n    <span class=\"um-steps__line\" aria-hidden=\"true\"></span>\n  </li>\n  <li class=\"um-steps__item um-steps__item--active\">\n    <span class=\"um-steps__icon\">2</span>\n    <span class=\"um-steps__content\">\n      <span class=\"um-steps__title\">Review</span>\n      <span class=\"um-steps__description\">Someone checks the details.</span>\n    </span>\n    <span class=\"um-steps__line\" aria-hidden=\"true\"></span>\n  </li>\n  <li class=\"um-steps__item\">\n    <span class=\"um-steps__icon\">3</span>\n    <span class=\"um-steps__content\">\n      <span class=\"um-steps__title\">Ship</span>\n      <span class=\"um-steps__description\">The parcel leaves the warehouse.</span>\n    </span>\n    <span class=\"um-steps__line\" aria-hidden=\"true\"></span>\n  </li>\n</ol>"
+    },
+    {
+      "id": "vertical",
+      "title": "Vertical",
+      "titleZh": "纵向",
+      "description": "The vertical run puts each step under the one before it. The line hangs below the icon and is centred on the icon's axis.",
+      "descriptionZh": "纵向时每一步排在上一条下面。连接线垂在序号下面,并与序号的轴线对齐。",
+      "markup": "<ol class=\"um-steps um-steps--vertical\">\n  <li class=\"um-steps__item um-steps__item--success\">\n    <span class=\"um-steps__icon\">1</span>\n    <span class=\"um-steps__content\">\n      <span class=\"um-steps__title\">Cart</span>\n      <span class=\"um-steps__description\">The customer picks the items.</span>\n    </span>\n    <span class=\"um-steps__line\" aria-hidden=\"true\"></span>\n  </li>\n  <li class=\"um-steps__item um-steps__item--active\">\n    <span class=\"um-steps__icon\">2</span>\n    <span class=\"um-steps__content\">\n      <span class=\"um-steps__title\">Payment</span>\n      <span class=\"um-steps__description\">The card is charged once the order is placed.</span>\n    </span>\n    <span class=\"um-steps__line\" aria-hidden=\"true\"></span>\n  </li>\n  <li class=\"um-steps__item um-steps__item--danger\">\n    <span class=\"um-steps__icon\">3</span>\n    <span class=\"um-steps__content\">\n      <span class=\"um-steps__title\">Delivery</span>\n      <span class=\"um-steps__description\">The carrier has not come back yet.</span>\n    </span>\n    <span class=\"um-steps__line\" aria-hidden=\"true\"></span>\n  </li>\n</ol>"
+    }
+  ],
+  "notes": "The status is a class on the step rather than a variant on the whole component, because a run of steps is a mix of states: one step done, the next one running, the rest waiting. A component-level variant would paint every step the same. The line is kept neutral in every state, so the only coloured thing on the bar is the step it belongs to.",
+  "notesZh": "状态是步骤上的类,而不是整个组件上的变体,因为一串步骤本来就是混着的:一步做完了,下一步正在做,其余的还在等。组件级的变体会把每一步都涂成同一个颜色。连接线在任何状态下都保持中性,所以整条状态栏上有颜色的只有它自己那一步。"
+}

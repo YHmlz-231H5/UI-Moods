@@ -1,0 +1,145 @@
+{
+  "id": "tabs",
+  "name": "Tabs",
+  "nameZh": "标签页",
+  "category": "navigation",
+  "element": "input, label, section",
+  "summary": "One row of tabs over several panels of content. The tabs are radio inputs, so the browser keeps the selection, the focus and the arrow keys without a line of script.",
+  "summaryZh": "一排标签页,下面各带一块内容。标签页就是 radio 输入框,所以选中状态、焦点和方向键都由浏览器管,不需要写一行脚本。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-tabs",
+    "modifier": "um-tabs--",
+    "part": "um-tabs__"
+  },
+  "variants": [
+    {
+      "id": "card",
+      "name": "Card",
+      "nameZh": "卡片式",
+      "state": "soft",
+      "note": "The tabs sit inside a bordered strip and the selected one is filled."
+    }
+  ],
+  "sizes": [],
+  "states": [
+    {
+      "id": "checked",
+      "name": "Selected",
+      "nameZh": "选中",
+      "selector": ":checked",
+      "native": true,
+      "note": "The radio's own checked attribute. It is the only thing that decides which tab and which panel are open."
+    }
+  ],
+  "parts": [
+    {
+      "id": "radio",
+      "name": "Radio",
+      "nameZh": "输入框",
+      "note": "The real control. It is hidden by size and opacity, so it keeps its place in the tab order."
+    },
+    {
+      "id": "header",
+      "name": "Header",
+      "nameZh": "标签栏",
+      "note": "The row of tabs. It carries role=\"tablist\"."
+    },
+    {
+      "id": "item",
+      "name": "Item",
+      "nameZh": "标签项",
+      "note": "One tab. It is a <label>, so clicking it ticks the radio it points at."
+    },
+    {
+      "id": "label",
+      "name": "Label",
+      "nameZh": "文字",
+      "note": "The text inside the item."
+    },
+    {
+      "id": "indicator",
+      "name": "Indicator",
+      "nameZh": "指示条",
+      "note": "The bar under the selected tab. It is drawn by the stylesheet, not an image."
+    },
+    {
+      "id": "panel",
+      "name": "Panel",
+      "nameZh": "面板",
+      "note": "The content of one tab. Only the panel whose radio is checked is shown."
+    }
+  ],
+  "props": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "The name the radios share. Two tab groups with different names can be open at the same time.",
+      "descriptionZh": "各个 radio 共用的名字。两个名字不同的标签页组可以同时处于展开状态。"
+    },
+    {
+      "name": "type",
+      "type": "enum",
+      "values": ["line", "card"],
+      "default": "line",
+      "description": "The shape of the tab row. The line type is the base class on its own; the card type adds um-tabs--card.",
+      "descriptionZh": "标签栏的样式。line 就是只写基类;card 再加上 um-tabs--card。"
+    },
+    {
+      "name": "selected",
+      "type": "number",
+      "default": "1",
+      "description": "Which tab starts open. It is the checked attribute on that radio.",
+      "descriptionZh": "初始展开的是哪一个标签页。就是在对应的 radio 上加 checked 属性。"
+    }
+  ],
+  "slots": [
+    {
+      "name": "panel",
+      "description": "The content of one tab. It goes inside the panel section.",
+      "descriptionZh": "一个标签页的内容,放在面板 section 里。"
+    }
+  ],
+  "events": [
+    {
+      "name": "change",
+      "description": "Fires when another tab is picked. It is the radio group's own change event — the library installs no listener.",
+      "descriptionZh": "切换到别的标签页时触发。这是 radio 组自己的 change 事件 —— 库没有安装任何监听器。"
+    }
+  ],
+  "a11y": {
+    "role": "tablist",
+    "keyboard": ["Tab", "Arrow keys", "Space"],
+    "notes": "The header is a tablist, the items are tabs and the panels are tabpanels, but the control under each tab is a radio input. What the markup cannot say is aria-selected: that value follows the selection, and writing it without JavaScript would leave it stale. The selection is therefore announced by the radio itself, which is the focused element, the checked one, and named after the tab it belongs to. Arrow keys move between the radios, because the browser treats a group of same-named radios as one control.",
+    "notesZh": "标签栏是 tablist,标签项是 tab,面板是 tabpanel,但每个标签项底下的控件是一个 radio 输入框。标记里写不了 `aria-selected`:它跟着选中状态走,不用 JavaScript 写就会变成过期的。所以选中状态由 radio 自己播报 —— 它就是那个获得焦点的、勾上的控件,名字则来自它所属的标签项。方向键可以在这些 radio 之间移动,因为浏览器把同名的 radio 组当成一个控件。"
+  },
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Basic",
+      "titleZh": "基础用法",
+      "description": "Three tabs over three panels. The radios come first, the header second and the panels last: the stylesheet pairs the Nth radio with the Nth tab and the Nth panel by position.",
+      "descriptionZh": "三个标签页配三块面板。radio 在最前面,其次是标签栏,最后是面板 —— 样式表按位置把第 N 个 radio 和第 N 个标签项、第 N 个面板配对。",
+      "markup": "<div class=\"um-tabs\">\n  <input class=\"um-tabs__radio\" type=\"radio\" name=\"um-tabs-account\" id=\"um-tabs-account-1\" aria-controls=\"um-tabs-account-panel-1\" checked />\n  <input class=\"um-tabs__radio\" type=\"radio\" name=\"um-tabs-account\" id=\"um-tabs-account-2\" aria-controls=\"um-tabs-account-panel-2\" />\n  <input class=\"um-tabs__radio\" type=\"radio\" name=\"um-tabs-account\" id=\"um-tabs-account-3\" aria-controls=\"um-tabs-account-panel-3\" />\n\n  <div class=\"um-tabs__header\" role=\"tablist\" aria-label=\"Account\">\n    <label class=\"um-tabs__item\" id=\"um-tabs-account-tab-1\" role=\"tab\" for=\"um-tabs-account-1\">\n      <span class=\"um-tabs__label\">Profile</span>\n      <span class=\"um-tabs__indicator\" aria-hidden=\"true\"></span>\n    </label>\n    <label class=\"um-tabs__item\" id=\"um-tabs-account-tab-2\" role=\"tab\" for=\"um-tabs-account-2\">\n      <span class=\"um-tabs__label\">Billing</span>\n      <span class=\"um-tabs__indicator\" aria-hidden=\"true\"></span>\n    </label>\n    <label class=\"um-tabs__item\" id=\"um-tabs-account-tab-3\" role=\"tab\" for=\"um-tabs-account-3\">\n      <span class=\"um-tabs__label\">Settings</span>\n      <span class=\"um-tabs__indicator\" aria-hidden=\"true\"></span>\n    </label>\n  </div>\n\n  <section class=\"um-tabs__panel\" id=\"um-tabs-account-panel-1\" role=\"tabpanel\" aria-labelledby=\"um-tabs-account-tab-1\" tabindex=\"0\">\n    The name, the avatar and the short bio other people see.\n  </section>\n  <section class=\"um-tabs__panel\" id=\"um-tabs-account-panel-2\" role=\"tabpanel\" aria-labelledby=\"um-tabs-account-tab-2\" tabindex=\"0\">\n    The card on file, the invoices and the next payment date.\n  </section>\n  <section class=\"um-tabs__panel\" id=\"um-tabs-account-panel-3\" role=\"tabpanel\" aria-labelledby=\"um-tabs-account-tab-3\" tabindex=\"0\">\n    Notification addresses, connected accounts and the password.\n  </section>\n</div>"
+    },
+    {
+      "id": "card",
+      "title": "Card",
+      "titleZh": "卡片式",
+      "description": "The card variant puts the tabs in a bordered strip and fills the selected one. The fill and the label colour are chosen by the variant, so the rule that matches the checked radio stays the same.",
+      "descriptionZh": "卡片式把标签页放进一条带边框的栏里,选中的那一个填上底色。底色和文字颜色由变体决定,所以匹配 checked 的那条规则不用改。",
+      "markup": "<div class=\"um-tabs um-tabs--card\">\n  <input class=\"um-tabs__radio\" type=\"radio\" name=\"um-tabs-card\" id=\"um-tabs-card-1\" aria-controls=\"um-tabs-card-panel-1\" checked />\n  <input class=\"um-tabs__radio\" type=\"radio\" name=\"um-tabs-card\" id=\"um-tabs-card-2\" aria-controls=\"um-tabs-card-panel-2\" />\n  <input class=\"um-tabs__radio\" type=\"radio\" name=\"um-tabs-card\" id=\"um-tabs-card-3\" aria-controls=\"um-tabs-card-panel-3\" />\n\n  <div class=\"um-tabs__header\" role=\"tablist\" aria-label=\"Project\">\n    <label class=\"um-tabs__item\" id=\"um-tabs-card-tab-1\" role=\"tab\" for=\"um-tabs-card-1\">\n      <span class=\"um-tabs__label\">Overview</span>\n      <span class=\"um-tabs__indicator\" aria-hidden=\"true\"></span>\n    </label>\n    <label class=\"um-tabs__item\" id=\"um-tabs-card-tab-2\" role=\"tab\" for=\"um-tabs-card-2\">\n      <span class=\"um-tabs__label\">Files</span>\n      <span class=\"um-tabs__indicator\" aria-hidden=\"true\"></span>\n    </label>\n    <label class=\"um-tabs__item\" id=\"um-tabs-card-tab-3\" role=\"tab\" for=\"um-tabs-card-3\">\n      <span class=\"um-tabs__label\">Activity</span>\n      <span class=\"um-tabs__indicator\" aria-hidden=\"true\"></span>\n    </label>\n  </div>\n\n  <section class=\"um-tabs__panel\" id=\"um-tabs-card-panel-1\" role=\"tabpanel\" aria-labelledby=\"um-tabs-card-tab-1\" tabindex=\"0\">\n    Three files changed in the last week.\n  </section>\n  <section class=\"um-tabs__panel\" id=\"um-tabs-card-panel-2\" role=\"tabpanel\" aria-labelledby=\"um-tabs-card-tab-2\" tabindex=\"0\">\n    Everything in the project, newest first.\n  </section>\n  <section class=\"um-tabs__panel\" id=\"um-tabs-card-panel-3\" role=\"tabpanel\" aria-labelledby=\"um-tabs-card-tab-3\" tabindex=\"0\">\n    Who touched what, and when.\n  </section>\n</div>"
+    },
+    {
+      "id": "four-tabs",
+      "title": "Four tabs",
+      "titleZh": "四个标签页",
+      "description": "Four tabs is the extent of the wiring in the stylesheet. A fifth tab needs one more selector in style.css — still no JavaScript.",
+      "descriptionZh": "样式表里接好了四个标签页。要加第五个,只需要在 style.css 里再加一条选择器 —— 还是不需要 JavaScript。",
+      "markup": "<div class=\"um-tabs\">\n  <input class=\"um-tabs__radio\" type=\"radio\" name=\"um-tabs-four\" id=\"um-tabs-four-1\" aria-controls=\"um-tabs-four-panel-1\" checked />\n  <input class=\"um-tabs__radio\" type=\"radio\" name=\"um-tabs-four\" id=\"um-tabs-four-2\" aria-controls=\"um-tabs-four-panel-2\" />\n  <input class=\"um-tabs__radio\" type=\"radio\" name=\"um-tabs-four\" id=\"um-tabs-four-3\" aria-controls=\"um-tabs-four-panel-3\" />\n  <input class=\"um-tabs__radio\" type=\"radio\" name=\"um-tabs-four\" id=\"um-tabs-four-4\" aria-controls=\"um-tabs-four-panel-4\" />\n\n  <div class=\"um-tabs__header\" role=\"tablist\" aria-label=\"Report\">\n    <label class=\"um-tabs__item\" id=\"um-tabs-four-tab-1\" role=\"tab\" for=\"um-tabs-four-1\">\n      <span class=\"um-tabs__label\">Summary</span>\n      <span class=\"um-tabs__indicator\" aria-hidden=\"true\"></span>\n    </label>\n    <label class=\"um-tabs__item\" id=\"um-tabs-four-tab-2\" role=\"tab\" for=\"um-tabs-four-2\">\n      <span class=\"um-tabs__label\">Sources</span>\n      <span class=\"um-tabs__indicator\" aria-hidden=\"true\"></span>\n    </label>\n    <label class=\"um-tabs__item\" id=\"um-tabs-four-tab-3\" role=\"tab\" for=\"um-tabs-four-3\">\n      <span class=\"um-tabs__label\">Notes</span>\n      <span class=\"um-tabs__indicator\" aria-hidden=\"true\"></span>\n    </label>\n    <label class=\"um-tabs__item\" id=\"um-tabs-four-tab-4\" role=\"tab\" for=\"um-tabs-four-4\">\n      <span class=\"um-tabs__label\">History</span>\n      <span class=\"um-tabs__indicator\" aria-hidden=\"true\"></span>\n    </label>\n  </div>\n\n  <section class=\"um-tabs__panel\" id=\"um-tabs-four-panel-1\" role=\"tabpanel\" aria-labelledby=\"um-tabs-four-tab-1\" tabindex=\"0\">\n    The numbers the report is about.\n  </section>\n  <section class=\"um-tabs__panel\" id=\"um-tabs-four-panel-2\" role=\"tabpanel\" aria-labelledby=\"um-tabs-four-tab-2\" tabindex=\"0\">\n    Where the numbers came from.\n  </section>\n  <section class=\"um-tabs__panel\" id=\"um-tabs-four-panel-3\" role=\"tabpanel\" aria-labelledby=\"um-tabs-four-tab-3\" tabindex=\"0\">\n    What the numbers do not say.\n  </section>\n  <section class=\"um-tabs__panel\" id=\"um-tabs-four-panel-4\" role=\"tabpanel\" aria-labelledby=\"um-tabs-four-tab-4\" tabindex=\"0\">\n    What the numbers said last time.\n  </section>\n</div>"
+    }
+  ],
+  "notes": "The tabs are radio inputs, and the stylesheet pairs the Nth radio with the Nth tab and the Nth panel by position. That is why the radios come first in the markup, the header second and the panels last, and why the panels are <section>s: `nth-of-type` has to count them apart from the <div> that holds the header. Four tabs are wired out of the box; a fifth needs one more selector in this file, not a line of JavaScript.",
+  "notesZh": "标签页是 radio 输入框,样式表按位置把第 N 个 radio 和第 N 个标签项、第 N 个面板配对。所以标记里 radio 在最前面,其次是标签栏,最后是面板;面板用 `<section>`,是因为 `nth-of-type` 得把它和装标签栏的那个 `<div>` 分开数。库里接好了四个标签页;要加第五个,只需要在这个文件里再加一条选择器,不用加一行 JavaScript。"
+}

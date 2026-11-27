@@ -1,0 +1,73 @@
+{
+  "id": "statistic",
+  "name": "Statistic",
+  "nameZh": "统计数值",
+  "category": "data",
+  "element": "div, span",
+  "summary": "One number with the name of what it counts. The number is the largest thing on the block and everything else is sized around it.",
+  "summaryZh": "一个数字,加上它统计的是什么。数字是这块里最大的东西,其余部分都围着它定大小。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-statistic",
+    "modifier": "um-statistic--",
+    "part": "um-statistic__"
+  },
+  "variants": [
+    { "id": "success", "name": "Success", "nameZh": "成功", "state": "ghost", "note": "The number takes the success colour." },
+    { "id": "warning", "name": "Warning", "nameZh": "警告", "state": "ghost", "note": "The number takes the warning colour." },
+    { "id": "danger", "name": "Danger", "nameZh": "危险", "state": "ghost", "note": "The number takes the danger colour." }
+  ],
+  "sizes": [],
+  "states": [],
+  "parts": [
+    { "id": "title", "name": "Title", "nameZh": "标题", "note": "What the number counts. It stays small and secondary." },
+    { "id": "content", "name": "Content", "nameZh": "数值区", "note": "The line the number and its unit sit on." },
+    { "id": "value", "name": "Value", "nameZh": "数值", "note": "The number itself." },
+    { "id": "prefix", "name": "Prefix", "nameZh": "前缀", "note": "What stands in front of the number, such as a currency sign." },
+    { "id": "suffix", "name": "Suffix", "nameZh": "后缀", "note": "What stands behind the number, such as a unit or a sign." }
+  ],
+  "props": [
+    { "name": "variant", "type": "enum", "values": ["success", "warning", "danger"], "description": "Which state the number reports. Without a variant the number is the ordinary text colour.", "descriptionZh": "这个数字表示哪一种状态。不带变体时,数字用普通文字色。" },
+    { "name": "title", "type": "string", "description": "What the number counts.", "descriptionZh": "这个数字统计的是什么。" },
+    { "name": "value", "type": "string", "description": "The number, written the way it should be read: `9,999` and not `9999.0`.", "descriptionZh": "数字,按该被读出来的样子写:`9,999`,而不是 `9999.0`。" }
+  ],
+  "slots": [
+    { "name": "prefix", "description": "What stands in front of the number.", "descriptionZh": "写在数字前面的东西。" },
+    { "name": "suffix", "description": "What stands behind the number.", "descriptionZh": "写在数字后面的东西。" }
+  ],
+  "events": [],
+  "a11y": {
+    "keyboard": [],
+    "notes": "A statistic is read, not operated: nothing in it is focusable. The number is text, so it is announced as it is written. When the number is shortened for the eye — `9.9K` — the reader needs the full value, so put it in an aria-label on the content element; a screen reader cannot expand an abbreviation it does not know.",
+    "notesZh": "统计数值是被读的,不是被操作的:里面没有可聚焦的东西。数字就是文字,所以会照写的样子被播报。如果数字为了版面被缩短成 `9.9K`,读者仍需要完整的值,把它放进数值区的 aria-label 里 —— 读屏没法替读屏展开一个它不认识的缩写。"
+  },
+  "examples": [
+    {
+      "id": "statistic",
+      "title": "A statistic",
+      "titleZh": "一个统计值",
+      "description": "The title says what is counted and the number is the largest thing in the block. The digits are equal width, so a column of these lines up.",
+      "descriptionZh": "标题说明统计的是什么,数字是这块里最大的东西。数字用等宽字形,所以一列统计值是对齐的。",
+      "markup": "<div class=\"um-statistic\">\n  <span class=\"um-statistic__title\">Orders today</span>\n  <span class=\"um-statistic__content\">\n    <span class=\"um-statistic__value\">1,284</span>\n  </span>\n</div>"
+    },
+    {
+      "id": "prefix-and-suffix",
+      "title": "Prefix and suffix",
+      "titleZh": "前缀和后缀",
+      "description": "The prefix and the suffix take the title size and sit on the baseline of the number, so the unit reads as a unit and not as another number.",
+      "descriptionZh": "前缀和后缀用 title 字号,和数字坐在同一条基线上,所以单位是当单位读的,不会被当成另一个数字。",
+      "markup": "<div class=\"um-statistic\">\n  <span class=\"um-statistic__title\">Revenue this month</span>\n  <span class=\"um-statistic__content\">\n    <span class=\"um-statistic__prefix\">$</span>\n    <span class=\"um-statistic__value\">48,920</span>\n    <span class=\"um-statistic__suffix\">USD</span>\n  </span>\n</div>"
+    },
+    {
+      "id": "states",
+      "title": "States",
+      "titleZh": "状态",
+      "description": "Three variants paint the number. They use the colours derived for text, so the number stays readable on the page, on a card and inside a container.",
+      "descriptionZh": "三个变体给数字上色。它们用的是为文字派生的那组颜色,所以数字在页面上、在卡片里、在容器里都读得清。",
+      "markup": "<div class=\"um-statistic um-statistic--success\">\n  <span class=\"um-statistic__title\">Conversion</span>\n  <span class=\"um-statistic__content\">\n    <span class=\"um-statistic__value\">18.4</span>\n    <span class=\"um-statistic__suffix\">%</span>\n  </span>\n</div>\n<div class=\"um-statistic um-statistic--warning\">\n  <span class=\"um-statistic__title\">Jobs waiting</span>\n  <span class=\"um-statistic__content\">\n    <span class=\"um-statistic__value\">7</span>\n  </span>\n</div>\n<div class=\"um-statistic um-statistic--danger\">\n  <span class=\"um-statistic__title\">Failed checks</span>\n  <span class=\"um-statistic__content\">\n    <span class=\"um-statistic__value\">3</span>\n  </span>\n</div>"
+    }
+  ],
+  "notes": "The value takes the display size and the prefix and the suffix take the title size, so the eye lands on the number first and the unit is read beside it. The digits are set in equal-width figures: a row of statistics has to line up, and proportional digits move the number sideways every time the value changes.",
+  "notesZh": "数值用 display 字号,前缀和后缀用 title 字号,所以眼睛先落在数字上,单位在旁边读。数字用等宽字形:一排统计值要对齐,而比例字形会让数字在每次变化时横向晃一下。"
+}

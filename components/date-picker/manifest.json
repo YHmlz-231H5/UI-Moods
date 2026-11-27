@@ -1,0 +1,85 @@
+{
+  "id": "date-picker",
+  "name": "Date Picker",
+  "nameZh": "日期选择器",
+  "category": "form",
+  "element": "input",
+  "summary": "A field for a date. It is a real <input type=\"date\"> inside a box the library draws, so the browser validates the date, the arrow keys walk through it and the reader's own calendar opens it.",
+  "summaryZh": "一个填日期的字段。它是一个真正的 <input type=\"date\">,放在库画的盒子里,所以日期由浏览器校验,方向键可以在里面走,读者自己的日历也会由它打开。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-date-picker",
+    "modifier": "um-date-picker--",
+    "part": "um-date-picker__"
+  },
+  "variants": [
+    { "id": "single", "name": "Single date", "nameZh": "单个日期", "note": "One date in one field. The base class on its own is this layout, and the modifier paints the same thing so the class list can name it." },
+    { "id": "range", "name": "Range", "nameZh": "日期区间", "note": "Two dates in one box, with a rule between them. The markup carries a second input and the separator." }
+  ],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "The field follows the theme's small control height and the date takes the caption size." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default field. The base class is already this height, so it needs no modifier." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "The field follows the theme's large control height." }
+  ],
+  "states": [
+    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The field paints a flat surface and takes the derived disabled colour, so its date is still readable." },
+    { "id": "invalid", "name": "Invalid", "nameZh": "无效", "selector": ":user-invalid", "native": true, "note": "The border turns to the danger colour when the browser says the date is out of range. The user-invalid pseudo-class waits for the reader to have been there, so an empty field is not red before anyone touches it." },
+    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the field, because the field is what the reader is typing in." }
+  ],
+  "parts": [
+    { "id": "input", "name": "Input", "nameZh": "输入框", "note": "The real <input type=\"date\">. It is borderless inside the field, so the field and the calendar read as one control." },
+    { "id": "icon", "name": "Icon", "nameZh": "日历图标", "note": "The calendar glyph, drawn from borders. It is decorative: the button that actually opens the picker is the browser's own." },
+    { "id": "separator", "name": "Separator", "nameZh": "分隔线", "note": "The rule between the two dates of a range." }
+  ],
+  "props": [
+    { "name": "value", "type": "string", "description": "The date in the field. It is the input's own value, in the browser's own format — a class cannot carry a date.", "descriptionZh": "字段里的日期。它是 input 自己的值,用浏览器自己的格式 —— 类带不了日期。" },
+    { "name": "min", "type": "string", "description": "The earliest date the field accepts. It is the input's own min attribute, so the browser enforces it and marks the field out of range when it is not met.", "descriptionZh": "字段接受的最早日期。它是原生 min 属性,由浏览器来管,不满足时浏览器会把字段标成超出范围。" },
+    { "name": "max", "type": "string", "description": "The latest date the field accepts. It is the input's own max attribute.", "descriptionZh": "字段接受的最晚日期。它是原生 max 属性。" },
+    { "name": "required", "type": "boolean", "default": "false", "description": "Makes the date necessary. It is the native required attribute, so the browser asks for it.", "descriptionZh": "让日期必填。它是原生 required 属性,由浏览器来问。" },
+    { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes the field inert. It uses the real disabled attribute, so it leaves the tab order.", "descriptionZh": "让字段不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" },
+    { "name": "type", "type": "enum", "values": ["single", "range"], "default": "single", "description": "Whether the field holds one date or two. The single field is the base class on its own; the range field adds um-date-picker--range.", "descriptionZh": "字段里是一个日期还是两个日期。一个日期是只写基础类;日期区间再加上 um-date-picker--range。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The height of the field.", "descriptionZh": "字段的高度。" }
+  ],
+  "slots": [
+    { "name": "icon", "description": "The calendar glyph. It is decorative and drawn by the library, so it takes no text of its own.", "descriptionZh": "日历图标。它是装饰性的,由库画出来,所以自己不带文字。" }
+  ],
+  "events": [
+    { "name": "change", "description": "Fires when the date changes. It is the browser's own event on the input — the library installs no listener.", "descriptionZh": "日期变了的时候触发。这是 input 上的浏览器原生事件 —— 库没有安装任何监听器。" },
+    { "name": "input", "description": "Fires on every keystroke in the field. It is the browser's own event on the input.", "descriptionZh": "在字段里每敲一个字就触发。这是 input 上的浏览器原生事件。" }
+  ],
+  "a11y": {
+    "role": "textbox",
+    "keyboard": ["Tab", "Arrow keys", "Enter"],
+    "notes": "The field is a real <input type=\"date\">, so the browser validates it, the arrow keys walk through the parts of the date and a screen reader announces it as a date field with its own segments. Give it a real <label for> or an aria-label — the drawn calendar glyph is decorative and carries no text. The button that opens the picker is the browser's own and is left where the browser puts it; the library's glyph is decoration beside it, not a second control.",
+    "notesZh": "字段是真正的 <input type=\"date\">,所以浏览器会校验它,方向键可以在日期的各段之间走,读屏也会把它当作带分段的日期字段播报。给它一个真正的 <label for> 或 aria-label —— 画出来的日历图标是装饰性的,自己不带文字。打开选择器的那个按钮是浏览器自己的,库把它留在浏览器放的位置;库画的那个图标是它旁边的装饰,不是第二个控件。"
+  },
+  "examples": [
+    {
+      "id": "single",
+      "title": "Single date",
+      "titleZh": "单个日期",
+      "description": "One date in one field. The calendar glyph is the library's own decoration; the button that opens the picker is the browser's, on the other side of the date.",
+      "descriptionZh": "一个日期放在一个字段里。日历图标是库自己画的装饰;打开选择器的按钮是浏览器的,在日期的另一边。",
+      "markup": "<div class=\"um-field\">\n  <label class=\"um-field__label\" for=\"um-date-picker-delivery\">Delivery date</label>\n  <div class=\"um-date-picker\">\n    <span class=\"um-date-picker__icon\" aria-hidden=\"true\"></span>\n    <input class=\"um-date-picker__input\" type=\"date\" id=\"um-date-picker-delivery\" name=\"um-date-picker-delivery\" value=\"2026-03-14\" />\n  </div>\n</div>"
+    },
+    {
+      "id": "range",
+      "title": "Range",
+      "titleZh": "日期区间",
+      "description": "Two dates in one box, with a rule between them. The markup carries a second input and the separator.",
+      "descriptionZh": "一个盒子里两个日期,中间一条线。标记里多了一个 input 和那条分隔线。",
+      "markup": "<div class=\"um-field\">\n  <label class=\"um-field__label\" for=\"um-date-picker-from\">Billing period</label>\n  <div class=\"um-date-picker um-date-picker--range\">\n    <span class=\"um-date-picker__icon\" aria-hidden=\"true\"></span>\n    <input class=\"um-date-picker__input\" type=\"date\" id=\"um-date-picker-from\" name=\"um-date-picker-from\" value=\"2026-03-01\" />\n    <span class=\"um-date-picker__separator\" aria-hidden=\"true\"></span>\n    <input class=\"um-date-picker__input\" type=\"date\" name=\"um-date-picker-to\" value=\"2026-03-31\" aria-label=\"End of the billing period\" />\n  </div>\n</div>"
+    },
+    {
+      "id": "out-of-range",
+      "title": "Out of range",
+      "titleZh": "超出范围",
+      "description": "A field with a minimum the browser enforces. A date outside the range turns the border to the danger colour — but only after the reader has been there, so an empty field is not red on arrival.",
+      "descriptionZh": "带最小值的字段,由浏览器来管。超出范围的日期会把描边变成危险色 —— 但只在读者动过之后,所以刚打开的空字段不会是红的。",
+      "markup": "<div class=\"um-field\">\n  <label class=\"um-field__label\" for=\"um-date-picker-min\">Appointment</label>\n  <div class=\"um-date-picker\">\n    <span class=\"um-date-picker__icon\" aria-hidden=\"true\"></span>\n    <input class=\"um-date-picker__input\" type=\"date\" id=\"um-date-picker-min\" name=\"um-date-picker-min\" value=\"2026-01-08\" min=\"2026-03-01\" max=\"2026-03-31\" required />\n  </div>\n</div>"
+    }
+  ],
+  "notes": "The picker is the browser's own, and the library does not take it away: hiding the native indicator would remove the only way to open the calendar without JavaScript. The drawn glyph beside the date is decoration, so it is hidden from the screen reader and the field needs a label of its own. The indicator's colour follows the reader's system rather than the mood, because the contract has no role for \"this mood is a dark one\" and a wrong colour was not an option.",
+  "notesZh": "选择器是浏览器自己的,库没有把它拿走:把原生的那个图标藏起来,就会断掉不用 JavaScript 时唯一的打开方式。日期旁边画的那个图标是装饰,所以它对读屏是藏起来的,字段自己得有一个标签。那个图标的颜色跟的是读者的系统设置而不是这套 mood,因为契约里没有「这套 mood 是深色的」这种角色,而写错一个颜色是不行的。"
+}

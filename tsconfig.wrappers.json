@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "strict": true,
+    "noEmit": true,
+    "allowJs": true,
+    "checkJs": false,
+    "types": []
+  },
+  "//": "The per-component wrappers. They are plain JavaScript components, and their correctness is proved by rendering them: `node tools/check-vue.mjs` mounts every wrapper with @vue/server-renderer and compares the result with the manifest — the props, the classes, the parts. TypeScript still parses them here and resolves their imports, so a syntax error or a missing module is still an error; what it does not do is infer the props of a plain object literal, which is why the wrappers use `defineComponent` and the declarations live in `vue/components/index.d.ts`.",
+  "include": ["vue/components/*.js"],
+  "exclude": ["vue/components/index.js"]
+}

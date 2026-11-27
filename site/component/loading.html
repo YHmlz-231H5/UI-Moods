@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Loading · UI Moods</title>
+  <meta name="description" content="A ring that turns while the library waits for something. The ring is two borders with one side left out, and the turn is a keyframe, so it needs neither a timer nor a script." />
+
+  <!-- The two files that make the whole thing work.
+       The first is the library; the second carries all thirty-two moods at
+       once, so the picker below changes an attribute instead of loading a
+       file — the switch has no network request to wait for. -->
+  <link rel="stylesheet" id="um-theme" href="../../themes/all.css" />
+  <link rel="stylesheet" href="../../components/um-components.css" />
+  <link rel="stylesheet" href="../../site/assets/site.css" />
+</head>
+<body>
+  <header class="site-header">
+      <a class="site-header__brand" href="../../index.html">UI Moods<span>Component Library</span></a>
+      <div class="site-header__spacer"></div>
+      <div class="switcher">
+        <label class="switcher__label" for="um-theme-picker">Theme</label>
+        <span class="switcher__field">
+          <select class="switcher__select" id="um-theme-picker"></select>
+        </span>
+      </div>
+    </header>
+  <div class="site-body">
+    <nav class="site-sidebar" aria-label="Components">
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Basic · 基础</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/typography.html">Typography <span class="meta">文字排版</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Form · 表单</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/button.html">Button <span class="meta">按钮</span></a></li>
+          <li><a href="../component/checkbox.html">Checkbox <span class="meta">复选框</span></a></li>
+          <li><a href="../component/checkbox-group.html">Checkbox Group <span class="meta">复选框组</span></a></li>
+          <li><a href="../component/date-picker.html">Date Picker <span class="meta">日期选择器</span></a></li>
+          <li><a href="../component/field.html">Field <span class="meta">表单项</span></a></li>
+          <li><a href="../component/input.html">Input / Textarea / Select <span class="meta">输入框 / 文本域 / 选择器</span></a></li>
+          <li><a href="../component/input-number.html">Input Number <span class="meta">数字输入框</span></a></li>
+          <li><a href="../component/radio.html">Radio <span class="meta">单选框</span></a></li>
+          <li><a href="../component/radio-group.html">Radio Group <span class="meta">单选框组</span></a></li>
+          <li><a href="../component/rate.html">Rate <span class="meta">评分</span></a></li>
+          <li><a href="../component/slider.html">Slider <span class="meta">滑块</span></a></li>
+          <li><a href="../component/switch.html">Switch <span class="meta">开关</span></a></li>
+          <li><a href="../component/upload.html">Upload <span class="meta">上传</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Data · 数据展示</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/avatar.html">Avatar <span class="meta">头像</span></a></li>
+          <li><a href="../component/badge.html">Badge <span class="meta">徽标</span></a></li>
+          <li><a href="../component/card.html">Card <span class="meta">卡片</span></a></li>
+          <li><a href="../component/cascader.html">Cascader <span class="meta">级联选择器</span></a></li>
+          <li><a href="../component/descriptions.html">Descriptions <span class="meta">描述列表</span></a></li>
+          <li><a href="../component/empty.html">Empty <span class="meta">空状态</span></a></li>
+          <li><a href="../component/progress.html">Progress <span class="meta">进度条</span></a></li>
+          <li><a href="../component/result.html">Result <span class="meta">结果</span></a></li>
+          <li><a href="../component/skeleton.html">Skeleton <span class="meta">骨架屏</span></a></li>
+          <li><a href="../component/statistic.html">Statistic <span class="meta">统计数值</span></a></li>
+          <li><a href="../component/table.html">Table <span class="meta">表格</span></a></li>
+          <li><a href="../component/tag.html">Tag <span class="meta">标签</span></a></li>
+          <li><a href="../component/timeline.html">Timeline <span class="meta">时间线</span></a></li>
+          <li><a href="../component/transfer.html">Transfer <span class="meta">穿梭框</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Navigation · 导航</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/breadcrumb.html">Breadcrumb <span class="meta">面包屑</span></a></li>
+          <li><a href="../component/dropdown.html">Dropdown <span class="meta">下拉菜单</span></a></li>
+          <li><a href="../component/menu.html">Menu <span class="meta">菜单</span></a></li>
+          <li><a href="../component/pagination.html">Pagination <span class="meta">分页</span></a></li>
+          <li><a href="../component/steps.html">Steps <span class="meta">步骤条</span></a></li>
+          <li><a href="../component/tabs.html">Tabs <span class="meta">标签页</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Feedback · 反馈</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/alert.html">Alert <span class="meta">警告</span></a></li>
+          <li><a href="" aria-current="page">Loading <span class="meta">加载中</span></a></li>
+          <li><a href="../component/popover.html">Popover <span class="meta">气泡卡片</span></a></li>
+          <li><a href="../component/tooltip.html">Tooltip <span class="meta">文字提示</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Others · 其他</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/divider.html">Divider <span class="meta">分割线</span></a></li>
+        </ul>
+      </div>
+    </nav>
+    <main class="site-main">
+      <h1>Loading <span class="meta">加载中</span></h1>
+      <p class="lede">A ring that turns while the library waits for something. The ring is two borders with one side left out, and the turn is a keyframe, so it needs neither a timer nor a script.</p>
+      <p class="meta">
+        <span class="tag">span, div</span>
+        <span class="tag">feedback</span>
+        <span class="tag">since 1.1.0</span>
+      </p>
+      <div class="note">The ring is two borders with the top side left out, and the gap in the ring is that missing side — so the shape is drawn, not fetched. The keyframe it turns with is the one the loading button already uses, because it is the same ring turning the same way; and it only turns at all when the reader has not asked for less motion, which the library never overrides.</div>
+
+      <h2>Examples</h2>
+<div class="example">
+        <div class="example__title">Spinner · 转轮</div>
+        <div class="example__desc">The ring on its own. It is a shape the stylesheet draws, so there is no icon to load and nothing to install.</div>
+        <div class="example__demo">
+<div class="um-loading um-loading--spinner">
+  <span class="um-loading__spinner" aria-hidden="true"></span>
+</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-loading um-loading--spinner&quot;&gt;
+  &lt;span class=&quot;um-loading__spinner&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+&lt;/div&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">With text · 带文字</div>
+        <div class="example__desc">The caption is a separate element, so it can be left out. The gap between the ring and the caption is opened by the modifier.</div>
+        <div class="example__demo">
+<div class="um-loading um-loading--text" role="status">
+  <span class="um-loading__spinner" aria-hidden="true"></span>
+  <span class="um-loading__text">Loading the last 24 hours</span>
+</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-loading um-loading--text&quot; role=&quot;status&quot;&gt;
+  &lt;span class=&quot;um-loading__spinner&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+  &lt;span class=&quot;um-loading__text&quot;&gt;Loading the last 24 hours&lt;/span&gt;
+&lt;/div&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">Sizes · 尺寸</div>
+        <div class="example__desc">Three rings, three spacing steps. The middle one is the base class on its own, because the base class is already the medium size.</div>
+        <div class="example__demo">
+<div class="um-loading um-loading--spinner um-loading--small">
+  <span class="um-loading__spinner" aria-hidden="true"></span>
+</div>
+<div class="um-loading um-loading--spinner">
+  <span class="um-loading__spinner" aria-hidden="true"></span>
+</div>
+<div class="um-loading um-loading--spinner um-loading--large">
+  <span class="um-loading__spinner" aria-hidden="true"></span>
+</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-loading um-loading--spinner um-loading--small&quot;&gt;
+  &lt;span class=&quot;um-loading__spinner&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+&lt;/div&gt;
+&lt;div class=&quot;um-loading um-loading--spinner&quot;&gt;
+  &lt;span class=&quot;um-loading__spinner&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+&lt;/div&gt;
+&lt;div class=&quot;um-loading um-loading--spinner um-loading--large&quot;&gt;
+  &lt;span class=&quot;um-loading__spinner&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+&lt;/div&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">Overlay · 整页遮罩</div>
+        <div class="example__desc">The overlay covers the page with a veil and centres a panel on it. The panel is what carries the message, so the ring on its own stays decorative.</div>
+        <div class="example__demo">
+<div class="um-loading um-loading--overlay" role="status">
+  <div class="um-loading__panel">
+    <span class="um-loading__spinner" aria-hidden="true"></span>
+    <span class="um-loading__text">Saving the deployment</span>
+  </div>
+</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-loading um-loading--overlay&quot; role=&quot;status&quot;&gt;
+  &lt;div class=&quot;um-loading__panel&quot;&gt;
+    &lt;span class=&quot;um-loading__spinner&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+    &lt;span class=&quot;um-loading__text&quot;&gt;Saving the deployment&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+      </div>
+      <h2>Classes</h2>
+<table class="api">
+      <thead><tr><th>Class</th><th>Meaning</th></tr></thead>
+      <tbody>
+      <tr><td><code>um-loading</code></td><td>The base class. Every instance carries it.</td></tr>
+      <tr><td><code>um-loading--spinner</code></td><td>Spinner</td></tr>
+      <tr><td><code>um-loading--text</code></td><td>Spinner with text</td></tr>
+      <tr><td><code>um-loading--overlay</code></td><td>Full-page overlay</td></tr>
+      <tr><td><code>um-loading--small</code></td><td>Size: small</td></tr>
+      <tr><td><code>um-loading--medium</code></td><td>Size: medium</td></tr>
+      <tr><td><code>um-loading--large</code></td><td>Size: large</td></tr>
+      <tr><td><code>um-loading__spinner</code></td><td>Spinner</td></tr>
+      <tr><td><code>um-loading__text</code></td><td>Text</td></tr>
+      <tr><td><code>um-loading__panel</code></td><td>Panel</td></tr>
+      </tbody>
+    </table>
+      <h2>Props</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>variant</code></span></td><td><code>enum = spinner | text | overlay</code></td><td><code>spinner</code></td><td>Which of the three shapes this is. The ring on its own is the base class, so the spinner variant only needs the modifier when the markup wants to say so.</td></tr>
+      <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = small | medium | large</code></td><td><code>medium</code></td><td>How big the ring is. The sizes are the theme's own spacing steps, so the ring grows with the mood's rhythm instead of sitting at a fixed size.</td></tr>
+      <tr><td><span class="api__name"><code>text</code></span></td><td><code>string</code></td><td>—</td><td>The caption beside the ring. It is the message, so it is written as text in the page and not as an attribute.</td></tr>
+      </tbody>
+    </table>
+      <h2>Slots</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>text</code></span></td><td>The caption beside the ring.</td></tr>
+      </tbody>
+    </table>
+
+      <h2>Accessibility</h2>
+      <p><strong>Role:</strong> <code>status</code></p>
+        <p>The ring is a picture of waiting, not a message: mark it aria-hidden and let the caption carry the words. When the indicator appears without the reader having asked for it, put role=&quot;status&quot; on the wrapper so the caption is announced; an indicator that was already on the page when it loaded does not need one. The ring turns only when the reader has not asked for less motion.</p>
+
+    </main>
+  </div>
+
+  <script>window.UM_THEMES = {"light":["anime","archive","bauhaus","brutal","clay","corporate","eco","fashion","food","forest","ios","luxury","medical","monochrome","nordic","pastel","retro","sakura","swiss","travel","y2k"],"dark":["aurora","blueprint","crypto","finance","gaming","glass","instrument","neon","night","vaporwave","verdant"]};
+  window.UM_DEFAULT_THEME = "aurora";</script>
+  <script src="../../themes/switcher.js"></script>
+  <script src="../../site/assets/site.js"></script>
+</body>
+</html>

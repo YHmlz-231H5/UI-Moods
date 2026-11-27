@@ -1,0 +1,84 @@
+/* ============================================================================
+   Radio Group
+   ========================================================================== */
+
+/* The group is the furniture around the circles: a fieldset, a legend and a
+   panel to hold them. The circle itself is the radio component's own, so a
+   group and a lone radio cannot drift apart. */
+.um-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--um-space-xs);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: var(--um-font-family);
+}
+
+/* The legend is the group's name. The browser reads it before the options,
+   so it is a real <legend> and not a heading pretending to be one. */
+.um-radio-group__legend {
+  padding: 0;
+  color: var(--um-text-regular);
+  font-size: var(--um-font-size-caption);
+  font-weight: var(--um-font-weight-medium);
+}
+
+/* The panel is the group's own surface. It is the plain surface rather than
+   the page, so the option text keeps the contrast the contract measures for
+   text on a surface. The stacked run is the base class on its own; the
+   modifier carries the same rule, so the class list can name it. */
+.um-radio-group__options,
+.um-radio-group--stacked .um-radio-group__options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--um-space-xs);
+  padding: var(--um-space-xs);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-base);
+  background: var(--um-bg-overlay);
+}
+
+/* The option is the label that wraps the real input, the circle and the
+   text. It is the element that can be asked whether its input is picked. */
+.um-radio-group__option {
+  display: flex;
+  align-items: center;
+  gap: var(--um-space-xs);
+  padding: 0 var(--um-space-xs);
+  border-radius: var(--um-radius-small);
+  cursor: pointer;
+}
+
+.um-radio-group__label {
+  color: var(--um-text-regular);
+  font-size: var(--um-font-size-body);
+}
+
+/* The picked option takes the brand colour's own soft tint, and its text
+   takes the foreground derived for that tint. The row knows it is picked
+   because it holds the input: :has() is the only way CSS can ask. */
+.um-radio-group__option:has(input:checked) {
+  background: var(--um-color-primary-soft-8);
+}
+.um-radio-group__option:has(input:checked) .um-radio-group__label {
+  color: var(--um-color-primary-on-soft);
+}
+
+/* A disabled option is dimmed the way the library dims every other disabled
+   control: the shape keeps its opacity, the text takes the derived disabled
+   colour, which is the one measured to stay visible. */
+.um-radio-group__option:has(input:disabled) {
+  cursor: not-allowed;
+}
+.um-radio-group__option:has(input:disabled) .um-radio-group__label {
+  color: var(--um-text-disabled);
+}
+
+/* The inline run puts the options side by side and lets them wrap onto the
+   next line when they run out of room. */
+.um-radio-group--inline .um-radio-group__options {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--um-space-sm);
+}

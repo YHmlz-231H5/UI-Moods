@@ -1,0 +1,92 @@
+{
+  "id": "upload",
+  "name": "Upload",
+  "nameZh": "上传",
+  "category": "form",
+  "element": "input, label, ul",
+  "summary": "A file input and the list of the files that were chosen. The input is a real one, so the browser's own dialog opens and the files are chosen with the browser's own picker.",
+  "summaryZh": "一个文件输入框,加上已选文件的清单。输入框是真的,所以打开的是浏览器自己的对话框,选文件也用浏览器自己的选择器。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-upload",
+    "modifier": "um-upload--",
+    "part": "um-upload__"
+  },
+  "variants": [
+    { "id": "list", "name": "List", "nameZh": "列表", "note": "Each chosen file is a row of its own, with its name, its size and its status. The base class on its own is this layout, and the modifier paints the same thing so the class list can name it." },
+    { "id": "text", "name": "Text", "nameZh": "文字", "note": "The files run along one line as a summary, and the boxes around them are dropped." }
+  ],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "The trigger follows the theme's small control height and the file names take the caption size." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default size. The base class is already this height, so it needs no modifier." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "The trigger follows the theme's large control height and the file names take the title size." }
+  ],
+  "states": [
+    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The input goes inert. It uses the real disabled attribute, so it leaves the tab order and the button takes the derived disabled colour." },
+    { "id": "uploading", "name": "Uploading", "nameZh": "上传中", "selector": ".um-upload__item--uploading", "note": "A file that is on its way up. The status takes the brand colour's text role." },
+    { "id": "done", "name": "Done", "nameZh": "已完成", "selector": ".um-upload__item--done", "note": "A file that has arrived. The status takes the success colour's text role." },
+    { "id": "error", "name": "Error", "nameZh": "出错", "selector": ".um-upload__item--error", "note": "A file that did not make it. The status takes the danger colour's text role." },
+    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the button, because the button is what the user sees of the control." }
+  ],
+  "parts": [
+    { "id": "trigger", "name": "Trigger", "nameZh": "触发器", "note": "The label that opens the dialog. It wraps the real input, so clicking it opens the browser's own file picker." },
+    { "id": "input", "name": "Input", "nameZh": "输入框", "note": "The real <input type=\"file\">. It is hidden visually rather than removed, so it keeps its place in the tab order and its name." },
+    { "id": "button", "name": "Button", "nameZh": "按钮", "note": "The part of the trigger that reads as a button. It carries no text of its own, so the trigger needs an accessible name." },
+    { "id": "list", "name": "List", "nameZh": "文件列表", "note": "The list of the chosen files." },
+    { "id": "item", "name": "Item", "nameZh": "文件", "note": "One chosen file. It carries the status class when the file is not simply waiting." },
+    { "id": "name", "name": "Name", "nameZh": "文件名", "note": "The file's name. It takes the room it needs and cuts the rest off with an ellipsis." },
+    { "id": "size", "name": "Size", "nameZh": "大小", "note": "The file's size. It is text, so it takes the muted role." },
+    { "id": "status", "name": "Status", "nameZh": "状态", "note": "Where the file has got to. It is text about a state, so it takes that state's derived text colour." }
+  ],
+  "props": [
+    { "name": "multiple", "type": "boolean", "default": "false", "description": "Lets more than one file be chosen at a time. It is the native multiple attribute.", "descriptionZh": "允许一次选多个文件。它是原生 multiple 属性。" },
+    { "name": "accept", "type": "string", "description": "Which file types the picker offers. It is the native accept attribute, so the browser filters the list.", "descriptionZh": "选择器里提供哪些文件类型。它是原生 accept 属性,由浏览器来过滤。" },
+    { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes the upload inert. It uses the real disabled attribute, so it leaves the tab order.", "descriptionZh": "让上传不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" },
+    { "name": "name", "type": "string", "description": "The name the chosen files are submitted under. It is the native name attribute.", "descriptionZh": "选中的文件提交时用的名字。它是原生 name 属性。" },
+    { "name": "layout", "type": "enum", "values": ["list", "text"], "default": "list", "description": "How the chosen files are shown. The list layout is the base class on its own; the text layout adds um-upload--text.", "descriptionZh": "已选文件怎么显示。列表是只写基础类;文字再加上 um-upload--text。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The size of the trigger and of the file names.", "descriptionZh": "触发器和文件名的尺寸。" },
+    { "name": "status", "type": "enum", "values": ["default", "uploading", "done", "error"], "default": "default", "description": "Where one file has got to. It is a class on the item: no class is the waiting state, and the other three are um-upload__item--uploading, um-upload__item--done and um-upload__item--error.", "descriptionZh": "某一个文件走到哪一步了。它是条目上的一个类:不加类就是等待状态,另外三个分别是 um-upload__item--uploading、um-upload__item--done 和 um-upload__item--error。" }
+  ],
+  "slots": [
+    { "name": "trigger", "description": "The text on the trigger. The button is drawn, so a trigger with no text needs an accessible name of its own.", "descriptionZh": "触发器上的文字。按钮是画出来的,所以不写文字的触发器也得有自己的可访问名称。" },
+    { "name": "list", "description": "The chosen files, as a list of items.", "descriptionZh": "已选的文件,写成一个条目列表。" }
+  ],
+  "events": [
+    { "name": "change", "description": "Fires when files are chosen. It is the browser's own event on the input — the library installs no listener, and it cannot read the chosen files without one.", "descriptionZh": "选了文件时触发。这是 input 上的浏览器原生事件 —— 库没有安装任何监听器,也没有监听器就读不到选中的文件。" }
+  ],
+  "a11y": {
+    "role": "button",
+    "keyboard": ["Tab", "Enter", "Space"],
+    "notes": "The control is a real <input type=\"file\"> inside a <label>, so the browser's own dialog opens and the file list is the browser's own. The input is hidden visually rather than removed from the accessibility tree, so it keeps its place in the tab order and announces itself as a file chooser. The drawn button carries no text of its own, so the label around it needs an accessible name. The file names in the list are authored in the markup, because a library with no JavaScript cannot read the input's own file list.",
+    "notesZh": "控件是 <label> 里一个真正的 <input type=\"file\">,所以打开的是浏览器自己的对话框,文件列表也是浏览器自己的。这个 input 只是视觉隐藏,没有被移出无障碍树,因此它仍在 Tab 顺序里,读屏也会把它播报成文件选择框。画出来的按钮自己不带文字,所以包着它的 label 需要一个可访问名称。清单里的文件名写在标记里,因为没有 JavaScript 的库读不到 input 自己的文件列表。"
+  },
+  "examples": [
+    {
+      "id": "list",
+      "title": "List",
+      "titleZh": "列表",
+      "description": "The trigger and the chosen files below it, one row per file. The names are authored in the markup, so they can be written by the server that received the upload.",
+      "descriptionZh": "下面是触发器和已选的文件,一个文件一行。文件名写在标记里,所以它们可以由收到上传的服务器写出来。",
+      "markup": "<div class=\"um-upload\">\n  <label class=\"um-upload__trigger\" for=\"um-upload-files\">\n    <input class=\"um-upload__input\" type=\"file\" id=\"um-upload-files\" name=\"um-upload-files\" multiple />\n    <span class=\"um-upload__button\">Choose files</span>\n  </label>\n  <ul class=\"um-upload__list\">\n    <li class=\"um-upload__item um-upload__item--done\">\n      <span class=\"um-upload__name\">quarterly-report.pdf</span>\n      <span class=\"um-upload__size\">1.2 MB</span>\n      <span class=\"um-upload__status\">Uploaded</span>\n    </li>\n    <li class=\"um-upload__item um-upload__item--uploading\">\n      <span class=\"um-upload__name\">invoices-2026-03.csv</span>\n      <span class=\"um-upload__size\">84 KB</span>\n      <span class=\"um-upload__status\">Uploading</span>\n    </li>\n    <li class=\"um-upload__item um-upload__item--error\">\n      <span class=\"um-upload__name\">raw-capture.zip</span>\n      <span class=\"um-upload__size\">12 MB</span>\n      <span class=\"um-upload__status\">Failed</span>\n    </li>\n  </ul>\n</div>"
+    },
+    {
+      "id": "text",
+      "title": "Text",
+      "titleZh": "文字",
+      "description": "The same files as one line of text, for a form that only needs to say what has been attached.",
+      "descriptionZh": "同一批文件,排成一行文字,适合只需要说明「附上了什么」的表单。",
+      "markup": "<div class=\"um-upload um-upload--text\">\n  <label class=\"um-upload__trigger\" for=\"um-upload-text\">\n    <input class=\"um-upload__input\" type=\"file\" id=\"um-upload-text\" name=\"um-upload-text\" accept=\".pdf,.png\" />\n    <span class=\"um-upload__button\">Attach</span>\n  </label>\n  <ul class=\"um-upload__list\">\n    <li class=\"um-upload__item um-upload__item--done\">\n      <span class=\"um-upload__name\">signed.pdf</span>\n      <span class=\"um-upload__size\">240 KB</span>\n    </li>\n    <li class=\"um-upload__item um-upload__item--done\">\n      <span class=\"um-upload__name\">scan.png</span>\n      <span class=\"um-upload__size\">96 KB</span>\n    </li>\n  </ul>\n</div>"
+    },
+    {
+      "id": "disabled",
+      "title": "Disabled",
+      "titleZh": "禁用",
+      "description": "A disabled upload. The input leaves the tab order and the trigger takes the derived disabled colour, so its text is still measurable.",
+      "descriptionZh": "禁用的上传。input 退出 Tab 顺序,触发器换成派生出来的禁用色,文字依然可测量。",
+      "markup": "<div class=\"um-upload\">\n  <label class=\"um-upload__trigger\" for=\"um-upload-disabled\">\n    <input class=\"um-upload__input\" type=\"file\" id=\"um-upload-disabled\" disabled />\n    <span class=\"um-upload__button\">Choose files</span>\n  </label>\n</div>"
+    }
+  ],
+  "notes": "The input is hidden rather than removed, so it stays in the tab order and stays a file chooser to a screen reader; the button beside it is what the pointer reaches and what the focus ring lands on. The list of chosen files is written into the markup, because a library with no JavaScript cannot read the input's own file list — the server that received the upload writes the names back. The status colour is a text role, not a fill colour, so it is measured to read on the row it sits in.",
+  "notesZh": "input 是藏起来而不是拿掉,所以它还在 Tab 顺序里,在读屏那里也仍然是个文件选择框;它旁边的按钮才是指针够得到的地方,也是焦点环落下的地方。已选文件的清单是写进标记里的,因为没有 JavaScript 的库读不到 input 自己的文件列表 —— 是收到上传的服务器把文件名写回来的。状态色用的是文字角色而不是填充色,所以它在所在的那一行上是可以被测量的。"
+}

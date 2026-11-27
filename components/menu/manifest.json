@@ -1,0 +1,128 @@
+{
+  "id": "menu",
+  "name": "Menu",
+  "nameZh": "菜单",
+  "category": "navigation",
+  "element": "ul, li, details, summary, a",
+  "summary": "A list of places to go, with groups that fold away. The groups are <details> elements, so the browser opens and closes them and keeps them open across a reload.",
+  "summaryZh": "一串可以去的地方,其中的分组可以收起来。分组用的是 <details> 元素,所以开关由浏览器负责,刷新之后还会保持原来的展开状态。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-menu",
+    "modifier": "um-menu--",
+    "part": "um-menu__"
+  },
+  "variants": [
+    {
+      "id": "horizontal",
+      "name": "Horizontal",
+      "nameZh": "横向",
+      "note": "The entries run along the top and each group's submenu hangs under the group it belongs to."
+    }
+  ],
+  "sizes": [],
+  "states": [
+    {
+      "id": "open",
+      "name": "Group open",
+      "nameZh": "展开",
+      "selector": "[open]",
+      "note": "The group's <details> is open, so its submenu is showing and its marker points down."
+    }
+  ],
+  "parts": [
+    {
+      "id": "item",
+      "name": "Item",
+      "nameZh": "菜单项",
+      "note": "One entry in the menu."
+    },
+    {
+      "id": "active",
+      "name": "Active",
+      "nameZh": "选中",
+      "note": "The entry the reader is on. It goes on the item next to um-menu__item, and its own link is the one that is filled."
+    },
+    {
+      "id": "link",
+      "name": "Link",
+      "nameZh": "链接",
+      "note": "The entry itself."
+    },
+    {
+      "id": "group",
+      "name": "Group",
+      "nameZh": "分组",
+      "note": "A group of entries. It holds the <details> that opens and closes."
+    },
+    {
+      "id": "title",
+      "name": "Title",
+      "nameZh": "标题",
+      "note": "The <summary> that opens the group. Its marker is a shape drawn from two borders."
+    },
+    {
+      "id": "icon",
+      "name": "Icon",
+      "nameZh": "图标位",
+      "note": "An empty slot for the host's own glyph. The library draws no icons and loads no icon font; the slot only holds the space so the text does not move."
+    },
+    {
+      "id": "submenu",
+      "name": "Submenu",
+      "nameZh": "子菜单",
+      "note": "The list inside a group."
+    }
+  ],
+  "props": [
+    {
+      "name": "direction",
+      "type": "enum",
+      "values": ["vertical", "horizontal"],
+      "default": "vertical",
+      "description": "Which way the entries run. The vertical menu is the base class on its own; the horizontal menu adds um-menu--horizontal.",
+      "descriptionZh": "菜单往哪个方向排。纵向是只写基类;横向再加上 um-menu--horizontal。"
+    },
+    {
+      "name": "active",
+      "type": "string",
+      "description": "Which entry is the current one. It is the um-menu__active class on that entry's item.",
+      "descriptionZh": "当前是哪一个条目。它是那个条目的 item 上的 um-menu__active 类。"
+    }
+  ],
+  "slots": [
+    {
+      "name": "icon",
+      "description": "The glyph in front of an entry. It goes inside the icon slot, which is empty by default.",
+      "descriptionZh": "条目前面的图标,放在图标位里。图标位默认是空的。"
+    }
+  ],
+  "events": [],
+  "a11y": {
+    "role": "list",
+    "keyboard": ["Tab", "Enter", "Space"],
+    "notes": "The menu is a <ul> of <li>s, so the entries are announced as a list and the reader hears how many there are. A group is a <details> with a <summary>, so it opens with Enter or Space and the browser says whether it is open or closed. The icon slot is aria-hidden: it is empty in the markup, and whatever the host puts there is decoration beside a label that is already read out.",
+    "notesZh": "菜单是一个由 <li> 组成的 <ul>,所以条目会作为列表播报,读屏能听出共有多少条。分组是带 <summary> 的 <details>,按 Enter 或空格就能展开,浏览器也会播报它是开着还是关着的。图标位加了 aria-hidden:标记里它是空的,宿主放进去的东西也只是文字旁边的一个装饰。"
+  },
+  "examples": [
+    {
+      "id": "vertical",
+      "title": "Vertical",
+      "titleZh": "纵向",
+      "description": "A vertical menu with one group. The group is a <details>, so the browser owns the open and closed state and the marker is drawn by the stylesheet.",
+      "descriptionZh": "带一个分组的纵向菜单。分组是 <details>,开关状态归浏览器管,标记由样式表画出来。",
+      "markup": "<ul class=\"um-menu\">\n  <li class=\"um-menu__item um-menu__active\">\n    <a class=\"um-menu__link\" href=\"#\">Dashboard</a>\n  </li>\n  <li class=\"um-menu__item\">\n    <a class=\"um-menu__link\" href=\"#\">Orders</a>\n  </li>\n  <li class=\"um-menu__group\">\n    <details open>\n      <summary class=\"um-menu__title\">\n        <span class=\"um-menu__icon\" aria-hidden=\"true\"></span>\n        Reports\n      </summary>\n      <ul class=\"um-menu__submenu\">\n        <li class=\"um-menu__item\">\n          <a class=\"um-menu__link\" href=\"#\">Monthly</a>\n        </li>\n        <li class=\"um-menu__item\">\n          <a class=\"um-menu__link\" href=\"#\">Year to date</a>\n        </li>\n      </ul>\n    </details>\n  </li>\n</ul>"
+    },
+    {
+      "id": "horizontal",
+      "title": "Horizontal",
+      "titleZh": "横向",
+      "description": "The horizontal variant runs the entries along the top and hangs the submenu under the group. The submenu is a panel of its own there, so it sits on the overlay surface and carries a shadow.",
+      "descriptionZh": "横向变体把条目排在上面,子菜单吊在分组下面。这时候子菜单自己就是一块面板,所以它压在浮层底色上,还带一层阴影。",
+      "markup": "<ul class=\"um-menu um-menu--horizontal\">\n  <li class=\"um-menu__item um-menu__active\">\n    <a class=\"um-menu__link\" href=\"#\">Product</a>\n  </li>\n  <li class=\"um-menu__item\">\n    <a class=\"um-menu__link\" href=\"#\">Pricing</a>\n  </li>\n  <li class=\"um-menu__group\">\n    <details>\n      <summary class=\"um-menu__title\">\n        <span class=\"um-menu__icon\" aria-hidden=\"true\"></span>\n        Docs\n      </summary>\n      <ul class=\"um-menu__submenu\">\n        <li class=\"um-menu__item\">\n          <a class=\"um-menu__link\" href=\"#\">Getting started</a>\n        </li>\n        <li class=\"um-menu__item\">\n          <a class=\"um-menu__link\" href=\"#\">API</a>\n        </li>\n      </ul>\n    </details>\n  </li>\n</ul>"
+    }
+  ],
+  "notes": "The icon slot is deliberately empty. The library ships no icon font and no image, so the slot is a sized empty span the host fills with whatever it already uses — an inline SVG, a sprite, a character. It carries the space either way, so adding a glyph does not move the text.",
+  "notesZh": "图标位是故意留空的。库里不带图标字体,也不带图片,所以它就是一个有尺寸的空 span,宿主拿自己现成的东西填进去 —— 内联的 SVG、雪碧图或者一个字符都行。它无论如何都占着那个位置,所以补上图标不会把文字挤走。"
+}

@@ -14,6 +14,8 @@ import { expectedVars, FALLBACK_ALLOWED } from "./lib/mapping.mjs";
 import { BLOCK_TYPES } from "./lib/blocks.mjs";
 import { checkRenderedStates } from "./lib/render-check.mjs";
 import { checkComponentLibrary } from "./lib/component-check.mjs";
+import { checkTypes } from "./lib/typecheck.mjs";
+import { checkVueComponents } from "./lib/vue-check.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const ajv = new Ajv({ strict: false, allErrors: true });
@@ -642,6 +644,30 @@ if (componentErrors.length > 0) {
   for (const e of componentErrors) console.log(`  - ${e}`);
 } else {
   console.log("components: PASS");
+}
+
+// types: the declarations have to compile, and they have to be current
+const typeResult = checkTypes(root);
+if (typeResult.skipped) {
+  console.log("types: SKIP (typescript is not installed — run npm install)");
+} else if (typeResult.errors.length > 0) {
+  failed++;
+  console.log(`types: FAIL (${typeResult.errors.length} errors)`);
+  for (const e of typeResult.errors) console.log(`  - ${e}`);
+} else {
+  console.log("types: PASS");
+}
+
+// vue: the wrappers have to agree with the manifests they came from
+const vueResult = await checkVueComponents(root);
+if (vueResult.skipped) {
+  console.log("vue: SKIP (vue is not installed — run npm install)");
+} else if (vueResult.errors.length > 0) {
+  failed++;
+  console.log(`vue: FAIL (${vueResult.errors.length} errors)`);
+  for (const e of vueResult.errors) console.log(`  - ${e}`);
+} else {
+  console.log("vue: PASS");
 }
 
 process.exit(failed ? 1 : 0);

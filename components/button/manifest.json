@@ -29,6 +29,7 @@
   "states": [
     { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true },
     { "id": "loading", "name": "Loading", "nameZh": "加载中", "selector": ".um-button--loading" },
+    { "id": "glow", "name": "Glow", "nameZh": "发光", "selector": ".um-button--glow", "note": "The mood's glow hook. A mood without one declares none, so the hook is invisible there rather than being a second visual system. The rule lives in the shared hooks layer, because a glow is a mood capability and not a button variant." },
     { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true }
   ],
   "parts": [],

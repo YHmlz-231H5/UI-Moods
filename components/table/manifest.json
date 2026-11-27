@@ -1,0 +1,70 @@
+{
+  "id": "table",
+  "name": "Table",
+  "nameZh": "表格",
+  "category": "data",
+  "element": "table, thead, tbody, tr, th, td, div",
+  "summary": "Rows of records in columns. It is a real table, so the column names travel with the cells and a screen reader can read a row across.",
+  "summaryZh": "一行行记录分成几列。它是真表格,所以列名跟着单元格走,读屏可以横着读一行。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-table",
+    "modifier": "um-table--",
+    "part": "um-table__"
+  },
+  "variants": [
+    { "id": "striped", "name": "Striped", "nameZh": "斑马纹", "state": "soft", "note": "Every other row takes the lighter fill, so a long list can be counted down without reading it." },
+    { "id": "bordered", "name": "Bordered", "nameZh": "带竖线", "state": "outline", "note": "A vertical line between the columns as well as the horizontal ones." }
+  ],
+  "sizes": [],
+  "states": [],
+  "parts": [
+    { "id": "wrapper", "name": "Wrapper", "nameZh": "外框", "note": "The box around the table. It scrolls sideways on a narrow screen and carries the frame." },
+    { "id": "header", "name": "Header", "nameZh": "表头", "note": "The thead. It is the row of column names." },
+    { "id": "body", "name": "Body", "nameZh": "表体", "note": "The tbody. It holds the records." },
+    { "id": "row", "name": "Row", "nameZh": "行", "note": "One record. The stripe and the hover colour are painted on it." },
+    { "id": "cell", "name": "Cell", "nameZh": "单元格", "note": "One value. In the header it is a th, in the body a td." },
+    { "id": "empty", "name": "Empty", "nameZh": "空状态", "note": "The cell that says there is nothing. It spans the whole row." }
+  ],
+  "props": [
+    { "name": "variant", "type": "enum", "values": ["striped", "bordered"], "description": "Which extra treatment the table carries. The two modifiers are independent and may be used together.", "descriptionZh": "表格带哪一种额外处理。这两个修饰类是独立的,可以一起用。" },
+    { "name": "emptyText", "type": "string", "default": "No data", "description": "What the empty cell says when there are no records.", "descriptionZh": "没有记录时,空状态那一格写什么。" }
+  ],
+  "slots": [],
+  "events": [],
+  "a11y": {
+    "role": "table",
+    "keyboard": [],
+    "notes": "A real table with a thead and a tbody, so the column names are announced with every cell and the reader can move across a row. Put scope=\"col\" on the header cells. The wrapper scrolls sideways when the columns are too many to squeeze; a scrollable region has to be reachable by keyboard, so give the wrapper tabindex=\"0\" and a name.",
+    "notesZh": "这是带 thead 和 tbody 的真表格,所以列名会跟着每个单元格一起播报,读者也能横着读一行。表头单元格要写上 scope=\"col\"。列太多挤不下时外框会横向滚动,而可滚动区域必须能用键盘够到,所以要给外框加 tabindex=\"0\" 和一个名字。"
+  },
+  "examples": [
+    {
+      "id": "table",
+      "title": "A table",
+      "titleZh": "一张表",
+      "description": "The header row takes the light fill and the lines under the rows take the lighter border. The frame belongs to the wrapper, so the outer edge is one line all the way round.",
+      "descriptionZh": "表头那行用浅底色,行与行之间的线用更浅的描边色。外框由 wrapper 负责,所以最外一圈始终是一条线。",
+      "markup": "<div class=\"um-table__wrapper\">\n  <table class=\"um-table\">\n    <thead class=\"um-table__header\">\n      <tr class=\"um-table__row\">\n        <th class=\"um-table__cell\" scope=\"col\">Node</th>\n        <th class=\"um-table__cell\" scope=\"col\">Build</th>\n        <th class=\"um-table__cell\" scope=\"col\">State</th>\n        <th class=\"um-table__cell\" scope=\"col\">Duration</th>\n      </tr>\n    </thead>\n    <tbody class=\"um-table__body\">\n      <tr class=\"um-table__row\">\n        <td class=\"um-table__cell\">node-a</td>\n        <td class=\"um-table__cell\">214</td>\n        <td class=\"um-table__cell\">passing</td>\n        <td class=\"um-table__cell\">4m 12s</td>\n      </tr>\n      <tr class=\"um-table__row\">\n        <td class=\"um-table__cell\">node-b</td>\n        <td class=\"um-table__cell\">214</td>\n        <td class=\"um-table__cell\">passing</td>\n        <td class=\"um-table__cell\">3m 58s</td>\n      </tr>\n      <tr class=\"um-table__row\">\n        <td class=\"um-table__cell\">node-c</td>\n        <td class=\"um-table__cell\">213</td>\n        <td class=\"um-table__cell\">failed</td>\n        <td class=\"um-table__cell\">1m 04s</td>\n      </tr>\n    </tbody>\n  </table>\n</div>"
+    },
+    {
+      "id": "striped",
+      "title": "Striped and bordered",
+      "titleZh": "斑马纹和竖线",
+      "description": "The striped variant paints every other row; the bordered variant adds the line between the columns. The hovered row takes the fill one step stronger than the stripe, so the pointer still says which row it is on.",
+      "descriptionZh": "斑马纹变体给隔行上色,带竖线变体在列与列之间加一道线。鼠标所在的那一行用的是比斑马纹深一档的底色,所以指针指到哪一行还是看得出来的。",
+      "markup": "<div class=\"um-table__wrapper\">\n  <table class=\"um-table um-table--striped um-table--bordered\">\n    <thead class=\"um-table__header\">\n      <tr class=\"um-table__row\">\n        <th class=\"um-table__cell\" scope=\"col\">Node</th>\n        <th class=\"um-table__cell\" scope=\"col\">Build</th>\n        <th class=\"um-table__cell\" scope=\"col\">State</th>\n      </tr>\n    </thead>\n    <tbody class=\"um-table__body\">\n      <tr class=\"um-table__row\">\n        <td class=\"um-table__cell\">node-a</td>\n        <td class=\"um-table__cell\">214</td>\n        <td class=\"um-table__cell\">passing</td>\n      </tr>\n      <tr class=\"um-table__row\">\n        <td class=\"um-table__cell\">node-b</td>\n        <td class=\"um-table__cell\">214</td>\n        <td class=\"um-table__cell\">passing</td>\n      </tr>\n      <tr class=\"um-table__row\">\n        <td class=\"um-table__cell\">node-c</td>\n        <td class=\"um-table__cell\">213</td>\n        <td class=\"um-table__cell\">failed</td>\n      </tr>\n    </tbody>\n  </table>\n</div>"
+    },
+    {
+      "id": "empty",
+      "title": "No rows",
+      "titleZh": "没有数据",
+      "description": "The empty cell spans the row. It says the fact and leaves the reason to the page that owns the data.",
+      "descriptionZh": "空状态那一格横跨整行。它只说事实,原因留给拥有这份数据的页面去写。",
+      "markup": "<div class=\"um-table__wrapper\">\n  <table class=\"um-table\">\n    <thead class=\"um-table__header\">\n      <tr class=\"um-table__row\">\n        <th class=\"um-table__cell\" scope=\"col\">Node</th>\n        <th class=\"um-table__cell\" scope=\"col\">Build</th>\n        <th class=\"um-table__cell\" scope=\"col\">State</th>\n      </tr>\n    </thead>\n    <tbody class=\"um-table__body\">\n      <tr class=\"um-table__row\">\n        <td class=\"um-table__cell um-table__empty\" colspan=\"3\">No builds in the last 24 hours</td>\n      </tr>\n    </tbody>\n  </table>\n</div>"
+    }
+  ],
+  "notes": "The frame belongs to the wrapper and the lines to the cells, so the outside edge is one line everywhere and the inner lines meet it instead of doubling it. The stripe and the header fill are two different fills on purpose: the stripe has to stay behind the text without pulling the eye off it.",
+  "notesZh": "外框归 wrapper,线条归单元格,于是最外一圈始终是一条线,里面的线也是接上去而不是叠成两条。斑马纹和表头用的是两种不同的底色:斑马纹要留在文字后面,又不能把视线从文字上拽走。"
+}

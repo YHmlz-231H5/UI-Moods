@@ -1,0 +1,69 @@
+/* ============================================================================
+   Typography
+   ========================================================================== */
+
+/* The base is the body text of a page: its size, its family, its colour and
+   its leading. Everything else in the set is one of those four changed. */
+.um-typography {
+  color: var(--um-text-regular);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+  line-height: 1.6;
+}
+
+/* The colour of the text. These are the text roles and not the fill roles:
+   a brand colour that was made to be a fill can sit under 4.5:1 as writing. */
+.um-typography--primary { color: var(--um-color-primary-text); }
+.um-typography--success { color: var(--um-color-success-text); }
+.um-typography--warning { color: var(--um-color-warning-text); }
+.um-typography--danger { color: var(--um-color-danger-text); }
+.um-typography--info { color: var(--um-color-info-text); }
+
+/* The sizes scale the text of the block. The heading keeps its own level,
+   because a title that grew with the paragraph would stop being a title. */
+.um-typography--small { font-size: var(--um-font-size-caption); }
+.um-typography--large { font-size: var(--um-font-size-title); }
+
+/* The title and the subtitle are headings, and they are marked up as
+   headings: the level is the reader's, not the library's. */
+.um-typography__title {
+  margin: 0;
+  color: var(--um-text-primary);
+  font-size: var(--um-font-size-title);
+  font-weight: var(--um-font-weight-bold);
+  line-height: 1.3;
+}
+.um-typography__subtitle {
+  margin: 0;
+  color: var(--um-text-secondary);
+  font-weight: var(--um-font-weight-medium);
+  line-height: 1.4;
+}
+
+/* The paragraph keeps the browser's default margins off: the space between
+   the parts of a block belongs to the block, not to the paragraph. */
+.um-typography__text { margin: 0; }
+
+/* Supporting text: the same size as the body, in the muted colour. */
+.um-typography__secondary { color: var(--um-text-secondary); }
+
+/* Extra small text: the smallest size the theme has, and muted with it. */
+.um-typography__extra {
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+
+.um-typography__link {
+  color: var(--um-color-primary-text);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* The quote is set off by a rule rather than by italics, because italics are
+   not a thing every type family has. */
+.um-typography__quote {
+  margin: 0;
+  padding-left: var(--um-space-sm);
+  border-left: calc(var(--um-border-width) * 2) solid var(--um-border-base);
+  color: var(--um-text-secondary);
+}

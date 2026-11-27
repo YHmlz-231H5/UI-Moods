@@ -1,0 +1,85 @@
+{
+  "id": "transfer",
+  "name": "Transfer",
+  "nameZh": "穿梭框",
+  "category": "data",
+  "element": "form, input, button, ul",
+  "summary": "Two lists side by side with a button between them: what is available on one side, what has been chosen on the other. The whole thing is a form, so the move is a submission.",
+  "summaryZh": "并排的两个列表,中间一个按钮:一边是可选的,另一边是已选的。整块东西是一个表单,所以「移动」是一次提交。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-transfer",
+    "modifier": "um-transfer--",
+    "part": "um-transfer__"
+  },
+  "variants": [
+    { "id": "horizontal", "name": "Horizontal", "nameZh": "横向", "note": "The two panels sit side by side and the buttons sit between them. The base class on its own is this layout, and the modifier paints the same thing so the class list can name it." },
+    { "id": "vertical", "name": "Vertical", "nameZh": "纵向", "note": "The panels stack one above the other and the buttons sit between them in a row, for a narrow column." }
+  ],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "The file names take the caption size and the move buttons follow the theme's small control height." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default size. The base class is already this size, so it needs no modifier." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "The names take the title size and the move buttons follow the theme's large control height." }
+  ],
+  "states": [
+    { "id": "checked", "name": "Checked", "nameZh": "勾选", "selector": ":checked", "native": true, "note": "A ticked option takes the brand colour's own soft tint, and its text takes the foreground that was derived for that tint." },
+    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "A disabled option takes the derived disabled colour, and a disabled move button paints a flat surface and takes that same colour." },
+    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "Each control takes its own ring, because one ring around the whole box would say the wrong thing about what is focused." }
+  ],
+  "parts": [
+    { "id": "panel", "name": "Panel", "nameZh": "面板", "note": "One of the two lists, with its header and its options. It is a <section>, so it is announced as a region when it is given a label." },
+    { "id": "header", "name": "Header", "nameZh": "标题栏", "note": "The row at the top of a panel. It holds the title and the count." },
+    { "id": "title", "name": "Title", "nameZh": "标题", "note": "The name of the panel." },
+    { "id": "count", "name": "Count", "nameZh": "计数", "note": "How many items the panel holds, of how many there are. It is text, so it takes the muted role." },
+    { "id": "list", "name": "List", "nameZh": "列表", "note": "The scrollable run of the panel's options." },
+    { "id": "item", "name": "Item", "nameZh": "条目", "note": "One entry in the list." },
+    { "id": "option", "name": "Option", "nameZh": "选项", "note": "The label that wraps the real input, the checkbox component's box and the text, so it is the element that can be asked whether its input is ticked." },
+    { "id": "text", "name": "Text", "nameZh": "文字", "note": "The name of the option." },
+    { "id": "controls", "name": "Controls", "nameZh": "按钮组", "note": "The pair of buttons between the panels." },
+    { "id": "move", "name": "Move", "nameZh": "移到右边", "note": "The button that moves the ticked options into the target panel. Its arrow is drawn from borders, so it carries no text of its own." },
+    { "id": "move-back", "name": "Move back", "nameZh": "移回左边", "note": "The button that moves the ticked options back into the source panel." }
+  ],
+  "props": [
+    { "name": "name", "type": "string", "description": "The name the ticked options are submitted under. It is the native name attribute, and the source and the target list use different names so the host can tell them apart.", "descriptionZh": "勾上的选项提交时用的名字。它是原生 name 属性,两个列表用不同的名字,宿主才分得清谁是谁。" },
+    { "name": "value", "type": "string", "description": "The value one option submits while it is ticked.", "descriptionZh": "某个选项勾上时提交的值。" },
+    { "name": "checked", "type": "boolean", "default": "false", "description": "Ticks one option. It is the native checked attribute, not a class.", "descriptionZh": "勾上某一个选项。它是原生 checked 属性,不是某个类。" },
+    { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes one option, or one of the move buttons, inert. It uses the real disabled attribute, so it leaves the tab order.", "descriptionZh": "让某个选项或某个移动按钮不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" },
+    { "name": "direction", "type": "enum", "values": ["horizontal", "vertical"], "default": "horizontal", "description": "Which way the two panels are laid out. The horizontal run is the base class on its own; the vertical run adds um-transfer--vertical.", "descriptionZh": "两个面板怎么排。横向是只写基础类;纵向再加上 um-transfer--vertical。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The size of the names and of the move buttons.", "descriptionZh": "文字和移动按钮的尺寸。" }
+  ],
+  "slots": [
+    { "name": "source", "description": "The options of the panel on the left.", "descriptionZh": "左边那个面板里的选项。" },
+    { "name": "target", "description": "The options of the panel on the right.", "descriptionZh": "右边那个面板里的选项。" }
+  ],
+  "events": [
+    { "name": "change", "description": "Fires when an option is ticked or unticked. It is the browser's own event on the input — the library installs no listener.", "descriptionZh": "某个选项被勾选或取消勾选时触发。这是 input 上的浏览器原生事件 —— 库没有安装任何监听器。" },
+    { "name": "submit", "description": "Fires when the form is submitted, which is how a move happens: the buttons carry the direction in their value and the ticked items in the form's own fields.", "descriptionZh": "表单提交时触发,移动就是这么发生的:按钮的 value 里带着方向,勾上的项目在表单自己的字段里。" }
+  ],
+  "a11y": {
+    "role": "group",
+    "keyboard": ["Tab", "Space", "Enter"],
+    "notes": "Every option is a real <input type=\"checkbox\"> inside a <label>, so ticking it is the browser's :checked and the value submits with the form. The two move buttons are real buttons, so they are in the tab order and can be pressed — but their arrows are drawn from borders, so each one needs an aria-label saying which way it moves. The move itself is a submission: the library has no JavaScript, so the host that receives the form does the moving and writes the two lists back.",
+    "notesZh": "每个选项都是 <label> 里一个真正的 <input type=\"checkbox\">,勾选走的就是浏览器的 :checked,值会随表单提交。两个移动按钮是真的 button,所以在 Tab 顺序里、可以按 —— 但箭头是边框画出来的,所以每个都得有一个 aria-label 说明它是往哪边移。移动本身是一次提交:库没有 JavaScript,所以由收到表单的宿主来完成移动,再把两个列表写回来。"
+  },
+  "examples": [
+    {
+      "id": "horizontal",
+      "title": "Horizontal",
+      "titleZh": "横向",
+      "description": "The two panels side by side. The move buttons are real submit buttons, so the form posts what is ticked and in which direction; the host that receives it does the moving.",
+      "descriptionZh": "两个面板并排放。移动按钮是真的提交按钮,所以表单会把勾上的项目和方向一起提交出去;收到它的宿主来完成移动。",
+      "markup": "<form class=\"um-transfer\" method=\"post\">\n  <section class=\"um-transfer__panel\">\n    <header class=\"um-transfer__header\">\n      <span class=\"um-transfer__title\">Available</span>\n      <span class=\"um-transfer__count\">3 / 5</span>\n    </header>\n    <ul class=\"um-transfer__list\">\n      <li class=\"um-transfer__item\">\n        <label class=\"um-transfer__option\">\n          <input class=\"um-checkbox__input\" type=\"checkbox\" name=\"um-transfer-source\" value=\"alpine\" checked />\n          <span class=\"um-checkbox__box\"></span>\n          <span class=\"um-transfer__text\">Alpine</span>\n        </label>\n      </li>\n      <li class=\"um-transfer__item\">\n        <label class=\"um-transfer__option\">\n          <input class=\"um-checkbox__input\" type=\"checkbox\" name=\"um-transfer-source\" value=\"harbour\" />\n          <span class=\"um-checkbox__box\"></span>\n          <span class=\"um-transfer__text\">Harbour</span>\n        </label>\n      </li>\n      <li class=\"um-transfer__item\">\n        <label class=\"um-transfer__option\">\n          <input class=\"um-checkbox__input\" type=\"checkbox\" name=\"um-transfer-source\" value=\"lagoon\" disabled />\n          <span class=\"um-checkbox__box\"></span>\n          <span class=\"um-transfer__text\">Lagoon</span>\n        </label>\n      </li>\n    </ul>\n  </section>\n  <div class=\"um-transfer__controls\">\n    <button class=\"um-transfer__move\" type=\"submit\" name=\"move\" value=\"to-target\" aria-label=\"Move to the chosen list\"></button>\n    <button class=\"um-transfer__move-back\" type=\"submit\" name=\"move\" value=\"to-source\" aria-label=\"Move back to the available list\"></button>\n  </div>\n  <section class=\"um-transfer__panel\">\n    <header class=\"um-transfer__header\">\n      <span class=\"um-transfer__title\">Chosen</span>\n      <span class=\"um-transfer__count\">2 / 5</span>\n    </header>\n    <ul class=\"um-transfer__list\">\n      <li class=\"um-transfer__item\">\n        <label class=\"um-transfer__option\">\n          <input class=\"um-checkbox__input\" type=\"checkbox\" name=\"um-transfer-target\" value=\"basil\" checked />\n          <span class=\"um-checkbox__box\"></span>\n          <span class=\"um-transfer__text\">Basil</span>\n        </label>\n      </li>\n      <li class=\"um-transfer__item\">\n        <label class=\"um-transfer__option\">\n          <input class=\"um-checkbox__input\" type=\"checkbox\" name=\"um-transfer-target\" value=\"cobalt\" />\n          <span class=\"um-checkbox__box\"></span>\n          <span class=\"um-transfer__text\">Cobalt</span>\n        </label>\n      </li>\n    </ul>\n  </section>\n</form>"
+    },
+    {
+      "id": "vertical",
+      "title": "Vertical",
+      "titleZh": "纵向",
+      "description": "The same two panels stacked one above the other, with the buttons between them in a row. Only the modifier class changes.",
+      "descriptionZh": "同样两个面板上下叠着,按钮横排在中间。变的只有那个修饰类。",
+      "markup": "<form class=\"um-transfer um-transfer--vertical\" method=\"post\">\n  <section class=\"um-transfer__panel\">\n    <header class=\"um-transfer__header\">\n      <span class=\"um-transfer__title\">Available</span>\n      <span class=\"um-transfer__count\">1 / 2</span>\n    </header>\n    <ul class=\"um-transfer__list\">\n      <li class=\"um-transfer__item\">\n        <label class=\"um-transfer__option\">\n          <input class=\"um-checkbox__input\" type=\"checkbox\" name=\"um-transfer-vertical-source\" value=\"sage\" />\n          <span class=\"um-checkbox__box\"></span>\n          <span class=\"um-transfer__text\">Sage</span>\n        </label>\n      </li>\n    </ul>\n  </section>\n  <div class=\"um-transfer__controls\">\n    <button class=\"um-transfer__move\" type=\"submit\" name=\"move\" value=\"to-target\" aria-label=\"Move to the chosen list\"></button>\n    <button class=\"um-transfer__move-back\" type=\"submit\" name=\"move\" value=\"to-source\" aria-label=\"Move back to the available list\"></button>\n  </div>\n  <section class=\"um-transfer__panel\">\n    <header class=\"um-transfer__header\">\n      <span class=\"um-transfer__title\">Chosen</span>\n      <span class=\"um-transfer__count\">1 / 2</span>\n    </header>\n    <ul class=\"um-transfer__list\">\n      <li class=\"um-transfer__item\">\n        <label class=\"um-transfer__option\">\n          <input class=\"um-checkbox__input\" type=\"checkbox\" name=\"um-transfer-vertical-target\" value=\"clay\" checked />\n          <span class=\"um-checkbox__box\"></span>\n          <span class=\"um-transfer__text\">Clay</span>\n        </label>\n      </li>\n    </ul>\n  </section>\n</form>"
+    }
+  ],
+  "notes": "The move is a submission, not an animation. The buttons are real submit buttons that carry their direction in their value, and the ticked options are the form's own fields, so a host that receives the post can move them and write the two lists back. The library draws the two panels, the rows and the arrows; the arrows are shapes made of borders, so they take the button's colour and need no glyph of its own.",
+  "notesZh": "移动是一次提交,不是一个动画。那两个按钮是真的提交按钮,方向就写在它们的 value 里;勾上的选项是表单自己的字段,所以收到这次提交的宿主可以把它们移过去,再把两个列表写回来。库负责画两个面板、那些行和那两个箭头;箭头是用边框做的形状,所以它们跟着按钮的颜色走,自己不带任何字形。"
+}

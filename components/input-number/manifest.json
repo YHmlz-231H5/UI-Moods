@@ -1,0 +1,171 @@
+{
+  "id": "input-number",
+  "name": "Input Number",
+  "nameZh": "数字输入框",
+  "category": "form",
+  "element": "input, button, div",
+  "summary": "A field for a number, with a pair of buttons that step it up and down. The buttons are real buttons, so they are in the tab order and the browser announces them; the browser's own spin buttons are taken away so there is only one pair.",
+  "summaryZh": "一个填数字的字段,旁边两个按钮把它加一减一。这两个按钮是真的 button,所以在 Tab 顺序里,浏览器也会播报它们;浏览器自带的上下箭头被拿掉了,所以只剩一对。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-input-number",
+    "modifier": "um-input-number--",
+    "part": "um-input-number__"
+  },
+  "variants": [
+    {
+      "id": "left",
+      "name": "Controls on the left",
+      "nameZh": "按钮在左",
+      "note": "The pair of buttons moves to the left of the field. The markup and the tab order stay the same — the buttons move with `order`."
+    }
+  ],
+  "sizes": [
+    { "id": "small", "name": "Small", "nameZh": "小", "note": "The field follows the theme's small control height." },
+    { "id": "medium", "name": "Medium", "nameZh": "中", "default": true, "note": "The default field. The base class is already this height, so it needs no modifier." },
+    { "id": "large", "name": "Large", "nameZh": "大", "note": "The field follows the theme's large control height." }
+  ],
+  "states": [
+    {
+      "id": "disabled",
+      "name": "Disabled",
+      "nameZh": "禁用",
+      "selector": ":disabled",
+      "native": true,
+      "note": "The field and both buttons go inert. They use the real disabled attribute, so they leave the tab order."
+    },
+    {
+      "id": "focus-ring",
+      "name": "Focus ring",
+      "nameZh": "焦点环",
+      "selector": ":focus-visible",
+      "native": true,
+      "note": "The field takes a ring around the whole box, and each button takes its own — a ring that wrapped both would say the wrong thing about what is focused."
+    }
+  ],
+  "parts": [
+    {
+      "id": "wrapper",
+      "name": "Wrapper",
+      "nameZh": "外框",
+      "note": "The box that carries the border and the surface. The input inside it is borderless, so the field and the buttons read as one control."
+    },
+    {
+      "id": "input",
+      "name": "Input",
+      "nameZh": "输入框",
+      "note": "The number field itself. It is a real <input type=\"number\">, so the browser validates it and the arrow keys work in it."
+    },
+    {
+      "id": "increase",
+      "name": "Increase",
+      "nameZh": "增加按钮",
+      "note": "The button that steps the value up. Its mark is drawn from the button's own colour, so it follows the button's state."
+    },
+    {
+      "id": "decrease",
+      "name": "Decrease",
+      "nameZh": "减少按钮",
+      "note": "The button that steps the value down."
+    },
+    {
+      "id": "controls",
+      "name": "Controls",
+      "nameZh": "按钮组",
+      "note": "The pair of buttons. It is the one that moves when the controls go to the left of the field."
+    }
+  ],
+  "props": [
+    {
+      "name": "value",
+      "type": "number",
+      "description": "The number in the field. It is the input's own value, not a class — a class cannot carry a number.",
+      "descriptionZh": "字段里的数字。它是 input 自己的值,不是某个类 —— 类带不了数字。"
+    },
+    {
+      "name": "min",
+      "type": "number",
+      "description": "The smallest number the field accepts. It is the input's own min attribute, so the browser enforces it.",
+      "descriptionZh": "字段接受的最小值。它是 input 自己的 min 属性,由浏览器来管。"
+    },
+    {
+      "name": "max",
+      "type": "number",
+      "description": "The largest number the field accepts. It is the input's own max attribute.",
+      "descriptionZh": "字段接受的最大值。它是 input 自己的 max 属性。"
+    },
+    {
+      "name": "step",
+      "type": "number",
+      "default": "1",
+      "description": "How much one press of a button changes the value. It is the input's own step attribute, and the browser's arrow keys use it too.",
+      "descriptionZh": "按一次按钮改多少。它是 input 自己的 step 属性,浏览器的上下键也按它来。"
+    },
+    {
+      "name": "controls-position",
+      "type": "enum",
+      "values": ["right", "left"],
+      "default": "right",
+      "description": "Which side of the field the pair of buttons sits on. The right position is the base class on its own; the left position adds um-input-number--left.",
+      "descriptionZh": "那一对按钮在字段的哪一边。在右边就是只写基础类;在左边加上 um-input-number--left。"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "description": "Makes the field and both buttons inert. It uses the real disabled attribute, so they leave the tab order.",
+      "descriptionZh": "让字段和两个按钮都不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。"
+    }
+  ],
+  "slots": [],
+  "events": [
+    {
+      "name": "change",
+      "description": "Fires when the value changes. It is the browser's own event on the input — the library installs no listener, and the buttons do not change the value either.",
+      "descriptionZh": "值变了的时候触发。这是 input 上的浏览器原生事件 —— 库没有安装任何监听器,那两个按钮也不会去改这个值。"
+    }
+  ],
+  "a11y": {
+    "role": "spinbutton",
+    "keyboard": ["Tab", "ArrowUp", "ArrowDown"],
+    "notes": "The field is a real <input type=\"number\">, so the browser validates it, the arrow keys change it and a screen reader announces it as a spin button. The two buttons are real buttons, so they are in the tab order and can be pressed — but they draw their marks from CSS, so they carry no text of their own and each needs an aria-label saying which way it goes. The focus ring is on the field and on each button separately, because one ring around the whole box would say the wrong thing about what is focused.",
+    "notesZh": "字段是真正的 <input type=\"number\">,所以浏览器会校验它、方向键能改它、读屏会把它当作数字微调框播报。那两个按钮是真的 button,所以在 Tab 顺序里、可以按 —— 但它们的记号是 CSS 画的,自己不带文字,所以每个都得有一个 aria-label 说明它是往哪边走。焦点环分别落在字段和两个按钮上,一个把整块框住的环会说明错误的东西。"
+  },
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Basic",
+      "titleZh": "基础用法",
+      "description": "A number field with the pair of buttons on the right. Each button names itself, because its mark is drawn and carries no text.",
+      "descriptionZh": "一个数字字段,右边跟着一对按钮。每个按钮都自带名字,因为它的记号是画出来的,没有文字。",
+      "markup": "<div class=\"um-input-number\">\n  <div class=\"um-input-number__wrapper\">\n    <input class=\"um-input-number__input\" type=\"number\" value=\"3\" min=\"0\" max=\"10\" step=\"1\" aria-label=\"Replicas\" />\n    <span class=\"um-input-number__controls\">\n      <button class=\"um-input-number__increase\" type=\"button\" aria-label=\"Increase\"></button>\n      <button class=\"um-input-number__decrease\" type=\"button\" aria-label=\"Decrease\"></button>\n    </span>\n  </div>\n</div>"
+    },
+    {
+      "id": "controls-on-the-left",
+      "title": "Controls on the left",
+      "titleZh": "按钮在左",
+      "description": "The same field with the pair of buttons on the left. The markup is unchanged except for the modifier — the buttons move with `order`, so the tab order is the same.",
+      "descriptionZh": "同一个字段,那一对按钮挪到了左边。标记只多了修饰类 —— 按钮是靠 `order` 挪的,所以 Tab 顺序不变。",
+      "markup": "<div class=\"um-input-number um-input-number--left\">\n  <div class=\"um-input-number__wrapper\">\n    <input class=\"um-input-number__input\" type=\"number\" value=\"12\" min=\"0\" max=\"60\" step=\"5\" aria-label=\"Timeout in seconds\" />\n    <span class=\"um-input-number__controls\">\n      <button class=\"um-input-number__increase\" type=\"button\" aria-label=\"Increase\"></button>\n      <button class=\"um-input-number__decrease\" type=\"button\" aria-label=\"Decrease\"></button>\n    </span>\n  </div>\n</div>"
+    },
+    {
+      "id": "disabled",
+      "title": "Disabled",
+      "titleZh": "禁用",
+      "description": "A disabled field with disabled buttons. They leave the tab order, and the number stays on screen so the reader can still read it.",
+      "descriptionZh": "禁用的字段和禁用的按钮。它们退出 Tab 顺序,数字还留在屏幕上,读者仍然读得到。",
+      "markup": "<div class=\"um-input-number\">\n  <div class=\"um-input-number__wrapper\">\n    <input class=\"um-input-number__input\" type=\"number\" value=\"8\" min=\"0\" max=\"10\" disabled aria-label=\"Replicas held back\" />\n    <span class=\"um-input-number__controls\">\n      <button class=\"um-input-number__increase\" type=\"button\" disabled aria-label=\"Increase\">+</button>\n      <button class=\"um-input-number__decrease\" type=\"button\" disabled aria-label=\"Decrease\">−</button>\n    </span>\n  </div>\n</div>"
+    },
+    {
+      "id": "sizes",
+      "title": "Sizes",
+      "titleZh": "尺寸",
+      "description": "Three heights. The middle one is the base class on its own, because the base class is already the medium field.",
+      "descriptionZh": "三种高度。中间那个只写基础类,因为基础类本来就是中号字段。",
+      "markup": "<div class=\"um-input-number um-input-number--small\">\n  <div class=\"um-input-number__wrapper\">\n    <input class=\"um-input-number__input\" type=\"number\" value=\"1\" aria-label=\"Small field\" />\n    <span class=\"um-input-number__controls\">\n      <button class=\"um-input-number__increase\" type=\"button\" aria-label=\"Increase\"></button>\n      <button class=\"um-input-number__decrease\" type=\"button\" aria-label=\"Decrease\"></button>\n    </span>\n  </div>\n</div>\n<div class=\"um-input-number\">\n  <div class=\"um-input-number__wrapper\">\n    <input class=\"um-input-number__input\" type=\"number\" value=\"1\" aria-label=\"Medium field\" />\n    <span class=\"um-input-number__controls\">\n      <button class=\"um-input-number__increase\" type=\"button\" aria-label=\"Increase\"></button>\n      <button class=\"um-input-number__decrease\" type=\"button\" aria-label=\"Decrease\"></button>\n    </span>\n  </div>\n</div>\n<div class=\"um-input-number um-input-number--large\">\n  <div class=\"um-input-number__wrapper\">\n    <input class=\"um-input-number__input\" type=\"number\" value=\"1\" aria-label=\"Large field\" />\n    <span class=\"um-input-number__controls\">\n      <button class=\"um-input-number__increase\" type=\"button\" aria-label=\"Increase\"></button>\n      <button class=\"um-input-number__decrease\" type=\"button\" aria-label=\"Decrease\"></button>\n    </span>\n  </div>\n</div>"
+    }
+  ],
+  "notes": "The browser's own spin buttons are removed and the custom pair takes their place, because two pairs on the same corner is one pair too many. The buttons draw their marks from CSS rather than shipping glyphs, which is why each one needs an aria-label: a drawn mark carries no text, and a button with no name is a button the reader cannot tell apart from its neighbour.",
+  "notesZh": "浏览器自带的上下箭头被拿掉,换成自己那一对,因为同一个角落里放两对就等于多了一对。按钮的记号是 CSS 画的,不是随库发出来的字形,所以每个按钮都得配一个 aria-label:画出来的记号不带文字,一个没有名字的按钮,读者分不出它和旁边那个谁是谁。"
+}

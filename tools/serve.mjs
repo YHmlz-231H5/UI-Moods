@@ -4,7 +4,7 @@
 // No build step, no external dependencies.
 
 import { createServer } from "node:http";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, statSync } from "node:fs";
 import { dirname, extname, join, normalize } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -37,6 +37,10 @@ function resolveFile(pathname) {
     // The gallery imports the artwork generator as an ES module, so the
     // thumbnails it draws come from the same code the app screens use.
     filePath = join(root, "tools", pathname.replace(/^\/lib\//, "lib/"));
+  } else if (pathname.startsWith("/probe/")) {
+    // The measuring instruments: a contrast probe and a geometry probe, both
+    // of which need the component layer and the themes served from the root.
+    filePath = join(root, "tools", pathname.replace(/^\/probe\//, "probe/"));
   } else if (
     pathname.startsWith("/moods/") ||
     pathname.startsWith("/apps/") ||
@@ -56,6 +60,17 @@ function resolveFile(pathname) {
   const resolved = normalize(filePath);
   const rootResolved = normalize(root);
   if (!resolved.startsWith(rootResolved)) return null;
+  if (!existsSync(resolved)) return null;
+
+  // A directory is a request for its index, not a request for a file. Reading
+  // one throws EISDIR, and an unhandled throw inside the request handler
+  // takes the whole server down — so a stray `/site/` would stop the preview
+  // for everything else too.
+  if (statSync(resolved).isDirectory()) {
+    const index = join(resolved, "index.html");
+    if (!existsSync(index)) return null;
+    return index;
+  }
   return resolved;
 }
 
@@ -70,7 +85,17 @@ createServer((req, res) => {
     return;
   }
 
-  const data = readFileSync(filePath);
+  let data;
+  try {
+    data = readFileSync(filePath);
+  } catch (err) {
+    // A file that vanished between the check and the read — the build rewrites
+    // these constantly — is a 404, not a crash.
+    res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
+    res.end("404 Not Found");
+    return;
+  }
+
   res.writeHead(200, {
     "Content-Type": MIME[extname(filePath)] || "application/octet-stream",
     // A local preview of files that are rebuilt constantly: a cached copy is

@@ -9,15 +9,19 @@
   background: var(--um-fill-light);
   overflow: hidden;
 }
+/* The bar is the picture: it says how much. So it takes the graphic form of
+   the tone rather than the fill form — the bar has no label of its own, and
+   the raw brand colour clears 4.5:1 as a background for text but clears
+   nothing as a shape: in the anime mood it sits at 2.92:1 on its own track. */
 .um-progress__bar {
   height: 100%;
   border-radius: var(--um-radius-round);
-  background: var(--um-color-primary);
+  background: var(--um-color-primary-graphic);
   transition: width var(--um-motion);
 }
-.um-progress--success .um-progress__bar { background: var(--um-color-success); }
-.um-progress--warning .um-progress__bar { background: var(--um-color-warning); }
-.um-progress--danger  .um-progress__bar { background: var(--um-color-danger); }
+.um-progress--success .um-progress__bar { background: var(--um-color-success-graphic); }
+.um-progress--warning .um-progress__bar { background: var(--um-color-warning-graphic); }
+.um-progress--danger  .um-progress__bar { background: var(--um-color-danger-graphic); }
 .um-progress__label {
   color: var(--um-text-secondary);
   font-size: var(--um-font-size-caption);

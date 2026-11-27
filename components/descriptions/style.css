@@ -1,0 +1,68 @@
+/* ============================================================================
+   Descriptions
+   ========================================================================== */
+.um-descriptions {
+  /* Two measurements a class name cannot carry: how many pairs sit in one row,
+     and how wide the label column is. The host writes them inline. */
+  --um-descriptions-columns: 1;
+  --um-descriptions-label-width: 6em;
+
+  display: grid;
+  grid-template-columns: repeat(var(--um-descriptions-columns), minmax(0, 1fr));
+  gap: var(--um-space-xs) var(--um-space-md);
+  margin: 0;
+  color: var(--um-text-regular);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+}
+.um-descriptions__item {
+  display: grid;
+  grid-template-columns: var(--um-descriptions-label-width) minmax(0, 1fr);
+  column-gap: var(--um-space-xs);
+  margin: 0;
+}
+.um-descriptions__label {
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+  overflow-wrap: break-word;
+}
+.um-descriptions__content {
+  margin: 0;
+  color: var(--um-text-primary);
+  overflow-wrap: anywhere;
+}
+
+/* The plain form is the base class. The modifier spells it out, so a host
+   that switches between the two forms can name the one it is in. */
+.um-descriptions--plain {
+  border: none;
+  border-radius: var(--um-radius-none);
+  background: none;
+}
+
+/* The bordered form draws its lines with the container's own background and a
+   gap one border wide: the gap is the line, so every cell in a row lines up
+   without the stylesheet having to know which cell is last. The container is
+   clipped, so the square corners of the cells stay inside the rounded frame.
+
+   The cell paints the flattened surface rather than a translucent fill. The
+   container's background is the *line* colour, and a translucent fill lets the
+   line colour through: the cell came out a step lighter than the contract
+   expects, and a muted label on it fell to 2.7:1 in six of the thirty-two
+   moods. The flattened surface is the colour the cell would have had anyway,
+   in one layer, and the line stays in the gap where it belongs. */
+.um-descriptions--bordered {
+  gap: var(--um-border-width);
+  overflow: hidden;
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-base);
+  background: var(--um-border-base);
+}
+.um-descriptions--bordered .um-descriptions__item {
+  padding: var(--um-space-xs) var(--um-space-sm);
+  background: var(--um-surface-panel);
+}
+.um-descriptions--bordered .um-descriptions__label {
+  padding-right: var(--um-space-sm);
+  border-right: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+}

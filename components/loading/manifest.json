@@ -1,0 +1,132 @@
+{
+  "id": "loading",
+  "name": "Loading",
+  "nameZh": "加载中",
+  "category": "feedback",
+  "element": "span, div",
+  "summary": "A ring that turns while the library waits for something. The ring is two borders with one side left out, and the turn is a keyframe, so it needs neither a timer nor a script.",
+  "summaryZh": "库在等某样东西时转的那个圆环。圆环是两条边框留一条缺口,转动是一个关键帧,所以它既不需要计时器,也不需要脚本。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-loading",
+    "modifier": "um-loading--",
+    "part": "um-loading__"
+  },
+  "variants": [
+    {
+      "id": "spinner",
+      "name": "Spinner",
+      "nameZh": "转轮",
+      "note": "The ring on its own. The base class is already this shape, so the modifier only says so out loud: it drops the text slot, because a ring with a caption beside it is the next variant."
+    },
+    {
+      "id": "text",
+      "name": "Spinner with text",
+      "nameZh": "带文字的转轮",
+      "note": "The ring with a caption beside it. The modifier opens the gap between the two."
+    },
+    {
+      "id": "overlay",
+      "name": "Full-page overlay",
+      "nameZh": "整页遮罩",
+      "note": "A veil over the whole page, with the ring centred on it."
+    }
+  ],
+  "sizes": [
+    { "id": "small", "name": "Small", "nameZh": "小", "note": "The ring follows the theme's tightest spacing step." },
+    { "id": "medium", "name": "Medium", "nameZh": "中", "default": true, "note": "The default ring. The base class is already this size, so it needs no modifier." },
+    { "id": "large", "name": "Large", "nameZh": "大", "note": "The ring follows the theme's section gap." }
+  ],
+  "states": [],
+  "parts": [
+    {
+      "id": "spinner",
+      "name": "Spinner",
+      "nameZh": "转环",
+      "note": "The ring itself. It is drawn from borders, so it is a shape the stylesheet paints rather than a glyph the library has to ship."
+    },
+    {
+      "id": "text",
+      "name": "Text",
+      "nameZh": "文字",
+      "note": "The caption beside the ring. It carries the message, so it is real text and not an aria-label."
+    },
+    {
+      "id": "panel",
+      "name": "Panel",
+      "nameZh": "面板",
+      "note": "The card the overlay variant centres on the page. It carries its own surface and shadow, because it is above the page rather than on it."
+    }
+  ],
+  "props": [
+    {
+      "name": "variant",
+      "type": "enum",
+      "values": ["spinner", "text", "overlay"],
+      "default": "spinner",
+      "description": "Which of the three shapes this is. The ring on its own is the base class, so the spinner variant only needs the modifier when the markup wants to say so.",
+      "descriptionZh": "这是三种形态里的哪一种。只有圆环的话就是基础类;spinner 变体只有在标记里想写明时才需要那个修饰类。"
+    },
+    {
+      "name": "size",
+      "type": "enum",
+      "values": ["small", "medium", "large"],
+      "default": "medium",
+      "description": "How big the ring is. The sizes are the theme's own spacing steps, so the ring grows with the mood's rhythm instead of sitting at a fixed size.",
+      "descriptionZh": "圆环有多大。尺寸取的是 theme 自己的间距级别,所以圆环跟着 mood 的节奏一起长大,而不是卡在一个固定值上。"
+    },
+    {
+      "name": "text",
+      "type": "string",
+      "description": "The caption beside the ring. It is the message, so it is written as text in the page and not as an attribute.",
+      "descriptionZh": "圆环旁边的文字。它就是那句话,所以它以正文的形式写进页面,而不是塞进某个属性里。"
+    }
+  ],
+  "slots": [
+    { "name": "text", "description": "The caption beside the ring.", "descriptionZh": "圆环旁边的文字。" }
+  ],
+  "events": [],
+  "a11y": {
+    "role": "status",
+    "keyboard": [],
+    "notes": "The ring is a picture of waiting, not a message: mark it aria-hidden and let the caption carry the words. When the indicator appears without the reader having asked for it, put role=\"status\" on the wrapper so the caption is announced; an indicator that was already on the page when it loaded does not need one. The ring turns only when the reader has not asked for less motion.",
+    "notesZh": "圆环只是\"在等\"这件事的样子,不是消息本身:给它加 aria-hidden,让文字去承载那句话。如果这个指示器是读者没要求就自己出现的,就在外层写 role=\"status\",这样文字会被播报;页面加载时它就已经在那儿的指示器不需要。圆环只在读者没有要求减少动效时才转。"
+  },
+  "examples": [
+    {
+      "id": "spinner",
+      "title": "Spinner",
+      "titleZh": "转轮",
+      "description": "The ring on its own. It is a shape the stylesheet draws, so there is no icon to load and nothing to install.",
+      "descriptionZh": "只有一个圆环。它是样式表画出来的形状,所以没有图标要下载,也没有东西要装。",
+      "markup": "<div class=\"um-loading um-loading--spinner\">\n  <span class=\"um-loading__spinner\" aria-hidden=\"true\"></span>\n</div>"
+    },
+    {
+      "id": "with-text",
+      "title": "With text",
+      "titleZh": "带文字",
+      "description": "The caption is a separate element, so it can be left out. The gap between the ring and the caption is opened by the modifier.",
+      "descriptionZh": "文字是独立的元素,可以不写。圆环和文字之间的间距由修饰类撑开。",
+      "markup": "<div class=\"um-loading um-loading--text\" role=\"status\">\n  <span class=\"um-loading__spinner\" aria-hidden=\"true\"></span>\n  <span class=\"um-loading__text\">Loading the last 24 hours</span>\n</div>"
+    },
+    {
+      "id": "sizes",
+      "title": "Sizes",
+      "titleZh": "尺寸",
+      "description": "Three rings, three spacing steps. The middle one is the base class on its own, because the base class is already the medium size.",
+      "descriptionZh": "三个圆环,三级间距。中间那个只写基础类,因为基础类本来就是中号。",
+      "markup": "<div class=\"um-loading um-loading--spinner um-loading--small\">\n  <span class=\"um-loading__spinner\" aria-hidden=\"true\"></span>\n</div>\n<div class=\"um-loading um-loading--spinner\">\n  <span class=\"um-loading__spinner\" aria-hidden=\"true\"></span>\n</div>\n<div class=\"um-loading um-loading--spinner um-loading--large\">\n  <span class=\"um-loading__spinner\" aria-hidden=\"true\"></span>\n</div>"
+    },
+    {
+      "id": "overlay",
+      "title": "Overlay",
+      "titleZh": "整页遮罩",
+      "description": "The overlay covers the page with a veil and centres a panel on it. The panel is what carries the message, so the ring on its own stays decorative.",
+      "descriptionZh": "遮罩用一层帷幕盖住页面,再把面板摆在中间。承载消息的是面板,所以圆环本身仍然只是装饰。",
+      "markup": "<div class=\"um-loading um-loading--overlay\" role=\"status\">\n  <div class=\"um-loading__panel\">\n    <span class=\"um-loading__spinner\" aria-hidden=\"true\"></span>\n    <span class=\"um-loading__text\">Saving the deployment</span>\n  </div>\n</div>"
+    }
+  ],
+  "notes": "The ring is two borders with the top side left out, and the gap in the ring is that missing side — so the shape is drawn, not fetched. The keyframe it turns with is the one the loading button already uses, because it is the same ring turning the same way; and it only turns at all when the reader has not asked for less motion, which the library never overrides.",
+  "notesZh": "圆环是两条边框,上面那条留空,环上的缺口就是这条空边 —— 所以这个形状是画出来的,不是取来的。它转起来用的那个关键帧,和按钮里的加载态是同一个,因为本来就是同一个环在转;而且只有在读者没有要求减少动效时它才转,库里从不越过这个要求。"
+}

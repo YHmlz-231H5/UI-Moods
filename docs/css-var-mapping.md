@@ -115,8 +115,8 @@ The contract lives in **`tokens/roles.json`**:
 
 | Key | What it holds |
 | --- | --- |
-| `roles` | 88 roles: how to read them from the mood (`from`), how to derive them (`derive`), and what each one is for (`doc`) |
-| `pairs` | 49 contrast guarantees, each a foreground role, a background role and a minimum ratio |
+| `roles` | 95 roles: how to read them from the mood (`from`), how to derive them (`derive`), and what each one is for (`doc`) |
+| `pairs` | 68 contrast guarantees, each a foreground role, a background role and a minimum ratio |
 | `componentConstants` | the 11 shape and layout constants the component layer declares itself |
 | `optional` | roles a mood may leave out (`glow`, `backdrop`) |
 
@@ -158,6 +158,50 @@ Two roles exist to name that surface:
 
 Both are flattened to one opaque colour, and the muted roles are derived
 against them.
+
+### The theme's scope, and why it has two selectors
+
+Each theme file declares its variables under three selectors:
+
+```css
+:root,
+:root[data-um-theme="anime"],
+[data-um-theme="anime"] { … }
+```
+
+The three do three different jobs.
+
+- `:root` is the **fallback**: a page that links exactly one theme file and
+  names nothing still gets that mood.
+- `:root[data-um-theme="anime"]` is the **document scope**, and it is one
+  step more specific than `:root` on purpose. That single step is what lets
+  several theme files sit on one page: the file whose id matches the
+  attribute wins the cascade outright, whatever order the files were linked
+  in, and the `:root` part of the other thirty-one cannot take it back.
+- `[data-um-theme="anime"]` is the **subtree scope**: an element that claims
+  a mood gets that mood's variables, and its own declarations beat the ones
+  it would otherwise inherit.
+
+The old version wrote `:root, [data-um-theme="anime"]` — one rule, both
+selectors at the same specificity. It worked for one theme per page and
+**could not** work for several: every theme file claimed `:root` equally, so
+the last file linked won and no attribute could override it. Runtime
+switching was therefore impossible without swapping a stylesheet, which costs
+a network request.
+
+With the scope one step more specific, `themes/all.css` can carry all 32
+moods at once, and switching is an attribute write: a median of 1.4 ms over
+96 switches, with no request at all.
+
+### An optional role is still declared
+
+`glow` and `backdrop` are optional — a mood may have no glow. But the theme
+file still writes them, with the value the contract declares for an absent
+optional role (`none`). A role that is simply missing from a declaration list
+is a role that inherits from whichever theme file was linked after it, so a
+mood with no glow would end up wearing another mood's glow. The symptom
+appears only in the combined sheet and never in the single-file case, which
+is exactly the kind of bug a screenshot of one theme cannot catch.
 
 ### Why `soft-N` and not `light-N`
 
@@ -214,6 +258,124 @@ names every surface the component layer paints it on, `bg-container`,
 `fill-light` and `fill-lighter` among them, and three new pairs hold it there.
 The general rule this follows: **if the component layer uses a surface, the
 contract has to know that surface.**
+
+### A translucent surface is painted once
+
+Knowing the surface is only half of it. A surface that is painted twice is a
+colour no role names, and a guarantee made against one of the two layers is a
+guarantee about a surface nobody sees.
+
+Two components did that:
+
+- **A table** painted `fill-blank` on the wrapper *and* on the table inside it.
+  The cells sat on two translucent layers, and the empty cell's muted label
+  fell to 3.20:1 in `glass`.
+- **A bordered table of key and value** painted the *line* colour
+  (`border-base`) as the container's background, so that the one-pixel gap
+  between two cells draws the line. The cells painted `fill-blank` over it, and
+  the line colour came through the cell: the label landed at 2.66:1 in
+  `vaporwave` and 3.65:1 in `aurora`.
+
+The table now paints its surface once — the wrapper owns it, and the table
+inside it paints nothing. The bordered key and value table cannot do that,
+because its line *is* a background; so its cell paints `surface-panel`, the
+flattened colour of the fill over the page, in one opaque layer. The line stays
+in the gap where it belongs, and the cell gets the colour it would have had
+anyway.
+
+Two rules follow:
+
+1. **A translucent fill is painted once.** A frame that owns a surface paints
+   it; the thing inside the frame paints nothing.
+2. **A line colour never sits under a translucent cell.** A cell that has a
+   line under it paints the flattened surface instead.
+
+### What the browser painted
+
+The contract is measured on roles. The library is rendered in a browser, and a
+browser composites what is really on the page — so the pages are measured too.
+
+`tools/probe/contrast.html` loads every component's live examples, walks the
+whole document once per mood, and measures the colours the browser actually
+painted: the foreground it resolved, and the background composited through
+every layer between the element and the page. The current run is **11 392
+measurements across 39 components and 32 moods, with zero failures**.
+
+Three things the probe had to learn, each of them a false alarm in the first
+place:
+
+- **A colour can be written as hex.** The placeholder role is written as a hex
+  in most moods. A probe that only understood `rgb()` read the role as
+  missing, and held a placeholder to the bar for body text — 32 false
+  failures across the empty state.
+- **A panel that flies out of its parent leaves the parent's box behind.** A
+  cascader's second level is positioned beside the first, so the first level's
+  fill is not behind it. Counting that fill invents a stack the reader never
+  sees.
+- **The floor of every stack is the canvas.** The body's background propagates
+  to the canvas, so it is what is behind everything — including a panel that
+  has left the body's box entirely. A probe that found nothing there and
+  fell back to white would measure every dark mood against a light surface.
+
+### Text has a bar, and a shape has a different one
+
+The contract answers to two different questions. Text asks "can this be read?"
+and the bar is 4.5:1, or 3:1 for large text. A shape asks "can this be seen?"
+and WCAG puts that at 3:1.
+
+The brand colours answer the first question well — `color-primary-on` on
+`color-primary` clears 4.5:1 in every mood — and the second question badly.
+Measured across all 32 moods, the raw status colours on a container:
+
+| Role | Worst on `bg-container` | Moods below 3:1 |
+| --- | --- | --- |
+| `color-primary` | 1.43 | 3 of 32 |
+| `color-success` | 1.63 | 7 of 32 |
+| `color-warning` | 1.39 | 15 of 32 |
+| `color-danger` | 2.02 | 3 of 32 |
+| `color-info` | 2.45 | 4 of 32 |
+
+A timeline node is the one place where the colour *is* the message: there is
+no word beside the dot, so a dot at 1.39:1 is a status nobody can read. So the
+vocabulary now has a second form of each status colour:
+
+```
+color-warning        — the fill form. A solid badge, a filled button.
+color-warning-text   — the text form. Moved to clear 4.5:1 as writing.
+color-warning-graphic — the shape form. Moved to clear 3:1 as a picture.
+```
+
+The graphic form is derived with the same `contrast` op the text form uses,
+with `target: 3` and `against: [bg-page, bg-container]`. All ten new pairs
+hold across all 32 moods, the worst of them at exactly 3.00:1.
+
+### What the library does not promise
+
+The boundary layer — the hairline around an input, the rule between two rows,
+the tint of a hovered row — is **not** held to 3:1. Measured, `border-base`
+sits at 1.00:1 on the page in the clay mood and never clears 3:1 in any of
+them, and two fills in a flat palette are about 1.05:1 apart.
+
+That is not an oversight; it is what Element Plus, Ant Design and every other
+library do. A 1px border in `#dcdfe6` on white is 1.24:1, and nobody calls
+those libraries inaccessible. The boundary is carried by the fill underneath
+it, by the label beside it, and by the shape of the control — not by the line
+alone.
+
+What the library *does* promise is stated in the contract and enforced on
+every mood:
+
+- every text role clears its bar on every surface the component layer paints
+  it on;
+- every shape whose colour carries meaning on its own — the timeline node, the
+  rating star — clears 3:1;
+- every fill that text sits on clears 4.5:1.
+
+So a table's header is identified by a **rule and a heavier label**, not by its
+background: in the moods whose palette is nearly flat, no two fills are far
+enough apart to do the job, and a header that relies on its background alone is
+a header nobody can find. The header therefore takes the recessed fill, the
+hovered row takes the light one, and a rule runs under the header.
 
 ### 3.3 The component manifest — one file per component
 

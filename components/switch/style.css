@@ -23,7 +23,10 @@
   box-shadow: var(--um-shadow-light);
   transition: transform var(--um-motion);
 }
-.um-switch__input:checked + .um-switch__track { background: var(--um-color-primary); }
+/* The track's colour is the on/off signal, so it takes the graphic form of
+   the brand colour: the raw fill colour is 1.43:1 against a container in the
+   brutal mood, which is a switch whose state nobody can see. */
+.um-switch__input:checked + .um-switch__track { background: var(--um-color-primary-graphic); }
 .um-switch__input:checked + .um-switch__track .um-switch__thumb { transform: translateX(calc(var(--um-height-md) * 0.5)); }
 .um-switch__input:disabled + .um-switch__track { opacity: 0.45; cursor: not-allowed; }
 .um-switch__label { color: var(--um-text-regular); font-size: var(--um-font-size-body); }

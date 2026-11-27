@@ -50,6 +50,11 @@
       "additionalProperties": false,
       "properties": {
         "base": { "type": "string", "description": "The class every instance carries, e.g. um-button." },
+        "also": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Other base classes the same component paints, for a component that covers a family of native controls — um-textarea and um-select beside um-input. A class listed here is one an instance may carry instead of the base class, never in addition to it."
+        },
         "modifier": { "type": "string", "description": "Prefix for variant and size modifiers, e.g. um-button--." },
         "part": { "type": "string", "description": "Prefix for element parts, e.g. um-button__." }
       }
