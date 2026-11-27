@@ -16,6 +16,7 @@
 //   check-vue       check every Vue wrapper against the manifest it was written from
 //   check-component check one component's manifest and stylesheet
 //   check-package   check that the package's public names resolve and render
+//   check-v-model   check that the bindings actually bind
 //   audit-contrast  print the measured contrast of the contract across every mood
 //   audit-render    measure the rendered result in a headless browser
 //   verify-themes   check themes/all.css against the single-file themes
@@ -36,6 +37,7 @@ const commands = [
   "check-vue",
   "check-component",
   "check-package",
+  "check-v-model",
   "audit-contrast",
   "audit-render",
   "verify-themes",
@@ -78,6 +80,7 @@ Usage:
   ui-moods check-vue                       Check the Vue wrappers against the manifests
   ui-moods check-component [id ...]         Check one component's manifest and stylesheet
   ui-moods check-package                   Check that the package's public names resolve and render
+  ui-moods check-v-model                   Check that the bindings actually bind
   ui-moods audit-contrast                  Print the measured contrast of every mood
   ui-moods audit-render [contrast|geometry|motion|package|apps]
                                            Measure the rendered result in a headless browser

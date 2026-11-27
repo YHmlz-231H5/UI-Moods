@@ -28,13 +28,15 @@
     { "name": "checked", "type": "boolean", "default": "false", "description": "Selects this option. It is the native checked attribute, not a class.", "descriptionZh": "选中这一项。它是原生 checked 属性,不是某个类。" },
     { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes the radio inert. It uses the real disabled attribute, so it leaves the tab order.", "descriptionZh": "让单选框不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" },
     { "name": "name", "type": "string", "description": "The name the group shares. Radios with the same name are one group, and only one of them can be checked.", "descriptionZh": "这一组共用的名字。同名的单选框属于同一组,组里只能有一个被选中。" },
-    { "name": "value", "type": "string", "description": "The value submitted while this option is selected.", "descriptionZh": "选中这一项时提交的值。" }
+    { "name": "value", "type": "string", "description": "The value submitted while this option is selected.", "descriptionZh": "选中这一项时提交的值。" },
+    { "name": "model-value", "type": "boolean", "description": "Whether this option is the selected one, bound with v-model in Vue. Leave it out and the `checked` prop is the state; bind it and the option answers to the binding. Inside a radio group the group decides instead.", "descriptionZh": "这一项是不是被选中的,在 Vue 里用 v-model 绑定。不传就以 checked 属性为准;传了就以绑定为准。在单选组里则由组说了算。" }
   ],
   "slots": [
     { "name": "label", "description": "The text beside the circle.", "descriptionZh": "圆圈旁边的文字。" }
   ],
   "events": [
-    { "name": "change", "description": "Fires when the selection moves to this option. It is the browser's own event — the library installs no listener.", "descriptionZh": "选中项移到这一项时触发。这是浏览器自己的事件 —— 库没有安装任何监听器。" }
+    { "name": "change", "description": "Fires when the selection moves to this option. It is the browser's own event — the library installs no listener.", "descriptionZh": "选中项移到这一项时触发。这是浏览器自己的事件 —— 库没有安装任何监听器。" },
+    { "name": "update:modelValue", "description": "Fires when the selection moves to this option, carrying the new state. This is the event `v-model` listens to.", "descriptionZh": "选中项移到这一项时触发,携带新的状态。v-model 监听的就是这个事件。" }
   ],
   "a11y": {
     "role": "radio",

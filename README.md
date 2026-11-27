@@ -217,6 +217,22 @@ they are plain ES modules with render functions. See
 [`docs/vue-components.md`](docs/vue-components.md) for the contract, and
 `node tools/check-vue.mjs` for the check that keeps a wrapper honest.
 
+Every value-bearing component answers to `v-model` as well as to its own prop:
+
+```vue
+<UMSwitch v-model="notify" />
+<UMInput v-model="name" />
+<UMRadioGroup v-model="plan">
+  <UMRadio value="free">Free</UMRadio>
+  <UMRadio value="pro">Pro</UMRadio>
+</UMRadioGroup>
+```
+
+The binding is **additive**: a component keeps the prop it had — `checked` on
+a switch, `value` on an input — and the binding wins when it is there. A
+radio group owns the selection and its options follow it, through Vue's own
+`provide`/`inject`.
+
 ### Using it in your own project
 
 Three ways, from the simplest to the smallest.
@@ -490,7 +506,8 @@ ui-moods/
 ├─ themes/all.css     # all 32 moods in one sheet, switched by attribute
 ├─ themes/switcher.js # the runtime switcher (optional, framework-agnostic)
 ├─ site/              # generated documentation site (one page per component)
-├─ vue/               # the Vue 3 package: index.js · components/<id>.js
+├─ vue/               # the Vue 3 package: index.js · components/<id>.js · lib/
+├─ type-tests/        # type-level assertions (the bindings, at compile time)
 ├─ types/             # generated type declarations
 ├─ tokens/            # roles.json — the component layer's role contract
 ├─ schemas/           # tokens.schema.json · checklist.schema.json · allowlist.json
@@ -500,8 +517,8 @@ ui-moods/
 ├─ tools/             # cli · build-specimen · build-apps · build-themes
 │                     # · build-components · build-dist · build-docs · build-types
 │                     # · build-vue · validate · check-vue · check-component
-│                     # · check-package · audit-contrast · audit-render
-│                     # · verify-themes · serve · scaffold
+│                     # · check-package · check-v-model · audit-contrast
+│                     # · audit-render · verify-themes · serve · scaffold
 │                     # · probe/ (the measuring instruments:
 │                     #   contrast · geometry · motion · package · apps)
 ├─ docs/              # mapping convention · checklist semantics · parity checklist

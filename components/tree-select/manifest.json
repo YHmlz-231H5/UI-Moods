@@ -44,7 +44,8 @@
     { "name": "value", "type": "string", "description": "The value one leaf submits while it is picked. It is also what the leaf says when the caller gives it no name of its own.", "descriptionZh": "某个叶子选中时提交的值。调用方没有另外给名字的时候,它也是这个叶子显示的字。" },
     { "name": "label", "type": "string", "description": "The name of the thing the branch holds.", "descriptionZh": "这一支里那个东西的名字。" },
     { "name": "checked", "type": "boolean", "default": "false", "description": "Picks the leaf. It is the native checked attribute, not a class.", "descriptionZh": "选中这个叶子。它是原生 checked 属性,不是某个类。" },
-    { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes the leaf inert. It uses the real disabled attribute, so it leaves the tab order.", "descriptionZh": "让这个叶子不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" }
+    { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes the leaf inert. It uses the real disabled attribute, so it leaves the tab order.", "descriptionZh": "让这个叶子不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" },
+    { "name": "model-value", "type": "string", "description": "The value the picked leaf submits, bound with v-model in Vue. Leave it out and the `value` prop is that value; bind it and the tree answers to the binding.", "descriptionZh": "被选中的叶子的值,在 Vue 里用 v-model 绑定。不传就以 value 属性为准;传了就以绑定为准。" }
   ],
   "slots": [
     { "name": "branch", "description": "The name of the thing the branch holds.", "descriptionZh": "这一支里那个东西的名字。" },
@@ -52,7 +53,8 @@
   ],
   "events": [
     { "name": "change", "description": "Fires when the picked leaf changes. It is the browser's own event on the input — the library installs no listener.", "descriptionZh": "被选中的叶子换了一个时触发。这是 input 上的浏览器原生事件 —— 库没有安装任何监听器。" },
-    { "name": "toggle", "description": "Fires when a branch opens or closes. It is the browser's own event on the details — the library installs no listener.", "descriptionZh": "某一支展开或收起时触发。这是 details 上的浏览器原生事件 —— 库没有安装任何监听器。" }
+    { "name": "toggle", "description": "Fires when a branch opens or closes. It is the browser's own event on the details — the library installs no listener.", "descriptionZh": "某一支展开或收起时触发。这是 details 上的浏览器原生事件 —— 库没有安装任何监听器。" },
+    { "name": "update:modelValue", "description": "Fires when the value changes, carrying the new value. This is the event `v-model` listens to.", "descriptionZh": "值变化时触发,携带新的值。v-model 监听的就是这个事件。" }
   ],
   "a11y": {
     "role": "group",

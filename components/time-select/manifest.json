@@ -39,11 +39,13 @@
     { "name": "label", "type": "string", "description": "The accessible name of the field. It becomes the select's aria-label, because the library does not draw a label of its own.", "descriptionZh": "字段的可访问名称。它会变成 select 的 aria-label,因为库自己不画标签。" },
     { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes the field inert. It uses the real disabled attribute, so it leaves the tab order.", "descriptionZh": "让字段不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" },
     { "name": "variant", "type": "enum", "values": ["bordered", "filled"], "default": "bordered", "description": "The surface of the field. The bordered run is the base class on its own; the filled run adds um-time-select--filled.", "descriptionZh": "字段的底面。描边这一跑就是只写基础类;填充这一跑再加上 um-time-select--filled。" },
-    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The height of the field.", "descriptionZh": "字段的高度。" }
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The height of the field.", "descriptionZh": "字段的高度。" },
+    { "name": "model-value", "type": "string", "description": "The chosen time, bound with v-model in Vue. Leave it out and the `value` prop is the chosen time; bind it and the field answers to the binding.", "descriptionZh": "选中的时刻,在 Vue 里用 v-model 绑定。不传就以 value 属性为准;传了就以绑定为准。" }
   ],
   "slots": [],
   "events": [
-    { "name": "change", "description": "Fires when a time is chosen. It is the browser's own event on the select — the library installs no listener.", "descriptionZh": "选定一个时刻时触发。这是 select 上的浏览器原生事件 —— 库没有安装任何监听器。" }
+    { "name": "change", "description": "Fires when a time is chosen. It is the browser's own event on the select — the library installs no listener.", "descriptionZh": "选定一个时刻时触发。这是 select 上的浏览器原生事件 —— 库没有安装任何监听器。" },
+    { "name": "update:modelValue", "description": "Fires when the value changes, carrying the new value. This is the event `v-model` listens to.", "descriptionZh": "值变化时触发,携带新的值。v-model 监听的就是这个事件。" }
   ],
   "a11y": {
     "role": "combobox",

@@ -286,7 +286,7 @@
       "sizes": 3,
       "states": 3,
       "parts": 3,
-      "props": 8
+      "props": 9
     },
     {
       "id": "button",
@@ -320,7 +320,7 @@
       "sizes": 0,
       "states": 3,
       "parts": 3,
-      "props": 5
+      "props": 6
     },
     {
       "id": "checkbox-group",
@@ -337,7 +337,7 @@
       "sizes": 0,
       "states": 3,
       "parts": 4,
-      "props": 6
+      "props": 7
     },
     {
       "id": "color-picker",
@@ -354,7 +354,7 @@
       "sizes": 3,
       "states": 3,
       "parts": 6,
-      "props": 8
+      "props": 9
     },
     {
       "id": "color-picker-panel",
@@ -388,7 +388,7 @@
       "sizes": 3,
       "states": 3,
       "parts": 3,
-      "props": 7
+      "props": 8
     },
     {
       "id": "date-picker-panel",
@@ -422,7 +422,7 @@
       "sizes": 3,
       "states": 3,
       "parts": 2,
-      "props": 8
+      "props": 9
     },
     {
       "id": "field",
@@ -456,7 +456,7 @@
       "sizes": 0,
       "states": 2,
       "parts": 0,
-      "props": 4
+      "props": 5
     },
     {
       "id": "input-number",
@@ -473,7 +473,7 @@
       "sizes": 3,
       "states": 2,
       "parts": 5,
-      "props": 6
+      "props": 7
     },
     {
       "id": "input-otp",
@@ -524,7 +524,7 @@
       "sizes": 3,
       "states": 2,
       "parts": 6,
-      "props": 5
+      "props": 6
     },
     {
       "id": "radio",
@@ -541,7 +541,7 @@
       "sizes": 0,
       "states": 2,
       "parts": 3,
-      "props": 4
+      "props": 5
     },
     {
       "id": "radio-group",
@@ -558,7 +558,7 @@
       "sizes": 0,
       "states": 3,
       "parts": 4,
-      "props": 6
+      "props": 7
     },
     {
       "id": "rate",
@@ -575,7 +575,7 @@
       "sizes": 3,
       "states": 3,
       "parts": 4,
-      "props": 5
+      "props": 6
     },
     {
       "id": "slider",
@@ -592,7 +592,7 @@
       "sizes": 0,
       "states": 1,
       "parts": 0,
-      "props": 5
+      "props": 6
     },
     {
       "id": "switch",
@@ -609,7 +609,7 @@
       "sizes": 0,
       "states": 2,
       "parts": 4,
-      "props": 4
+      "props": 5
     },
     {
       "id": "time-picker",
@@ -626,7 +626,7 @@
       "sizes": 3,
       "states": 3,
       "parts": 3,
-      "props": 8
+      "props": 9
     },
     {
       "id": "time-select",
@@ -643,7 +643,7 @@
       "sizes": 3,
       "states": 2,
       "parts": 3,
-      "props": 8
+      "props": 9
     },
     {
       "id": "tree-select",
@@ -660,7 +660,7 @@
       "sizes": 3,
       "states": 4,
       "parts": 7,
-      "props": 7
+      "props": 8
     },
     {
       "id": "upload",

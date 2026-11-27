@@ -266,6 +266,7 @@
       <tbody>
       <tr><td><span class="api__name"><code>name</code></span></td><td><code>string</code></td><td>—</td><td>The name every option in the group shares. It is the native name attribute, and it is what makes the group a group: the browser keeps exactly one of the options picked.</td></tr>
       <tr><td><span class="api__name"><code>value</code></span></td><td><code>string</code></td><td>—</td><td>The value one option submits while it is picked.</td></tr>
+      <tr><td><span class="api__name"><code>model-value</code></span></td><td><code>string</code></td><td>—</td><td>The value that is picked in the group, bound with v-model in Vue. The options inside the group follow it. Leave it out and the group's own `checked` and `value` props describe the single option it renders.</td></tr>
       <tr><td><span class="api__name"><code>checked</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Picks one option. It is the native checked attribute, not a class.</td></tr>
       <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes one option inert. It uses the real disabled attribute, so it leaves the tab order.</td></tr>
       <tr><td><span class="api__name"><code>direction</code></span></td><td><code>enum = stacked | inline</code></td><td><code>stacked</code></td><td>Which way the options run. The stacked run is the base class on its own; the inline run adds um-radio-group--inline.</td></tr>
@@ -285,6 +286,7 @@
       <thead><tr><th>Name</th><th>Description</th></tr></thead>
       <tbody>
       <tr><td><span class="api__name"><code>change</code></span></td><td>Fires when the selection moves to an option. It is the browser's own event on the input — the library installs no listener.</td></tr>
+      <tr><td><span class="api__name"><code>update:modelValue</code></span></td><td>Fires when the selection moves to an option, carrying the value that is now picked. This is the event `v-model` listens to.</td></tr>
       </tbody>
     </table>
       <h2>Accessibility</h2>

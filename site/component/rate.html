@@ -301,6 +301,7 @@
       <tr><td><span class="api__name"><code>color</code></span></td><td><code>enum = primary | success | warning | danger</code></td><td><code>primary</code></td><td>The colour of the filled stars. The primary colour is the base class on its own; the other three add um-rate--success, um-rate--warning or um-rate--danger.</td></tr>
       <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes the group inert. It uses the real disabled attribute on the radios, so it leaves the tab order.</td></tr>
       <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = small | medium | large</code></td><td><code>medium</code></td><td>How big the stars are. The medium size is the base class on its own, so it needs no modifier class.</td></tr>
+      <tr><td><span class="api__name"><code>model-value</code></span></td><td><code>number</code></td><td>—</td><td>How many stars are filled, bound with v-model in Vue. Leave it out and the `value` prop is the score; bind it and the group answers to the binding.</td></tr>
       </tbody>
     </table>
 
@@ -309,6 +310,7 @@
       <thead><tr><th>Name</th><th>Description</th></tr></thead>
       <tbody>
       <tr><td><span class="api__name"><code>change</code></span></td><td>Fires when the reader picks another star. It is the browser's own event on the radio underneath — the library installs no listener.</td></tr>
+      <tr><td><span class="api__name"><code>update:modelValue</code></span></td><td>Fires when the value changes, carrying the new value. This is the event `v-model` listens to.</td></tr>
       </tbody>
     </table>
       <h2>Accessibility</h2>

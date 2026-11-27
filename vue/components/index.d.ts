@@ -50,9 +50,11 @@ export interface UMAutocompleteProps {
   variant?: "bordered" | "filled";
   /** The height of the field. */
   size?: "sm" | "md" | "lg";
+  /** The text in the field, bound with v-model in Vue. Leave it out and the `value` prop is the text; bind it and the field answers to the binding. */
+  modelValue?: string;
 }
 
-export declare const UMAutocomplete: DefineComponent<UMAutocompleteProps>;
+export declare const UMAutocomplete: DefineComponent<UMAutocompleteProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
 
 /** Avatar · 头像 — A small picture of a person. It takes a photo, a pair of initials or an icon, and it keeps the shape of whichever mood it is in. */
 export interface UMAvatarProps {
@@ -196,9 +198,11 @@ export interface UMCheckboxProps {
   name?: string;
   /** The value submitted while the box is ticked. */
   value?: string;
+  /** Whether the box is ticked, bound with v-model in Vue. Leave it out and the `checked` prop is the state; bind it and the box answers to the binding. Inside a checkbox group the group decides instead. */
+  modelValue?: boolean;
 }
 
-export declare const UMCheckbox: DefineComponent<UMCheckboxProps>;
+export declare const UMCheckbox: DefineComponent<UMCheckboxProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: boolean) => void }>;
 
 /** Checkbox Group · 复选框组 — A set of checkboxes that share one name and belong to one field. The group is a fieldset, so the browser groups the boxes for the form and for the screen reader. */
 export interface UMCheckboxGroupProps {
@@ -206,6 +210,8 @@ export interface UMCheckboxGroupProps {
   name?: string;
   /** The value one option submits while it is ticked. */
   value?: string;
+  /** The values that are ticked in the group, bound with v-model in Vue. The options inside the group follow it. Leave it out and the group's own `checked` and `value` props describe the single option it renders. */
+  modelValue?: string[];
   /** Ticks one option. It is the native checked attribute, not a class. */
   checked?: boolean;
   /** Makes one option inert. It uses the real disabled attribute, so it leaves the tab order. */
@@ -216,7 +222,7 @@ export interface UMCheckboxGroupProps {
   label?: string;
 }
 
-export declare const UMCheckboxGroup: DefineComponent<UMCheckboxGroupProps>;
+export declare const UMCheckboxGroup: DefineComponent<UMCheckboxGroupProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string[]) => void }>;
 
 /** Collapse · 折叠面板 — A panel that opens and closes. It is a real disclosure, so the browser does the opening and the closing and the state survives a reload. */
 export interface UMCollapseProps {
@@ -258,9 +264,11 @@ export interface UMColorPickerProps {
   variant?: "inline" | "stacked";
   /** The size of the control. */
   size?: "sm" | "md" | "lg";
+  /** The colour in the control, bound with v-model in Vue. Leave it out and the `value` prop is the colour; bind it and the control answers to the binding. */
+  modelValue?: string;
 }
 
-export declare const UMColorPicker: DefineComponent<UMColorPickerProps>;
+export declare const UMColorPicker: DefineComponent<UMColorPickerProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
 
 /** Color Picker Panel · 颜色选择面板 — The panel a colour picker drops: the colours the host has predefined, a choice among the theme's own named colours, and the hexadecimal value written out. Every swatch is a real radio, so the choice is in the tab order and the browser announces it. */
 export interface UMColorPickerPanelProps {
@@ -312,9 +320,11 @@ export interface UMDatePickerProps {
   type?: "single" | "range";
   /** The height of the field. */
   size?: "sm" | "md" | "lg";
+  /** The date in the field, bound with v-model in Vue. Leave it out and the `value` prop is the date; bind it and the field answers to the binding. */
+  modelValue?: string;
 }
 
-export declare const UMDatePicker: DefineComponent<UMDatePickerProps>;
+export declare const UMDatePicker: DefineComponent<UMDatePickerProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
 
 /** Date Picker Panel · 日期选择面板 — The month panel a date picker drops: the month and its navigation, the week grid, and the two actions in the footer. The panel does not keep a month, so the host owns the month and the buttons that change it. */
 export interface UMDatePickerPanelProps {
@@ -354,9 +364,11 @@ export interface UMDateTimePickerProps {
   type?: "single" | "range";
   /** The height of the field. */
   size?: "sm" | "md" | "lg";
+  /** The date and time in the field, bound with v-model in Vue. Leave it out and the `value` prop is the value; bind it and the field answers to the binding. */
+  modelValue?: string;
 }
 
-export declare const UMDateTimePicker: DefineComponent<UMDateTimePickerProps>;
+export declare const UMDateTimePicker: DefineComponent<UMDateTimePickerProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
 
 /** Descriptions · 描述列表 — The facts about one thing, as label and value pairs. It is a definition list, so a screen reader announces each label before the value it belongs to. */
 export interface UMDescriptionsProps {
@@ -490,9 +502,11 @@ export interface UMInputProps {
   disabled?: boolean;
   /** Keeps the value visible but stops it being edited. The library does not repaint a readonly control — it is not a state it measures. */
   readonly?: boolean;
+  /** The control's value, bound with v-model in Vue. Leave it out and the control holds whatever the reader typed; bind it and the control answers to the binding. */
+  modelValue?: string;
 }
 
-export declare const UMInput: DefineComponent<UMInputProps>;
+export declare const UMInput: DefineComponent<UMInputProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
 
 /** Input Number · 数字输入框 — A field for a number, with a pair of buttons that step it up and down. The buttons are real buttons, so they are in the tab order and the browser announces them; the browser's own spin buttons are taken away so there is only one pair. */
 export interface UMInputNumberProps {
@@ -508,9 +522,11 @@ export interface UMInputNumberProps {
   controlsPosition?: "right" | "left";
   /** Makes the field and both buttons inert. It uses the real disabled attribute, so they leave the tab order. */
   disabled?: boolean;
+  /** The number in the field, bound with v-model in Vue. Leave it out and the `value` prop is the number; bind it and the field answers to the binding. */
+  modelValue?: number;
 }
 
-export declare const UMInputNumber: DefineComponent<UMInputNumberProps>;
+export declare const UMInputNumber: DefineComponent<UMInputNumberProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: number) => void }>;
 
 /** Input OTP · 验证码输入 — A row of one-character fields for a code the reader has been sent. Each box is a real input that holds one character, so the browser's own keyboard, autofill and password manager all still apply to it. */
 export interface UMInputOtpProps {
@@ -598,9 +614,11 @@ export interface UMMentionProps {
   placeholder?: string;
   /** The accessible name of the field. It becomes the input's aria-label. */
   label?: string;
+  /** The text in the field, bound with v-model in Vue. Leave it out and the `value` prop is the text; bind it and the field answers to the binding. */
+  modelValue?: string;
 }
 
-export declare const UMMention: DefineComponent<UMMentionProps>;
+export declare const UMMention: DefineComponent<UMMentionProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
 
 /** Menu · 菜单 — A list of places to go, with groups that fold away. The groups are <details> elements, so the browser opens and closes them and keeps them open across a reload. */
 export interface UMMenuProps {
@@ -736,9 +754,11 @@ export interface UMRadioProps {
   name?: string;
   /** The value submitted while this option is selected. */
   value?: string;
+  /** Whether this option is the selected one, bound with v-model in Vue. Leave it out and the `checked` prop is the state; bind it and the option answers to the binding. Inside a radio group the group decides instead. */
+  modelValue?: boolean;
 }
 
-export declare const UMRadio: DefineComponent<UMRadioProps>;
+export declare const UMRadio: DefineComponent<UMRadioProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: boolean) => void }>;
 
 /** Radio Group · 单选框组 — A set of radios that share one name and belong to one field. The group is a fieldset, so the browser groups the circles for the form and for the screen reader. */
 export interface UMRadioGroupProps {
@@ -746,6 +766,8 @@ export interface UMRadioGroupProps {
   name?: string;
   /** The value one option submits while it is picked. */
   value?: string;
+  /** The value that is picked in the group, bound with v-model in Vue. The options inside the group follow it. Leave it out and the group's own `checked` and `value` props describe the single option it renders. */
+  modelValue?: string;
   /** Picks one option. It is the native checked attribute, not a class. */
   checked?: boolean;
   /** Makes one option inert. It uses the real disabled attribute, so it leaves the tab order. */
@@ -756,7 +778,7 @@ export interface UMRadioGroupProps {
   label?: string;
 }
 
-export declare const UMRadioGroup: DefineComponent<UMRadioGroupProps>;
+export declare const UMRadioGroup: DefineComponent<UMRadioGroupProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
 
 /** Rate · 评分 — A row of stars the reader sets by choosing one. The stars are real radio buttons under a drawn shape, so the value is the browser's own value and the group is the browser's own group. */
 export interface UMRateProps {
@@ -770,9 +792,11 @@ export interface UMRateProps {
   disabled?: boolean;
   /** How big the stars are. The medium size is the base class on its own, so it needs no modifier class. */
   size?: "small" | "medium" | "large";
+  /** How many stars are filled, bound with v-model in Vue. Leave it out and the `value` prop is the score; bind it and the group answers to the binding. */
+  modelValue?: number;
 }
 
-export declare const UMRate: DefineComponent<UMRateProps>;
+export declare const UMRate: DefineComponent<UMRateProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: number) => void }>;
 
 /** Result · 结果 — The end of a flow: one statement of what happened, a line of explanation, and the way out. It is the whole answer on one screen, not a toast that disappears. */
 export interface UMResultProps {
@@ -842,9 +866,11 @@ export interface UMSliderProps {
   value?: number;
   /** Makes the slider inert. It uses the real disabled attribute, so it leaves the tab order. */
   disabled?: boolean;
+  /** The slider's own value, bound with v-model in Vue. Leave it out and the `value` prop is the value; bind it and the slider answers to the binding. */
+  modelValue?: number;
 }
 
-export declare const UMSlider: DefineComponent<UMSliderProps>;
+export declare const UMSlider: DefineComponent<UMSliderProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: number) => void }>;
 
 /** Space · 间距 — A run of things with the same space between them. The space is one gap on the container, not a margin on each child, so the last child carries no trailing space and the run wraps without a gap of its own. */
 export interface UMSpaceProps {
@@ -898,9 +924,11 @@ export interface UMSwitchProps {
   name?: string;
   /** The value submitted while the switch is on. */
   value?: string;
+  /** The switch's own state, bound with v-model in Vue. Leave it out and the `checked` prop is the state; bind it and the switch answers to the binding. */
+  modelValue?: boolean;
 }
 
-export declare const UMSwitch: DefineComponent<UMSwitchProps>;
+export declare const UMSwitch: DefineComponent<UMSwitchProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: boolean) => void }>;
 
 /** Table · 表格 — Rows of records in columns. It is a real table, so the column names travel with the cells and a screen reader can read a row across. */
 export interface UMTableProps {
@@ -974,9 +1002,11 @@ export interface UMTimePickerProps {
   type?: "single" | "range";
   /** The height of the field. */
   size?: "sm" | "md" | "lg";
+  /** The time in the field, bound with v-model in Vue. Leave it out and the `value` prop is the time; bind it and the field answers to the binding. */
+  modelValue?: string;
 }
 
-export declare const UMTimePicker: DefineComponent<UMTimePickerProps>;
+export declare const UMTimePicker: DefineComponent<UMTimePickerProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
 
 /** Time Select · 时间选择器 — A choice of time of day, as a native <select>. The option list is the platform's own, so the reader gets the system's own picker and its keyboard behaviour; the library draws the field and the arrow around it. */
 export interface UMTimeSelectProps {
@@ -996,9 +1026,11 @@ export interface UMTimeSelectProps {
   variant?: "bordered" | "filled";
   /** The height of the field. */
   size?: "sm" | "md" | "lg";
+  /** The chosen time, bound with v-model in Vue. Leave it out and the `value` prop is the chosen time; bind it and the field answers to the binding. */
+  modelValue?: string;
 }
 
-export declare const UMTimeSelect: DefineComponent<UMTimeSelectProps>;
+export declare const UMTimeSelect: DefineComponent<UMTimeSelectProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
 
 /** Tooltip · 文字提示 — A short note that appears when the reader points at a word or tabs to it. The bubble is drawn by the stylesheet and placed with absolute positioning; the trigger is a real button, so the keyboard opens it as well as the pointer. */
 export interface UMTooltipProps {
@@ -1076,9 +1108,11 @@ export interface UMTreeSelectProps {
   checked?: boolean;
   /** Makes the leaf inert. It uses the real disabled attribute, so it leaves the tab order. */
   disabled?: boolean;
+  /** The value the picked leaf submits, bound with v-model in Vue. Leave it out and the `value` prop is that value; bind it and the tree answers to the binding. */
+  modelValue?: string;
 }
 
-export declare const UMTreeSelect: DefineComponent<UMTreeSelectProps>;
+export declare const UMTreeSelect: DefineComponent<UMTreeSelectProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
 
 /** Typography · 文字排版 — The set of text styles a page is written in: a title, a subtitle, a paragraph, supporting text, a link and a quote. The library paints the sizes, the colours and the leading; the words and the heading levels are the host's. */
 export interface UMTypographyProps {

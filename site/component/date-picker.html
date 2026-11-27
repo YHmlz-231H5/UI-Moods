@@ -245,6 +245,7 @@
       <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes the field inert. It uses the real disabled attribute, so it leaves the tab order.</td></tr>
       <tr><td><span class="api__name"><code>type</code></span></td><td><code>enum = single | range</code></td><td><code>single</code></td><td>Whether the field holds one date or two. The single field is the base class on its own; the range field adds um-date-picker--range.</td></tr>
       <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The height of the field.</td></tr>
+      <tr><td><span class="api__name"><code>model-value</code></span></td><td><code>string</code></td><td>—</td><td>The date in the field, bound with v-model in Vue. Leave it out and the `value` prop is the date; bind it and the field answers to the binding.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>
@@ -260,6 +261,7 @@
       <tbody>
       <tr><td><span class="api__name"><code>change</code></span></td><td>Fires when the date changes. It is the browser's own event on the input — the library installs no listener.</td></tr>
       <tr><td><span class="api__name"><code>input</code></span></td><td>Fires on every keystroke in the field. It is the browser's own event on the input.</td></tr>
+      <tr><td><span class="api__name"><code>update:modelValue</code></span></td><td>Fires when the value changes, carrying the new value. This is the event `v-model` listens to.</td></tr>
       </tbody>
     </table>
       <h2>Accessibility</h2>

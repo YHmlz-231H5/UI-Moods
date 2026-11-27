@@ -7,8 +7,13 @@
 // The radios are hidden by size and opacity rather than removed, so they keep
 // their place in the tab order and their name — and the stylesheet counts the
 // checked radio's position to know how many stars are filled.
+//
+// It answers to `v-model` as well as to `value`: a host that binds the group
+// gets its own score back, and a host that writes `:value` gets exactly what
+// it got before.
 
 import { defineComponent, h, useId } from "vue";
+import { modelValue, eventValue } from "../lib/model.mjs";
 
 /** The colours that are not the brand colour; the brand one is the base class. */
 const COLORS = ["success", "warning", "danger"];
@@ -22,13 +27,15 @@ export const UMRate = defineComponent({
     color: { type: String, default: "primary" },
     disabled: { type: Boolean, default: false },
     size: { type: String, default: "medium" },
+    modelValue: { type: Number, default: undefined },
   },
-  emits: ["change"],
+  emits: ["change", "update:modelValue"],
   setup(props, { emit }) {
     const group = `um-rate-${useId()}`;
 
     return () => {
       const stars = [];
+      const score = modelValue(props, props.value);
       for (let i = 1; i <= props.max; i++) {
         const id = `${group}-${i}`;
         stars.push(
@@ -39,9 +46,12 @@ export const UMRate = defineComponent({
             id,
             value: String(i),
             "aria-label": `${i} out of ${props.max}`,
-            checked: i === props.value,
+            checked: i === score,
             disabled: props.disabled,
-            onChange: (e) => emit("change", e),
+            onChange: (e) => {
+              emit("update:modelValue", Number(eventValue(e)));
+              emit("change", e);
+            },
           }),
         );
         stars.push(

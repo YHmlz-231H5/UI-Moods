@@ -29,13 +29,15 @@
     { "name": "checked", "type": "boolean", "default": "false", "description": "Turns the setting on. It is the native checked attribute, not a class.", "descriptionZh": "把设置打开。它是原生 checked 属性,不是某个类。" },
     { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes the switch inert. It uses the real disabled attribute, so it leaves the tab order.", "descriptionZh": "让开关不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" },
     { "name": "name", "type": "string", "description": "The name the value is submitted under.", "descriptionZh": "提交时这个值使用的名字。" },
-    { "name": "value", "type": "string", "description": "The value submitted while the switch is on.", "descriptionZh": "开关打开时提交的值。" }
+    { "name": "value", "type": "string", "description": "The value submitted while the switch is on.", "descriptionZh": "开关打开时提交的值。" },
+    { "name": "model-value", "type": "boolean", "description": "The switch's own state, bound with v-model in Vue. Leave it out and the `checked` prop is the state; bind it and the switch answers to the binding.", "descriptionZh": "开关自身的状态,在 Vue 里用 v-model 绑定。不传就以 checked 属性为准;传了就以绑定为准。" }
   ],
   "slots": [
     { "name": "label", "description": "The text beside the switch.", "descriptionZh": "开关旁边的文字。" }
   ],
   "events": [
-    { "name": "change", "description": "Fires when the switch is flipped. It is the browser's own event on the checkbox underneath — the library installs no listener.", "descriptionZh": "开关被拨动时触发。这是底下那个 checkbox 的浏览器原生事件 —— 库没有安装任何监听器。" }
+    { "name": "change", "description": "Fires when the switch is flipped. It is the browser's own event on the checkbox underneath — the library installs no listener.", "descriptionZh": "开关被拨动时触发。这是底下那个 checkbox 的浏览器原生事件 —— 库没有安装任何监听器。" },
+    { "name": "update:modelValue", "description": "Fires when the switch is flipped, carrying the new state. This is the event `v-model` listens to.", "descriptionZh": "开关被拨动时触发,携带新的状态。v-model 监听的就是这个事件。" }
   ],
   "a11y": {
     "role": "checkbox",

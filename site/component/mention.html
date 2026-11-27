@@ -310,6 +310,7 @@
       <tr><td><span class="api__name"><code>value</code></span></td><td><code>string</code></td><td>—</td><td>The text in the field.</td></tr>
       <tr><td><span class="api__name"><code>placeholder</code></span></td><td><code>string</code></td><td><code>Type @ to mention someone</code></td><td>The hint in the empty field.</td></tr>
       <tr><td><span class="api__name"><code>label</code></span></td><td><code>string</code></td><td>—</td><td>The accessible name of the field. It becomes the input's aria-label.</td></tr>
+      <tr><td><span class="api__name"><code>model-value</code></span></td><td><code>string</code></td><td>—</td><td>The text in the field, bound with v-model in Vue. Leave it out and the `value` prop is the text; bind it and the field answers to the binding.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>
@@ -324,6 +325,7 @@
       <thead><tr><th>Name</th><th>Description</th></tr></thead>
       <tbody>
       <tr><td><span class="api__name"><code>input</code></span></td><td>Fires when the text in the field changes.</td></tr>
+      <tr><td><span class="api__name"><code>update:modelValue</code></span></td><td>Fires when the value changes, carrying the new value. This is the event `v-model` listens to.</td></tr>
       </tbody>
     </table>
       <h2>Accessibility</h2>

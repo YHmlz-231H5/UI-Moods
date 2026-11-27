@@ -40,13 +40,15 @@
     { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The height of the field and the size of its type.", "descriptionZh": "输入框的高度和字号。" },
     { "name": "value", "type": "string", "default": "", "description": "The text in the field.", "descriptionZh": "输入框里的文字。" },
     { "name": "placeholder", "type": "string", "default": "Type @ to mention someone", "description": "The hint in the empty field.", "descriptionZh": "空输入框里的提示。" },
-    { "name": "label", "type": "string", "default": "", "description": "The accessible name of the field. It becomes the input's aria-label.", "descriptionZh": "输入框的可访问名称,它会变成 input 的 aria-label。" }
+    { "name": "label", "type": "string", "default": "", "description": "The accessible name of the field. It becomes the input's aria-label.", "descriptionZh": "输入框的可访问名称,它会变成 input 的 aria-label。" },
+    { "name": "model-value", "type": "string", "description": "The text in the field, bound with v-model in Vue. Leave it out and the `value` prop is the text; bind it and the field answers to the binding.", "descriptionZh": "输入框里的文字,在 Vue 里用 v-model 绑定。不传就以 value 属性为准;传了就以绑定为准。" }
   ],
   "slots": [
     { "name": "default", "description": "The names in the list. Each one is a list item holding a button.", "descriptionZh": "列表里的名字,每个名字是一个列表项,里面放一个按钮。" }
   ],
   "events": [
-    { "name": "input", "description": "Fires when the text in the field changes.", "descriptionZh": "输入框里的文字变了就触发。" }
+    { "name": "input", "description": "Fires when the text in the field changes.", "descriptionZh": "输入框里的文字变了就触发。" },
+    { "name": "update:modelValue", "description": "Fires when the value changes, carrying the new value. This is the event `v-model` listens to.", "descriptionZh": "值变化时触发,携带新的值。v-model 监听的就是这个事件。" }
   ],
   "a11y": {
     "keyboard": ["Tab", "Space"],

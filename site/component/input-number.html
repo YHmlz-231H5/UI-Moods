@@ -312,6 +312,7 @@
       <tr><td><span class="api__name"><code>step</code></span></td><td><code>number</code></td><td><code>1</code></td><td>How much one press of a button changes the value. It is the input's own step attribute, and the browser's arrow keys use it too.</td></tr>
       <tr><td><span class="api__name"><code>controls-position</code></span></td><td><code>enum = right | left</code></td><td><code>right</code></td><td>Which side of the field the pair of buttons sits on. The right position is the base class on its own; the left position adds um-input-number--left.</td></tr>
       <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes the field and both buttons inert. It uses the real disabled attribute, so they leave the tab order.</td></tr>
+      <tr><td><span class="api__name"><code>model-value</code></span></td><td><code>number</code></td><td>—</td><td>The number in the field, bound with v-model in Vue. Leave it out and the `value` prop is the number; bind it and the field answers to the binding.</td></tr>
       </tbody>
     </table>
 
@@ -320,6 +321,7 @@
       <thead><tr><th>Name</th><th>Description</th></tr></thead>
       <tbody>
       <tr><td><span class="api__name"><code>change</code></span></td><td>Fires when the value changes. It is the browser's own event on the input — the library installs no listener, and the buttons do not change the value either.</td></tr>
+      <tr><td><span class="api__name"><code>update:modelValue</code></span></td><td>Fires when the value changes, carrying the new value. This is the event `v-model` listens to.</td></tr>
       </tbody>
     </table>
       <h2>Accessibility</h2>

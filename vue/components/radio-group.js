@@ -10,8 +10,16 @@
 // The wrapper keeps the fieldset, the legend and the panel the options sit
 // in; the options themselves are the caller's, so a group can hold as many of
 // them as the form needs.
+//
+// The group owns the selection when one is bound: `v-model` gives the group
+// the value that is picked, and the options inside it ask the group which of
+// them it is. The `value` and `checked` props keep their older meaning — the
+// single option the group renders when the caller supplies no options of
+// their own — so a host that used them gets exactly what it got before.
 
 import { defineComponent, h } from "vue";
+import { modelValue } from "../lib/model.mjs";
+import { provideGroup, pickedValue } from "../lib/group.mjs";
 
 export const UMRadioGroup = defineComponent({
   name: "UMRadioGroup",
@@ -23,11 +31,34 @@ export const UMRadioGroup = defineComponent({
     disabled: { type: Boolean, default: false },
     direction: { type: String, default: "stacked" },
     label: { type: String, default: "" },
+    modelValue: { type: String, default: undefined },
   },
-  emits: ["change"],
+  emits: ["change", "update:modelValue"],
   setup(props, { slots, emit }) {
+    // The group publishes itself to the options inside it. The values are
+    // getters, so an option that asks later gets the answer as it is now.
+    provideGroup({
+      kind: "radio",
+      get value() {
+        return modelValue(props, undefined);
+      },
+      get name() {
+        return props.name;
+      },
+    });
+
+    // The value that is picked, or `undefined` when the host did not bind one.
+    const selected = () => modelValue(props, undefined);
+
     return () => {
       const rows = slots.default ? slots.default() : [];
+
+      // The group's own option is the selected one when a value is bound and
+      // names it; without a bound value the older `checked` prop decides.
+      const ownChecked = () => {
+        const bound = selected();
+        return bound === undefined ? props.checked : bound === props.value;
+      };
 
       const options = rows.length
         ? rows
@@ -40,7 +71,7 @@ export const UMRadioGroup = defineComponent({
                     index: 0,
                     name: props.name,
                     value: props.value,
-                    checked: props.checked,
+                    checked: ownChecked(),
                     disabled: props.disabled,
                     label: props.label,
                   })
@@ -49,7 +80,7 @@ export const UMRadioGroup = defineComponent({
                       type: "radio",
                       name: props.name || undefined,
                       value: props.value || undefined,
-                      checked: props.checked,
+                      checked: ownChecked(),
                       disabled: props.disabled,
                     }),
                     // The group owns no text of its own, so an option that was
@@ -79,8 +110,12 @@ export const UMRadioGroup = defineComponent({
               class: "um-radio-group__options",
               // The change event bubbles out of the input, so the handler sits
               // on the panel: it fires for the wrapper's own input and for the
-              // caller's alike.
-              onChange: (e) => emit("change", e),
+              // caller's alike. The input that changed carries the value that
+              // was picked, which is what the group publishes.
+              onChange: (e) => {
+                emit("update:modelValue", pickedValue(e));
+                emit("change", e);
+              },
             },
             options,
           ),

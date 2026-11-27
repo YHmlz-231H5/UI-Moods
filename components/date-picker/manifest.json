@@ -39,14 +39,16 @@
     { "name": "required", "type": "boolean", "default": "false", "description": "Makes the date necessary. It is the native required attribute, so the browser asks for it.", "descriptionZh": "让日期必填。它是原生 required 属性,由浏览器来问。" },
     { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes the field inert. It uses the real disabled attribute, so it leaves the tab order.", "descriptionZh": "让字段不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" },
     { "name": "type", "type": "enum", "values": ["single", "range"], "default": "single", "description": "Whether the field holds one date or two. The single field is the base class on its own; the range field adds um-date-picker--range.", "descriptionZh": "字段里是一个日期还是两个日期。一个日期是只写基础类;日期区间再加上 um-date-picker--range。" },
-    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The height of the field.", "descriptionZh": "字段的高度。" }
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The height of the field.", "descriptionZh": "字段的高度。" },
+    { "name": "model-value", "type": "string", "description": "The date in the field, bound with v-model in Vue. Leave it out and the `value` prop is the date; bind it and the field answers to the binding.", "descriptionZh": "字段里的日期,在 Vue 里用 v-model 绑定。不传就以 value 属性为准;传了就以绑定为准。" }
   ],
   "slots": [
     { "name": "icon", "description": "The calendar glyph. It is decorative and drawn by the library, so it takes no text of its own.", "descriptionZh": "日历图标。它是装饰性的,由库画出来,所以自己不带文字。" }
   ],
   "events": [
     { "name": "change", "description": "Fires when the date changes. It is the browser's own event on the input — the library installs no listener.", "descriptionZh": "日期变了的时候触发。这是 input 上的浏览器原生事件 —— 库没有安装任何监听器。" },
-    { "name": "input", "description": "Fires on every keystroke in the field. It is the browser's own event on the input.", "descriptionZh": "在字段里每敲一个字就触发。这是 input 上的浏览器原生事件。" }
+    { "name": "input", "description": "Fires on every keystroke in the field. It is the browser's own event on the input.", "descriptionZh": "在字段里每敲一个字就触发。这是 input 上的浏览器原生事件。" },
+    { "name": "update:modelValue", "description": "Fires when the value changes, carrying the new value. This is the event `v-model` listens to.", "descriptionZh": "值变化时触发,携带新的值。v-model 监听的就是这个事件。" }
   ],
   "a11y": {
     "role": "textbox",

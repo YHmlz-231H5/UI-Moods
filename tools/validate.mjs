@@ -17,6 +17,7 @@ import { checkComponentLibrary } from "./lib/component-check.mjs";
 import { checkTypes } from "./lib/typecheck.mjs";
 import { checkVueComponents } from "./lib/vue-check.mjs";
 import { checkPackage } from "./lib/package-check.mjs";
+import { checkVModel } from "./lib/v-model-check.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const ajv = new Ajv({ strict: false, allErrors: true });
@@ -683,6 +684,18 @@ if (packageResult.problems.length > 0) {
     `package: PASS (${packageResult.stats.resolved} public names, ` +
       `${packageResult.stats.components} components, ${packageResult.stats.themes} moods)`,
   );
+}
+
+// v-model: a binding has to bind, not merely be declared
+const modelResult = await checkVModel(root);
+if (modelResult.skipped) {
+  console.log("v-model: SKIP (vue is not installed — run npm install)");
+} else if (modelResult.errors.length > 0) {
+  failed++;
+  console.log(`v-model: FAIL (${modelResult.errors.length} errors)`);
+  for (const e of modelResult.errors) console.log(`  - ${e}`);
+} else {
+  console.log("v-model: PASS");
 }
 
 process.exit(failed ? 1 : 0);

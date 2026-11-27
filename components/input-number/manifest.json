@@ -116,6 +116,12 @@
       "default": "false",
       "description": "Makes the field and both buttons inert. It uses the real disabled attribute, so they leave the tab order.",
       "descriptionZh": "让字段和两个按钮都不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。"
+    },
+    {
+      "name": "model-value",
+      "type": "number",
+      "description": "The number in the field, bound with v-model in Vue. Leave it out and the `value` prop is the number; bind it and the field answers to the binding.",
+      "descriptionZh": "字段里的数字,在 Vue 里用 v-model 绑定。不传就以 value 属性为准;传了就以绑定为准。"
     }
   ],
   "slots": [],
@@ -124,6 +130,11 @@
       "name": "change",
       "description": "Fires when the value changes. It is the browser's own event on the input — the library installs no listener, and the buttons do not change the value either.",
       "descriptionZh": "值变了的时候触发。这是 input 上的浏览器原生事件 —— 库没有安装任何监听器,那两个按钮也不会去改这个值。"
+    },
+    {
+      "name": "update:modelValue",
+      "description": "Fires when the value changes, carrying the new value. This is the event `v-model` listens to.",
+      "descriptionZh": "值变化时触发,携带新的值。v-model 监听的就是这个事件。"
     }
   ],
   "a11y": {

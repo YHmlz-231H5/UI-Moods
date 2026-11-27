@@ -15,6 +15,7 @@
   "//": "The public surface: what a consumer's editor sees. The per-component wrappers live in tsconfig.wrappers.json — see the comment there.",
   "include": [
     "types/**/*.d.ts",
+    "type-tests/**/*.d.ts",
     "vue/index.js",
     "vue/index.d.ts",
     "vue/components/index.js",

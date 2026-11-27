@@ -4,8 +4,12 @@
 // class, so the `control` prop picks the element and the class together. The
 // events are the browser's own; the wrapper only says which of them it
 // forwards.
+//
+// The value answers to `v-model` as well: a host that binds the control gets
+// the value back, and a host that does not gets exactly what it got before.
 
 import { defineComponent, h } from "vue";
+import { modelValue, eventValue } from "../lib/model.mjs";
 
 /** Which class each member of the family carries. */
 const CONTROL_CLASS = {
@@ -22,16 +26,25 @@ export const UMInput = defineComponent({
     placeholder: { type: String, default: "" },
     disabled: { type: Boolean, default: false },
     readonly: { type: Boolean, default: false },
+    modelValue: { type: String, default: undefined },
   },
-  emits: ["input", "change", "focus", "blur"],
+  emits: ["input", "change", "focus", "blur", "update:modelValue"],
   setup(props, { slots, emit }) {
     return () => {
       const control = props.control in CONTROL_CLASS ? props.control : "input";
+      const value = modelValue(props, undefined);
       const common = {
         class: CONTROL_CLASS[control],
         disabled: props.disabled,
-        onInput: (e) => emit("input", e),
-        onChange: (e) => emit("change", e),
+        value,
+        onInput: (e) => {
+          emit("update:modelValue", eventValue(e));
+          emit("input", e);
+        },
+        onChange: (e) => {
+          emit("update:modelValue", eventValue(e));
+          emit("change", e);
+        },
         onFocus: (e) => emit("focus", e),
         onBlur: (e) => emit("blur", e),
       };

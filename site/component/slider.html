@@ -185,6 +185,7 @@
       <tr><td><span class="api__name"><code>step</code></span></td><td><code>number</code></td><td><code>1</code></td><td>How much one arrow key press moves the value.</td></tr>
       <tr><td><span class="api__name"><code>value</code></span></td><td><code>number</code></td><td>—</td><td>The current value. It is written to the value attribute, so it round-trips through a form.</td></tr>
       <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes the slider inert. It uses the real disabled attribute, so it leaves the tab order.</td></tr>
+      <tr><td><span class="api__name"><code>model-value</code></span></td><td><code>number</code></td><td>—</td><td>The slider's own value, bound with v-model in Vue. Leave it out and the `value` prop is the value; bind it and the slider answers to the binding.</td></tr>
       </tbody>
     </table>
 
@@ -194,6 +195,7 @@
       <tbody>
       <tr><td><span class="api__name"><code>input</code></span></td><td>Fires while the value is being dragged or stepped. It is the browser's own event — the library installs no listener.</td></tr>
       <tr><td><span class="api__name"><code>change</code></span></td><td>Fires when the value is committed, at the end of a drag or when focus leaves the control.</td></tr>
+      <tr><td><span class="api__name"><code>update:modelValue</code></span></td><td>Fires when the value changes, carrying the new value. This is the event `v-model` listens to.</td></tr>
       </tbody>
     </table>
       <h2>Accessibility</h2>

@@ -205,6 +205,7 @@
       <tr><td><span class="api__name"><code>placeholder</code></span></td><td><code>string</code></td><td>—</td><td>The hint text for the input and the textarea. It takes the muted placeholder role, not the body colour.</td></tr>
       <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes the control inert. It uses the real disabled attribute, so it leaves the tab order.</td></tr>
       <tr><td><span class="api__name"><code>readonly</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Keeps the value visible but stops it being edited. The library does not repaint a readonly control — it is not a state it measures.</td></tr>
+      <tr><td><span class="api__name"><code>model-value</code></span></td><td><code>string</code></td><td>—</td><td>The control's value, bound with v-model in Vue. Leave it out and the control holds whatever the reader typed; bind it and the control answers to the binding.</td></tr>
       </tbody>
     </table>
 
@@ -214,6 +215,7 @@
       <tbody>
       <tr><td><span class="api__name"><code>input</code></span></td><td>Fires on the input and the textarea while the value is typed. It is the browser's own event — the library installs no listener.</td></tr>
       <tr><td><span class="api__name"><code>change</code></span></td><td>Fires when the value is committed: on blur for the input and the textarea, and when an option is picked for the select.</td></tr>
+      <tr><td><span class="api__name"><code>update:modelValue</code></span></td><td>Fires when the value changes, carrying the new value. This is the event `v-model` listens to.</td></tr>
       <tr><td><span class="api__name"><code>focus</code></span></td><td>Fires when the control takes focus. The stylesheet reacts to :focus, so the brand border and the soft ring appear without a line of script.</td></tr>
       <tr><td><span class="api__name"><code>blur</code></span></td><td>Fires when the control loses focus.</td></tr>
       </tbody>

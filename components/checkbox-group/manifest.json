@@ -32,6 +32,7 @@
   "props": [
     { "name": "name", "type": "string", "description": "The name every option in the group submits under. It is the native name attribute, so the form posts every ticked option as one field.", "descriptionZh": "组里每个选项提交时用的名字。它是原生 name 属性,所以表单会把每一个勾上的选项作为同一个字段提交。" },
     { "name": "value", "type": "string", "description": "The value one option submits while it is ticked.", "descriptionZh": "某个选项勾上时提交的值。" },
+    { "name": "model-value", "type": "array", "description": "The values that are ticked in the group, bound with v-model in Vue. The options inside the group follow it. Leave it out and the group's own `checked` and `value` props describe the single option it renders.", "descriptionZh": "组里被勾上的那些值,在 Vue 里用 v-model 绑定。组内的选项跟着它走。不传就由组自己的 checked 和 value 属性描述它渲染的那一个选项。" },
     { "name": "checked", "type": "boolean", "default": "false", "description": "Ticks one option. It is the native checked attribute, not a class.", "descriptionZh": "勾上某一个选项。它是原生 checked 属性,不是某个类。" },
     { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes one option inert. It uses the real disabled attribute, so it leaves the tab order.", "descriptionZh": "让某一个选项不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" },
     { "name": "direction", "type": "enum", "values": ["stacked", "inline"], "default": "stacked", "description": "Which way the options run. The stacked run is the base class on its own; the inline run adds um-checkbox-group--inline.", "descriptionZh": "选项往哪个方向排。纵向是只写基础类;横向再加上 um-checkbox-group--inline。" },
@@ -42,7 +43,8 @@
     { "name": "option", "description": "One option: the real input, the checkbox component's box and the text.", "descriptionZh": "一个选项:真正的 input、复选框组件的方框和文字。" }
   ],
   "events": [
-    { "name": "change", "description": "Fires when an option is ticked or unticked. It is the browser's own event on the input — the library installs no listener.", "descriptionZh": "某个选项被勾选或取消勾选时触发。这是 input 上的浏览器原生事件 —— 库没有安装任何监听器。" }
+    { "name": "change", "description": "Fires when an option is ticked or unticked. It is the browser's own event on the input — the library installs no listener.", "descriptionZh": "某个选项被勾选或取消勾选时触发。这是 input 上的浏览器原生事件 —— 库没有安装任何监听器。" },
+    { "name": "update:modelValue", "description": "Fires when an option is ticked or unticked, carrying the list of values that are now ticked. This is the event `v-model` listens to.", "descriptionZh": "某个选项被勾选或取消勾选时触发,携带现在被勾上的那些值。v-model 监听的就是这个事件。" }
   ],
   "a11y": {
     "role": "group",

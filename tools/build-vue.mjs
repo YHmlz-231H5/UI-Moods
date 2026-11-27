@@ -155,12 +155,37 @@ for (const e of entries) {
     if (p.type === "boolean") type = "boolean";
     else if (p.type === "number") type = "number";
     else if (p.type === "enum") type = (p.values ?? []).map((v) => `"${v}"`).join(" | ") || "string";
+    else if (p.type === "array") type = "string[]";
     dts.push(`  /** ${(p.description ?? p.descriptionZh ?? p.name).replace(/\*\//g, "*\\/")} */`);
     dts.push(`  ${name}?: ${type};`);
   }
   dts.push("}");
   dts.push("");
-  dts.push(`export declare const ${e.name}: DefineComponent<${e.name}Props>;`);
+
+  // A component that answers to `v-model` has to say so in its type, or the
+  // binding does not typecheck in a host that uses TypeScript: `v-model` is
+  // `modelValue` plus an `update:modelValue` event, and a declaration that
+  // mentions only the prop is a component that cannot be bound.
+  //
+  // The event is the eighth type parameter of `DefineComponent` — the sixth
+  // after the three that are not there.
+  const modelProp = props.find((p) => p.name === "model-value");
+  if (modelProp) {
+    const type =
+      modelProp.type === "boolean"
+        ? "boolean"
+        : modelProp.type === "number"
+          ? "number"
+          : modelProp.type === "array"
+            ? "string[]"
+            : "string";
+    dts.push(
+      `export declare const ${e.name}: DefineComponent<${e.name}Props, {}, {}, {}, {}, {}, {}, ` +
+        `{ "update:modelValue": (value: ${type}) => void }>;`,
+    );
+  } else {
+    dts.push(`export declare const ${e.name}: DefineComponent<${e.name}Props>;`);
+  }
   dts.push("");
 }
 

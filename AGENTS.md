@@ -174,6 +174,22 @@ language in every mood, and it is the only path whose contrast is measured.
     the same way the whole one is measured, so a host that links one file per
     component is held to the same number.
 
+15. If you add or change a **value-bearing** component, it answers to
+    `v-model`. The contract is in `docs/vue-components.md`, and it has three
+    parts: the manifest declares a `model-value` prop with no default (the
+    absence of a default is what tells "not bound" from "bound to false"), the
+    wrapper declares `modelValue` and emits `update:modelValue` before its
+    legacy `change`, and the value in force is `modelValue(props, <the
+    component's own prop>)` — so the older props keep working and the binding
+    wins when it is there. A group owns the selection: it publishes its value
+    through `provide`, and its options ask for it through `inject`.
+
+    Three checks hold that: `node tools/check-vue.mjs` for the agreement,
+    `node tools/check-v-model.mjs` for the behaviour, and `tsc` over
+    `type-tests/` for the declaration — a `v-model` needs the prop *and* the
+    event, and a declaration with only the prop is a component that cannot be
+    bound.
+
 `site/index.html` is the documentation: an overview plus one page per
 component, with the examples, the API tables and the class list, and a live
 switcher over all 32 themes.

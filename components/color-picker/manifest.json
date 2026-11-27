@@ -43,12 +43,14 @@
     { "name": "palette-label", "type": "string", "default": "Palette", "description": "The accessible name of the palette, as the name of the group the radios belong to.", "descriptionZh": "色板的可访问名称,也就是这组单选按钮所属那个组的名称。" },
     { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes the whole control inert. It uses the real disabled attribute, so the parts leave the tab order.", "descriptionZh": "让整个控件不可用。它用的是原生 disabled 属性,所以各部分会退出 Tab 顺序。" },
     { "name": "variant", "type": "enum", "values": ["inline", "stacked"], "default": "inline", "description": "How the three parts are laid out. The inline run is the base class on its own; the stacked run adds um-color-picker--stacked.", "descriptionZh": "这三块怎么排。横排就是只写基础类;竖排再加上 um-color-picker--stacked。" },
-    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The size of the control.", "descriptionZh": "控件的尺寸。" }
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The size of the control.", "descriptionZh": "控件的尺寸。" },
+    { "name": "model-value", "type": "string", "description": "The colour in the control, bound with v-model in Vue. Leave it out and the `value` prop is the colour; bind it and the control answers to the binding.", "descriptionZh": "控件里的颜色,在 Vue 里用 v-model 绑定。不传就以 value 属性为准;传了就以绑定为准。" }
   ],
   "slots": [],
   "events": [
     { "name": "input", "description": "Fires when the colour changes. It is the browser's own event on the colour button and on the value field — the library installs no listener.", "descriptionZh": "颜色变了的时候触发。这是取色按钮和值字段上的浏览器原生事件 —— 库没有安装任何监听器。" },
-    { "name": "change", "description": "Fires when the colour is committed.", "descriptionZh": "颜色被提交时触发。" }
+    { "name": "change", "description": "Fires when the colour is committed.", "descriptionZh": "颜色被提交时触发。" },
+    { "name": "update:modelValue", "description": "Fires when the value changes, carrying the new value. This is the event `v-model` listens to.", "descriptionZh": "值变化时触发,携带新的值。v-model 监听的就是这个事件。" }
   ],
   "a11y": {
     "role": "group",

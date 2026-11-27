@@ -4,8 +4,13 @@
 // while the reader types and the arrow keys walk them. The wrapper's only
 // job is to carry the list from a string prop into the markup: it installs no
 // listener and adds no behaviour the platform does not already have.
+//
+// It answers to `v-model` as well as to `value`: a host that binds the field
+// gets its own text back, and a host that writes `:value` gets exactly what
+// it got before.
 
 import { defineComponent, h, useId } from "vue";
+import { modelValue, eventValue } from "../lib/model.mjs";
 
 export const UMAutocomplete = defineComponent({
   name: "UMAutocomplete",
@@ -22,8 +27,9 @@ export const UMAutocomplete = defineComponent({
     disabled: { type: Boolean, default: false },
     variant: { type: String, default: "bordered" },
     size: { type: String, default: "md" },
+    modelValue: { type: String, default: undefined },
   },
-  emits: ["input", "change", "focus", "blur"],
+  emits: ["input", "change", "focus", "blur", "update:modelValue"],
   setup(props, { emit }) {
     // The field and its list need ids of their own, so two of them on one
     // page may not share one.
@@ -36,6 +42,9 @@ export const UMAutocomplete = defineComponent({
         .split(",")
         .map((s) => s.trim())
         .filter(Boolean);
+      // The text in the field: the binding when the host bound one, the
+      // `value` prop when it did not.
+      const value = modelValue(props, props.value);
 
       return h(
         "div",
@@ -57,13 +66,19 @@ export const UMAutocomplete = defineComponent({
             id: fieldId,
             name: fieldId,
             list: listId,
-            value: props.value || undefined,
+            value: value || undefined,
             placeholder: props.placeholder || undefined,
             required: props.required,
             disabled: props.disabled,
             "aria-label": props.label || undefined,
-            onInput: (e) => emit("input", e),
-            onChange: (e) => emit("change", e),
+            onInput: (e) => {
+              emit("update:modelValue", eventValue(e));
+              emit("input", e);
+            },
+            onChange: (e) => {
+              emit("update:modelValue", eventValue(e));
+              emit("change", e);
+            },
             onFocus: (e) => emit("focus", e),
             onBlur: (e) => emit("blur", e),
           }),

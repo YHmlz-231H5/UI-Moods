@@ -272,6 +272,8 @@ export interface AutocompleteProps {
   required?: boolean;
   /** Makes the field inert. It uses the real disabled attribute, so it leaves the tab order. */
   disabled?: boolean;
+  /** The text in the field, bound with v-model in Vue. Leave it out and the `value` prop is the text; bind it and the field answers to the binding. */
+  modelValue?: string;
 }
 
 /** Button · 按钮 — An action the user takes. The one component every interface needs, and the one that has to look right in thirty-two different moods. */
@@ -304,6 +306,8 @@ export interface CheckboxProps {
   name?: string;
   /** The value submitted while the box is ticked. */
   value?: string;
+  /** Whether the box is ticked, bound with v-model in Vue. Leave it out and the `checked` prop is the state; bind it and the box answers to the binding. Inside a checkbox group the group decides instead. */
+  modelValue?: boolean;
 }
 
 /** Checkbox Group · 复选框组 — A set of checkboxes that share one name and belong to one field. The group is a fieldset, so the browser groups the boxes for the form and for the screen reader. */
@@ -316,6 +320,8 @@ export interface CheckboxGroupProps {
   name?: string;
   /** The value one option submits while it is ticked. */
   value?: string;
+  /** The values that are ticked in the group, bound with v-model in Vue. The options inside the group follow it. Leave it out and the group's own `checked` and `value` props describe the single option it renders. */
+  modelValue?: string[];
   /** Ticks one option. It is the native checked attribute, not a class. */
   checked?: boolean;
   /** Makes one option inert. It uses the real disabled attribute, so it leaves the tab order. */
@@ -347,6 +353,8 @@ export interface ColorPickerProps {
   paletteLabel?: string;
   /** Makes the whole control inert. It uses the real disabled attribute, so the parts leave the tab order. */
   disabled?: boolean;
+  /** The colour in the control, bound with v-model in Vue. Leave it out and the `value` prop is the colour; bind it and the control answers to the binding. */
+  modelValue?: string;
 }
 
 /** Color Picker Panel · 颜色选择面板 — The panel a colour picker drops: the colours the host has predefined, a choice among the theme's own named colours, and the hexadecimal value written out. Every swatch is a real radio, so the choice is in the tab order and the browser announces it. */
@@ -389,6 +397,8 @@ export interface DatePickerProps {
   disabled?: boolean;
   /** Whether the field holds one date or two. The single field is the base class on its own; the range field adds um-date-picker--range. */
   type?: "single" | "range";
+  /** The date in the field, bound with v-model in Vue. Leave it out and the `value` prop is the date; bind it and the field answers to the binding. */
+  modelValue?: string;
 }
 
 /** Date Picker Panel · 日期选择面板 — The month panel a date picker drops: the month and its navigation, the week grid, and the two actions in the footer. The panel does not keep a month, so the host owns the month and the buttons that change it. */
@@ -439,6 +449,8 @@ export interface DateTimePickerProps {
   disabled?: boolean;
   /** Whether the field holds one date-time or two. The single field is the base class on its own; the range field adds um-date-time-picker--range. */
   type?: "single" | "range";
+  /** The date and time in the field, bound with v-model in Vue. Leave it out and the `value` prop is the value; bind it and the field answers to the binding. */
+  modelValue?: string;
 }
 
 export interface FieldProps {
@@ -459,6 +471,8 @@ export interface InputProps {
   disabled?: boolean;
   /** Keeps the value visible but stops it being edited. The library does not repaint a readonly control — it is not a state it measures. */
   readonly?: boolean;
+  /** The control's value, bound with v-model in Vue. Leave it out and the control holds whatever the reader typed; bind it and the control answers to the binding. */
+  modelValue?: string;
 }
 
 /** Input Number · 数字输入框 — A field for a number, with a pair of buttons that step it up and down. The buttons are real buttons, so they are in the tab order and the browser announces them; the browser's own spin buttons are taken away so there is only one pair. */
@@ -482,6 +496,8 @@ export interface InputNumberProps {
   controlsPosition?: "right" | "left";
   /** Makes the field and both buttons inert. It uses the real disabled attribute, so they leave the tab order. */
   disabled?: boolean;
+  /** The number in the field, bound with v-model in Vue. Leave it out and the `value` prop is the number; bind it and the field answers to the binding. */
+  modelValue?: number;
 }
 
 /** Input OTP · 验证码输入 — A row of one-character fields for a code the reader has been sent. Each box is a real input that holds one character, so the browser's own keyboard, autofill and password manager all still apply to it. */
@@ -537,6 +553,8 @@ export interface MentionProps {
   placeholder?: string;
   /** The accessible name of the field. It becomes the input's aria-label. */
   label?: string;
+  /** The text in the field, bound with v-model in Vue. Leave it out and the `value` prop is the text; bind it and the field answers to the binding. */
+  modelValue?: string;
 }
 
 export interface RadioProps {
@@ -550,6 +568,8 @@ export interface RadioProps {
   name?: string;
   /** The value submitted while this option is selected. */
   value?: string;
+  /** Whether this option is the selected one, bound with v-model in Vue. Leave it out and the `checked` prop is the state; bind it and the option answers to the binding. Inside a radio group the group decides instead. */
+  modelValue?: boolean;
 }
 
 /** Radio Group · 单选框组 — A set of radios that share one name and belong to one field. The group is a fieldset, so the browser groups the circles for the form and for the screen reader. */
@@ -562,6 +582,8 @@ export interface RadioGroupProps {
   name?: string;
   /** The value one option submits while it is picked. */
   value?: string;
+  /** The value that is picked in the group, bound with v-model in Vue. The options inside the group follow it. Leave it out and the group's own `checked` and `value` props describe the single option it renders. */
+  modelValue?: string;
   /** Picks one option. It is the native checked attribute, not a class. */
   checked?: boolean;
   /** Makes one option inert. It uses the real disabled attribute, so it leaves the tab order. */
@@ -589,6 +611,8 @@ export interface RateProps {
   color?: "primary" | "success" | "warning" | "danger";
   /** Makes the group inert. It uses the real disabled attribute on the radios, so it leaves the tab order. */
   disabled?: boolean;
+  /** How many stars are filled, bound with v-model in Vue. Leave it out and the `value` prop is the score; bind it and the group answers to the binding. */
+  modelValue?: number;
 }
 
 export interface SliderProps {
@@ -604,6 +628,8 @@ export interface SliderProps {
   value?: number;
   /** Makes the slider inert. It uses the real disabled attribute, so it leaves the tab order. */
   disabled?: boolean;
+  /** The slider's own value, bound with v-model in Vue. Leave it out and the `value` prop is the value; bind it and the slider answers to the binding. */
+  modelValue?: number;
 }
 
 export interface SwitchProps {
@@ -617,6 +643,8 @@ export interface SwitchProps {
   name?: string;
   /** The value submitted while the switch is on. */
   value?: string;
+  /** The switch's own state, bound with v-model in Vue. Leave it out and the `checked` prop is the state; bind it and the switch answers to the binding. */
+  modelValue?: boolean;
 }
 
 /** Time Picker · 时间选择器 — A field for a time of day. It is a real <input type="time"> inside a box the library draws, so the browser validates the hour, the arrow keys walk the segments and the reader's own clock opens it. */
@@ -642,6 +670,8 @@ export interface TimePickerProps {
   disabled?: boolean;
   /** Whether the field holds one time or two. The single field is the base class on its own; the range field adds um-time-picker--range. */
   type?: "single" | "range";
+  /** The time in the field, bound with v-model in Vue. Leave it out and the `value` prop is the time; bind it and the field answers to the binding. */
+  modelValue?: string;
 }
 
 /** Time Select · 时间选择器 — A choice of time of day, as a native <select>. The option list is the platform's own, so the reader gets the system's own picker and its keyboard behaviour; the library draws the field and the arrow around it. */
@@ -665,6 +695,8 @@ export interface TimeSelectProps {
   label?: string;
   /** Makes the field inert. It uses the real disabled attribute, so it leaves the tab order. */
   disabled?: boolean;
+  /** The chosen time, bound with v-model in Vue. Leave it out and the `value` prop is the chosen time; bind it and the field answers to the binding. */
+  modelValue?: string;
 }
 
 /** Tree Select · 树选择器 — A tree you pick a leaf from. The branches are disclosures, so the browser opens and closes them, and the leaf that is picked is a real radio, so the browser keeps exactly one of them picked. */
@@ -686,6 +718,8 @@ export interface TreeSelectProps {
   checked?: boolean;
   /** Makes the leaf inert. It uses the real disabled attribute, so it leaves the tab order. */
   disabled?: boolean;
+  /** The value the picked leaf submits, bound with v-model in Vue. Leave it out and the `value` prop is that value; bind it and the tree answers to the binding. */
+  modelValue?: string;
 }
 
 /** Upload · 上传 — A file input and the list of the files that were chosen. The input is a real one, so the browser's own dialog opens and the files are chosen with the browser's own picker. */

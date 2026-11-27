@@ -9,8 +9,13 @@
 // The buttons deliberately do not change the value: the library has no
 // JavaScript, and a button that appears to work but does not is worse than
 // one that is honest about being a mark.
+//
+// It answers to `v-model` as well as to `value`: a host that binds the field
+// gets its own number back, and a host that writes `:value` gets exactly what
+// it got before.
 
 import { defineComponent, h, useAttrs, computed } from "vue";
+import { modelValue, eventValue } from "../lib/model.mjs";
 
 export const UMInputNumber = defineComponent({
   name: "UMInputNumber",
@@ -26,9 +31,10 @@ export const UMInputNumber = defineComponent({
     step: { type: Number, default: 1 },
     controlsPosition: { type: String, default: "right" },
     disabled: { type: Boolean, default: false },
+    modelValue: { type: Number, default: undefined },
   },
 
-  emits: ["change"],
+  emits: ["change", "update:modelValue"],
 
   setup(props, { emit, attrs }) {
     // The labels are attributes rather than props, because they are not
@@ -52,13 +58,16 @@ export const UMInputNumber = defineComponent({
             h("input", {
               class: "um-input-number__input",
               type: "number",
-              value: props.value,
+              value: modelValue(props, props.value),
               min: props.min,
               max: props.max,
               step: props.step,
               disabled: props.disabled || undefined,
               "aria-label": label.value,
-              onChange: (e) => emit("change", e.target.value),
+              onChange: (e) => {
+                emit("update:modelValue", Number(eventValue(e)));
+                emit("change", e.target.value);
+              },
             }),
             h("span", { class: "um-input-number__controls" }, [
               h("button", {

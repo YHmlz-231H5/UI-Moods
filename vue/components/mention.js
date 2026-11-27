@@ -7,8 +7,13 @@
 // The names are the host's data, so they arrive as the default slot. With no
 // slot the wrapper writes a short list, so the component is visible before
 // anybody has fed it anything.
+//
+// It answers to `v-model` as well as to `value`: a host that binds the field
+// gets its own text back, and a host that writes `:value` gets exactly what it
+// got before.
 
 import { defineComponent, h } from "vue";
+import { modelValue, eventValue } from "../lib/model.mjs";
 
 /** The shapes the stylesheet paints. */
 const VARIANTS = ["bordered", "plain", "round"];
@@ -22,8 +27,9 @@ export const UMMention = defineComponent({
     value: { type: String, default: "" },
     placeholder: { type: String, default: "Type @ to mention someone" },
     label: { type: String, default: "" },
+    modelValue: { type: String, default: undefined },
   },
-  emits: ["input"],
+  emits: ["input", "update:modelValue"],
   setup(props, { slots, emit }) {
     return () =>
       h(
@@ -40,10 +46,13 @@ export const UMMention = defineComponent({
             h("input", {
               class: "um-mention__input",
               type: "text",
-              value: props.value || undefined,
+              value: modelValue(props, props.value) || undefined,
               placeholder: props.placeholder || undefined,
               "aria-label": props.label || undefined,
-              onInput: (e) => emit("input", e),
+              onInput: (e) => {
+                emit("update:modelValue", eventValue(e));
+                emit("input", e);
+              },
             }),
           ]),
           h("ul", { class: "um-mention__list" }, slots.default ? slots.default() : fallbackMentions()),

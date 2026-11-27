@@ -4,8 +4,13 @@
 // owns: the arrow keys move between the colours and the browser announces the
 // picked one. The chip's colour is data — the host's palette, not a theme
 // value — so it arrives as a custom property the stylesheet reads.
+//
+// It answers to `v-model` as well as to `value`: a host that binds the colour
+// gets it back from every part that carries it, and a host that writes
+// `:value` gets exactly what it got before.
 
 import { defineComponent, h, useId } from "vue";
+import { modelValue, eventValue } from "../lib/model.mjs";
 
 /**
  * The palette, as a list of `{ name, colour }`.
@@ -42,8 +47,9 @@ export const UMColorPicker = defineComponent({
     disabled: { type: Boolean, default: false },
     variant: { type: String, default: "inline" },
     size: { type: String, default: "md" },
+    modelValue: { type: String, default: undefined },
   },
-  emits: ["input", "change"],
+  emits: ["input", "change", "update:modelValue"],
   setup(props, { emit }) {
     // The radios share a name, so it has to be this instance's own — two
     // pickers on one page may not steal each other's palette.
@@ -52,6 +58,9 @@ export const UMColorPicker = defineComponent({
     return () => {
       const variant = props.variant === "stacked" ? "stacked" : "inline";
       const colours = parsePalette(props.palette);
+      // The colour in the control: the binding when the host bound one, the
+      // `value` prop when it did not.
+      const value = modelValue(props, props.value);
 
       return h(
         "div",
@@ -70,11 +79,17 @@ export const UMColorPicker = defineComponent({
           h("input", {
             class: "um-color-picker__swatch",
             type: "color",
-            value: props.value || undefined,
+            value: value || undefined,
             disabled: props.disabled,
             "aria-label": props.label || undefined,
-            onInput: (e) => emit("input", e),
-            onChange: (e) => emit("change", e),
+            onInput: (e) => {
+              emit("update:modelValue", eventValue(e));
+              emit("input", e);
+            },
+            onChange: (e) => {
+              emit("update:modelValue", eventValue(e));
+              emit("change", e);
+            },
           }),
           h(
             "div",
@@ -93,10 +108,14 @@ export const UMColorPicker = defineComponent({
                     type: "radio",
                     name: groupName,
                     value: entry.colour,
-                    checked: entry.colour === props.value,
+                    // The chip the colour in force names is the picked one.
+                    checked: entry.colour === value,
                     disabled: props.disabled,
                     "aria-label": entry.name,
-                    onChange: (e) => emit("change", e),
+                    onChange: (e) => {
+                      emit("update:modelValue", eventValue(e));
+                      emit("change", e);
+                    },
                   }),
                   h("span", {
                     class: "um-color-picker__chip",
@@ -109,13 +128,19 @@ export const UMColorPicker = defineComponent({
           h("input", {
             class: "um-color-picker__hex",
             type: "text",
-            value: props.value || undefined,
+            value: value || undefined,
             maxlength: 7,
             spellcheck: false,
             disabled: props.disabled,
             "aria-label": props.hexLabel || undefined,
-            onInput: (e) => emit("input", e),
-            onChange: (e) => emit("change", e),
+            onInput: (e) => {
+              emit("update:modelValue", eventValue(e));
+              emit("input", e);
+            },
+            onChange: (e) => {
+              emit("update:modelValue", eventValue(e));
+              emit("change", e);
+            },
           }),
         ],
       );

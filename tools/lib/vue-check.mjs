@@ -57,7 +57,13 @@ function classList(html) {
 }
 
 /** The manifest prop type → the Vue prop constructor. */
-const VUE_TYPE = { boolean: "Boolean", number: "Number", string: "String", enum: "String" };
+const VUE_TYPE = {
+  boolean: "Boolean",
+  number: "Number",
+  string: "String",
+  enum: "String",
+  array: "Array",
+};
 
 /**
  * `controls-position` → `controlsPosition`.
@@ -249,8 +255,17 @@ function componentProps(m) {
   for (const p of m.props ?? []) {
     const name = propName(p.name);
     if (p.type === "boolean") props[name] = true;
-    else if (p.type === "number") props[name] = Number(p.default ?? 0);
-    else if (p.default !== undefined) props[name] = p.default;
+    else if (p.type === "number") {
+      // A number with no default is left out rather than set to zero: a
+      // `model-value` that was not declared has to stay `undefined`, because
+      // that is how a wrapper tells "the caller did not bind it" from "the
+      // caller bound a zero".
+      if (p.default !== undefined) props[name] = Number(p.default);
+    } else if (p.type === "array") {
+      // An array prop has no single default to render with.
+    } else if (p.default !== undefined) {
+      props[name] = p.default;
+    }
   }
   return props;
 }

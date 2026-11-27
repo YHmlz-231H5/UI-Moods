@@ -11,8 +11,13 @@
 // line the reader can see. A range carries two inputs and the rule between
 // them; the second time has no prop of its own, so it is the reader's to pick
 // and the host's to write back.
+//
+// It answers to `v-model` as well as to `value`: a host that binds the field
+// gets its own time back, and a host that writes `:value` gets exactly what
+// it got before.
 
 import { defineComponent, h, useId } from "vue";
+import { modelValue, eventValue } from "../lib/model.mjs";
 
 export const UMTimePicker = defineComponent({
   name: "UMTimePicker",
@@ -26,8 +31,9 @@ export const UMTimePicker = defineComponent({
     disabled: { type: Boolean, default: false },
     type: { type: String, default: "single" },
     size: { type: String, default: "md" },
+    modelValue: { type: String, default: undefined },
   },
-  emits: ["change", "input"],
+  emits: ["change", "input", "update:modelValue"],
   setup(props, { slots, emit }) {
     // The field needs an id of its own, so two pickers on one page may not
     // share one.
@@ -50,7 +56,10 @@ export const UMTimePicker = defineComponent({
           required: props.required,
           disabled: props.disabled,
           "aria-label": ariaLabel,
-          onChange: (e) => emit("change", e),
+          onChange: (e) => {
+            emit("update:modelValue", eventValue(e));
+            emit("change", e);
+          },
           onInput: (e) => emit("input", e),
         });
 
@@ -74,8 +83,8 @@ export const UMTimePicker = defineComponent({
             slots.icon ? slots.icon() : [],
           ),
           ...(range
-            ? [time(`${fieldId}-from`, `${fieldId}-from`, props.value || undefined)]
-            : [time(fieldId, fieldId, props.value || undefined)]),
+            ? [time(`${fieldId}-from`, `${fieldId}-from`, modelValue(props, props.value) || undefined)]
+            : [time(fieldId, fieldId, modelValue(props, props.value) || undefined)]),
           h("span", {
             class: "um-time-picker__separator",
             "aria-hidden": "true",

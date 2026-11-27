@@ -130,6 +130,12 @@
       "default": "medium",
       "description": "How big the stars are. The medium size is the base class on its own, so it needs no modifier class.",
       "descriptionZh": "星星有多大。中号是默认尺寸,不需要修饰类。"
+    },
+    {
+      "name": "model-value",
+      "type": "number",
+      "description": "How many stars are filled, bound with v-model in Vue. Leave it out and the `value` prop is the score; bind it and the group answers to the binding.",
+      "descriptionZh": "填了几颗星,在 Vue 里用 v-model 绑定。不传就以 value 属性为准;传了就以绑定为准。"
     }
   ],
   "slots": [],
@@ -138,6 +144,11 @@
       "name": "change",
       "description": "Fires when the reader picks another star. It is the browser's own event on the radio underneath — the library installs no listener.",
       "descriptionZh": "读者换了一颗星时触发。这是底下那个 radio 的浏览器原生事件 —— 库没有安装任何监听器。"
+    },
+    {
+      "name": "update:modelValue",
+      "description": "Fires when the value changes, carrying the new value. This is the event `v-model` listens to.",
+      "descriptionZh": "值变化时触发,携带新的值。v-model 监听的就是这个事件。"
     }
   ],
   "a11y": {

@@ -278,6 +278,7 @@
       <tr><td><span class="api__name"><code>label</code></span></td><td><code>string</code></td><td>—</td><td>The name of the thing the branch holds.</td></tr>
       <tr><td><span class="api__name"><code>checked</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Picks the leaf. It is the native checked attribute, not a class.</td></tr>
       <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes the leaf inert. It uses the real disabled attribute, so it leaves the tab order.</td></tr>
+      <tr><td><span class="api__name"><code>model-value</code></span></td><td><code>string</code></td><td>—</td><td>The value the picked leaf submits, bound with v-model in Vue. Leave it out and the `value` prop is that value; bind it and the tree answers to the binding.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>
@@ -294,6 +295,7 @@
       <tbody>
       <tr><td><span class="api__name"><code>change</code></span></td><td>Fires when the picked leaf changes. It is the browser's own event on the input — the library installs no listener.</td></tr>
       <tr><td><span class="api__name"><code>toggle</code></span></td><td>Fires when a branch opens or closes. It is the browser's own event on the details — the library installs no listener.</td></tr>
+      <tr><td><span class="api__name"><code>update:modelValue</code></span></td><td>Fires when the value changes, carrying the new value. This is the event `v-model` listens to.</td></tr>
       </tbody>
     </table>
       <h2>Accessibility</h2>

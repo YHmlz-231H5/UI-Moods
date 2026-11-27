@@ -23,12 +23,14 @@
     { "name": "control", "type": "enum", "values": ["input", "textarea", "select"], "default": "input", "description": "Which member of the family this is. Each one is its own class: um-input, um-textarea, um-select.", "descriptionZh": "这一族里的哪一个。三者各有一个类:um-input、um-textarea、um-select。" },
     { "name": "placeholder", "type": "string", "description": "The hint text for the input and the textarea. It takes the muted placeholder role, not the body colour.", "descriptionZh": "输入框和文本域的提示文字。它用的是弱化的占位文字色,不是正文色。" },
     { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes the control inert. It uses the real disabled attribute, so it leaves the tab order.", "descriptionZh": "让控件不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" },
-    { "name": "readonly", "type": "boolean", "default": "false", "description": "Keeps the value visible but stops it being edited. The library does not repaint a readonly control — it is not a state it measures.", "descriptionZh": "值仍然可见,但不能编辑。库不会给只读控件单独配色 —— 这不是它测量过的状态。" }
+    { "name": "readonly", "type": "boolean", "default": "false", "description": "Keeps the value visible but stops it being edited. The library does not repaint a readonly control — it is not a state it measures.", "descriptionZh": "值仍然可见,但不能编辑。库不会给只读控件单独配色 —— 这不是它测量过的状态。" },
+    { "name": "model-value", "type": "string", "description": "The control's value, bound with v-model in Vue. Leave it out and the control holds whatever the reader typed; bind it and the control answers to the binding.", "descriptionZh": "控件的值,在 Vue 里用 v-model 绑定。不传就由读者输入的内容决定;传了就以绑定为准。" }
   ],
   "slots": [],
   "events": [
     { "name": "input", "description": "Fires on the input and the textarea while the value is typed. It is the browser's own event — the library installs no listener.", "descriptionZh": "在输入框和文本域里输入内容时触发。这是浏览器自己的事件 —— 库没有安装任何监听器。" },
     { "name": "change", "description": "Fires when the value is committed: on blur for the input and the textarea, and when an option is picked for the select.", "descriptionZh": "值被提交时触发:输入框和文本域在失焦时触发,选择器在选定选项时触发。" },
+    { "name": "update:modelValue", "description": "Fires when the value changes, carrying the new value. This is the event `v-model` listens to.", "descriptionZh": "值变化时触发,携带新的值。v-model 监听的就是这个事件。" },
     { "name": "focus", "description": "Fires when the control takes focus. The stylesheet reacts to :focus, so the brand border and the soft ring appear without a line of script.", "descriptionZh": "控件获得焦点时触发。样式表响应 :focus,所以品牌色描边和柔和的聚焦环不靠一行脚本就能出现。" },
     { "name": "blur", "description": "Fires when the control loses focus.", "descriptionZh": "控件失去焦点时触发。" }
   ],

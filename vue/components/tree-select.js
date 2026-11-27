@@ -5,8 +5,13 @@
 // browser's. The leaf that is picked is the caller's to choose — the wrapper
 // hands it the name, the value and the disabled state, and takes the change
 // event back out.
+//
+// It answers to `v-model` as well as to `value`: a host that binds the tree
+// gets the picked leaf's value back, and a host that writes `:value` gets
+// exactly what it got before.
 
 import { defineComponent, h } from "vue";
+import { modelValue, eventValue } from "../lib/model.mjs";
 
 export const UMTreeSelect = defineComponent({
   name: "UMTreeSelect",
@@ -19,11 +24,16 @@ export const UMTreeSelect = defineComponent({
     label: { type: String, default: "" },
     checked: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
+    modelValue: { type: String, default: undefined },
   },
-  emits: ["change", "toggle"],
+  emits: ["change", "toggle", "update:modelValue"],
   setup(props, { slots, emit }) {
-    return () =>
-      h(
+    return () => {
+      // The value of the leaf: the binding when the host bound one, the
+      // `value` prop when it did not.
+      const value = modelValue(props, props.value);
+
+      return h(
         "div",
         {
           class: [
@@ -58,7 +68,7 @@ export const UMTreeSelect = defineComponent({
                 slots.children
                   ? slots.children({
                       name: props.name,
-                      value: props.value,
+                      value,
                       checked: props.checked,
                       disabled: props.disabled,
                     })
@@ -68,15 +78,18 @@ export const UMTreeSelect = defineComponent({
                           class: "um-tree-select__input",
                           type: "radio",
                           name: props.name || undefined,
-                          value: props.value || undefined,
+                          value: value || undefined,
                           checked: props.checked,
                           disabled: props.disabled,
-                          onChange: (e) => emit("change", e),
+                          onChange: (e) => {
+                            emit("update:modelValue", eventValue(e));
+                            emit("change", e);
+                          },
                         }),
                         h("span", { class: "um-tree-select__dot" }),
                         // A leaf that was not given a name of its own says what
                         // it submits.
-                        h("span", { class: "um-tree-select__text" }, props.value),
+                        h("span", { class: "um-tree-select__text" }, value),
                       ]),
                     ],
               ),
@@ -84,5 +97,6 @@ export const UMTreeSelect = defineComponent({
           ),
         ],
       );
+    };
   },
 });

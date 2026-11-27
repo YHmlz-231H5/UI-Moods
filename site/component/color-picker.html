@@ -319,6 +319,7 @@
       <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes the whole control inert. It uses the real disabled attribute, so the parts leave the tab order.</td></tr>
       <tr><td><span class="api__name"><code>variant</code></span></td><td><code>enum = inline | stacked</code></td><td><code>inline</code></td><td>How the three parts are laid out. The inline run is the base class on its own; the stacked run adds um-color-picker--stacked.</td></tr>
       <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The size of the control.</td></tr>
+      <tr><td><span class="api__name"><code>model-value</code></span></td><td><code>string</code></td><td>—</td><td>The colour in the control, bound with v-model in Vue. Leave it out and the `value` prop is the colour; bind it and the control answers to the binding.</td></tr>
       </tbody>
     </table>
 
@@ -328,6 +329,7 @@
       <tbody>
       <tr><td><span class="api__name"><code>input</code></span></td><td>Fires when the colour changes. It is the browser's own event on the colour button and on the value field — the library installs no listener.</td></tr>
       <tr><td><span class="api__name"><code>change</code></span></td><td>Fires when the colour is committed.</td></tr>
+      <tr><td><span class="api__name"><code>update:modelValue</code></span></td><td>Fires when the value changes, carrying the new value. This is the event `v-model` listens to.</td></tr>
       </tbody>
     </table>
       <h2>Accessibility</h2>

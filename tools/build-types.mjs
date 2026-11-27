@@ -130,6 +130,7 @@ for (const m of manifests) {
     else if (p.type === "number") type = "number";
     else if (p.type === "enum") type = union(p.values ?? []);
     else if (p.type === "string") type = "string";
+    else if (p.type === "array") type = "string[]";
     lines.push(`  /** ${(p.description ?? p.descriptionZh ?? p.name).replace(/\*\//g, "*\\/")} */`);
     lines.push(`  ${propName(p.name)}?: ${type};`);
   }
