@@ -116,7 +116,7 @@ The contract lives in **`tokens/roles.json`**:
 | Key | What it holds |
 | --- | --- |
 | `roles` | 88 roles: how to read them from the mood (`from`), how to derive them (`derive`), and what each one is for (`doc`) |
-| `pairs` | 46 contrast guarantees, each a foreground role, a background role and a minimum ratio |
+| `pairs` | 49 contrast guarantees, each a foreground role, a background role and a minimum ratio |
 | `componentConstants` | the 11 shape and layout constants the component layer declares itself |
 | `optional` | roles a mood may leave out (`glow`, `backdrop`) |
 
@@ -183,6 +183,77 @@ has to be listed in **`schemas/component-allowlist.json`** with a reason:
 | `-2px` | nudges the tick mark so it sits centred in its box |
 
 Everything else — colour, radius, font size, spacing — is `var(--um-*)`.
+
+### A component's own variable
+
+A component may hold one value of its own, namespaced under the component's
+id: `--um-button-label` holds the button's label colour, derived from a theme
+role. The check in `tools/lib/component-check.mjs` allows such a variable only
+when it is **declared in the component layer** (so a typo is still a typo) and
+**namespaced under a real component id** (so it can never shadow a theme role
+such as `--um-color-primary`).
+
+It exists because of a measured defect. The loading spinner used to name the
+brand colour directly, so a success button drew its spinner in the primary's
+on-colour — 15 of 192 theme-and-variant combinations fell below 3:1, and the
+worst was 1.28:1, which is a spinner you cannot see. The label colour now lives
+in one variable that both the label and the spinner read, so the spinner is
+exactly as legible as the label it replaced. Measured across all 32 moods: the
+label's floor is 4.50:1 and the spinner's is 4.60:1.
+
+### A role is only guaranteed on the surfaces it is contracted against
+
+`text-placeholder` is the muted colour faded toward the input's own surface,
+and it was contracted to clear 2.5:1 against `surface-input`, `bg-overlay` and
+`bg-page`. The empty state paints its glyph on `fill-light` instead, and that
+surface was in nobody's contract — so in four moods the placeholder landed at
+2.31:1 to 2.48:1 on a surface the library actually uses.
+
+The fix was not to move the glyph. It was to widen the contract: the role now
+names every surface the component layer paints it on, `bg-container`,
+`fill-light` and `fill-lighter` among them, and three new pairs hold it there.
+The general rule this follows: **if the component layer uses a surface, the
+contract has to know that surface.**
+
+### 3.3 The component manifest — one file per component
+
+`components/<id>/manifest.json` is the only hand-written description of a
+component. The schema is **`schemas/component.schema.json`**, and it is
+strict: `additionalProperties` is `false` everywhere, so a key nobody
+expected is an error rather than a silently ignored field.
+
+| Key | What it holds |
+| --- | --- |
+| `id` `name` `nameZh` | identity; `id` is the directory name and the URL slug |
+| `category` | the Element Plus category it is listed under |
+| `element` | the native element it is built on — the answer to "can this be done without JavaScript?" |
+| `class` | the base class, the modifier prefix and the part prefix |
+| `variants` `sizes` `states` `parts` | what the component can be; each becomes a class |
+| `props` `slots` `events` | the public API |
+| `a11y` | the role, the keyboard behaviour and the guarantees |
+| `examples` | the live examples, with their markup |
+
+From that one file the build derives:
+
+```
+components/<id>/manifest.json
+   ├── →  components/um-components.css   (assembled from the style partials)
+   ├── →  site/component/<id>.html        (the documentation page)
+   ├── →  types/index.d.ts                (the type declarations)
+   └── →  components/index.json           (the catalogue)
+```
+
+Two rules make the agreement enforceable rather than aspirational:
+
+- **A variant the stylesheet never paints is an error.** The build checks
+  every class the manifest claims against the CSS.
+- **A stylesheet that is out of date with its partials is an error.**
+  `validate` reassembles the sheet and compares, so a stale
+  `um-components.css` cannot ship.
+
+The manifest is framework-neutral on purpose: a CSS generator reads the class
+names, a component generator reads the variant and prop names. The same file
+describes the plain-HTML library today and a Vue 3 wrapper tomorrow.
 
 ## 4. Specimen-dependent keys
 

@@ -1,0 +1,26 @@
+/* ============================================================================
+   Empty
+   ========================================================================== */
+.um-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--um-space-xs);
+  padding: var(--um-space-lg) var(--um-space-sm);
+  color: var(--um-text-secondary);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+  text-align: center;
+}
+.um-empty__art {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--um-height-lg);
+  height: var(--um-height-lg);
+  border-radius: var(--um-radius-circle);
+  background: var(--um-fill-light);
+  color: var(--um-text-placeholder);
+  font-size: var(--um-font-size-title);
+}
+.um-empty__title { color: var(--um-text-primary); font-weight: var(--um-font-weight-bold); }

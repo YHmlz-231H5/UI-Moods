@@ -1,0 +1,63 @@
+{
+  "id": "progress",
+  "name": "Progress",
+  "nameZh": "进度条",
+  "category": "data",
+  "element": "div",
+  "summary": "How much of something is done. The bar is a groove with a fill inside it, and the fill takes its width from the host.",
+  "summaryZh": "一件事完成了多少。进度条是一条槽,里面填一段,填充宽度由宿主给。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-progress",
+    "modifier": "um-progress--",
+    "part": "um-progress__"
+  },
+  "variants": [
+    { "id": "success", "name": "Success", "nameZh": "成功", "state": "solid", "note": "The fill takes the success colour." },
+    { "id": "warning", "name": "Warning", "nameZh": "警告", "state": "solid", "note": "The fill takes the warning colour." },
+    { "id": "danger", "name": "Danger", "nameZh": "危险", "state": "solid", "note": "The fill takes the danger colour." }
+  ],
+  "sizes": [],
+  "states": [],
+  "parts": [
+    { "id": "track", "name": "Track", "nameZh": "轨道", "note": "The groove. It is the full width and hides what is behind the fill." },
+    { "id": "bar", "name": "Bar", "nameZh": "填充", "note": "The fill. Its width comes from the host as an inline style, because the value is data and no class can carry a number." },
+    { "id": "label", "name": "Label", "nameZh": "文字", "note": "The text below the bar. Optional — leave the element out to hide it." }
+  ],
+  "props": [
+    { "name": "variant", "type": "enum", "values": ["success", "warning", "danger"], "description": "Which state the fill paints. The base class is already the primary progress, so a plain um-progress needs no modifier at all.", "descriptionZh": "填充用哪种状态色。基础类本身就是主色进度,所以只写 um-progress 时不需要任何修饰类。" },
+    { "name": "value", "type": "number", "default": "0", "description": "How much is done, as a percentage of the track. It is written to the inline width of the bar.", "descriptionZh": "完成了多少,按轨道的百分比算。它写在填充条的内联宽度上。" },
+    { "name": "label", "type": "string", "description": "The text under the bar.", "descriptionZh": "进度条下方的文字。" }
+  ],
+  "slots": [
+    { "name": "label", "description": "The text under the bar.", "descriptionZh": "进度条下方的文字。" }
+  ],
+  "events": [],
+  "a11y": {
+    "role": "progressbar",
+    "keyboard": [],
+    "notes": "A progress bar is read, not operated: it is not focusable. Put role=\"progressbar\" on the container with aria-valuenow, aria-valuemin and aria-valuemax, and the value is announced when it changes. The painted bar carries no value of its own, so the ARIA attributes are the whole contract.",
+    "notesZh": "进度条是被读的,不是被操作的:它不可聚焦。在容器上写 role=\"progressbar\",再配上 aria-valuenow、aria-valuemin 和 aria-valuemax,数值变化时就会被播报。画出来的进度条本身不带任何数值,所以 ARIA 属性就是全部的约定。"
+  },
+  "examples": [
+    {
+      "id": "variants",
+      "title": "Variants",
+      "titleZh": "变体",
+      "description": "The base class is the primary progress. The three modifiers paint the fill with the success, warning and danger colours instead.",
+      "descriptionZh": "基础类就是主色进度。三个修饰类把填充换成成功、警告和危险色。",
+      "markup": "<div class=\"um-progress\">\n  <div class=\"um-progress__track\"><div class=\"um-progress__bar\" style=\"width:68%\"></div></div>\n</div>\n<div class=\"um-progress um-progress--success\">\n  <div class=\"um-progress__track\"><div class=\"um-progress__bar\" style=\"width:100%\"></div></div>\n</div>\n<div class=\"um-progress um-progress--warning\">\n  <div class=\"um-progress__track\"><div class=\"um-progress__bar\" style=\"width:45%\"></div></div>\n</div>\n<div class=\"um-progress um-progress--danger\">\n  <div class=\"um-progress__track\"><div class=\"um-progress__bar\" style=\"width:12%\"></div></div>\n</div>"
+    },
+    {
+      "id": "with-a-label",
+      "title": "With a label",
+      "titleZh": "带文字",
+      "description": "The label is a separate element, so it can be left out. The role and the aria values belong on the container, not on the bar.",
+      "descriptionZh": "文字是独立的元素,可以不写。role 和 aria 的值要写在容器上,不是写在填充条上。",
+      "markup": "<div class=\"um-progress\" role=\"progressbar\" aria-valuenow=\"68\" aria-valuemin=\"0\" aria-valuemax=\"100\">\n  <div class=\"um-progress__track\"><div class=\"um-progress__bar\" style=\"width:68%\"></div></div>\n  <span class=\"um-progress__label\">68% of the plan limit</span>\n</div>"
+    }
+  ],
+  "notes": "The width of the fill is set by the host, not by a class: it is a number that changes, and a class cannot carry a number. The track and the fill are both rounded, and the track hides what is behind it, so the fill never escapes the groove at any width.",
+  "notesZh": "填充的宽度由宿主设置,而不是靠一个类:它是一个会变的数字,而类带不了数字。轨道和填充都是圆角,轨道会把后面的东西挡住,所以不管填充多宽都不会跑出槽外。"
+}

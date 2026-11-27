@@ -1,0 +1,67 @@
+{
+  "id": "checkbox",
+  "name": "Checkbox",
+  "nameZh": "复选框",
+  "category": "form",
+  "element": "input",
+  "summary": "A box that either is ticked or is not, for choosing one or many things out of a list. The tick is a shape drawn in CSS, not a character.",
+  "summaryZh": "一个勾上或不勾的方框,用来从列表里选一项或多项。勾是 CSS 画出来的形状,不是一个字符。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-checkbox",
+    "modifier": "um-checkbox--",
+    "part": "um-checkbox__"
+  },
+  "variants": [],
+  "sizes": [],
+  "states": [
+    { "id": "checked", "name": "Checked", "nameZh": "勾选", "selector": ":checked", "native": true, "note": "The box fills with the brand colour and the tick appears." },
+    { "id": "indeterminate", "name": "Indeterminate", "nameZh": "半选", "selector": ":indeterminate", "note": "The box fills and the tick becomes a dash. This is the one state the library cannot reach on its own — the browser only sets :indeterminate when the host assigns input.indeterminate." },
+    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The box dims and the label takes the derived disabled text colour." }
+  ],
+  "parts": [
+    { "id": "input", "name": "Input", "nameZh": "输入框", "note": "The real checkbox. It must come before the box: the checked state is matched with an adjacent sibling selector." },
+    { "id": "box", "name": "Box", "nameZh": "方框", "note": "The square. The tick is its ::after pseudo-element, drawn with two borders on a rotated box." },
+    { "id": "label", "name": "Label", "nameZh": "文字", "note": "The text beside the box. Optional, but a checkbox without one needs an accessible name of its own." }
+  ],
+  "props": [
+    { "name": "checked", "type": "boolean", "default": "false", "description": "Ticks the box. It is the native checked attribute, not a class.", "descriptionZh": "把方框勾上。它是原生 checked 属性,不是某个类。" },
+    { "name": "indeterminate", "type": "boolean", "default": "false", "description": "Shows the dash instead of the tick. The browser has no attribute for it: the host sets input.indeterminate = true.", "descriptionZh": "显示一条横线而不是对勾。浏览器没有对应的属性,要由宿主设置 input.indeterminate = true。" },
+    { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes the checkbox inert. It uses the real disabled attribute, so it leaves the tab order.", "descriptionZh": "让复选框不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" },
+    { "name": "name", "type": "string", "description": "The name the value is submitted under.", "descriptionZh": "提交时这个值使用的名字。" },
+    { "name": "value", "type": "string", "description": "The value submitted while the box is ticked.", "descriptionZh": "勾选时提交的值。" }
+  ],
+  "slots": [
+    { "name": "label", "description": "The text beside the box.", "descriptionZh": "方框旁边的文字。" }
+  ],
+  "events": [
+    { "name": "change", "description": "Fires when the box is ticked or unticked. It is the browser's own event — the library installs no listener.", "descriptionZh": "方框被勾选或取消勾选时触发。这是浏览器自己的事件 —— 库没有安装任何监听器。" }
+  ],
+  "a11y": {
+    "role": "checkbox",
+    "keyboard": ["Tab", "Space"],
+    "notes": "The box is a real <input type=\"checkbox\"> inside a <label>, and the drawn parts are spans. Ticking it is the browser's :checked, so the value submits with the form and the state is announced without JavaScript. The input is hidden visually rather than removed from the accessibility tree, so it keeps its place in the tab order and its label.",
+    "notesZh": "方框是 <label> 里一个真正的 <input type=\"checkbox\">,画出来的部分都是 span。勾选走的就是浏览器的 :checked,所以值会随表单提交,状态也会被播报,不需要 JavaScript。这个 input 只是视觉隐藏,没有被移出无障碍树,因此它仍在 Tab 顺序里,也仍然有标签。"
+  },
+  "examples": [
+    {
+      "id": "states",
+      "title": "States",
+      "titleZh": "状态",
+      "description": "Ticked, unticked and locked. The state is the input's own checked attribute, so the markup a browser reads is the same one the stylesheet reads.",
+      "descriptionZh": "勾上、没勾和锁定。状态就是 input 自己的 checked 属性,所以浏览器读到的标记和样式表读到的状态是同一个。",
+      "markup": "<label class=\"um-checkbox\">\n  <input class=\"um-checkbox__input\" type=\"checkbox\" checked />\n  <span class=\"um-checkbox__box\"></span>\n  <span class=\"um-checkbox__label\">Selected</span>\n</label>\n<label class=\"um-checkbox\">\n  <input class=\"um-checkbox__input\" type=\"checkbox\" />\n  <span class=\"um-checkbox__box\"></span>\n  <span class=\"um-checkbox__label\">Unselected</span>\n</label>\n<label class=\"um-checkbox\">\n  <input class=\"um-checkbox__input\" type=\"checkbox\" disabled />\n  <span class=\"um-checkbox__box\"></span>\n  <span class=\"um-checkbox__label\">Locked</span>\n</label>"
+    },
+    {
+      "id": "indeterminate",
+      "title": "Indeterminate",
+      "titleZh": "半选",
+      "description": "The dash is the state a parent checkbox takes when only some of its children are ticked. The browser has no attribute for it, so the host sets input.indeterminate = true — this is the one place the library needs a line of JavaScript.",
+      "descriptionZh": "父级方框下面只勾了部分子项时就用这条横线。浏览器没有对应的属性,要由宿主设置 input.indeterminate = true —— 这是整个库里唯一需要一行 JavaScript 的地方。",
+      "markup": "<label class=\"um-checkbox\">\n  <input class=\"um-checkbox__input\" type=\"checkbox\" id=\"um-checkbox-indeterminate\" />\n  <span class=\"um-checkbox__box\"></span>\n  <span class=\"um-checkbox__label\">Some children only</span>\n</label>"
+    }
+  ],
+  "notes": "The tick is drawn with two borders — a rotated box with only its right and bottom edges — so it is a shape and not a glyph: no icon font, no emoji, and it scales with the box it sits in. The indeterminate state replaces it with a single horizontal border. Both are the same pseudo-element, so there is only one thing to animate.",
+  "notesZh": "对勾是用两条边框画出来的 —— 一个只留右边和下边、旋转 45 度的盒子,所以它是形状而不是字形:没有图标字体,没有 emoji,还能跟着方框一起缩放。半选态把它换成一条横边。两者用的是同一个伪元素,所以要动的只有一样东西。"
+}

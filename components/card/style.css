@@ -1,0 +1,34 @@
+/* ============================================================================
+   Card
+   ========================================================================== */
+.um-card {
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-large);
+  background: var(--um-bg-overlay);
+  box-shadow: var(--um-shadow-base);
+  color: var(--um-text-regular);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+  overflow: hidden;
+}
+.um-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--um-space-xs);
+  padding: var(--um-space-sm) var(--um-space-sm);
+  border-bottom: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+}
+.um-card__title { color: var(--um-text-primary); font-size: var(--um-font-size-title); font-weight: var(--um-font-weight-bold); }
+.um-card__body { padding: var(--um-space-sm); }
+.um-card__footer {
+  padding: var(--um-space-sm);
+  border-top: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+  background: var(--um-fill-lighter);
+}
+
+/* A frosted card is the quality hook a glass-like mood plugs into. */
+.um-card--frosted {
+  background: var(--um-bg-overlay);
+  backdrop-filter: var(--um-backdrop, none);
+}

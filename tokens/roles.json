@@ -328,10 +328,13 @@
       "against": [
         "surface-input",
         "bg-overlay",
-        "bg-page"
+        "bg-page",
+        "bg-container",
+        "fill-light",
+        "fill-lighter"
       ],
       "target": 2.5,
-      "doc": "Placeholder text. The muted colour faded toward the surface it sits on — the input's own fill, not the page — as far as 2.5:1 allows. The bar is 2.5 rather than 4.5 because a placeholder is a hint, not content: WCAG treats it as exempt when the field carries a visible label, and Element Plus ships a comparable ~2:1. The surface it fades toward is the flattened one: a translucent fill over a translucent container is a colour that neither token names. If the muted colour does not even clear 2.5 on that surface, fading is not the answer and the role moves away from the surface instead — a placeholder that cannot be seen is not a placeholder."
+      "doc": "Placeholder text. The muted colour faded toward the surface it sits on — the input's own fill, not the page — as far as 2.5:1 allows. The bar is 2.5 rather than 4.5 because a placeholder is a hint, not content: WCAG treats it as exempt when the field carries a visible label, and Element Plus ships a comparable ~2:1. The surface it fades toward is the flattened one: a translucent fill over a translucent container is a colour that neither token names. If the muted colour does not even clear 2.5 on that surface, fading is not the answer and the role moves away from the surface instead — a placeholder that cannot be seen is not a placeholder. It is measured against every surface the component layer paints it on, not just the input's: the empty state's glyph sits on the light fill, and a role that is only guaranteed on the input can still vanish on that fill in four of the moods."
     },
     "text-disabled": {
       "op": "fade",
@@ -709,6 +712,27 @@
       "bg": "bg-overlay",
       "min": 2.5,
       "doc": "Placeholder text. A hint, not content: WCAG exempts it when the field carries a visible label, and Element Plus ships a comparable ~2:1."
+    },
+    {
+      "name": "placeholder on a container",
+      "fg": "text-placeholder",
+      "bg": "bg-container",
+      "min": 2.5,
+      "doc": "The same hint inside a card or a container, where the panel colour is a step away from the page it was measured on."
+    },
+    {
+      "name": "placeholder on a light fill",
+      "fg": "text-placeholder",
+      "bg": "fill-light",
+      "min": 2.5,
+      "doc": "The empty state's glyph, which the library paints on the light fill rather than on the page."
+    },
+    {
+      "name": "placeholder on a lighter fill",
+      "fg": "text-placeholder",
+      "bg": "fill-lighter",
+      "min": 2.5,
+      "doc": "The same glyph on the lighter fill, one step further from the panel colour."
     },
     {
       "name": "disabled on surface",

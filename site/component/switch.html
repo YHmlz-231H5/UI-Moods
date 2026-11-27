@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Switch · UI Moods</title>
+  <meta name="description" content="A binary setting that takes effect the moment it is flipped. The visible switch is drawn by the library; the control underneath it is a real checkbox." />
+
+  <!-- The two files that make the whole thing work.
+       Swapping the second one re-skins every component on the page. -->
+  <link rel="stylesheet" id="um-theme" href="../../themes/aurora.css" />
+  <link rel="stylesheet" href="../../components/um-components.css" />
+  <link rel="stylesheet" href="../../site/assets/site.css" />
+</head>
+<body>
+  <header class="site-header">
+      <a class="site-header__brand" href="../../index.html">UI Moods<span>Component Library</span></a>
+      <div class="site-header__spacer"></div>
+      <div class="switcher">
+        <label class="switcher__label" for="um-theme-picker">Theme</label>
+        <span class="switcher__field">
+          <select class="switcher__select" id="um-theme-picker"></select>
+        </span>
+      </div>
+    </header>
+  <div class="site-body">
+    <nav class="site-sidebar" aria-label="Components">
+      
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Form · 表单</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/button.html">Button <span class="meta">按钮</span></a></li>
+          <li><a href="../component/checkbox.html">Checkbox <span class="meta">复选框</span></a></li>
+          <li><a href="../component/field.html">Field <span class="meta">表单项</span></a></li>
+          <li><a href="../component/input.html">Input / Textarea / Select <span class="meta">输入框 / 文本域 / 选择器</span></a></li>
+          <li><a href="../component/radio.html">Radio <span class="meta">单选框</span></a></li>
+          <li><a href="../component/slider.html">Slider <span class="meta">滑块</span></a></li>
+          <li><a href="" aria-current="page">Switch <span class="meta">开关</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Data · 数据展示</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/badge.html">Badge <span class="meta">徽标</span></a></li>
+          <li><a href="../component/card.html">Card <span class="meta">卡片</span></a></li>
+          <li><a href="../component/empty.html">Empty <span class="meta">空状态</span></a></li>
+          <li><a href="../component/progress.html">Progress <span class="meta">进度条</span></a></li>
+          <li><a href="../component/skeleton.html">Skeleton <span class="meta">骨架屏</span></a></li>
+          <li><a href="../component/tag.html">Tag <span class="meta">标签</span></a></li>
+        </ul>
+      </div>
+      
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Feedback · 反馈</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/alert.html">Alert <span class="meta">警告</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Others · 其他</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/divider.html">Divider <span class="meta">分割线</span></a></li>
+        </ul>
+      </div>
+    </nav>
+    <main class="site-main">
+      <h1>Switch <span class="meta">开关</span></h1>
+      <p class="lede">A binary setting that takes effect the moment it is flipped. The visible switch is drawn by the library; the control underneath it is a real checkbox.</p>
+      <p class="meta">
+        <span class="tag">input</span>
+        <span class="tag">form</span>
+        <span class="tag">since 1.1.0</span>
+      </p>
+      <div class="note">The track and the thumb are two nested spans, and the thumb moves with a transform rather than a position, so flipping the switch never moves anything around it. The disabled state dims the track with opacity and takes the derived disabled text colour for the label: a track has no text of its own, so only the shape can be dimmed.</div>
+
+      <h2>Examples</h2>
+<div class="example">
+        <div class="example__title">States · 状态</div>
+        <div class="example__desc">On, off and locked. The state is the input's own checked attribute, so the markup a browser reads is the same one the stylesheet reads.</div>
+        <div class="example__demo">
+<label class="um-switch">
+  <input class="um-switch__input" type="checkbox" checked />
+  <span class="um-switch__track"><span class="um-switch__thumb"></span></span>
+  <span class="um-switch__label">Notifications</span>
+</label>
+<label class="um-switch">
+  <input class="um-switch__input" type="checkbox" />
+  <span class="um-switch__track"><span class="um-switch__thumb"></span></span>
+  <span class="um-switch__label">Digest</span>
+</label>
+<label class="um-switch">
+  <input class="um-switch__input" type="checkbox" disabled />
+  <span class="um-switch__track"><span class="um-switch__thumb"></span></span>
+  <span class="um-switch__label">Locked</span>
+</label>
+        </div>
+        <pre class="example__code">&lt;label class=&quot;um-switch&quot;&gt;
+  &lt;input class=&quot;um-switch__input&quot; type=&quot;checkbox&quot; checked /&gt;
+  &lt;span class=&quot;um-switch__track&quot;&gt;&lt;span class=&quot;um-switch__thumb&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+  &lt;span class=&quot;um-switch__label&quot;&gt;Notifications&lt;/span&gt;
+&lt;/label&gt;
+&lt;label class=&quot;um-switch&quot;&gt;
+  &lt;input class=&quot;um-switch__input&quot; type=&quot;checkbox&quot; /&gt;
+  &lt;span class=&quot;um-switch__track&quot;&gt;&lt;span class=&quot;um-switch__thumb&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+  &lt;span class=&quot;um-switch__label&quot;&gt;Digest&lt;/span&gt;
+&lt;/label&gt;
+&lt;label class=&quot;um-switch&quot;&gt;
+  &lt;input class=&quot;um-switch__input&quot; type=&quot;checkbox&quot; disabled /&gt;
+  &lt;span class=&quot;um-switch__track&quot;&gt;&lt;span class=&quot;um-switch__thumb&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+  &lt;span class=&quot;um-switch__label&quot;&gt;Locked&lt;/span&gt;
+&lt;/label&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">Without visible text · 没有可见文字</div>
+        <div class="example__desc">The label element can be left out, but then the switch has no visible name and needs one for a screen reader. Put it on the input.</div>
+        <div class="example__demo">
+<label class="um-switch">
+  <input class="um-switch__input" type="checkbox" aria-label="Show the sidebar" />
+  <span class="um-switch__track"><span class="um-switch__thumb"></span></span>
+</label>
+        </div>
+        <pre class="example__code">&lt;label class=&quot;um-switch&quot;&gt;
+  &lt;input class=&quot;um-switch__input&quot; type=&quot;checkbox&quot; aria-label=&quot;Show the sidebar&quot; /&gt;
+  &lt;span class=&quot;um-switch__track&quot;&gt;&lt;span class=&quot;um-switch__thumb&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;/label&gt;</pre>
+      </div>
+      <h2>Classes</h2>
+<table class="api">
+      <thead><tr><th>Class</th><th>Meaning</th></tr></thead>
+      <tbody>
+      <tr><td><code>um-switch</code></td><td>The base class. Every instance carries it.</td></tr>
+      <tr><td><code>um-switch__input</code></td><td>Input</td></tr>
+      <tr><td><code>um-switch__track</code></td><td>Track</td></tr>
+      <tr><td><code>um-switch__thumb</code></td><td>Thumb</td></tr>
+      <tr><td><code>um-switch__label</code></td><td>Label</td></tr>
+      <tr><td><code>:checked</code></td><td>Checked</td></tr>
+      <tr><td><code>:disabled</code></td><td>Disabled</td></tr>
+      </tbody>
+    </table>
+      <h2>Props</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>checked</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Turns the setting on. It is the native checked attribute, not a class.</td></tr>
+      <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes the switch inert. It uses the real disabled attribute, so it leaves the tab order.</td></tr>
+      <tr><td><span class="api__name"><code>name</code></span></td><td><code>string</code></td><td>—</td><td>The name the value is submitted under.</td></tr>
+      <tr><td><span class="api__name"><code>value</code></span></td><td><code>string</code></td><td>—</td><td>The value submitted while the switch is on.</td></tr>
+      </tbody>
+    </table>
+      <h2>Slots</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>label</code></span></td><td>The text beside the switch.</td></tr>
+      </tbody>
+    </table>
+      <h2>Events</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>change</code></span></td><td>Fires when the switch is flipped. It is the browser's own event on the checkbox underneath — the library installs no listener.</td></tr>
+      </tbody>
+    </table>
+      <h2>Accessibility</h2>
+      <p><strong>Role:</strong> <code>checkbox</code></p>
+        <p><strong>Keyboard:</strong> <code>Tab</code> <code>Space</code></p>
+        <p>The switch is a real &lt;input type=&quot;checkbox&quot;&gt; inside a &lt;label&gt;, and the drawn parts are spans. The checked state is the browser's :checked, so the switch submits with the form, is announced as a checkbox and needs no JavaScript. The input is hidden visually rather than removed from the accessibility tree, so it keeps its place in the tab order and its label.</p>
+
+    </main>
+  </div>
+
+  <script>window.UM_THEMES = {"light":["anime","archive","bauhaus","brutal","clay","corporate","eco","fashion","food","forest","ios","luxury","medical","monochrome","nordic","pastel","retro","sakura","swiss","travel","y2k"],"dark":["aurora","blueprint","crypto","finance","gaming","glass","instrument","neon","night","vaporwave","verdant"]};</script>
+  <script src="../../site/assets/site.js"></script>
+</body>
+</html>

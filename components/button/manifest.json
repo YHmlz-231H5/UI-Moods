@@ -1,0 +1,78 @@
+{
+  "id": "button",
+  "name": "Button",
+  "nameZh": "按钮",
+  "category": "form",
+  "element": "button",
+  "summary": "An action the user takes. The one component every interface needs, and the one that has to look right in thirty-two different moods.",
+  "summaryZh": "用户触发的动作。每个界面都离不开它,也最容易在三十多套 mood 里走样。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-button",
+    "modifier": "um-button--",
+    "part": "um-button__"
+  },
+  "variants": [
+    { "id": "primary", "name": "Primary", "nameZh": "主要", "state": "solid", "note": "The one action the screen wants." },
+    { "id": "default", "name": "Default", "nameZh": "默认", "state": "outline" },
+    { "id": "text", "name": "Text", "nameZh": "文字", "state": "ghost" },
+    { "id": "success", "name": "Success", "nameZh": "成功", "state": "solid" },
+    { "id": "warning", "name": "Warning", "nameZh": "警告", "state": "solid" },
+    { "id": "danger", "name": "Danger", "nameZh": "危险", "state": "solid" }
+  ],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小" },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default size needs no modifier class." },
+    { "id": "lg", "name": "Large", "nameZh": "大" }
+  ],
+  "states": [
+    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true },
+    { "id": "loading", "name": "Loading", "nameZh": "加载中", "selector": ".um-button--loading" },
+    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true }
+  ],
+  "parts": [],
+  "props": [
+    { "name": "variant", "type": "enum", "values": ["primary", "default", "text", "success", "warning", "danger"], "default": "default", "description": "Which action this is.", "descriptionZh": "这个按钮代表哪一类动作。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The control height.", "descriptionZh": "控件高度。" },
+    { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes the button inert.", "descriptionZh": "按钮不可用。" },
+    { "name": "loading", "type": "boolean", "default": "false", "description": "Shows a spinner and hides the label, keeping the width.", "descriptionZh": "显示加载指示,隐藏文字但保持宽度不变。" },
+    { "name": "glow", "type": "boolean", "default": "false", "description": "Applies the mood's glow hook. A mood without one shows nothing.", "descriptionZh": "应用该 mood 的发光钩子;没有定义发光的 mood 不会显示任何东西。" }
+  ],
+  "slots": [],
+  "events": [],
+  "a11y": {
+    "role": "button",
+    "keyboard": ["Enter", "Space"],
+    "notes": "A real <button> element, so it is focusable, activatable by keyboard and announced correctly. A disabled button uses the real disabled attribute rather than aria-disabled, so it is skipped by the tab order.",
+    "notesZh": "使用真实的 <button> 元素,可聚焦、可用键盘触发、读屏播报正确。禁用态用原生 disabled 属性而不是 aria-disabled,因此会退出 Tab 顺序。"
+  },
+  "examples": [
+    {
+      "id": "variants",
+      "title": "Variants",
+      "titleZh": "变体",
+      "description": "One variant per action type. The label colour on a filled button is the theme's own on-colour, derived to reach 4.5:1 against that fill.",
+      "descriptionZh": "每种动作类型一个变体。实心按钮上的文字颜色是该主题自己的前景色,由主题派生保证与底色达到 4.5:1。",
+      "markup": "<button class=\"um-button um-button--primary\">Primary</button>\n<button class=\"um-button um-button--default\">Default</button>\n<button class=\"um-button um-button--text\">Text</button>\n<button class=\"um-button um-button--success\">Success</button>\n<button class=\"um-button um-button--warning\">Warning</button>\n<button class=\"um-button um-button--danger\">Danger</button>"
+    },
+    {
+      "id": "sizes",
+      "title": "Sizes",
+      "titleZh": "尺寸",
+      "description": "The medium size is the default and needs no modifier class.",
+      "descriptionZh": "中号是默认尺寸,不需要修饰类。",
+      "markup": "<button class=\"um-button um-button--primary um-button--sm\">Small</button>\n<button class=\"um-button um-button--primary\">Medium</button>\n<button class=\"um-button um-button--primary um-button--lg\">Large</button>"
+    },
+    {
+      "id": "states",
+      "title": "States",
+      "titleZh": "状态",
+      "description": "A disabled button paints a flat surface and takes the derived disabled colour, so its label is still measurable. It is not dimmed with opacity, because opacity is not a colour and nothing about it can be checked.",
+      "descriptionZh": "禁用按钮使用扁平底色和派生的禁用色,文字依然可测量。它不用 opacity 变淡 —— opacity 不是颜色,无法被校验。",
+      "markup": "<button class=\"um-button um-button--primary\" disabled>Disabled</button>\n<button class=\"um-button um-button--default\" disabled>Disabled</button>\n<button class=\"um-button um-button--primary um-button--loading\">Loading</button>"
+    }
+  ],
+  "notes": "The quality hook `.um-button--glow` lives in the shared hooks layer rather than in this component, because it is a mood capability and not a button variant. The loading spinner is painted in the label's own colour — the label colour lives in one variable that both read — so the spinner is always as legible as the label it replaced, on every variant and in every mood.",
+  "notesZh": "质感钩子 `.um-button--glow` 放在共享钩子层而不是组件里 —— 它是 mood 的能力,不是按钮的变体。加载指示器用的是标签自己的颜色 —— 标签颜色只存在一个变量里,两者都读它 —— 所以无论哪个变体、哪套 mood,指示器都和它替换掉的标签一样清晰。"
+}

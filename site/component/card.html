@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Card · UI Moods</title>
+  <meta name="description" content="A surface that groups one thing: a title, a body, a footer. Its border, radius, shadow and fill all come from the mood, so one card reads correctly in all thirty-two of them." />
+
+  <!-- The two files that make the whole thing work.
+       Swapping the second one re-skins every component on the page. -->
+  <link rel="stylesheet" id="um-theme" href="../../themes/aurora.css" />
+  <link rel="stylesheet" href="../../components/um-components.css" />
+  <link rel="stylesheet" href="../../site/assets/site.css" />
+</head>
+<body>
+  <header class="site-header">
+      <a class="site-header__brand" href="../../index.html">UI Moods<span>Component Library</span></a>
+      <div class="site-header__spacer"></div>
+      <div class="switcher">
+        <label class="switcher__label" for="um-theme-picker">Theme</label>
+        <span class="switcher__field">
+          <select class="switcher__select" id="um-theme-picker"></select>
+        </span>
+      </div>
+    </header>
+  <div class="site-body">
+    <nav class="site-sidebar" aria-label="Components">
+      
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Form · 表单</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/button.html">Button <span class="meta">按钮</span></a></li>
+          <li><a href="../component/checkbox.html">Checkbox <span class="meta">复选框</span></a></li>
+          <li><a href="../component/field.html">Field <span class="meta">表单项</span></a></li>
+          <li><a href="../component/input.html">Input / Textarea / Select <span class="meta">输入框 / 文本域 / 选择器</span></a></li>
+          <li><a href="../component/radio.html">Radio <span class="meta">单选框</span></a></li>
+          <li><a href="../component/slider.html">Slider <span class="meta">滑块</span></a></li>
+          <li><a href="../component/switch.html">Switch <span class="meta">开关</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Data · 数据展示</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/badge.html">Badge <span class="meta">徽标</span></a></li>
+          <li><a href="" aria-current="page">Card <span class="meta">卡片</span></a></li>
+          <li><a href="../component/empty.html">Empty <span class="meta">空状态</span></a></li>
+          <li><a href="../component/progress.html">Progress <span class="meta">进度条</span></a></li>
+          <li><a href="../component/skeleton.html">Skeleton <span class="meta">骨架屏</span></a></li>
+          <li><a href="../component/tag.html">Tag <span class="meta">标签</span></a></li>
+        </ul>
+      </div>
+      
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Feedback · 反馈</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/alert.html">Alert <span class="meta">警告</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Others · 其他</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/divider.html">Divider <span class="meta">分割线</span></a></li>
+        </ul>
+      </div>
+    </nav>
+    <main class="site-main">
+      <h1>Card <span class="meta">卡片</span></h1>
+      <p class="lede">A surface that groups one thing: a title, a body, a footer. Its border, radius, shadow and fill all come from the mood, so one card reads correctly in all thirty-two of them.</p>
+      <p class="meta">
+        <span class="tag">div</span>
+        <span class="tag">data</span>
+        <span class="tag">since 1.1.0</span>
+      </p>
+      <div class="note">The frosted variant is a mood capability, not a card colour: it applies the theme's backdrop filter and changes nothing else. A mood without one declares `none`, so the hook is invisible there.</div>
+
+      <h2>Examples</h2>
+<div class="example">
+        <div class="example__title">A card · 一张卡</div>
+        <div class="example__desc">Header, body and footer are optional on their own, but the order is fixed: header, then body, then footer. The title is a heading, so the page keeps its outline.</div>
+        <div class="example__demo">
+<div class="um-card">
+  <div class="um-card__header">
+    <h3 class="um-card__title">Deployment</h3>
+  </div>
+  <div class="um-card__body">
+    <p>Three nodes were updated in the last hour. Nothing is waiting for approval.</p>
+  </div>
+  <div class="um-card__footer">
+    <p>Updated 14:20</p>
+  </div>
+</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-card&quot;&gt;
+  &lt;div class=&quot;um-card__header&quot;&gt;
+    &lt;h3 class=&quot;um-card__title&quot;&gt;Deployment&lt;/h3&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;um-card__body&quot;&gt;
+    &lt;p&gt;Three nodes were updated in the last hour. Nothing is waiting for approval.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;um-card__footer&quot;&gt;
+    &lt;p&gt;Updated 14:20&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">Frosted · 磨砂</div>
+        <div class="example__desc">The frosted variant applies the mood's backdrop filter. A mood that has none declares `none`, so on that theme the class is invisible and the card looks the same as any other.</div>
+        <div class="example__demo">
+<div class="um-card um-card--frosted">
+  <div class="um-card__header">
+    <h3 class="um-card__title">Glass</h3>
+  </div>
+  <div class="um-card__body">
+    <p>On a mood with a backdrop filter, the card blurs what is behind it.</p>
+  </div>
+</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-card um-card--frosted&quot;&gt;
+  &lt;div class=&quot;um-card__header&quot;&gt;
+    &lt;h3 class=&quot;um-card__title&quot;&gt;Glass&lt;/h3&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;um-card__body&quot;&gt;
+    &lt;p&gt;On a mood with a backdrop filter, the card blurs what is behind it.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+      </div>
+      <h2>Classes</h2>
+<table class="api">
+      <thead><tr><th>Class</th><th>Meaning</th></tr></thead>
+      <tbody>
+      <tr><td><code>um-card</code></td><td>The base class. Every instance carries it.</td></tr>
+      <tr><td><code>um-card--frosted</code></td><td>Frosted</td></tr>
+      <tr><td><code>um-card__header</code></td><td>Header</td></tr>
+      <tr><td><code>um-card__title</code></td><td>Title</td></tr>
+      <tr><td><code>um-card__body</code></td><td>Body</td></tr>
+      <tr><td><code>um-card__footer</code></td><td>Footer</td></tr>
+      </tbody>
+    </table>
+      <h2>Props</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>variant</code></span></td><td><code>enum = frosted</code></td><td>—</td><td>Which surface the card has. Without a variant the card is the mood's plain overlay surface.</td></tr>
+      </tbody>
+    </table>
+
+
+      <h2>Accessibility</h2>
+      <p>The card is a plain container and carries no role. Put a real heading in `.um-card__title` — the class sets the size, so the document outline stays right. If the whole card is meant to be clickable, put a link inside it instead of making the card a button: a clickable div is not focusable and is not announced as a control.</p>
+
+    </main>
+  </div>
+
+  <script>window.UM_THEMES = {"light":["anime","archive","bauhaus","brutal","clay","corporate","eco","fashion","food","forest","ios","luxury","medical","monochrome","nordic","pastel","retro","sakura","swiss","travel","y2k"],"dark":["aurora","blueprint","crypto","finance","gaming","glass","instrument","neon","night","vaporwave","verdant"]};</script>
+  <script src="../../site/assets/site.js"></script>
+</body>
+</html>

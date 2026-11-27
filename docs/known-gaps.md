@@ -130,9 +130,11 @@ from the specimen's:
 
 The component library is new, and the honest limits are these:
 
-- **16 components so far** — button, input, textarea, select, field, switch,
-  checkbox, radio, slider, badge, tag, alert, card, progress, empty, divider,
-  skeleton. Tabs, table, dialog, dropdown, menu, pagination, avatar, tooltip
+- **15 components so far, 17 Element Plus equivalents** — button, input,
+  textarea, select, field, switch, checkbox, radio, slider, badge, tag, alert,
+  card, progress, empty, divider, skeleton. The `input` manifest covers Input,
+  Textarea and Select, and the `field` manifest covers Form and Form Item.
+  Tabs, table, dialog, dropdown, menu, pagination, avatar, tooltip
   and message are the next batch. A component that does not exist yet cannot be
   themed, only hand-built.
 - **No JavaScript, so no composed components** — a dialog, a dropdown and a
@@ -148,7 +150,10 @@ The component library is new, and the honest limits are these:
   fills. A host that stacks a component inside a surface the library does not
   know about (a coloured panel, a photograph) is outside what is measured.
   `surface-control` and `surface-input` name the two stacks the library does
-  know, both flattened to one opaque colour.
+  know, both flattened to one opaque colour. The library's own derived fills
+  (`fill-base`, `fill-light`, `fill-lighter`) are covered for the roles the
+  component layer paints on them; a role added later has to name them too, or
+  the contract has a hole in it that only shows up on one surface.
 - **A mood's own colours are not repaired** — in 20 of the 32 moods
   `colors.muted` is below 4.5:1 as text, and `colors.border` is a hairline in
   several more. The library routes around them with derived roles; it does not
@@ -157,3 +162,16 @@ The component library is new, and the honest limits are these:
 - **The theme files are static** — `themes/<id>.css` is generated once from
   `moods/<id>/tokens.json`. Changing a mood means regenerating the themes
   (`ui-moods build-themes`), not editing the CSS by hand.
+- **No Vue 3 package yet** — the component layer is plain HTML and CSS. The
+  manifest is framework-neutral on purpose, so a Vue wrapper can be generated
+  from the same files later, but it does not exist yet and the repository has
+  no build toolchain, no peer dependencies and no published package.
+- **The documentation site is generated, not written** — every page comes
+  from a manifest, which is what keeps it honest, but it means a component
+  whose behaviour deserves prose has to put that prose in its manifest's
+  `notes`. The site has no search, no version switcher and no per-component
+  anchors yet.
+- **Accessibility is a contract, not an audit** — the manifests state the
+  native element, the role and the keyboard behaviour, and `validate` checks
+  that the states exist in the stylesheet. Nobody has yet run a screen reader
+  over the library, and there is no automated axe-style check.

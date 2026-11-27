@@ -1,0 +1,27 @@
+/* ============================================================================
+   Tag
+   ========================================================================== */
+.um-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--um-space-xs);
+  height: var(--um-height-sm);
+  padding: 0 var(--um-space-xs);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-small);
+  background: var(--um-fill-blank);
+  color: var(--um-text-regular);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-caption);
+  line-height: 1;
+}
+
+/* The tag is the outlined member of the soft-chip family. Its border is a
+   derived brand colour rather than a tint of the fill: a tint would sit at
+   about 1.2:1 against the fill, which reads as a smudge rather than an edge.
+   `color-*-text` is guaranteed to read on the page, the overlay and the
+   container, so the outline survives every theme. */
+.um-tag--primary { border-color: var(--um-color-primary-text); color: var(--um-color-primary-on-soft); background: var(--um-color-primary-soft-8); }
+.um-tag--success { border-color: var(--um-color-success-text); color: var(--um-color-success-on-soft); background: var(--um-color-success-soft-8); }
+.um-tag--warning { border-color: var(--um-color-warning-text); color: var(--um-color-warning-on-soft); background: var(--um-color-warning-soft-8); }
+.um-tag--danger  { border-color: var(--um-color-danger-text);  color: var(--um-color-danger-on-soft);  background: var(--um-color-danger-soft-8); }

@@ -1,0 +1,103 @@
+/* ============================================================================
+   Button
+   ========================================================================== */
+
+/* The colour of the label is held in a variable rather than written straight
+   into `color`, because two things read it: the label itself, and the loading
+   spinner that replaces the label. If the spinner had to name the colour a
+   second time it would eventually name the wrong one — a primary-coloured
+   spinner on a success fill is invisible on half the moods. */
+.um-button {
+  --um-button-label: var(--um-text-regular);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--um-space-xs);
+  height: var(--um-height-md);
+  padding: 0 var(--um-space-sm);
+  border: var(--um-border-width) var(--um-border-style) transparent;
+  border-radius: var(--um-radius-base);
+  background: transparent;
+  color: var(--um-button-label);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+  font-weight: var(--um-font-weight-medium);
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--um-motion), border-color var(--um-motion),
+    color var(--um-motion), box-shadow var(--um-motion);
+}
+
+.um-button--sm { height: var(--um-height-sm); padding: 0 var(--um-space-xs); font-size: var(--um-font-size-caption); }
+.um-button--lg { height: var(--um-height-lg); padding: 0 var(--um-space-md); }
+
+.um-button--primary {
+  --um-button-label: var(--um-color-primary-on);
+  background: var(--um-color-primary);
+  border-color: var(--um-color-primary);
+}
+.um-button--primary:hover:not(:disabled) { background: var(--um-color-primary-strong); border-color: var(--um-color-primary-strong); }
+.um-button--primary:active:not(:disabled) { background: var(--um-color-primary-strong); border-color: var(--um-color-primary-strong); }
+
+.um-button--default {
+  --um-button-label: var(--um-text-regular);
+  background: var(--um-fill-base);
+  border-color: var(--um-border-base);
+}
+.um-button--default:hover:not(:disabled) {
+  --um-button-label: var(--um-color-primary-text);
+  background: var(--um-fill-light);
+  border-color: var(--um-color-primary-soft-6);
+}
+.um-button--default:active:not(:disabled) { background: var(--um-fill-lighter); }
+
+.um-button--text {
+  --um-button-label: var(--um-color-primary-text);
+}
+.um-button--text:hover:not(:disabled) { background: var(--um-color-primary-soft-2); }
+.um-button--text:active:not(:disabled) { background: var(--um-color-primary-soft-4); }
+
+.um-button--success {
+  --um-button-label: var(--um-color-success-on);
+  background: var(--um-color-success);
+  border-color: var(--um-color-success);
+}
+.um-button--success:hover:not(:disabled) { background: var(--um-color-success-strong); border-color: var(--um-color-success-strong); }
+
+.um-button--warning {
+  --um-button-label: var(--um-color-warning-on);
+  background: var(--um-color-warning);
+  border-color: var(--um-color-warning);
+}
+.um-button--warning:hover:not(:disabled) { background: var(--um-color-warning-strong); border-color: var(--um-color-warning-strong); }
+
+.um-button--danger {
+  --um-button-label: var(--um-color-danger-on);
+  background: var(--um-color-danger);
+  border-color: var(--um-color-danger);
+}
+.um-button--danger:hover:not(:disabled) { background: var(--um-color-danger-strong); border-color: var(--um-color-danger-strong); }
+
+/* A loading button keeps its label so the width does not jump. The label is
+   hidden with a transparent colour, which is why the spinner cannot simply
+   inherit `currentColor` — it takes the label's own colour from the variable
+   instead, and is therefore as legible as the label it replaced.
+   The selector carries both classes so it still wins against the disabled
+   rule, which paints the label of an inert control. */
+.um-button.um-button--loading { position: relative; color: transparent; pointer-events: none; }
+.um-button.um-button--loading::before {
+  content: "";
+  position: absolute;
+  width: var(--um-space-sm);
+  height: var(--um-space-sm);
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: var(--um-radius-circle);
+  color: var(--um-button-label);
+  animation: um-spin 0.7s linear infinite;
+}
+
+@keyframes um-spin { to { transform: rotate(360deg); } }

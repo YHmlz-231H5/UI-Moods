@@ -1,0 +1,39 @@
+/* ============================================================================
+   Slider
+   ========================================================================== */
+.um-slider {
+  width: 100%;
+  height: var(--um-space-sm);
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+.um-slider::-webkit-slider-runnable-track {
+  height: var(--um-space-xs);
+  border-radius: var(--um-radius-round);
+  background: var(--um-fill-light);
+}
+.um-slider::-moz-range-track {
+  height: var(--um-space-xs);
+  border-radius: var(--um-radius-round);
+  background: var(--um-fill-light);
+}
+.um-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: var(--um-height-sm);
+  height: var(--um-height-sm);
+  margin-top: calc(var(--um-space-xs) * -0.5 - var(--um-space-xs) * 0.5);
+  border: 2px solid var(--um-color-primary);
+  border-radius: var(--um-radius-circle);
+  background: var(--um-bg-overlay);
+  box-shadow: var(--um-shadow-light);
+}
+.um-slider::-moz-range-thumb {
+  width: var(--um-height-sm);
+  height: var(--um-height-sm);
+  border: 2px solid var(--um-color-primary);
+  border-radius: var(--um-radius-circle);
+  background: var(--um-bg-overlay);
+  box-shadow: var(--um-shadow-light);
+}
+.um-slider:disabled { cursor: not-allowed; }

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Divider · UI Moods</title>
+  <meta name="description" content="A rule between two things. It can carry a label in the middle, drop the rules and keep the label, or stand up as a vertical rule." />
+
+  <!-- The two files that make the whole thing work.
+       Swapping the second one re-skins every component on the page. -->
+  <link rel="stylesheet" id="um-theme" href="../../themes/aurora.css" />
+  <link rel="stylesheet" href="../../components/um-components.css" />
+  <link rel="stylesheet" href="../../site/assets/site.css" />
+</head>
+<body>
+  <header class="site-header">
+      <a class="site-header__brand" href="../../index.html">UI Moods<span>Component Library</span></a>
+      <div class="site-header__spacer"></div>
+      <div class="switcher">
+        <label class="switcher__label" for="um-theme-picker">Theme</label>
+        <span class="switcher__field">
+          <select class="switcher__select" id="um-theme-picker"></select>
+        </span>
+      </div>
+    </header>
+  <div class="site-body">
+    <nav class="site-sidebar" aria-label="Components">
+      
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Form · 表单</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/button.html">Button <span class="meta">按钮</span></a></li>
+          <li><a href="../component/checkbox.html">Checkbox <span class="meta">复选框</span></a></li>
+          <li><a href="../component/field.html">Field <span class="meta">表单项</span></a></li>
+          <li><a href="../component/input.html">Input / Textarea / Select <span class="meta">输入框 / 文本域 / 选择器</span></a></li>
+          <li><a href="../component/radio.html">Radio <span class="meta">单选框</span></a></li>
+          <li><a href="../component/slider.html">Slider <span class="meta">滑块</span></a></li>
+          <li><a href="../component/switch.html">Switch <span class="meta">开关</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Data · 数据展示</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/badge.html">Badge <span class="meta">徽标</span></a></li>
+          <li><a href="../component/card.html">Card <span class="meta">卡片</span></a></li>
+          <li><a href="../component/empty.html">Empty <span class="meta">空状态</span></a></li>
+          <li><a href="../component/progress.html">Progress <span class="meta">进度条</span></a></li>
+          <li><a href="../component/skeleton.html">Skeleton <span class="meta">骨架屏</span></a></li>
+          <li><a href="../component/tag.html">Tag <span class="meta">标签</span></a></li>
+        </ul>
+      </div>
+      
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Feedback · 反馈</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/alert.html">Alert <span class="meta">警告</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Others · 其他</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="" aria-current="page">Divider <span class="meta">分割线</span></a></li>
+        </ul>
+      </div>
+    </nav>
+    <main class="site-main">
+      <h1>Divider <span class="meta">分割线</span></h1>
+      <p class="lede">A rule between two things. It can carry a label in the middle, drop the rules and keep the label, or stand up as a vertical rule.</p>
+      <p class="meta">
+        <span class="tag">div</span>
+        <span class="tag">other</span>
+        <span class="tag">since 1.1.0</span>
+      </p>
+      <div class="note">The base divider draws its two rules with pseudo-elements, so the label in the middle is ordinary content — the divider never positions it with anything else. The vertical form hides those pseudo-elements and paints its own rule instead.</div>
+
+      <h2>Examples</h2>
+<div class="example">
+        <div class="example__title">Horizontal · 横线</div>
+        <div class="example__desc">Two rules with the label between them. The label is the divider's content, so it is read as part of the page.</div>
+        <div class="example__demo">
+<div class="um-divider">or</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-divider&quot;&gt;or&lt;/div&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">Plain · 纯文字</div>
+        <div class="example__desc">The plain variant drops both rules and leaves the label alone, for the case where the words should not be interrupted.</div>
+        <div class="example__demo">
+<div class="um-divider um-divider--plain">or</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-divider um-divider--plain&quot;&gt;or&lt;/div&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">Vertical · 竖线</div>
+        <div class="example__desc">The vertical rule is as wide as the mood's border and stretches to the height of the row around it, so it needs a flex parent.</div>
+        <div class="example__demo">
+<div style="display:flex;align-items:stretch;gap:var(--um-space-sm);height:var(--um-height-lg)">
+  <span>Left</span>
+  <div class="um-divider um-divider--vertical" role="separator" aria-orientation="vertical"></div>
+  <span>Right</span>
+</div>
+        </div>
+        <pre class="example__code">&lt;div style=&quot;display:flex;align-items:stretch;gap:var(--um-space-sm);height:var(--um-height-lg)&quot;&gt;
+  &lt;span&gt;Left&lt;/span&gt;
+  &lt;div class=&quot;um-divider um-divider--vertical&quot; role=&quot;separator&quot; aria-orientation=&quot;vertical&quot;&gt;&lt;/div&gt;
+  &lt;span&gt;Right&lt;/span&gt;
+&lt;/div&gt;</pre>
+      </div>
+      <h2>Classes</h2>
+<table class="api">
+      <thead><tr><th>Class</th><th>Meaning</th></tr></thead>
+      <tbody>
+      <tr><td><code>um-divider</code></td><td>The base class. Every instance carries it.</td></tr>
+      <tr><td><code>um-divider--plain</code></td><td>Plain</td></tr>
+      <tr><td><code>um-divider--vertical</code></td><td>Vertical</td></tr>
+      </tbody>
+    </table>
+      <h2>Props</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>variant</code></span></td><td><code>enum = plain | vertical</code></td><td>—</td><td>Which form of the divider this is. The base class on its own is the horizontal rule with a label in the middle.</td></tr>
+      </tbody>
+    </table>
+
+
+      <h2>Accessibility</h2>
+      <p><strong>Role:</strong> <code>separator</code></p>
+        <p>The divider is a rule, not a control: nothing on it is focusable and there is nothing to activate. Give it role=&quot;separator&quot; so the division is in the accessibility tree, and aria-orientation=&quot;vertical&quot; on the vertical form. A separator does not take its name from its content, so the label between the two rules is still read as ordinary text.</p>
+
+    </main>
+  </div>
+
+  <script>window.UM_THEMES = {"light":["anime","archive","bauhaus","brutal","clay","corporate","eco","fashion","food","forest","ios","luxury","medical","monochrome","nordic","pastel","retro","sakura","swiss","travel","y2k"],"dark":["aurora","blueprint","crypto","finance","gaming","glass","instrument","neon","night","vaporwave","verdant"]};</script>
+  <script src="../../site/assets/site.js"></script>
+</body>
+</html>

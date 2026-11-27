@@ -1,0 +1,41 @@
+/* ============================================================================
+   Checkbox
+   ========================================================================== */
+.um-checkbox { display: inline-flex; align-items: center; gap: var(--um-space-xs); cursor: pointer; }
+.um-checkbox__input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.um-checkbox__box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--um-height-sm);
+  height: var(--um-height-sm);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-small);
+  background: var(--um-fill-blank);
+  transition: background-color var(--um-motion), border-color var(--um-motion);
+}
+
+/* The check mark is drawn with two borders — a shape, not a glyph. */
+.um-checkbox__box::after {
+  content: "";
+  width: 4px;
+  height: 8px;
+  margin-top: -2px;
+  border: solid var(--um-color-primary-on);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg) scale(0);
+  transition: transform var(--um-motion);
+}
+.um-checkbox__input:checked + .um-checkbox__box { background: var(--um-color-primary); border-color: var(--um-color-primary); }
+.um-checkbox__input:checked + .um-checkbox__box::after { transform: rotate(45deg) scale(1); }
+.um-checkbox__input:indeterminate + .um-checkbox__box { background: var(--um-color-primary); border-color: var(--um-color-primary); }
+.um-checkbox__input:indeterminate + .um-checkbox__box::after {
+  width: 8px;
+  height: 0;
+  margin-top: 0;
+  border-width: 0 0 2px 0;
+  transform: none;
+}
+
+.um-checkbox__label { color: var(--um-text-regular); font-size: var(--um-font-size-body); }
+.um-checkbox__input:disabled + .um-checkbox__box { opacity: 0.45; cursor: not-allowed; }

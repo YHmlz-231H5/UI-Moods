@@ -63,8 +63,17 @@ language in every mood, and it is the only path whose contrast is measured.
    yet, build it from the contract in `tokens/roles.json` and add it there
    first — a new colour, radius or font size needs a role, not a literal.
 
-`components/index.html` is the browser: every component, every variant, with a
-live switcher over all 32 themes.
+4. If you are **adding a component**, the manifest is where it starts:
+   `components/<id>/manifest.json` declares its variants, sizes, states,
+   parts, props and accessibility, and `components/<id>/style.css` holds its
+   styles. The stylesheet, the documentation page, the type declarations and
+   the catalogue are all generated from those two files
+   (`ui-moods build-components`, `ui-moods build-docs`, `ui-moods build-types`).
+   Never hand-edit `components/um-components.css` or anything under `site/`.
+
+`site/index.html` is the documentation: an overview plus one page per
+component, with the examples, the API tables and the class list, and a live
+switcher over all 32 themes.
 
 ## Rules
 

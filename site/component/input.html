@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Input / Textarea / Select · UI Moods</title>
+  <meta name="description" content="The three text controls a form is mostly made of: a single-line input, a multi-line textarea and a native select. One stylesheet gives all three the same border, focus ring and disabled treatment, so a form reads as one form." />
+
+  <!-- The two files that make the whole thing work.
+       Swapping the second one re-skins every component on the page. -->
+  <link rel="stylesheet" id="um-theme" href="../../themes/aurora.css" />
+  <link rel="stylesheet" href="../../components/um-components.css" />
+  <link rel="stylesheet" href="../../site/assets/site.css" />
+</head>
+<body>
+  <header class="site-header">
+      <a class="site-header__brand" href="../../index.html">UI Moods<span>Component Library</span></a>
+      <div class="site-header__spacer"></div>
+      <div class="switcher">
+        <label class="switcher__label" for="um-theme-picker">Theme</label>
+        <span class="switcher__field">
+          <select class="switcher__select" id="um-theme-picker"></select>
+        </span>
+      </div>
+    </header>
+  <div class="site-body">
+    <nav class="site-sidebar" aria-label="Components">
+      
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Form · 表单</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/button.html">Button <span class="meta">按钮</span></a></li>
+          <li><a href="../component/checkbox.html">Checkbox <span class="meta">复选框</span></a></li>
+          <li><a href="../component/field.html">Field <span class="meta">表单项</span></a></li>
+          <li><a href="" aria-current="page">Input / Textarea / Select <span class="meta">输入框 / 文本域 / 选择器</span></a></li>
+          <li><a href="../component/radio.html">Radio <span class="meta">单选框</span></a></li>
+          <li><a href="../component/slider.html">Slider <span class="meta">滑块</span></a></li>
+          <li><a href="../component/switch.html">Switch <span class="meta">开关</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Data · 数据展示</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/badge.html">Badge <span class="meta">徽标</span></a></li>
+          <li><a href="../component/card.html">Card <span class="meta">卡片</span></a></li>
+          <li><a href="../component/empty.html">Empty <span class="meta">空状态</span></a></li>
+          <li><a href="../component/progress.html">Progress <span class="meta">进度条</span></a></li>
+          <li><a href="../component/skeleton.html">Skeleton <span class="meta">骨架屏</span></a></li>
+          <li><a href="../component/tag.html">Tag <span class="meta">标签</span></a></li>
+        </ul>
+      </div>
+      
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Feedback · 反馈</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/alert.html">Alert <span class="meta">警告</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Others · 其他</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/divider.html">Divider <span class="meta">分割线</span></a></li>
+        </ul>
+      </div>
+    </nav>
+    <main class="site-main">
+      <h1>Input / Textarea / Select <span class="meta">输入框 / 文本域 / 选择器</span></h1>
+      <p class="lede">The three text controls a form is mostly made of: a single-line input, a multi-line textarea and a native select. One stylesheet gives all three the same border, focus ring and disabled treatment, so a form reads as one form.</p>
+      <p class="meta">
+        <span class="tag">input, textarea, select</span>
+        <span class="tag">form</span>
+        <span class="tag">since 1.1.0</span>
+      </p>
+      <div class="note">The three controls are three classes, not three variants: um-textarea and um-select carry no modifier, so the family is told apart by the class you write rather than by a modifier you add. The textarea is three control-heights tall and resizes vertically. The select drops the platform arrow and draws its own, because the platform arrow does not follow the theme.</div>
+
+      <h2>Examples</h2>
+<div class="example">
+        <div class="example__title">The three controls · 三种控件</div>
+        <div class="example__desc">One class each: um-input for a single line, um-textarea for several, um-select for a choice. They are not variants of one another — they are three classes that share one stylesheet.</div>
+        <div class="example__demo">
+<input class="um-input" type="text" placeholder="Your name" />
+<textarea class="um-textarea" rows="3" placeholder="Description"></textarea>
+<select class="um-select">
+  <option>Choose an option</option>
+  <option>Second</option>
+  <option>Third</option>
+</select>
+        </div>
+        <pre class="example__code">&lt;input class=&quot;um-input&quot; type=&quot;text&quot; placeholder=&quot;Your name&quot; /&gt;
+&lt;textarea class=&quot;um-textarea&quot; rows=&quot;3&quot; placeholder=&quot;Description&quot;&gt;&lt;/textarea&gt;
+&lt;select class=&quot;um-select&quot;&gt;
+  &lt;option&gt;Choose an option&lt;/option&gt;
+  &lt;option&gt;Second&lt;/option&gt;
+  &lt;option&gt;Third&lt;/option&gt;
+&lt;/select&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">States · 状态</div>
+        <div class="example__desc">A disabled control paints a flat surface and takes the derived disabled text colour rather than being dimmed with opacity, so what is written in it can still be measured.</div>
+        <div class="example__demo">
+<input class="um-input" type="text" placeholder="Disabled" disabled />
+<textarea class="um-textarea" rows="3" placeholder="Disabled" disabled></textarea>
+<select class="um-select" disabled>
+  <option>Disabled</option>
+</select>
+        </div>
+        <pre class="example__code">&lt;input class=&quot;um-input&quot; type=&quot;text&quot; placeholder=&quot;Disabled&quot; disabled /&gt;
+&lt;textarea class=&quot;um-textarea&quot; rows=&quot;3&quot; placeholder=&quot;Disabled&quot; disabled&gt;&lt;/textarea&gt;
+&lt;select class=&quot;um-select&quot; disabled&gt;
+  &lt;option&gt;Disabled&lt;/option&gt;
+&lt;/select&gt;</pre>
+      </div>
+      <h2>Classes</h2>
+<table class="api">
+      <thead><tr><th>Class</th><th>Meaning</th></tr></thead>
+      <tbody>
+      <tr><td><code>um-input</code></td><td>The base class. Every instance carries it.</td></tr>
+      <tr><td><code>:focus</code></td><td>Focus</td></tr>
+      <tr><td><code>:disabled</code></td><td>Disabled</td></tr>
+      </tbody>
+    </table>
+      <h2>Props</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>control</code></span></td><td><code>enum = input | textarea | select</code></td><td><code>input</code></td><td>Which member of the family this is. Each one is its own class: um-input, um-textarea, um-select.</td></tr>
+      <tr><td><span class="api__name"><code>placeholder</code></span></td><td><code>string</code></td><td>—</td><td>The hint text for the input and the textarea. It takes the muted placeholder role, not the body colour.</td></tr>
+      <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes the control inert. It uses the real disabled attribute, so it leaves the tab order.</td></tr>
+      <tr><td><span class="api__name"><code>readonly</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Keeps the value visible but stops it being edited. The library does not repaint a readonly control — it is not a state it measures.</td></tr>
+      </tbody>
+    </table>
+
+      <h2>Events</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>input</code></span></td><td>Fires on the input and the textarea while the value is typed. It is the browser's own event — the library installs no listener.</td></tr>
+      <tr><td><span class="api__name"><code>change</code></span></td><td>Fires when the value is committed: on blur for the input and the textarea, and when an option is picked for the select.</td></tr>
+      <tr><td><span class="api__name"><code>focus</code></span></td><td>Fires when the control takes focus. The stylesheet reacts to :focus, so the brand border and the soft ring appear without a line of script.</td></tr>
+      <tr><td><span class="api__name"><code>blur</code></span></td><td>Fires when the control loses focus.</td></tr>
+      </tbody>
+    </table>
+      <h2>Accessibility</h2>
+      <p>Every control keeps its native element, so the roles, the keyboard behaviour and the form submission all come from the platform: textbox for the input and the textarea, combobox for the select. The select's arrow is drawn with two CSS gradients instead of the native one, because the native arrow ignores the theme; the option list is still the platform's. A disabled control uses the real disabled attribute, so it is skipped by the tab order.</p>
+
+    </main>
+  </div>
+
+  <script>window.UM_THEMES = {"light":["anime","archive","bauhaus","brutal","clay","corporate","eco","fashion","food","forest","ios","luxury","medical","monochrome","nordic","pastel","retro","sakura","swiss","travel","y2k"],"dark":["aurora","blueprint","crypto","finance","gaming","glass","instrument","neon","night","vaporwave","verdant"]};</script>
+  <script src="../../site/assets/site.js"></script>
+</body>
+</html>

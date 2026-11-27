@@ -12,9 +12,10 @@
 // A missing role is invisible in a screenshot of one theme and breaks every
 // component that reads it in every other theme, so it is an error.
 
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, existsSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { contrastRatio, parseColor } from "./state-colors.mjs";
+import { loadManifests } from "./manifest.mjs";
 
 const stripComments = (css) => css.replace(/\/\*[\s\S]*?\*\//g, "");
 
@@ -47,7 +48,6 @@ export function checkComponentLibrary(root) {
   const allowlistPath = join(root, "schemas", "component-allowlist.json");
   const cssPath = join(root, "components", "um-components.css");
   const indexPath = join(root, "themes", "index.json");
-  const browserPath = join(root, "components", "index.html");
 
   if (!existsSync(contractPath)) return ["tokens/roles.json missing"];
   if (!existsSync(cssPath)) return ["components/um-components.css missing"];
@@ -67,15 +67,25 @@ export function checkComponentLibrary(root) {
   );
   const known = new Set([...roleVars, ...constants]);
 
+  // A component may own a variable of its own — `--um-button-label` holds the
+  // button's label colour, derived from a theme role. Two rules keep that
+  // honest: the variable has to be declared in the component layer (so a typo
+  // is still a typo), and it has to be namespaced under a real component id
+  // (so it can never shadow a theme role such as `--um-color-primary`).
+  const { manifests } = loadManifests(root);
+  const componentIds = manifests.map((m) => m.id);
+  const cssVars = declaredVars(css);
+  const isComponentScoped = (v) =>
+    componentIds.some((id) => v.startsWith(`${prefix}-${id}-`)) && cssVars.has(v);
+
   // --- 1. the component layer reads only known variables -------------------
   for (const v of usedVars(css)) {
-    if (!known.has(v)) {
+    if (!known.has(v) && !isComponentScoped(v)) {
       note(`components/um-components.css reads ${v}, which no theme defines`);
     }
   }
 
   // --- 2. the component layer declares every constant ----------------------
-  const cssVars = declaredVars(css);
   for (const c of constants) {
     if (!cssVars.has(c)) note(`components/um-components.css does not declare ${c}`);
   }
@@ -166,22 +176,96 @@ export function checkComponentLibrary(root) {
     }
   }
 
-  // --- 8. the browser lists exactly the themes that exist -------------------
-  if (existsSync(browserPath)) {
-    const html = readFileSync(browserPath, "utf8");
-    const listed = [];
-    for (const m of html.matchAll(/const (?:LIGHT|DARK)\s*=\s*\[([^\]]*)\]/g)) {
-      for (const id of m[1].matchAll(/"([a-z0-9-]+)"/g)) listed.push(id[1]);
+  // --- 8. the documentation site is current -------------------------------
+  // The site is generated, so this catches the case where a theme was added
+  // and the site was not rebuilt: the switcher would silently be missing it.
+  const sitePath = join(root, "site", "index.html");
+  if (!existsSync(sitePath)) {
+    note("site/index.html missing — run `ui-moods build-docs`");
+  } else {
+    const html = readFileSync(sitePath, "utf8");
+    // The theme list is a JSON payload the generator inlines. Reading the
+    // whole page for quoted words would pick up every HTML attribute value
+    // as if it were a theme id.
+    const payload = /window\.UM_THEMES\s*=\s*(\{[^;]*\});/.exec(html);
+    if (!payload) {
+      note("site/index.html has no theme list");
+    } else {
+      let listed = [];
+      try {
+        const parsed = JSON.parse(payload[1]);
+        listed = [...(parsed.light ?? []), ...(parsed.dark ?? [])];
+      } catch {
+        note("site/index.html has an unreadable theme list");
+      }
+      const actual = (index.themes ?? []).map((t) => t.id);
+      for (const id of actual) {
+        if (!listed.includes(id)) note(`site/index.html does not list theme "${id}"`);
+      }
+      for (const id of listed) {
+        if (!actual.includes(id)) note(`site/index.html lists unknown theme "${id}"`);
+      }
     }
-    if (!listed.length) {
-      note("components/index.html has no theme list");
+  }
+
+  // --- 9. the generated artefacts are current ------------------------------
+  // A stale stylesheet is invisible in a screenshot of one component and
+  // wrong in every theme. The build assembles the sheet from the per
+  // component partials, so the check assembles it again — in the same
+  // catalogue order — and compares.
+  const manifestDir = join(root, "components");
+  if (existsSync(manifestDir)) {
+    // The same order the builder writes: `_base.css` first, `_hooks.css`
+    // last, the components in catalogue order in between.
+    const sharedFiles = readdirSync(manifestDir)
+      .filter((f) => f.startsWith("_") && f.endsWith(".css"))
+      .sort();
+    const shared = [
+      ...sharedFiles.filter((f) => f === "_base.css"),
+      ...sharedFiles.filter((f) => f !== "_base.css" && f !== "_hooks.css"),
+    ].map((name) => readFileSync(join(manifestDir, name), "utf8").trim());
+
+    const perComponent = [];
+    for (const m of manifests) {
+      const stylePath = join(manifestDir, m.id, m.style ?? "style.css");
+      if (!existsSync(stylePath)) {
+        note(`components/${m.id}/${m.style ?? "style.css"} is missing`);
+        continue;
+      }
+      perComponent.push(readFileSync(stylePath, "utf8").trim());
     }
-    const actual = (index.themes ?? []).map((t) => t.id);
-    for (const id of actual) {
-      if (!listed.includes(id)) note(`components/index.html does not list theme "${id}"`);
+    const hooks = sharedFiles
+      .filter((f) => f === "_hooks.css")
+      .map((name) => readFileSync(join(manifestDir, name), "utf8").trim());
+
+    const expected = [...shared, ...perComponent, ...hooks].join("\n\n");
+    const assembled = readFileSync(join(root, "components", "um-components.css"), "utf8");
+    if (assembled.indexOf(expected) === -1) {
+      note(
+        "components/um-components.css is out of date — run `ui-moods build-components`",
+      );
+    }
+  }
+
+  // --- 10. every component has a documentation page ------------------------
+  const cataloguePath = join(root, "components", "index.json");
+  if (existsSync(cataloguePath)) {
+    const catalogue = JSON.parse(readFileSync(cataloguePath, "utf8").replace(/^\uFEFF/, ""));
+    const onDisk = readdirSync(manifestDir, { withFileTypes: true })
+      .filter((d) => d.isDirectory() && existsSync(join(manifestDir, d.name, "manifest.json")))
+      .map((d) => d.name)
+      .sort();
+    const listed = (catalogue.components ?? []).map((c) => c.id).sort();
+    for (const id of onDisk) {
+      if (!listed.includes(id)) note(`components/index.json does not list component "${id}"`);
     }
     for (const id of listed) {
-      if (!actual.includes(id)) note(`components/index.html lists unknown theme "${id}"`);
+      if (!onDisk.includes(id)) note(`components/index.json lists unknown component "${id}"`);
+    }
+    for (const c of catalogue.components ?? []) {
+      if (!existsSync(join(root, c.doc))) {
+        note(`${c.doc} is missing — run \`ui-moods build-docs\``);
+      }
     }
   }
 

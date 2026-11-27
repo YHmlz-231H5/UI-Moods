@@ -1,0 +1,204 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ui-moods/component-manifest",
+  "title": "Component manifest",
+  "description": "One component's contract. Everything the library ships for that component — its CSS, its documentation page, its type declarations, and (later) its Vue wrapper — is generated from this file. It is deliberately framework-neutral: a CSS generator reads the class names, a component generator reads the variant and prop names.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "category",
+    "element",
+    "summary",
+    "style",
+    "class",
+    "variants",
+    "sizes",
+    "states",
+    "parts",
+    "props",
+    "examples"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$",
+      "description": "Directory name under components/, and the slug in the docs URL."
+    },
+    "name": { "type": "string", "description": "English name, as Element Plus would print it." },
+    "nameZh": { "type": "string", "description": "Chinese name." },
+    "category": {
+      "type": "string",
+      "enum": ["basic", "form", "data", "navigation", "feedback", "other"],
+      "description": "The group it is listed under in the docs. The categories are Element Plus's, so the two libraries can be compared side by side."
+    },
+    "element": {
+      "type": "string",
+      "description": "The native element this component is built on. A component that names an element can be written without JavaScript."
+    },
+    "summary": { "type": "string" },
+    "summaryZh": { "type": "string" },
+    "since": { "type": "string", "description": "The version the component appeared in." },
+    "style": {
+      "type": "string",
+      "description": "The component's stylesheet, relative to its own directory. The build concatenates these in catalogue order."
+    },
+    "class": {
+      "type": "object",
+      "required": ["base"],
+      "additionalProperties": false,
+      "properties": {
+        "base": { "type": "string", "description": "The class every instance carries, e.g. um-button." },
+        "modifier": { "type": "string", "description": "Prefix for variant and size modifiers, e.g. um-button--." },
+        "part": { "type": "string", "description": "Prefix for element parts, e.g. um-button__." }
+      }
+    },
+    "variants": {
+      "type": "array",
+      "description": "The visual variants. Each becomes a modifier class.",
+      "items": {
+        "type": "object",
+        "required": ["id"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+          "name": { "type": "string" },
+          "nameZh": { "type": "string" },
+          "state": {
+            "type": "string",
+            "enum": ["solid", "soft", "outline", "ghost"],
+            "description": "How the variant is painted. Solid carries a fill, soft carries a tint, outline carries a border, ghost carries neither."
+          },
+          "note": { "type": "string" }
+        }
+      }
+    },
+    "sizes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+          "name": { "type": "string" },
+          "nameZh": { "type": "string" },
+          "default": { "type": "boolean" },
+          "note": { "type": "string" }
+        }
+      }
+    },
+    "states": {
+      "type": "array",
+      "description": "The states a component can be in. A native state names the CSS pseudo-class; a custom state names a class.",
+      "items": {
+        "type": "object",
+        "required": ["id"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+          "name": { "type": "string" },
+          "nameZh": { "type": "string" },
+          "selector": {
+            "type": "string",
+            "description": "The selector that carries this state in the stylesheet, e.g. ':disabled' or '.is-loading'. The build checks that it is actually there."
+          },
+          "native": { "type": "boolean", "description": "True when the state comes from a real form element, so it needs no JavaScript." },
+          "note": { "type": "string" }
+        }
+      }
+    },
+    "parts": {
+      "type": "array",
+      "description": "The inner elements of the component. Each becomes a part class.",
+      "items": {
+        "type": "object",
+        "required": ["id"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+          "name": { "type": "string" },
+          "nameZh": { "type": "string" },
+          "note": { "type": "string" }
+        }
+      }
+    },
+    "props": {
+      "type": "array",
+      "description": "The public API. In the CSS-only library a prop is a class; a component wrapper turns the same list into real props.",
+      "items": {
+        "type": "object",
+        "required": ["name", "type"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string" },
+          "type": {
+            "type": "string",
+            "enum": ["enum", "boolean", "string", "number"]
+          },
+          "values": { "type": "array", "items": { "type": "string" } },
+          "default": { "type": "string" },
+          "since": { "type": "string" },
+          "description": { "type": "string" },
+          "descriptionZh": { "type": "string" }
+        }
+      }
+    },
+    "slots": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "descriptionZh": { "type": "string" }
+        }
+      }
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "descriptionZh": { "type": "string" }
+        }
+      }
+    },
+    "a11y": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "role": { "type": "string" },
+        "keyboard": { "type": "array", "items": { "type": "string" } },
+        "notes": { "type": "string" },
+        "notesZh": { "type": "string" }
+      }
+    },
+    "examples": {
+      "type": "array",
+      "description": "The live examples on the documentation page. The markup is stored here so the page never has to be written by hand.",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "markup"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+          "title": { "type": "string" },
+          "titleZh": { "type": "string" },
+          "description": { "type": "string" },
+          "descriptionZh": { "type": "string" },
+          "markup": { "type": "string", "description": "The HTML shown on the page." }
+        }
+      }
+    },
+    "notes": { "type": "string" },
+    "notesZh": { "type": "string" }
+  }
+}

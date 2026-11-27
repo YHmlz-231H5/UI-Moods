@@ -1,0 +1,53 @@
+{
+  "id": "tag",
+  "name": "Tag",
+  "nameZh": "标签",
+  "category": "data",
+  "element": "span",
+  "summary": "A label for one piece of data — a category, a state, a filter. The outlined member of the chip family, so it can sit beside a filled badge without either of them winning.",
+  "summaryZh": "给一段数据贴的标签 —— 分类、状态、筛选项。这个家族里描边的是标签,所以它可以和实心徽标并排放,谁也不压过谁。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-tag",
+    "modifier": "um-tag--"
+  },
+  "variants": [
+    { "id": "primary", "name": "Primary", "nameZh": "主要", "state": "outline" },
+    { "id": "success", "name": "Success", "nameZh": "成功", "state": "outline" },
+    { "id": "warning", "name": "Warning", "nameZh": "警告", "state": "outline" },
+    { "id": "danger", "name": "Danger", "nameZh": "危险", "state": "outline" }
+  ],
+  "sizes": [],
+  "states": [],
+  "parts": [],
+  "props": [
+    { "name": "variant", "type": "enum", "values": ["primary", "success", "warning", "danger"], "description": "Which state this tag carries. The base class on its own is the neutral tag.", "descriptionZh": "这个标签表示哪一种状态。只写基类就是中性标签。" }
+  ],
+  "slots": [],
+  "events": [],
+  "a11y": {
+    "notes": "The tag is text inside a plain <span>: it is read where it sits and it is never focusable. If the tag is meant to be clicked or removed, use a real <button> or <a> and keep the class on it — a clickable span is not focusable and is not announced as a control.",
+    "notesZh": "标签就是 <span> 里的一段文字,在哪儿就读到哪儿,也永远不进 Tab 顺序。如果这个标签是可以点、可以删的,请用真正的 <button> 或 <a>,把类留在它身上就行 —— 可点的 span 不可聚焦,读屏也不会把它当成控件。"
+  },
+  "examples": [
+    {
+      "id": "variants",
+      "title": "Variants",
+      "titleZh": "变体",
+      "description": "The base class on its own is the neutral tag: the theme's default border on the plain surface. The four variants tint the fill and outline it with the derived brand colour.",
+      "descriptionZh": "只写基类就是中性标签:主题默认的描边,压在素面上。四种变体给底色上淡色,描边则用派生出来的品牌色。",
+      "markup": "<span class=\"um-tag\">Draft</span>\n<span class=\"um-tag um-tag--primary\">Primary</span>\n<span class=\"um-tag um-tag--success\">Success</span>\n<span class=\"um-tag um-tag--warning\">Warning</span>\n<span class=\"um-tag um-tag--danger\">Danger</span>"
+    },
+    {
+      "id": "inline",
+      "title": "In a line of text",
+      "titleZh": "混在文字里",
+      "description": "The tag is inline, so it drops into a sentence the way a word does. Its height comes from the mood, so the line grows a little around it.",
+      "descriptionZh": "标签是行内的,像词一样直接落进句子里。它的高度来自 mood,所以行高会稍微给它让一点位置。",
+      "markup": "<p>Build 214 is <span class=\"um-tag um-tag--success\">passing</span> on all three nodes.</p>"
+    }
+  ],
+  "notes": "The tag is the outlined member of the soft-chip family. Its border is a derived brand colour (`color-*-text`) rather than a tint of the fill: a tint would sit at about 1.2:1 against the fill, which reads as a smear rather than an edge. `color-*-text` is guaranteed to read on the page, the overlay and the container, so the outline survives every theme.",
+  "notesZh": "标签是这个柔和小片家族里负责描边的那一个。它的描边取的是派生品牌色(`color-*-text`),而不是底色的淡化版 —— 淡化版压在底色上只有大约 1.2:1,看着是一道糊痕,不是一条边。`color-*-text` 保证在页面、浮层和容器上都读得清,所以这道描边换到哪套 mood 都还在。"
+}

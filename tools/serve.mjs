@@ -40,11 +40,14 @@ function resolveFile(pathname) {
   } else if (
     pathname.startsWith("/moods/") ||
     pathname.startsWith("/apps/") ||
-    // The component library and its theme packages are served from the
-    // repository root, exactly as a consumer would link them.
+    // The component library, its theme packages and the documentation site
+    // are served from the repository root, exactly as a consumer would link
+    // them.
     pathname.startsWith("/components/") ||
     pathname.startsWith("/themes/") ||
-    pathname.startsWith("/tokens/")
+    pathname.startsWith("/tokens/") ||
+    pathname.startsWith("/site/") ||
+    pathname.startsWith("/types/")
   ) {
     filePath = join(root, pathname);
   } else {

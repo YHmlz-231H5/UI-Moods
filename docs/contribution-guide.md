@@ -147,3 +147,54 @@ Two geometric rules catch most "the picture looks off" bugs — see
 - A thumbnail that fills a card must not carry a corner radius of its own;
   the card's `border-radius` already rounds the corners, and a second radius
   renders at a different size.
+# Contributing a new component
+
+A component is two files, and everything else about it is generated.
+
+## Steps
+
+1. **Create the directory** `components/<id>/`.
+2. **Write `manifest.json`** — the contract. The schema is
+   `schemas/component.schema.json`, and it is strict: `additionalProperties`
+   is `false` everywhere, so an unexpected key is an error rather than a
+   silently ignored field. Start from `components/button/manifest.json`.
+3. **Write `style.css`** — the styles. Every value in it is `var(--um-*)`;
+   a colour literal, a raw `border-radius` or a raw `font-size` fails the
+   build. A `px` value has to be on the allowlist in
+   `schemas/component-allowlist.json`, with a reason.
+4. **Build and check**:
+
+   ```
+   ui-moods build-components   # assemble the stylesheet
+   ui-moods build-docs         # generate the documentation page
+   ui-moods build-types        # generate the type declarations
+   ui-moods validate           # the gate
+   ```
+
+## Rules
+
+- **The manifest is the only hand-written description.** The stylesheet, the
+  documentation page, the type declarations and the catalogue are generated
+  from it. Never hand-edit `components/um-components.css` or anything under
+  `site/`.
+- **A modifier the component's own stylesheet paints is a `variant`.** A
+  quality hook that lives in the shared layer is a boolean `prop` instead —
+  `um-button--glow` is a `glow: boolean`, because the glow belongs to the
+  mood rather than to the button; `um-card--frosted` is a variant, because
+  the card's own stylesheet paints it.
+- **A class you advertise has to be painted.** The build checks every
+  variant, size, part and state the manifest claims against the stylesheet,
+  and a mismatch is an error.
+- **A colour is never a literal.** If the component needs a colour the
+  contract does not have, add a role to `tokens/roles.json` first and
+  regenerate the themes.
+- **A brand colour used as text takes `color-*-text`.** The raw `color-*` is
+  a fill colour and is not guaranteed to read as text.
+- **Interactive controls are real form elements.** The switch and the
+  checkbox use `:checked` and `:disabled`, so the library needs no
+  JavaScript. If a component cannot be expressed that way, say so in the
+  manifest's `a11y.notes` rather than shipping a div that pretends to be a
+  button.
+- **Prefer a native element.** `details`, `dialog`, `input[type=date]`,
+  `input[type=color]` and `scroll-snap` cover most of what a component
+  library needs without a script.

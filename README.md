@@ -136,7 +136,7 @@ available for a framework project to wrap if it wants to.
 ### The contract
 
 `tokens/roles.json` is the single source of the variable vocabulary. It
-declares **88 roles** (`--um-*`) and **46 contrast guarantees**, and every
+declares **88 roles** (`--um-*`) and **49 contrast guarantees**, and every
 theme file is generated from it.
 
 The rules the component layer obeys, and `validate` enforces:
@@ -147,7 +147,7 @@ The rules the component layer obeys, and `validate` enforces:
   state is `:checked` and `:disabled`.
 - **Every theme defines every role.** A missing role is invisible in a
   screenshot of one theme and breaks the component in every other one.
-- **Every guarantee holds in every theme.** 46 pairs × 32 themes = **1 472
+- **Every guarantee holds in every theme.** 49 pairs × 32 themes = **1 568
   measurements**, all green.
 
 ### How a colour is derived
@@ -192,21 +192,65 @@ invisible. Measured against the real surface, it reads.
 
 ### Where it is
 
-- `components/um-components.css` — the component layer. Hand-written source,
-  not generated.
-- `components/index.html` — the **component browser**: every component, every
-  variant, with a live switcher over all 32 themes. Switching a theme swaps
-  one `<link>`.
+- `components/<id>/manifest.json` — **the contract.** One file per component:
+  its variants, sizes, states, parts, props, accessibility and its live
+  examples.
+- `components/<id>/style.css` — that component's styles.
+- `components/um-components.css` — the assembled stylesheet (generated).
+- `site/` — the **documentation site** (generated): an overview plus one page
+  per component, with the examples, the API tables and the class list.
+- `types/index.d.ts` — the type declarations (generated).
 - `themes/<id>.css` — 32 generated theme files, variables only.
 - `tokens/roles.json` — the role contract.
 
-`tools/build-themes.mjs` regenerates the theme files; `validate` checks the
-contract holds.
+### One file in, three things out
+
+The manifest is the only hand-written description of a component. Everything
+else is generated from it:
+
+```
+components/<id>/manifest.json
+   ├── →  components/um-components.css   (the styles)
+   ├── →  site/component/<id>.html        (the documentation page)
+   ├── →  types/index.d.ts                (the type declarations)
+   └── →  components/index.json           (the catalogue)
+```
+
+That is the difference between a component library and a folder of CSS. A
+hand-written documentation page is a second copy of the component, and the two
+copies drift; here they cannot, because there is only one copy.
+
+It also means the manifest is **framework-neutral**: a CSS generator reads the
+class names, and a component generator reads the variant and prop names.
+The same file describes the plain-HTML library today and a Vue 3 wrapper
+tomorrow — the way Element Plus ships `theme-chalk` separately from its Vue
+components, and Arco ships `theme.css` separately from its React ones.
+
+`validate` enforces the agreement: a manifest that advertises a variant the
+stylesheet never paints is an error, and a stylesheet that is out of date with
+its partials is an error too.
+
+### Where it is going
+
+`docs/component-parity.md` holds the full checklist against Element Plus: 7
+categories, 82 components, and what this repository covers today. Seventy-five
+of the eighty-two can be expressed with native elements and CSS alone; only
+`Message`, `MessageBox`, `Notification`, `Config Provider` and the three
+virtualized components genuinely need JavaScript.
 
 ### What is in the first batch
 
-16 components: button, input, textarea, select, field, switch, checkbox,
-radio, slider, badge, tag, alert, card, progress, empty, divider, skeleton.
+15 components, 17 Element Plus equivalents — the difference is that one
+manifest can cover more than one native control:
+
+| Manifest | Covers | Element Plus |
+| --- | --- | --- |
+| `input` | `um-input`, `um-textarea`, `um-select` | Input, Select |
+| `field` | `um-field`, `um-field__label`, `um-field__message` | Form, Form Item |
+| the other 13 | one each | one each |
+
+So: button, input, field, switch, checkbox, radio, slider, badge, tag, alert,
+card, progress, empty, divider, skeleton.
 
 The next batch adds tabs, table, dialog, dropdown, menu, pagination, avatar,
 tooltip and message.
@@ -250,15 +294,18 @@ repository-reference usage).
 ui-moods/
 ├─ moods/<id>/        # specimen.html + tokens.json + prompt.md + checklist.yaml
 ├─ apps/<id>/         # app.json (screen data) + screens/*.html (generated)
-├─ components/        # um-components.css (the component layer) + index.html (browser)
+├─ components/<id>/   # manifest.json + style.css  (one directory per component)
 ├─ themes/<id>.css    # 32 generated theme files (variables only)
+├─ site/              # generated documentation site (one page per component)
+├─ types/             # generated type declarations
 ├─ tokens/            # roles.json — the component layer's role contract
 ├─ schemas/           # tokens.schema.json · checklist.schema.json · allowlist.json
 ├─ templates/
 │  ├─ mood/           # specimen shell + sections/*.html partials
 │  └─ app/            # app.css (shared screen stylesheet)
-├─ tools/             # cli · build-specimen · build-apps · build-themes · validate · bundle · serve · scaffold
-├─ docs/              # mapping convention · checklist semantics · contribution guide
+├─ tools/             # cli · build-specimen · build-apps · build-themes
+│                     # · build-components · build-docs · build-types · validate · serve · scaffold
+├─ docs/              # mapping convention · checklist semantics · parity checklist · contribution guide
 ├─ AGENTS.md          # protocol for AI agents
 ├─ moods.json         # style registry index
 └─ apps.json          # app registry index
@@ -344,8 +391,8 @@ And for the component library:
   `schemas/component-allowlist.json`, with a stated reason;
 - **every theme defines every role** in the contract, and defines nothing
   that is not in it;
-- every contrast guarantee in the contract holds in every theme — 46 pairs ×
-  32 themes = 1 472 measurements;
+- every contrast guarantee in the contract holds in every theme — 49 pairs ×
+  32 themes = 1 568 measurements;
 - the component browser lists exactly the themes that exist.
 
 ## Current moods

@@ -1,0 +1,16 @@
+/* ============================================================================
+   Field — the shared label / control / message scaffolding
+   ========================================================================== */
+.um-field { display: flex; flex-direction: column; gap: var(--um-space-xs); }
+.um-field__label {
+  color: var(--um-text-regular);
+  font-size: var(--um-font-size-caption);
+  font-weight: var(--um-font-weight-medium);
+}
+.um-field__message { color: var(--um-text-secondary); font-size: var(--um-font-size-caption); }
+/* The error message is text, so it takes the derived brand colour: the raw
+   one is a fill colour, and on a container it can land below 4.5:1. */
+.um-field--error .um-field__message { color: var(--um-color-danger-text); }
+.um-field--error .um-input,
+.um-field--error .um-textarea,
+.um-field--error .um-select { border-color: var(--um-color-danger); }

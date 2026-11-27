@@ -1,0 +1,58 @@
+{
+  "id": "field",
+  "name": "Field",
+  "nameZh": "表单项",
+  "category": "form",
+  "element": "div",
+  "summary": "The scaffolding around a control: a label, the control itself, and a line of text that says what to do next. It owns the spacing, so a form does not have to.",
+  "summaryZh": "控件外面的骨架:标签、控件本身,以及一条说明下一步做什么的文字。间距由它负责,表单就不用自己排。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-field",
+    "modifier": "um-field--",
+    "part": "um-field__"
+  },
+  "variants": [],
+  "sizes": [],
+  "states": [
+    { "id": "error", "name": "Error", "nameZh": "错误", "selector": ".um-field--error", "note": "The message takes the danger text colour, and a control inside the field gets a danger border." }
+  ],
+  "parts": [
+    { "id": "label", "name": "Label", "nameZh": "标签", "note": "The label above the control. It is a real <label>, so it needs a for that matches the control's id." },
+    { "id": "message", "name": "Message", "nameZh": "说明", "note": "The helper or error text below the control. It is muted until the field is in its error state." }
+  ],
+  "props": [
+    { "name": "error", "type": "boolean", "default": "false", "description": "Puts the field in its error state.", "descriptionZh": "让表单项进入错误态。" }
+  ],
+  "slots": [
+    { "name": "label", "description": "The label text, above the control.", "descriptionZh": "控件上方的标签文字。" },
+    { "name": "message", "description": "The helper or error text, below the control.", "descriptionZh": "控件下方的帮助或错误说明。" }
+  ],
+  "events": [],
+  "a11y": {
+    "keyboard": [],
+    "notes": "The field is a plain container; the accessibility work is done by the label and the control. Use a real <label for> that points at the control's id, and aria-describedby when the message carries something the user needs to hear. The library paints the error state but does not announce it — that is the host's job.",
+    "notesZh": "表单项本身只是一个容器,可访问性由标签和控件承担。用真正的 <label for> 指向控件的 id,消息里有用户必须听到的信息时再加上 aria-describedby。库负责画出错误态,不负责播报 —— 播报是宿主的事。"
+  },
+  "examples": [
+    {
+      "id": "layout",
+      "title": "Layout",
+      "titleZh": "布局",
+      "description": "A label, a control and a message. The field owns the gaps between them, so nothing here needs a margin of its own.",
+      "descriptionZh": "标签、控件、说明三段。间距由表单项负责,这三样自己都不需要写 margin。",
+      "markup": "<div class=\"um-field\">\n  <label class=\"um-field__label\" for=\"um-field-name\">Name</label>\n  <input class=\"um-input\" id=\"um-field-name\" type=\"text\" placeholder=\"Type here\" />\n  <span class=\"um-field__message\">The name other people will see.</span>\n</div>"
+    },
+    {
+      "id": "error",
+      "title": "Error",
+      "titleZh": "错误",
+      "description": "The error modifier reaches into the control: the border of the input, textarea or select inside the field turns to the danger colour, and the message stops being muted. The message is text, so it takes the derived danger text colour rather than the raw danger fill.",
+      "descriptionZh": "错误修饰类会作用到控件:里面输入框、文本域或选择器的描边变成危险色,说明文字也不再是灰的。说明文字是文字,所以用的是派生出来的危险色文字,而不是危险的填充色。",
+      "markup": "<div class=\"um-field um-field--error\">\n  <label class=\"um-field__label\" for=\"um-field-email\">Email</label>\n  <input class=\"um-input\" id=\"um-field-email\" type=\"text\" value=\"not-an-email\" />\n  <span class=\"um-field__message\">Enter a valid email address.</span>\n</div>"
+    }
+  ],
+  "notes": "The field is a wrapper rather than a class you put on the control, because the control has to stay the element the platform knows about — a real input, a real select. The error modifier is the only state the field owns; the label and the message are muted roles, not a second theming system.",
+  "notesZh": "表单项做成外层容器,而不是一个贴在控件上的类,因为控件必须还是平台认识的那个元素 —— 一个真正的 input、一个真正的 select。错误修饰类是表单项唯一拥有的状态;标签和说明都是弱化的文字角色,不是第二套配色。"
+}

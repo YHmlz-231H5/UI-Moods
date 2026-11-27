@@ -1,0 +1,68 @@
+{
+  "id": "alert",
+  "name": "Alert",
+  "nameZh": "警告",
+  "category": "feedback",
+  "element": "div",
+  "summary": "A message that stays in the page and says what the reader has to know: the run failed, the quota is nearly gone, the sync is through. The variant colours the border and the mark, not the text.",
+  "summaryZh": "留在页面里的一段话,告诉读者必须知道的事:任务失败了、配额快见底了、同步完成了。变体只给描边和标记上色,不给文字上色。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-alert",
+    "modifier": "um-alert--",
+    "part": "um-alert__"
+  },
+  "variants": [
+    { "id": "primary", "name": "Primary", "nameZh": "主要", "state": "outline" },
+    { "id": "success", "name": "Success", "nameZh": "成功", "state": "outline" },
+    { "id": "warning", "name": "Warning", "nameZh": "警告", "state": "outline" },
+    { "id": "danger", "name": "Danger", "nameZh": "危险", "state": "outline" },
+    { "id": "info", "name": "Info", "nameZh": "信息", "state": "outline" }
+  ],
+  "sizes": [],
+  "states": [],
+  "parts": [
+    { "id": "mark", "name": "Mark", "nameZh": "标记", "note": "The chip in front of the body. The variant fills it with the theme's own colour." },
+    { "id": "body", "name": "Body", "nameZh": "正文" },
+    { "id": "title", "name": "Title", "nameZh": "标题" },
+    { "id": "description", "name": "Description", "nameZh": "描述" }
+  ],
+  "props": [
+    { "name": "variant", "type": "enum", "values": ["primary", "success", "warning", "danger", "info"], "description": "Which kind of message this is.", "descriptionZh": "这是哪一类消息。" }
+  ],
+  "slots": [],
+  "events": [],
+  "a11y": {
+    "notes": "The alert is a plain container, so it carries no role of its own. When it appears without the user asking for it, give it role=\"alert\" (urgent) or role=\"status\" (informational) so it is announced; an alert that was already on the page when it loaded does not need one. The mark chip is a label, so hide it with aria-hidden when the title already says the same thing.",
+    "notesZh": "提示条本身只是一个容器,不带任何角色。它要是没人操作就自己冒出来的,就给它 role=\"alert\"(紧急)或 role=\"status\"(一般信息),这样它才会被播报;页面加载时就已经在那儿的提示条不需要。标记片只是个标签,标题已经说了同样的话时,用 aria-hidden 把它藏掉。"
+  },
+  "examples": [
+    {
+      "id": "variants",
+      "title": "Variants",
+      "titleZh": "变体",
+      "description": "Each variant colours the border and the mark chip. The title, the description and the mark's own text all come from the mood's regular text colours.",
+      "descriptionZh": "每个变体给描边和标记片上色。标题、描述和标记片里的字,都还是 mood 常规的那几个文字色。",
+      "markup": "<div class=\"um-alert um-alert--primary\">\n  <span class=\"um-alert__mark\">Note</span>\n  <div class=\"um-alert__body\">\n    <span class=\"um-alert__title\">Informational</span>\n    <span class=\"um-alert__description\">The body text stays in the mood's regular text colour.</span>\n  </div>\n</div>\n<div class=\"um-alert um-alert--success\">\n  <span class=\"um-alert__mark\">Done</span>\n  <div class=\"um-alert__body\">\n    <span class=\"um-alert__title\">Reconciled</span>\n    <span class=\"um-alert__description\">The nightly job finished with no differences.</span>\n  </div>\n</div>\n<div class=\"um-alert um-alert--warning\">\n  <span class=\"um-alert__mark\">Review</span>\n  <div class=\"um-alert__body\">\n    <span class=\"um-alert__title\">Storage at 68%</span>\n    <span class=\"um-alert__description\">Two more connectors will exceed the plan limit.</span>\n  </div>\n</div>\n<div class=\"um-alert um-alert--danger\">\n  <span class=\"um-alert__mark\">Stop</span>\n  <div class=\"um-alert__body\">\n    <span class=\"um-alert__title\">Replica unreachable</span>\n    <span class=\"um-alert__description\">The last sync failed 12 minutes ago.</span>\n  </div>\n</div>\n<div class=\"um-alert um-alert--info\">\n  <span class=\"um-alert__mark\">Info</span>\n  <div class=\"um-alert__body\">\n    <span class=\"um-alert__title\">Maintenance window</span>\n    <span class=\"um-alert__description\">The console is read-only from 02:00 to 02:30.</span>\n  </div>\n</div>"
+    },
+    {
+      "id": "without-the-mark",
+      "title": "Without the mark",
+      "titleZh": "没有标记",
+      "description": "The mark chip is optional. Without it the alert is a bordered panel and the text starts at the left edge.",
+      "descriptionZh": "标记片是可选的。没有它,提示条就是一个带描边的面板,文字从左边起排。",
+      "markup": "<div class=\"um-alert um-alert--info\">\n  <div class=\"um-alert__body\">\n    <span class=\"um-alert__title\">Nothing to report</span>\n    <span class=\"um-alert__description\">The last run found nothing to reconcile.</span>\n  </div>\n</div>"
+    },
+    {
+      "id": "announced",
+      "title": "Announced",
+      "titleZh": "会播报",
+      "description": "An alert that arrives without the reader asking for it needs a live region. The mark is hidden here, because the title already carries the meaning.",
+      "descriptionZh": "读者没操作它就出现的提示条,需要一个 live region。这里把标记藏起来了,因为标题已经说明了意思。",
+      "markup": "<div class=\"um-alert um-alert--danger\" role=\"alert\">\n  <span class=\"um-alert__mark\" aria-hidden=\"true\">Stop</span>\n  <div class=\"um-alert__body\">\n    <span class=\"um-alert__title\">Replica unreachable</span>\n    <span class=\"um-alert__description\">The last sync failed 12 minutes ago.</span>\n  </div>\n</div>"
+    }
+  ],
+  "notes": "The variant colours the border and the mark chip, and nothing else. The body text stays in the mood's regular text colour, so an alert never changes the reading colour of the paragraph it interrupts.",
+  "notesZh": "变体只给描边和标记片上色,别的都不动。正文还是 mood 的常规文字色 —— 一条提示不该改变它打断的那段正文的阅读颜色。"
+}

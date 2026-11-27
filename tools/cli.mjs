@@ -8,6 +8,9 @@
 //   build-specimen  generate specimen.html from tokens.json
 //   build-apps      render industry app screens from app.json
 //   build-themes    generate themes/<id>.css from the mood tokens
+//   build-components  assemble the component stylesheet from the manifests
+//   build-docs      generate the component documentation site
+//   build-types     generate types/index.d.ts from the manifests
 //   scaffold        create a new mood package from the template
 
 const commands = [
@@ -17,6 +20,9 @@ const commands = [
   "build-specimen",
   "build-apps",
   "build-themes",
+  "build-components",
+  "build-docs",
+  "build-types",
   "scaffold",
 ];
 
@@ -32,6 +38,9 @@ Usage:
   ui-moods build-apps <id> [--mood <id>]  Render industry app screens
   ui-moods build-apps --all               Render every registered app
   ui-moods build-themes [--mood <id>]     Generate themes/<id>.css from the mood tokens
+  ui-moods build-components               Assemble components/um-components.css
+  ui-moods build-docs                     Generate the component documentation site
+  ui-moods build-types                    Generate types/index.d.ts
   ui-moods scaffold <id> [--mood <id>]    Create a new mood package from the template
   ui-moods --help                         Show this help
 `);

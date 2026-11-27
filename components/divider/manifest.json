@@ -1,0 +1,60 @@
+{
+  "id": "divider",
+  "name": "Divider",
+  "nameZh": "分割线",
+  "category": "other",
+  "element": "div",
+  "summary": "A rule between two things. It can carry a label in the middle, drop the rules and keep the label, or stand up as a vertical rule.",
+  "summaryZh": "两件事之间的那道线。它可以在中间带一个标签,也可以只留标签不要线,还可以立起来变成一条竖线。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-divider",
+    "modifier": "um-divider--"
+  },
+  "variants": [
+    { "id": "plain", "name": "Plain", "nameZh": "纯文字", "state": "ghost", "note": "No rules — the label on its own." },
+    { "id": "vertical", "name": "Vertical", "nameZh": "竖线", "state": "solid", "note": "A vertical rule. It stretches to the height of the row it sits in." }
+  ],
+  "sizes": [],
+  "states": [],
+  "parts": [],
+  "props": [
+    { "name": "variant", "type": "enum", "values": ["plain", "vertical"], "description": "Which form of the divider this is. The base class on its own is the horizontal rule with a label in the middle.", "descriptionZh": "这条分割线是哪一种形态。只写基类就是中间带标签的横线。" }
+  ],
+  "slots": [],
+  "events": [],
+  "a11y": {
+    "role": "separator",
+    "notes": "The divider is a rule, not a control: nothing on it is focusable and there is nothing to activate. Give it role=\"separator\" so the division is in the accessibility tree, and aria-orientation=\"vertical\" on the vertical form. A separator does not take its name from its content, so the label between the two rules is still read as ordinary text.",
+    "notesZh": "分割线是一条线,不是一个控件:上面没有可聚焦的东西,也没有可触发的动作。给它 role=\"separator\",这道分隔就进了无障碍树;竖线再加上 aria-orientation=\"vertical\"。separator 不从内容取名,所以两条线中间那个标签还是按普通文字读。"
+  },
+  "examples": [
+    {
+      "id": "horizontal",
+      "title": "Horizontal",
+      "titleZh": "横线",
+      "description": "Two rules with the label between them. The label is the divider's content, so it is read as part of the page.",
+      "descriptionZh": "两条线,标签夹在中间。标签是分割线的内容,所以它会跟着页面一起被读到。",
+      "markup": "<div class=\"um-divider\">or</div>"
+    },
+    {
+      "id": "plain",
+      "title": "Plain",
+      "titleZh": "纯文字",
+      "description": "The plain variant drops both rules and leaves the label alone, for the case where the words should not be interrupted.",
+      "descriptionZh": "纯文字这一式去掉两条线,只留标签,用在不想让文字被切断的地方。",
+      "markup": "<div class=\"um-divider um-divider--plain\">or</div>"
+    },
+    {
+      "id": "vertical",
+      "title": "Vertical",
+      "titleZh": "竖线",
+      "description": "The vertical rule is as wide as the mood's border and stretches to the height of the row around it, so it needs a flex parent.",
+      "descriptionZh": "竖线宽度就是 mood 的描边宽度,高度跟着所在的那一行走,所以它得放在一个 flex 容器里。",
+      "markup": "<div style=\"display:flex;align-items:stretch;gap:var(--um-space-sm);height:var(--um-height-lg)\">\n  <span>Left</span>\n  <div class=\"um-divider um-divider--vertical\" role=\"separator\" aria-orientation=\"vertical\"></div>\n  <span>Right</span>\n</div>"
+    }
+  ],
+  "notes": "The base divider draws its two rules with pseudo-elements, so the label in the middle is ordinary content — the divider never positions it with anything else. The vertical form hides those pseudo-elements and paints its own rule instead.",
+  "notesZh": "基础形态的两条线是用伪元素画的,所以夹在中间的标签就是普通内容 —— 分割线不会用别的方式给它定位。竖线形态把这两个伪元素藏掉,自己画一条线。"
+}

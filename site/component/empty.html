@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Empty · UI Moods</title>
+  <meta name="description" content="What a screen shows when there is nothing to show. It states the fact, and when there is a way out of it, it says what that way is." />
+
+  <!-- The two files that make the whole thing work.
+       Swapping the second one re-skins every component on the page. -->
+  <link rel="stylesheet" id="um-theme" href="../../themes/aurora.css" />
+  <link rel="stylesheet" href="../../components/um-components.css" />
+  <link rel="stylesheet" href="../../site/assets/site.css" />
+</head>
+<body>
+  <header class="site-header">
+      <a class="site-header__brand" href="../../index.html">UI Moods<span>Component Library</span></a>
+      <div class="site-header__spacer"></div>
+      <div class="switcher">
+        <label class="switcher__label" for="um-theme-picker">Theme</label>
+        <span class="switcher__field">
+          <select class="switcher__select" id="um-theme-picker"></select>
+        </span>
+      </div>
+    </header>
+  <div class="site-body">
+    <nav class="site-sidebar" aria-label="Components">
+      
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Form · 表单</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/button.html">Button <span class="meta">按钮</span></a></li>
+          <li><a href="../component/checkbox.html">Checkbox <span class="meta">复选框</span></a></li>
+          <li><a href="../component/field.html">Field <span class="meta">表单项</span></a></li>
+          <li><a href="../component/input.html">Input / Textarea / Select <span class="meta">输入框 / 文本域 / 选择器</span></a></li>
+          <li><a href="../component/radio.html">Radio <span class="meta">单选框</span></a></li>
+          <li><a href="../component/slider.html">Slider <span class="meta">滑块</span></a></li>
+          <li><a href="../component/switch.html">Switch <span class="meta">开关</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Data · 数据展示</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/badge.html">Badge <span class="meta">徽标</span></a></li>
+          <li><a href="../component/card.html">Card <span class="meta">卡片</span></a></li>
+          <li><a href="" aria-current="page">Empty <span class="meta">空状态</span></a></li>
+          <li><a href="../component/progress.html">Progress <span class="meta">进度条</span></a></li>
+          <li><a href="../component/skeleton.html">Skeleton <span class="meta">骨架屏</span></a></li>
+          <li><a href="../component/tag.html">Tag <span class="meta">标签</span></a></li>
+        </ul>
+      </div>
+      
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Feedback · 反馈</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/alert.html">Alert <span class="meta">警告</span></a></li>
+        </ul>
+      </div>
+      <div class="site-sidebar__group">
+        <h2 class="site-sidebar__title">Others · 其他</h2>
+        <ul class="site-sidebar__list">
+          <li><a href="../component/divider.html">Divider <span class="meta">分割线</span></a></li>
+        </ul>
+      </div>
+    </nav>
+    <main class="site-main">
+      <h1>Empty <span class="meta">空状态</span></h1>
+      <p class="lede">What a screen shows when there is nothing to show. It states the fact, and when there is a way out of it, it says what that way is.</p>
+      <p class="meta">
+        <span class="tag">div</span>
+        <span class="tag">data</span>
+        <span class="tag">since 1.1.0</span>
+      </p>
+      <div class="note">The empty state is text the reader can act on. The library paints the plate, the colour and the spacing; what is missing, and what to do about it, is written by the host.</div>
+
+      <h2>Examples</h2>
+<div class="example">
+        <div class="example__title">Empty · 空状态</div>
+        <div class="example__desc">The art sits in a round plate the mood paints, so it takes the placeholder colour and never competes with the message.</div>
+        <div class="example__demo">
+<div class="um-empty">
+  <span class="um-empty__art" aria-hidden="true">∅</span>
+  <span class="um-empty__title">Nothing here yet</span>
+  <span>Items will show up once they arrive.</span>
+</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-empty&quot;&gt;
+  &lt;span class=&quot;um-empty__art&quot; aria-hidden=&quot;true&quot;&gt;∅&lt;/span&gt;
+  &lt;span class=&quot;um-empty__title&quot;&gt;Nothing here yet&lt;/span&gt;
+  &lt;span&gt;Items will show up once they arrive.&lt;/span&gt;
+&lt;/div&gt;</pre>
+      </div>
+<div class="example">
+        <div class="example__title">Without the art · 没有图形</div>
+        <div class="example__desc">The art is optional; the title is not. An empty state without a headline is just a gap on the page.</div>
+        <div class="example__demo">
+<div class="um-empty">
+  <span class="um-empty__title">No results</span>
+  <span>Try a different search term.</span>
+</div>
+        </div>
+        <pre class="example__code">&lt;div class=&quot;um-empty&quot;&gt;
+  &lt;span class=&quot;um-empty__title&quot;&gt;No results&lt;/span&gt;
+  &lt;span&gt;Try a different search term.&lt;/span&gt;
+&lt;/div&gt;</pre>
+      </div>
+      <h2>Classes</h2>
+<table class="api">
+      <thead><tr><th>Class</th><th>Meaning</th></tr></thead>
+      <tbody>
+      <tr><td><code>um-empty</code></td><td>The base class. Every instance carries it.</td></tr>
+      <tr><td><code>um-empty__art</code></td><td>Art</td></tr>
+      <tr><td><code>um-empty__title</code></td><td>Title</td></tr>
+      </tbody>
+    </table>
+
+      <h2>Slots</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>art</code></span></td><td>The illustration. It goes in `.um-empty__art`; a decorative one is hidden from the screen reader.</td></tr>
+      <tr><td><span class="api__name"><code>title</code></span></td><td>The headline — what is missing.</td></tr>
+      </tbody>
+    </table>
+
+      <h2>Accessibility</h2>
+      <p>The empty state is a message, not a picture: the title is the message and it has to be real text. The art is decoration, so mark it aria-hidden and the screen reader will not read out a stray character. When the empty state appears because the reader changed a filter, wrap it in role=&quot;status&quot; so the change is announced; when it was there when the page loaded, it needs no live region.</p>
+
+    </main>
+  </div>
+
+  <script>window.UM_THEMES = {"light":["anime","archive","bauhaus","brutal","clay","corporate","eco","fashion","food","forest","ios","luxury","medical","monochrome","nordic","pastel","retro","sakura","swiss","travel","y2k"],"dark":["aurora","blueprint","crypto","finance","gaming","glass","instrument","neon","night","vaporwave","verdant"]};</script>
+  <script src="../../site/assets/site.js"></script>
+</body>
+</html>

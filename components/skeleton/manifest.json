@@ -1,0 +1,57 @@
+{
+  "id": "skeleton",
+  "name": "Skeleton",
+  "nameZh": "骨架屏",
+  "category": "data",
+  "element": "div",
+  "summary": "The shape of content that has not arrived yet. Three placeholder shapes and, if the motion is welcome, a shimmer over them.",
+  "summaryZh": "还没到的内容的轮廓。三种占位形状,以及在动效被允许时加在上面的那层微光。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-skeleton",
+    "modifier": "um-skeleton--"
+  },
+  "variants": [
+    { "id": "text", "name": "Text", "nameZh": "文字", "state": "solid", "note": "One line of text, one body height tall." },
+    { "id": "circle", "name": "Circle", "nameZh": "圆形", "state": "solid", "note": "A round placeholder, for an avatar." },
+    { "id": "block", "name": "Block", "nameZh": "色块", "state": "solid", "note": "A wider block, for a picture or a card." }
+  ],
+  "sizes": [],
+  "states": [
+    { "id": "animated", "name": "Animated", "nameZh": "微光", "selector": ".um-skeleton--animated", "note": "A shimmer runs over the placeholder — but only when the user has not asked for reduced motion." }
+  ],
+  "parts": [],
+  "props": [
+    { "name": "shape", "type": "enum", "values": ["text", "circle", "block"], "default": "text", "description": "Which placeholder shape to draw.", "descriptionZh": "画哪一种占位形状。" },
+    { "name": "animated", "type": "boolean", "default": "false", "description": "Shimmers the placeholder while the content loads. The animation is wrapped in a prefers-reduced-motion query, so a user who asked for less motion gets a still placeholder.", "descriptionZh": "内容加载时让占位块闪动。动画包在 prefers-reduced-motion 查询里,所以要求减弱动效的用户看到的是静止的占位块。" },
+    { "name": "width", "type": "number", "default": "100", "description": "How wide the placeholder is, as a percentage of its container. A line of text usually wants a width under 100.", "descriptionZh": "占位块占容器的宽度百分比。一行文字通常不满宽。" }
+  ],
+  "slots": [],
+  "events": [],
+  "a11y": {
+    "keyboard": [],
+    "notes": "A skeleton is a placeholder, not content: mark it aria-hidden so a screen reader does not read a row of empty boxes, and put aria-busy=\"true\" on the region that is loading. The real content replaces it when it arrives — nothing else is needed.",
+    "notesZh": "骨架屏是占位,不是内容:给它加上 aria-hidden,免得读屏念出一排空盒子;正在加载的那块区域写上 aria-busy=\"true\"。真正的内容到了就把它换掉,别的就不需要了。"
+  },
+  "examples": [
+    {
+      "id": "shapes",
+      "title": "Shapes",
+      "titleZh": "形状",
+      "description": "One shape per kind of placeholder. The width is set inline because it is a measurement, not a shape.",
+      "descriptionZh": "一种占位对应一种形状。宽度用内联样式给,因为它是尺寸,不是形状。",
+      "markup": "<div class=\"um-skeleton um-skeleton--text\" style=\"width:80%\"></div>\n<div class=\"um-skeleton um-skeleton--text\" style=\"width:55%\"></div>\n<div class=\"um-skeleton um-skeleton--circle\"></div>\n<div class=\"um-skeleton um-skeleton--block\"></div>"
+    },
+    {
+      "id": "animated",
+      "title": "Animated",
+      "titleZh": "微光",
+      "description": "The shimmer is a background gradient moving across the placeholder. It is inside a prefers-reduced-motion query, so the library never overrides a user who has asked for less motion — the placeholder simply stays still.",
+      "descriptionZh": "微光是一层横向移动的背景渐变。它包在 prefers-reduced-motion 查询里,所以库永远不会盖过要求减弱动效的用户 —— 占位块就安静地停在那里。",
+      "markup": "<div class=\"um-skeleton um-skeleton--text um-skeleton--animated\" style=\"width:80%\"></div>\n<div class=\"um-skeleton um-skeleton--block um-skeleton--animated\"></div>"
+    }
+  ],
+  "notes": "The shimmer is a gradient on a background that is four times wider than the placeholder, moved by one keyframe from one end to the other. The whole rule sits inside prefers-reduced-motion: no-preference, which is the library's way of saying that motion is a thing the user can turn off.",
+  "notesZh": "微光是一层比占位块宽四倍的背景渐变,靠一个关键帧从一端移到另一端。整条规则都写在 prefers-reduced-motion: no-preference 里面 —— 这是库在说:动效这件事,用户可以关掉。"
+}

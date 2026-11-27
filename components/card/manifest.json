@@ -1,0 +1,56 @@
+{
+  "id": "card",
+  "name": "Card",
+  "nameZh": "卡片",
+  "category": "data",
+  "element": "div",
+  "summary": "A surface that groups one thing: a title, a body, a footer. Its border, radius, shadow and fill all come from the mood, so one card reads correctly in all thirty-two of them.",
+  "summaryZh": "把一件事圈起来的容器:标题、正文、页脚。描边、圆角、阴影和底色都来自 mood,所以同一张卡在三十多套主题里都读得对。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-card",
+    "modifier": "um-card--",
+    "part": "um-card__"
+  },
+  "variants": [
+    { "id": "frosted", "name": "Frosted", "nameZh": "磨砂", "note": "Adds `.um-card--frosted`: the mood's backdrop filter. A mood without one declares none, so the class changes nothing there." }
+  ],
+  "sizes": [],
+  "states": [],
+  "parts": [
+    { "id": "header", "name": "Header", "nameZh": "头部", "note": "The top strip. It carries the title and whatever acts on the card." },
+    { "id": "title", "name": "Title", "nameZh": "标题" },
+    { "id": "body", "name": "Body", "nameZh": "正文" },
+    { "id": "footer", "name": "Footer", "nameZh": "页脚", "note": "The bottom strip. It carries the actions." }
+  ],
+  "props": [
+    { "name": "variant", "type": "enum", "values": ["frosted"], "description": "Which surface the card has. Without a variant the card is the mood's plain overlay surface.", "descriptionZh": "卡片用哪种表面。不带变体就是 mood 的普通浮层表面。" }
+  ],
+  "slots": [],
+  "events": [],
+  "a11y": {
+    "notes": "The card is a plain container and carries no role. Put a real heading in `.um-card__title` — the class sets the size, so the document outline stays right. If the whole card is meant to be clickable, put a link inside it instead of making the card a button: a clickable div is not focusable and is not announced as a control.",
+    "notesZh": "卡片就是一个普通容器,不带角色。`.um-card__title` 里请放真正的标题元素 —— 类已经定了字号,文档大纲不会乱。如果整张卡都是要点,就往里面放一个链接,别把卡片本身做成按钮:可点的 div 不可聚焦,读屏也不会把它当成控件。"
+  },
+  "examples": [
+    {
+      "id": "card",
+      "title": "A card",
+      "titleZh": "一张卡",
+      "description": "Header, body and footer are optional on their own, but the order is fixed: header, then body, then footer. The title is a heading, so the page keeps its outline.",
+      "descriptionZh": "头部、正文、页脚各自都可以不写,但顺序是定的:头部,然后正文,然后页脚。标题用真正的标题元素,页面的大纲才不会乱。",
+      "markup": "<div class=\"um-card\">\n  <div class=\"um-card__header\">\n    <h3 class=\"um-card__title\">Deployment</h3>\n  </div>\n  <div class=\"um-card__body\">\n    <p>Three nodes were updated in the last hour. Nothing is waiting for approval.</p>\n  </div>\n  <div class=\"um-card__footer\">\n    <p>Updated 14:20</p>\n  </div>\n</div>"
+    },
+    {
+      "id": "frosted",
+      "title": "Frosted",
+      "titleZh": "磨砂",
+      "description": "The frosted variant applies the mood's backdrop filter. A mood that has none declares `none`, so on that theme the class is invisible and the card looks the same as any other.",
+      "descriptionZh": "磨砂变体应用该 mood 的背景模糊效果。没有这个效果的 mood 会声明 none,所以在那套主题里这个类看不出区别,卡片和别的卡一模一样。",
+      "markup": "<div class=\"um-card um-card--frosted\">\n  <div class=\"um-card__header\">\n    <h3 class=\"um-card__title\">Glass</h3>\n  </div>\n  <div class=\"um-card__body\">\n    <p>On a mood with a backdrop filter, the card blurs what is behind it.</p>\n  </div>\n</div>"
+    }
+  ],
+  "notes": "The frosted variant is a mood capability, not a card colour: it applies the theme's backdrop filter and changes nothing else. A mood without one declares `none`, so the hook is invisible there.",
+  "notesZh": "磨砂变体是 mood 的能力,不是卡片的颜色:它只应用主题的背景模糊,别的什么都不改。没有这个效果的 mood 会声明 none,所以那个钩子在那套主题里是看不见的。"
+}

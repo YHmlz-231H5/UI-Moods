@@ -1,0 +1,66 @@
+{
+  "id": "switch",
+  "name": "Switch",
+  "nameZh": "开关",
+  "category": "form",
+  "element": "input",
+  "summary": "A binary setting that takes effect the moment it is flipped. The visible switch is drawn by the library; the control underneath it is a real checkbox.",
+  "summaryZh": "一拨就生效的二值设置。看得见的开关由库来画,底下的控件是一个真正的 checkbox。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-switch",
+    "modifier": "um-switch--",
+    "part": "um-switch__"
+  },
+  "variants": [],
+  "sizes": [],
+  "states": [
+    { "id": "checked", "name": "Checked", "nameZh": "打开", "selector": ":checked", "native": true, "note": "The track fills with the brand colour and the thumb slides to the far end." },
+    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The track dims, and the label takes the derived disabled text colour." }
+  ],
+  "parts": [
+    { "id": "input", "name": "Input", "nameZh": "输入框", "note": "The real checkbox. It must come before the track: the checked state is matched with an adjacent sibling selector." },
+    { "id": "track", "name": "Track", "nameZh": "轨道", "note": "The rounded groove the thumb travels in." },
+    { "id": "thumb", "name": "Thumb", "nameZh": "滑块", "note": "The circle that moves. It is moved with a transform, so nothing around it reflows." },
+    { "id": "label", "name": "Label", "nameZh": "文字", "note": "The text beside the switch. Optional, but a switch without one needs an accessible name of its own." }
+  ],
+  "props": [
+    { "name": "checked", "type": "boolean", "default": "false", "description": "Turns the setting on. It is the native checked attribute, not a class.", "descriptionZh": "把设置打开。它是原生 checked 属性,不是某个类。" },
+    { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes the switch inert. It uses the real disabled attribute, so it leaves the tab order.", "descriptionZh": "让开关不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" },
+    { "name": "name", "type": "string", "description": "The name the value is submitted under.", "descriptionZh": "提交时这个值使用的名字。" },
+    { "name": "value", "type": "string", "description": "The value submitted while the switch is on.", "descriptionZh": "开关打开时提交的值。" }
+  ],
+  "slots": [
+    { "name": "label", "description": "The text beside the switch.", "descriptionZh": "开关旁边的文字。" }
+  ],
+  "events": [
+    { "name": "change", "description": "Fires when the switch is flipped. It is the browser's own event on the checkbox underneath — the library installs no listener.", "descriptionZh": "开关被拨动时触发。这是底下那个 checkbox 的浏览器原生事件 —— 库没有安装任何监听器。" }
+  ],
+  "a11y": {
+    "role": "checkbox",
+    "keyboard": ["Tab", "Space"],
+    "notes": "The switch is a real <input type=\"checkbox\"> inside a <label>, and the drawn parts are spans. The checked state is the browser's :checked, so the switch submits with the form, is announced as a checkbox and needs no JavaScript. The input is hidden visually rather than removed from the accessibility tree, so it keeps its place in the tab order and its label.",
+    "notesZh": "开关是 <label> 里一个真正的 <input type=\"checkbox\">,画出来的部分都是 span。选中态就是浏览器的 :checked,所以它会随表单提交、被读屏播报成复选框,完全不需要 JavaScript。这个 input 只是视觉隐藏,没有被移出无障碍树,因此它仍在 Tab 顺序里,也仍然有标签。"
+  },
+  "examples": [
+    {
+      "id": "states",
+      "title": "States",
+      "titleZh": "状态",
+      "description": "On, off and locked. The state is the input's own checked attribute, so the markup a browser reads is the same one the stylesheet reads.",
+      "descriptionZh": "打开、关闭和锁定。状态就是 input 自己的 checked 属性,所以浏览器读到的标记和样式表读到的状态是同一个。",
+      "markup": "<label class=\"um-switch\">\n  <input class=\"um-switch__input\" type=\"checkbox\" checked />\n  <span class=\"um-switch__track\"><span class=\"um-switch__thumb\"></span></span>\n  <span class=\"um-switch__label\">Notifications</span>\n</label>\n<label class=\"um-switch\">\n  <input class=\"um-switch__input\" type=\"checkbox\" />\n  <span class=\"um-switch__track\"><span class=\"um-switch__thumb\"></span></span>\n  <span class=\"um-switch__label\">Digest</span>\n</label>\n<label class=\"um-switch\">\n  <input class=\"um-switch__input\" type=\"checkbox\" disabled />\n  <span class=\"um-switch__track\"><span class=\"um-switch__thumb\"></span></span>\n  <span class=\"um-switch__label\">Locked</span>\n</label>"
+    },
+    {
+      "id": "no-label",
+      "title": "Without visible text",
+      "titleZh": "没有可见文字",
+      "description": "The label element can be left out, but then the switch has no visible name and needs one for a screen reader. Put it on the input.",
+      "descriptionZh": "label 元素可以不写,但这样开关就没有可见的名字,读屏需要一个。写在 input 上。",
+      "markup": "<label class=\"um-switch\">\n  <input class=\"um-switch__input\" type=\"checkbox\" aria-label=\"Show the sidebar\" />\n  <span class=\"um-switch__track\"><span class=\"um-switch__thumb\"></span></span>\n</label>"
+    }
+  ],
+  "notes": "The track and the thumb are two nested spans, and the thumb moves with a transform rather than a position, so flipping the switch never moves anything around it. The disabled state dims the track with opacity and takes the derived disabled text colour for the label: a track has no text of its own, so only the shape can be dimmed.",
+  "notesZh": "轨道和滑块是两个套在一起的 span,滑块靠 transform 移动而不是靠定位,所以拨动开关不会带动周围任何东西。禁用态用 opacity 压暗轨道,文字标签换成派生出来的禁用色:轨道本身没有文字,能变淡的只有形状。"
+}

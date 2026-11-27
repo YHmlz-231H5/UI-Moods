@@ -1,0 +1,57 @@
+{
+  "id": "radio",
+  "name": "Radio",
+  "nameZh": "单选框",
+  "category": "form",
+  "element": "input",
+  "summary": "A round control for choosing exactly one option out of a set. Radios that share a name form a group, and the browser owns the exclusivity.",
+  "summaryZh": "从一组选项里挑出恰好一个的圆形控件。共用同一个 name 的单选框组成一组,互斥由浏览器负责。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-radio",
+    "modifier": "um-radio--",
+    "part": "um-radio__"
+  },
+  "variants": [],
+  "sizes": [],
+  "states": [
+    { "id": "checked", "name": "Checked", "nameZh": "选中", "selector": ":checked", "native": true, "note": "The circle fills with the brand colour and the dot scales up from the middle." },
+    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The circle dims and the label takes the derived disabled text colour." }
+  ],
+  "parts": [
+    { "id": "input", "name": "Input", "nameZh": "输入框", "note": "The real radio. It must come before the dot: the checked state is matched with an adjacent sibling selector." },
+    { "id": "dot", "name": "Dot", "nameZh": "圆点", "note": "The circle. The dot is its ::after pseudo-element, scaled up from zero." },
+    { "id": "label", "name": "Label", "nameZh": "文字", "note": "The text beside the circle. Optional, but a radio without one needs an accessible name of its own." }
+  ],
+  "props": [
+    { "name": "checked", "type": "boolean", "default": "false", "description": "Selects this option. It is the native checked attribute, not a class.", "descriptionZh": "选中这一项。它是原生 checked 属性,不是某个类。" },
+    { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes the radio inert. It uses the real disabled attribute, so it leaves the tab order.", "descriptionZh": "让单选框不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" },
+    { "name": "name", "type": "string", "description": "The name the group shares. Radios with the same name are one group, and only one of them can be checked.", "descriptionZh": "这一组共用的名字。同名的单选框属于同一组,组里只能有一个被选中。" },
+    { "name": "value", "type": "string", "description": "The value submitted while this option is selected.", "descriptionZh": "选中这一项时提交的值。" }
+  ],
+  "slots": [
+    { "name": "label", "description": "The text beside the circle.", "descriptionZh": "圆圈旁边的文字。" }
+  ],
+  "events": [
+    { "name": "change", "description": "Fires when the selection moves to this option. It is the browser's own event — the library installs no listener.", "descriptionZh": "选中项移到这一项时触发。这是浏览器自己的事件 —— 库没有安装任何监听器。" }
+  ],
+  "a11y": {
+    "role": "radio",
+    "keyboard": ["Tab", "Space", "Arrow keys"],
+    "notes": "The circle is a real <input type=\"radio\"> inside a <label>, and the drawn parts are spans. A group is a set of radios that share a name: the browser keeps exactly one of them checked, and the arrow keys move the selection inside the group while Tab moves between groups. The input is hidden visually rather than removed from the accessibility tree, so it keeps its place in the tab order and its label.",
+    "notesZh": "圆圈是 <label> 里一个真正的 <input type=\"radio\">,画出来的部分都是 span。一组就是共用同一个 name 的若干单选框:浏览器保证组里恰好只有一个被选中,方向键在组内移动选中项,Tab 在组与组之间移动。这个 input 只是视觉隐藏,没有被移出无障碍树,因此它仍在 Tab 顺序里,也仍然有标签。"
+  },
+  "examples": [
+    {
+      "id": "group",
+      "title": "A group",
+      "titleZh": "一组",
+      "description": "Radios that share a name are one group: the browser lets exactly one of them be checked, and the arrow keys move the selection inside the group.",
+      "descriptionZh": "共用同一个 name 的单选框就是一组:浏览器只允许其中一个被选中,方向键在组内移动选中项。",
+      "markup": "<label class=\"um-radio\">\n  <input class=\"um-radio__input\" type=\"radio\" name=\"um-radio-plan\" checked />\n  <span class=\"um-radio__dot\"></span>\n  <span class=\"um-radio__label\">Monthly</span>\n</label>\n<label class=\"um-radio\">\n  <input class=\"um-radio__input\" type=\"radio\" name=\"um-radio-plan\" />\n  <span class=\"um-radio__dot\"></span>\n  <span class=\"um-radio__label\">Yearly</span>\n</label>\n<label class=\"um-radio\">\n  <input class=\"um-radio__input\" type=\"radio\" name=\"um-radio-plan\" disabled />\n  <span class=\"um-radio__dot\"></span>\n  <span class=\"um-radio__label\">Lifetime</span>\n</label>"
+    }
+  ],
+  "notes": "The dot is a pseudo-element inside the circle that scales from zero to one, so the circle itself never changes size and the rows of a group stay aligned. The group is not a class: it is the shared name, which is why the browser can move the selection with the arrow keys without any JavaScript from us.",
+  "notesZh": "圆点是在圆圈里的一个伪元素,从零缩放到一,所以圆圈本身大小不变,一组里的行也就不会错位。组不是一个类,而是那个共用的名字 —— 浏览器因此能用方向键在组内移动选中项,不需要我们写任何 JavaScript。"
+}

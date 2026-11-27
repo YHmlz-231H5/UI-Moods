@@ -1,0 +1,7 @@
+/* ============================================================================
+   Quality hooks
+   ----------------------------------------------------------------------------
+   A mood that declares a glow gets it on emphasis surfaces. A mood without
+   one declares `none`, so the hook is invisible — not a second visual system.
+   ========================================================================== */
+.um-button--glow { box-shadow: var(--um-glow, none); }

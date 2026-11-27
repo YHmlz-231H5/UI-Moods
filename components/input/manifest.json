@@ -1,0 +1,59 @@
+{
+  "id": "input",
+  "name": "Input / Textarea / Select",
+  "nameZh": "输入框 / 文本域 / 选择器",
+  "category": "form",
+  "element": "input, textarea, select",
+  "summary": "The three text controls a form is mostly made of: a single-line input, a multi-line textarea and a native select. One stylesheet gives all three the same border, focus ring and disabled treatment, so a form reads as one form.",
+  "summaryZh": "表单里最常见的三种文本控件:单行输入框、多行文本域和原生下拉选择器。三者共用同一套描边、聚焦环和禁用态,所以一个表单看起来是一个整体。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-input"
+  },
+  "variants": [],
+  "sizes": [],
+  "states": [
+    { "id": "focus", "name": "Focus", "nameZh": "聚焦", "selector": ":focus", "native": true, "note": "The border takes the brand colour and a soft ring is drawn around the control." },
+    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The shared layer paints a flat surface and the derived disabled text colour, so the value stays measurable." }
+  ],
+  "parts": [],
+  "props": [
+    { "name": "control", "type": "enum", "values": ["input", "textarea", "select"], "default": "input", "description": "Which member of the family this is. Each one is its own class: um-input, um-textarea, um-select.", "descriptionZh": "这一族里的哪一个。三者各有一个类:um-input、um-textarea、um-select。" },
+    { "name": "placeholder", "type": "string", "description": "The hint text for the input and the textarea. It takes the muted placeholder role, not the body colour.", "descriptionZh": "输入框和文本域的提示文字。它用的是弱化的占位文字色,不是正文色。" },
+    { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes the control inert. It uses the real disabled attribute, so it leaves the tab order.", "descriptionZh": "让控件不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" },
+    { "name": "readonly", "type": "boolean", "default": "false", "description": "Keeps the value visible but stops it being edited. The library does not repaint a readonly control — it is not a state it measures.", "descriptionZh": "值仍然可见,但不能编辑。库不会给只读控件单独配色 —— 这不是它测量过的状态。" }
+  ],
+  "slots": [],
+  "events": [
+    { "name": "input", "description": "Fires on the input and the textarea while the value is typed. It is the browser's own event — the library installs no listener.", "descriptionZh": "在输入框和文本域里输入内容时触发。这是浏览器自己的事件 —— 库没有安装任何监听器。" },
+    { "name": "change", "description": "Fires when the value is committed: on blur for the input and the textarea, and when an option is picked for the select.", "descriptionZh": "值被提交时触发:输入框和文本域在失焦时触发,选择器在选定选项时触发。" },
+    { "name": "focus", "description": "Fires when the control takes focus. The stylesheet reacts to :focus, so the brand border and the soft ring appear without a line of script.", "descriptionZh": "控件获得焦点时触发。样式表响应 :focus,所以品牌色描边和柔和的聚焦环不靠一行脚本就能出现。" },
+    { "name": "blur", "description": "Fires when the control loses focus.", "descriptionZh": "控件失去焦点时触发。" }
+  ],
+  "a11y": {
+    "keyboard": [],
+    "notes": "Every control keeps its native element, so the roles, the keyboard behaviour and the form submission all come from the platform: textbox for the input and the textarea, combobox for the select. The select's arrow is drawn with two CSS gradients instead of the native one, because the native arrow ignores the theme; the option list is still the platform's. A disabled control uses the real disabled attribute, so it is skipped by the tab order.",
+    "notesZh": "三种控件都保留原生元素,角色、键盘行为和表单提交都由平台提供:输入框和文本域是 textbox,选择器是 combobox。下拉箭头用两层 CSS 渐变画,而不是原生箭头 —— 原生箭头不跟主题走;选项列表仍然由平台提供。禁用的控件使用原生 disabled 属性,因此会被 Tab 顺序跳过。"
+  },
+  "examples": [
+    {
+      "id": "controls",
+      "title": "The three controls",
+      "titleZh": "三种控件",
+      "description": "One class each: um-input for a single line, um-textarea for several, um-select for a choice. They are not variants of one another — they are three classes that share one stylesheet.",
+      "descriptionZh": "各有一个类:单行是 um-input,多行是 um-textarea,选择是 um-select。它们不是彼此的变体,而是共用同一份样式表的三个类。",
+      "markup": "<input class=\"um-input\" type=\"text\" placeholder=\"Your name\" />\n<textarea class=\"um-textarea\" rows=\"3\" placeholder=\"Description\"></textarea>\n<select class=\"um-select\">\n  <option>Choose an option</option>\n  <option>Second</option>\n  <option>Third</option>\n</select>"
+    },
+    {
+      "id": "states",
+      "title": "States",
+      "titleZh": "状态",
+      "description": "A disabled control paints a flat surface and takes the derived disabled text colour rather than being dimmed with opacity, so what is written in it can still be measured.",
+      "descriptionZh": "禁用的控件铺一层扁平底色,文字用派生出来的禁用色,而不是用 opacity 变淡 —— 这样里面写的内容依然可以被测量。",
+      "markup": "<input class=\"um-input\" type=\"text\" placeholder=\"Disabled\" disabled />\n<textarea class=\"um-textarea\" rows=\"3\" placeholder=\"Disabled\" disabled></textarea>\n<select class=\"um-select\" disabled>\n  <option>Disabled</option>\n</select>"
+    }
+  ],
+  "notes": "The three controls are three classes, not three variants: um-textarea and um-select carry no modifier, so the family is told apart by the class you write rather than by a modifier you add. The textarea is three control-heights tall and resizes vertically. The select drops the platform arrow and draws its own, because the platform arrow does not follow the theme.",
+  "notesZh": "三种控件是三个类,不是三个变体:um-textarea 和 um-select 都没有修饰类,所以这一族靠你写下的类区分,而不是靠再加一个修饰类。文本域默认三个控件高,竖向可拉伸。选择器去掉平台箭头、自己画一个,因为平台箭头不跟主题走。"
+}

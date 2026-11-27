@@ -24,6 +24,10 @@
 本仓库的 17 个对应关系:`Button`;`Checkbox` `Form` `FormItem` `Input`(含 textarea)`Radio`
 `Select` `Slider` `Switch`;`Badge` `Card` `Empty` `Progress` `Skeleton` `Tag`;`Alert`;`Divider`。
 
+口径说明:本仓库是 **15 份清单**,比 17 少,是因为一份清单可以覆盖多个原生控件 ——
+`components/input/` 一份清单同时描述 `um-input`、`um-textarea`、`um-select`,
+`components/field/` 一份清单同时描述 Element Plus 的 `Form` 与 `Form Item`。
+
 ## Basic 基础组件(12)
 
 | Element Plus | 本仓库 | 可无 JS 实现 | 备注 |
@@ -150,6 +154,6 @@
   代价是失去命令式调用。
 - **本仓库已经比 Element Plus 多出来的东西**,不应该在追平数量的过程中丢掉:
   - 32 套主题,而不是 EP 的 1 浅 + 1 深;
-  - 每一套主题里 46 组对比度保证都被实测(1472 次测量),EP 靠人工校验;
+  - 每一套主题里 49 组对比度保证都被实测(1568 次测量),EP 靠人工校验;
   - 主题变量与组件变量分层,组件层零字面量;
   - 无构建步骤、无运行时依赖。

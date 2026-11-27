@@ -1,0 +1,41 @@
+/* ============================================================================
+   Alert
+   ========================================================================== */
+.um-alert {
+  display: flex;
+  gap: var(--um-space-xs);
+  padding: var(--um-space-xs) var(--um-space-sm);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-base);
+  background: var(--um-fill-base);
+  color: var(--um-text-regular);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+  line-height: 1.6;
+}
+.um-alert__mark {
+  flex-shrink: 0;
+  align-self: flex-start;
+  padding: 2px var(--um-space-xs);
+  border-radius: var(--um-radius-round);
+  background: var(--um-fill-light);
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+  font-weight: var(--um-font-weight-bold);
+  letter-spacing: var(--um-letter-spacing-wide);
+  text-transform: uppercase;
+}
+.um-alert__body { min-width: 0; }
+.um-alert__title { display: block; color: var(--um-text-primary); font-weight: var(--um-font-weight-bold); }
+.um-alert__description { color: var(--um-text-regular); }
+
+.um-alert--primary { border-color: var(--um-color-primary-text); }
+.um-alert--primary .um-alert__mark { background: var(--um-color-primary); color: var(--um-color-primary-on); }
+.um-alert--success { border-color: var(--um-color-success-text); }
+.um-alert--success .um-alert__mark { background: var(--um-color-success); color: var(--um-color-success-on); }
+.um-alert--warning { border-color: var(--um-color-warning-text); }
+.um-alert--warning .um-alert__mark { background: var(--um-color-warning); color: var(--um-color-warning-on); }
+.um-alert--danger { border-color: var(--um-color-danger-text); }
+.um-alert--danger .um-alert__mark { background: var(--um-color-danger); color: var(--um-color-danger-on); }
+.um-alert--info { border-color: var(--um-color-info-text); }
+.um-alert--info .um-alert__mark { background: var(--um-color-info); color: var(--um-color-info-on); }

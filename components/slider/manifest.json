@@ -1,0 +1,58 @@
+{
+  "id": "slider",
+  "name": "Slider",
+  "nameZh": "滑块",
+  "category": "form",
+  "element": "input",
+  "summary": "A number picked by sliding along a track. It is a native range input, so the drag, the steps and the value are the platform's.",
+  "summaryZh": "沿着轨道滑出来的一个数值。它是原生的 range 输入框,拖动、步进和取值都由平台负责。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-slider"
+  },
+  "variants": [],
+  "sizes": [],
+  "states": [
+    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The cursor becomes not-allowed and the control leaves the tab order." }
+  ],
+  "parts": [],
+  "props": [
+    { "name": "min", "type": "number", "default": "0", "description": "The lowest value the slider accepts.", "descriptionZh": "滑块能取的最小值。" },
+    { "name": "max", "type": "number", "default": "100", "description": "The highest value the slider accepts.", "descriptionZh": "滑块能取的最大值。" },
+    { "name": "step", "type": "number", "default": "1", "description": "How much one arrow key press moves the value.", "descriptionZh": "按一次方向键,数值移动多少。" },
+    { "name": "value", "type": "number", "description": "The current value. It is written to the value attribute, so it round-trips through a form.", "descriptionZh": "当前值。它写在 value 属性上,所以能随表单提交再回来。" },
+    { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes the slider inert. It uses the real disabled attribute, so it leaves the tab order.", "descriptionZh": "让滑块不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" }
+  ],
+  "slots": [],
+  "events": [
+    { "name": "input", "description": "Fires while the value is being dragged or stepped. It is the browser's own event — the library installs no listener.", "descriptionZh": "拖动或按方向键改变数值时持续触发。这是浏览器自己的事件 —— 库没有安装任何监听器。" },
+    { "name": "change", "description": "Fires when the value is committed, at the end of a drag or when focus leaves the control.", "descriptionZh": "数值被提交时触发:拖动结束时,或者焦点离开控件时。" }
+  ],
+  "a11y": {
+    "role": "slider",
+    "keyboard": ["Tab", "Arrow keys", "Home", "End", "Page Up", "Page Down"],
+    "notes": "A real <input type=\"range\">: the browser owns the drag, the arrow keys, Home and End, and the announcement of the value. The track and the thumb are painted through the vendor pseudo-elements, so the control has no child elements and no markup of its own to keep in sync.",
+    "notesZh": "这是一个真正的 <input type=\"range\">:拖动、方向键、Home 和 End、以及数值的播报都由浏览器负责。轨道和滑块是用各浏览器的伪元素画出来的,所以这个控件没有子元素,也没有一份需要同步的标记。"
+  },
+  "examples": [
+    {
+      "id": "range",
+      "title": "A range",
+      "titleZh": "取值范围",
+      "description": "The bounds and the step are plain attributes. Whatever the browser shows for the value — the tooltip on some platforms — is not painted by the library, because that popup belongs to the platform.",
+      "descriptionZh": "上下限和步进都是普通属性。至于浏览器怎么显示当前值 —— 有些平台会弹一个小窗 —— 库不去画它,那个浮层属于平台。",
+      "markup": "<input class=\"um-slider\" type=\"range\" min=\"0\" max=\"100\" step=\"5\" value=\"60\" />"
+    },
+    {
+      "id": "disabled",
+      "title": "Disabled",
+      "titleZh": "禁用",
+      "description": "A disabled slider uses the real disabled attribute, so it is skipped by the tab order rather than only looking disabled.",
+      "descriptionZh": "禁用的滑块用的是原生 disabled 属性,所以它是被 Tab 顺序跳过,而不只是看起来禁用了。",
+      "markup": "<input class=\"um-slider\" type=\"range\" min=\"0\" max=\"100\" value=\"60\" disabled />"
+    }
+  ],
+  "notes": "The track is drawn twice, once for the WebKit pseudo-element and once for the Firefox one, and the thumb the same way. That duplication is the price of styling a native control: there is no single standard pseudo-element for either, so both engines get the same geometry instead of one of them getting the default.",
+  "notesZh": "轨道写了两遍,WebKit 的伪元素一份、Firefox 的一份,滑块同样如此。这就是给原生控件改样式的代价:两者都没有单一的通用伪元素,所以两种引擎拿到的是同一套几何尺寸,而不是其中一个保持默认。"
+}

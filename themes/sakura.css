@@ -78,14 +78,14 @@
   --um-color-info-strong: #a2858f;
   --um-text-secondary: #7e656e;
   --um-surface-input: #fbe9ee;
+  --um-fill-light: #fefbfc;
+  --um-fill-lighter: #fef8f9;
   --um-text-placeholder: #a79198;
   --um-surface-control: #ffffff;
   --um-text-disabled: #b4a6ab;
   --um-border-light: #f5e2e8;
   --um-border-lighter: #f8e9ee;
   --um-border-extra-light: #faeff2;
-  --um-fill-light: #fefbfc;
-  --um-fill-lighter: #fef8f9;
   --um-shadow-light: 0 8px 28px rgba(224, 96, 126, 0.070);
   --um-shadow-lighter: 0 8px 28px rgba(224, 96, 126, 0.035);
   --um-color-primary-text: #aa4d64;

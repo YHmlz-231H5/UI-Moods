@@ -1,0 +1,29 @@
+/* ============================================================================
+   Switch
+   ========================================================================== */
+.um-switch { display: inline-flex; align-items: center; gap: var(--um-space-xs); cursor: pointer; }
+.um-switch__input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.um-switch__track {
+  position: relative;
+  display: inline-block;
+  width: calc(var(--um-height-md) * 1.5);
+  height: var(--um-height-sm);
+  border-radius: var(--um-radius-round);
+  background: var(--um-fill-light);
+  transition: background-color var(--um-motion);
+}
+.um-switch__thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: calc(var(--um-height-sm) - 4px);
+  height: calc(var(--um-height-sm) - 4px);
+  border-radius: var(--um-radius-circle);
+  background: var(--um-bg-overlay);
+  box-shadow: var(--um-shadow-light);
+  transition: transform var(--um-motion);
+}
+.um-switch__input:checked + .um-switch__track { background: var(--um-color-primary); }
+.um-switch__input:checked + .um-switch__track .um-switch__thumb { transform: translateX(calc(var(--um-height-md) * 0.5)); }
+.um-switch__input:disabled + .um-switch__track { opacity: 0.45; cursor: not-allowed; }
+.um-switch__label { color: var(--um-text-regular); font-size: var(--um-font-size-body); }

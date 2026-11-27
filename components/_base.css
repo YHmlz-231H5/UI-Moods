@@ -1,0 +1,100 @@
+/* --- layer constants -----------------------------------------------------
+   Shape and layout constants that are not theme parameters. They belong to
+   the component layer on purpose: a theme changes colours and metrics, not
+   the fact that a circle is round.
+   ------------------------------------------------------------------------ */
+:root {
+  --um-radius-circle: 50%;
+  --um-radius-none: 0;
+  --um-focus-ring-width: 2px;
+  --um-focus-ring-offset: 2px;
+  --um-letter-spacing-wide: 0.08em;
+
+  /* The theme ships three spacing steps; the library derives the rest. */
+  --um-space-md: calc(var(--um-space-sm) + var(--um-space-xs) * 0.5);
+  --um-space-xl: calc(var(--um-space-lg) + var(--um-space-sm));
+
+  /* Control heights follow the theme's type size, so a mood with larger type
+     gets larger controls rather than text overflowing them. */
+  --um-height-sm: calc(var(--um-font-size-body) + var(--um-space-xs) * 1.4);
+  --um-height-md: calc(var(--um-font-size-body) + var(--um-space-xs) * 2);
+  --um-height-lg: calc(var(--um-font-size-body) + var(--um-space-xs) * 2.6);
+
+  --um-motion: var(--um-duration) var(--um-easing);
+}
+
+/* --- shared ---------------------------------------------------------------
+   One focus treatment for every focusable component.
+   ------------------------------------------------------------------------ */
+.um-focusable:focus-visible,
+.um-button:focus-visible,
+.um-input:focus-visible,
+.um-textarea:focus-visible,
+.um-select:focus-visible,
+.um-switch__input:focus-visible + .um-switch__track,
+.um-checkbox__input:focus-visible + .um-checkbox__box,
+.um-radio__input:focus-visible + .um-radio__dot,
+.um-slider:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+/* A disabled control is not dimmed with `opacity`.
+   Opacity is not a colour, so nothing about it can be measured — and a label
+   dropped to 45% can fall below the contrast floor the rest of the library
+   keeps. The text takes the derived disabled role instead, and only the
+   shapes keep the opacity. */
+.um-disabled,
+.um-button:disabled,
+.um-input:disabled,
+.um-textarea:disabled,
+.um-select:disabled,
+.um-slider:disabled {
+  cursor: not-allowed;
+}
+
+.um-button:disabled,
+.um-input:disabled,
+.um-textarea:disabled,
+.um-select:disabled {
+  /* The disabled fill is the flattened surface, not the translucent fill: the
+     control paints an opaque colour, so the label's contrast is the number
+     the theme derived instead of one that depends on what is behind it. */
+  background: var(--um-surface-control);
+  border-color: var(--um-border-base);
+  color: var(--um-text-disabled);
+}
+
+/* A filled button loses its fill when disabled: a dimmed brand colour with a
+   dimmed label on it is two wrongs, not one. */
+.um-button--primary:disabled,
+.um-button--success:disabled,
+.um-button--warning:disabled,
+.um-button--danger:disabled {
+  background: var(--um-surface-control);
+  border-color: var(--um-border-base);
+}
+
+/* The loading spinner takes the label's colour, so an inert button's spinner
+   has to take the inert label's colour too. */
+.um-button:disabled {
+  --um-button-label: var(--um-text-disabled);
+}
+
+/* A text button has no fill to lose — only its label changes. */
+.um-button--text:disabled {
+  background: transparent;
+  border-color: transparent;
+}
+
+.um-switch__input:disabled + .um-switch__track,
+.um-checkbox__input:disabled + .um-checkbox__box,
+.um-radio__input:disabled + .um-radio__dot {
+  opacity: 0.45;
+}
+
+.um-switch__input:disabled ~ .um-switch__label,
+.um-checkbox__input:disabled ~ .um-checkbox__label,
+.um-radio__input:disabled ~ .um-radio__label {
+  color: var(--um-text-disabled);
+}

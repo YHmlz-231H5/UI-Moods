@@ -1,0 +1,52 @@
+{
+  "id": "empty",
+  "name": "Empty",
+  "nameZh": "空状态",
+  "category": "data",
+  "element": "div",
+  "summary": "What a screen shows when there is nothing to show. It states the fact, and when there is a way out of it, it says what that way is.",
+  "summaryZh": "屏幕上没有东西可显示时的样子。它说清楚这个事实,有路可走的时候,也把那条路说清楚。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-empty",
+    "part": "um-empty__"
+  },
+  "variants": [],
+  "sizes": [],
+  "states": [],
+  "parts": [
+    { "id": "art", "name": "Art", "nameZh": "图形", "note": "The round plate the illustration sits in." },
+    { "id": "title", "name": "Title", "nameZh": "标题" }
+  ],
+  "props": [],
+  "slots": [
+    { "name": "art", "description": "The illustration. It goes in `.um-empty__art`; a decorative one is hidden from the screen reader.", "descriptionZh": "插图,放在 `.um-empty__art` 里;纯装饰的插图要对读屏隐藏。" },
+    { "name": "title", "description": "The headline — what is missing.", "descriptionZh": "标题 —— 缺的是什么。" }
+  ],
+  "events": [],
+  "a11y": {
+    "notes": "The empty state is a message, not a picture: the title is the message and it has to be real text. The art is decoration, so mark it aria-hidden and the screen reader will not read out a stray character. When the empty state appears because the reader changed a filter, wrap it in role=\"status\" so the change is announced; when it was there when the page loaded, it needs no live region.",
+    "notesZh": "空状态是一句话,不是一张图:标题才是那句话,而且必须是真文字。图形只是装饰,加上 aria-hidden,读屏才不会把里面的字符念出来。空状态是因为读者改了筛选条件才出现的,就把它放进 role=\"status\" 里,变化才会被播报;页面加载时它就在那儿的话,不需要 live region。"
+  },
+  "examples": [
+    {
+      "id": "empty",
+      "title": "Empty",
+      "titleZh": "空状态",
+      "description": "The art sits in a round plate the mood paints, so it takes the placeholder colour and never competes with the message.",
+      "descriptionZh": "图形待在一个由 mood 画的圆盘里,所以它取的是占位色,不会跟正文抢注意力。",
+      "markup": "<div class=\"um-empty\">\n  <span class=\"um-empty__art\" aria-hidden=\"true\">∅</span>\n  <span class=\"um-empty__title\">Nothing here yet</span>\n  <span>Items will show up once they arrive.</span>\n</div>"
+    },
+    {
+      "id": "without-the-art",
+      "title": "Without the art",
+      "titleZh": "没有图形",
+      "description": "The art is optional; the title is not. An empty state without a headline is just a gap on the page.",
+      "descriptionZh": "图形可有可无,标题不行。没有标题的空状态就只是页面上一段空白。",
+      "markup": "<div class=\"um-empty\">\n  <span class=\"um-empty__title\">No results</span>\n  <span>Try a different search term.</span>\n</div>"
+    }
+  ],
+  "notes": "The empty state is text the reader can act on. The library paints the plate, the colour and the spacing; what is missing, and what to do about it, is written by the host.",
+  "notesZh": "空状态是读者能拿来行动的几句话。圆盘、颜色和间距由库里来画;缺的是什么、接下来怎么办,由使用它的页面来写。"
+}

@@ -1,0 +1,71 @@
+{
+  "id": "badge",
+  "name": "Badge",
+  "nameZh": "徽标",
+  "category": "data",
+  "element": "span",
+  "summary": "A small marker that counts or names a state, attached to something else. It comes in a solid fill and a soft tint, so a page can let what matters come forward and the rest recede.",
+  "summaryZh": "挂在别的东西上的小标记,用来计数或标状态。分实心和柔和两式:要紧的往前站,其余的退到后面。",
+  "since": "1.1.0",
+  "style": "style.css",
+  "class": {
+    "base": "um-badge",
+    "modifier": "um-badge--",
+    "part": "um-badge__"
+  },
+  "variants": [
+    { "id": "primary", "name": "Primary", "nameZh": "主要", "state": "solid", "note": "The brand fill." },
+    { "id": "success", "name": "Success", "nameZh": "成功", "state": "solid" },
+    { "id": "warning", "name": "Warning", "nameZh": "警告", "state": "solid" },
+    { "id": "danger", "name": "Danger", "nameZh": "危险", "state": "solid" },
+    { "id": "info", "name": "Info", "nameZh": "信息", "state": "solid" },
+    { "id": "soft-primary", "name": "Soft primary", "nameZh": "柔和主要", "state": "soft", "note": "A tint of the brand colour, with no outline." },
+    { "id": "soft-success", "name": "Soft success", "nameZh": "柔和成功", "state": "soft" },
+    { "id": "soft-warning", "name": "Soft warning", "nameZh": "柔和警告", "state": "soft" },
+    { "id": "soft-danger", "name": "Soft danger", "nameZh": "柔和危险", "state": "soft" },
+    { "id": "soft-info", "name": "Soft info", "nameZh": "柔和信息", "state": "soft" }
+  ],
+  "sizes": [],
+  "states": [],
+  "parts": [
+    { "id": "dot", "name": "Dot", "nameZh": "圆点", "note": "A small dot in the badge's own foreground colour." }
+  ],
+  "props": [
+    { "name": "variant", "type": "enum", "values": ["primary", "success", "warning", "danger", "info", "soft-primary", "soft-success", "soft-warning", "soft-danger", "soft-info"], "description": "Which state this badge carries. The base class on its own is the neutral badge.", "descriptionZh": "这个徽标表示哪一种状态。只写基类就是中性徽标。" },
+    { "name": "dot", "type": "boolean", "default": "false", "description": "Puts a dot in front of the label, in the badge's own foreground colour.", "descriptionZh": "在文字前放一个圆点,颜色取徽标自己的前景色。" }
+  ],
+  "slots": [],
+  "events": [],
+  "a11y": {
+    "notes": "The badge is text inside a plain <span>, so it is read where it sits and it is never focusable. When the count changes on its own, put the badge in a live region — role=\"status\" — or the change is silent for anyone who cannot see it. A badge that only repeats what the label beside it already says can be marked aria-hidden instead.",
+    "notesZh": "徽标就是 <span> 里的一段文字,在哪儿就读到哪儿,也永远不进 Tab 顺序。计数自己变化时,要把徽标放进 live region(role=\"status\"),不然看不见变化的人根本收不到通知;如果徽标只是重复旁边标签已经说过的话,直接 aria-hidden 就行。"
+  },
+  "examples": [
+    {
+      "id": "variants",
+      "title": "Variants",
+      "titleZh": "变体",
+      "description": "The base class on its own is the neutral badge — a recessed fill in the mood's regular text colour. The five solid variants fill with the theme's own colour and take its matching on-colour, derived to reach 4.5:1.",
+      "descriptionZh": "只写基类就是中性徽标:凹陷的底色,配 mood 的常规文字色。五种实心变体用主题自己的颜色填底,文字取对应的前景色,由主题派生保证 4.5:1。",
+      "markup": "<span class=\"um-badge\">Neutral</span>\n<span class=\"um-badge um-badge--primary\">12</span>\n<span class=\"um-badge um-badge--success\">8</span>\n<span class=\"um-badge um-badge--warning\">3</span>\n<span class=\"um-badge um-badge--danger\">2</span>\n<span class=\"um-badge um-badge--info\">1</span>"
+    },
+    {
+      "id": "soft",
+      "title": "Soft",
+      "titleZh": "柔和",
+      "description": "The soft badges tint toward the page, so they recede instead of competing. They carry no outline — the tag is the outlined member of this family.",
+      "descriptionZh": "柔和徽标朝页面的方向淡化,所以是往后缩的,不是往前抢的。它们不带描边 —— 这个家族里描边的是标签。",
+      "markup": "<span class=\"um-badge um-badge--soft-primary\">12</span>\n<span class=\"um-badge um-badge--soft-success\">8</span>\n<span class=\"um-badge um-badge--soft-warning\">3</span>\n<span class=\"um-badge um-badge--soft-danger\">2</span>\n<span class=\"um-badge um-badge--soft-info\">1</span>"
+    },
+    {
+      "id": "dot",
+      "title": "Dot",
+      "titleZh": "圆点",
+      "description": "The dot takes the badge's own foreground colour, so it changes with the variant and needs no second colour.",
+      "descriptionZh": "圆点取徽标自己的前景色,跟着变体走,不需要第二种颜色。",
+      "markup": "<span class=\"um-badge um-badge--primary\"><span class=\"um-badge__dot\"></span>Live</span>\n<span class=\"um-badge um-badge--soft-success\"><span class=\"um-badge__dot\"></span>Synced</span>"
+    }
+  ],
+  "notes": "The soft badge deliberately carries no border. A border one step off its own fill sits at 1.06:1 in brutal and 1.97:1 in the brightest mood, so it reads as a smear rather than an edge — and it would differ from theme to theme. The tag is the outlined member of the family; the badge is the filled one.",
+  "notesZh": "柔和徽标刻意不描边。跟自身底色只差一档的描边,在 brutal 里只有 1.06:1,在最亮的那套 mood 里也只有 1.97:1 —— 看上去是一道糊痕,不是一条边;而且每套 mood 还不一样。这个家族里描边的是标签,实心的是徽标。"
+}
