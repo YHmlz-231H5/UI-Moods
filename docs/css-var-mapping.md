@@ -105,6 +105,85 @@ variables would otherwise ship unnoticed: the tokens stay valid, the contrast
 assertions stay green, and the page paints the wrong state. See
 `tools/lib/render-check.mjs`.
 
+## 3.2 Component layer — `--um-*` (v1.1)
+
+The component library has its own vocabulary, and it is deliberately separate
+from the mood's. The component CSS reads `var(--um-*)` and never
+`var(--mood-*)`; a theme file translates one into the other.
+
+The contract lives in **`tokens/roles.json`**:
+
+| Key | What it holds |
+| --- | --- |
+| `roles` | 88 roles: how to read them from the mood (`from`), how to derive them (`derive`), and what each one is for (`doc`) |
+| `pairs` | 46 contrast guarantees, each a foreground role, a background role and a minimum ratio |
+| `componentConstants` | the 11 shape and layout constants the component layer declares itself |
+| `optional` | roles a mood may leave out (`glow`, `backdrop`) |
+
+### How a role is derived
+
+| Op | Meaning |
+| --- | --- |
+| `from` | take the mood's value directly (`colors.textStrong` → `text-primary`) |
+| `derive` | a fixed blend: `mix(base, bg-page, N/10)` for `soft-N`, `mix(base, text-primary, 0.2)` for `strong` |
+| `contrast` | move the base toward `toward` **just far enough** to reach `target` against `against`. `against` may name several surfaces, and the result has to satisfy all of them |
+| `fade` | the faintest a role may get while still reading: fade toward the surface, or — if fading cannot work — move away from it |
+| `flatten` | composite a stack of translucent layers into the one opaque colour they actually paint |
+| `on` | a foreground that reads on a fill, derived from the theme's own text colours |
+| `weaken` | reduce a shadow's alpha, leaving its geometry alone |
+
+Two details are worth stating outright, because both were found by measuring
+rather than by reading:
+
+- **The blend direction can be reversed.** A bright brand colour on a dark
+  page has to get *darker* to read, and the only darker direction is away from
+  the text colour. `contrast` therefore searches both directions and keeps the
+  smaller move.
+- **The test runs on the quantised colour.** A blend that measures 4.503 in
+  floating point can come out as 4.496 once rounded to an 8-bit hex — and the
+  hex is what the browser paints. Nine roles sat exactly on that knife edge
+  before the check was moved.
+
+### The effective surface
+
+A translucent fill over a translucent container is a colour that **neither
+token names**: the fill says "8% white", the container says "4% white", and
+the text on both is sitting on something neither of them describes. Measured
+against the fill alone, a disabled label in the frosted themes is at 1.56:1.
+
+Two roles exist to name that surface:
+
+- `surface-control` — `fill-base` over `bg-container` over `bg-page`
+- `surface-input` — `fill-blank` over `bg-container` over `bg-page`
+
+Both are flattened to one opaque colour, and the muted roles are derived
+against them.
+
+### Why `soft-N` and not `light-N`
+
+Element Plus writes `light-3` as `mix(white, primary, 30%)`, which only holds
+for a light theme. On a dark mood a hover state would end up lighter than the
+page it sits on. Here `soft-N` is `mix(base, bg-page, N/10)` — it always
+recedes toward the page — and `strong` is `mix(base, text-primary, 0.2)`, so it
+deepens on a light theme and brightens on a dark one. One formula, 32 moods.
+
+### The component layer's own allowlist
+
+The component CSS is allowed `px` only for layout mechanics, and each value
+has to be listed in **`schemas/component-allowlist.json`** with a reason:
+
+| Value | Why |
+| --- | --- |
+| `1px` | the visually-hidden input that carries a control's checked state |
+| `2px` | the spinner and thumb border width, the switch thumb's offset, the focus ring's width |
+| `4px` | the tick mark's width |
+| `5px` | the select chevron's background size |
+| `6px` | the badge dot's diameter |
+| `8px` | the tick mark's height |
+| `-2px` | nudges the tick mark so it sits centred in its box |
+
+Everything else — colour, radius, font size, spacing — is `var(--um-*)`.
+
 ## 4. Specimen-dependent keys
 
 The component matrix requires these keys to exist in every mood; `validate`

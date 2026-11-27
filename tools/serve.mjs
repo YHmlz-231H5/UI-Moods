@@ -13,6 +13,7 @@ const port = Number(process.argv[2] || process.env.PORT || 4173);
 
 const MIME = {
   ".html": "text/html; charset=utf-8",
+  ".css": "text/css; charset=utf-8",
   ".json": "application/json; charset=utf-8",
   ".mjs": "text/javascript; charset=utf-8",
   ".js": "text/javascript; charset=utf-8",
@@ -36,7 +37,15 @@ function resolveFile(pathname) {
     // The gallery imports the artwork generator as an ES module, so the
     // thumbnails it draws come from the same code the app screens use.
     filePath = join(root, "tools", pathname.replace(/^\/lib\//, "lib/"));
-  } else if (pathname.startsWith("/moods/") || pathname.startsWith("/apps/")) {
+  } else if (
+    pathname.startsWith("/moods/") ||
+    pathname.startsWith("/apps/") ||
+    // The component library and its theme packages are served from the
+    // repository root, exactly as a consumer would link them.
+    pathname.startsWith("/components/") ||
+    pathname.startsWith("/themes/") ||
+    pathname.startsWith("/tokens/")
+  ) {
     filePath = join(root, pathname);
   } else {
     return null;
@@ -61,6 +70,9 @@ createServer((req, res) => {
   const data = readFileSync(filePath);
   res.writeHead(200, {
     "Content-Type": MIME[extname(filePath)] || "application/octet-stream",
+    // A local preview of files that are rebuilt constantly: a cached copy is
+    // a stale copy, and measuring one is worse than not measuring at all.
+    "Cache-Control": "no-store",
   });
   res.end(data);
 }).listen(port, () => {

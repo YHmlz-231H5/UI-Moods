@@ -1,0 +1,13 @@
+{
+  "note": "The component layer may not contain a colour, radius, shadow or font-size literal — those must be var(--um-*). The px values below are layout mechanics: the size of a drawn shape, an offset, a border width. Anything that could differ from mood to mood is a variable, not a value.",
+  "px": ["1", "2", "4", "5", "6", "8", "-2"],
+  "reasons": {
+    "1": "the visually-hidden input that carries a control's checked state",
+    "2": "spinner and thumb border width, switch thumb offset, focus ring width",
+    "4": "the tick mark's width",
+    "5": "the select chevron's background size",
+    "6": "the badge dot's diameter",
+    "8": "the tick mark's height",
+    "-2": "nudges the tick mark so it sits centred in its box"
+  }
+}

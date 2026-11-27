@@ -66,6 +66,11 @@ Both layers share one rule: **visual parameters come only from the mood's
 tokens.** An app pack picks a mood (`app.json → "mood"`) and every screen it
 renders inherits that mood's entire visual language.
 
+The **component layer** (`components/` + `themes/`) sits underneath both: it
+supplies the parts — button, input, badge, card — as plain CSS classes, and a
+theme file decides what they look like. See
+[The component library](#the-component-library).
+
 ## Status states, already solved
 
 A status chip is the easiest thing to get wrong: the natural move is to write
@@ -99,6 +104,112 @@ rule cannot be published.
 
 The full mapping is documented in [`docs/css-var-mapping.md`](docs/css-var-mapping.md)
 §3.1.
+
+## The component library
+
+A mood tells you how a style **looks**. It does not tell you how a button is
+**built**. That gap is what `components/` closes: one implementation of the
+common components, written once, that any mood can wear.
+
+```html
+<link rel="stylesheet" href="components/um-components.css">
+<link rel="stylesheet" href="themes/glass.css">
+```
+
+```html
+<button class="um-button um-button--primary">Save</button>
+<span class="um-badge um-badge--soft-success">Synced</span>
+```
+
+Two links and one class. Which theme file is linked decides everything else —
+swap `themes/glass.css` for `themes/ios.css` and the same markup becomes an
+iOS control, with no other change.
+
+### Why it is not a framework
+
+Element Plus and Arco Design both ship framework components. This library does
+not: it is **plain HTML and CSS classes**, no build step, no runtime, no
+framework. That is deliberate — the repository's whole consumption model is
+"an agent copies a class", and a `.um-button` is exactly that, with the CSS
+available for a framework project to wrap if it wants to.
+
+### The contract
+
+`tokens/roles.json` is the single source of the variable vocabulary. It
+declares **88 roles** (`--um-*`) and **46 contrast guarantees**, and every
+theme file is generated from it.
+
+The rules the component layer obeys, and `validate` enforces:
+
+- **No literals.** The component CSS contains no colour, no raw
+  `border-radius`, no raw `font-size`. Everything is `var(--um-*)`.
+- **No JavaScript.** The switch and the checkbox are real form elements; the
+  state is `:checked` and `:disabled`.
+- **Every theme defines every role.** A missing role is invisible in a
+  screenshot of one theme and breaks the component in every other one.
+- **Every guarantee holds in every theme.** 46 pairs × 32 themes = **1 472
+  measurements**, all green.
+
+### How a colour is derived
+
+The moods are 32 different design languages, so no fixed blend works for all
+of them: a pastel brand colour has to travel a long way before it reads on its
+own tint, and a near-black one overshoots immediately. The library therefore
+**derives the blend from the contrast requirement** rather than guessing it.
+
+Two naming choices matter:
+
+- **`soft-N` instead of `light-N`.** Element Plus writes `light-3` as
+  `mix(white, primary, 30%)`, which only holds for a light theme — on a dark
+  mood a hover state would end up lighter than the page it sits on. Here
+  `soft-N` is `mix(base, bg-page, N/10)`, so it always recedes *toward the
+  page*, on a light theme and on a dark one.
+- **`strong` instead of `dark-N`.** `strong` is `mix(base, text-primary, 0.2)`
+  — it moves toward the text, so it deepens on a light theme and brightens on
+  a dark one.
+
+One formula, 32 moods.
+
+Where a fixed blend cannot work, the library derives the foreground instead:
+`color-primary-text` is the brand colour moved just far enough toward the text
+colour to reach 4.5:1 **on the page, on a floating overlay and inside a
+container at once**. The brutal mood is the reason: a bright yellow is
+readable as a fill and unreadable as text.
+
+### The library is stricter than the moods
+
+A mood's `colors.muted` is chosen for looks, and in 24 of the 32 moods it sits
+below 4.5:1 as text. The library does not change the mood. It derives
+`text-secondary` from it — moved toward the text colour just far enough to
+read — and every muted role in the component layer uses that instead.
+
+The same holds for the disabled state. A disabled label is faded toward the
+surface it sits on, but only as far as 2:1 allows, and the surface it fades
+toward is the **flattened** one: a translucent fill over a translucent
+container is a colour that neither token names on its own. Measured against
+the fill alone, a disabled label in the frosted themes sits at 1.56:1 —
+invisible. Measured against the real surface, it reads.
+
+### Where it is
+
+- `components/um-components.css` — the component layer. Hand-written source,
+  not generated.
+- `components/index.html` — the **component browser**: every component, every
+  variant, with a live switcher over all 32 themes. Switching a theme swaps
+  one `<link>`.
+- `themes/<id>.css` — 32 generated theme files, variables only.
+- `tokens/roles.json` — the role contract.
+
+`tools/build-themes.mjs` regenerates the theme files; `validate` checks the
+contract holds.
+
+### What is in the first batch
+
+16 components: button, input, textarea, select, field, switch, checkbox,
+radio, slider, badge, tag, alert, card, progress, empty, divider, skeleton.
+
+The next batch adds tabs, table, dialog, dropdown, menu, pagination, avatar,
+tooltip and message.
 
 ## Using with an AI agent
 
@@ -139,11 +250,14 @@ repository-reference usage).
 ui-moods/
 ├─ moods/<id>/        # specimen.html + tokens.json + prompt.md + checklist.yaml
 ├─ apps/<id>/         # app.json (screen data) + screens/*.html (generated)
+├─ components/        # um-components.css (the component layer) + index.html (browser)
+├─ themes/<id>.css    # 32 generated theme files (variables only)
+├─ tokens/            # roles.json — the component layer's role contract
 ├─ schemas/           # tokens.schema.json · checklist.schema.json · allowlist.json
 ├─ templates/
 │  ├─ mood/           # specimen shell + sections/*.html partials
 │  └─ app/            # app.css (shared screen stylesheet)
-├─ tools/             # cli · build-specimen · build-apps · validate · bundle · serve · scaffold
+├─ tools/             # cli · build-specimen · build-apps · build-themes · validate · bundle · serve · scaffold
 ├─ docs/              # mapping convention · checklist semantics · contribution guide
 ├─ AGENTS.md          # protocol for AI agents
 ├─ moods.json         # style registry index
@@ -219,6 +333,20 @@ And per app pack:
 
 It also checks registry coherence: every directory on disk is registered in
 `moods.json` / `apps.json`, and every registered id exists on disk.
+
+And for the component library:
+
+- the component CSS reads only variables the contract declares, and declares
+  every layer constant it needs;
+- the component CSS contains **no colour literal**, **no raw `border-radius`**
+  and **no raw `font-size`**;
+- every `px` in the component layer is on the allowlist in
+  `schemas/component-allowlist.json`, with a stated reason;
+- **every theme defines every role** in the contract, and defines nothing
+  that is not in it;
+- every contrast guarantee in the contract holds in every theme — 46 pairs ×
+  32 themes = 1 472 measurements;
+- the component browser lists exactly the themes that exist.
 
 ## Current moods
 

@@ -123,3 +123,37 @@ from the specimen's:
 - **One frame size, no motion** — a screen is a static 390 × 844 composition.
   There is no carousel physics, no scroll-linked parallax and no gesture
   handling; the contract is markup without scripts.
+
+---
+
+## Component-layer gaps (v1.1)
+
+The component library is new, and the honest limits are these:
+
+- **16 components so far** — button, input, textarea, select, field, switch,
+  checkbox, radio, slider, badge, tag, alert, card, progress, empty, divider,
+  skeleton. Tabs, table, dialog, dropdown, menu, pagination, avatar, tooltip
+  and message are the next batch. A component that does not exist yet cannot be
+  themed, only hand-built.
+- **No JavaScript, so no composed components** — a dialog, a dropdown and a
+  tooltip need behaviour that `:checked` and `:focus-within` can only partly
+  provide. The library ships the parts that can be expressed in CSS and leaves
+  the rest to the host.
+- **The app packs are not built from the components** — `apps/` still renders
+  through `templates/app/app.css`. Migrating them is mechanical (the classes
+  exist) but it is a separate piece of work, and until it happens the two
+  layers can drift.
+- **The guarantees assume a known surface** — the contract measures text
+  against the page, an overlay, a container and the library's own control
+  fills. A host that stacks a component inside a surface the library does not
+  know about (a coloured panel, a photograph) is outside what is measured.
+  `surface-control` and `surface-input` name the two stacks the library does
+  know, both flattened to one opaque colour.
+- **A mood's own colours are not repaired** — in 24 of the 32 moods
+  `colors.muted` is below 4.5:1 as text, and `colors.border` is a hairline in
+  several more. The library routes around them with derived roles; it does not
+  change the mood. A mood that wants its own muted colour to be readable has
+  to change the mood.
+- **The theme files are static** — `themes/<id>.css` is generated once from
+  `moods/<id>/tokens.json`. Changing a mood means regenerating the themes
+  (`ui-moods build-themes`), not editing the CSS by hand.

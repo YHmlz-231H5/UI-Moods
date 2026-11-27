@@ -1,0 +1,632 @@
+/* ============================================================================
+   ui-moods · component library
+   ----------------------------------------------------------------------------
+   The component layer. Every visual parameter comes from a `--um-*` variable,
+   which a theme file supplies:
+
+     <link rel="stylesheet" href="components/um-components.css">
+     <link rel="stylesheet" href="themes/neon.css">
+
+   This file contains no colour, radius, shadow or font-size literal — only
+   `var(--um-*)`. That is what makes one implementation serve all 32 moods.
+
+   Conventions
+   - Class prefix: `um-`
+   - Variants:    `--primary` `--default` `--text` `--success` `--warning` `--danger`
+   - Sizes:       `--sm` `--md` (default) `--lg`
+   - States:      hover, active, focus-visible, disabled, loading
+   - Parts:       `__element`
+   - No JavaScript. Interactive controls are real form elements, so `:checked`
+     and `:disabled` do the work.
+   ========================================================================== */
+
+/* --- layer constants -----------------------------------------------------
+   Shape and layout constants that are not theme parameters. They belong to
+   the component layer on purpose: a theme changes colours and metrics, not
+   the fact that a circle is round.
+   ------------------------------------------------------------------------ */
+:root {
+  --um-radius-circle: 50%;
+  --um-radius-none: 0;
+  --um-focus-ring-width: 2px;
+  --um-focus-ring-offset: 2px;
+  --um-letter-spacing-wide: 0.08em;
+
+  /* The theme ships three spacing steps; the library derives the rest. */
+  --um-space-md: calc(var(--um-space-sm) + var(--um-space-xs) * 0.5);
+  --um-space-xl: calc(var(--um-space-lg) + var(--um-space-sm));
+
+  /* Control heights follow the theme's type size, so a mood with larger type
+     gets larger controls rather than text overflowing them. */
+  --um-height-sm: calc(var(--um-font-size-body) + var(--um-space-xs) * 1.4);
+  --um-height-md: calc(var(--um-font-size-body) + var(--um-space-xs) * 2);
+  --um-height-lg: calc(var(--um-font-size-body) + var(--um-space-xs) * 2.6);
+
+  --um-motion: var(--um-duration) var(--um-easing);
+}
+
+/* --- shared ---------------------------------------------------------------
+   One focus treatment for every focusable component.
+   ------------------------------------------------------------------------ */
+.um-focusable:focus-visible,
+.um-button:focus-visible,
+.um-input:focus-visible,
+.um-textarea:focus-visible,
+.um-select:focus-visible,
+.um-switch__input:focus-visible + .um-switch__track,
+.um-checkbox__input:focus-visible + .um-checkbox__box,
+.um-radio__input:focus-visible + .um-radio__dot,
+.um-slider:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+/* A disabled control is not dimmed with `opacity`.
+   Opacity is not a colour, so nothing about it can be measured — and a label
+   dropped to 45% can fall below the contrast floor the rest of the library
+   keeps. The text takes the derived disabled role instead, and only the
+   shapes keep the opacity. */
+.um-disabled,
+.um-button:disabled,
+.um-input:disabled,
+.um-textarea:disabled,
+.um-select:disabled,
+.um-slider:disabled {
+  cursor: not-allowed;
+}
+
+.um-button:disabled,
+.um-input:disabled,
+.um-textarea:disabled,
+.um-select:disabled {
+  /* The disabled fill is the flattened surface, not the translucent fill: the
+     control paints an opaque colour, so the label's contrast is the number
+     the theme derived instead of one that depends on what is behind it. */
+  background: var(--um-surface-control);
+  border-color: var(--um-border-base);
+  color: var(--um-text-disabled);
+}
+
+/* A filled button loses its fill when disabled: a dimmed brand colour with a
+   dimmed label on it is two wrongs, not one. */
+.um-button--primary:disabled,
+.um-button--success:disabled,
+.um-button--warning:disabled,
+.um-button--danger:disabled {
+  background: var(--um-surface-control);
+  border-color: var(--um-border-base);
+}
+
+/* A text button has no fill to lose — only its label changes. */
+.um-button--text:disabled {
+  background: transparent;
+  border-color: transparent;
+}
+
+.um-switch__input:disabled + .um-switch__track,
+.um-checkbox__input:disabled + .um-checkbox__box,
+.um-radio__input:disabled + .um-radio__dot {
+  opacity: 0.45;
+}
+
+.um-switch__input:disabled ~ .um-switch__label,
+.um-checkbox__input:disabled ~ .um-checkbox__label,
+.um-radio__input:disabled ~ .um-radio__label {
+  color: var(--um-text-disabled);
+}
+
+/* ============================================================================
+   Button
+   ========================================================================== */
+.um-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--um-space-xs);
+  height: var(--um-height-md);
+  padding: 0 var(--um-space-sm);
+  border: var(--um-border-width) var(--um-border-style) transparent;
+  border-radius: var(--um-radius-base);
+  background: transparent;
+  color: var(--um-text-regular);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+  font-weight: var(--um-font-weight-medium);
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--um-motion), border-color var(--um-motion),
+    color var(--um-motion), box-shadow var(--um-motion);
+}
+
+.um-button--sm { height: var(--um-height-sm); padding: 0 var(--um-space-xs); font-size: var(--um-font-size-caption); }
+.um-button--lg { height: var(--um-height-lg); padding: 0 var(--um-space-md); }
+
+.um-button--primary {
+  background: var(--um-color-primary);
+  border-color: var(--um-color-primary);
+  color: var(--um-color-primary-on);
+}
+.um-button--primary:hover:not(:disabled) { background: var(--um-color-primary-strong); border-color: var(--um-color-primary-strong); }
+.um-button--primary:active:not(:disabled) { background: var(--um-color-primary-strong); border-color: var(--um-color-primary-strong); }
+
+.um-button--default {
+  background: var(--um-fill-base);
+  border-color: var(--um-border-base);
+  color: var(--um-text-regular);
+}
+.um-button--default:hover:not(:disabled) { background: var(--um-fill-light); border-color: var(--um-color-primary-soft-6); color: var(--um-color-primary-text); }
+.um-button--default:active:not(:disabled) { background: var(--um-fill-lighter); }
+
+.um-button--text { color: var(--um-color-primary-text); }
+.um-button--text:hover:not(:disabled) { background: var(--um-color-primary-soft-2); }
+.um-button--text:active:not(:disabled) { background: var(--um-color-primary-soft-4); }
+
+.um-button--success { background: var(--um-color-success); border-color: var(--um-color-success); color: var(--um-color-success-on); }
+.um-button--success:hover:not(:disabled) { background: var(--um-color-success-strong); border-color: var(--um-color-success-strong); }
+
+.um-button--warning { background: var(--um-color-warning); border-color: var(--um-color-warning); color: var(--um-color-warning-on); }
+.um-button--warning:hover:not(:disabled) { background: var(--um-color-warning-strong); border-color: var(--um-color-warning-strong); }
+
+.um-button--danger { background: var(--um-color-danger); border-color: var(--um-color-danger); color: var(--um-color-danger-on); }
+.um-button--danger:hover:not(:disabled) { background: var(--um-color-danger-strong); border-color: var(--um-color-danger-strong); }
+
+/* A loading button keeps its label so the width does not jump. */
+.um-button--loading { position: relative; color: transparent; pointer-events: none; }
+.um-button--loading::before {
+  content: "";
+  position: absolute;
+  width: var(--um-space-sm);
+  height: var(--um-space-sm);
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: var(--um-radius-circle);
+  color: var(--um-color-primary-on);
+  animation: um-spin 0.7s linear infinite;
+}
+.um-button--default.um-button--loading::before,
+.um-button--text.um-button--loading::before { color: var(--um-color-primary); }
+
+@keyframes um-spin { to { transform: rotate(360deg); } }
+
+/* ============================================================================
+   Field — the shared label / control / message scaffolding
+   ========================================================================== */
+.um-field { display: flex; flex-direction: column; gap: var(--um-space-xs); }
+.um-field__label {
+  color: var(--um-text-regular);
+  font-size: var(--um-font-size-caption);
+  font-weight: var(--um-font-weight-medium);
+}
+.um-field__message { color: var(--um-text-secondary); font-size: var(--um-font-size-caption); }
+/* The error message is text, so it takes the derived brand colour: the raw
+   one is a fill colour, and on a container it can land below 4.5:1. */
+.um-field--error .um-field__message { color: var(--um-color-danger-text); }
+.um-field--error .um-input,
+.um-field--error .um-textarea,
+.um-field--error .um-select { border-color: var(--um-color-danger); }
+
+/* ============================================================================
+   Input / Textarea / Select
+   ========================================================================== */
+.um-input,
+.um-textarea,
+.um-select {
+  width: 100%;
+  min-height: var(--um-height-md);
+  padding: 0 var(--um-space-xs);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-small);
+  background: var(--um-fill-blank);
+  color: var(--um-text-primary);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+  line-height: 1.5;
+  transition: border-color var(--um-motion), box-shadow var(--um-motion);
+}
+
+.um-input::placeholder,
+.um-textarea::placeholder { color: var(--um-text-placeholder); }
+
+.um-input:hover:not(:disabled),
+.um-textarea:hover:not(:disabled),
+.um-select:hover:not(:disabled) { border-color: var(--um-color-primary-soft-6); }
+
+.um-input:focus,
+.um-textarea:focus,
+.um-select:focus {
+  border-color: var(--um-color-primary);
+  outline: none;
+  box-shadow: 0 0 0 var(--um-focus-ring-width) var(--um-color-primary-soft-4);
+}
+
+.um-textarea { min-height: calc(var(--um-height-md) * 3); padding: var(--um-space-xs); resize: vertical; }
+
+.um-select {
+  appearance: none;
+  padding-right: var(--um-space-lg);
+  /* The chevron is a CSS shape, not an icon font and not an emoji. */
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
+    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: right var(--um-space-sm) center, right calc(var(--um-space-sm) - 4px) center;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+}
+.um-select option { background: var(--um-bg-overlay); color: var(--um-text-primary); }
+
+/* ============================================================================
+   Switch
+   ========================================================================== */
+.um-switch { display: inline-flex; align-items: center; gap: var(--um-space-xs); cursor: pointer; }
+.um-switch__input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.um-switch__track {
+  position: relative;
+  display: inline-block;
+  width: calc(var(--um-height-md) * 1.5);
+  height: var(--um-height-sm);
+  border-radius: var(--um-radius-round);
+  background: var(--um-fill-light);
+  transition: background-color var(--um-motion);
+}
+.um-switch__thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: calc(var(--um-height-sm) - 4px);
+  height: calc(var(--um-height-sm) - 4px);
+  border-radius: var(--um-radius-circle);
+  background: var(--um-bg-overlay);
+  box-shadow: var(--um-shadow-light);
+  transition: transform var(--um-motion);
+}
+.um-switch__input:checked + .um-switch__track { background: var(--um-color-primary); }
+.um-switch__input:checked + .um-switch__track .um-switch__thumb { transform: translateX(calc(var(--um-height-md) * 0.5)); }
+.um-switch__input:disabled + .um-switch__track { opacity: 0.45; cursor: not-allowed; }
+.um-switch__label { color: var(--um-text-regular); font-size: var(--um-font-size-body); }
+
+/* ============================================================================
+   Checkbox / Radio
+   ========================================================================== */
+.um-checkbox, .um-radio { display: inline-flex; align-items: center; gap: var(--um-space-xs); cursor: pointer; }
+.um-checkbox__input, .um-radio__input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.um-checkbox__box, .um-radio__dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--um-height-sm);
+  height: var(--um-height-sm);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  background: var(--um-fill-blank);
+  transition: background-color var(--um-motion), border-color var(--um-motion);
+}
+.um-checkbox__box { border-radius: var(--um-radius-small); }
+.um-radio__dot { border-radius: var(--um-radius-circle); }
+
+/* The check mark is drawn with two borders — a shape, not a glyph. */
+.um-checkbox__box::after {
+  content: "";
+  width: 4px;
+  height: 8px;
+  margin-top: -2px;
+  border: solid var(--um-color-primary-on);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg) scale(0);
+  transition: transform var(--um-motion);
+}
+.um-checkbox__input:checked + .um-checkbox__box { background: var(--um-color-primary); border-color: var(--um-color-primary); }
+.um-checkbox__input:checked + .um-checkbox__box::after { transform: rotate(45deg) scale(1); }
+.um-checkbox__input:indeterminate + .um-checkbox__box { background: var(--um-color-primary); border-color: var(--um-color-primary); }
+.um-checkbox__input:indeterminate + .um-checkbox__box::after {
+  width: 8px;
+  height: 0;
+  margin-top: 0;
+  border-width: 0 0 2px 0;
+  transform: none;
+}
+
+.um-radio__dot::after {
+  content: "";
+  width: calc(var(--um-height-sm) * 0.4);
+  height: calc(var(--um-height-sm) * 0.4);
+  border-radius: var(--um-radius-circle);
+  background: var(--um-color-primary-on);
+  transform: scale(0);
+  transition: transform var(--um-motion);
+}
+.um-radio__input:checked + .um-radio__dot { background: var(--um-color-primary); border-color: var(--um-color-primary); }
+.um-radio__input:checked + .um-radio__dot::after { transform: scale(1); }
+
+.um-checkbox__label, .um-radio__label { color: var(--um-text-regular); font-size: var(--um-font-size-body); }
+.um-checkbox__input:disabled + .um-checkbox__box,
+.um-radio__input:disabled + .um-radio__dot { opacity: 0.45; cursor: not-allowed; }
+
+/* ============================================================================
+   Slider
+   ========================================================================== */
+.um-slider {
+  width: 100%;
+  height: var(--um-space-sm);
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+.um-slider::-webkit-slider-runnable-track {
+  height: var(--um-space-xs);
+  border-radius: var(--um-radius-round);
+  background: var(--um-fill-light);
+}
+.um-slider::-moz-range-track {
+  height: var(--um-space-xs);
+  border-radius: var(--um-radius-round);
+  background: var(--um-fill-light);
+}
+.um-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: var(--um-height-sm);
+  height: var(--um-height-sm);
+  margin-top: calc(var(--um-space-xs) * -0.5 - var(--um-space-xs) * 0.5);
+  border: 2px solid var(--um-color-primary);
+  border-radius: var(--um-radius-circle);
+  background: var(--um-bg-overlay);
+  box-shadow: var(--um-shadow-light);
+}
+.um-slider::-moz-range-thumb {
+  width: var(--um-height-sm);
+  height: var(--um-height-sm);
+  border: 2px solid var(--um-color-primary);
+  border-radius: var(--um-radius-circle);
+  background: var(--um-bg-overlay);
+  box-shadow: var(--um-shadow-light);
+}
+.um-slider:disabled { cursor: not-allowed; }
+
+/* ============================================================================
+   Badge / Tag
+   ========================================================================== */
+.um-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--um-space-xs);
+  height: var(--um-height-sm);
+  padding: 0 var(--um-space-xs);
+  border: var(--um-border-width) var(--um-border-style) transparent;
+  border-radius: var(--um-radius-round);
+  background: var(--um-fill-base);
+  color: var(--um-text-regular);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-caption);
+  font-weight: var(--um-font-weight-medium);
+  line-height: 1;
+}
+.um-badge--primary { background: var(--um-color-primary); border-color: var(--um-color-primary); color: var(--um-color-primary-on); }
+.um-badge--success { background: var(--um-color-success); border-color: var(--um-color-success); color: var(--um-color-success-on); }
+.um-badge--warning { background: var(--um-color-warning); border-color: var(--um-color-warning); color: var(--um-color-warning-on); }
+.um-badge--danger  { background: var(--um-color-danger);  border-color: var(--um-color-danger);  color: var(--um-color-danger-on); }
+.um-badge--info    { background: var(--um-color-info);    border-color: var(--um-color-info);    color: var(--um-color-info-on); }
+
+/* The soft variant tints toward the page, so it recedes instead of competing.
+   Its foreground is the brand colour moved toward the text just far enough to
+   read on that tint — derived per theme, because a pastel brand needs a long
+   way to travel and a near-black one overshoots.
+   The soft badge carries no outline: a border one step off its own fill sits
+   at 1.06:1 in brutal and 1.97:1 in the brightest mood, so it reads as a
+   smear rather than an edge — and it would differ from theme to theme. The
+   tag is the outlined member of the family; the badge is the filled one. */
+.um-badge--soft-primary { background: var(--um-color-primary-soft-8); color: var(--um-color-primary-on-soft); }
+.um-badge--soft-success { background: var(--um-color-success-soft-8); color: var(--um-color-success-on-soft); }
+.um-badge--soft-warning { background: var(--um-color-warning-soft-8); color: var(--um-color-warning-on-soft); }
+.um-badge--soft-danger  { background: var(--um-color-danger-soft-8);  color: var(--um-color-danger-on-soft); }
+.um-badge--soft-info    { background: var(--um-color-info-soft-8);    color: var(--um-color-info-on-soft); }
+
+.um-badge__dot { width: 6px; height: 6px; border-radius: var(--um-radius-circle); background: currentColor; }
+
+.um-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--um-space-xs);
+  height: var(--um-height-sm);
+  padding: 0 var(--um-space-xs);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-small);
+  background: var(--um-fill-blank);
+  color: var(--um-text-regular);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-caption);
+  line-height: 1;
+}
+.um-tag--primary { border-color: var(--um-color-primary-text); color: var(--um-color-primary-on-soft); background: var(--um-color-primary-soft-8); }
+.um-tag--success { border-color: var(--um-color-success-text); color: var(--um-color-success-on-soft); background: var(--um-color-success-soft-8); }
+.um-tag--warning { border-color: var(--um-color-warning-text); color: var(--um-color-warning-on-soft); background: var(--um-color-warning-soft-8); }
+.um-tag--danger  { border-color: var(--um-color-danger-text);  color: var(--um-color-danger-on-soft);  background: var(--um-color-danger-soft-8); }
+
+/* ============================================================================
+   Alert
+   ========================================================================== */
+.um-alert {
+  display: flex;
+  gap: var(--um-space-xs);
+  padding: var(--um-space-xs) var(--um-space-sm);
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-base);
+  background: var(--um-fill-base);
+  color: var(--um-text-regular);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+  line-height: 1.6;
+}
+.um-alert__mark {
+  flex-shrink: 0;
+  align-self: flex-start;
+  padding: 2px var(--um-space-xs);
+  border-radius: var(--um-radius-round);
+  background: var(--um-fill-light);
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+  font-weight: var(--um-font-weight-bold);
+  letter-spacing: var(--um-letter-spacing-wide);
+  text-transform: uppercase;
+}
+.um-alert__body { min-width: 0; }
+.um-alert__title { display: block; color: var(--um-text-primary); font-weight: var(--um-font-weight-bold); }
+.um-alert__description { color: var(--um-text-regular); }
+
+.um-alert--primary { border-color: var(--um-color-primary-text); }
+.um-alert--primary .um-alert__mark { background: var(--um-color-primary); color: var(--um-color-primary-on); }
+.um-alert--success { border-color: var(--um-color-success-text); }
+.um-alert--success .um-alert__mark { background: var(--um-color-success); color: var(--um-color-success-on); }
+.um-alert--warning { border-color: var(--um-color-warning-text); }
+.um-alert--warning .um-alert__mark { background: var(--um-color-warning); color: var(--um-color-warning-on); }
+.um-alert--danger { border-color: var(--um-color-danger-text); }
+.um-alert--danger .um-alert__mark { background: var(--um-color-danger); color: var(--um-color-danger-on); }
+.um-alert--info { border-color: var(--um-color-info-text); }
+.um-alert--info .um-alert__mark { background: var(--um-color-info); color: var(--um-color-info-on); }
+
+/* ============================================================================
+   Card
+   ========================================================================== */
+.um-card {
+  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border-radius: var(--um-radius-large);
+  background: var(--um-bg-overlay);
+  box-shadow: var(--um-shadow-base);
+  color: var(--um-text-regular);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+  overflow: hidden;
+}
+.um-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--um-space-xs);
+  padding: var(--um-space-sm) var(--um-space-sm);
+  border-bottom: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+}
+.um-card__title { color: var(--um-text-primary); font-size: var(--um-font-size-title); font-weight: var(--um-font-weight-bold); }
+.um-card__body { padding: var(--um-space-sm); }
+.um-card__footer {
+  padding: var(--um-space-sm);
+  border-top: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+  background: var(--um-fill-lighter);
+}
+
+/* A frosted card is the quality hook a glass-like mood plugs into. */
+.um-card--frosted {
+  background: var(--um-bg-overlay);
+  backdrop-filter: var(--um-backdrop, none);
+}
+
+/* ============================================================================
+   Progress
+   ========================================================================== */
+.um-progress { display: flex; flex-direction: column; gap: var(--um-space-xs); }
+.um-progress__track {
+  width: 100%;
+  height: var(--um-space-xs);
+  border-radius: var(--um-radius-round);
+  background: var(--um-fill-light);
+  overflow: hidden;
+}
+.um-progress__bar {
+  height: 100%;
+  border-radius: var(--um-radius-round);
+  background: var(--um-color-primary);
+  transition: width var(--um-motion);
+}
+.um-progress--success .um-progress__bar { background: var(--um-color-success); }
+.um-progress--warning .um-progress__bar { background: var(--um-color-warning); }
+.um-progress--danger  .um-progress__bar { background: var(--um-color-danger); }
+.um-progress__label {
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+  font-weight: var(--um-font-weight-medium);
+}
+
+/* ============================================================================
+   Empty
+   ========================================================================== */
+.um-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--um-space-xs);
+  padding: var(--um-space-lg) var(--um-space-sm);
+  color: var(--um-text-secondary);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-body);
+  text-align: center;
+}
+.um-empty__art {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--um-height-lg);
+  height: var(--um-height-lg);
+  border-radius: var(--um-radius-circle);
+  background: var(--um-fill-light);
+  color: var(--um-text-placeholder);
+  font-size: var(--um-font-size-title);
+}
+.um-empty__title { color: var(--um-text-primary); font-weight: var(--um-font-weight-bold); }
+
+/* ============================================================================
+   Divider
+   ========================================================================== */
+.um-divider {
+  display: flex;
+  align-items: center;
+  gap: var(--um-space-xs);
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+.um-divider::before,
+.um-divider::after {
+  content: "";
+  flex: 1;
+  height: var(--um-border-width);
+  background: var(--um-border-lighter);
+}
+.um-divider--plain::before,
+.um-divider--plain::after { display: none; }
+.um-divider--vertical {
+  flex-direction: column;
+  align-self: stretch;
+  width: var(--um-border-width);
+  background: var(--um-border-lighter);
+}
+.um-divider--vertical::before,
+.um-divider--vertical::after { display: none; }
+
+/* ============================================================================
+   Skeleton
+   ========================================================================== */
+.um-skeleton {
+  border-radius: var(--um-radius-small);
+  background: var(--um-fill-light);
+}
+.um-skeleton--text { height: var(--um-font-size-body); border-radius: var(--um-radius-small); }
+.um-skeleton--circle { width: var(--um-height-lg); height: var(--um-height-lg); border-radius: var(--um-radius-circle); }
+.um-skeleton--block { height: var(--um-space-lg); }
+
+/* A skeleton that shimmers, but only when the motion contract allows it.
+   `prefers-reduced-motion` wins — the library never overrides that. */
+@media (prefers-reduced-motion: no-preference) {
+  .um-skeleton--animated {
+    background: linear-gradient(90deg, var(--um-fill-light) 25%, var(--um-fill-lighter) 37%, var(--um-fill-light) 63%);
+    background-size: 400% 100%;
+    animation: um-shimmer 1.4s ease infinite;
+  }
+}
+@keyframes um-shimmer {
+  0% { background-position: 100% 50%; }
+  100% { background-position: 0 50%; }
+}
+
+/* ============================================================================
+   Quality hooks
+   ----------------------------------------------------------------------------
+   A mood that declares a glow gets it on emphasis surfaces. A mood without
+   one declares `none`, so the hook is invisible — not a second visual system.
+   ========================================================================== */
+.um-button--glow { box-shadow: var(--um-glow, none); }

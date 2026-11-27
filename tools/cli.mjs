@@ -7,9 +7,18 @@
 //   serve           start the local library browser
 //   build-specimen  generate specimen.html from tokens.json
 //   build-apps      render industry app screens from app.json
+//   build-themes    generate themes/<id>.css from the mood tokens
 //   scaffold        create a new mood package from the template
 
-const commands = ["bundle", "validate", "serve", "build-specimen", "build-apps", "scaffold"];
+const commands = [
+  "bundle",
+  "validate",
+  "serve",
+  "build-specimen",
+  "build-apps",
+  "build-themes",
+  "scaffold",
+];
 
 function usage() {
   console.log(`ui-moods — Style Specimen Registry & App Reference Library
@@ -22,6 +31,7 @@ Usage:
   ui-moods build-specimen <id> [...]      Generate specimen.html from tokens.json
   ui-moods build-apps <id> [--mood <id>]  Render industry app screens
   ui-moods build-apps --all               Render every registered app
+  ui-moods build-themes [--mood <id>]     Generate themes/<id>.css from the mood tokens
   ui-moods scaffold <id> [--mood <id>]    Create a new mood package from the template
   ui-moods --help                         Show this help
 `);

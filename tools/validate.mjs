@@ -13,6 +13,7 @@ import yaml from "js-yaml";
 import { expectedVars, FALLBACK_ALLOWED } from "./lib/mapping.mjs";
 import { BLOCK_TYPES } from "./lib/blocks.mjs";
 import { checkRenderedStates } from "./lib/render-check.mjs";
+import { checkComponentLibrary } from "./lib/component-check.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const ajv = new Ajv({ strict: false, allErrors: true });
@@ -631,6 +632,16 @@ if (registryErrors.length > 0) {
   for (const e of registryErrors) console.log(`  - ${e}`);
 } else {
   console.log("registry: PASS");
+}
+
+// component library: the layer and the themes must actually meet
+const componentErrors = checkComponentLibrary(root);
+if (componentErrors.length > 0) {
+  failed++;
+  console.log(`components: FAIL (${componentErrors.length} errors)`);
+  for (const e of componentErrors) console.log(`  - ${e}`);
+} else {
+  console.log("components: PASS");
 }
 
 process.exit(failed ? 1 : 0);

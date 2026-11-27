@@ -1,0 +1,945 @@
+{
+  "version": "2.0.0",
+  "prefix": "--um",
+  "note": "The component library's role vocabulary. This file is the contract between the component layer (components/um-components.css, which may only read these variables) and the skin layer (themes/<id>.css, which must define every role). A role is either copied from a mood token (`from`) or computed from other roles (`derive`).",
+  "derivation": {
+    "soft": "mix(base, bg-page, w) — the brand colour blended toward the page background, so it recedes instead of competing. On a light theme this is a pale tint; on a dark theme it is a deep, desaturated version of the same hue. One formula, 32 themes.",
+    "strong": "mix(base, text-primary, 0.2) — the brand colour moved toward the text colour. On a light theme that darkens it (a hover state); on a dark theme it brightens it. Element Plus writes `light-N`/`dark-N` because it only has one light theme plus a hand-written dark file; mixing toward white is wrong on a dark page, so this vocabulary names the direction instead.",
+    "why-not-element-names": "`--el-color-primary-light-3` means \"mixed with white\", which is only correct on a light page. Naming by direction keeps one formula correct across all 32 moods. See docs/component-library.md for the correspondence table."
+  },
+  "roles": {
+    "color-primary": {
+      "from": "colors.accent",
+      "doc": "Brand / accent colour. Buttons, selected rows, active nav."
+    },
+    "color-primary-on": {
+      "from": "colors.onAccentSolid",
+      "doc": "Readable foreground on a solid primary fill. Measured to reach 4.5:1."
+    },
+    "color-primary-soft-2": {
+      "derive": {
+        "base": "color-primary",
+        "mix": "bg-page",
+        "weight": 0.2
+      },
+      "doc": "Primary, 20% toward the page background."
+    },
+    "color-primary-soft-4": {
+      "derive": {
+        "base": "color-primary",
+        "mix": "bg-page",
+        "weight": 0.4
+      },
+      "doc": "Primary, 40% toward the page background."
+    },
+    "color-primary-soft-6": {
+      "derive": {
+        "base": "color-primary",
+        "mix": "bg-page",
+        "weight": 0.6
+      },
+      "doc": "Primary, 60% toward the page background."
+    },
+    "color-primary-soft-8": {
+      "derive": {
+        "base": "color-primary",
+        "mix": "bg-page",
+        "weight": 0.8
+      },
+      "doc": "Primary, 80% toward the page background — a barely-there tint for selected rows."
+    },
+    "color-primary-on-soft": {
+      "op": "contrast",
+      "base": "color-primary",
+      "toward": "text-primary",
+      "against": "color-primary-soft-8",
+      "target": 4.5,
+      "mode": "atleast",
+      "doc": "The foreground for a soft (tinted) surface: the brand colour moved toward the text colour just far enough to read on its own tint."
+    },
+    "color-primary-strong": {
+      "op": "contrast",
+      "base": "color-primary",
+      "toward": "text-primary",
+      "against": "color-primary-on",
+      "target": 4.5,
+      "mode": "atmost",
+      "doc": "The brand colour moved toward the text colour as far as its own on-colour stays readable against it. This is the hover state of a solid surface, so it may change visibly but never lose legibility."
+    },
+    "color-success": {
+      "from": "colors.ok",
+      "doc": "Positive state."
+    },
+    "color-success-on": {
+      "from": "colors.onOkSolid",
+      "doc": "Readable foreground on a solid success fill."
+    },
+    "color-success-soft-2": {
+      "derive": {
+        "base": "color-success",
+        "mix": "bg-page",
+        "weight": 0.2
+      },
+      "doc": "Success, 20% toward the page background."
+    },
+    "color-success-soft-4": {
+      "derive": {
+        "base": "color-success",
+        "mix": "bg-page",
+        "weight": 0.4
+      },
+      "doc": "Success, 40% toward the page background."
+    },
+    "color-success-soft-6": {
+      "derive": {
+        "base": "color-success",
+        "mix": "bg-page",
+        "weight": 0.6
+      },
+      "doc": "Success, 60% toward the page background."
+    },
+    "color-success-soft-8": {
+      "derive": {
+        "base": "color-success",
+        "mix": "bg-page",
+        "weight": 0.8
+      },
+      "doc": "Success, 80% toward the page background."
+    },
+    "color-success-on-soft": {
+      "op": "contrast",
+      "base": "color-success",
+      "toward": "text-primary",
+      "against": "color-success-soft-8",
+      "target": 4.5,
+      "mode": "atleast",
+      "doc": "The foreground for a soft (tinted) surface: the brand colour moved toward the text colour just far enough to read on its own tint."
+    },
+    "color-success-strong": {
+      "op": "contrast",
+      "base": "color-success",
+      "toward": "text-primary",
+      "against": "color-success-on",
+      "target": 4.5,
+      "mode": "atmost",
+      "doc": "The brand colour moved toward the text colour as far as its own on-colour stays readable against it. This is the hover state of a solid surface, so it may change visibly but never lose legibility."
+    },
+    "color-warning": {
+      "from": "colors.warn",
+      "doc": "Caution state."
+    },
+    "color-warning-on": {
+      "from": "colors.onWarnSolid",
+      "doc": "Readable foreground on a solid warning fill."
+    },
+    "color-warning-soft-2": {
+      "derive": {
+        "base": "color-warning",
+        "mix": "bg-page",
+        "weight": 0.2
+      },
+      "doc": "Warning, 20% toward the page background."
+    },
+    "color-warning-soft-4": {
+      "derive": {
+        "base": "color-warning",
+        "mix": "bg-page",
+        "weight": 0.4
+      },
+      "doc": "Warning, 40% toward the page background."
+    },
+    "color-warning-soft-6": {
+      "derive": {
+        "base": "color-warning",
+        "mix": "bg-page",
+        "weight": 0.6
+      },
+      "doc": "Warning, 60% toward the page background."
+    },
+    "color-warning-soft-8": {
+      "derive": {
+        "base": "color-warning",
+        "mix": "bg-page",
+        "weight": 0.8
+      },
+      "doc": "Warning, 80% toward the page background."
+    },
+    "color-warning-on-soft": {
+      "op": "contrast",
+      "base": "color-warning",
+      "toward": "text-primary",
+      "against": "color-warning-soft-8",
+      "target": 4.5,
+      "mode": "atleast",
+      "doc": "The foreground for a soft (tinted) surface: the brand colour moved toward the text colour just far enough to read on its own tint."
+    },
+    "color-warning-strong": {
+      "op": "contrast",
+      "base": "color-warning",
+      "toward": "text-primary",
+      "against": "color-warning-on",
+      "target": 4.5,
+      "mode": "atmost",
+      "doc": "The brand colour moved toward the text colour as far as its own on-colour stays readable against it. This is the hover state of a solid surface, so it may change visibly but never lose legibility."
+    },
+    "color-danger": {
+      "from": "colors.danger",
+      "doc": "Destructive / error state."
+    },
+    "color-danger-on": {
+      "from": "colors.onDangerSolid",
+      "doc": "Readable foreground on a solid danger fill."
+    },
+    "color-danger-soft-2": {
+      "derive": {
+        "base": "color-danger",
+        "mix": "bg-page",
+        "weight": 0.2
+      },
+      "doc": "Danger, 20% toward the page background."
+    },
+    "color-danger-soft-4": {
+      "derive": {
+        "base": "color-danger",
+        "mix": "bg-page",
+        "weight": 0.4
+      },
+      "doc": "Danger, 40% toward the page background."
+    },
+    "color-danger-soft-6": {
+      "derive": {
+        "base": "color-danger",
+        "mix": "bg-page",
+        "weight": 0.6
+      },
+      "doc": "Danger, 60% toward the page background."
+    },
+    "color-danger-soft-8": {
+      "derive": {
+        "base": "color-danger",
+        "mix": "bg-page",
+        "weight": 0.8
+      },
+      "doc": "Danger, 80% toward the page background."
+    },
+    "color-danger-on-soft": {
+      "op": "contrast",
+      "base": "color-danger",
+      "toward": "text-primary",
+      "against": "color-danger-soft-8",
+      "target": 4.5,
+      "mode": "atleast",
+      "doc": "The foreground for a soft (tinted) surface: the brand colour moved toward the text colour just far enough to read on its own tint."
+    },
+    "color-danger-strong": {
+      "op": "contrast",
+      "base": "color-danger",
+      "toward": "text-primary",
+      "against": "color-danger-on",
+      "target": 4.5,
+      "mode": "atmost",
+      "doc": "The brand colour moved toward the text colour as far as its own on-colour stays readable against it. This is the hover state of a solid surface, so it may change visibly but never lose legibility."
+    },
+    "color-info": {
+      "from": "colors.muted",
+      "doc": "Neutral information state."
+    },
+    "color-info-on": {
+      "op": "on",
+      "base": "color-info",
+      "doc": "Readable foreground on a solid info fill — derived by the same rule as the state foregrounds."
+    },
+    "color-info-soft-2": {
+      "derive": {
+        "base": "color-info",
+        "mix": "bg-page",
+        "weight": 0.2
+      },
+      "doc": "Info, 20% toward the page background."
+    },
+    "color-info-soft-4": {
+      "derive": {
+        "base": "color-info",
+        "mix": "bg-page",
+        "weight": 0.4
+      },
+      "doc": "Info, 40% toward the page background."
+    },
+    "color-info-soft-6": {
+      "derive": {
+        "base": "color-info",
+        "mix": "bg-page",
+        "weight": 0.6
+      },
+      "doc": "Info, 60% toward the page background."
+    },
+    "color-info-soft-8": {
+      "derive": {
+        "base": "color-info",
+        "mix": "bg-page",
+        "weight": 0.8
+      },
+      "doc": "Info, 80% toward the page background."
+    },
+    "color-info-on-soft": {
+      "op": "contrast",
+      "base": "color-info",
+      "toward": "text-primary",
+      "against": "color-info-soft-8",
+      "target": 4.5,
+      "mode": "atleast",
+      "doc": "The foreground for a soft (tinted) surface: the brand colour moved toward the text colour just far enough to read on its own tint."
+    },
+    "color-info-strong": {
+      "op": "contrast",
+      "base": "color-info",
+      "toward": "text-primary",
+      "against": "color-info-on",
+      "target": 4.5,
+      "mode": "atmost",
+      "doc": "The brand colour moved toward the text colour as far as its own on-colour stays readable against it. This is the hover state of a solid surface, so it may change visibly but never lose legibility."
+    },
+    "text-primary": {
+      "from": "colors.textStrong",
+      "doc": "Headings and emphasised text."
+    },
+    "text-regular": {
+      "from": "colors.text",
+      "doc": "Body text."
+    },
+    "text-secondary": {
+      "op": "contrast",
+      "base": "{colors.muted}",
+      "toward": "text-primary",
+      "against": [
+        "bg-page",
+        "bg-overlay",
+        "bg-container"
+      ],
+      "target": 4.5,
+      "mode": "atleast",
+      "doc": "Supporting text. The mood owns a muted colour chosen for looks, and it is often below 4.5:1 as text. The library does not change the mood; it moves this role toward the text colour just far enough to read. It is measured against all three surfaces it can land on — the page, a floating overlay, and a container — because a caption that reads on the page can still vanish inside a card."
+    },
+    "text-placeholder": {
+      "op": "fade",
+      "base": "text-secondary",
+      "toward": "surface-input",
+      "away": "text-primary",
+      "against": [
+        "surface-input",
+        "bg-overlay",
+        "bg-page"
+      ],
+      "target": 2.5,
+      "doc": "Placeholder text. The muted colour faded toward the surface it sits on — the input's own fill, not the page — as far as 2.5:1 allows. The bar is 2.5 rather than 4.5 because a placeholder is a hint, not content: WCAG treats it as exempt when the field carries a visible label, and Element Plus ships a comparable ~2:1. The surface it fades toward is the flattened one: a translucent fill over a translucent container is a colour that neither token names. If the muted colour does not even clear 2.5 on that surface, fading is not the answer and the role moves away from the surface instead — a placeholder that cannot be seen is not a placeholder."
+    },
+    "text-disabled": {
+      "op": "fade",
+      "base": "text-secondary",
+      "toward": "surface-control",
+      "away": "text-primary",
+      "against": [
+        "surface-control",
+        "surface-input",
+        "bg-page",
+        "bg-overlay",
+        "bg-container"
+      ],
+      "target": 2,
+      "doc": "Text of a disabled control. Faded toward the surface it sits on; deliberately faint, but still visible. A disabled button sits on the control fill while a disabled switch label sits on the page, so the role is faded against both — faded against only one of them, the other surface gets a label that is either invisible or not faded at all."
+    },
+    "surface-control": {
+      "op": "flatten",
+      "stack": [
+        "fill-base",
+        "bg-container",
+        "bg-page"
+      ],
+      "doc": "The effective surface of a control inside a container, flattened to one opaque colour. A translucent fill over a translucent container is a colour that neither token describes on its own, and text sitting on both is sitting on something neither of them names. Measured against the fill alone, the real surface is understated — in the frosted themes it puts a disabled label at 1.56:1."
+    },
+    "surface-input": {
+      "op": "flatten",
+      "stack": [
+        "fill-blank",
+        "bg-container",
+        "bg-page"
+      ],
+      "doc": "The effective surface of a text field inside a container, flattened to one opaque colour. See surface-control."
+    },
+    "border-base": {
+      "from": "colors.border",
+      "doc": "Default border."
+    },
+    "border-light": {
+      "derive": {
+        "base": "border-base",
+        "mix": "bg-page",
+        "weight": 0.35
+      },
+      "doc": "Border, 35% toward the page background."
+    },
+    "border-lighter": {
+      "derive": {
+        "base": "border-base",
+        "mix": "bg-page",
+        "weight": 0.6
+      },
+      "doc": "Border, 60% toward the page background."
+    },
+    "border-extra-light": {
+      "derive": {
+        "base": "border-base",
+        "mix": "bg-page",
+        "weight": 0.8
+      },
+      "doc": "Border, 80% toward the page background."
+    },
+    "fill-base": {
+      "from": "colors.panel",
+      "doc": "A recessed surface sitting on the page."
+    },
+    "fill-light": {
+      "derive": {
+        "base": "fill-base",
+        "mix": "bg-page",
+        "weight": 0.4
+      },
+      "doc": "Fill, 40% toward the page background."
+    },
+    "fill-lighter": {
+      "derive": {
+        "base": "fill-base",
+        "mix": "bg-page",
+        "weight": 0.7
+      },
+      "doc": "Fill, 70% toward the page background."
+    },
+    "fill-blank": {
+      "from": "colors.surface",
+      "doc": "The plain surface a control sits on."
+    },
+    "bg-page": {
+      "from": "colors.bg",
+      "doc": "The page behind everything."
+    },
+    "bg-container": {
+      "from": "colors.panel",
+      "doc": "A container raised above the page."
+    },
+    "bg-overlay": {
+      "from": "colors.surface",
+      "doc": "A floating overlay: dropdown, dialog, drawer."
+    },
+    "radius-base": {
+      "from": "radii.card",
+      "doc": "Default corner radius."
+    },
+    "radius-small": {
+      "from": "radii.input",
+      "doc": "Small corner radius — inputs, chips."
+    },
+    "radius-large": {
+      "from": "radii.block",
+      "doc": "Large corner radius — cards, panels."
+    },
+    "radius-round": {
+      "from": "radii.badge",
+      "doc": "Pill radius — badges, tags, buttons."
+    },
+    "font-size-caption": {
+      "from": "typography.labelSize",
+      "doc": "Caption and label text."
+    },
+    "font-size-body": {
+      "from": "typography.bodySize",
+      "doc": "Body text."
+    },
+    "font-size-title": {
+      "from": "typography.titleSize",
+      "doc": "Titles."
+    },
+    "font-size-display": {
+      "from": "typography.displaySize",
+      "doc": "Display type."
+    },
+    "font-weight-regular": {
+      "from": "typography.weights.regular",
+      "doc": "Regular weight."
+    },
+    "font-weight-medium": {
+      "from": "typography.weights.medium",
+      "doc": "Medium weight."
+    },
+    "font-weight-bold": {
+      "from": "typography.weights.semibold",
+      "doc": "Bold weight."
+    },
+    "font-family": {
+      "from": "typography.family",
+      "doc": "The mood's type family."
+    },
+    "shadow-base": {
+      "from": "shadows.card",
+      "doc": "Card elevation."
+    },
+    "shadow-light": {
+      "op": "weaken",
+      "base": "shadow-base",
+      "factor": 0.5,
+      "doc": "Card elevation with its alpha halved. A shadow is not a colour, so it is weakened rather than mixed."
+    },
+    "shadow-lighter": {
+      "op": "weaken",
+      "base": "shadow-base",
+      "factor": 0.25,
+      "doc": "Card elevation with its alpha quartered."
+    },
+    "shadow-button": {
+      "from": "shadows.button",
+      "doc": "Button elevation."
+    },
+    "border-width": {
+      "from": "borders.width",
+      "doc": "Border thickness."
+    },
+    "border-style": {
+      "from": "borders.style",
+      "doc": "Border style — solid, dashed, none."
+    },
+    "space-xs": {
+      "from": "spacing.gap",
+      "doc": "Tightest gap."
+    },
+    "space-sm": {
+      "from": "spacing.block",
+      "doc": "Small gap."
+    },
+    "space-lg": {
+      "from": "spacing.section",
+      "doc": "Section gap."
+    },
+    "duration": {
+      "from": "motion.duration",
+      "doc": "Transition duration."
+    },
+    "easing": {
+      "from": "motion.easing",
+      "doc": "Transition easing."
+    },
+    "glow": {
+      "from": "effects.glow",
+      "doc": "Quality hook: the mood's glow, applied to emphasis surfaces. Moods without one declare none."
+    },
+    "backdrop": {
+      "from": "effects.backdropFilter",
+      "doc": "Quality hook: the mood's backdrop filter for frosted surfaces."
+    },
+    "color-primary-text": {
+      "op": "contrast",
+      "base": "color-primary",
+      "toward": "text-primary",
+      "against": [
+        "bg-page",
+        "bg-overlay",
+        "bg-container"
+      ],
+      "target": 4.5,
+      "mode": "atleast",
+      "doc": "The brand colour used as text — a text button, a link. Moved toward the text colour just far enough to read. It has to read on the page, on a floating overlay and inside a container5 on the overlay in four themes. The brutal accent is a bright yellow on a light page: readable as a fill, unreadable as text."
+    },
+    "color-success-text": {
+      "op": "contrast",
+      "base": "color-success",
+      "toward": "text-primary",
+      "against": [
+        "bg-page",
+        "bg-overlay",
+        "bg-container"
+      ],
+      "target": 4.5,
+      "mode": "atleast",
+      "doc": "The success colour used as text. Derived against the page, the overlay and the container together"
+    },
+    "color-warning-text": {
+      "op": "contrast",
+      "base": "color-warning",
+      "toward": "text-primary",
+      "against": [
+        "bg-page",
+        "bg-overlay",
+        "bg-container"
+      ],
+      "target": 4.5,
+      "mode": "atleast",
+      "doc": "The warning colour used as text. Derived against the page, the overlay and the container together"
+    },
+    "color-danger-text": {
+      "op": "contrast",
+      "base": "color-danger",
+      "toward": "text-primary",
+      "against": [
+        "bg-page",
+        "bg-overlay",
+        "bg-container"
+      ],
+      "target": 4.5,
+      "mode": "atleast",
+      "doc": "The danger colour used as text. Derived against the page, the overlay and the container together"
+    },
+    "color-info-text": {
+      "op": "contrast",
+      "base": "color-info",
+      "toward": "text-primary",
+      "against": [
+        "bg-page",
+        "bg-overlay",
+        "bg-container"
+      ],
+      "target": 4.5,
+      "mode": "atleast",
+      "doc": "The info colour used as text. Derived against the page, the overlay and the container together"
+    }
+  },
+  "optional": [
+    "glow",
+    "backdrop"
+  ],
+  "componentConstantsNote": "Shape and layout constants that are not theme parameters. A theme changes colours and metrics, not the fact that a circle is round. The component layer declares all of them; `validate` checks that it does and that it reads nothing else.",
+  "componentConstants": {
+    "--um-radius-circle": "50% — a circle is round in every mood.",
+    "--um-radius-none": "0 — for moods that want a hard edge.",
+    "--um-focus-ring-width": "Focus ring thickness.",
+    "--um-focus-ring-offset": "Gap between a focused control and its ring.",
+    "--um-letter-spacing-wide": "Letter spacing for uppercase micro-labels.",
+    "--um-space-md": "Derived spacing step between the theme's small and extra-small.",
+    "--um-space-xl": "Derived spacing step above the theme's section gap.",
+    "--um-height-sm": "Control height for the small size, derived from the theme's type size.",
+    "--um-height-md": "Control height for the default size.",
+    "--um-height-lg": "Control height for the large size.",
+    "--um-motion": "The theme's transition shorthand."
+  },
+  "pairs": [
+    {
+      "name": "solid primary surface",
+      "fg": "color-primary-on",
+      "bg": "color-primary",
+      "min": 4.5,
+      "doc": "A solid primary button or badge."
+    },
+    {
+      "name": "solid success surface",
+      "fg": "color-success-on",
+      "bg": "color-success",
+      "min": 4.5,
+      "doc": "A solid success badge."
+    },
+    {
+      "name": "solid warning surface",
+      "fg": "color-warning-on",
+      "bg": "color-warning",
+      "min": 4.5,
+      "doc": "A solid warning badge."
+    },
+    {
+      "name": "solid danger surface",
+      "fg": "color-danger-on",
+      "bg": "color-danger",
+      "min": 4.5,
+      "doc": "A solid danger badge."
+    },
+    {
+      "name": "solid info surface",
+      "fg": "color-info-on",
+      "bg": "color-info",
+      "min": 4.5,
+      "doc": "A solid info badge."
+    },
+    {
+      "name": "body on page",
+      "fg": "text-regular",
+      "bg": "bg-page",
+      "min": 4.5,
+      "doc": "Body copy on the page."
+    },
+    {
+      "name": "heading on page",
+      "fg": "text-primary",
+      "bg": "bg-page",
+      "min": 4.5,
+      "doc": "A heading on the page."
+    },
+    {
+      "name": "muted on page",
+      "fg": "text-secondary",
+      "bg": "bg-page",
+      "min": 4.5,
+      "doc": "Captions and meta, measured on the derived role, which is guaranteed readable."
+    },
+    {
+      "name": "body on surface",
+      "fg": "text-regular",
+      "bg": "bg-overlay",
+      "min": 4.5,
+      "doc": "Body copy inside a card."
+    },
+    {
+      "name": "heading on surface",
+      "fg": "text-primary",
+      "bg": "bg-overlay",
+      "min": 4.5,
+      "doc": "A card title."
+    },
+    {
+      "name": "primary text on page",
+      "fg": "color-primary-text",
+      "bg": "bg-page",
+      "min": 4.5,
+      "doc": "A text button, and any link."
+    },
+    {
+      "name": "primary text on surface",
+      "fg": "color-primary-text",
+      "bg": "bg-overlay",
+      "min": 4.5,
+      "doc": "A primary-coloured label inside a card."
+    },
+    {
+      "name": "placeholder on surface",
+      "fg": "text-placeholder",
+      "bg": "bg-overlay",
+      "min": 2.5,
+      "doc": "Placeholder text. A hint, not content: WCAG exempts it when the field carries a visible label, and Element Plus ships a comparable ~2:1."
+    },
+    {
+      "name": "disabled on surface",
+      "fg": "text-disabled",
+      "bg": "bg-overlay",
+      "min": 2,
+      "doc": "Text of a disabled control. Deliberately faint."
+    },
+    {
+      "name": "hover of a solid primary surface",
+      "fg": "color-primary-on",
+      "bg": "color-primary-strong",
+      "min": 4.5,
+      "doc": "The hover state of a solid primary surface must stay as readable as the surface it replaces."
+    },
+    {
+      "name": "soft primary surface",
+      "fg": "color-primary-on-soft",
+      "bg": "color-primary-soft-8",
+      "min": 4.5,
+      "doc": "A tinted primary surface with its own derived foreground."
+    },
+    {
+      "name": "soft primary outline",
+      "fg": "color-primary-text",
+      "bg": "color-primary-soft-8",
+      "min": 3,
+      "doc": "The outline of a soft tag. 3:1 is the WCAG bar for the boundary of a component, not the bar for text — the tag's own label is held to 4.5 by the pair above."
+    },
+    {
+      "name": "hover of a solid success surface",
+      "fg": "color-success-on",
+      "bg": "color-success-strong",
+      "min": 4.5,
+      "doc": "The hover state of a solid success surface must stay as readable as the surface it replaces."
+    },
+    {
+      "name": "soft success surface",
+      "fg": "color-success-on-soft",
+      "bg": "color-success-soft-8",
+      "min": 4.5,
+      "doc": "A tinted success surface with its own derived foreground."
+    },
+    {
+      "name": "soft success outline",
+      "fg": "color-success-text",
+      "bg": "color-success-soft-8",
+      "min": 3,
+      "doc": "The outline of a soft tag."
+    },
+    {
+      "name": "hover of a solid warning surface",
+      "fg": "color-warning-on",
+      "bg": "color-warning-strong",
+      "min": 4.5,
+      "doc": "The hover state of a solid warning surface must stay as readable as the surface it replaces."
+    },
+    {
+      "name": "soft warning surface",
+      "fg": "color-warning-on-soft",
+      "bg": "color-warning-soft-8",
+      "min": 4.5,
+      "doc": "A tinted warning surface with its own derived foreground."
+    },
+    {
+      "name": "soft warning outline",
+      "fg": "color-warning-text",
+      "bg": "color-warning-soft-8",
+      "min": 3,
+      "doc": "The outline of a soft tag."
+    },
+    {
+      "name": "hover of a solid danger surface",
+      "fg": "color-danger-on",
+      "bg": "color-danger-strong",
+      "min": 4.5,
+      "doc": "The hover state of a solid danger surface must stay as readable as the surface it replaces."
+    },
+    {
+      "name": "soft danger surface",
+      "fg": "color-danger-on-soft",
+      "bg": "color-danger-soft-8",
+      "min": 4.5,
+      "doc": "A tinted danger surface with its own derived foreground."
+    },
+    {
+      "name": "soft danger outline",
+      "fg": "color-danger-text",
+      "bg": "color-danger-soft-8",
+      "min": 3,
+      "doc": "The outline of a soft tag."
+    },
+    {
+      "name": "hover of a solid info surface",
+      "fg": "color-info-on",
+      "bg": "color-info-strong",
+      "min": 4.5,
+      "doc": "The hover state of a solid info surface must stay as readable as the surface it replaces."
+    },
+    {
+      "name": "soft info surface",
+      "fg": "color-info-on-soft",
+      "bg": "color-info-soft-8",
+      "min": 4.5,
+      "doc": "A tinted info surface with its own derived foreground."
+    },
+    {
+      "name": "soft info outline",
+      "fg": "color-info-text",
+      "bg": "color-info-soft-8",
+      "min": 3,
+      "doc": "The outline of a soft tag."
+    },
+    {
+      "name": "primary text on container",
+      "fg": "color-primary-text",
+      "bg": "bg-container",
+      "min": 4.5,
+      "doc": "A primary-coloured label inside a container. A container is lighter or darker than the page, so a role tuned against the page alone can land under 4.5 here."
+    },
+    {
+      "name": "success text on page",
+      "fg": "color-success-text",
+      "bg": "bg-page",
+      "min": 4.5,
+      "doc": "A success-coloured label on the page."
+    },
+    {
+      "name": "success text on surface",
+      "fg": "color-success-text",
+      "bg": "bg-overlay",
+      "min": 4.5,
+      "doc": "A success-coloured label inside a card or a floating panel."
+    },
+    {
+      "name": "success text on container",
+      "fg": "color-success-text",
+      "bg": "bg-container",
+      "min": 4.5,
+      "doc": "A success-coloured label inside a container. A container is lighter or darker than the page, so a role tuned against the page alone can land under 4.5 here."
+    },
+    {
+      "name": "warning text on page",
+      "fg": "color-warning-text",
+      "bg": "bg-page",
+      "min": 4.5,
+      "doc": "A warning-coloured label on the page."
+    },
+    {
+      "name": "warning text on surface",
+      "fg": "color-warning-text",
+      "bg": "bg-overlay",
+      "min": 4.5,
+      "doc": "A warning-coloured label inside a card or a floating panel."
+    },
+    {
+      "name": "warning text on container",
+      "fg": "color-warning-text",
+      "bg": "bg-container",
+      "min": 4.5,
+      "doc": "A warning-coloured label inside a container. A container is lighter or darker than the page, so a role tuned against the page alone can land under 4.5 here."
+    },
+    {
+      "name": "danger text on page",
+      "fg": "color-danger-text",
+      "bg": "bg-page",
+      "min": 4.5,
+      "doc": "A danger-coloured label on the page."
+    },
+    {
+      "name": "danger text on surface",
+      "fg": "color-danger-text",
+      "bg": "bg-overlay",
+      "min": 4.5,
+      "doc": "A danger-coloured label inside a card or a floating panel."
+    },
+    {
+      "name": "danger text on container",
+      "fg": "color-danger-text",
+      "bg": "bg-container",
+      "min": 4.5,
+      "doc": "A danger-coloured label inside a container. A container is lighter or darker than the page, so a role tuned against the page alone can land under 4.5 here."
+    },
+    {
+      "name": "info text on page",
+      "fg": "color-info-text",
+      "bg": "bg-page",
+      "min": 4.5,
+      "doc": "A info-coloured label on the page."
+    },
+    {
+      "name": "info text on surface",
+      "fg": "color-info-text",
+      "bg": "bg-overlay",
+      "min": 4.5,
+      "doc": "A info-coloured label inside a card or a floating panel."
+    },
+    {
+      "name": "info text on container",
+      "fg": "color-info-text",
+      "bg": "bg-container",
+      "min": 4.5,
+      "doc": "A info-coloured label inside a container. A container is lighter or darker than the page, so a role tuned against the page alone can land under 4.5 here."
+    },
+    {
+      "name": "disabled on control surface",
+      "fg": "text-disabled",
+      "bg": "surface-control",
+      "min": 2,
+      "doc": "The label of a disabled control, which sits on the control's own flattened surface — a translucent fill over a translucent container."
+    },
+    {
+      "name": "disabled on page",
+      "fg": "text-disabled",
+      "bg": "bg-page",
+      "min": 2,
+      "doc": "The label of a disabled switch or checkbox, which sits on the page."
+    },
+    {
+      "name": "placeholder on input surface",
+      "fg": "text-placeholder",
+      "bg": "surface-input",
+      "min": 2.5,
+      "doc": "The placeholder of an input, which sits on the field's own flattened surface."
+    },
+    {
+      "name": "muted on container",
+      "fg": "text-secondary",
+      "bg": "bg-container",
+      "min": 4.5,
+      "doc": "A caption inside a container."
+    }
+  ]
+}
