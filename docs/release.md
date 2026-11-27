@@ -1,8 +1,8 @@
 # Release steps
 
-v1 distribution model: **GitHub-only** (clone → `npm install` → `npx ui-moods …`).
-An npm registry publish is a post-v1 milestone and would add `files`,
-`repository`/`bugs`/`homepage`, and `publishConfig.access` when it happens.
+v1 distribution model: **GitHub-first, npm-ready**. `npx ui-moods …` works
+after `npm install` inside the cloned repository, and the component library is
+packaged for the npm registry — but the publish itself has not been done.
 
 ## What a release contains
 
@@ -13,9 +13,18 @@ An npm registry publish is a post-v1 milestone and would add `files`,
 | `moods/<id>/specimen.html` | `templates/mood/specimen.html` + `templates/mood/sections/*.html` | `build-specimen` |
 | `apps/<id>/app.json` | hand-authored | — |
 | `apps/<id>/screens/*.html` | `apps/<id>/app.json` + `templates/app/app.css` | `build-apps` |
+| `components/<id>/manifest.json` · `style.css` | hand-authored | — |
+| `components/um-components.css` | the manifests | `build-components` |
+| `css/base.css` · `css/<id>.css` · `css/all.css` | the manifests | `build-dist` |
+| `site/component/<id>.html` | the manifests | `build-docs` |
+| `types/index.d.ts` | the manifests | `build-types` |
+| `vue/components/<id>.js` · `index.js` | the manifests | `build-vue` |
+| `themes/<id>.css` · `themes/all.css` | `moods/<id>/tokens.json` | `build-themes` |
 
 Everything under `moods/*/specimen.html` and `apps/*/screens/` is **generated
-output** and must be regenerated and committed together with its source.
+output** and must be regenerated and committed together with its source. So
+are the four generated artefacts of the component layer — the whole
+stylesheet, the split stylesheet, the types and the Vue barrel.
 
 ## Tag a release
 
@@ -24,23 +33,53 @@ output** and must be regenerated and committed together with its source.
 npm version 1.1.0            # updates package.json + creates the tag
 
 # 2. Regenerate every generated artifact
-npm run build:all
+npm run build:all            # the moods and the app packs
+npm run build:package        # the component layer: css, docs, types, vue, dist
 
 # 3. Validate the whole registry (moods + apps + registry coherence)
 npm install
 npm run validate             # expect 32/32 moods PASS, 14/14 apps PASS, registry PASS
 
-# 4. Commit and tag
+# 4. Measure the rendered result
+node tools/audit-render.mjs contrast      # 51 008 measurements, 0 failures
+node tools/audit-render.mjs geometry      # 115 168 measurements, 0 failures
+node tools/audit-render.mjs package       # the split stylesheet, same numbers
+node tools/audit-render.mjs motion --reduced-motion   # the motion contract
+
+# 5. Commit and tag
 git add -A
 git commit -m "release: ui-moods v1.1.0"
 git tag v1.1.0
 
-# 5. Push (once a remote is configured)
+# 6. Push (once a remote is configured)
 git push origin main --tags
 ```
 
 CI (`validate` workflow) runs on push to `main` and on pull requests; a green
 run on the tag commit is the release gate.
+
+## Publishing to the npm registry
+
+The package is ready to publish and has not been published. Two things are
+still missing, and both are decisions rather than code:
+
+- `repository`, `bugs` and `homepage` in `package.json`.
+- `publishConfig.access` — the registry the publish goes to.
+
+After those:
+
+```bash
+npm run build:package         # the published files are generated
+npm pack --dry-run            # 588 files, 823 KB — check what went in
+npm publish
+```
+
+`npm pack` includes only what `files` names: the component layer, the split
+stylesheet, the 32 moods, the Vue package, the types, the token contract, the
+schemas, the build tools and the mood/app *sources*. The generated specimen
+pages and app screens are not in it — they are large, they are generated, and
+they live in the repository. A CLI command that needs them says so rather
+than failing on a missing file.
 
 ## Regenerating after a template change
 
@@ -48,3 +87,9 @@ A change to `templates/mood/specimen.html`, `templates/mood/sections/*.html`
 or `templates/app/app.css` affects every mood and every app. Always run
 `npm run build:all` and commit the regenerated files together with the
 template change — otherwise `validate` will fail on stale specimens.
+
+A change to a component's `manifest.json` or `style.css` affects the four
+generated artefacts of the component layer. Run `npm run build:package` and
+commit them together — `validate` fails on a stylesheet that is out of date
+with its partials, and `check-package` fails on a split stylesheet that no
+longer matches the whole one.

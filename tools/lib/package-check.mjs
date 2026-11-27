@@ -30,10 +30,11 @@ import { assembleChunks, joinChunks } from "./component-chunks.mjs";
  * Check the package.
  *
  * @param {string} root the repository root
- * @returns {Promise<{ problems: string[], stats: object }>}
+ * @returns {Promise<{ problems: string[], skipped: string[], stats: object }>}
  */
 export async function checkPackage(root) {
   const problems = [];
+  const skipped = [];
   const note = (m) => problems.push(m);
 
   const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8").replace(/^\uFEFF/, ""));
@@ -175,41 +176,53 @@ export async function checkPackage(root) {
 
   // The Vue package is imported by the name a consumer would type, not by a
   // relative path, so this exercises the exports map as well as the components.
+  //
+  // Vue is a peer dependency and an optional one: a consumer who wants the
+  // plain CSS does not install it. So a missing Vue is a skip, not a failure —
+  // the same way `validate` skips the type check when TypeScript is absent.
+  let vue = null;
   try {
-    const vue = await import("vue");
-    const { renderToString } = await import("@vue/server-renderer");
-    const um = await import("ui-moods/vue");
+    vue = await import("vue");
+  } catch {
+    skipped.push("vue is not installed — the Vue half of the package was not exercised");
+  }
 
-    const app = vue.createSSRApp({
-      render() {
-        return vue.h("div", [
-          vue.h(um.UMButton, { variant: "primary" }, () => "OK"),
-          vue.h(um.UMTag, { variant: "success" }, () => "done"),
-        ]);
-      },
-    });
-    const html = await renderToString(app);
+  if (vue) {
+    try {
+      const { renderToString } = await import("@vue/server-renderer");
+      const um = await import("ui-moods/vue");
 
-    if (!html.includes("um-button")) note("vue: the rendered button has no um-button class");
-    if (!html.includes("um-button--primary")) {
-      note("vue: the rendered button has no um-button--primary class");
-    }
-    if (!html.includes("um-tag")) note("vue: the rendered tag has no um-tag class");
+      const app = vue.createSSRApp({
+        render() {
+          return vue.h("div", [
+            vue.h(um.UMButton, { variant: "primary" }, () => "OK"),
+            vue.h(um.UMTag, { variant: "success" }, () => "done"),
+          ]);
+        },
+      });
+      const html = await renderToString(app);
 
-    // Every component in the barrel has to be a real Vue component, not a
-    // placeholder: the barrel is generated, and a generation slip would show
-    // up here rather than in a consumer's template.
-    const names = Object.keys(um.components ?? {});
-    if (names.length !== manifests.length) {
-      note(`vue: the barrel holds ${names.length} components, the manifests describe ${manifests.length}`);
-    }
-    for (const [name, component] of Object.entries(um.components ?? {})) {
-      if (!component || typeof component !== "object" || !component.setup) {
-        note(`vue: ${name} is not a component`);
+      if (!html.includes("um-button")) note("vue: the rendered button has no um-button class");
+      if (!html.includes("um-button--primary")) {
+        note("vue: the rendered button has no um-button--primary class");
       }
+      if (!html.includes("um-tag")) note("vue: the rendered tag has no um-tag class");
+
+      // Every component in the barrel has to be a real Vue component, not a
+      // placeholder: the barrel is generated, and a generation slip would show
+      // up here rather than in a consumer's template.
+      const names = Object.keys(um.components ?? {});
+      if (names.length !== manifests.length) {
+        note(`vue: the barrel holds ${names.length} components, the manifests describe ${manifests.length}`);
+      }
+      for (const [name, component] of Object.entries(um.components ?? {})) {
+        if (!component || typeof component !== "object" || !component.setup) {
+          note(`vue: ${name} is not a component`);
+        }
+      }
+    } catch (e) {
+      note(`vue: the package could not be imported through its public name — ${e.message}`);
     }
-  } catch (e) {
-    note(`vue: the package could not be imported through its public name — ${e.message}`);
   }
 
   // --- 6. the switcher installs itself, and survives an import with no DOM ----
@@ -295,6 +308,7 @@ export async function checkPackage(root) {
 
   return {
     problems,
+    skipped,
     stats: {
       resolved: resolved.size,
       components: manifests.length,

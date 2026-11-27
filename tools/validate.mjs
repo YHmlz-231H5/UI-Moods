@@ -673,6 +673,7 @@ if (vueResult.skipped) {
 
 // package: the public names have to resolve, and the library has to render
 const packageResult = await checkPackage(root);
+for (const s of packageResult.skipped) console.log(`package: skip — ${s}`);
 if (packageResult.problems.length > 0) {
   failed++;
   console.log(`package: FAIL (${packageResult.problems.length} errors)`);

@@ -11,13 +11,15 @@ import { checkPackage } from "./lib/package-check.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 
-const { problems, stats } = await checkPackage(root);
+const { problems, skipped, stats } = await checkPackage(root);
 
 if (problems.length) {
   for (const p of problems) console.error(`package: ${p}`);
   console.log(`package: FAIL (${problems.length} errors)`);
   process.exit(1);
 }
+
+for (const s of skipped) console.log(`package: skip — ${s}`);
 
 console.log(
   `package: PASS — ${stats.resolved} public names resolved, ` +
