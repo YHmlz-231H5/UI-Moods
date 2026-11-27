@@ -1,0 +1,4 @@
+# The example is a project of its own: its dependencies and its build output
+# are not part of this package.
+node_modules/
+dist/
