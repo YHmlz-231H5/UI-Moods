@@ -69,3 +69,11 @@
 .um-result--warning .um-result__icon { background: var(--um-color-warning-soft-8); color: var(--um-color-warning-on-soft); }
 .um-result--danger  .um-result__icon { background: var(--um-color-danger-soft-8);  color: var(--um-color-danger-on-soft); }
 .um-result--info    .um-result__icon { background: var(--um-color-info-soft-8);    color: var(--um-color-info-on-soft); }
+
+/* The actions area gives the buttons inside it a shape, so the block reads
+   as one row of actions. The ring is the one thing the library always
+   paints, so it paints it here too. */
+:where(.um-result__extra button):focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
+}

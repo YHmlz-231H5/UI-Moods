@@ -21,18 +21,33 @@
     { "id": "info", "name": "Info", "nameZh": "信息", "state": "outline" }
   ],
   "sizes": [],
-  "states": [],
+  "states": [
+    { "id": "center", "name": "Center", "nameZh": "居中", "selector": ".um-alert--center", "note": "The body sits in the middle of the panel and the mark beside it." },
+    { "id": "closable", "name": "Closable", "nameZh": "可关闭", "selector": ".um-alert--closable", "note": "The panel carries a close button at its end. The button is there in the markup either way; the class is what shows it." },
+    { "id": "show-icon", "name": "Show icon", "nameZh": "显示图标", "selector": ".um-alert--show-icon", "note": "The mark in front of the body appears. It is there in the markup either way; the class is what shows it." }
+  ],
   "parts": [
+    { "id": "icon", "name": "Icon", "nameZh": "图标", "note": "The mark in front of the body. It is drawn here rather than borrowed, because a component may not lean on another's class, and it takes the variant's graphic colour: it is a shape that carries its meaning on its own, and the graphic form is the one contracted to 3:1." },
     { "id": "mark", "name": "Mark", "nameZh": "标记", "note": "The chip in front of the body. The variant fills it with the theme's own colour." },
     { "id": "body", "name": "Body", "nameZh": "正文" },
     { "id": "title", "name": "Title", "nameZh": "标题" },
-    { "id": "description", "name": "Description", "nameZh": "描述" }
+    { "id": "description", "name": "Description", "nameZh": "描述" },
+    { "id": "close", "name": "Close", "nameZh": "关闭按钮", "note": "The button that takes the alert off the page. It is a real button, and its mark is drawn from two bars rather than shipped as a glyph." }
   ],
   "props": [
-    { "name": "variant", "type": "enum", "values": ["primary", "success", "warning", "danger", "info"], "description": "Which kind of message this is.", "descriptionZh": "这是哪一类消息。" }
+    { "name": "variant", "type": "enum", "values": ["primary", "success", "warning", "danger", "info"], "description": "Which kind of message this is.", "descriptionZh": "这是哪一类消息。" },
+    { "name": "center", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Puts the body in the middle of the panel, so the alert reads as a line rather than as a paragraph against the edge.", "descriptionZh": "把正文放在面板中间,提示条读起来是一行,而不是贴着边的一段话。" },
+    { "name": "closable", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Puts a close button at the end of the panel. The button is a real one, so it is in the tab order and it is pressed with the keyboard.", "descriptionZh": "在面板末尾放一个关闭按钮。这个按钮是真的,所以它在 Tab 顺序里,也能用键盘按。" },
+    { "name": "show-icon", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Puts the drawn mark in front of the body, so the kind of message is readable before the words are.", "descriptionZh": "在正文前面放上画出来的标记,这样还没读字就知道是哪一类消息。" }
   ],
-  "slots": [],
-  "events": [],
+  "slots": [
+    { "name": "default", "description": "The body of the alert: the text under the title.", "descriptionZh": "提示条的正文:标题下面那段文字。" },
+    { "name": "title", "description": "The title of the alert.", "descriptionZh": "提示条的标题。" },
+    { "name": "mark", "description": "The chip in front of the body.", "descriptionZh": "正文前面的标记片。" }
+  ],
+  "events": [
+    { "name": "close", "description": "Fires when the reader presses the close button. The library installs no listener — the host decides what closing means, and the alert itself stays on the page until the host takes it away.", "descriptionZh": "读者按下关闭按钮时触发。库没有安装任何监听器 —— 关掉意味着什么由宿主决定,提示条本身会一直留在页面上,直到宿主把它拿走。" }
+  ],
   "a11y": {
     "notes": "The alert is a plain container, so it carries no role of its own. When it appears without the user asking for it, give it role=\"alert\" (urgent) or role=\"status\" (informational) so it is announced; an alert that was already on the page when it loaded does not need one. The mark chip is a label, so hide it with aria-hidden when the title already says the same thing.",
     "notesZh": "提示条本身只是一个容器,不带任何角色。它要是没人操作就自己冒出来的,就给它 role=\"alert\"(紧急)或 role=\"status\"(一般信息),这样它才会被播报;页面加载时就已经在那儿的提示条不需要。标记片只是个标签,标题已经说了同样的话时,用 aria-hidden 把它藏掉。"
@@ -63,6 +78,6 @@
       "markup": "<div class=\"um-alert um-alert--danger\" role=\"alert\">\n  <span class=\"um-alert__mark\" aria-hidden=\"true\">Stop</span>\n  <div class=\"um-alert__body\">\n    <span class=\"um-alert__title\">Replica unreachable</span>\n    <span class=\"um-alert__description\">The last sync failed 12 minutes ago.</span>\n  </div>\n</div>"
     }
   ],
-  "notes": "The variant colours the border and the mark chip, and nothing else. The body text stays in the mood's regular text colour, so an alert never changes the reading colour of the paragraph it interrupts.",
-  "notesZh": "变体只给描边和标记片上色,别的都不动。正文还是 mood 的常规文字色 —— 一条提示不该改变它打断的那段正文的阅读颜色。"
+  "notes": "The variant colours the border, the mark chip and the icon, and nothing else. The body text stays in the mood's regular text colour, so an alert never changes the reading colour of the paragraph it interrupts. The icon takes the variant's graphic colour rather than its fill colour, because it is a shape that carries its meaning on its own.",
+  "notesZh": "变体只给描边、标记片和图标上色,别的都不动。正文还是 mood 的常规文字色 —— 一条提示不该改变它打断的那段正文的阅读颜色。图标用的是变体的 graphic 形态而不是填充形态,因为它是一个自己就带着意思的形状。"
 }

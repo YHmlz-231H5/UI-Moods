@@ -23,6 +23,10 @@ export const UMMenu = defineComponent({
     direction: { type: String, default: "vertical" },
     active: { type: String, default: "" },
     mode: { type: String, default: "vertical" },
+    collapse: { type: Boolean, default: false },
+    disabled: { type: Boolean, default: false },
+    ellipsis: { type: Boolean, default: false },
+    popperEffect: { type: String, default: "light" },
   },
   emits: ["open", "close", "select"],
   setup(props, { slots, emit }) {
@@ -35,7 +39,15 @@ export const UMMenu = defineComponent({
       return h(
         "ul",
         {
-          class: ["um-menu", mode === "horizontal" ? "um-menu--horizontal" : null],
+          class: [
+            "um-menu",
+            mode === "horizontal" ? "um-menu--horizontal" : null,
+            props.collapse ? "um-menu--collapse" : null,
+            props.disabled ? "um-menu--disabled" : null,
+            props.ellipsis ? "um-menu--ellipsis" : null,
+            // The light popper is the base class on its own.
+            props.popperEffect === "dark" ? "um-menu--popper-dark" : null,
+          ],
           // The toggle event of a group does not bubble, so it is caught on
           // the way down instead of on the way up.
           onToggleCapture: (e) => {

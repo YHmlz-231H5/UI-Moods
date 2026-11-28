@@ -149,7 +149,7 @@
         <span class="tag">form</span>
         <span class="tag">since 1.1.0</span>
       </p>
-      <div class="note">The field is a wrapper rather than a class you put on the control, because the control has to stay the element the platform knows about — a real input, a real select. The error modifier is the only state the field owns; the label and the message are muted roles, not a second theming system.</div>
+      <div class="note">The field is a wrapper rather than a class you put on the control, because the control has to stay the element the platform knows about — a real input, a real select. The error modifier is the only state the field owns; the label and the message are muted roles, not a second theming system. The required asterisk is the one thing the field draws on the label, and it follows the control: a control that says it is required gets one, unless the form has asked for it to be left off.</div>
 
       <h2>Examples</h2>
 <div class="example">
@@ -200,6 +200,7 @@
       <tr><td><code>.um-field--info</code></td><td>Info</td></tr>
       <tr><td><code>.um-field--disabled</code></td><td>Disabled</td></tr>
       <tr><td><code>.um-field--inline</code></td><td>Inline</td></tr>
+      <tr><td><code>.um-field--hide-required-asterisk</code></td><td>Hide required asterisk</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -211,6 +212,7 @@
       <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Says the field is out of use. The field's own text dims. The control inside is the host's to disable, because it is the element that can actually be switched off.</td></tr>
       <tr><td><span class="api__name"><code>inline</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Puts the label beside the control instead of above it.</td></tr>
       <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The size of the control the field holds. The field does not redraw the control — it only tells it how tall it is. The medium size is the control's own size already.</td></tr>
+      <tr><td><span class="api__name"><code>hide-required-asterisk</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Takes the asterisk after the label away. The asterisk follows the control — a control that says it is required gets one — so this is the way to say that the form does not want it.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>
@@ -219,6 +221,8 @@
       <tbody>
       <tr><td><span class="api__name"><code>label</code></span></td><td>The label text, above the control.</td></tr>
       <tr><td><span class="api__name"><code>message</code></span></td><td>The helper or error text, below the control.</td></tr>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>The control the field holds. It is the caller's own element, so the field can only point its label at it by looking for the id the caller gave it.</td></tr>
+      <tr><td><span class="api__name"><code>error</code></span></td><td>The error text, below the control. It is shown in the error state, where it replaces the helper text.</td></tr>
       </tbody>
     </table>
 

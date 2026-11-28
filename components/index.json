@@ -148,9 +148,9 @@
       "doc": "site/component/layout.html",
       "variants": 1,
       "sizes": 3,
-      "states": 3,
+      "states": 5,
       "parts": 5,
-      "props": 3
+      "props": 5
     },
     {
       "id": "link",
@@ -233,9 +233,9 @@
       "doc": "site/component/splitter.html",
       "variants": 2,
       "sizes": 3,
-      "states": 1,
-      "parts": 3,
-      "props": 2
+      "states": 2,
+      "parts": 4,
+      "props": 3
     },
     {
       "id": "text",
@@ -284,9 +284,9 @@
       "doc": "site/component/autocomplete.html",
       "variants": 2,
       "sizes": 3,
-      "states": 3,
-      "parts": 5,
-      "props": 10
+      "states": 7,
+      "parts": 10,
+      "props": 16
     },
     {
       "id": "button",
@@ -371,7 +371,7 @@
       "sizes": 3,
       "states": 3,
       "parts": 9,
-      "props": 5
+      "props": 6
     },
     {
       "id": "date-picker",
@@ -388,7 +388,7 @@
       "sizes": 3,
       "states": 3,
       "parts": 3,
-      "props": 9
+      "props": 11
     },
     {
       "id": "date-picker-panel",
@@ -403,9 +403,9 @@
       "doc": "site/component/date-picker-panel.html",
       "variants": 2,
       "sizes": 3,
-      "states": 4,
-      "parts": 13,
-      "props": 8
+      "states": 8,
+      "parts": 16,
+      "props": 14
     },
     {
       "id": "date-time-picker",
@@ -422,7 +422,7 @@
       "sizes": 3,
       "states": 3,
       "parts": 2,
-      "props": 10
+      "props": 12
     },
     {
       "id": "field",
@@ -437,9 +437,9 @@
       "doc": "site/component/field.html",
       "variants": 0,
       "sizes": 3,
-      "states": 6,
+      "states": 7,
       "parts": 2,
-      "props": 5
+      "props": 6
     },
     {
       "id": "input",
@@ -454,9 +454,9 @@
       "doc": "site/component/input.html",
       "variants": 0,
       "sizes": 3,
-      "states": 2,
+      "states": 5,
       "parts": 0,
-      "props": 6
+      "props": 11
     },
     {
       "id": "input-number",
@@ -471,9 +471,9 @@
       "doc": "site/component/input-number.html",
       "variants": 1,
       "sizes": 3,
-      "states": 2,
+      "states": 4,
       "parts": 7,
-      "props": 8
+      "props": 11
     },
     {
       "id": "input-otp",
@@ -505,9 +505,9 @@
       "doc": "site/component/input-tag.html",
       "variants": 4,
       "sizes": 3,
-      "states": 2,
-      "parts": 6,
-      "props": 8
+      "states": 6,
+      "parts": 7,
+      "props": 11
     },
     {
       "id": "mention",
@@ -522,9 +522,9 @@
       "doc": "site/component/mention.html",
       "variants": 3,
       "sizes": 3,
-      "states": 2,
-      "parts": 6,
-      "props": 8
+      "states": 5,
+      "parts": 12,
+      "props": 14
     },
     {
       "id": "radio",
@@ -573,9 +573,9 @@
       "doc": "site/component/rate.html",
       "variants": 3,
       "sizes": 3,
-      "states": 4,
-      "parts": 5,
-      "props": 7
+      "states": 5,
+      "parts": 6,
+      "props": 8
     },
     {
       "id": "slider",
@@ -589,10 +589,10 @@
       "style": "components/slider/style.css",
       "doc": "site/component/slider.html",
       "variants": 0,
-      "sizes": 0,
-      "states": 2,
+      "sizes": 3,
+      "states": 3,
       "parts": 0,
-      "props": 7
+      "props": 9
     },
     {
       "id": "switch",
@@ -608,7 +608,7 @@
       "variants": 0,
       "sizes": 3,
       "states": 4,
-      "parts": 5,
+      "parts": 6,
       "props": 8
     },
     {
@@ -624,9 +624,9 @@
       "doc": "site/component/time-picker.html",
       "variants": 2,
       "sizes": 3,
-      "states": 3,
-      "parts": 3,
-      "props": 10
+      "states": 4,
+      "parts": 4,
+      "props": 13
     },
     {
       "id": "time-select",
@@ -641,9 +641,9 @@
       "doc": "site/component/time-select.html",
       "variants": 2,
       "sizes": 3,
-      "states": 2,
-      "parts": 3,
-      "props": 9
+      "states": 5,
+      "parts": 5,
+      "props": 12
     },
     {
       "id": "tree-select",
@@ -658,9 +658,9 @@
       "doc": "site/component/tree-select.html",
       "variants": 2,
       "sizes": 3,
-      "states": 5,
-      "parts": 7,
-      "props": 9
+      "states": 24,
+      "parts": 17,
+      "props": 24
     },
     {
       "id": "upload",
@@ -692,9 +692,9 @@
       "doc": "site/component/virtual-select.html",
       "variants": 2,
       "sizes": 3,
-      "states": 5,
-      "parts": 7,
-      "props": 8
+      "states": 18,
+      "parts": 14,
+      "props": 16
     },
     {
       "id": "avatar",
@@ -709,9 +709,9 @@
       "doc": "site/component/avatar.html",
       "variants": 2,
       "sizes": 4,
-      "states": 4,
+      "states": 5,
       "parts": 2,
-      "props": 5
+      "props": 6
     },
     {
       "id": "badge",
@@ -744,8 +744,8 @@
       "variants": 2,
       "sizes": 3,
       "states": 3,
-      "parts": 6,
-      "props": 7
+      "parts": 7,
+      "props": 8
     },
     {
       "id": "card",
@@ -777,9 +777,9 @@
       "doc": "site/component/carousel.html",
       "variants": 2,
       "sizes": 3,
-      "states": 4,
+      "states": 5,
       "parts": 7,
-      "props": 7
+      "props": 8
     },
     {
       "id": "cascader",
@@ -794,9 +794,9 @@
       "doc": "site/component/cascader.html",
       "variants": 2,
       "sizes": 3,
-      "states": 3,
-      "parts": 5,
-      "props": 5
+      "states": 16,
+      "parts": 14,
+      "props": 14
     },
     {
       "id": "collapse",
@@ -932,7 +932,7 @@
       "sizes": 3,
       "states": 4,
       "parts": 3,
-      "props": 8
+      "props": 9
     },
     {
       "id": "skeleton",
@@ -981,9 +981,9 @@
       "doc": "site/component/table.html",
       "variants": 2,
       "sizes": 3,
-      "states": 5,
-      "parts": 7,
-      "props": 8
+      "states": 14,
+      "parts": 8,
+      "props": 13
     },
     {
       "id": "tag",
@@ -1049,9 +1049,9 @@
       "doc": "site/component/transfer.html",
       "variants": 2,
       "sizes": 3,
-      "states": 3,
-      "parts": 12,
-      "props": 6
+      "states": 5,
+      "parts": 15,
+      "props": 9
     },
     {
       "id": "tree",
@@ -1066,9 +1066,9 @@
       "doc": "site/component/tree.html",
       "variants": 2,
       "sizes": 3,
-      "states": 4,
-      "parts": 5,
-      "props": 5
+      "states": 9,
+      "parts": 7,
+      "props": 10
     },
     {
       "id": "virtual-table",
@@ -1083,9 +1083,9 @@
       "doc": "site/component/virtual-table.html",
       "variants": 2,
       "sizes": 3,
-      "states": 2,
+      "states": 3,
       "parts": 9,
-      "props": 7
+      "props": 8
     },
     {
       "id": "virtual-tree",
@@ -1100,9 +1100,9 @@
       "doc": "site/component/virtual-tree.html",
       "variants": 2,
       "sizes": 3,
-      "states": 6,
-      "parts": 7,
-      "props": 7
+      "states": 8,
+      "parts": 9,
+      "props": 9
     },
     {
       "id": "anchor",
@@ -1136,7 +1136,7 @@
       "sizes": 3,
       "states": 1,
       "parts": 1,
-      "props": 5
+      "props": 6
     },
     {
       "id": "breadcrumb",
@@ -1185,9 +1185,9 @@
       "doc": "site/component/menu.html",
       "variants": 1,
       "sizes": 0,
-      "states": 1,
+      "states": 5,
       "parts": 7,
-      "props": 3
+      "props": 7
     },
     {
       "id": "pagination",
@@ -1202,9 +1202,9 @@
       "doc": "site/component/pagination.html",
       "variants": 0,
       "sizes": 1,
-      "states": 2,
+      "states": 4,
       "parts": 9,
-      "props": 6
+      "props": 7
     },
     {
       "id": "steps",
@@ -1219,9 +1219,9 @@
       "doc": "site/component/steps.html",
       "variants": 1,
       "sizes": 0,
-      "states": 6,
+      "states": 10,
       "parts": 6,
-      "props": 6
+      "props": 7
     },
     {
       "id": "tabs",
@@ -1236,9 +1236,9 @@
       "doc": "site/component/tabs.html",
       "variants": 1,
       "sizes": 0,
-      "states": 3,
+      "states": 4,
       "parts": 6,
-      "props": 6
+      "props": 7
     },
     {
       "id": "alert",
@@ -1253,9 +1253,9 @@
       "doc": "site/component/alert.html",
       "variants": 5,
       "sizes": 0,
-      "states": 0,
-      "parts": 4,
-      "props": 1
+      "states": 3,
+      "parts": 6,
+      "props": 4
     },
     {
       "id": "dialog",
@@ -1304,9 +1304,9 @@
       "doc": "site/component/loading.html",
       "variants": 3,
       "sizes": 3,
-      "states": 2,
+      "states": 3,
       "parts": 3,
-      "props": 5
+      "props": 6
     },
     {
       "id": "message",
@@ -1372,9 +1372,9 @@
       "doc": "site/component/popconfirm.html",
       "variants": 3,
       "sizes": 3,
-      "states": 5,
-      "parts": 8,
-      "props": 11
+      "states": 7,
+      "parts": 9,
+      "props": 13
     },
     {
       "id": "popover",
@@ -1389,9 +1389,9 @@
       "doc": "site/component/popover.html",
       "variants": 3,
       "sizes": 3,
-      "states": 3,
-      "parts": 5,
-      "props": 6
+      "states": 5,
+      "parts": 6,
+      "props": 8
     },
     {
       "id": "tooltip",
@@ -1406,9 +1406,9 @@
       "doc": "site/component/tooltip.html",
       "variants": 3,
       "sizes": 0,
-      "states": 7,
+      "states": 8,
       "parts": 3,
-      "props": 6
+      "props": 7
     },
     {
       "id": "divider",

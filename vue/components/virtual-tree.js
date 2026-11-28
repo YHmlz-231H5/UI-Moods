@@ -10,6 +10,11 @@
 //
 // The default slot says what a branch is called; the empty slot says what the
 // tree holds when it holds nothing at all.
+//
+// The tick box is a real checkbox in front of every branch, so the choice is
+// the browser's and not a class. It sits inside the summary, so the wrapper
+// stops the click there: otherwise ticking the box would open the branch as
+// well.
 
 import { defineComponent, h } from "vue";
 
@@ -23,16 +28,34 @@ const VARIANTS = ["plain", "lines"];
  * can be told where they are in the tree. Every level but the last is open,
  * so the tree shows its shape without a thousand open disclosures.
  */
-function buildLevel(slots, level, depth, branches, path) {
+function buildLevel(slots, level, depth, branches, path, options) {
   return Array.from({ length: branches }, (_, index) => {
     const name = `${path}.${index + 1}`;
     const children =
-      level < depth ? buildLevel(slots, level + 1, depth, branches, name) : [];
+      level < depth ? buildLevel(slots, level + 1, depth, branches, name, options) : [];
     return h(
       "details",
       { class: "um-virtual-tree__node", open: level < depth },
       [
         h("summary", { class: "um-virtual-tree__label" }, [
+          options.showCheckbox
+            ? h(
+                "label",
+                {
+                  class: "um-virtual-tree__box",
+                  // The box sits inside the summary, so the click is stopped
+                  // here: ticking the box should not open the branch as well.
+                  onClick: (e) => e.stopPropagation(),
+                },
+                [
+                  h("input", {
+                    class: "um-virtual-tree__checkbox",
+                    type: "checkbox",
+                    onChange: (e) => options.emit("check", e),
+                  }),
+                ],
+              )
+            : null,
           h("span", { class: "um-virtual-tree__arrow", "aria-hidden": "true" }),
           h(
             "span",
@@ -57,16 +80,20 @@ export const UMVirtualTree = defineComponent({
     height: { type: String, default: "16em" },
     highlightCurrent: { type: Boolean, default: false },
     scrollbarAlwaysOn: { type: Boolean, default: false },
+    checkStrictly: { type: Boolean, default: false },
+    showCheckbox: { type: Boolean, default: false },
   },
-  setup(props, { slots }) {
+  emits: ["toggle", "check"],
+  setup(props, { slots, emit }) {
     return () => {
       const depth = Math.max(1, Math.floor(props.depth));
       const branches = Math.max(0, Math.floor(props.branches));
+      const options = { showCheckbox: props.showCheckbox, emit };
 
       // No branches at all is an empty tree: there is nothing to read, so the
       // tree says so rather than drawing a level of nothing.
       const tree = branches
-        ? buildLevel(slots, 1, depth, branches, "branch")
+        ? buildLevel(slots, 1, depth, branches, "branch", options)
         : [
             h(
               "div",
@@ -84,6 +111,8 @@ export const UMVirtualTree = defineComponent({
             sizeClass(props.size),
             props.highlightCurrent ? "um-virtual-tree--highlight-current" : null,
             props.scrollbarAlwaysOn ? "um-virtual-tree--scrollbar-always-on" : null,
+            props.checkStrictly ? "um-virtual-tree--check-strictly" : null,
+            props.showCheckbox ? "um-virtual-tree--show-checkbox" : null,
           ],
         },
         [
@@ -91,6 +120,7 @@ export const UMVirtualTree = defineComponent({
           "div",
           {
             class: "um-virtual-tree__scroller",
+      "aria-label": "Scrollable tree",
             tabindex: "0",
             style: { height: props.height },
           },

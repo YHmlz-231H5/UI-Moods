@@ -50,7 +50,7 @@
 /* The ring goes on the button, because the button is what the user sees of
    the control; the input underneath is one pixel wide. */
 .um-upload__input:focus-visible + .um-upload__button {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -108,6 +108,16 @@
   flex: none;
   color: var(--um-text-secondary);
   font-size: var(--um-font-size-caption);
+}
+
+/* The content of one file row is the caller's: the name, the size and the
+   status, or whatever else the row should say. It is cut rather than allowed
+   to push the row wider than the page. */
+.um-upload__item > * {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* The status is text about a file, so it takes the derived text colour of

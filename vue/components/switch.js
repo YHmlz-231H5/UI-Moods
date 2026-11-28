@@ -42,6 +42,16 @@ export const UMSwitch = defineComponent({
           ? slots.inactive()
           : [];
 
+      // The action is the mark beside the switch, and it is the one for the
+      // state the switch is in too.
+      const action = on
+        ? slots["active-action"]
+          ? slots["active-action"]()
+          : []
+        : slots["inactive-action"]
+          ? slots["inactive-action"]()
+          : [];
+
       return h(
         "label",
         {
@@ -71,6 +81,7 @@ export const UMSwitch = defineComponent({
             h("span", { class: "um-switch__thumb" }),
             h("span", { class: "um-switch__inner" }, inner),
           ]),
+          h("span", { class: "um-switch__action" }, action),
           h("span", { class: "um-switch__label" }, slots.label ? slots.label() : []),
         ],
       );

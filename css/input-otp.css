@@ -41,7 +41,7 @@
 /* The ring goes on the one box the reader is in. A ring around the whole row
    would say the wrong thing about what is focused. */
 .um-input-otp__field:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 

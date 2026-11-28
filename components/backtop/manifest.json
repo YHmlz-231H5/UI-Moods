@@ -88,6 +88,13 @@
       "default": "Back to top",
       "description": "The accessible name of the link. The arrow is a shape and says nothing, so the name has to come from somewhere.",
       "descriptionZh": "链接的可访问名称。箭头是个形状,什么也没说,所以名字总得有个来源。"
+    },
+    {
+      "name": "right",
+      "type": "string",
+      "default": "var(--um-space-lg)",
+      "description": "How far the button sits from the right edge of the viewport. It is a physical offset and not the inline end: the button lives in a corner of the screen, and a corner does not move when the reader's direction does. It is a length and not a number of pixels, so the offset can be a measure of the mood's own spacing.",
+      "descriptionZh": "按钮离视口右边有多远。它是一个物理偏移,不是行内的末尾:按钮住在屏幕的一个角落里,而角落不会因为读者的方向变了就挪位。它是一个长度而不是多少像素,所以偏移可以是这套 mood 自己的间距。"
     }
   ],
   "slots": [
@@ -129,6 +136,6 @@
       "markup": "<a class=\"um-backtop um-backtop--soft um-backtop--inline\" href=\"#top\" aria-label=\"Back to top\">\n  <span class=\"um-backtop__icon\" aria-hidden=\"true\"></span>\n</a>"
     }
   ],
-  "notes": "The button does not appear and disappear as the page scrolls. That would need a scroll listener, and a library with no JavaScript cannot have one — so the button is simply always there, and the page that wants it out of the way until the reader has scrolled is a page that writes the class itself. The arrow is drawn from two borders rather than shipped as a glyph, so it takes the theme's border colour and border weight and the library loads no icon font.",
-  "notesZh": "按钮不会随着页面滚动出现或消失。那需要监听滚动,而一个没有 JavaScript 的库做不到 —— 所以按钮一直就在那儿,想让它在读者滚过一段之前不挡路的页面,得由页面自己来写这个类。箭头是用两条边框画出来的,而不是作为一个字形随库发布,所以它用的是主题的描边色和描边粗细,库里也不加载图标字体。"
+  "notes": "The button does not appear and disappear as the page scrolls. That would need a scroll listener, and a library with no JavaScript cannot have one — so the button is simply always there, and the page that wants it out of the way until the reader has scrolled is a page that writes the class itself. The arrow is drawn from two borders rather than shipped as a glyph, so it takes the theme's border colour and border weight and the library loads no icon font. The corner the button sits in is the physical right-hand one: a corner of the screen is a place rather than a side of the text, so it stays where it is in a right-to-left reader too — which is why the offset is written physically and not with an inline inset.",
+  "notesZh": "按钮不会随着页面滚动出现或消失。那需要监听滚动,而一个没有 JavaScript 的库做不到 —— 所以按钮一直就在那儿,想让它在读者滚过一段之前不挡路的页面,得由页面自己来写这个类。箭头是用两条边框画出来的,而不是作为一个字形随库发布,所以它用的是主题的描边色和描边粗细,库里也不加载图标字体。按钮待着的那个角是物理上的右边那个:屏幕的一个角落是一个地方,不是文字的一侧,所以在从右往左读的读者那里它也还在原处 —— 偏移因此写成物理的,而不是用一个行内的 inset。"
 }

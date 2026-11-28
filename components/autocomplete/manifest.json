@@ -25,14 +25,23 @@
   "states": [
     { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the field, because the field is what the reader is typing in." },
     { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The field paints a flat surface and takes the derived disabled colour, so what is written in it stays readable." },
-    { "id": "invalid", "name": "Invalid", "nameZh": "无效", "selector": ":user-invalid", "native": true, "note": "The border turns to the danger colour when the browser says the value is not acceptable. :user-invalid waits for the reader to have been there, so an empty field is not red on arrival." }
+    { "id": "invalid", "name": "Invalid", "nameZh": "无效", "selector": ":user-invalid", "native": true, "note": "The border turns to the danger colour when the browser says the value is not acceptable. :user-invalid waits for the reader to have been there, so an empty field is not red on arrival." },
+    { "id": "clearable", "name": "Clearable", "nameZh": "可清空", "selector": ".um-autocomplete--clearable", "note": "The field carries a button that empties it." },
+    { "id": "loading", "name": "Loading", "nameZh": "加载中", "selector": ".um-autocomplete--loading", "note": "The field says the suggestions are on their way." },
+    { "id": "hide-loading", "name": "Hide loading", "nameZh": "隐藏加载中", "selector": ".um-autocomplete--hide-loading", "note": "The loading mark is taken away even when the caller has written one." },
+    { "id": "show-arrow", "name": "Show arrow", "nameZh": "显示箭头", "selector": ".um-autocomplete--show-arrow", "note": "The field carries the arrow that says a list is behind it." }
   ],
   "parts": [
     { "id": "input", "name": "Input", "nameZh": "输入框", "note": "The real <input type=\"text\">. It is borderless inside the field, so the field and the suggestions read as one control." },
     { "id": "list", "name": "Suggestion list", "nameZh": "建议列表", "note": "The <datalist> that holds the suggestions. The browser paints the popup: the library can reach the suggestion text and the surface under it, but the frame around the popup belongs to the reader's system." },
     { "id": "option", "name": "Suggestion", "nameZh": "建议项", "note": "One suggestion in the list. Its value is what the field takes when the reader picks it." },
     { "id": "prefix", "name": "Prefix", "nameZh": "前缀", "note": "The mark in front of the text, so a unit can be written next to it." },
-    { "id": "suffix", "name": "Suffix", "nameZh": "后缀", "note": "The mark behind the text, so a unit can be written next to it." }
+    { "id": "suffix", "name": "Suffix", "nameZh": "后缀", "note": "The mark behind the text, so a unit can be written next to it." },
+    { "id": "prepend", "name": "Prepend", "nameZh": "前挂", "note": "The content at the near edge of the field, away from the text — the box Element Plus puts outside the input." },
+    { "id": "append", "name": "Append", "nameZh": "后挂", "note": "The content at the far edge of the field, away from the text — the box Element Plus puts outside the input." },
+    { "id": "clear", "name": "Clear", "nameZh": "清空按钮", "note": "The button that empties the field. It is a real button, and its mark is drawn from two bars." },
+    { "id": "loading", "name": "Loading", "nameZh": "加载中", "note": "The mark that says the suggestions are on their way. It is drawn, and the caller may write its own instead." },
+    { "id": "arrow", "name": "Arrow", "nameZh": "箭头", "note": "The chevron that says a list is behind the field. It is drawn from two borders." }
   ],
   "props": [
     { "name": "value", "type": "string", "description": "The text in the field. It is the input's own value — a class cannot carry a word.", "descriptionZh": "字段里的文字。它是 input 自己的值 —— 类带不了词。" },
@@ -44,18 +53,30 @@
     { "name": "variant", "type": "enum", "values": ["bordered", "filled"], "default": "bordered", "description": "The surface of the field. The bordered run is the base class on its own; the filled run adds um-autocomplete--filled.", "descriptionZh": "字段的底面。描边这一跑就是只写基础类;填充这一跑再加上 um-autocomplete--filled。" },
     { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The height of the field.", "descriptionZh": "字段的高度。" },
     { "name": "model-value", "type": "string", "description": "The text in the field, bound with v-model in Vue. Leave it out and the `value` prop is the text; bind it and the field answers to the binding.", "descriptionZh": "字段里的文字,在 Vue 里用 v-model 绑定。不传就以 value 属性为准;传了就以绑定为准。" },
-    { "name": "readonly", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Keeps the text visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures.", "descriptionZh": "文字仍然可见,但不能编辑。它是原生 readonly 属性,浏览器会拒绝编辑。库不会给只读字段单独配色 —— 这不是它测量过的状态。" }
+    { "name": "readonly", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Keeps the text visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures.", "descriptionZh": "文字仍然可见,但不能编辑。它是原生 readonly 属性,浏览器会拒绝编辑。库不会给只读字段单独配色 —— 这不是它测量过的状态。" },
+    { "name": "clearable", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Puts a button at the end of the field that empties it. The button is a real one, so it is in the tab order.", "descriptionZh": "在字段末尾放一个按钮,按它就把字段清空。这个按钮是真的,所以它在 Tab 顺序里。" },
+    { "name": "loading", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Says the suggestions are on their way. The library fetches nothing, so the mark is the caller's to ask for — and the caller's own mark replaces the drawn one.", "descriptionZh": "表示建议正在路上。库里不去取任何东西,所以这个标记是调用方开口要的 —— 而调用方自己写的标记会替掉画出来的那个。" },
+    { "name": "hide-loading", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Takes the loading mark away, even when the caller has written one. The mark is the caller's to put there: the library has no fetching of its own.", "descriptionZh": "把加载标记藏起来,哪怕调用方自己写了一个。这个标记是调用方放的:库里没有自己的取数。" },
+    { "name": "show-arrow", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Puts the chevron at the end of the field, so the field says a list is behind it. The suggestion list here is the browser's own, so the arrow says what the reader cannot see.", "descriptionZh": "在字段末尾放上那个小箭头,让字段表明背后有一份名单。这里的建议列表是浏览器自己的,所以这个箭头说的正是读者看不见的那件事。" },
+    { "name": "type", "type": "string", "default": "text", "since": "1.1.0", "description": "The kind of field the input is. It is the input's own type attribute, so the browser brings its own keyboard and its own validation with it.", "descriptionZh": "输入框是哪一种字段。它是 input 自己的 type 属性,所以浏览器会带上它自己的键盘和校验。" },
+    { "name": "form", "type": "string", "since": "1.1.0", "description": "The id of the form the field belongs to. It is the input's own form attribute, so a field may live outside its form and still be submitted with it.", "descriptionZh": "这个字段属于哪个表单。它是 input 自己的 form 属性,所以字段可以放在表单外面,仍然跟着那个表单一起提交。" }
   ],
   "slots": [
     { "name": "prefix", "description": "The mark in front of the text.", "descriptionZh": "文字前面的标记。" },
-    { "name": "suffix", "description": "The mark behind the text.", "descriptionZh": "文字后面的标记。" }
+    { "name": "suffix", "description": "The mark behind the text.", "descriptionZh": "文字后面的标记。" },
+    { "name": "prepend", "description": "The content at the near edge of the field, away from the text.", "descriptionZh": "字段靠前一头的内容,在文字之外。" },
+    { "name": "append", "description": "The content at the far edge of the field, away from the text.", "descriptionZh": "字段靠后一头的内容,在文字之外。" },
+    { "name": "default", "description": "The text of one suggestion. A native <option> holds text and nothing else, so this slot carries the words rather than a whole item.", "descriptionZh": "一条建议的文字。原生 <option> 只装得下文字,所以这个插槽装的是字,不是一个整块内容。" },
+    { "name": "loading", "description": "The mark that says the suggestions are on their way. It is drawn when the slot is empty and the caller's own when it is not.", "descriptionZh": "表示建议正在路上的那个标记。插槽为空时是画出来的,调用方写了自己的就是调用方的。" }
   ],
   "events": [
     { "name": "input", "description": "Fires on every keystroke in the field. It is the browser's own event on the input — the library installs no listener.", "descriptionZh": "在字段里每敲一个字就触发。这是 input 上的浏览器原生事件 —— 库没有安装任何监听器。" },
     { "name": "change", "description": "Fires when the value is committed: when the reader leaves the field, or when they pick a suggestion.", "descriptionZh": "值被提交时触发:读者离开字段时,或者他们选定一条建议时。" },
     { "name": "focus", "description": "Fires when the field takes focus.", "descriptionZh": "字段获得焦点时触发。" },
     { "name": "blur", "description": "Fires when the field loses focus.", "descriptionZh": "字段失去焦点时触发。" },
-    { "name": "update:modelValue", "description": "Fires when the value changes, carrying the new value. This is the event `v-model` listens to.", "descriptionZh": "值变化时触发,携带新的值。v-model 监听的就是这个事件。" }
+    { "name": "update:modelValue", "description": "Fires when the value changes, carrying the new value. This is the event `v-model` listens to.", "descriptionZh": "值变化时触发,携带新的值。v-model 监听的就是这个事件。" },
+    { "name": "clear", "description": "Fires when the reader presses the clear button. The value goes with it, so the field is empty afterwards.", "descriptionZh": "读者按下清空按钮时触发。值也跟着清掉,所以按下之后字段是空的。" },
+    { "name": "select", "description": "Fires when the committed value is one of the suggestions — that is, when the reader has picked a suggestion rather than typed something else.", "descriptionZh": "提交的值正好是建议里的一条时触发 —— 也就是读者选了一条建议,而不是自己打了别的东西。" }
   ],
   "a11y": {
     "role": "combobox",

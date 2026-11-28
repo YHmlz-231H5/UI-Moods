@@ -145,6 +145,13 @@
   font-size: var(--um-font-size-title);
 }
 
+/* The trigger is a disclosure button. The ring goes around it: the menu
+   opens beside it, and nothing clips it there. */
+.um-dropdown__trigger:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
 /* ============================================================================
    Quality hooks
    ----------------------------------------------------------------------------

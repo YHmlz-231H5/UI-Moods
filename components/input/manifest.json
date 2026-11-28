@@ -20,7 +20,10 @@
   ],
   "states": [
     { "id": "focus", "name": "Focus", "nameZh": "聚焦", "selector": ":focus", "native": true, "note": "The border takes the brand colour and a soft ring is drawn around the control." },
-    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The shared layer paints a flat surface and the derived disabled text colour, so the value stays measurable." }
+    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The shared layer paints a flat surface and the derived disabled text colour, so the value stays measurable." },
+    { "id": "autosize", "name": "Autosize", "nameZh": "自动增高", "selector": ".um-input--autosize", "note": "The textarea grows with the text in it. It is the browser's own field-sizing, so nothing in the library measures the text — the browser measures it and the field follows." },
+    { "id": "filled", "name": "Filled", "nameZh": "填充", "selector": ".um-input--filled", "note": "The control sits on a recessed surface and drops its border, so it reads as a well rather than as a box. The light run is the base class on its own." },
+    { "id": "no-arrow", "name": "No arrow", "nameZh": "无箭头", "selector": ".um-input--no-arrow", "note": "The select does not draw its arrow, and the text takes the room the arrow was in." }
   ],
   "parts": [],
   "props": [
@@ -29,9 +32,16 @@
     { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes the control inert. It uses the real disabled attribute, so it leaves the tab order.", "descriptionZh": "让控件不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" },
     { "name": "readonly", "type": "boolean", "default": "false", "description": "Keeps the value visible but stops it being edited. The library does not repaint a readonly control — it is not a state it measures.", "descriptionZh": "值仍然可见,但不能编辑。库不会给只读控件单独配色 —— 这不是它测量过的状态。" },
     { "name": "model-value", "type": "string", "description": "The control's value, bound with v-model in Vue. Leave it out and the control holds whatever the reader typed; bind it and the control answers to the binding.", "descriptionZh": "控件的值,在 Vue 里用 v-model 绑定。不传就由读者输入的内容决定;传了就以绑定为准。" },
-    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "since": "1.1.0", "description": "The size of the control. The same modifier class reaches all three members of the family. The medium size is the base class on its own.", "descriptionZh": "控件的尺寸。同一个修饰类管到这一族的所有成员。中号就是基础类本身。" }
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "since": "1.1.0", "description": "The size of the control. The same modifier class reaches all three members of the family. The medium size is the base class on its own.", "descriptionZh": "控件的尺寸。同一个修饰类管到这一族的所有成员。中号就是基础类本身。" },
+    { "name": "autosize", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Lets the textarea grow with the text in it. It is the browser's own field-sizing, so no line of script measures the text; the field follows what the reader typed. The run is written on the textarea — um-textarea um-input--autosize — because a single-line field has no text to grow with.", "descriptionZh": "让文本域跟着里面的文字长高。它是浏览器自己的 field-sizing,所以没有一行脚本在量文字;字段跟着读者打的字走。这一跑要写在文本域上 —— um-textarea um-input--autosize —— 因为单行字段没有能长高的文字。" },
+    { "name": "effect", "type": "enum", "values": ["light", "filled"], "default": "light", "since": "1.1.0", "description": "The surface of the control. The light run is the base class on its own; the filled run adds um-input--filled, and the control sits on a recessed surface instead of in a frame.", "descriptionZh": "控件的底面。浅色这一跑就是只写基础类;填充这一跑再加上 um-input--filled,控件坐在凹陷的面上,而不是坐在一个框里。" },
+    { "name": "type", "type": "string", "default": "text", "since": "1.1.0", "description": "The kind of field the input is. It is the input's own type attribute, so the browser brings its own keyboard and its own validation with it. The textarea and the select are named by the `control` prop instead.", "descriptionZh": "输入框是哪一种字段。它是 input 自己的 type 属性,所以浏览器会带上它自己的键盘和校验。文本域和选择器则由 `control` 这个属性来点名。" },
+    { "name": "form", "type": "string", "since": "1.1.0", "description": "The id of the form the control belongs to. It is the input's own form attribute, so a control may live outside its form and still be submitted with it.", "descriptionZh": "这个控件属于哪个表单。它是 input 自己的 form 属性,所以控件可以放在表单外面,仍然跟着那个表单一起提交。" },
+    { "name": "show-arrow", "type": "boolean", "default": "true", "since": "1.1.0", "description": "Whether the select draws its arrow. The arrow is part of the control and is drawn by default, because a select without one does not say it opens a list; turning it off adds um-input--no-arrow, which takes the drawn arrow away and gives the text the whole width of the field.", "descriptionZh": "选择器画不画自己的箭头。箭头是控件的一部分,默认就画着 —— 没有箭头的选择器不会说明自己会打开一份名单;关掉它会加上 um-input--no-arrow,把画出来的箭头拿走,把整条宽度让给文字。" }
   ],
-  "slots": [],
+  "slots": [
+    { "name": "default", "description": "The content of the control. For the select it is the options; the input and the textarea hold their own value and take no content.", "descriptionZh": "控件里的内容。选择器放的是选项;输入框和文本域自己装着值,不装内容。" }
+  ],
   "events": [
     { "name": "input", "description": "Fires on the input and the textarea while the value is typed. It is the browser's own event — the library installs no listener.", "descriptionZh": "在输入框和文本域里输入内容时触发。这是浏览器自己的事件 —— 库没有安装任何监听器。" },
     { "name": "change", "description": "Fires when the value is committed: on blur for the input and the textarea, and when an option is picked for the select.", "descriptionZh": "值被提交时触发:输入框和文本域在失焦时触发,选择器在选定选项时触发。" },
@@ -51,7 +61,7 @@
       "titleZh": "三种控件",
       "description": "One class each: um-input for a single line, um-textarea for several, um-select for a choice. They are not variants of one another — they are three classes that share one stylesheet.",
       "descriptionZh": "各有一个类:单行是 um-input,多行是 um-textarea,选择是 um-select。它们不是彼此的变体,而是共用同一份样式表的三个类。",
-      "markup": "<input class=\"um-input\" type=\"text\" placeholder=\"Your name\" />\n<textarea class=\"um-textarea\" rows=\"3\" placeholder=\"Description\"></textarea>\n<select class=\"um-select\">\n  <option>Choose an option</option>\n  <option>Second</option>\n  <option>Third</option>\n</select>"
+      "markup": "<input class=\"um-input\" type=\"text\" placeholder=\"Your name\" aria-label=\"Your name\" />\n<textarea class=\"um-textarea\" rows=\"3\" placeholder=\"Description\" aria-label=\"Description\"></textarea>\n<select class=\"um-select\" aria-label=\"Selection\">\n  <option>Choose an option</option>\n  <option>Second</option>\n  <option>Third</option>\n</select>"
     },
     {
       "id": "states",

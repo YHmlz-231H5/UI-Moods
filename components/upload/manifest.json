@@ -55,7 +55,8 @@
     { "name": "trigger", "description": "The text on the trigger. The button is drawn, so a trigger with no text needs an accessible name of its own.", "descriptionZh": "触发器上的文字。按钮是画出来的,所以不写文字的触发器也得有自己的可访问名称。" },
     { "name": "default", "description": "The text on the trigger. It is the name Element Plus gives the same content.", "descriptionZh": "触发器上的文字。Element Plus 给同样内容起的名字。" },
     { "name": "list", "description": "The chosen files, as a list of items.", "descriptionZh": "已选的文件,写成一个条目列表。" },
-    { "name": "tip", "description": "The line of help under the list of files.", "descriptionZh": "文件列表下面那一行说明。" }
+    { "name": "tip", "description": "The line of help under the list of files.", "descriptionZh": "文件列表下面那一行说明。" },
+    { "name": "file", "description": "The content of one file row. The wrapper writes one row of its own when the caller has not written the list, and this slot is what fills it; the caller's own rows carry their own content.", "descriptionZh": "一个文件行的内容。调用方没有自己写清单时,包装组件会写一行,这个插槽就是填它的;调用方自己写的行,内容也由调用方自己写。" }
   ],
   "events": [
     { "name": "change", "description": "Fires when files are chosen. It is the browser's own event on the input — the library installs no listener, and it cannot read the chosen files without one.", "descriptionZh": "选了文件时触发。这是 input 上的浏览器原生事件 —— 库没有安装任何监听器,也没有监听器就读不到选中的文件。" }

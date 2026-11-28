@@ -262,6 +262,31 @@ language in every mood, and it is the only path whose contrast is measured.
     `node tools/ep-api-parity.mjs --dump` prints the gaps; they are the work
     list, and they are counted in the report.
 
+19. If you change a **focus ring**, a **control's name** or a **control's
+    reachability**, measure the keyboard. The other instruments look at the
+    picture, and the picture can be perfect while the keyboard is useless: the
+    focus ring is never painted, the button has no accessible name, and a
+    control that announces itself as an option sits outside the tab order.
+
+    Three rules hold that:
+
+    - A focus ring is a **shape**, so it takes `--um-focus-ring` — a role of its
+      own, contracted against every surface it can land on: the page, a
+      container, a floating overlay, the inside of a field, the fill of a
+      control, and the brand tints. Never `--um-color-primary`: that is a
+      fill, and in the brutal mood it is a bright yellow on a light page — a
+      ring nobody can see. A **selection** mark is not a focus ring: a checked
+      box, a selected day and a rating star take
+      `--um-color-primary-graphic`, because the shape is the meaning there.
+    - A control that claims an interactive role has to **be in the tab order**,
+      and the role belongs on the control the reader focuses — not on a
+      wrapper around it. A `<label>` is not in the tab order, so a `role="tab"`
+      on a label is a promise the keyboard cannot keep.
+    - `node tools/audit-render.mjs keyboard` asks the three questions of every
+      focusable control in every example: is it named, is it reachable, is it
+      visible. The ring has to read against what it sits on at 3:1, which is
+      what WCAG 2.2 asks of a non-text indicator.
+
 `site/index.html` is the documentation: an overview plus one page per
 component, with the examples, the API tables and the class list, and a live
 switcher over all 32 themes.

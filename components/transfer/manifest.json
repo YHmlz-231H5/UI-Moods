@@ -25,7 +25,9 @@
   "states": [
     { "id": "checked", "name": "Checked", "nameZh": "勾选", "selector": ":checked", "native": true, "note": "A ticked option takes the brand colour's own soft tint, and its text takes the foreground that was derived for that tint." },
     { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "A disabled option takes the derived disabled colour, and a disabled move button paints a flat surface and takes that same colour." },
-    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "Each control takes its own ring, because one ring around the whole box would say the wrong thing about what is focused." }
+    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "Each control takes its own ring, because one ring around the whole box would say the wrong thing about what is focused." },
+    { "id": "filterable", "name": "Filterable", "nameZh": "可筛选", "selector": ".um-transfer--filterable", "note": "Each panel carries the field the host filters the list with." },
+    { "id": "virtual-scroll", "name": "Virtual scroll", "nameZh": "虚拟滚动", "selector": ".um-transfer--virtual-scroll", "note": "The rows far from the reader are not laid out: the browser gives them a placeholder size instead, so the scrollbar is right without every row being built." }
   ],
   "parts": [
     { "id": "panel", "name": "Panel", "nameZh": "面板", "note": "One of the two lists, with its header and its options. It is a <section>, so it is announced as a region when it is given a label." },
@@ -39,21 +41,30 @@
     { "id": "controls", "name": "Controls", "nameZh": "按钮组", "note": "The pair of buttons between the panels." },
     { "id": "move", "name": "Move", "nameZh": "移到右边", "note": "The button that moves the ticked options into the target panel. Its arrow is drawn from borders, so it carries no text of its own." },
     { "id": "move-back", "name": "Move back", "nameZh": "移回左边", "note": "The button that moves the ticked options back into the source panel." },
-    { "id": "footer", "name": "Footer", "nameZh": "底部", "note": "The row under a panel's list, where a host puts whatever that panel needs. An empty footer is no footer." }
+    { "id": "footer", "name": "Footer", "nameZh": "底部", "note": "The row under a panel's list, where a host puts whatever that panel needs. An empty footer is no footer." },
+    { "id": "filter", "name": "Filter", "nameZh": "筛选", "note": "The field the host filters a panel's list with. It is a real search field, so the browser's own clear mark and its own keyboard are there." },
+    { "id": "left-empty", "name": "Left empty", "nameZh": "左侧空状态", "note": "What the panel on the left says when it holds no option. It is shown only when that panel's list is empty." },
+    { "id": "right-empty", "name": "Right empty", "nameZh": "右侧空状态", "note": "What the panel on the right says when it holds no option. It is shown only when that panel's list is empty." }
   ],
   "props": [
     { "name": "name", "type": "string", "description": "The name the ticked options are submitted under. It is the native name attribute, and the source and the target list use different names so the host can tell them apart.", "descriptionZh": "勾上的选项提交时用的名字。它是原生 name 属性,两个列表用不同的名字,宿主才分得清谁是谁。" },
     { "name": "value", "type": "string", "description": "The value one option submits while it is ticked.", "descriptionZh": "某个选项勾上时提交的值。" },
+    { "name": "model-value", "type": "string", "since": "1.1.0", "description": "The bound value. It answers to `v-model` as well as to `value`, and the binding wins when it is there.", "descriptionZh": "绑定的值。它和 `value` 一样能接 `v-model`,而且绑定在的时候以绑定为准。" },
     { "name": "checked", "type": "boolean", "default": "false", "description": "Ticks one option. It is the native checked attribute, not a class.", "descriptionZh": "勾上某一个选项。它是原生 checked 属性,不是某个类。" },
     { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes one option, or one of the move buttons, inert. It uses the real disabled attribute, so it leaves the tab order.", "descriptionZh": "让某个选项或某个移动按钮不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" },
     { "name": "direction", "type": "enum", "values": ["horizontal", "vertical"], "default": "horizontal", "description": "Which way the two panels are laid out. The horizontal run is the base class on its own; the vertical run adds um-transfer--vertical.", "descriptionZh": "两个面板怎么排。横向是只写基础类;纵向再加上 um-transfer--vertical。" },
-    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The size of the names and of the move buttons.", "descriptionZh": "文字和移动按钮的尺寸。" }
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The size of the names and of the move buttons.", "descriptionZh": "文字和移动按钮的尺寸。" },
+    { "name": "filterable", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Whether each panel carries the field the host filters the list with. The field is a real search input, so the filtering is the host's script and the library only draws it. It adds um-transfer--filterable.", "descriptionZh": "每个面板上是否带上那个用来筛选列表的输入框。这个输入框是真的搜索框,所以筛选是宿主脚本的事,库只负责画它。它加上 um-transfer--filterable。" },
+    { "name": "virtual-scroll", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Whether the rows far from the reader are left out of the layout. The browser is told how tall such a row is, so the scrollbar is right without every row being built. It adds um-transfer--virtual-scroll.", "descriptionZh": "离读者很远的那些行是否不参与排版。浏览器会被告知这种行有多高,所以不用把每一行都建出来,滚动条也是对的。它加上 um-transfer--virtual-scroll。" }
   ],
   "slots": [
     { "name": "source", "description": "The options of the panel on the left.", "descriptionZh": "左边那个面板里的选项。" },
     { "name": "target", "description": "The options of the panel on the right.", "descriptionZh": "右边那个面板里的选项。" },
+    { "name": "default", "description": "The options of the panel on the left. It is the name Element Plus gives the same content the source slot fills.", "descriptionZh": "左边那个面板里的选项。它是 Element Plus 给 source 插槽所填的同一份内容起的名字。" },
     { "name": "left-footer", "description": "The row under the list of the panel on the left.", "descriptionZh": "左边那个面板列表下面的那一行。" },
-    { "name": "right-footer", "description": "The row under the list of the panel on the right.", "descriptionZh": "右边那个面板列表下面的那一行。" }
+    { "name": "right-footer", "description": "The row under the list of the panel on the right.", "descriptionZh": "右边那个面板列表下面的那一行。" },
+    { "name": "left-empty", "description": "What the panel on the left says when it holds no option at all.", "descriptionZh": "左边那个面板一个选项都没有的时候说什么。" },
+    { "name": "right-empty", "description": "What the panel on the right says when it holds no option at all.", "descriptionZh": "右边那个面板一个选项都没有的时候说什么。" }
   ],
   "events": [
     { "name": "change", "description": "Fires when an option is ticked or unticked. It is the browser's own event on the input — the library installs no listener.", "descriptionZh": "某个选项被勾选或取消勾选时触发。这是 input 上的浏览器原生事件 —— 库没有安装任何监听器。" },

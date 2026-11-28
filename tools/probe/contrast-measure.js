@@ -162,7 +162,7 @@ function link(href) {
   });
 }
 
-async function loadStyles(mode) {
+export async function loadStyles(mode) {
   if (mode === "split") {
     // The way a host links it: the shared layer once, then one file per
     // component.
@@ -178,7 +178,7 @@ async function loadStyles(mode) {
 
 // --- colour maths --------------------------------------------------------------
 
-function parse(value) {
+export function parse(value) {
   const s = String(value).trim();
   if (!s) return null;
   const m = s.match(/rgba?\(([^)]+)\)/);
@@ -204,7 +204,7 @@ function parse(value) {
   return null;
 }
 
-function over(fg, bg) {
+export function over(fg, bg) {
   const a = fg.a;
   return { r: fg.r * a + bg.r * (1 - a), g: fg.g * a + bg.g * (1 - a), b: fg.b * a + bg.b * (1 - a), a: 1 };
 }
@@ -217,13 +217,13 @@ function luminance({ r, g, b }) {
   return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b);
 }
 
-function ratio(fg, bg) {
+export function ratio(fg, bg) {
   const l1 = luminance(fg);
   const l2 = luminance(bg);
   return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
 }
 
-const hex = (c) =>
+export const hex = (c) =>
   "#" + [c.r, c.g, c.b].map((v) => Math.round(v).toString(16).padStart(2, "0")).join("");
 
 // --- the surface a thing actually sits on ---------------------------------------
@@ -268,7 +268,7 @@ function canvasColor() {
  * is not behind it — and counting it would invent a stack the reader never
  * sees.
  */
-function effectiveBackground(el) {
+export function effectiveBackground(el) {
   const layers = [];
   let node = el;
   let opacity = 1;

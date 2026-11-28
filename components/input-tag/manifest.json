@@ -26,7 +26,11 @@
   ],
   "states": [
     { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring is drawn around the field, because the field is what the reader is typing in." },
-    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The field paints the flat control surface and takes the derived disabled colour." }
+    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The field paints the flat control surface and takes the derived disabled colour." },
+    { "id": "clearable", "name": "Clearable", "nameZh": "可清空", "selector": ".um-input-tag--clearable", "note": "The field carries a button that empties it." },
+    { "id": "filled", "name": "Filled", "nameZh": "填充", "selector": ".um-input-tag--filled", "note": "The field sits on a recessed surface and drops its frame. The light run is the base class on its own." },
+    { "id": "tag-effect-dark", "name": "Tag effect dark", "nameZh": "标签深色", "selector": ".um-input-tag--tag-effect-dark", "note": "The tags sit on the solid brand colour instead of on a tint of it." },
+    { "id": "tag-effect-plain", "name": "Tag effect plain", "nameZh": "标签无填充", "selector": ".um-input-tag--tag-effect-plain", "note": "The tags lose their fill and keep their outline." }
   ],
   "parts": [
     { "id": "tag", "name": "Tag", "nameZh": "标签", "note": "One chosen tag. The variant tints the tags of the whole field, because in CSS the modifier sits on the root." },
@@ -34,7 +38,8 @@
     { "id": "remove", "name": "Remove", "nameZh": "删除", "note": "The button that takes the tag back out. It is a real button, and its mark is drawn from two borders." },
     { "id": "input", "name": "Input", "nameZh": "输入", "note": "The empty place at the end of the field. It is a real text input, borderless, so the field and the text read as one control." },
     { "id": "prefix", "name": "Prefix", "nameZh": "前缀", "note": "The mark in front of the tags, so a unit can be written next to them." },
-    { "id": "suffix", "name": "Suffix", "nameZh": "后缀", "note": "The mark behind the field, so a unit can be written next to it." }
+    { "id": "suffix", "name": "Suffix", "nameZh": "后缀", "note": "The mark behind the field, so a unit can be written next to it." },
+    { "id": "clear", "name": "Clear", "nameZh": "清空按钮", "note": "The button that empties the field. It is a real button, and its mark is drawn from two bars." }
   ],
   "props": [
     { "name": "variant", "type": "enum", "values": ["primary", "success", "warning", "danger"], "default": "", "description": "Which colour the tags carry. The base class on its own is the neutral tag.", "descriptionZh": "标签带哪一种颜色。只写基础类就是中性标签。" },
@@ -44,15 +49,20 @@
     { "name": "label", "type": "string", "default": "", "description": "The accessible name of the field. It becomes the input's aria-label.", "descriptionZh": "输入框的可访问名称,它会变成 input 的 aria-label。" },
     { "name": "disabled", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Makes the field inert. It uses the real disabled attribute on the input, so it leaves the tab order and the field paints the flat control surface.", "descriptionZh": "让输入框不可用。它用的是 input 上的原生 disabled 属性,因此会退出 Tab 顺序,输入框也会铺上扁平的控件底色。" },
     { "name": "readonly", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Keeps the text visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures.", "descriptionZh": "文字仍然可见,但不能编辑。它是原生 readonly 属性,浏览器会拒绝编辑。库不会给只读字段单独配色 —— 这不是它测量过的状态。" },
-    { "name": "model-value", "type": "string", "since": "1.1.0", "description": "The bound value. It answers to `v-model` as well as to `value`, and the binding wins when it is there.", "descriptionZh": "绑定的值。它和 `value` 一样能接 `v-model`,而且绑定在的时候以绑定为准。" }
+    { "name": "model-value", "type": "string", "since": "1.1.0", "description": "The bound value. It answers to `v-model` as well as to `value`, and the binding wins when it is there.", "descriptionZh": "绑定的值。它和 `value` 一样能接 `v-model`,而且绑定在的时候以绑定为准。" },
+    { "name": "clearable", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Puts a button at the end of the field that empties it. The text in the field goes with it; the tags are the host's to take away.", "descriptionZh": "在字段末尾放一个按钮,按它就把字段清空。字段里的字跟着清掉;标签由宿主来拿走。" },
+    { "name": "effect", "type": "enum", "values": ["light", "filled"], "default": "light", "since": "1.1.0", "description": "The surface of the field. The light run is the base class on its own; the filled run adds um-input-tag--filled, and the field sits on a recessed surface instead of in a frame.", "descriptionZh": "输入框的底面。浅色这一跑就是只写基础类;填充这一跑再加上 um-input-tag--filled,输入框坐在凹陷的面上,而不是坐在一个框里。" },
+    { "name": "tag-effect", "type": "enum", "values": ["light", "dark", "plain"], "default": "light", "since": "1.1.0", "description": "The surface the tags sit on. The light run is the base class on its own; the dark run puts the tags on the solid colour, and the plain run takes their fill away and leaves the outline.", "descriptionZh": "标签坐在哪种底面上。浅色这一跑就是只写基础类;深色这一跑把标签放到实色上,无填充这一跑则去掉底色,只留下描边。" }
   ],
   "slots": [
     { "name": "default", "description": "The tags already chosen. Each one is a tag holding its text and its remove button.", "descriptionZh": "已经选好的标签,每个标签里装着它的文字和删除按钮。" },
     { "name": "prefix", "description": "The mark in front of the tags.", "descriptionZh": "标签前面的标记。" },
-    { "name": "suffix", "description": "The mark behind the field.", "descriptionZh": "输入框后面的标记。" }
+    { "name": "suffix", "description": "The mark behind the field.", "descriptionZh": "输入框后面的标记。" },
+    { "name": "tag", "description": "The words of one tag. The wrapper writes three tags of its own when the caller has not written any, and this slot is what fills them; the caller's own tags carry their own words.", "descriptionZh": "一个标签的文字。调用方没有自己写标签时,包装组件会写三个,这个插槽就是填它们的;调用方自己写的标签,文字也由调用方自己写。" }
   ],
   "events": [
-    { "name": "input", "description": "Fires when the text in the field changes.", "descriptionZh": "输入框里的文字变了就触发。" }
+    { "name": "input", "description": "Fires when the text in the field changes.", "descriptionZh": "输入框里的文字变了就触发。" },
+    { "name": "clear", "description": "Fires when the reader presses the clear button. The text in the field goes with it; the tags are the host's to take away.", "descriptionZh": "读者按下清空按钮时触发。字段里的字跟着清掉;标签由宿主来拿走。" }
   ],
   "a11y": {
     "keyboard": ["Tab", "Space"],
@@ -85,6 +95,6 @@
       "markup": "<div class=\"um-input-tag um-input-tag--sm\">\n  <span class=\"um-input-tag__tag\">\n    <span class=\"um-input-tag__text\">Frontend</span>\n    <button type=\"button\" class=\"um-input-tag__remove\" aria-label=\"Remove Frontend\"></button>\n  </span>\n  <input class=\"um-input-tag__input\" type=\"text\" placeholder=\"Add a tag\" aria-label=\"Add a tag\">\n</div>\n<div class=\"um-input-tag\">\n  <span class=\"um-input-tag__tag\">\n    <span class=\"um-input-tag__text\">Frontend</span>\n    <button type=\"button\" class=\"um-input-tag__remove\" aria-label=\"Remove Frontend\"></button>\n  </span>\n  <input class=\"um-input-tag__input\" type=\"text\" placeholder=\"Add a tag\" aria-label=\"Add a tag\">\n</div>\n<div class=\"um-input-tag um-input-tag--lg\">\n  <span class=\"um-input-tag__tag\">\n    <span class=\"um-input-tag__text\">Frontend</span>\n    <button type=\"button\" class=\"um-input-tag__remove\" aria-label=\"Remove Frontend\"></button>\n  </span>\n  <input class=\"um-input-tag__input\" type=\"text\" placeholder=\"Add a tag\" aria-label=\"Add a tag\">\n</div>"
     }
   ],
-  "notes": "Adding a tag and taking one away both need a script, so this component is only the two shapes: the tag and its remove button. The field paints the surface and the input inside it paints none — two translucent layers would be a colour no role names. The variant tints the tags of the whole field rather than of one tag, because in CSS the modifier class sits on the root; a per-tag tone needs the host to write the tag's own class.",
-  "notesZh": "加标签和删标签都要脚本,所以这个组件只剩两副样子:标签本身,和它的删除按钮。输入框负责画底色,里面的 input 什么都不画 —— 两层半透明叠起来就是一个谁都没命名的颜色。变体染的是整个输入框里的标签,而不是单个标签,因为在 CSS 里修饰类挂在根上;想让单个标签带上自己的颜色,得由使用方把类写在那个标签上。"
+  "notes": "Adding a tag and taking one away both need a script, so this component is mostly the two shapes: the tag and its remove button. The field paints the surface and the input inside it paints none — two translucent layers would be a colour no role names. The variant tints the tags of the whole field rather than of one tag, because in CSS the modifier class sits on the root; a per-tag tone needs the host to write the tag's own class. The tag effect is a second modifier on the same root, so the two compose: one says which colour the tag carries, the other says which surface it sits on.",
+  "notesZh": "加标签和删标签都要脚本,所以这个组件基本上是两副样子:标签本身,和它的删除按钮。输入框负责画底色,里面的 input 什么都不画 —— 两层半透明叠起来就是一个谁都没命名的颜色。变体染的是整个输入框里的标签,而不是单个标签,因为在 CSS 里修饰类挂在根上;想让单个标签带上自己的颜色,得由使用方把类写在那个标签上。标签效果是挂在同一个根上的第二个修饰类,所以两者可以叠加:一个说标签带什么颜色,另一个说标签坐在哪种底面上。"
 }

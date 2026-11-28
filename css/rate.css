@@ -100,7 +100,7 @@
 /* The ring goes on the item rather than on the star: the star is cut out of
    a polygon, and a clipped element cannot show an outline. */
 .um-rate__input:focus-visible + .um-rate__item {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -118,6 +118,15 @@
   font-variant-numeric: tabular-nums;
 }
 .um-rate--show-score .um-rate__score { display: inline-flex; }
+
+/* The text is the words beside the stars. It is in the markup either way, so
+   it only takes up room when the stars ask for it. */
+.um-rate__text {
+  display: none;
+  color: var(--um-text-regular);
+  font-size: var(--um-font-size-body);
+}
+.um-rate--show-text .um-rate__text { display: inline-flex; }
 
 /* ============================================================================
    Quality hooks

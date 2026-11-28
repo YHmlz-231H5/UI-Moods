@@ -7,6 +7,9 @@
 //
 // The value answers to `v-model` as well: a host that binds the control gets
 // the value back, and a host that does not gets exactly what it got before.
+//
+// The autosize run belongs to the textarea alone — a single-line field has no
+// text to grow with — so the wrapper writes it only where it means something.
 
 import { defineComponent, h } from "vue";
 import { modelValue, eventValue } from "../lib/model.mjs";
@@ -28,6 +31,11 @@ export const UMInput = defineComponent({
     readonly: { type: Boolean, default: false },
     modelValue: { type: String, default: undefined },
     size: { type: String, default: "md" },
+    autosize: { type: Boolean, default: false },
+    effect: { type: String, default: "light" },
+    type: { type: String, default: "text" },
+    form: { type: String, default: "" },
+    showArrow: { type: Boolean, default: true },
   },
   emits: ["input", "change", "focus", "blur", "update:modelValue"],
   setup(props, { slots, emit }) {
@@ -40,9 +48,19 @@ export const UMInput = defineComponent({
         class: [
           CONTROL_CLASS[control],
           props.size !== "md" ? `um-input--${props.size}` : null,
+          // The light surface is the base class on its own; the filled one is
+          // the run that sits on a recessed surface.
+          props.effect === "filled" ? "um-input--filled" : null,
+          // The autosize run belongs to the textarea: a single-line field has
+          // no text to grow with.
+          control === "textarea" && props.autosize ? "um-input--autosize" : null,
+          // The select's arrow is drawn by default; the run that takes it
+          // away is the one that says it is not wanted.
+          props.showArrow ? null : "um-input--no-arrow",
         ],
         disabled: props.disabled,
         value,
+        form: props.form || undefined,
         onInput: (e) => {
           emit("update:modelValue", eventValue(e));
           emit("input", e);
@@ -60,10 +78,11 @@ export const UMInput = defineComponent({
       }
 
       // The placeholder and the read-only state belong to the two text
-      // controls; the select has neither.
+      // controls; the select has neither. The type is the input's own: the
+      // browser brings the keyboard and the validation that go with it.
       const text = {
         ...common,
-        type: control === "textarea" ? undefined : "text",
+        type: control === "textarea" ? undefined : props.type || "text",
         placeholder: props.placeholder || undefined,
         readonly: props.readonly,
         rows: control === "textarea" ? 3 : undefined,

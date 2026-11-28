@@ -274,6 +274,10 @@
       <tr><td><code>um-menu__icon</code></td><td>Icon</td></tr>
       <tr><td><code>um-menu__submenu</code></td><td>Submenu</td></tr>
       <tr><td><code>[open]</code></td><td>Group open</td></tr>
+      <tr><td><code>.um-menu--collapse</code></td><td>Collapsed</td></tr>
+      <tr><td><code>.um-menu--disabled</code></td><td>Disabled</td></tr>
+      <tr><td><code>.um-menu--ellipsis</code></td><td>Ellipsis</td></tr>
+      <tr><td><code>.um-menu--popper-dark</code></td><td>Dark popper</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -283,6 +287,10 @@
       <tr><td><span class="api__name"><code>direction</code></span></td><td><code>enum = vertical | horizontal</code></td><td><code>vertical</code></td><td>Which way the entries run. The vertical menu is the base class on its own; the horizontal menu adds um-menu--horizontal.</td></tr>
       <tr><td><span class="api__name"><code>active</code></span></td><td><code>string</code></td><td>—</td><td>Which entry is the current one. It is the um-menu__active class on that entry's item.</td></tr>
       <tr><td><span class="api__name"><code>mode</code></span></td><td><code>enum = vertical | horizontal</code></td><td><code>vertical</code></td><td>Which way the entries run. This is Element Plus's name for the `direction` prop; either one of them lays the menu out.</td></tr>
+      <tr><td><span class="api__name"><code>collapse</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the menu is a column of glyphs. It adds um-menu--collapse: every entry is narrowed to the icon column and its label is clipped out of it. The library draws no icons of its own, so the glyph in a collapsed entry is the host's.</td></tr>
+      <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the menu is inert. It adds um-menu--disabled: the pointer does not reach the entries and they take the derived disabled colour.</td></tr>
+      <tr><td><span class="api__name"><code>ellipsis</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether a group title that is too long is cut with an ellipsis instead of wrapping. It adds um-menu--ellipsis.</td></tr>
+      <tr><td><span class="api__name"><code>popper-effect</code></span></td><td><code>enum = light | dark</code></td><td><code>light</code></td><td>How the floating submenu is filled. The light run is the base class on its own; the dark run fills the panel with the mood's strong text colour and adds um-menu--popper-dark.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>

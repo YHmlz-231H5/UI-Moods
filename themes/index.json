@@ -11,7 +11,7 @@
       "nameZh": "动漫",
       "appearance": "light",
       "file": "themes/anime.css",
-      "roles": 95
+      "roles": 98
     },
     {
       "id": "archive",
@@ -19,7 +19,7 @@
       "nameZh": "档案",
       "appearance": "light",
       "file": "themes/archive.css",
-      "roles": 95
+      "roles": 98
     },
     {
       "id": "aurora",
@@ -27,7 +27,7 @@
       "nameZh": "极光",
       "appearance": "dark",
       "file": "themes/aurora.css",
-      "roles": 96
+      "roles": 99
     },
     {
       "id": "bauhaus",
@@ -35,7 +35,7 @@
       "nameZh": "包豪斯",
       "appearance": "light",
       "file": "themes/bauhaus.css",
-      "roles": 96
+      "roles": 99
     },
     {
       "id": "blueprint",
@@ -43,7 +43,7 @@
       "nameZh": "蓝图",
       "appearance": "dark",
       "file": "themes/blueprint.css",
-      "roles": 95
+      "roles": 98
     },
     {
       "id": "brutal",
@@ -51,7 +51,7 @@
       "nameZh": "粗野派",
       "appearance": "light",
       "file": "themes/brutal.css",
-      "roles": 96
+      "roles": 99
     },
     {
       "id": "clay",
@@ -59,7 +59,7 @@
       "nameZh": "陶土",
       "appearance": "light",
       "file": "themes/clay.css",
-      "roles": 95
+      "roles": 98
     },
     {
       "id": "corporate",
@@ -67,7 +67,7 @@
       "nameZh": "企管",
       "appearance": "light",
       "file": "themes/corporate.css",
-      "roles": 96
+      "roles": 99
     },
     {
       "id": "crypto",
@@ -75,7 +75,7 @@
       "nameZh": "加密",
       "appearance": "dark",
       "file": "themes/crypto.css",
-      "roles": 96
+      "roles": 99
     },
     {
       "id": "eco",
@@ -83,7 +83,7 @@
       "nameZh": "环保",
       "appearance": "light",
       "file": "themes/eco.css",
-      "roles": 96
+      "roles": 99
     },
     {
       "id": "fashion",
@@ -91,7 +91,7 @@
       "nameZh": "时装",
       "appearance": "light",
       "file": "themes/fashion.css",
-      "roles": 96
+      "roles": 99
     },
     {
       "id": "finance",
@@ -99,7 +99,7 @@
       "nameZh": "金融",
       "appearance": "dark",
       "file": "themes/finance.css",
-      "roles": 96
+      "roles": 99
     },
     {
       "id": "food",
@@ -107,7 +107,7 @@
       "nameZh": "美食",
       "appearance": "light",
       "file": "themes/food.css",
-      "roles": 96
+      "roles": 99
     },
     {
       "id": "forest",
@@ -115,7 +115,7 @@
       "nameZh": "森系",
       "appearance": "light",
       "file": "themes/forest.css",
-      "roles": 95
+      "roles": 98
     },
     {
       "id": "gaming",
@@ -123,7 +123,7 @@
       "nameZh": "电竞",
       "appearance": "dark",
       "file": "themes/gaming.css",
-      "roles": 96
+      "roles": 99
     },
     {
       "id": "glass",
@@ -131,7 +131,7 @@
       "nameZh": "毛玻璃",
       "appearance": "dark",
       "file": "themes/glass.css",
-      "roles": 96
+      "roles": 99
     },
     {
       "id": "instrument",
@@ -139,7 +139,7 @@
       "nameZh": "仪表",
       "appearance": "dark",
       "file": "themes/instrument.css",
-      "roles": 95
+      "roles": 98
     },
     {
       "id": "ios",
@@ -147,7 +147,7 @@
       "nameZh": "苹果风",
       "appearance": "light",
       "file": "themes/ios.css",
-      "roles": 95
+      "roles": 98
     },
     {
       "id": "luxury",
@@ -155,7 +155,7 @@
       "nameZh": "奢雅",
       "appearance": "light",
       "file": "themes/luxury.css",
-      "roles": 95
+      "roles": 98
     },
     {
       "id": "medical",
@@ -163,7 +163,7 @@
       "nameZh": "医疗",
       "appearance": "light",
       "file": "themes/medical.css",
-      "roles": 96
+      "roles": 99
     },
     {
       "id": "monochrome",
@@ -171,7 +171,7 @@
       "nameZh": "素白",
       "appearance": "light",
       "file": "themes/monochrome.css",
-      "roles": 96
+      "roles": 99
     },
     {
       "id": "neon",
@@ -179,7 +179,7 @@
       "nameZh": "霓虹",
       "appearance": "dark",
       "file": "themes/neon.css",
-      "roles": 96
+      "roles": 99
     },
     {
       "id": "night",
@@ -187,7 +187,7 @@
       "nameZh": "夜航",
       "appearance": "dark",
       "file": "themes/night.css",
-      "roles": 96
+      "roles": 99
     },
     {
       "id": "nordic",
@@ -195,7 +195,7 @@
       "nameZh": "北欧",
       "appearance": "light",
       "file": "themes/nordic.css",
-      "roles": 96
+      "roles": 99
     },
     {
       "id": "pastel",
@@ -203,7 +203,7 @@
       "nameZh": "粉彩",
       "appearance": "light",
       "file": "themes/pastel.css",
-      "roles": 96
+      "roles": 99
     },
     {
       "id": "retro",
@@ -211,7 +211,7 @@
       "nameZh": "复古",
       "appearance": "light",
       "file": "themes/retro.css",
-      "roles": 96
+      "roles": 99
     },
     {
       "id": "sakura",
@@ -219,7 +219,7 @@
       "nameZh": "樱见",
       "appearance": "light",
       "file": "themes/sakura.css",
-      "roles": 96
+      "roles": 99
     },
     {
       "id": "swiss",
@@ -227,7 +227,7 @@
       "nameZh": "瑞士",
       "appearance": "light",
       "file": "themes/swiss.css",
-      "roles": 96
+      "roles": 99
     },
     {
       "id": "travel",
@@ -235,7 +235,7 @@
       "nameZh": "旅行",
       "appearance": "light",
       "file": "themes/travel.css",
-      "roles": 96
+      "roles": 99
     },
     {
       "id": "vaporwave",
@@ -243,7 +243,7 @@
       "nameZh": "蒸汽波",
       "appearance": "dark",
       "file": "themes/vaporwave.css",
-      "roles": 96
+      "roles": 99
     },
     {
       "id": "verdant",
@@ -251,7 +251,7 @@
       "nameZh": "磷光",
       "appearance": "dark",
       "file": "themes/verdant.css",
-      "roles": 96
+      "roles": 99
     },
     {
       "id": "y2k",
@@ -259,7 +259,7 @@
       "nameZh": "千禧",
       "appearance": "light",
       "file": "themes/y2k.css",
-      "roles": 96
+      "roles": 99
     }
   ]
 }

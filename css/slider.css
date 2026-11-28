@@ -14,6 +14,12 @@
    Slider
    ========================================================================== */
 .um-slider {
+  /* The thumb and the track are the slider's own measures, so the size
+     modifiers only have to name a different pair of them. The thumb is a
+     round handle the reader drags, and the track is the line it runs on. */
+  --um-slider-thumb: var(--um-height-sm);
+  --um-slider-track: var(--um-space-xs);
+
   width: 100%;
   /* The browser gives a range input a margin of its own, and that margin
      would push the track a couple of pixels past the width the host gave
@@ -25,28 +31,30 @@
   cursor: pointer;
 }
 .um-slider::-webkit-slider-runnable-track {
-  height: var(--um-space-xs);
+  height: var(--um-slider-track);
   border-radius: var(--um-radius-round);
   background: var(--um-fill-light);
 }
 .um-slider::-moz-range-track {
-  height: var(--um-space-xs);
+  height: var(--um-slider-track);
   border-radius: var(--um-radius-round);
   background: var(--um-fill-light);
 }
 .um-slider::-webkit-slider-thumb {
   appearance: none;
-  width: var(--um-height-sm);
-  height: var(--um-height-sm);
-  margin-top: calc(var(--um-space-xs) * -0.5 - var(--um-space-xs) * 0.5);
+  width: var(--um-slider-thumb);
+  height: var(--um-slider-thumb);
+  /* The thumb sits on the track's axis, so it is raised by half of what the
+     track and the thumb differ by. */
+  margin-top: calc((var(--um-slider-track) - var(--um-slider-thumb)) / 2);
   border: 2px solid var(--um-color-primary);
   border-radius: var(--um-radius-circle);
   background: var(--um-bg-overlay);
   box-shadow: var(--um-shadow-light);
 }
 .um-slider::-moz-range-thumb {
-  width: var(--um-height-sm);
-  height: var(--um-height-sm);
+  width: var(--um-slider-thumb);
+  height: var(--um-slider-thumb);
   border: 2px solid var(--um-color-primary);
   border-radius: var(--um-radius-circle);
   background: var(--um-bg-overlay);
@@ -62,6 +70,46 @@
   direction: rtl;
   width: var(--um-height-md);
   height: var(--um-height-md);
+}
+
+/* The size sets how big the thumb is and how thick the track is. The middle
+   size is the base class on its own, so only the two ends need a rule. */
+.um-slider--sm {
+  --um-slider-thumb: var(--um-space-md);
+}
+
+.um-slider--lg {
+  --um-slider-thumb: var(--um-height-md);
+  --um-slider-track: var(--um-space-sm);
+}
+
+/* The stops are the tick marks that say there is a scale along the track.
+   They are painted as a repeating gradient, so they are evenly spaced: a
+   stylesheet cannot count the steps, and the marks say that there is a scale
+   rather than where it breaks. The gradient is the track's own background
+   image, so the flat colour of the track is still the colour under it. */
+.um-slider--show-stops {
+  --um-slider-stops: repeating-linear-gradient(
+    to right,
+    var(--um-shape-muted) 0 var(--um-space-xs),
+    transparent var(--um-space-xs) var(--um-space-sm)
+  );
+}
+
+/* The vertical run runs its track up the page, so its marks run with it. */
+.um-slider--show-stops.um-slider--vertical {
+  --um-slider-stops: repeating-linear-gradient(
+    to bottom,
+    var(--um-shape-muted) 0 var(--um-space-xs),
+    transparent var(--um-space-xs) var(--um-space-sm)
+  );
+}
+
+.um-slider--show-stops::-webkit-slider-runnable-track {
+  background-image: var(--um-slider-stops);
+}
+.um-slider--show-stops::-moz-range-track {
+  background-image: var(--um-slider-stops);
 }
 
 /* ============================================================================

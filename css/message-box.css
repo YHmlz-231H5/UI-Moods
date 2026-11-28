@@ -276,7 +276,7 @@
 
 .um-message-box__confirm:focus-visible,
 .um-message-box__cancel:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -314,7 +314,7 @@
 
 .um-message-box__close:hover { color: var(--um-color-primary-text); }
 .um-message-box__close:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -404,7 +404,7 @@
 }
 
 .um-message-box__input:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 

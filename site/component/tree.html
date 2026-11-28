@@ -327,10 +327,17 @@
       <tr><td><code>um-tree__text</code></td><td>Text</td></tr>
       <tr><td><code>um-tree__arrow</code></td><td>Arrow</td></tr>
       <tr><td><code>um-tree__children</code></td><td>Children</td></tr>
+      <tr><td><code>um-tree__checkbox</code></td><td>Checkbox</td></tr>
+      <tr><td><code>um-tree__box</code></td><td>Box</td></tr>
       <tr><td><code>[open]</code></td><td>Open</td></tr>
       <tr><td><code>:focus-visible</code></td><td>Focus visible</td></tr>
       <tr><td><code>.um-tree--highlight-current</code></td><td>Highlight current</td></tr>
       <tr><td><code>.um-tree__node--current</code></td><td>Current node</td></tr>
+      <tr><td><code>.um-tree--accordion</code></td><td>Accordion</td></tr>
+      <tr><td><code>.um-tree--auto-expand-parent</code></td><td>Auto expand parent</td></tr>
+      <tr><td><code>.um-tree--check-strictly</code></td><td>Check strictly</td></tr>
+      <tr><td><code>.um-tree--default-expand-all</code></td><td>Expand all</td></tr>
+      <tr><td><code>.um-tree--show-checkbox</code></td><td>Show checkbox</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -342,6 +349,11 @@
       <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The size of the label text.</td></tr>
       <tr><td><span class="api__name"><code>label</code></span></td><td><code>string</code></td><td>—</td><td>The name of the thing the branch holds. A branch with no text needs an accessible name of its own.</td></tr>
       <tr><td><span class="api__name"><code>highlight-current</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the branch the reader is on takes the highlight fill. That branch is marked with um-tree__node--current.</td></tr>
+      <tr><td><span class="api__name"><code>accordion</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether only the first open branch of a level shows what it holds, so the level reads as one branch at a time. It adds um-tree--accordion.</td></tr>
+      <tr><td><span class="api__name"><code>auto-expand-parent</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the branch the current one sits under shows what it holds, whether it is open or not. It adds um-tree--auto-expand-parent.</td></tr>
+      <tr><td><span class="api__name"><code>check-strictly</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether each tick box stands on its own, with no link drawn between a branch and the branch under it. It adds um-tree--check-strictly.</td></tr>
+      <tr><td><span class="api__name"><code>default-expand-all</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether every level of the tree is open, whether the branch says so or not. It adds um-tree--default-expand-all.</td></tr>
+      <tr><td><span class="api__name"><code>show-checkbox</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether every branch carries the box the reader ticks. It adds um-tree--show-checkbox.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>
@@ -358,6 +370,7 @@
       <thead><tr><th>Name</th><th>Description</th></tr></thead>
       <tbody>
       <tr><td><span class="api__name"><code>toggle</code></span></td><td>Fires when a branch opens or closes. It is the browser's own event on the details — the library installs no listener.</td></tr>
+      <tr><td><span class="api__name"><code>check</code></span></td><td>Fires when a tick box is ticked or unticked. It is the browser's own event on the input — the library installs no listener.</td></tr>
       </tbody>
     </table>
       <h2>Accessibility</h2>

@@ -52,6 +52,76 @@
 .um-alert--info { border-color: var(--um-color-info-text); }
 .um-alert--info .um-alert__mark { background: var(--um-color-info); color: var(--um-color-info-on); }
 
+/* The centred run puts the body in the middle of the panel. The mark stays
+   with it, so the two read as one block rather than as a label beside a
+   paragraph. */
+.um-alert--center {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* The icon is the mark in front of the body. It is drawn here rather than
+   borrowed: a component may not lean on another's class, and the library
+   ships no icon font.
+
+   It is a disc in the variant's *graphic* colour, because it is a shape that
+   carries its meaning on its own — the graphic form is the one contracted to
+   3:1, where the fill form is contracted to nothing as a picture. */
+.um-alert__icon {
+  display: none;
+  flex: 0 0 auto;
+  align-self: flex-start;
+  width: var(--um-space-sm);
+  height: var(--um-space-sm);
+  border-radius: var(--um-radius-circle);
+  background: currentColor;
+}
+.um-alert--show-icon .um-alert__icon { display: inline-flex; }
+.um-alert--center .um-alert__icon { align-self: center; }
+.um-alert--primary .um-alert__icon { color: var(--um-color-primary-graphic); }
+.um-alert--success .um-alert__icon { color: var(--um-color-success-graphic); }
+.um-alert--warning .um-alert__icon { color: var(--um-color-warning-graphic); }
+.um-alert--danger .um-alert__icon { color: var(--um-color-danger-graphic); }
+.um-alert--info .um-alert__icon { color: var(--um-color-info-graphic); }
+
+/* The close button is a real button, so it is in the tab order and the
+   keyboard reaches it. Its mark is two bars crossed, the way the icon set
+   draws a cross — the library ships no glyph for it to use. */
+.um-alert__close {
+  display: none;
+  position: relative;
+  flex: 0 0 auto;
+  align-self: flex-start;
+  width: var(--um-space-md);
+  height: var(--um-space-md);
+  padding: 0;
+  border: 0;
+  border-radius: var(--um-radius-circle);
+  background: none;
+  color: var(--um-text-secondary);
+  cursor: pointer;
+}
+.um-alert--closable .um-alert__close { display: inline-flex; }
+.um-alert--center .um-alert__close { align-self: center; }
+.um-alert__close::before,
+.um-alert__close::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--um-space-xs);
+  height: 0;
+  border-top: var(--um-border-width) solid currentColor;
+}
+.um-alert__close::before { transform: translate(-50%, -50%) rotate(45deg); }
+.um-alert__close::after { transform: translate(-50%, -50%) rotate(-45deg); }
+.um-alert__close:hover { color: var(--um-text-primary); }
+.um-alert__close:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
 /* ============================================================================
    Quality hooks
    ----------------------------------------------------------------------------

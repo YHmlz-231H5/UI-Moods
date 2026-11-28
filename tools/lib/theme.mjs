@@ -128,6 +128,12 @@ export function resolveTheme(tokens, contract) {
       const wanted = Array.isArray(spec.against) ? spec.against : [spec.against];
       const against = wanted.map(surfaceOf);
       const backdrop = backdropOf();
+      // A margin is headroom above the bar. The browser paints a translucent
+      // stack with fractional channels and measures the composite that way,
+      // while the theme measures a rounded one — so a colour derived to sit
+      // exactly on the line can land a hundredth under it in the browser. A
+      // margin keeps the derived colour clear of the line on both sides.
+      const target = spec.target + (spec.margin ?? 0);
       out =
         base && toward && against.every((a) => a !== undefined)
           ? mixUntil(
@@ -135,7 +141,7 @@ export function resolveTheme(tokens, contract) {
                 base,
                 toward,
                 against: against.length === 1 ? against[0] : against,
-                target: spec.target,
+                target,
                 mode: spec.mode ?? "atleast",
               },
               backdrop,

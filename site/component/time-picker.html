@@ -158,12 +158,12 @@
         <div class="example__demo">
 <div class="um-time-picker um-time-picker--single">
   <span class="um-time-picker__icon" aria-hidden="true"></span>
-  <input class="um-time-picker__input" type="time" id="um-time-picker-start" name="um-time-picker-start" value="09:30" step="900" />
+  <input class="um-time-picker__input" type="time" id="um-time-picker-start" aria-label="Time" name="um-time-picker-start" value="09:30" step="900" />
 </div>
         </div>
         <pre class="example__code">&lt;div class=&quot;um-time-picker um-time-picker--single&quot;&gt;
   &lt;span class=&quot;um-time-picker__icon&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
-  &lt;input class=&quot;um-time-picker__input&quot; type=&quot;time&quot; id=&quot;um-time-picker-start&quot; name=&quot;um-time-picker-start&quot; value=&quot;09:30&quot; step=&quot;900&quot; /&gt;
+  &lt;input class=&quot;um-time-picker__input&quot; type=&quot;time&quot; id=&quot;um-time-picker-start&quot; aria-label=&quot;Time&quot; name=&quot;um-time-picker-start&quot; value=&quot;09:30&quot; step=&quot;900&quot; /&gt;
 &lt;/div&gt;</pre>
       </div>
 <div class="example">
@@ -172,14 +172,14 @@
         <div class="example__demo">
 <div class="um-time-picker um-time-picker--range">
   <span class="um-time-picker__icon" aria-hidden="true"></span>
-  <input class="um-time-picker__input" type="time" id="um-time-picker-from" name="um-time-picker-from" value="09:00" step="900" />
+  <input class="um-time-picker__input" type="time" id="um-time-picker-from" aria-label="Start of the shift" name="um-time-picker-from" value="09:00" step="900" />
   <span class="um-time-picker__separator" aria-hidden="true"></span>
   <input class="um-time-picker__input" type="time" name="um-time-picker-to" value="17:30" step="900" aria-label="End of the shift" />
 </div>
         </div>
         <pre class="example__code">&lt;div class=&quot;um-time-picker um-time-picker--range&quot;&gt;
   &lt;span class=&quot;um-time-picker__icon&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
-  &lt;input class=&quot;um-time-picker__input&quot; type=&quot;time&quot; id=&quot;um-time-picker-from&quot; name=&quot;um-time-picker-from&quot; value=&quot;09:00&quot; step=&quot;900&quot; /&gt;
+  &lt;input class=&quot;um-time-picker__input&quot; type=&quot;time&quot; id=&quot;um-time-picker-from&quot; aria-label=&quot;Start of the shift&quot; name=&quot;um-time-picker-from&quot; value=&quot;09:00&quot; step=&quot;900&quot; /&gt;
   &lt;span class=&quot;um-time-picker__separator&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
   &lt;input class=&quot;um-time-picker__input&quot; type=&quot;time&quot; name=&quot;um-time-picker-to&quot; value=&quot;17:30&quot; step=&quot;900&quot; aria-label=&quot;End of the shift&quot; /&gt;
 &lt;/div&gt;</pre>
@@ -190,12 +190,12 @@
         <div class="example__demo">
 <div class="um-time-picker">
   <span class="um-time-picker__icon" aria-hidden="true"></span>
-  <input class="um-time-picker__input" type="time" id="um-time-picker-window" name="um-time-picker-window" value="18:30" min="09:00" max="17:00" step="900" required />
+  <input class="um-time-picker__input" type="time" id="um-time-picker-window" aria-label="Time" name="um-time-picker-window" value="18:30" min="09:00" max="17:00" step="900" required />
 </div>
         </div>
         <pre class="example__code">&lt;div class=&quot;um-time-picker&quot;&gt;
   &lt;span class=&quot;um-time-picker__icon&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
-  &lt;input class=&quot;um-time-picker__input&quot; type=&quot;time&quot; id=&quot;um-time-picker-window&quot; name=&quot;um-time-picker-window&quot; value=&quot;18:30&quot; min=&quot;09:00&quot; max=&quot;17:00&quot; step=&quot;900&quot; required /&gt;
+  &lt;input class=&quot;um-time-picker__input&quot; type=&quot;time&quot; id=&quot;um-time-picker-window&quot; aria-label=&quot;Time&quot; name=&quot;um-time-picker-window&quot; value=&quot;18:30&quot; min=&quot;09:00&quot; max=&quot;17:00&quot; step=&quot;900&quot; required /&gt;
 &lt;/div&gt;</pre>
       </div>
       <h2>Classes</h2>
@@ -211,9 +211,11 @@
       <tr><td><code>um-time-picker__input</code></td><td>Input</td></tr>
       <tr><td><code>um-time-picker__icon</code></td><td>Clock</td></tr>
       <tr><td><code>um-time-picker__separator</code></td><td>Separator</td></tr>
+      <tr><td><code>um-time-picker__clear</code></td><td>Clear</td></tr>
       <tr><td><code>:disabled</code></td><td>Disabled</td></tr>
       <tr><td><code>:user-invalid</code></td><td>Invalid</td></tr>
       <tr><td><code>:focus-visible</code></td><td>Focus visible</td></tr>
+      <tr><td><code>.um-time-picker--clearable</code></td><td>Clearable</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -230,6 +232,9 @@
       <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The height of the field.</td></tr>
       <tr><td><span class="api__name"><code>model-value</code></span></td><td><code>string</code></td><td>—</td><td>The time in the field, bound with v-model in Vue. Leave it out and the `value` prop is the time; bind it and the field answers to the binding.</td></tr>
       <tr><td><span class="api__name"><code>readonly</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Keeps the time visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures.</td></tr>
+      <tr><td><span class="api__name"><code>editable</code></span></td><td><code>boolean</code></td><td><code>true</code></td><td>Whether the time can be edited. Turning it off is the native readonly attribute on the input, so the browser refuses the edit; the readonly prop says the same thing and wins over it.</td></tr>
+      <tr><td><span class="api__name"><code>placeholder</code></span></td><td><code>string</code></td><td>—</td><td>The hint in the field. It is the native placeholder attribute on the input, so the browser paints it in the muted placeholder role.</td></tr>
+      <tr><td><span class="api__name"><code>clearable</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the field carries the mark that clears the time. It adds um-time-picker--clearable.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>
@@ -245,6 +250,7 @@
       <tbody>
       <tr><td><span class="api__name"><code>change</code></span></td><td>Fires when the time changes. It is the browser's own event on the input — the library installs no listener.</td></tr>
       <tr><td><span class="api__name"><code>input</code></span></td><td>Fires on every keystroke in the field. It is the browser's own event on the input.</td></tr>
+      <tr><td><span class="api__name"><code>clear</code></span></td><td>Fires when the clear mark is pressed. The value that follows is the empty one, and the update:modelValue event carries it.</td></tr>
       <tr><td><span class="api__name"><code>update:modelValue</code></span></td><td>Fires when the value changes, carrying the new value. This is the event `v-model` listens to.</td></tr>
       </tbody>
     </table>

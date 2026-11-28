@@ -35,7 +35,7 @@
 /* The ring goes on the scrolling box and inside the frame: an outside ring
    would be cut off by the frame that holds it. */
 .um-virtual-tree__scroller:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: calc(-1 * var(--um-focus-ring-width));
 }
 
@@ -69,7 +69,7 @@
 /* The ring goes inside the label, the way the ring on a button in a row goes
    inside it: an outside ring would be cut off by the next branch. */
 .um-virtual-tree__label:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: calc(-1 * var(--um-focus-ring-width));
 }
 
@@ -152,4 +152,72 @@
   padding: var(--um-space-lg) var(--um-space-sm);
   color: var(--um-text-secondary);
   text-align: center;
+}
+
+/* The box in front of a branch. The tick box is a real input and is hidden by
+   size rather than removed, so it keeps its place in the tab order; the drawn
+   square is its label, so clicking the square ticks the box. */
+.um-virtual-tree__checkbox {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.um-virtual-tree__box {
+  position: relative;
+  flex: none;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--um-height-sm);
+  height: var(--um-height-sm);
+  border: var(--um-border-width) var(--um-border-style) var(--um-shape-muted);
+  border-radius: var(--um-radius-small);
+  background: var(--um-fill-blank);
+  cursor: pointer;
+}
+
+.um-virtual-tree--show-checkbox .um-virtual-tree__box {
+  display: inline-flex;
+}
+
+/* The tick mark is drawn with two borders — a shape, not a glyph. */
+.um-virtual-tree__box::after {
+  content: "";
+  width: 4px;
+  height: 8px;
+  margin-top: -2px;
+  border: solid var(--um-color-primary-on);
+  border-width: 0;
+  border-inline-end-width: 2px;
+  border-bottom-width: 2px;
+  transform: rotate(calc(45deg * var(--um-mirror))) scale(0);
+  transition: transform var(--um-motion);
+}
+
+.um-virtual-tree__box:has(.um-virtual-tree__checkbox:checked) {
+  background: var(--um-color-primary);
+  border-color: var(--um-color-primary);
+}
+
+.um-virtual-tree__box:has(.um-virtual-tree__checkbox:checked)::after {
+  transform: rotate(calc(45deg * var(--um-mirror))) scale(1);
+}
+
+.um-virtual-tree__box:has(.um-virtual-tree__checkbox:focus-visible) {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+/* The link between a branch and the branch under it: a branch whose child is
+   ticked takes the brand colour on its own box, so the tree shows that the
+   two belong together. With the strict rule each box stands on its own and
+   the link is not drawn. */
+.um-virtual-tree__node:has(> .um-virtual-tree__children .um-virtual-tree__checkbox:checked) > .um-virtual-tree__label .um-virtual-tree__box {
+  border-color: var(--um-color-primary);
+}
+
+.um-virtual-tree--check-strictly .um-virtual-tree__node:has(> .um-virtual-tree__children .um-virtual-tree__checkbox:checked) > .um-virtual-tree__label .um-virtual-tree__box {
+  border-color: var(--um-shape-muted);
 }

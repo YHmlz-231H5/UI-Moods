@@ -28,7 +28,7 @@
   white-space: nowrap;
   cursor: pointer;
   transition: background-color var(--um-motion), border-color var(--um-motion),
-    color var(--um-motion), box-shadow var(--um-motion);
+    color var(--um-motion), box-shadow: var(--um-motion);
 }
 
 .um-button--sm { height: var(--um-height-sm); padding: 0 var(--um-space-xs); font-size: var(--um-font-size-caption); }

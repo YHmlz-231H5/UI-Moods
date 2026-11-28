@@ -339,11 +339,21 @@
       <tr><td><code>um-table__cell</code></td><td>Cell</td></tr>
       <tr><td><code>um-table__empty</code></td><td>Empty</td></tr>
       <tr><td><code>um-table__summary</code></td><td>Summary</td></tr>
+      <tr><td><code>um-table__expand</code></td><td>Expanded area</td></tr>
       <tr><td><code>.um-table--no-header</code></td><td>No header</td></tr>
       <tr><td><code>.um-table--no-summary</code></td><td>No summary</td></tr>
       <tr><td><code>.um-table--highlight-current</code></td><td>Highlight current row</td></tr>
       <tr><td><code>.um-table__row--current</code></td><td>Current row</td></tr>
       <tr><td><code>.um-table__append</code></td><td>Append row</td></tr>
+      <tr><td><code>.um-table--align-center</code></td><td>Aligned to the centre</td></tr>
+      <tr><td><code>.um-table--align-end</code></td><td>Aligned to the end</td></tr>
+      <tr><td><code>.um-table--fit</code></td><td>Fit</td></tr>
+      <tr><td><code>.um-table--type-index</code></td><td>Index column</td></tr>
+      <tr><td><code>.um-table--type-selection</code></td><td>Selection column</td></tr>
+      <tr><td><code>.um-table--type-expand</code></td><td>Expand column</td></tr>
+      <tr><td><code>.um-table--scrollbar-always-on</code></td><td>Scrollbar always on</td></tr>
+      <tr><td><code>.um-table__row--expanded</code></td><td>Expanded row</td></tr>
+      <tr><td><code>.um-table--default-expand-all</code></td><td>Expand all</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -358,6 +368,11 @@
       <tr><td><span class="api__name"><code>show-header</code></span></td><td><code>boolean</code></td><td><code>true</code></td><td>Whether the row of column names is drawn. Turning it off adds um-table--no-header.</td></tr>
       <tr><td><span class="api__name"><code>highlight-current-row</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the row the reader is on takes the highlight fill. That row is marked with um-table__row--current.</td></tr>
       <tr><td><span class="api__name"><code>show-summary</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the summary row at the foot of the table is drawn. Turning it off adds um-table--no-summary.</td></tr>
+      <tr><td><span class="api__name"><code>align</code></span></td><td><code>enum = start | center | end</code></td><td><code>start</code></td><td>Where the cells stand in their column. The start is the base class on its own; the centre adds um-table--align-center and the end adds um-table--align-end.</td></tr>
+      <tr><td><span class="api__name"><code>fit</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the columns share the width of the frame rather than taking the width their contents ask for. It adds um-table--fit.</td></tr>
+      <tr><td><span class="api__name"><code>type</code></span></td><td><code>enum =  | selection | index | expand</code></td><td>—</td><td>The extra column the table carries: the tick, the row's number, or the marker that opens a record. The cell is the host's own, and the class says how that column is painted.</td></tr>
+      <tr><td><span class="api__name"><code>default-expand-all</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether every record's expanded area is drawn, whether the record is marked as open or not. It adds um-table--default-expand-all.</td></tr>
+      <tr><td><span class="api__name"><code>scrollbar-always-on</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the frame keeps its scrollbar whether the table needs one or not, so the rows do not move sideways as the table grows. It adds um-table--scrollbar-always-on.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>
@@ -369,6 +384,7 @@
       <tr><td><span class="api__name"><code>empty</code></span></td><td>What the empty cell says when there are no records. Without it the emptyText prop says it.</td></tr>
       <tr><td><span class="api__name"><code>append</code></span></td><td>What stands under the last record: a loading row, a load-more button.</td></tr>
       <tr><td><span class="api__name"><code>summary</code></span></td><td>What the summary row at the foot of the table says: the totals.</td></tr>
+      <tr><td><span class="api__name"><code>expand</code></span></td><td>What a record opens up to. It is given the number of the record. The area under a record is not drawn until the record is marked as open, or until the table is told to open them all.</td></tr>
       </tbody>
     </table>
 

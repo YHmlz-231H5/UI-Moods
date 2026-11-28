@@ -7,7 +7,9 @@
 //
 // The `active` prop says which step is being worked on, and the wrapper
 // marks that one: it is the host's own step, so the mark is put on it rather
-// than on a step the wrapper drew.
+// than on a step the wrapper drew. The steps before it are behind the reader,
+// so they are marked as finished and take the status the `finish-status` prop
+// names.
 
 import { defineComponent, cloneVNode, h } from "vue";
 
@@ -21,15 +23,17 @@ export const UMSteps = defineComponent({
     active: { type: Number, default: 0 },
     alignCenter: { type: Boolean, default: false },
     simple: { type: Boolean, default: false },
+    finishStatus: { type: String, default: "success" },
   },
   setup(props, { slots }) {
     return () => {
       const steps = slots.default ? slots.default() : [];
-      const marked = steps.map((step, i) =>
-        props.active && i + 1 === props.active
-          ? cloneVNode(step, { class: "um-steps__item--active" })
-          : step,
-      );
+      const marked = steps.map((step, i) => {
+        const classes = [];
+        if (props.active && i + 1 < props.active) classes.push("um-steps__item--finished");
+        if (props.active && i + 1 === props.active) classes.push("um-steps__item--active");
+        return classes.length ? cloneVNode(step, { class: classes.join(" ") }) : step;
+      });
       // The step being worked on: `process-status` is Element Plus's name
       // for it and `status` is this library's, so either one of them says it.
       const standing = props.processStatus !== "default" ? props.processStatus : props.status;
@@ -42,6 +46,7 @@ export const UMSteps = defineComponent({
             props.direction === "vertical" ? "um-steps--vertical" : null,
             props.alignCenter ? "um-steps--align-center" : null,
             props.simple ? "um-steps--simple" : null,
+            props.finishStatus ? `um-steps--finish-${props.finishStatus}` : null,
           ],
         },
         [

@@ -52,6 +52,13 @@
       "nameZh": "全屏",
       "selector": ".um-loading--fullscreen",
       "note": "The loading covers the whole viewport, whatever shape it is."
+    },
+    {
+      "id": "lock",
+      "name": "Locked",
+      "nameZh": "锁定",
+      "selector": ".um-loading--lock",
+      "note": "The page is held still while the loading is there. A stylesheet cannot put a class on the body, but it can ask the page whether it holds a locked loading — and a page that holds one does not scroll."
     }
   ],
   "parts": [
@@ -110,6 +117,13 @@
       "default": "false",
       "description": "Whether the loading covers the whole viewport, whatever shape it is.",
       "descriptionZh": "加载是否盖住整个视口,不论它是哪种形态。"
+    },
+    {
+      "name": "lock",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the page is held still while the loading is there. It adds um-loading--lock, and the page that holds a locked loading does not scroll. There is no script here, so this is the whole of what a lock can do.",
+      "descriptionZh": "加载在的时候页面是否被按住不动。它加上 um-loading--lock,放着锁定加载的页面不会滚动。这里没有脚本,所以锁定能做的就这么多。"
     }
   ],
   "slots": [

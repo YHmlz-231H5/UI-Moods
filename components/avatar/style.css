@@ -62,3 +62,11 @@
   color: var(--um-text-secondary);
   font-size: var(--um-font-size-caption);
 }
+
+/* The dark run fills the avatar with the mood's strong text colour and puts
+   the initials on it in the plain surface — the same pair a dark tag is
+   filled with, so the two read as one fill and not as two systems. */
+.um-avatar--dark {
+  background: var(--um-text-primary);
+  color: var(--um-fill-blank);
+}

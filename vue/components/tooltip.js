@@ -20,6 +20,7 @@ export const UMTooltip = defineComponent({
     enterable: { type: Boolean, default: true },
     showArrow: { type: Boolean, default: true },
     visible: { type: Boolean, default: false },
+    effect: { type: String, default: "light" },
   },
   setup(props, { slots }) {
     const id = `um-tooltip-${useId()}`;
@@ -36,6 +37,8 @@ export const UMTooltip = defineComponent({
             props.enterable ? null : "um-tooltip--not-enterable",
             props.showArrow ? null : "um-tooltip--no-arrow",
             props.visible ? "um-tooltip--visible" : null,
+            // The light bubble is the base class on its own.
+            props.effect === "dark" ? "um-tooltip--dark" : null,
           ],
         },
         [

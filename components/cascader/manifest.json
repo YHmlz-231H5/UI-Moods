@@ -25,28 +25,66 @@
   "states": [
     { "id": "open", "name": "Open", "nameZh": "展开", "selector": "[open]", "note": "The level is open. The browser announces it, and the arrow turns over in the inline run." },
     { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the option, because the option is what the reader is on." },
-    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ".um-cascader--disabled", "note": "The level cannot be opened, so the pointer is refused and the text takes the derived disabled colour." }
+    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ".um-cascader--disabled", "note": "The level cannot be opened, so the pointer is refused and the text takes the derived disabled colour." },
+    { "id": "clearable", "name": "Clearable", "nameZh": "可清空", "selector": ".um-cascader--clearable", "note": "The field carries the mark that clears the choice." },
+    { "id": "collapse-tags", "name": "Collapse tags", "nameZh": "折叠标签", "selector": ".um-cascader--collapse-tags", "note": "Only the first chip is shown, so the field keeps one line. How many were folded is the host's to say." },
+    { "id": "filterable", "name": "Filterable", "nameZh": "可筛选", "selector": ".um-cascader--filterable", "note": "The field carries the input the host filters the levels with." },
+    { "id": "fit-input-width", "name": "Fit input width", "nameZh": "宽度自适应", "selector": ".um-cascader--fit-input-width", "note": "The panel that opens beside the option takes the width of the field rather than the width of its own options." },
+    { "id": "virtual-scroll", "name": "Virtual scroll", "nameZh": "虚拟滚动", "selector": ".um-cascader--virtual-scroll", "note": "The levels far from the reader are not laid out: the browser gives them a placeholder size instead, so the scrollbar is right without every level being built." },
+    { "id": "effect-dark", "name": "Dark effect", "nameZh": "深色效果", "selector": ".um-cascader--effect-dark", "note": "The component's own surface is filled with the brand colour." },
+    { "id": "effect-plain", "name": "Plain effect", "nameZh": "朴素效果", "selector": ".um-cascader--effect-plain", "note": "The component's own surface drops the fill." },
+    { "id": "tag-success", "name": "Tag in success", "nameZh": "成功标签", "selector": ".um-cascader--tag-success", "note": "The chips take the success colour." },
+    { "id": "tag-warning", "name": "Tag in warning", "nameZh": "警告标签", "selector": ".um-cascader--tag-warning", "note": "The chips take the warning colour." },
+    { "id": "tag-danger", "name": "Tag in danger", "nameZh": "危险标签", "selector": ".um-cascader--tag-danger", "note": "The chips take the danger colour." },
+    { "id": "tag-info", "name": "Tag in info", "nameZh": "信息标签", "selector": ".um-cascader--tag-info", "note": "The chips take the neutral information colour." },
+    { "id": "tag-effect-dark", "name": "Tag effect dark", "nameZh": "标签深色效果", "selector": ".um-cascader--tag-effect-dark", "note": "The chips are a solid fill in the colour their type names." },
+    { "id": "tag-effect-plain", "name": "Tag effect plain", "nameZh": "标签朴素效果", "selector": ".um-cascader--tag-effect-plain", "note": "The chips are an outline in the colour their type names, with no fill." }
   ],
   "parts": [
     { "id": "panel", "name": "Panel", "nameZh": "层级", "note": "One level of the cascader. It is a <details>, and it is the element that knows whether it is open." },
     { "id": "option", "name": "Option", "nameZh": "选项", "note": "One option in a level. It is the <summary>, so it is focusable and the browser toggles it." },
     { "id": "label", "name": "Label", "nameZh": "文字", "note": "The text of an option." },
     { "id": "arrow", "name": "Arrow", "nameZh": "箭头", "note": "The mark that says the option has a level below it. It is drawn from two borders, so it carries no text of its own." },
-    { "id": "children", "name": "Children", "nameZh": "下一层", "note": "The level below an option. It holds the next set of options, each of which is a panel of its own." }
+    { "id": "children", "name": "Children", "nameZh": "下一层", "note": "The level below an option. It holds the next set of options, each of which is a panel of its own." },
+    { "id": "field", "name": "Field", "nameZh": "输入区", "note": "The row above the levels: it holds the prefix, the chips that show the choice, the filter and the clear mark. It takes no room when the host has asked for none of them." },
+    { "id": "prefix", "name": "Prefix", "nameZh": "前缀", "note": "The mark that stands in front of the control. It is the host's own, so the library draws no glyph of its own." },
+    { "id": "tags", "name": "Tags", "nameZh": "标签", "note": "The row of chips that shows the choice." },
+    { "id": "tag", "name": "Tag", "nameZh": "单个标签", "note": "One chip. It holds one chosen value, and the type and the effect say how it is painted." },
+    { "id": "filter", "name": "Filter", "nameZh": "筛选", "note": "The input the host filters the levels with. It is a real search field, so the filtering is the host's script." },
+    { "id": "clear", "name": "Clear", "nameZh": "清空", "note": "The mark that clears the choice. It is drawn from two bars, so it carries no text of its own, and it is a real button so the keyboard can reach it." },
+    { "id": "header", "name": "Header", "nameZh": "顶部", "note": "What stands above the levels: a note, a heading." },
+    { "id": "footer", "name": "Footer", "nameZh": "底部", "note": "What stands below the levels: a note, a count." },
+    { "id": "empty", "name": "Empty", "nameZh": "空状态", "note": "What a level says when it holds no option at all." }
   ],
   "props": [
     { "name": "open", "type": "boolean", "default": "false", "description": "Opens a level. It is the native open attribute on the details, so the browser keeps the state.", "descriptionZh": "展开某一层。它是 details 上的原生 open 属性,所以状态由浏览器记着。" },
     { "name": "layout", "type": "enum", "values": ["inline", "flyout"], "default": "inline", "description": "Where the level below opens. The inline run is the base class on its own; the flyout run adds um-cascader--flyout.", "descriptionZh": "下一层往哪里开。内联是只写基础类;浮层再加上 um-cascader--flyout。" },
     { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The size of the option text.", "descriptionZh": "选项文字的尺寸。" },
     { "name": "label", "type": "string", "description": "The text of one option. An option with no text needs an accessible name of its own.", "descriptionZh": "某一个选项的文字。没有文字的选项也得有自己的可访问名称。" },
-    { "name": "disabled", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Makes the cascader inert. A level is a disclosure rather than a form control, so it cannot carry the disabled attribute: the whole tree refuses the pointer instead.", "descriptionZh": "让级联选择器不可用。每一层是一个 disclosure 而不是表单控件,所以带不了 disabled 属性:整棵树改为拒绝指针。" }
+    { "name": "disabled", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Makes the cascader inert. A level is a disclosure rather than a form control, so it cannot carry the disabled attribute: the whole tree refuses the pointer instead.", "descriptionZh": "让级联选择器不可用。每一层是一个 disclosure 而不是表单控件,所以带不了 disabled 属性:整棵树改为拒绝指针。" },
+    { "name": "clearable", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Whether the field carries the mark that clears the choice. It adds um-cascader--clearable.", "descriptionZh": "输入区上是否带那个清空选择的记号。它加上 um-cascader--clearable。" },
+    { "name": "collapse-tags", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Whether only the first chip is shown, so the field keeps one line. How many were folded is the host's to say. It adds um-cascader--collapse-tags.", "descriptionZh": "是不是只显示第一个标签,于是输入区只占一行。折叠了几个是宿主自己的事。它加上 um-cascader--collapse-tags。" },
+    { "name": "effect", "type": "enum", "values": ["light", "dark", "plain"], "default": "light", "since": "1.1.0", "description": "How the component's own surface is painted. The light effect is the surface the library draws, so it needs no modifier; the dark effect adds um-cascader--effect-dark and the plain effect adds um-cascader--effect-plain.", "descriptionZh": "组件自己的底面怎么画。浅色效果就是库画的这个底面,不需要修饰类;深色效果加上 um-cascader--effect-dark,朴素效果加上 um-cascader--effect-plain。" },
+    { "name": "filterable", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Whether the field carries the input the host filters the levels with. The input is a real search field, so the filtering is the host's script and the library only draws it. It adds um-cascader--filterable.", "descriptionZh": "输入区上是否带上那个供宿主筛选各层的输入框。这个输入框是真的搜索框,所以筛选是宿主脚本的事,库只负责画它。它加上 um-cascader--filterable。" },
+    { "name": "fit-input-width", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Whether the panel that opens beside an option takes the width of the field rather than the width of its own options. It adds um-cascader--fit-input-width.", "descriptionZh": "在选项旁边打开的那一层是否取输入区的宽度,而不是由它自己的选项撑出来的宽度。它加上 um-cascader--fit-input-width。" },
+    { "name": "placeholder", "type": "string", "since": "1.1.0", "description": "The hint in the filter field. It is the native placeholder attribute on the input, so the browser paints it in the muted placeholder role.", "descriptionZh": "筛选输入框里的提示文字。它是 input 上的原生 placeholder 属性,所以浏览器会用弱化的占位文字色画它。" },
+    { "name": "tag-type", "type": "enum", "values": ["primary", "success", "warning", "danger", "info"], "default": "primary", "since": "1.1.0", "description": "Which colour the chips take. The primary colour is the one the library draws, so it needs no modifier; the other four add um-cascader--tag-success, um-cascader--tag-warning, um-cascader--tag-danger and um-cascader--tag-info.", "descriptionZh": "标签取什么颜色。主色是库画的那个,不需要修饰类;另外四个分别加上 um-cascader--tag-success、um-cascader--tag-warning、um-cascader--tag-danger 和 um-cascader--tag-info。" },
+    { "name": "tag-effect", "type": "enum", "values": ["light", "dark", "plain"], "default": "light", "since": "1.1.0", "description": "How the chips are painted: a tint, a solid fill or an outline with no fill. The tint is the one the library draws, so it needs no modifier; the solid fill adds um-cascader--tag-effect-dark and the outline adds um-cascader--tag-effect-plain.", "descriptionZh": "标签怎么画:淡底、实底,还是没有底色的描边。淡底是库画的那个,不需要修饰类;实底加上 um-cascader--tag-effect-dark,描边加上 um-cascader--tag-effect-plain。" },
+    { "name": "virtual-scroll", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Whether the levels far from the reader are left out of the layout. The browser is told how tall such a level is, so the scrollbar is right without every level being built. It adds um-cascader--virtual-scroll.", "descriptionZh": "离读者很远的那些层是否不参与排版。浏览器会被告知这种层有多高,所以不用把每一层都建出来,滚动条也是对的。它加上 um-cascader--virtual-scroll。" }
   ],
   "slots": [
     { "name": "option", "description": "One option: its text and the mark that says there is a level below it.", "descriptionZh": "一个选项:它的文字,以及那个表示下面还有一层的记号。" },
-    { "name": "children", "description": "The level below, holding one option per branch.", "descriptionZh": "下面那一层,每个分支放一个选项。" }
+    { "name": "children", "description": "The level below, holding one option per branch.", "descriptionZh": "下面那一层,每个分支放一个选项。" },
+    { "name": "default", "description": "One option: its text and the mark that says there is a level below it. It is the name Element Plus gives the same content the option slot fills.", "descriptionZh": "一个选项:它的文字,以及那个表示下面还有一层的记号。它是 Element Plus 给 option 插槽所填的同一份内容起的名字。" },
+    { "name": "prefix", "description": "The mark that stands in front of the control. It is the host's own, so the library draws no glyph of its own.", "descriptionZh": "控件前面的记号。它是宿主自己的,所以库不画任何字形。" },
+    { "name": "tag", "description": "What one chip says. It is given the chosen value and the chip's number. Without it the chip is empty, and an empty chip is not drawn.", "descriptionZh": "某一个标签写什么。它拿到选中的值和这个标签的序号。不给就空着,而空着的标签不画出来。" },
+    { "name": "header", "description": "What stands above the levels: a note, a heading.", "descriptionZh": "各层上面放什么:一句说明,或者一个小标题。" },
+    { "name": "footer", "description": "What stands below the levels: a note, a count.", "descriptionZh": "各层下面放什么:一句说明,或者一个计数。" },
+    { "name": "empty", "description": "What a level says when it holds no option at all.", "descriptionZh": "某一层一个选项都没有的时候说什么。" }
   ],
   "events": [
-    { "name": "toggle", "description": "Fires when a level opens or closes. It is the browser's own event on the details — the library installs no listener.", "descriptionZh": "某一层展开或收起时触发。这是 details 上的浏览器原生事件 —— 库没有安装任何监听器。" }
+    { "name": "toggle", "description": "Fires when a level opens or closes. It is the browser's own event on the details — the library installs no listener.", "descriptionZh": "某一层展开或收起时触发。这是 details 上的浏览器原生事件 —— 库没有安装任何监听器。" },
+    { "name": "clear", "description": "Fires when the clear mark is pressed. The value that follows is the empty one, and the host writes it back.", "descriptionZh": "按下清空记号时触发。接下来的值是空值,由宿主写回去。" }
   ],
   "a11y": {
     "role": "group",

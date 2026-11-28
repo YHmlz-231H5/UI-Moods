@@ -25,12 +25,14 @@
   "states": [
     { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The field paints a flat surface and takes the derived disabled colour, so the time is still readable." },
     { "id": "invalid", "name": "Invalid", "nameZh": "无效", "selector": ":user-invalid", "native": true, "note": "The border turns to the danger colour when the browser says the time is outside the range it was given. The user-invalid pseudo-class waits for the reader to have been there, so an empty field is not red before anyone touches it." },
-    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the field, because the field is what the reader is typing in." }
+    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the field, because the field is what the reader is typing in." },
+    { "id": "clearable", "name": "Clearable", "nameZh": "可清空", "selector": ".um-time-picker--clearable", "note": "The field carries the mark that clears the time." }
   ],
   "parts": [
     { "id": "input", "name": "Input", "nameZh": "输入框", "note": "The real <input type=\"time\">. It is borderless inside the field, so the field and the clock read as one control." },
     { "id": "icon", "name": "Clock", "nameZh": "时钟图标", "note": "The clock face, drawn from a border and two hands. It is decorative: the button that actually opens the picker is the browser's own." },
-    { "id": "separator", "name": "Separator", "nameZh": "分隔线", "note": "The rule between the two times of a range." }
+    { "id": "separator", "name": "Separator", "nameZh": "分隔线", "note": "The rule between the two times of a range." },
+    { "id": "clear", "name": "Clear", "nameZh": "清空", "note": "The mark that clears the time. It is drawn from two bars, so it carries no text of its own, and it is a real button so the keyboard can reach it." }
   ],
   "props": [
     { "name": "value", "type": "string", "description": "The time in the field. It is the input's own value, in the browser's own format — a class cannot carry a time.", "descriptionZh": "字段里的时刻。它是 input 自己的值,用浏览器自己的格式 —— 类带不了时刻。" },
@@ -42,7 +44,10 @@
     { "name": "type", "type": "enum", "values": ["single", "range"], "default": "single", "description": "Whether the field holds one time or two. The single field is the base class on its own; the range field adds um-time-picker--range.", "descriptionZh": "字段里是一个时刻还是两个。一个时刻是只写基础类;时间区间再加上 um-time-picker--range。" },
     { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The height of the field.", "descriptionZh": "字段的高度。" },
     { "name": "model-value", "type": "string", "description": "The time in the field, bound with v-model in Vue. Leave it out and the `value` prop is the time; bind it and the field answers to the binding.", "descriptionZh": "字段里的时刻,在 Vue 里用 v-model 绑定。不传就以 value 属性为准;传了就以绑定为准。" },
-    { "name": "readonly", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Keeps the time visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures.", "descriptionZh": "时刻仍然可见,但不能编辑。它是原生 readonly 属性,浏览器会拒绝编辑。库不会给只读字段单独配色 —— 这不是它测量过的状态。" }
+    { "name": "readonly", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Keeps the time visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures.", "descriptionZh": "时刻仍然可见,但不能编辑。它是原生 readonly 属性,浏览器会拒绝编辑。库不会给只读字段单独配色 —— 这不是它测量过的状态。" },
+    { "name": "editable", "type": "boolean", "default": "true", "since": "1.1.0", "description": "Whether the time can be edited. Turning it off is the native readonly attribute on the input, so the browser refuses the edit; the readonly prop says the same thing and wins over it.", "descriptionZh": "时刻能不能编辑。关掉它就是 input 上的原生 readonly 属性,浏览器会拒绝编辑;readonly 属性说的是同一件事,而且比它优先。" },
+    { "name": "placeholder", "type": "string", "since": "1.1.0", "description": "The hint in the field. It is the native placeholder attribute on the input, so the browser paints it in the muted placeholder role.", "descriptionZh": "字段里的提示文字。它是 input 上的原生 placeholder 属性,所以浏览器会用弱化的占位文字色画它。" },
+    { "name": "clearable", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Whether the field carries the mark that clears the time. It adds um-time-picker--clearable.", "descriptionZh": "字段上是否带那个清空时刻的记号。它加上 um-time-picker--clearable。" }
   ],
   "slots": [
     { "name": "icon", "description": "The clock face. It is decorative and drawn by the library, so it takes no text of its own.", "descriptionZh": "时钟图标。它是装饰性的,由库画出来,所以自己不带文字。" }
@@ -50,6 +55,7 @@
   "events": [
     { "name": "change", "description": "Fires when the time changes. It is the browser's own event on the input — the library installs no listener.", "descriptionZh": "时刻变了的时候触发。这是 input 上的浏览器原生事件 —— 库没有安装任何监听器。" },
     { "name": "input", "description": "Fires on every keystroke in the field. It is the browser's own event on the input.", "descriptionZh": "在字段里每敲一个字就触发。这是 input 上的浏览器原生事件。" },
+    { "name": "clear", "description": "Fires when the clear mark is pressed. The value that follows is the empty one, and the update:modelValue event carries it.", "descriptionZh": "按下清空记号时触发。接下来的值是空值,update:modelValue 事件会带着它。" },
     { "name": "update:modelValue", "description": "Fires when the value changes, carrying the new value. This is the event `v-model` listens to.", "descriptionZh": "值变化时触发,携带新的值。v-model 监听的就是这个事件。" }
   ],
   "a11y": {
@@ -65,7 +71,7 @@
       "titleZh": "单个时刻",
       "description": "One time in one field. The clock is the library's own decoration; the button that opens the picker is the browser's, on the other side of the time.",
       "descriptionZh": "一个时刻放在一个字段里。时钟是库自己画的装饰;打开选择器的按钮是浏览器的,在时刻的另一边。",
-      "markup": "<div class=\"um-time-picker um-time-picker--single\">\n  <span class=\"um-time-picker__icon\" aria-hidden=\"true\"></span>\n  <input class=\"um-time-picker__input\" type=\"time\" id=\"um-time-picker-start\" name=\"um-time-picker-start\" value=\"09:30\" step=\"900\" />\n</div>"
+      "markup": "<div class=\"um-time-picker um-time-picker--single\">\n  <span class=\"um-time-picker__icon\" aria-hidden=\"true\"></span>\n  <input class=\"um-time-picker__input\" type=\"time\" id=\"um-time-picker-start\" aria-label=\"Time\" name=\"um-time-picker-start\" value=\"09:30\" step=\"900\" />\n</div>"
     },
     {
       "id": "range",
@@ -73,7 +79,7 @@
       "titleZh": "时间区间",
       "description": "Two times in one box, with a rule between them. The markup carries a second input and the separator.",
       "descriptionZh": "一个盒子里两个时刻,中间一条线。标记里多了一个 input 和那条分隔线。",
-      "markup": "<div class=\"um-time-picker um-time-picker--range\">\n  <span class=\"um-time-picker__icon\" aria-hidden=\"true\"></span>\n  <input class=\"um-time-picker__input\" type=\"time\" id=\"um-time-picker-from\" name=\"um-time-picker-from\" value=\"09:00\" step=\"900\" />\n  <span class=\"um-time-picker__separator\" aria-hidden=\"true\"></span>\n  <input class=\"um-time-picker__input\" type=\"time\" name=\"um-time-picker-to\" value=\"17:30\" step=\"900\" aria-label=\"End of the shift\" />\n</div>"
+      "markup": "<div class=\"um-time-picker um-time-picker--range\">\n  <span class=\"um-time-picker__icon\" aria-hidden=\"true\"></span>\n  <input class=\"um-time-picker__input\" type=\"time\" id=\"um-time-picker-from\" aria-label=\"Start of the shift\" name=\"um-time-picker-from\" value=\"09:00\" step=\"900\" />\n  <span class=\"um-time-picker__separator\" aria-hidden=\"true\"></span>\n  <input class=\"um-time-picker__input\" type=\"time\" name=\"um-time-picker-to\" value=\"17:30\" step=\"900\" aria-label=\"End of the shift\" />\n</div>"
     },
     {
       "id": "out-of-range",
@@ -81,7 +87,7 @@
       "titleZh": "超出范围",
       "description": "A field with a window the browser enforces. A time outside the window turns the border to the danger colour — but only after the reader has been there, so an empty field is not red on arrival.",
       "descriptionZh": "带一个由浏览器来管的时段。落在时段之外的时刻会把描边变成危险色 —— 但只在读者动过之后,所以刚打开的空字段不会是红的。",
-      "markup": "<div class=\"um-time-picker\">\n  <span class=\"um-time-picker__icon\" aria-hidden=\"true\"></span>\n  <input class=\"um-time-picker__input\" type=\"time\" id=\"um-time-picker-window\" name=\"um-time-picker-window\" value=\"18:30\" min=\"09:00\" max=\"17:00\" step=\"900\" required />\n</div>"
+      "markup": "<div class=\"um-time-picker\">\n  <span class=\"um-time-picker__icon\" aria-hidden=\"true\"></span>\n  <input class=\"um-time-picker__input\" type=\"time\" id=\"um-time-picker-window\" aria-label=\"Time\" name=\"um-time-picker-window\" value=\"18:30\" min=\"09:00\" max=\"17:00\" step=\"900\" required />\n</div>"
     }
   ],
   "notes": "The picker is the browser's own, and the library does not take it away: hiding the native indicator would remove the only way to open the clock without JavaScript. The drawn clock beside the time is decoration, so it is hidden from the screen reader and the field needs a label of its own. The indicator's colour follows the reader's system rather than the mood, because the contract has no role for \"this mood is a dark one\" and a wrong colour was not an option.",

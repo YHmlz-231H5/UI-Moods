@@ -52,7 +52,7 @@
 /* The ring goes on the trigger, because the checkbox is the control that took
    the focus and the trigger is the thing the reader believes they are on. */
 .um-popconfirm__toggle:focus-visible ~ .um-popconfirm__trigger {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -98,6 +98,26 @@
   max-width: 18em;
   color: var(--um-text-regular);
   font-size: var(--um-font-size-caption);
+}
+
+/* The mark beside the question. The library draws no question mark of its own
+   — it ships no icon font and no image — so the slot is empty until the host
+   fills it, and it holds the space either way, so the question does not move
+   when a mark arrives. */
+.um-popconfirm__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 1em;
+  height: 1em;
+  margin-inline-end: var(--um-space-xs);
+  color: var(--um-color-primary-text);
+  vertical-align: -0.125em;
+}
+.um-popconfirm__icon svg {
+  width: 100%;
+  height: 100%;
 }
 
 /* The answer the reader is pushed towards is last, so the row is aligned to
@@ -189,7 +209,7 @@
 
 .um-popconfirm__confirm:focus-visible,
 .um-popconfirm__cancel:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -248,6 +268,30 @@
    the pointer passes straight through it. */
 .um-popconfirm.um-popconfirm--not-enterable .um-popconfirm__panel {
   pointer-events: none;
+}
+
+/* A bubble with no mark: the mark beside the question is taken away. */
+.um-popconfirm.um-popconfirm--hide-icon .um-popconfirm__icon {
+  display: none;
+}
+
+/* The dark run: the bubble is filled with the mood's strong text colour and
+   the words on it take the plain surface, the way a dark tag is filled. The
+   border stays the mood's own, so the frame of the bubble does not change —
+   and the point takes the bubble's new surface, so the two still read as one
+   shape. */
+.um-popconfirm.um-popconfirm--dark .um-popconfirm__panel {
+  background: var(--um-text-primary);
+  color: var(--um-fill-blank);
+}
+.um-popconfirm.um-popconfirm--dark .um-popconfirm__message {
+  color: var(--um-fill-blank);
+}
+.um-popconfirm.um-popconfirm--dark .um-popconfirm__arrow {
+  background: var(--um-text-primary);
+}
+.um-popconfirm.um-popconfirm--dark .um-popconfirm__icon {
+  color: var(--um-fill-blank);
 }
 
 /* ============================================================================

@@ -660,17 +660,65 @@ The rendered library is measured in a headless browser by
 
 | probe | question | current run |
 | --- | --- | --- |
-| `contrast` | do the colours read? | 51 328 measurements, 0 failures |
-| `geometry` | are the boxes where the markup asked for them? | 115 488 measurements, 0 failures |
-| `package` | does the published split stylesheet measure the same? | 51 328 measurements, 0 failures |
-| `motion` | does the library stop moving when the reader asks? | 3 962 measurements, 0 failures |
-| `validity` | did the browser keep every rule the library declared? | 1 166 rules, 0 failures |
+| `contrast` | do the colours read? | 50 912 measurements, 0 failures |
+| `geometry` | are the boxes where the markup asked for them? | 114 848 measurements, 0 failures |
+| `package` | does the published split stylesheet measure the same? | 50 912 measurements, 0 failures |
+| `motion` | does the library stop moving when the reader asks? | 3 970 measurements, 0 failures |
+| `validity` | did the browser keep every rule the library declared? | 1 705 rules, 0 failures |
 | `state` | does a selected thing look different from an unselected one? | 37 states, 0 failures |
-| `rtl` | does the library still read from the right? | 3 713 boxes, 0 failures |
+| `rtl` | does the library still read from the right? | 3 693 boxes, 0 failures |
+| `keyboard` | can a reader who never touches a mouse find it, name it, and see where they are? | 39 744 measurements, 0 failures |
 
 Every probe exits 0 when it found nothing, 1 when it found something, and 2
 when the run itself went wrong — so it can be a step in a pipeline rather
 than a ritual.
+
+### The keyboard is measured too
+
+The other six probes look at the picture. The picture can be perfect while
+the keyboard is useless: the colours are right, the boxes are where the
+markup asked for them, the selected star is brighter than the unselected one
+— and the focus ring is never painted, the button has no accessible name,
+and a control that announces itself as an option sits outside the tab order
+so the keyboard can never reach it. A reader with a keyboard would call that
+library unusable, and every other instrument would say it was fine.
+
+So the library has an instrument for the keyboard as well. It asks three
+questions of every focusable control in every component's live examples:
+
+1. **Is it named?** — a screen reader has to be able to say what it is.
+2. **Is it reachable?** — the Tab key has to get there, and a control that
+   claims an interactive role has to be in the tab order to keep that claim.
+3. **Is it visible?** — when it has the focus, the reader has to see it, and
+   the ring has to read against whatever it sits on at 3:1, which is what
+   WCAG 2.2 asks of a non-text indicator.
+
+The probe presses a real Tab key before it measures, because the browser
+only paints a `:focus-visible` ring when the reader's last interaction was
+a keypress — and a probe that focused things with a script would be asking
+the browser a question it will answer "no" to, and blaming the library for
+the answer. When the browser will not play along, the probe falls back to
+the stylesheet instead of reporting a library as broken.
+
+```bash
+node tools/audit-render.mjs keyboard
+```
+
+It found **7 475 failures** in four classes the first time it ran, and all four
+are fixed: the focus ring was painted in the raw brand colour, which in several
+moods did not read against the surface it sat on; a number of controls had no
+ring of the library's own; a few fields had no name; and two components put
+an interactive role on a wrapper while the real control was a radio inside
+it. It reads 39 744 measurements and **0 failures** now, and it reads them in
+a browser that has been told a real Tab key was pressed — a probe that
+focused things with a script would ask the browser a question it answers
+"no" to, and blame the library for the answer.
+
+The fixes were measured, not asserted: the ring has a role of its own
+(`--um-focus-ring`) with the surfaces it can land on written into the
+contract; thirteen components that painted no ring of their own have one; the
+virtual select's rows and the tabs' labels no longer claim a role the keyboard
+cannot reach; and every focusable thing the probe found is named.
 
 ### The API is compared against Element Plus itself
 

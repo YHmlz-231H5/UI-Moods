@@ -109,7 +109,7 @@
 /* The ring goes on the bar: it is the element a reader can reach, and the
    strip is wide enough to show the ring. */
 .um-splitter__bar:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -124,6 +124,23 @@
 
 .um-splitter--lg {
   --um-splitter-grip: var(--um-height-lg);
+}
+
+/* A splitter whose panes can be folded away says so on the divider: the grip
+   takes the brand colour, because it is the control that moves. The library
+   cannot fold a pane — there is no script here — so the control that does it
+   is the host's, and the class says that the divider is one. */
+.um-splitter.um-splitter--collapsible .um-splitter__handle {
+  background: var(--um-color-primary-graphic);
+}
+
+/* The space the host's own fold control sits in. The control is the host's,
+   so the library only holds the space and puts it at the inline end of the
+   pane it belongs to. */
+.um-splitter__collapse {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--um-space-xs);
 }
 
 /* ============================================================================

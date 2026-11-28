@@ -149,7 +149,7 @@
         <span class="tag">feedback</span>
         <span class="tag">since 1.1.0</span>
       </p>
-      <div class="note">The variant colours the border and the mark chip, and nothing else. The body text stays in the mood's regular text colour, so an alert never changes the reading colour of the paragraph it interrupts.</div>
+      <div class="note">The variant colours the border, the mark chip and the icon, and nothing else. The body text stays in the mood's regular text colour, so an alert never changes the reading colour of the paragraph it interrupts. The icon takes the variant's graphic colour rather than its fill colour, because it is a shape that carries its meaning on its own.</div>
 
       <h2>Examples</h2>
 <div class="example">
@@ -276,10 +276,15 @@
       <tr><td><code>um-alert--warning</code></td><td>Warning</td></tr>
       <tr><td><code>um-alert--danger</code></td><td>Danger</td></tr>
       <tr><td><code>um-alert--info</code></td><td>Info</td></tr>
+      <tr><td><code>um-alert__icon</code></td><td>Icon</td></tr>
       <tr><td><code>um-alert__mark</code></td><td>Mark</td></tr>
       <tr><td><code>um-alert__body</code></td><td>Body</td></tr>
       <tr><td><code>um-alert__title</code></td><td>Title</td></tr>
       <tr><td><code>um-alert__description</code></td><td>Description</td></tr>
+      <tr><td><code>um-alert__close</code></td><td>Close</td></tr>
+      <tr><td><code>.um-alert--center</code></td><td>Center</td></tr>
+      <tr><td><code>.um-alert--closable</code></td><td>Closable</td></tr>
+      <tr><td><code>.um-alert--show-icon</code></td><td>Show icon</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -287,10 +292,27 @@
       <thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
       <tbody>
       <tr><td><span class="api__name"><code>variant</code></span></td><td><code>enum = primary | success | warning | danger | info</code></td><td>—</td><td>Which kind of message this is.</td></tr>
+      <tr><td><span class="api__name"><code>center</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Puts the body in the middle of the panel, so the alert reads as a line rather than as a paragraph against the edge.</td></tr>
+      <tr><td><span class="api__name"><code>closable</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Puts a close button at the end of the panel. The button is a real one, so it is in the tab order and it is pressed with the keyboard.</td></tr>
+      <tr><td><span class="api__name"><code>show-icon</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Puts the drawn mark in front of the body, so the kind of message is readable before the words are.</td></tr>
       </tbody>
     </table>
-
-
+      <h2>Slots</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>The body of the alert: the text under the title.</td></tr>
+      <tr><td><span class="api__name"><code>title</code></span></td><td>The title of the alert.</td></tr>
+      <tr><td><span class="api__name"><code>mark</code></span></td><td>The chip in front of the body.</td></tr>
+      </tbody>
+    </table>
+      <h2>Events</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>close</code></span></td><td>Fires when the reader presses the close button. The library installs no listener — the host decides what closing means, and the alert itself stays on the page until the host takes it away.</td></tr>
+      </tbody>
+    </table>
       <h2>Accessibility</h2>
       <p>The alert is a plain container, so it carries no role of its own. When it appears without the user asking for it, give it role=&quot;alert&quot; (urgent) or role=&quot;status&quot; (informational) so it is announced; an alert that was already on the page when it loaded does not need one. The mark chip is a label, so hide it with aria-hidden when the title already says the same thing.</p>
 

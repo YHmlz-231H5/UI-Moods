@@ -91,6 +91,13 @@
   color: var(--um-color-primary-text);
 }
 
+/* The caption is this library's indicator, so a carousel that is asked for no
+   indicator is a carousel whose slides look the same whichever one is open:
+   the mark comes off the caption and nothing else moves. */
+.um-carousel.um-carousel--indicator-none .um-carousel__slide:target .um-carousel__caption {
+  color: var(--um-text-primary);
+}
+
 .um-carousel__nav {
   display: flex;
   align-items: center;
@@ -169,6 +176,20 @@
    taken away rather than left pointing back at the other end. */
 .um-carousel--no-loop .um-carousel__slide:first-child .um-carousel__prev,
 .um-carousel--no-loop .um-carousel__slide:last-child .um-carousel__next { display: none; }
+
+/* The arrows are links and the track is a scroll box. The arrows wear the
+   ring outside; the track wears it inside, because an outside ring on a
+   scrolling box is cut off by the frame that holds it. */
+.um-carousel__prev:focus-visible,
+.um-carousel__next:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+.um-carousel__track:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: calc(-1 * var(--um-focus-ring-width));
+}
 
 /* ============================================================================
    Quality hooks

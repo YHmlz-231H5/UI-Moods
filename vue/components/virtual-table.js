@@ -43,6 +43,7 @@ export const UMVirtualTable = defineComponent({
     height: { type: String, default: "16em" },
     empty: { type: Boolean, default: false },
     scrollbarAlwaysOn: { type: Boolean, default: false },
+    fixed: { type: Boolean, default: false },
   },
   setup(props, { slots }) {
     return () => {
@@ -78,6 +79,7 @@ export const UMVirtualTable = defineComponent({
             VARIANTS.includes(props.variant) ? `um-virtual-table--${props.variant}` : null,
             sizeClass(props.size),
             props.scrollbarAlwaysOn ? "um-virtual-table--scrollbar-always-on" : null,
+            props.fixed ? "um-virtual-table--fixed" : null,
           ],
         },
         [

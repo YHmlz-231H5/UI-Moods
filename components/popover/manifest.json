@@ -59,6 +59,20 @@
       "nameZh": "不可进入",
       "selector": ".um-popover--not-enterable",
       "note": "The pointer cannot enter the card: the words in it cannot be selected and the pointer passes straight through it."
+    },
+    {
+      "id": "effect-dark",
+      "name": "Dark effect",
+      "nameZh": "深色",
+      "selector": ".um-popover--dark",
+      "note": "The card is filled with the mood's strong text colour and the words on it take the plain surface, the way a dark tag is filled."
+    },
+    {
+      "id": "no-arrow",
+      "name": "No arrow",
+      "nameZh": "无箭头",
+      "selector": ".um-popover--no-arrow",
+      "note": "The point that says which way the card is facing is not drawn."
     }
   ],
   "parts": [
@@ -73,6 +87,12 @@
       "name": "Content",
       "nameZh": "内容",
       "note": "The floating card. It sits on the overlay surface and carries its own shadow, because it is above the page rather than on it."
+    },
+    {
+      "id": "arrow",
+      "name": "Arrow",
+      "nameZh": "箭头",
+      "note": "The point that ties the card to its trigger. It is a square turned on its corner and filled with the card's own surface, so the card's rule stops at it and the point reads as part of the card. It sits at the start of the card, which is the edge the trigger is on."
     },
     {
       "id": "header",
@@ -136,6 +156,21 @@
       "default": "false",
       "description": "Whether the card is open. It is the open attribute on the trigger's own <details>.",
       "descriptionZh": "卡片是否展开。就是触发器那个 <details> 上的 open 属性。"
+    },
+    {
+      "name": "effect",
+      "type": "enum",
+      "values": ["light", "dark"],
+      "default": "light",
+      "description": "How the card is filled. The light run is the base class on its own — the card sits on the overlay surface; the dark run fills it with the mood's strong text colour, puts the words on it in the plain surface and adds um-popover--dark.",
+      "descriptionZh": "卡片是怎么填的。浅色是只写基类 —— 卡片压在浮层底色上;深色用这套 mood 的强文字色填满它,字用平面的底色,并加上 um-popover--dark。"
+    },
+    {
+      "name": "show-arrow",
+      "type": "boolean",
+      "default": "true",
+      "description": "Whether the card carries the point that ties it to its trigger. A card without one adds um-popover--no-arrow.",
+      "descriptionZh": "卡片是否带着那个把它和触发器连起来的尖角。没有尖角的卡片加上 um-popover--no-arrow。"
     }
   ],
   "slots": [
@@ -165,7 +200,7 @@
       "titleZh": "基础用法",
       "description": "A card with a heading, a body and a row of actions. The trigger opens it; the browser owns the open state.",
       "descriptionZh": "一张带标题、正文和一排操作的卡片。触发器负责打开,打开状态由浏览器自己管。",
-      "markup": "<details class=\"um-popover\">\n  <summary class=\"um-popover__trigger\">Deployment</summary>\n  <div class=\"um-popover__content\">\n    <div class=\"um-popover__header\">Nightly deployment</div>\n    <div class=\"um-popover__body\">Six replicas are moved to the new build, one at a time, with a health check between each.</div>\n    <div class=\"um-popover__footer\">Last run finished in 4 minutes with no differences.</div>\n  </div>\n</details>"
+      "markup": "<details class=\"um-popover\">\n  <summary class=\"um-popover__trigger\">Deployment</summary>\n  <div class=\"um-popover__content\">\n    <span class=\"um-popover__arrow\" aria-hidden=\"true\"></span>\n    <div class=\"um-popover__header\">Nightly deployment</div>\n    <div class=\"um-popover__body\">Six replicas are moved to the new build, one at a time, with a health check between each.</div>\n    <div class=\"um-popover__footer\">Last run finished in 4 minutes with no differences.</div>\n  </div>\n</details>"
     },
     {
       "id": "without-a-footer",
@@ -173,7 +208,7 @@
       "titleZh": "没有底部",
       "description": "The footer is optional. Without it the card is a heading and a paragraph, and the body keeps its own padding.",
       "descriptionZh": "底部是可选的。没有它,卡片就是一个标题加一段话,正文仍然保留自己的内边距。",
-      "markup": "<details class=\"um-popover\">\n  <summary class=\"um-popover__trigger\">Quota</summary>\n  <div class=\"um-popover__content\">\n    <div class=\"um-popover__header\">68% of the plan limit</div>\n    <div class=\"um-popover__body\">Two more connectors will exceed the limit. The next billing cycle starts on the first of the month.</div>\n  </div>\n</details>"
+      "markup": "<details class=\"um-popover\">\n  <summary class=\"um-popover__trigger\">Quota</summary>\n  <div class=\"um-popover__content\">\n    <span class=\"um-popover__arrow\" aria-hidden=\"true\"></span>\n    <div class=\"um-popover__header\">68% of the plan limit</div>\n    <div class=\"um-popover__body\">Two more connectors will exceed the limit. The next billing cycle starts on the first of the month.</div>\n  </div>\n</details>"
     },
     {
       "id": "placements",
@@ -181,7 +216,7 @@
       "titleZh": "位置",
       "description": "The base class opens the card below the trigger. The three modifiers open it above, to the left or to the right.",
       "descriptionZh": "基础类把卡片开在触发器下面。三个修饰类把它开在上面、左边或右边。",
-      "markup": "<details class=\"um-popover um-popover--top\">\n  <summary class=\"um-popover__trigger\">Above</summary>\n  <div class=\"um-popover__content\">\n    <div class=\"um-popover__body\">The card opens above the trigger.</div>\n  </div>\n</details>\n<details class=\"um-popover um-popover--left\">\n  <summary class=\"um-popover__trigger\">Left</summary>\n  <div class=\"um-popover__content\">\n    <div class=\"um-popover__body\">The card opens to the left of the trigger.</div>\n  </div>\n</details>\n<details class=\"um-popover um-popover--right\">\n  <summary class=\"um-popover__trigger\">Right</summary>\n  <div class=\"um-popover__content\">\n    <div class=\"um-popover__body\">The card opens to the right of the trigger.</div>\n  </div>\n</details>"
+      "markup": "<details class=\"um-popover um-popover--top\">\n  <summary class=\"um-popover__trigger\">Above</summary>\n  <div class=\"um-popover__content\">\n    <span class=\"um-popover__arrow\" aria-hidden=\"true\"></span>\n    <div class=\"um-popover__body\">The card opens above the trigger.</div>\n  </div>\n</details>\n<details class=\"um-popover um-popover--left\">\n  <summary class=\"um-popover__trigger\">Left</summary>\n  <div class=\"um-popover__content\">\n    <span class=\"um-popover__arrow\" aria-hidden=\"true\"></span>\n    <div class=\"um-popover__body\">The card opens to the left of the trigger.</div>\n  </div>\n</details>\n<details class=\"um-popover um-popover--right\">\n  <summary class=\"um-popover__trigger\">Right</summary>\n  <div class=\"um-popover__content\">\n    <span class=\"um-popover__arrow\" aria-hidden=\"true\"></span>\n    <div class=\"um-popover__body\">The card opens to the right of the trigger.</div>\n  </div>\n</details>"
     },
     {
       "id": "sizes",
@@ -189,7 +224,7 @@
       "titleZh": "尺寸",
       "description": "Three widths. The middle one is the base class on its own, because the base class is already the medium card.",
       "descriptionZh": "三种宽度。中间那个只写基础类,因为基础类本来就是中号卡片。",
-      "markup": "<details class=\"um-popover um-popover--small\">\n  <summary class=\"um-popover__trigger\">Small</summary>\n  <div class=\"um-popover__content\">\n    <div class=\"um-popover__body\">A narrow card.</div>\n  </div>\n</details>\n<details class=\"um-popover\">\n  <summary class=\"um-popover__trigger\">Medium</summary>\n  <div class=\"um-popover__content\">\n    <div class=\"um-popover__body\">The default card.</div>\n  </div>\n</details>\n<details class=\"um-popover um-popover--large\">\n  <summary class=\"um-popover__trigger\">Large</summary>\n  <div class=\"um-popover__content\">\n    <div class=\"um-popover__body\">A wide card.</div>\n  </div>\n</details>"
+      "markup": "<details class=\"um-popover um-popover--small\">\n  <summary class=\"um-popover__trigger\">Small</summary>\n  <div class=\"um-popover__content\">\n    <span class=\"um-popover__arrow\" aria-hidden=\"true\"></span>\n    <div class=\"um-popover__body\">A narrow card.</div>\n  </div>\n</details>\n<details class=\"um-popover\">\n  <summary class=\"um-popover__trigger\">Medium</summary>\n  <div class=\"um-popover__content\">\n    <span class=\"um-popover__arrow\" aria-hidden=\"true\"></span>\n    <div class=\"um-popover__body\">The default card.</div>\n  </div>\n</details>\n<details class=\"um-popover um-popover--large\">\n  <summary class=\"um-popover__trigger\">Large</summary>\n  <div class=\"um-popover__content\">\n    <span class=\"um-popover__arrow\" aria-hidden=\"true\"></span>\n    <div class=\"um-popover__body\">A wide card.</div>\n  </div>\n</details>"
     }
   ],
   "notes": "The card is hidden with `display: none` and shown again by `[open]`, rather than left to the browser's rendering of a closed <details>. The browser hides a closed details with a slot, which is not guaranteed to catch a child that has been taken out of the flow — and this card is absolutely positioned, so it has been. Two lines of CSS buy a guarantee that the closed card is really gone.",

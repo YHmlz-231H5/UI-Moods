@@ -17,6 +17,9 @@
 /* The panel is a floating card: it sits on the overlay surface and carries
    its own shadow, because it is above the page rather than on it. */
 .um-popover {
+  /* The size of the point that ties the card to its trigger. */
+  --um-popover-arrow: 8px;
+
   position: relative;
   display: inline-block;
   font-family: var(--um-font-family);
@@ -75,10 +78,33 @@
 }
 .um-popover[open] > .um-popover__content { display: block; }
 
+/* The point that ties the card to its trigger: a square turned on its corner,
+   half of it inside the card and half of it out of it. It is filled with the
+   card's own surface, so the card's rule stops where the point begins and
+   the two read as one shape rather than as a shape stuck on the card.
+
+   The point sits at the start of the card, because the card opens at the
+   start of its trigger — that is the edge the trigger is on. A square on its
+   corner is the same whichever way it is turned, so the point needs no
+   mirror of its own. */
+.um-popover__arrow {
+  position: absolute;
+  top: calc(var(--um-popover-arrow) * -0.5);
+  inset-inline-start: var(--um-space-sm);
+  width: var(--um-popover-arrow);
+  height: var(--um-popover-arrow);
+  background: var(--um-bg-overlay);
+  transform: rotate(45deg);
+}
+
 /* Above the trigger, or beside it: the panel moves, the rest of it does not. */
 .um-popover--top .um-popover__content {
   top: auto;
   bottom: calc(100% + var(--um-space-xs));
+}
+.um-popover--top .um-popover__arrow {
+  top: auto;
+  bottom: calc(var(--um-popover-arrow) * -0.5);
 }
 .um-popover--left .um-popover__content {
   top: 50%;
@@ -86,11 +112,23 @@
   left: auto;
   transform: translateY(-50%);
 }
+.um-popover--left .um-popover__arrow {
+  top: 50%;
+  right: calc(var(--um-popover-arrow) * -0.5);
+  left: auto;
+  transform: translateY(-50%) rotate(45deg);
+}
 .um-popover--right .um-popover__content {
   top: 50%;
   right: auto;
   left: calc(100% + var(--um-space-xs));
   transform: translateY(-50%);
+}
+.um-popover--right .um-popover__arrow {
+  top: 50%;
+  right: auto;
+  left: calc(var(--um-popover-arrow) * -0.5);
+  transform: translateY(-50%) rotate(45deg);
 }
 
 .um-popover--small .um-popover__content { max-width: 18em; }
@@ -128,6 +166,38 @@
    the pointer passes straight through it. */
 .um-popover.um-popover--not-enterable > .um-popover__content {
   pointer-events: none;
+}
+
+/* A card with no point: the shape that says which way the card is facing is
+   not drawn. */
+.um-popover.um-popover--no-arrow .um-popover__arrow {
+  display: none;
+}
+
+/* The dark run: the card is filled with the mood's strong text colour and
+   the words on it take the plain surface, the way a dark tag is filled. The
+   border stays the mood's own, so the frame of the card does not change —
+   and the point takes the card's new surface, so the two still read as one
+   shape. */
+.um-popover.um-popover--dark > .um-popover__content {
+  background: var(--um-text-primary);
+  color: var(--um-fill-blank);
+}
+.um-popover.um-popover--dark .um-popover__header,
+.um-popover.um-popover--dark .um-popover__body,
+.um-popover.um-popover--dark .um-popover__footer {
+  color: var(--um-fill-blank);
+}
+.um-popover.um-popover--dark .um-popover__arrow {
+  background: var(--um-text-primary);
+}
+
+/* The trigger is a disclosure, and the browser's own ring is a hairline in
+   whatever colour the browser feels like. The card opens beside it, so the
+   ring goes around the trigger and not inside it. */
+.um-popover__trigger:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
 }
 
 /* ============================================================================

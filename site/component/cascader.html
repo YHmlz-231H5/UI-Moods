@@ -343,9 +343,31 @@
       <tr><td><code>um-cascader__label</code></td><td>Label</td></tr>
       <tr><td><code>um-cascader__arrow</code></td><td>Arrow</td></tr>
       <tr><td><code>um-cascader__children</code></td><td>Children</td></tr>
+      <tr><td><code>um-cascader__field</code></td><td>Field</td></tr>
+      <tr><td><code>um-cascader__prefix</code></td><td>Prefix</td></tr>
+      <tr><td><code>um-cascader__tags</code></td><td>Tags</td></tr>
+      <tr><td><code>um-cascader__tag</code></td><td>Tag</td></tr>
+      <tr><td><code>um-cascader__filter</code></td><td>Filter</td></tr>
+      <tr><td><code>um-cascader__clear</code></td><td>Clear</td></tr>
+      <tr><td><code>um-cascader__header</code></td><td>Header</td></tr>
+      <tr><td><code>um-cascader__footer</code></td><td>Footer</td></tr>
+      <tr><td><code>um-cascader__empty</code></td><td>Empty</td></tr>
       <tr><td><code>[open]</code></td><td>Open</td></tr>
       <tr><td><code>:focus-visible</code></td><td>Focus visible</td></tr>
       <tr><td><code>.um-cascader--disabled</code></td><td>Disabled</td></tr>
+      <tr><td><code>.um-cascader--clearable</code></td><td>Clearable</td></tr>
+      <tr><td><code>.um-cascader--collapse-tags</code></td><td>Collapse tags</td></tr>
+      <tr><td><code>.um-cascader--filterable</code></td><td>Filterable</td></tr>
+      <tr><td><code>.um-cascader--fit-input-width</code></td><td>Fit input width</td></tr>
+      <tr><td><code>.um-cascader--virtual-scroll</code></td><td>Virtual scroll</td></tr>
+      <tr><td><code>.um-cascader--effect-dark</code></td><td>Dark effect</td></tr>
+      <tr><td><code>.um-cascader--effect-plain</code></td><td>Plain effect</td></tr>
+      <tr><td><code>.um-cascader--tag-success</code></td><td>Tag in success</td></tr>
+      <tr><td><code>.um-cascader--tag-warning</code></td><td>Tag in warning</td></tr>
+      <tr><td><code>.um-cascader--tag-danger</code></td><td>Tag in danger</td></tr>
+      <tr><td><code>.um-cascader--tag-info</code></td><td>Tag in info</td></tr>
+      <tr><td><code>.um-cascader--tag-effect-dark</code></td><td>Tag effect dark</td></tr>
+      <tr><td><code>.um-cascader--tag-effect-plain</code></td><td>Tag effect plain</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -357,6 +379,15 @@
       <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The size of the option text.</td></tr>
       <tr><td><span class="api__name"><code>label</code></span></td><td><code>string</code></td><td>—</td><td>The text of one option. An option with no text needs an accessible name of its own.</td></tr>
       <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes the cascader inert. A level is a disclosure rather than a form control, so it cannot carry the disabled attribute: the whole tree refuses the pointer instead.</td></tr>
+      <tr><td><span class="api__name"><code>clearable</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the field carries the mark that clears the choice. It adds um-cascader--clearable.</td></tr>
+      <tr><td><span class="api__name"><code>collapse-tags</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether only the first chip is shown, so the field keeps one line. How many were folded is the host's to say. It adds um-cascader--collapse-tags.</td></tr>
+      <tr><td><span class="api__name"><code>effect</code></span></td><td><code>enum = light | dark | plain</code></td><td><code>light</code></td><td>How the component's own surface is painted. The light effect is the surface the library draws, so it needs no modifier; the dark effect adds um-cascader--effect-dark and the plain effect adds um-cascader--effect-plain.</td></tr>
+      <tr><td><span class="api__name"><code>filterable</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the field carries the input the host filters the levels with. The input is a real search field, so the filtering is the host's script and the library only draws it. It adds um-cascader--filterable.</td></tr>
+      <tr><td><span class="api__name"><code>fit-input-width</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the panel that opens beside an option takes the width of the field rather than the width of its own options. It adds um-cascader--fit-input-width.</td></tr>
+      <tr><td><span class="api__name"><code>placeholder</code></span></td><td><code>string</code></td><td>—</td><td>The hint in the filter field. It is the native placeholder attribute on the input, so the browser paints it in the muted placeholder role.</td></tr>
+      <tr><td><span class="api__name"><code>tag-type</code></span></td><td><code>enum = primary | success | warning | danger | info</code></td><td><code>primary</code></td><td>Which colour the chips take. The primary colour is the one the library draws, so it needs no modifier; the other four add um-cascader--tag-success, um-cascader--tag-warning, um-cascader--tag-danger and um-cascader--tag-info.</td></tr>
+      <tr><td><span class="api__name"><code>tag-effect</code></span></td><td><code>enum = light | dark | plain</code></td><td><code>light</code></td><td>How the chips are painted: a tint, a solid fill or an outline with no fill. The tint is the one the library draws, so it needs no modifier; the solid fill adds um-cascader--tag-effect-dark and the outline adds um-cascader--tag-effect-plain.</td></tr>
+      <tr><td><span class="api__name"><code>virtual-scroll</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the levels far from the reader are left out of the layout. The browser is told how tall such a level is, so the scrollbar is right without every level being built. It adds um-cascader--virtual-scroll.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>
@@ -365,6 +396,12 @@
       <tbody>
       <tr><td><span class="api__name"><code>option</code></span></td><td>One option: its text and the mark that says there is a level below it.</td></tr>
       <tr><td><span class="api__name"><code>children</code></span></td><td>The level below, holding one option per branch.</td></tr>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>One option: its text and the mark that says there is a level below it. It is the name Element Plus gives the same content the option slot fills.</td></tr>
+      <tr><td><span class="api__name"><code>prefix</code></span></td><td>The mark that stands in front of the control. It is the host's own, so the library draws no glyph of its own.</td></tr>
+      <tr><td><span class="api__name"><code>tag</code></span></td><td>What one chip says. It is given the chosen value and the chip's number. Without it the chip is empty, and an empty chip is not drawn.</td></tr>
+      <tr><td><span class="api__name"><code>header</code></span></td><td>What stands above the levels: a note, a heading.</td></tr>
+      <tr><td><span class="api__name"><code>footer</code></span></td><td>What stands below the levels: a note, a count.</td></tr>
+      <tr><td><span class="api__name"><code>empty</code></span></td><td>What a level says when it holds no option at all.</td></tr>
       </tbody>
     </table>
       <h2>Events</h2>
@@ -372,6 +409,7 @@
       <thead><tr><th>Name</th><th>Description</th></tr></thead>
       <tbody>
       <tr><td><span class="api__name"><code>toggle</code></span></td><td>Fires when a level opens or closes. It is the browser's own event on the details — the library installs no listener.</td></tr>
+      <tr><td><span class="api__name"><code>clear</code></span></td><td>Fires when the clear mark is pressed. The value that follows is the empty one, and the host writes it back.</td></tr>
       </tbody>
     </table>
       <h2>Accessibility</h2>

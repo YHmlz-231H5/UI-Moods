@@ -14,6 +14,8 @@ export const UMLayout = defineComponent({
     direction: { type: String, default: "horizontal" },
     size: { type: String, default: "md" },
     align: { type: String, default: "stretch" },
+    pull: { type: Number, default: 0 },
+    push: { type: Number, default: 0 },
   },
   setup(props, { slots }) {
     return () =>
@@ -26,7 +28,15 @@ export const UMLayout = defineComponent({
             props.size !== "md" ? `um-layout--${props.size}` : null,
             // The stretched row is the base class on its own.
             props.align !== "stretch" ? `um-layout--align-${props.align}` : null,
+            // The offsets: the class says that the layout is moved at all, and
+            // the number travels as the custom property the stylesheet reads.
+            props.pull > 0 ? "um-layout--pull" : null,
+            props.push > 0 ? "um-layout--push" : null,
           ],
+          style: {
+            "--um-layout-pull": steps(props.pull),
+            "--um-layout-push": steps(props.push),
+          },
         },
         [
           h("header", { class: "um-layout__header" }, slots.header ? slots.header() : []),
@@ -39,3 +49,14 @@ export const UMLayout = defineComponent({
       );
   },
 });
+
+/**
+ * How far the layout is moved, in steps of the mood's own spacing.
+ *
+ * The number is a count of spacing steps and not a length, so the measure is
+ * the theme's and the offset is the same in every mood.
+ */
+function steps(count) {
+  if (!count) return "0";
+  return `calc(var(--um-space-sm) * ${count})`;
+}

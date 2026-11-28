@@ -161,7 +161,7 @@
     <p>Filters</p>
     <p>Everything filed under Inbox.</p>
   </div>
-  <div class="um-splitter__bar" role="separator" aria-orientation="vertical" tabindex="0">
+  <div class="um-splitter__bar" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Splitter handle">
     <span class="um-splitter__handle" aria-hidden="true"></span>
   </div>
   <div class="um-splitter__panel">
@@ -175,7 +175,7 @@
     &lt;p&gt;Filters&lt;/p&gt;
     &lt;p&gt;Everything filed under Inbox.&lt;/p&gt;
   &lt;/div&gt;
-  &lt;div class=&quot;um-splitter__bar&quot; role=&quot;separator&quot; aria-orientation=&quot;vertical&quot; tabindex=&quot;0&quot;&gt;
+  &lt;div class=&quot;um-splitter__bar&quot; role=&quot;separator&quot; aria-orientation=&quot;vertical&quot; tabindex=&quot;0&quot; aria-label=&quot;Splitter handle&quot;&gt;
     &lt;span class=&quot;um-splitter__handle&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
   &lt;/div&gt;
   &lt;div class=&quot;um-splitter__panel&quot;&gt;
@@ -192,7 +192,7 @@
   <div class="um-splitter__panel">
     <p>Filters</p>
   </div>
-  <div class="um-splitter__bar" role="separator" aria-orientation="horizontal" tabindex="0">
+  <div class="um-splitter__bar" role="separator" aria-orientation="horizontal" tabindex="0" aria-label="Splitter handle">
     <span class="um-splitter__handle" aria-hidden="true"></span>
   </div>
   <div class="um-splitter__panel">
@@ -204,7 +204,7 @@
   &lt;div class=&quot;um-splitter__panel&quot;&gt;
     &lt;p&gt;Filters&lt;/p&gt;
   &lt;/div&gt;
-  &lt;div class=&quot;um-splitter__bar&quot; role=&quot;separator&quot; aria-orientation=&quot;horizontal&quot; tabindex=&quot;0&quot;&gt;
+  &lt;div class=&quot;um-splitter__bar&quot; role=&quot;separator&quot; aria-orientation=&quot;horizontal&quot; tabindex=&quot;0&quot; aria-label=&quot;Splitter handle&quot;&gt;
     &lt;span class=&quot;um-splitter__handle&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
   &lt;/div&gt;
   &lt;div class=&quot;um-splitter__panel&quot;&gt;
@@ -225,7 +225,9 @@
       <tr><td><code>um-splitter__panel</code></td><td>Panel</td></tr>
       <tr><td><code>um-splitter__bar</code></td><td>Bar</td></tr>
       <tr><td><code>um-splitter__handle</code></td><td>Handle</td></tr>
+      <tr><td><code>um-splitter__collapse</code></td><td>Fold control</td></tr>
       <tr><td><code>:focus-visible</code></td><td>Focus visible</td></tr>
+      <tr><td><code>.um-splitter--collapsible</code></td><td>Collapsible</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -234,6 +236,7 @@
       <tbody>
       <tr><td><span class="api__name"><code>layout</code></span></td><td><code>enum = horizontal | vertical</code></td><td><code>horizontal</code></td><td>How the two panes are laid out. The horizontal run is the base class on its own; the vertical run adds um-splitter--vertical.</td></tr>
       <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>How long the grip is.</td></tr>
+      <tr><td><span class="api__name"><code>collapsible</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the panes can be folded away. It adds um-splitter--collapsible, which says so on the divider: the grip takes the brand colour, because it is the control that moves. The library has no script, so the control that folds a pane is the host's, and the two fold controls go into the start-collapsible and end-collapsible slots.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>
@@ -242,6 +245,9 @@
       <tbody>
       <tr><td><span class="api__name"><code>start</code></span></td><td>The first pane: the one on the left in the horizontal run and the one on top in the vertical one.</td></tr>
       <tr><td><span class="api__name"><code>end</code></span></td><td>The second pane: the one on the right in the horizontal run and the one at the bottom in the vertical one.</td></tr>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>The panes and the divider themselves. A host that writes the whole run fills this slot instead of the two panel slots, and the fold controls then belong to that run as well.</td></tr>
+      <tr><td><span class="api__name"><code>start-collapsible</code></span></td><td>The control that folds the start pane away. It is the host's own button, and the library only holds the space it sits in.</td></tr>
+      <tr><td><span class="api__name"><code>end-collapsible</code></span></td><td>The control that folds the end pane away. It is the host's own button, and the library only holds the space it sits in.</td></tr>
       </tbody>
     </table>
 

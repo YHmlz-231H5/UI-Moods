@@ -101,3 +101,59 @@
   color: var(--um-text-secondary);
   text-align: center;
 }
+
+/* Where the cells stand in their column. The base cell is aligned to the
+   start, so the two ends are the ones that need a rule. */
+.um-table--align-center .um-table__cell {
+  text-align: center;
+}
+
+.um-table--align-end .um-table__cell {
+  text-align: end;
+}
+
+/* The fit: the columns share the width of the frame instead of taking the
+   width their own contents ask for, so a table with many columns is squeezed
+   rather than pushed out of the frame. */
+.um-table--fit {
+  table-layout: fixed;
+}
+
+/* The extra column a table may carry. The selection column holds the tick and
+   the expand column holds the marker, so both of them stand in the middle;
+   the index column holds the row's number, so it stands at the end and takes
+   the muted colour, the way a number that is only a label should. */
+.um-table--type-selection .um-table__cell:first-child,
+.um-table--type-expand .um-table__cell:first-child {
+  text-align: center;
+}
+
+.um-table--type-index .um-table__cell:first-child {
+  text-align: end;
+  color: var(--um-text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* The scrollbar is always there: the frame keeps it whether the table needs
+   one or not, so the rows do not move sideways as the table grows past the
+   frame. The frame is the wrapper, and the wrapper is the table's parent
+   rather than its child, so the frame has to ask about the table: :has() is
+   the only way CSS can ask. */
+.um-table__wrapper:has(.um-table--scrollbar-always-on) {
+  overflow-x: scroll;
+  scrollbar-gutter: stable;
+}
+
+/* The expanded area of a record. It is not drawn until the record above it
+   is opened, or until the table is told to open them all. */
+.um-table__expand {
+  display: none;
+}
+
+.um-table__row--expanded + .um-table__expand {
+  display: table-row;
+}
+
+.um-table--default-expand-all .um-table__expand {
+  display: table-row;
+}

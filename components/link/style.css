@@ -31,7 +31,7 @@
 /* The focus ring. The shared layer paints one for the controls it knows, and
    a link is not among them, so the link paints its own. */
 .um-link:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 

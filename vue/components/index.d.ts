@@ -18,6 +18,12 @@ export declare const UMAffix: DefineComponent<UMAffixProps>;
 export interface UMAlertProps {
   /** Which kind of message this is. */
   variant?: "primary" | "success" | "warning" | "danger" | "info";
+  /** Puts the body in the middle of the panel, so the alert reads as a line rather than as a paragraph against the edge. */
+  center?: boolean;
+  /** Puts a close button at the end of the panel. The button is a real one, so it is in the tab order and it is pressed with the keyboard. */
+  closable?: boolean;
+  /** Puts the drawn mark in front of the body, so the kind of message is readable before the words are. */
+  showIcon?: boolean;
 }
 
 export declare const UMAlert: DefineComponent<UMAlertProps>;
@@ -54,6 +60,18 @@ export interface UMAutocompleteProps {
   modelValue?: string;
   /** Keeps the text visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures. */
   readonly?: boolean;
+  /** Puts a button at the end of the field that empties it. The button is a real one, so it is in the tab order. */
+  clearable?: boolean;
+  /** Says the suggestions are on their way. The library fetches nothing, so the mark is the caller's to ask for — and the caller's own mark replaces the drawn one. */
+  loading?: boolean;
+  /** Takes the loading mark away, even when the caller has written one. The mark is the caller's to put there: the library has no fetching of its own. */
+  hideLoading?: boolean;
+  /** Puts the chevron at the end of the field, so the field says a list is behind it. The suggestion list here is the browser's own, so the arrow says what the reader cannot see. */
+  showArrow?: boolean;
+  /** The kind of field the input is. It is the input's own type attribute, so the browser brings its own keyboard and its own validation with it. */
+  type?: string;
+  /** The id of the form the field belongs to. It is the input's own form attribute, so a field may live outside its form and still be submitted with it. */
+  form?: string;
 }
 
 export declare const UMAutocomplete: DefineComponent<UMAutocompleteProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
@@ -70,6 +88,8 @@ export interface UMAvatarProps {
   fit?: "cover" | "contain" | "fill";
   /** Makes this avatar the one that stands in for the avatars that did not fit, so it carries their count instead of a face. */
   collapseAvatars?: boolean;
+  /** How the avatar is filled when there is no photo in it. The light run is the base class on its own; the dark run fills the avatar with the mood's strong text colour and puts the initials on it in the plain surface. */
+  effect?: "light" | "dark";
 }
 
 export declare const UMAvatar: DefineComponent<UMAvatarProps>;
@@ -86,6 +106,8 @@ export interface UMBacktopProps {
   target?: string;
   /** The accessible name of the link. The arrow is a shape and says nothing, so the name has to come from somewhere. */
   label?: string;
+  /** How far the button sits from the right edge of the viewport. It is a physical offset and not the inline end: the button lives in a corner of the screen, and a corner does not move when the reader's direction does. It is a length and not a number of pixels, so the offset can be a measure of the mood's own spacing. */
+  right?: string;
 }
 
 export declare const UMBacktop: DefineComponent<UMBacktopProps>;
@@ -164,11 +186,13 @@ export interface UMCalendarProps {
   today?: string;
   /** The date the reader has picked, written as YYYY-MM-DD. The day it names takes the selected marker. */
   selected?: string;
+  /** The bound date. It answers to `v-model` as well as to `selected`, and the binding wins when it is there. */
+  modelValue?: string;
   /** The dates that cannot be picked, written as YYYY-MM-DD and separated by commas. The days they name are marked with aria-disabled, so the reader is told they cannot be picked. */
   disabled?: string;
 }
 
-export declare const UMCalendar: DefineComponent<UMCalendarProps>;
+export declare const UMCalendar: DefineComponent<UMCalendarProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
 
 /** Card · 卡片 — A surface that groups one thing: a title, a body, a footer. Its border, radius, shadow and fill all come from the mood, so one card reads correctly in all thirty-two of them. */
 export interface UMCardProps {
@@ -200,6 +224,8 @@ export interface UMCarouselProps {
   loop?: boolean;
   /** How the slides sit next to each other. The card run is the spaced one: the neighbouring slides show at the edges of the track, so the reader can tell there is more than one. */
   type?: "default" | "card";
+  /** Where the indicator is. There are no dots here: the caption under the slide is the indicator, because it is the thing that says which slide the reader is on. The outside run is the base class on its own — the caption sits under the slide, outside it; the none run takes the mark off the caption and adds um-carousel--indicator-none. */
+  indicatorPosition?: "outside" | "none";
 }
 
 export declare const UMCarousel: DefineComponent<UMCarouselProps>;
@@ -216,6 +242,24 @@ export interface UMCascaderProps {
   label?: string;
   /** Makes the cascader inert. A level is a disclosure rather than a form control, so it cannot carry the disabled attribute: the whole tree refuses the pointer instead. */
   disabled?: boolean;
+  /** Whether the field carries the mark that clears the choice. It adds um-cascader--clearable. */
+  clearable?: boolean;
+  /** Whether only the first chip is shown, so the field keeps one line. How many were folded is the host's to say. It adds um-cascader--collapse-tags. */
+  collapseTags?: boolean;
+  /** How the component's own surface is painted. The light effect is the surface the library draws, so it needs no modifier; the dark effect adds um-cascader--effect-dark and the plain effect adds um-cascader--effect-plain. */
+  effect?: "light" | "dark" | "plain";
+  /** Whether the field carries the input the host filters the levels with. The input is a real search field, so the filtering is the host's script and the library only draws it. It adds um-cascader--filterable. */
+  filterable?: boolean;
+  /** Whether the panel that opens beside an option takes the width of the field rather than the width of its own options. It adds um-cascader--fit-input-width. */
+  fitInputWidth?: boolean;
+  /** The hint in the filter field. It is the native placeholder attribute on the input, so the browser paints it in the muted placeholder role. */
+  placeholder?: string;
+  /** Which colour the chips take. The primary colour is the one the library draws, so it needs no modifier; the other four add um-cascader--tag-success, um-cascader--tag-warning, um-cascader--tag-danger and um-cascader--tag-info. */
+  tagType?: "primary" | "success" | "warning" | "danger" | "info";
+  /** How the chips are painted: a tint, a solid fill or an outline with no fill. The tint is the one the library draws, so it needs no modifier; the solid fill adds um-cascader--tag-effect-dark and the outline adds um-cascader--tag-effect-plain. */
+  tagEffect?: "light" | "dark" | "plain";
+  /** Whether the levels far from the reader are left out of the layout. The browser is told how tall such a level is, so the scrollbar is right without every level being built. It adds um-cascader--virtual-scroll. */
+  virtualScroll?: boolean;
 }
 
 export declare const UMCascader: DefineComponent<UMCascaderProps>;
@@ -326,13 +370,15 @@ export interface UMColorPickerPanelProps {
   hue?: "primary" | "success" | "warning" | "danger" | "info";
   /** The colour in the panel, written as a hexadecimal value. It is the text in the value field and the value of the checked swatch. */
   value?: string;
+  /** The bound colour. It answers to `v-model` as well as to `value`, and the binding wins when it is there. */
+  modelValue?: string;
   /** Whether the preview chip is shown. Without it the panel has no chip in the value row. */
   showPreview?: boolean;
   /** Makes the panel inert. It uses the real disabled attribute on the radios and on the field, so they leave the tab order and the swatches dim, the way every other disabled control in the library dims. */
   disabled?: boolean;
 }
 
-export declare const UMColorPickerPanel: DefineComponent<UMColorPickerPanelProps>;
+export declare const UMColorPickerPanel: DefineComponent<UMColorPickerPanelProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
 
 /** Config Provider · 全局配置 — Element Plus's config provider is a Vue context: it hands the global size, the z-index, the locale and the namespace down to everything beneath it. A CSS-only library has no context to hand anything down, so this one is an attribute contract instead — a wrapper element carrying data-um-size and data-um-radius, and the library's own CSS answering to them. It sets the density and the radius mode of its subtree, and it says plainly that it cannot do the rest: there is no locale for it to set and no z-index for it to hand out. */
 export interface UMConfigProviderProps {
@@ -374,6 +420,10 @@ export interface UMDatePickerProps {
   modelValue?: string;
   /** Keeps the date visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures. */
   readonly?: boolean;
+  /** Whether the date can be typed in. It is the input's own readonly attribute: an editable field carries none, and a field that is not editable carries the attribute and the browser refuses the edit. This is Element Plus's name for the same thing; either one of them says it. */
+  editable?: boolean;
+  /** The text that stands in for the date. It is the input's own placeholder attribute — the browser decides whether the field shows it, and a date field usually shows its own segments instead. */
+  placeholder?: string;
 }
 
 export declare const UMDatePicker: DefineComponent<UMDatePickerProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
@@ -388,6 +438,8 @@ export interface UMDatePickerPanelProps {
   today?: string;
   /** The date the reader has picked, written as YYYY-MM-DD. The day it names takes the selected marker. */
   selected?: string;
+  /** The bound date. It answers to `v-model` as well as to `selected`, and the binding wins when it is there. */
+  modelValue?: string;
   /** The dates that cannot be picked, written as YYYY-MM-DD and separated by commas. The days they name are marked with aria-disabled, so the reader is told they cannot be picked. */
   disabled?: string;
   /** Whether the footer is shown. Without it the panel has no footer, and the host keeps the two actions somewhere else. */
@@ -396,9 +448,19 @@ export interface UMDatePickerPanelProps {
   footerText?: string;
   /** Whether the confirm button is shown. Without it the footer keeps only the shortcut, and the host keeps the action somewhere else. */
   showConfirm?: boolean;
+  /** Whether the panel holds one month or two. The single panel is the base class on its own; the range panel puts two months side by side and adds um-date-picker-panel--range. */
+  type?: "single" | "range";
+  /** Whether the panel draws a frame of its own. Turn it off and the border goes and the host draws the frame, or the panel sits inside one. It adds um-date-picker-panel--borderless. */
+  border?: boolean;
+  /** Whether a range is picked one month at a time. It adds um-date-picker-panel--single-panel, and the second month is not drawn. */
+  singlePanel?: boolean;
+  /** Whether the footer carries a clear action. It adds um-date-picker-panel--clearable. The panel keeps no value, so what a press on it means is the host's business, the way it is for the other two actions. */
+  clearable?: boolean;
+  /** Whether each week says which week of the year it is. It adds um-date-picker-panel--week-number, and the numbers are a column of their own on the start side of the grid. */
+  showWeekNumber?: boolean;
 }
 
-export declare const UMDatePickerPanel: DefineComponent<UMDatePickerPanelProps>;
+export declare const UMDatePickerPanel: DefineComponent<UMDatePickerPanelProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
 
 /** Date Time Picker · 日期时间选择器 — A field for a date and a time together. It is a real <input type="datetime-local"> inside a box the library draws, so the browser validates both halves, the arrow keys walk the segments and the reader's own calendar opens it. */
 export interface UMDateTimePickerProps {
@@ -422,6 +484,10 @@ export interface UMDateTimePickerProps {
   modelValue?: string;
   /** Keeps the value visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures. */
   readonly?: boolean;
+  /** Whether the value can be typed in. It is the input's own readonly attribute: an editable field carries none, and a field that is not editable carries the attribute and the browser refuses the edit. This is Element Plus's name for the same thing; either one of them says it. */
+  editable?: boolean;
+  /** The text that stands in for the value. It is the input's own placeholder attribute — the browser decides whether the field shows it, and a date-time field usually shows its own segments instead. */
+  placeholder?: string;
 }
 
 export declare const UMDateTimePicker: DefineComponent<UMDateTimePickerProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
@@ -534,6 +600,8 @@ export interface UMFieldProps {
   inline?: boolean;
   /** The size of the control the field holds. The field does not redraw the control — it only tells it how tall it is. The medium size is the control's own size already. */
   size?: "sm" | "md" | "lg";
+  /** Takes the asterisk after the label away. The asterisk follows the control — a control that says it is required gets one — so this is the way to say that the form does not want it. */
+  hideRequiredAsterisk?: boolean;
 }
 
 export declare const UMField: DefineComponent<UMFieldProps>;
@@ -606,6 +674,16 @@ export interface UMInputProps {
   modelValue?: string;
   /** The size of the control. The same modifier class reaches all three members of the family. The medium size is the base class on its own. */
   size?: "sm" | "md" | "lg";
+  /** Lets the textarea grow with the text in it. It is the browser's own field-sizing, so no line of script measures the text; the field follows what the reader typed. The run is written on the textarea — um-textarea um-input--autosize — because a single-line field has no text to grow with. */
+  autosize?: boolean;
+  /** The surface of the control. The light run is the base class on its own; the filled run adds um-input--filled, and the control sits on a recessed surface instead of in a frame. */
+  effect?: "light" | "filled";
+  /** The kind of field the input is. It is the input's own type attribute, so the browser brings its own keyboard and its own validation with it. The textarea and the select are named by the `control` prop instead. */
+  type?: string;
+  /** The id of the form the control belongs to. It is the input's own form attribute, so a control may live outside its form and still be submitted with it. */
+  form?: string;
+  /** Whether the select draws its arrow. The arrow is part of the control and is drawn by default, because a select without one does not say it opens a list; turning it off adds um-input--no-arrow, which takes the drawn arrow away and gives the text the whole width of the field. */
+  showArrow?: boolean;
 }
 
 export declare const UMInput: DefineComponent<UMInputProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
@@ -628,6 +706,12 @@ export interface UMInputNumberProps {
   modelValue?: number;
   /** Keeps the number visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures. */
   readonly?: boolean;
+  /** Where the number sits in the field. The centred run is the base class on its own; the other two add um-input-number--align-start and um-input-number--align-end. The sides are written logically, so a right-to-left reader gets the other side. */
+  align?: "start" | "center" | "end";
+  /** The hint in the empty field. It is the input's own placeholder, so it takes the muted placeholder role, not the body colour. */
+  placeholder?: string;
+  /** The height of the field. The medium size is the base class on its own, so it needs no modifier class. */
+  size?: "small" | "medium" | "large";
 }
 
 export declare const UMInputNumber: DefineComponent<UMInputNumberProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: number) => void }>;
@@ -674,6 +758,12 @@ export interface UMInputTagProps {
   readonly?: boolean;
   /** The bound value. It answers to `v-model` as well as to `value`, and the binding wins when it is there. */
   modelValue?: string;
+  /** Puts a button at the end of the field that empties it. The text in the field goes with it; the tags are the host's to take away. */
+  clearable?: boolean;
+  /** The surface of the field. The light run is the base class on its own; the filled run adds um-input-tag--filled, and the field sits on a recessed surface instead of in a frame. */
+  effect?: "light" | "filled";
+  /** The surface the tags sit on. The light run is the base class on its own; the dark run puts the tags on the solid colour, and the plain run takes their fill away and leaves the outline. */
+  tagEffect?: "light" | "dark" | "plain";
 }
 
 export declare const UMInputTag: DefineComponent<UMInputTagProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
@@ -686,6 +776,10 @@ export interface UMLayoutProps {
   size?: "sm" | "md" | "lg";
   /** How the side column and the content stand against each other across the row. The stretched row needs no modifier class. */
   align?: "start" | "center" | "end" | "stretch";
+  /** How far the layout is pulled back from the end of its row, counted in steps of the mood's own spacing. A number cannot be a class, so it travels as the custom property the stylesheet reads; the class says that the layout is pulled at all. */
+  pull?: number;
+  /** How far the layout is pushed along its row, away from the start, counted in steps of the mood's own spacing. A number cannot be a class, so it travels as the custom property the stylesheet reads; the class says that the layout is pushed at all. */
+  push?: number;
 }
 
 export declare const UMLayout: DefineComponent<UMLayoutProps>;
@@ -718,6 +812,8 @@ export interface UMLoadingProps {
   closed?: boolean;
   /** Whether the loading covers the whole viewport, whatever shape it is. */
   fullscreen?: boolean;
+  /** Whether the page is held still while the loading is there. It adds um-loading--lock, and the page that holds a locked loading does not scroll. There is no script here, so this is the whole of what a lock can do. */
+  lock?: boolean;
 }
 
 export declare const UMLoading: DefineComponent<UMLoadingProps>;
@@ -740,6 +836,18 @@ export interface UMMentionProps {
   disabled?: boolean;
   /** Keeps the text visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures. */
   readonly?: boolean;
+  /** Puts a button at the end of the field that empties it. The button is a real one, so it is in the tab order. */
+  clearable?: boolean;
+  /** Says the names are on their way. The mark appears in the field; the names themselves are the host's to bring. */
+  loading?: boolean;
+  /** The character that starts a mention. It is written in the field, the way the reader will see it in the sentence. */
+  prefix?: string;
+  /** Puts the chevron at the end of the field, so the field says a list is behind it. The list here is a panel on the page, but it opens and closes with the field, so the arrow says what the reader cannot see. */
+  showArrow?: boolean;
+  /** The kind of field the input is. It is the input's own type attribute, so the browser brings its own keyboard and its own validation with it. */
+  type?: string;
+  /** The id of the form the field belongs to. It is the input's own form attribute, so a field may live outside its form and still be submitted with it. */
+  form?: string;
 }
 
 export declare const UMMention: DefineComponent<UMMentionProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
@@ -752,6 +860,14 @@ export interface UMMenuProps {
   active?: string;
   /** Which way the entries run. This is Element Plus's name for the `direction` prop; either one of them lays the menu out. */
   mode?: "vertical" | "horizontal";
+  /** Whether the menu is a column of glyphs. It adds um-menu--collapse: every entry is narrowed to the icon column and its label is clipped out of it. The library draws no icons of its own, so the glyph in a collapsed entry is the host's. */
+  collapse?: boolean;
+  /** Whether the menu is inert. It adds um-menu--disabled: the pointer does not reach the entries and they take the derived disabled colour. */
+  disabled?: boolean;
+  /** Whether a group title that is too long is cut with an ellipsis instead of wrapping. It adds um-menu--ellipsis. */
+  ellipsis?: boolean;
+  /** How the floating submenu is filled. The light run is the base class on its own; the dark run fills the panel with the mood's strong text colour and adds um-menu--popper-dark. */
+  popperEffect?: "light" | "dark";
 }
 
 export declare const UMMenu: DefineComponent<UMMenuProps>;
@@ -858,6 +974,8 @@ export interface UMPaginationProps {
   disabled?: boolean;
   /** Whether the pager disappears when there is only one page to be on. It adds um-pagination--hidden. */
   hideOnSinglePage?: boolean;
+  /** Which parts of the pager are drawn and in what order. The full layout is the base class on its own; the pager-only layout adds um-pagination--layout-pager and the total layout adds um-pagination--layout-total. */
+  layout?: "full" | "pager" | "total";
 }
 
 export declare const UMPagination: DefineComponent<UMPaginationProps>;
@@ -882,6 +1000,10 @@ export interface UMPopconfirmProps {
   visible?: boolean;
   /** Whether the bubble carries the point that says which way it faces. A bubble without one adds um-popconfirm--no-arrow. */
   showArrow?: boolean;
+  /** How the bubble is filled. The light run is the base class on its own — the bubble sits on the overlay surface; the dark run fills it with the mood's strong text colour, puts the words on it in the plain surface and adds um-popconfirm--dark. */
+  effect?: "light" | "dark";
+  /** Whether the mark beside the question is taken away. It adds um-popconfirm--hide-icon. The library draws no question mark of its own, so the mark is the host's and this class is what says it is not wanted. */
+  hideIcon?: boolean;
   /** The type of the answer that goes ahead. The default type is the brand colour; the other five are a fill of their own. */
   confirmButtonType?: "default" | "primary" | "success" | "warning" | "danger" | "info";
   /** The type of the answer that backs out. The default type is the neutral shape, so the eye goes to the answer that is being asked for; the other five are a fill of their own. */
@@ -904,6 +1026,10 @@ export interface UMPopoverProps {
   enterable?: boolean;
   /** Whether the card is open. It is the open attribute on the trigger's own <details>. */
   visible?: boolean;
+  /** How the card is filled. The light run is the base class on its own — the card sits on the overlay surface; the dark run fills it with the mood's strong text colour, puts the words on it in the plain surface and adds um-popover--dark. */
+  effect?: "light" | "dark";
+  /** Whether the card carries the point that ties it to its trigger. A card without one adds um-popover--no-arrow. */
+  showArrow?: boolean;
 }
 
 export declare const UMPopover: DefineComponent<UMPopoverProps>;
@@ -990,6 +1116,8 @@ export interface UMRateProps {
   modelValue?: number;
   /** Writes the score beside the stars, so the number is written down and not only counted. */
   showScore?: boolean;
+  /** Writes the score beside the stars as words rather than as a bare number. The library has no list of its own, so the wrapper writes the score as a plain phrase; a caller who writes the markup writes the words they want. */
+  showText?: boolean;
 }
 
 export declare const UMRate: DefineComponent<UMRateProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: number) => void }>;
@@ -1024,6 +1152,8 @@ export interface UMSegmentedProps {
   name?: string;
   /** The value one segment submits while it is picked. */
   value?: string;
+  /** The bound value. It answers to `v-model` as well as to `value`, and the binding wins when it is there. */
+  modelValue?: string;
   /** Picks one segment. It is the native checked attribute, not a class. */
   checked?: boolean;
   /** Makes one segment inert. It uses the real disabled attribute, so it leaves the tab order. */
@@ -1038,7 +1168,7 @@ export interface UMSegmentedProps {
   block?: boolean;
 }
 
-export declare const UMSegmented: DefineComponent<UMSegmentedProps>;
+export declare const UMSegmented: DefineComponent<UMSegmentedProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
 
 /** Skeleton · 骨架屏 — The shape of content that has not arrived yet. Three placeholder shapes and, if the motion is welcome, a shimmer over them. */
 export interface UMSkeletonProps {
@@ -1070,6 +1200,10 @@ export interface UMSliderProps {
   disabled?: boolean;
   /** Stands the slider on its end, so the value runs from the bottom up. */
   vertical?: boolean;
+  /** How big the thumb is and how thick the track is. The middle size is the base class on its own; the small size adds um-slider--sm and the large size adds um-slider--lg. */
+  size?: "sm" | "md" | "lg";
+  /** Whether the track carries the tick marks that say there is a scale along it. They are evenly spaced, so they say that there is a scale rather than where it breaks. It adds um-slider--show-stops. */
+  showStops?: boolean;
   /** The slider's own value, bound with v-model in Vue. Leave it out and the `value` prop is the value; bind it and the slider answers to the binding. */
   modelValue?: number;
 }
@@ -1096,6 +1230,8 @@ export interface UMSplitterProps {
   layout?: "horizontal" | "vertical";
   /** How long the grip is. */
   size?: "sm" | "md" | "lg";
+  /** Whether the panes can be folded away. It adds um-splitter--collapsible, which says so on the divider: the grip takes the brand colour, because it is the control that moves. The library has no script, so the control that folds a pane is the host's, and the two fold controls go into the start-collapsible and end-collapsible slots. */
+  collapsible?: boolean;
 }
 
 export declare const UMSplitter: DefineComponent<UMSplitterProps>;
@@ -1126,6 +1262,8 @@ export interface UMStepsProps {
   alignCenter?: boolean;
   /** Whether the run is the simple one: the titles stand in a row and the descriptions and the line are not drawn. It adds um-steps--simple. */
   simple?: boolean;
+  /** The status the steps that are behind the reader take. A step that is behind the reader is one that comes before the step being worked on; the wrapper marks it with um-steps__item--finished, and the class it adds here says what colour that mark takes. A step that carries a status of its own keeps it. */
+  finishStatus?: "success" | "error" | "danger";
 }
 
 export declare const UMSteps: DefineComponent<UMStepsProps>;
@@ -1170,6 +1308,16 @@ export interface UMTableProps {
   highlightCurrentRow?: boolean;
   /** Whether the summary row at the foot of the table is drawn. Turning it off adds um-table--no-summary. */
   showSummary?: boolean;
+  /** Where the cells stand in their column. The start is the base class on its own; the centre adds um-table--align-center and the end adds um-table--align-end. */
+  align?: "start" | "center" | "end";
+  /** Whether the columns share the width of the frame rather than taking the width their contents ask for. It adds um-table--fit. */
+  fit?: boolean;
+  /** The extra column the table carries: the tick, the row's number, or the marker that opens a record. The cell is the host's own, and the class says how that column is painted. */
+  type?: "" | "selection" | "index" | "expand";
+  /** Whether every record's expanded area is drawn, whether the record is marked as open or not. It adds um-table--default-expand-all. */
+  defaultExpandAll?: boolean;
+  /** Whether the frame keeps its scrollbar whether the table needs one or not, so the rows do not move sideways as the table grows. It adds um-table--scrollbar-always-on. */
+  scrollbarAlwaysOn?: boolean;
 }
 
 export declare const UMTable: DefineComponent<UMTableProps>;
@@ -1188,6 +1336,8 @@ export interface UMTabsProps {
   stretch?: boolean;
   /** Where the bar of tabs sits. The bar on top is the base class on its own; the bar under the panel adds um-tabs--bottom. */
   tabPosition?: "top" | "bottom";
+  /** Whether the tabs can be picked. The radios carry the real disabled attribute, so the browser refuses to select them and the tab leaves the tab order; the class paints the disabled treatment. A single tab is disabled by putting the same attribute on its own radio in the markup. */
+  disabled?: boolean;
 }
 
 export declare const UMTabs: DefineComponent<UMTabsProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: number) => void }>;
@@ -1274,6 +1424,12 @@ export interface UMTimePickerProps {
   modelValue?: string;
   /** Keeps the time visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures. */
   readonly?: boolean;
+  /** Whether the time can be edited. Turning it off is the native readonly attribute on the input, so the browser refuses the edit; the readonly prop says the same thing and wins over it. */
+  editable?: boolean;
+  /** The hint in the field. It is the native placeholder attribute on the input, so the browser paints it in the muted placeholder role. */
+  placeholder?: string;
+  /** Whether the field carries the mark that clears the time. It adds um-time-picker--clearable. */
+  clearable?: boolean;
 }
 
 export declare const UMTimePicker: DefineComponent<UMTimePickerProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
@@ -1298,6 +1454,12 @@ export interface UMTimeSelectProps {
   size?: "sm" | "md" | "lg";
   /** The chosen time, bound with v-model in Vue. Leave it out and the `value` prop is the chosen time; bind it and the field answers to the binding. */
   modelValue?: string;
+  /** Whether the field carries the mark that clears the choice. It adds um-time-select--clearable. */
+  clearable?: boolean;
+  /** How the field's own surface is painted. The light effect is the field the library draws, so it needs no modifier; the dark effect adds um-time-select--effect-dark and the plain effect adds um-time-select--effect-plain. */
+  effect?: "light" | "dark" | "plain";
+  /** The text that stands in for a choice. It is the first entry in the list and it carries no value, so the field says it has nothing chosen; without it the list starts with the first time. */
+  placeholder?: string;
 }
 
 export declare const UMTimeSelect: DefineComponent<UMTimeSelectProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
@@ -1316,6 +1478,8 @@ export interface UMTooltipProps {
   showArrow?: boolean;
   /** Whether the bubble is held open. It adds um-tooltip--visible. */
   visible?: boolean;
+  /** How the bubble is filled. The light run is the base class on its own — the bubble sits on the overlay surface; the dark run fills it with the mood's strong text colour, puts the words on it in the plain surface and adds um-tooltip--dark. */
+  effect?: "light" | "dark";
 }
 
 export declare const UMTooltip: DefineComponent<UMTooltipProps>;
@@ -1344,6 +1508,8 @@ export interface UMTransferProps {
   name?: string;
   /** The value one option submits while it is ticked. */
   value?: string;
+  /** The bound value. It answers to `v-model` as well as to `value`, and the binding wins when it is there. */
+  modelValue?: string;
   /** Ticks one option. It is the native checked attribute, not a class. */
   checked?: boolean;
   /** Makes one option, or one of the move buttons, inert. It uses the real disabled attribute, so it leaves the tab order. */
@@ -1352,9 +1518,13 @@ export interface UMTransferProps {
   direction?: "horizontal" | "vertical";
   /** The size of the names and of the move buttons. */
   size?: "sm" | "md" | "lg";
+  /** Whether each panel carries the field the host filters the list with. The field is a real search input, so the filtering is the host's script and the library only draws it. It adds um-transfer--filterable. */
+  filterable?: boolean;
+  /** Whether the rows far from the reader are left out of the layout. The browser is told how tall such a row is, so the scrollbar is right without every row being built. It adds um-transfer--virtual-scroll. */
+  virtualScroll?: boolean;
 }
 
-export declare const UMTransfer: DefineComponent<UMTransferProps>;
+export declare const UMTransfer: DefineComponent<UMTransferProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
 
 /** Tree · 树 — Things inside things. Every branch is a disclosure, so the browser opens and closes it and the state survives a reload. */
 export interface UMTreeProps {
@@ -1368,6 +1538,16 @@ export interface UMTreeProps {
   label?: string;
   /** Whether the branch the reader is on takes the highlight fill. That branch is marked with um-tree__node--current. */
   highlightCurrent?: boolean;
+  /** Whether only the first open branch of a level shows what it holds, so the level reads as one branch at a time. It adds um-tree--accordion. */
+  accordion?: boolean;
+  /** Whether the branch the current one sits under shows what it holds, whether it is open or not. It adds um-tree--auto-expand-parent. */
+  autoExpandParent?: boolean;
+  /** Whether each tick box stands on its own, with no link drawn between a branch and the branch under it. It adds um-tree--check-strictly. */
+  checkStrictly?: boolean;
+  /** Whether every level of the tree is open, whether the branch says so or not. It adds um-tree--default-expand-all. */
+  defaultExpandAll?: boolean;
+  /** Whether every branch carries the box the reader ticks. It adds um-tree--show-checkbox. */
+  showCheckbox?: boolean;
 }
 
 export declare const UMTree: DefineComponent<UMTreeProps>;
@@ -1392,6 +1572,36 @@ export interface UMTreeSelectProps {
   modelValue?: string;
   /** Draws a box in front of every leaf instead of a circle, so a leaf reads as something that can be ticked rather than something that can be picked. */
   showCheckbox?: boolean;
+  /** Whether only the first open branch of a level shows what it holds, so the level reads as one branch at a time. It adds um-tree-select--accordion. */
+  accordion?: boolean;
+  /** Whether the branch the current one sits under shows what it holds, whether it is open or not. It adds um-tree-select--auto-expand-parent. */
+  autoExpandParent?: boolean;
+  /** Whether each mark stands on its own, with no link drawn between a branch and the leaf under it. It adds um-tree-select--check-strictly. */
+  checkStrictly?: boolean;
+  /** Whether every level of the tree is open, whether the branch says so or not. It adds um-tree-select--default-expand-all. */
+  defaultExpandAll?: boolean;
+  /** Whether the leaf the reader is on takes the highlight fill. It adds um-tree-select--highlight-current. */
+  highlightCurrent?: boolean;
+  /** Whether the mark that says a branch holds something is drawn. Turning it off adds um-tree-select--no-arrow, the other way round from the other states, so the class always says what it does to the tree. */
+  showArrow?: boolean;
+  /** Whether the field carries the mark that clears the choice. It adds um-tree-select--clearable. */
+  clearable?: boolean;
+  /** Whether only the first chip is shown, so the field keeps one line. How many were folded is the host's to say. It adds um-tree-select--collapse-tags. */
+  collapseTags?: boolean;
+  /** Whether the field carries the input the host filters the tree with. The input is a real search field, so the filtering is the host's script and the library only draws it. It adds um-tree-select--filterable. */
+  filterable?: boolean;
+  /** Whether the tree takes the width of the component it stands in rather than the width its own names ask for. It adds um-tree-select--fit-input-width. */
+  fitInputWidth?: boolean;
+  /** How the component's own surface is painted. The light effect is the surface the library draws, so it needs no modifier; the dark effect adds um-tree-select--effect-dark and the plain effect adds um-tree-select--effect-plain. */
+  effect?: "light" | "dark" | "plain";
+  /** Whether the data is on its way, so the tree says so instead of showing branches that are not there yet. It adds um-tree-select--loading. */
+  loading?: boolean;
+  /** The hint in the filter field. It is the native placeholder attribute on the input, so the browser paints it in the muted placeholder role. */
+  placeholder?: string;
+  /** Which colour the chips take. The primary colour is the one the library draws, so it needs no modifier; the other four add um-tree-select--tag-success, um-tree-select--tag-warning, um-tree-select--tag-danger and um-tree-select--tag-info. */
+  tagType?: "primary" | "success" | "warning" | "danger" | "info";
+  /** How the chips are painted: a tint, a solid fill or an outline with no fill. The tint is the one the library draws, so it needs no modifier; the solid fill adds um-tree-select--tag-effect-dark and the outline adds um-tree-select--tag-effect-plain. */
+  tagEffect?: "light" | "dark" | "plain";
 }
 
 export declare const UMTreeSelect: DefineComponent<UMTreeSelectProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
@@ -1446,6 +1656,22 @@ export interface UMVirtualSelectProps {
   disabled?: boolean;
   /** Whether the scrolling box keeps its scrollbar whether the list needs one or not, so the rows do not move sideways as the list grows. It adds um-virtual-select--scrollbar-always-on. */
   scrollbarAlwaysOn?: boolean;
+  /** Whether the field carries the mark that clears the choice. It adds um-virtual-select--clearable. */
+  clearable?: boolean;
+  /** Whether only the first chip is shown, so the field keeps one line. How many were folded is the host's to say. It adds um-virtual-select--collapse-tags. */
+  collapseTags?: boolean;
+  /** Whether the field carries the input the host filters the list with. The input is a real search field, so the filtering is the host's script and the library only draws it. It adds um-virtual-select--filterable. */
+  filterable?: boolean;
+  /** Whether the list takes the width of the component it stands in rather than the width its own words ask for. It adds um-virtual-select--fit-input-width. */
+  fitInputWidth?: boolean;
+  /** How the component's own surface is painted. The light effect is the surface the library draws, so it needs no modifier; the dark effect adds um-virtual-select--effect-dark and the plain effect adds um-virtual-select--effect-plain. */
+  effect?: "light" | "dark" | "plain";
+  /** Whether the data is on its way, so the list says so instead of showing rows that are not there yet. It adds um-virtual-select--loading. */
+  loading?: boolean;
+  /** Which colour the chips take. The primary colour is the one the library draws, so it needs no modifier; the other four add um-virtual-select--tag-success, um-virtual-select--tag-warning, um-virtual-select--tag-danger and um-virtual-select--tag-info. */
+  tagType?: "primary" | "success" | "warning" | "danger" | "info";
+  /** How the chips are painted: a tint, a solid fill or an outline with no fill. The tint is the one the library draws, so it needs no modifier; the solid fill adds um-virtual-select--tag-effect-dark and the outline adds um-virtual-select--tag-effect-plain. */
+  tagEffect?: "light" | "dark" | "plain";
 }
 
 export declare const UMVirtualSelect: DefineComponent<UMVirtualSelectProps, {}, {}, {}, {}, {}, {}, { "update:modelValue": (value: string) => void }>;
@@ -1466,6 +1692,8 @@ export interface UMVirtualTableProps {
   empty?: boolean;
   /** Whether the scrolling box keeps its scrollbar whether the list needs one or not, so the rows do not move sideways as the list grows. It adds um-virtual-table--scrollbar-always-on. */
   scrollbarAlwaysOn?: boolean;
+  /** Whether the first column stays where it is while the rest of the row scrolls sideways. The cell brings its own surface, so the cells that scroll under it do not show through it. It adds um-virtual-table--fixed. */
+  fixed?: boolean;
 }
 
 export declare const UMVirtualTable: DefineComponent<UMVirtualTableProps>;
@@ -1486,6 +1714,10 @@ export interface UMVirtualTreeProps {
   highlightCurrent?: boolean;
   /** Whether the scrolling box keeps its scrollbar whether the tree needs one or not, so the branches do not move sideways as the tree grows. It adds um-virtual-tree--scrollbar-always-on. */
   scrollbarAlwaysOn?: boolean;
+  /** Whether each tick box stands on its own, with no link drawn between a branch and the branch under it. It adds um-virtual-tree--check-strictly. */
+  checkStrictly?: boolean;
+  /** Whether every branch carries the box the reader ticks. It adds um-virtual-tree--show-checkbox. */
+  showCheckbox?: boolean;
 }
 
 export declare const UMVirtualTree: DefineComponent<UMVirtualTreeProps>;

@@ -77,6 +77,34 @@
       "nameZh": "区间内",
       "selector": ".um-date-picker-panel__cell--in-range",
       "note": "A day between the two ends of a range. It is a class, because it is a mark and not a state the reader can act on: the two ends carry the selected marker, and the days between them only say that the run goes through here. The run is the brand's barely-there tint, and the words on it take the foreground the contract writes for that tint."
+    },
+    {
+      "id": "borderless",
+      "name": "Borderless",
+      "nameZh": "无边框",
+      "selector": ".um-date-picker-panel--borderless",
+      "note": "The panel draws no frame of its own: the host draws the frame, or the panel sits inside one. The surface and the padding stay, because the content still needs them."
+    },
+    {
+      "id": "single-panel",
+      "name": "One panel",
+      "nameZh": "单面板",
+      "selector": ".um-date-picker-panel--single-panel",
+      "note": "A range picked one month at a time: the second month is not drawn. Which of the two months is the one that is drawn is the host's choice, so the panel cannot say it."
+    },
+    {
+      "id": "clearable",
+      "name": "Clearable",
+      "nameZh": "可清空",
+      "selector": ".um-date-picker-panel--clearable",
+      "note": "The footer carries a clear action. The panel keeps no value, so what a press on it means is the host's business, the way it is for the other two actions."
+    },
+    {
+      "id": "week-number",
+      "name": "Week numbers",
+      "nameZh": "周数",
+      "selector": ".um-date-picker-panel--week-number",
+      "note": "Each week says which week of the year it is. The numbers are a column of their own on the start side of the grid, so the seven day columns keep the width they had."
     }
   ],
   "parts": [
@@ -157,6 +185,24 @@
       "name": "Confirm",
       "nameZh": "确定",
       "note": "The button that takes the date. It is a real button and it carries the brand's fill, because it is the one that acts."
+    },
+    {
+      "id": "clear",
+      "name": "Clear",
+      "nameZh": "清除",
+      "note": "The action that empties the date. It is a real button and it carries no fill, the way the shortcut does."
+    },
+    {
+      "id": "week-number",
+      "name": "Week number",
+      "nameZh": "周数",
+      "note": "Which week of the year a row of days is in. It is a column of its own on the start side of the grid."
+    },
+    {
+      "id": "content",
+      "name": "Cell content",
+      "nameZh": "日期内容",
+      "note": "What the host puts in a day of its own. It sits beside the number, so a day the host filled is still marked as today or as selected."
     }
   ],
   "props": [
@@ -188,6 +234,13 @@
       "description": "The date the reader has picked, written as YYYY-MM-DD. The day it names takes the selected marker.",
       "descriptionZh": "读者选中的那一天,写成 YYYY-MM-DD。被指到的那一天会带上选中的标记。"
     },
+      {
+        "name": "model-value",
+        "type": "string",
+        "since": "1.1.0",
+        "description": "The bound date. It answers to `v-model` as well as to `selected`, and the binding wins when it is there.",
+        "descriptionZh": "绑定的日期。它和 `selected` 一样能接 `v-model`,而且绑定在的时候以绑定为准。"
+      },
     {
       "name": "disabled",
       "type": "string",
@@ -216,9 +269,61 @@
       "since": "1.1.0",
       "description": "Whether the confirm button is shown. Without it the footer keeps only the shortcut, and the host keeps the action somewhere else.",
       "descriptionZh": "要不要显示确定按钮。不显示的时候页脚里只剩那个快捷按钮,这个动作由宿主放在别处。"
+    },
+    {
+      "name": "type",
+      "type": "enum",
+      "values": ["single", "range"],
+      "default": "single",
+      "description": "Whether the panel holds one month or two. The single panel is the base class on its own; the range panel puts two months side by side and adds um-date-picker-panel--range.",
+      "descriptionZh": "面板里是一个月还是两个月。单个月是只写基类;区间把两个月并排放,并加上 um-date-picker-panel--range。"
+    },
+    {
+      "name": "border",
+      "type": "boolean",
+      "default": "true",
+      "description": "Whether the panel draws a frame of its own. Turn it off and the border goes and the host draws the frame, or the panel sits inside one. It adds um-date-picker-panel--borderless.",
+      "descriptionZh": "面板自己要不要画框。关掉以后描边就没有了,框由宿主来画,或者面板就在别人的框里。它加上 um-date-picker-panel--borderless。"
+    },
+    {
+      "name": "single-panel",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether a range is picked one month at a time. It adds um-date-picker-panel--single-panel, and the second month is not drawn.",
+      "descriptionZh": "区间是否一次只画一个月。它加上 um-date-picker-panel--single-panel,第二个月就不画了。"
+    },
+    {
+      "name": "clearable",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the footer carries a clear action. It adds um-date-picker-panel--clearable. The panel keeps no value, so what a press on it means is the host's business, the way it is for the other two actions.",
+      "descriptionZh": "页脚里是否有一个清除的动作。它加上 um-date-picker-panel--clearable。面板自己不记着值,所以按下去是什么意思是宿主的事,跟另外两个动作一样。"
+    },
+    {
+      "name": "show-week-number",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether each week says which week of the year it is. It adds um-date-picker-panel--week-number, and the numbers are a column of their own on the start side of the grid.",
+      "descriptionZh": "每一周是否说出自己是这一年的第几周。它加上 um-date-picker-panel--week-number,那些数字是网格起始一侧自己的一列。"
     }
   ],
-  "slots": [],
+  "slots": [
+    {
+      "name": "default",
+      "description": "What goes in a day of the panel. It is called once per day with that day's date, and what it fills sits beside the number, so a day the host filled is still marked as today or as selected.",
+      "descriptionZh": "放在面板某一天里的东西。它按天逐个调用,带着那一天的日期,填进去的东西在数字旁边,所以宿主填过的那一天仍然标着今天或者选中。"
+    },
+    {
+      "name": "prev-month",
+      "description": "The mark in the button that goes back a month. The drawn chevron steps aside for it, so the host's own mark is what the reader sees.",
+      "descriptionZh": "回到上一个月的那个按钮里的标记。画出来的那个小尖角会让开,所以读者看到的是宿主自己的标记。"
+    },
+    {
+      "name": "next-month",
+      "description": "The mark in the button that goes forward a month. The drawn chevron steps aside for it, so the host's own mark is what the reader sees.",
+      "descriptionZh": "走到下一个月的那个按钮里的标记。画出来的那个小尖角会让开,所以读者看到的是宿主自己的标记。"
+    }
+  ],
   "events": [
     {
       "name": "click",

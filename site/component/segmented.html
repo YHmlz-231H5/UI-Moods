@@ -272,6 +272,7 @@
       <tbody>
       <tr><td><span class="api__name"><code>name</code></span></td><td><code>string</code></td><td>—</td><td>The name every radio in the row shares. It is what makes the segments one group: the browser keeps exactly one of them picked.</td></tr>
       <tr><td><span class="api__name"><code>value</code></span></td><td><code>string</code></td><td>—</td><td>The value one segment submits while it is picked.</td></tr>
+      <tr><td><span class="api__name"><code>model-value</code></span></td><td><code>string</code></td><td>—</td><td>The bound value. It answers to `v-model` as well as to `value`, and the binding wins when it is there.</td></tr>
       <tr><td><span class="api__name"><code>checked</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Picks one segment. It is the native checked attribute, not a class.</td></tr>
       <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes one segment inert. It uses the real disabled attribute, so it leaves the tab order.</td></tr>
       <tr><td><span class="api__name"><code>variant</code></span></td><td><code>enum = soft | solid | ghost</code></td><td><code>soft</code></td><td>How the picked segment is painted. The soft run is the base class on its own; the other two add um-segmented--solid and um-segmented--ghost.</td></tr>

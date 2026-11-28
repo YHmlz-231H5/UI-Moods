@@ -23,20 +23,26 @@
     { "id": "lg", "name": "Large", "nameZh": "大", "note": "A long grip, easier to find." }
   ],
   "states": [
-    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the bar. The bar is the element that can be reached with the keyboard, and it is wide enough to show the ring." }
+    { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the bar. The bar is the element that can be reached with the keyboard, and it is wide enough to show the ring." },
+    { "id": "collapsible", "name": "Collapsible", "nameZh": "可折叠", "selector": ".um-splitter--collapsible", "note": "The panes can be folded away. The grip takes the brand colour, because it is the control that moves; the control that folds a pane is the host's, and the library has no script to fold one." }
   ],
   "parts": [
     { "id": "panel", "name": "Panel", "nameZh": "面板", "note": "One of the two panes. It takes an equal share of what is left and is allowed to shrink, so a long name inside it wraps instead of pushing the divider out of the box." },
     { "id": "bar", "name": "Bar", "nameZh": "分隔条", "note": "The divider. It is a strip to aim at rather than the line itself, so the divider can stay a hairline while the thing to grab stays wide enough to hit. The line is drawn down its middle." },
-    { "id": "handle", "name": "Handle", "nameZh": "把手", "note": "The grip on the bar. It is a shape with no label of its own, so it takes the muted-shape role, and it comes forward on hover." }
+    { "id": "handle", "name": "Handle", "nameZh": "把手", "note": "The grip on the bar. It is a shape with no label of its own, so it takes the muted-shape role, and it comes forward on hover." },
+    { "id": "collapse", "name": "Fold control", "nameZh": "折叠控件", "note": "The space the host's own fold control sits in. The library cannot move a pane — there is no script here — so the control that folds it is the host's." }
   ],
   "props": [
     { "name": "layout", "type": "enum", "values": ["horizontal", "vertical"], "default": "horizontal", "description": "How the two panes are laid out. The horizontal run is the base class on its own; the vertical run adds um-splitter--vertical.", "descriptionZh": "两块面板怎么排。横排是只写基础类;竖排再加上 um-splitter--vertical。" },
-    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "How long the grip is.", "descriptionZh": "把手有多长。" }
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "How long the grip is.", "descriptionZh": "把手有多长。" },
+    { "name": "collapsible", "type": "boolean", "default": "false", "description": "Whether the panes can be folded away. It adds um-splitter--collapsible, which says so on the divider: the grip takes the brand colour, because it is the control that moves. The library has no script, so the control that folds a pane is the host's, and the two fold controls go into the start-collapsible and end-collapsible slots.", "descriptionZh": "两块面板能不能被折起来。它加上 um-splitter--collapsible,分隔条上就说明了这件事:把手用品牌色,因为它就是那个会动的东西。库里没有脚本,所以真正折起面板的控件是宿主的,那两个折叠控件分别放进 start-collapsible 和 end-collapsible 插槽。" }
   ],
   "slots": [
     { "name": "start", "description": "The first pane: the one on the left in the horizontal run and the one on top in the vertical one.", "descriptionZh": "第一块面板:横排时在左边,竖排时在上边。" },
-    { "name": "end", "description": "The second pane: the one on the right in the horizontal run and the one at the bottom in the vertical one.", "descriptionZh": "第二块面板:横排时在右边,竖排时在下边。" }
+    { "name": "end", "description": "The second pane: the one on the right in the horizontal run and the one at the bottom in the vertical one.", "descriptionZh": "第二块面板:横排时在右边,竖排时在下边。" },
+    { "name": "default", "description": "The panes and the divider themselves. A host that writes the whole run fills this slot instead of the two panel slots, and the fold controls then belong to that run as well.", "descriptionZh": "两块面板和分隔条本身。宿主要自己写整条的时候填这个插槽,而不是填那两个面板插槽,折叠控件也就归那条 run 管。" },
+    { "name": "start-collapsible", "description": "The control that folds the start pane away. It is the host's own button, and the library only holds the space it sits in.", "descriptionZh": "折起第一块面板的控件。它是宿主自己的按钮,库只给它留着位置。" },
+    { "name": "end-collapsible", "description": "The control that folds the end pane away. It is the host's own button, and the library only holds the space it sits in.", "descriptionZh": "折起第二块面板的控件。它是宿主自己的按钮,库只给它留着位置。" }
   ],
   "events": [],
   "a11y": {
@@ -52,7 +58,7 @@
       "titleZh": "左右两块",
       "description": "Two panes and a divider between them. The divider is a hairline with a grip on it, and the grip is what says the thing between the panes can be moved. Only the modifier class changes the layout.",
       "descriptionZh": "两块面板,中间一道分隔线。分隔线是一根细线加一个把手,而把手说的就是「这两块中间的东西能动」。换布局只改那个修饰类。",
-      "markup": "<div class=\"um-splitter um-splitter--horizontal\">\n  <div class=\"um-splitter__panel\">\n    <p>Filters</p>\n    <p>Everything filed under Inbox.</p>\n  </div>\n  <div class=\"um-splitter__bar\" role=\"separator\" aria-orientation=\"vertical\" tabindex=\"0\">\n    <span class=\"um-splitter__handle\" aria-hidden=\"true\"></span>\n  </div>\n  <div class=\"um-splitter__panel\">\n    <p>Results</p>\n    <p>What the filters left.</p>\n  </div>\n</div>"
+      "markup": "<div class=\"um-splitter um-splitter--horizontal\">\n  <div class=\"um-splitter__panel\">\n    <p>Filters</p>\n    <p>Everything filed under Inbox.</p>\n  </div>\n  <div class=\"um-splitter__bar\" role=\"separator\" aria-orientation=\"vertical\" tabindex=\"0\" aria-label=\"Splitter handle\">\n    <span class=\"um-splitter__handle\" aria-hidden=\"true\"></span>\n  </div>\n  <div class=\"um-splitter__panel\">\n    <p>Results</p>\n    <p>What the filters left.</p>\n  </div>\n</div>"
     },
     {
       "id": "vertical",
@@ -60,7 +66,7 @@
       "titleZh": "上下两块",
       "description": "The same two panes stacked, with the divider running across between them. The grip turns on its side with the divider.",
       "descriptionZh": "同样的两块面板上下排着,分隔线横在中间。把手也跟着转了方向。",
-      "markup": "<div class=\"um-splitter um-splitter--vertical\">\n  <div class=\"um-splitter__panel\">\n    <p>Filters</p>\n  </div>\n  <div class=\"um-splitter__bar\" role=\"separator\" aria-orientation=\"horizontal\" tabindex=\"0\">\n    <span class=\"um-splitter__handle\" aria-hidden=\"true\"></span>\n  </div>\n  <div class=\"um-splitter__panel\">\n    <p>Results</p>\n  </div>\n</div>"
+      "markup": "<div class=\"um-splitter um-splitter--vertical\">\n  <div class=\"um-splitter__panel\">\n    <p>Filters</p>\n  </div>\n  <div class=\"um-splitter__bar\" role=\"separator\" aria-orientation=\"horizontal\" tabindex=\"0\" aria-label=\"Splitter handle\">\n    <span class=\"um-splitter__handle\" aria-hidden=\"true\"></span>\n  </div>\n  <div class=\"um-splitter__panel\">\n    <p>Results</p>\n  </div>\n</div>"
     }
   ],
   "notes": "The divider is a hairline and the thing to grab is a strip around it, not the other way round: a line one pixel wide is a line, and a line is not something a reader can aim at. The splitter owns one surface — the container's — and the panes paint nothing, so the text in a pane sits on a colour the contract has measured. The grip takes the muted-shape role rather than a border colour, because in the clay mood the border role is literally the page colour, which is a grip nobody can find.",

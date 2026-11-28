@@ -86,6 +86,13 @@
       "nameZh": "无箭头",
       "selector": ".um-tooltip--no-arrow",
       "note": "The point that says which way the bubble is facing is not drawn."
+    },
+    {
+      "id": "effect-dark",
+      "name": "Dark effect",
+      "nameZh": "深色",
+      "selector": ".um-tooltip--dark",
+      "note": "The bubble is filled with the mood's strong text colour and the words on it take the plain surface, the way a dark tag is filled."
     }
   ],
   "parts": [
@@ -150,6 +157,14 @@
       "default": "false",
       "description": "Whether the bubble is held open. It adds um-tooltip--visible.",
       "descriptionZh": "气泡是否常显。它加上 um-tooltip--visible。"
+    },
+    {
+      "name": "effect",
+      "type": "enum",
+      "values": ["light", "dark"],
+      "default": "light",
+      "description": "How the bubble is filled. The light run is the base class on its own — the bubble sits on the overlay surface; the dark run fills it with the mood's strong text colour, puts the words on it in the plain surface and adds um-tooltip--dark.",
+      "descriptionZh": "气泡是怎么填的。浅色是只写基类 —— 气泡压在浮层底色上;深色用这套 mood 的强文字色填满它,字用平面的底色,并加上 um-tooltip--dark。"
     }
   ],
   "slots": [

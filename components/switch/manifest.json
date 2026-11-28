@@ -30,6 +30,7 @@
     { "id": "track", "name": "Track", "nameZh": "轨道", "note": "The rounded groove the thumb travels in." },
     { "id": "thumb", "name": "Thumb", "nameZh": "滑块", "note": "The circle that moves. It is moved with a transform, so nothing around it reflows." },
     { "id": "inner", "name": "Inner", "nameZh": "内嵌文字", "note": "The text inside the track. It is only shown in the inline-prompt state, where it says which way the switch is set." },
+    { "id": "action", "name": "Action", "nameZh": "动作", "note": "The mark that sits beside the switch: what the switch will do. It is there in the markup either way, and it shows only when the caller has written something into it." },
     { "id": "label", "name": "Label", "nameZh": "文字", "note": "The text beside the switch. Optional, but a switch without one needs an accessible name of its own." }
   ],
   "props": [
@@ -45,7 +46,9 @@
   "slots": [
     { "name": "label", "description": "The text beside the switch.", "descriptionZh": "开关旁边的文字。" },
     { "name": "active", "description": "The text inside the track while the switch is on. It is shown in the inline-prompt state.", "descriptionZh": "开关打开时轨道里面的文字。在内嵌提示状态下显示。" },
-    { "name": "inactive", "description": "The text inside the track while the switch is off. It is shown in the inline-prompt state.", "descriptionZh": "开关关闭时轨道里面的文字。在内嵌提示状态下显示。" }
+    { "name": "inactive", "description": "The text inside the track while the switch is off. It is shown in the inline-prompt state.", "descriptionZh": "开关关闭时轨道里面的文字。在内嵌提示状态下显示。" },
+    { "name": "active-action", "description": "The mark beside the switch while it is on: what the switch will do. It sits on the page rather than on the track, so it takes the body colour.", "descriptionZh": "开关打开时旁边那个标记:这个开关会做什么。它落在页面上而不是轨道里,所以用的是正文色。" },
+    { "name": "inactive-action", "description": "The mark beside the switch while it is off: what the switch will do. It sits on the page rather than on the track, so it takes the body colour.", "descriptionZh": "开关关闭时旁边那个标记:这个开关会做什么。它落在页面上而不是轨道里,所以用的是正文色。" }
   ],
   "events": [
     { "name": "change", "description": "Fires when the switch is flipped. It is the browser's own event on the checkbox underneath — the library installs no listener.", "descriptionZh": "开关被拨动时触发。这是底下那个 checkbox 的浏览器原生事件 —— 库没有安装任何监听器。" },

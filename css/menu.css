@@ -129,6 +129,61 @@
   box-shadow: var(--um-shadow-base);
 }
 
+/* A collapsed menu is a column of glyphs. The label is bare text, so there is
+   no element of its own to hide it with: the entry is narrowed to the icon
+   column instead, and the label is pushed out of the box and clipped away.
+   The library draws no icons, so a collapsed menu wants a glyph in every
+   entry. */
+.um-menu--collapse .um-menu__link,
+.um-menu--collapse .um-menu__title {
+  width: var(--um-height-md);
+  padding-inline: 0;
+  overflow: hidden;
+}
+
+/* A disabled menu is inert: the pointer does not reach it, and its entries
+   take the derived disabled colour the way every other disabled control
+   dims. A <ul> has no disabled attribute of its own, so the class is what
+   says so. */
+.um-menu.um-menu--disabled {
+  pointer-events: none;
+}
+.um-menu.um-menu--disabled .um-menu__link,
+.um-menu.um-menu--disabled .um-menu__title {
+  color: var(--um-text-disabled);
+}
+
+/* A group title that is longer than the menu is cut with an ellipsis instead
+   of wrapping. The title is a row of its own, and a row cannot cut a line of
+   text that is not in an element of its own — so for this run the title is a
+   block, and the marker follows the text rather than sitting at the end of
+   the row. */
+.um-menu.um-menu--ellipsis .um-menu__title {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* The popper effect: the floating submenu is filled with the mood's strong
+   text colour and the entries on it take the plain surface, the way a dark
+   tag is filled. The selected entry keeps its own tint, so it is still the
+   one thing the eye goes to first. */
+.um-menu.um-menu--popper-dark .um-menu__submenu {
+  background: var(--um-text-primary);
+}
+.um-menu.um-menu--popper-dark .um-menu__link {
+  color: var(--um-fill-blank);
+}
+
+/* The links are the items of the menu and the title is the disclosure
+   that opens a submenu. Both wear the ring around themselves. */
+.um-menu__link:focus-visible,
+.um-menu__title:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
 /* ============================================================================
    Quality hooks
    ----------------------------------------------------------------------------

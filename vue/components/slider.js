@@ -22,6 +22,8 @@ export const UMSlider = defineComponent({
     disabled: { type: Boolean, default: false },
     modelValue: { type: Number, default: undefined },
     vertical: { type: Boolean, default: false },
+    size: { type: String, default: "md" },
+    showStops: { type: Boolean, default: false },
   },
   emits: ["input", "change", "update:modelValue"],
   setup(props, { emit }) {
@@ -30,6 +32,10 @@ export const UMSlider = defineComponent({
         class: [
           "um-slider",
           props.vertical ? "um-slider--vertical" : null,
+          // The middle size is the base class on its own, so it needs no
+          // modifier — a class the stylesheet does not have paints nothing.
+          props.size === "sm" ? "um-slider--sm" : props.size === "lg" ? "um-slider--lg" : null,
+          props.showStops ? "um-slider--show-stops" : null,
         ],
         type: "range",
         min: props.min,

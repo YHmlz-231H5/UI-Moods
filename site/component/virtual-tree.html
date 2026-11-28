@@ -157,7 +157,7 @@
         <div class="example__desc">Four levels and forty-eight leaves in a box that is shorter than they are. The levels are held apart by indentation alone. A level far from the viewport is not laid out: the browser gives it a placeholder size until it comes near.</div>
         <div class="example__demo">
 <div class="um-virtual-tree um-virtual-tree--plain">
-  <div class="um-virtual-tree__scroller" tabindex="0" style="height: 16em;">
+  <div class="um-virtual-tree__scroller" tabindex="0" style="height: 16em;" aria-label="Scrollable tree">
     <div class="um-virtual-tree__tree" role="group" aria-label="Project files">
         <details class="um-virtual-tree__node" open>
           <summary class="um-virtual-tree__label">
@@ -676,7 +676,7 @@
 </div>
         </div>
         <pre class="example__code">&lt;div class=&quot;um-virtual-tree um-virtual-tree--plain&quot;&gt;
-  &lt;div class=&quot;um-virtual-tree__scroller&quot; tabindex=&quot;0&quot; style=&quot;height: 16em;&quot;&gt;
+  &lt;div class=&quot;um-virtual-tree__scroller&quot; tabindex=&quot;0&quot; style=&quot;height: 16em;&quot; aria-label=&quot;Scrollable tree&quot;&gt;
     &lt;div class=&quot;um-virtual-tree__tree&quot; role=&quot;group&quot; aria-label=&quot;Project files&quot;&gt;
         &lt;details class=&quot;um-virtual-tree__node&quot; open&gt;
           &lt;summary class=&quot;um-virtual-tree__label&quot;&gt;
@@ -1199,7 +1199,7 @@
         <div class="example__desc">The same tree with a rule down the side of each level, so the depth of a branch can be seen rather than counted. Only the modifier class changes; the markup is the same.</div>
         <div class="example__demo">
 <div class="um-virtual-tree um-virtual-tree--lines">
-  <div class="um-virtual-tree__scroller" tabindex="0" style="height: 16em;">
+  <div class="um-virtual-tree__scroller" tabindex="0" style="height: 16em;" aria-label="Scrollable tree">
     <div class="um-virtual-tree__tree" role="group" aria-label="Project files">
         <details class="um-virtual-tree__node" open>
           <summary class="um-virtual-tree__label">
@@ -1718,7 +1718,7 @@
 </div>
         </div>
         <pre class="example__code">&lt;div class=&quot;um-virtual-tree um-virtual-tree--lines&quot;&gt;
-  &lt;div class=&quot;um-virtual-tree__scroller&quot; tabindex=&quot;0&quot; style=&quot;height: 16em;&quot;&gt;
+  &lt;div class=&quot;um-virtual-tree__scroller&quot; tabindex=&quot;0&quot; style=&quot;height: 16em;&quot; aria-label=&quot;Scrollable tree&quot;&gt;
     &lt;div class=&quot;um-virtual-tree__tree&quot; role=&quot;group&quot; aria-label=&quot;Project files&quot;&gt;
         &lt;details class=&quot;um-virtual-tree__node&quot; open&gt;
           &lt;summary class=&quot;um-virtual-tree__label&quot;&gt;
@@ -2253,12 +2253,16 @@
       <tr><td><code>um-virtual-tree__text</code></td><td>Text</td></tr>
       <tr><td><code>um-virtual-tree__arrow</code></td><td>Arrow</td></tr>
       <tr><td><code>um-virtual-tree__children</code></td><td>Children</td></tr>
+      <tr><td><code>um-virtual-tree__checkbox</code></td><td>Checkbox</td></tr>
+      <tr><td><code>um-virtual-tree__box</code></td><td>Box</td></tr>
       <tr><td><code>[open]</code></td><td>Open</td></tr>
       <tr><td><code>:focus-visible</code></td><td>Focus visible</td></tr>
       <tr><td><code>.um-virtual-tree--highlight-current</code></td><td>Highlight current</td></tr>
       <tr><td><code>.um-virtual-tree--scrollbar-always-on</code></td><td>Scrollbar always on</td></tr>
       <tr><td><code>.um-virtual-tree__node--current</code></td><td>Current node</td></tr>
       <tr><td><code>.um-virtual-tree__empty</code></td><td>Empty</td></tr>
+      <tr><td><code>.um-virtual-tree--check-strictly</code></td><td>Check strictly</td></tr>
+      <tr><td><code>.um-virtual-tree--show-checkbox</code></td><td>Show checkbox</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -2272,6 +2276,8 @@
       <tr><td><span class="api__name"><code>height</code></span></td><td><code>string</code></td><td><code>16em</code></td><td>How tall the scrolling box is. The library cannot guess it: a box that is not given a height never scrolls, because its content is what gives it one.</td></tr>
       <tr><td><span class="api__name"><code>highlight-current</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the branch the reader is on takes the highlight fill. That branch is marked with um-virtual-tree__node--current.</td></tr>
       <tr><td><span class="api__name"><code>scrollbar-always-on</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the scrolling box keeps its scrollbar whether the tree needs one or not, so the branches do not move sideways as the tree grows. It adds um-virtual-tree--scrollbar-always-on.</td></tr>
+      <tr><td><span class="api__name"><code>check-strictly</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether each tick box stands on its own, with no link drawn between a branch and the branch under it. It adds um-virtual-tree--check-strictly.</td></tr>
+      <tr><td><span class="api__name"><code>show-checkbox</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether every branch carries the box the reader ticks. It adds um-virtual-tree--show-checkbox.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>
@@ -2287,6 +2293,7 @@
       <thead><tr><th>Name</th><th>Description</th></tr></thead>
       <tbody>
       <tr><td><span class="api__name"><code>toggle</code></span></td><td>Fires when a branch opens or closes. It is the browser's own event on the details — the library installs no listener.</td></tr>
+      <tr><td><span class="api__name"><code>check</code></span></td><td>Fires when a tick box is ticked or unticked. It is the browser's own event on the input — the library installs no listener.</td></tr>
       </tbody>
     </table>
       <h2>Accessibility</h2>

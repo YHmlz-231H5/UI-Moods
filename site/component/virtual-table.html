@@ -1223,6 +1223,7 @@
       <tr><td><code>um-virtual-table__overlay</code></td><td>Overlay</td></tr>
       <tr><td><code>:focus-visible</code></td><td>Focus visible</td></tr>
       <tr><td><code>.um-virtual-table--scrollbar-always-on</code></td><td>Scrollbar always on</td></tr>
+      <tr><td><code>.um-virtual-table--fixed</code></td><td>Fixed first column</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -1236,6 +1237,7 @@
       <tr><td><span class="api__name"><code>height</code></span></td><td><code>string</code></td><td><code>16em</code></td><td>How tall the scrolling box is. The library cannot guess it: a box that is not given a height never scrolls, because its content is what gives it one.</td></tr>
       <tr><td><span class="api__name"><code>empty</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>That there is nothing to show. The body says so instead of writing the rows.</td></tr>
       <tr><td><span class="api__name"><code>scrollbar-always-on</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the scrolling box keeps its scrollbar whether the list needs one or not, so the rows do not move sideways as the list grows. It adds um-virtual-table--scrollbar-always-on.</td></tr>
+      <tr><td><span class="api__name"><code>fixed</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the first column stays where it is while the rest of the row scrolls sideways. The cell brings its own surface, so the cells that scroll under it do not show through it. It adds um-virtual-table--fixed.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>

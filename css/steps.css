@@ -79,6 +79,50 @@
 
 .um-steps__item:last-child .um-steps__line { display: none; }
 
+/* The status the steps behind the reader take. The colour is held in a
+   variable so the three statuses share one rule: the class names the status,
+   and the rule paints whatever colour that status is. `error` is Element
+   Plus's name for the state and `danger` is this library's; the vocabulary
+   has one colour for it, so the two paint the same steps. */
+.um-steps--finish-success {
+  --um-steps-finish: var(--um-color-success);
+  --um-steps-finish-on: var(--um-color-success-on);
+  --um-steps-finish-text: var(--um-color-success-text);
+}
+.um-steps--finish-error,
+.um-steps--finish-danger {
+  --um-steps-finish: var(--um-color-danger);
+  --um-steps-finish-on: var(--um-color-danger-on);
+  --um-steps-finish-text: var(--um-color-danger-text);
+}
+
+/* A step behind the reader takes the status the run names. A step that
+   carries a status of its own keeps it, so the rule only fills in the steps
+   that were left without one. */
+:is(.um-steps--finish-success, .um-steps--finish-error, .um-steps--finish-danger)
+  .um-steps__item--finished:not(
+    .um-steps__item--active,
+    .um-steps__item--success,
+    .um-steps__item--error,
+    .um-steps__item--danger
+  )
+  .um-steps__icon {
+  border-color: var(--um-steps-finish);
+  background: var(--um-steps-finish);
+  color: var(--um-steps-finish-on);
+}
+
+:is(.um-steps--finish-success, .um-steps--finish-error, .um-steps--finish-danger)
+  .um-steps__item--finished:not(
+    .um-steps__item--active,
+    .um-steps__item--success,
+    .um-steps__item--error,
+    .um-steps__item--danger
+  )
+  .um-steps__title {
+  color: var(--um-steps-finish-text);
+}
+
 /* The status is a class on the item, so one step can be finished while the
    next one is still running. A step with no status class is the waiting
    state: an outlined number on the plain surface. */

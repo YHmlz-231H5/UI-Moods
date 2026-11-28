@@ -32,7 +32,7 @@
 /* The frame takes the focus ring when something inside it has the keyboard,
    so the reader can see which box they are in. */
 .um-border:focus-within {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 

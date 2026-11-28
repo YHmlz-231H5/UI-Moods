@@ -29,6 +29,34 @@
       "nameZh": "展开",
       "selector": "[open]",
       "note": "The group's <details> is open, so its submenu is showing and its marker points down."
+    },
+    {
+      "id": "collapse",
+      "name": "Collapsed",
+      "nameZh": "收起",
+      "selector": ".um-menu--collapse",
+      "note": "The menu is a column of glyphs: every entry is narrowed to the icon column and its label is pushed out of the box and clipped away. The library draws no icons of its own, so a collapsed menu wants a glyph in every entry."
+    },
+    {
+      "id": "disabled",
+      "name": "Disabled",
+      "nameZh": "禁用",
+      "selector": ".um-menu--disabled",
+      "note": "The menu is inert: the pointer does not reach it and its entries take the derived disabled colour, the way every other disabled control dims."
+    },
+    {
+      "id": "ellipsis",
+      "name": "Ellipsis",
+      "nameZh": "省略号",
+      "selector": ".um-menu--ellipsis",
+      "note": "A group title that is longer than the menu is cut with an ellipsis instead of wrapping, so the rows of the menu stay one line each."
+    },
+    {
+      "id": "popper-dark",
+      "name": "Dark popper",
+      "nameZh": "深色浮层",
+      "selector": ".um-menu--popper-dark",
+      "note": "The submenu panel is filled with the mood's strong text colour and the entries on it take the plain surface, the way a dark tag is filled."
     }
   ],
   "parts": [
@@ -97,6 +125,35 @@
       "default": "vertical",
       "description": "Which way the entries run. This is Element Plus's name for the `direction` prop; either one of them lays the menu out.",
       "descriptionZh": "菜单往哪个方向排。这是 Element Plus 对 `direction` 属性的叫法,两个都能决定菜单怎么排。"
+    },
+    {
+      "name": "collapse",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the menu is a column of glyphs. It adds um-menu--collapse: every entry is narrowed to the icon column and its label is clipped out of it. The library draws no icons of its own, so the glyph in a collapsed entry is the host's.",
+      "descriptionZh": "菜单是否收成一列图标。它加上 um-menu--collapse:每个条目都被压成图标那么宽,标签被裁掉。库自己不画图标,所以收起后的图标是宿主的。"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the menu is inert. It adds um-menu--disabled: the pointer does not reach the entries and they take the derived disabled colour.",
+      "descriptionZh": "菜单是否不可用。它加上 um-menu--disabled:指针到不了那些条目,它们用派生出来的禁用色。"
+    },
+    {
+      "name": "ellipsis",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether a group title that is too long is cut with an ellipsis instead of wrapping. It adds um-menu--ellipsis.",
+      "descriptionZh": "太长的分组标题是否用省略号收尾而不是换行。它加上 um-menu--ellipsis。"
+    },
+    {
+      "name": "popper-effect",
+      "type": "enum",
+      "values": ["light", "dark"],
+      "default": "light",
+      "description": "How the floating submenu is filled. The light run is the base class on its own; the dark run fills the panel with the mood's strong text colour and adds um-menu--popper-dark.",
+      "descriptionZh": "浮起来的子菜单是怎么填的。浅色是只写基类;深色用这套 mood 的强文字色填满面板,并加上 um-menu--popper-dark。"
     }
   ],
   "slots": [

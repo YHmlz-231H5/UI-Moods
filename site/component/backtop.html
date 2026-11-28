@@ -149,7 +149,7 @@
         <span class="tag">navigation</span>
         <span class="tag">since 1.1.0</span>
       </p>
-      <div class="note">The button does not appear and disappear as the page scrolls. That would need a scroll listener, and a library with no JavaScript cannot have one — so the button is simply always there, and the page that wants it out of the way until the reader has scrolled is a page that writes the class itself. The arrow is drawn from two borders rather than shipped as a glyph, so it takes the theme's border colour and border weight and the library loads no icon font.</div>
+      <div class="note">The button does not appear and disappear as the page scrolls. That would need a scroll listener, and a library with no JavaScript cannot have one — so the button is simply always there, and the page that wants it out of the way until the reader has scrolled is a page that writes the class itself. The arrow is drawn from two borders rather than shipped as a glyph, so it takes the theme's border colour and border weight and the library loads no icon font. The corner the button sits in is the physical right-hand one: a corner of the screen is a place rather than a side of the text, so it stays where it is in a right-to-left reader too — which is why the offset is written physically and not with an inline inset.</div>
 
       <h2>Examples</h2>
 <div class="example">
@@ -213,6 +213,7 @@
       <tr><td><span class="api__name"><code>inline</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the button sits in the flow of the page instead of floating over it. It adds um-backtop--inline.</td></tr>
       <tr><td><span class="api__name"><code>target</code></span></td><td><code>string</code></td><td><code>#top</code></td><td>The fragment the link points at. The page needs an element with that id for the link to go anywhere.</td></tr>
       <tr><td><span class="api__name"><code>label</code></span></td><td><code>string</code></td><td><code>Back to top</code></td><td>The accessible name of the link. The arrow is a shape and says nothing, so the name has to come from somewhere.</td></tr>
+      <tr><td><span class="api__name"><code>right</code></span></td><td><code>string</code></td><td><code>var(--um-space-lg)</code></td><td>How far the button sits from the right edge of the viewport. It is a physical offset and not the inline end: the button lives in a corner of the screen, and a corner does not move when the reader's direction does. It is a length and not a number of pixels, so the offset can be a measure of the mood's own spacing.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>

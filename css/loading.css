@@ -117,6 +117,14 @@
   justify-content: center;
 }
 
+/* A locked loading holds the page still: the reader cannot scroll the page
+   behind the indicator while it is there. A stylesheet cannot put a class on
+   the body from the markup, but it can ask the page whether it holds a locked
+   loading — and a page that is told not to scroll does not scroll. */
+body:has(.um-loading--lock) {
+  overflow: hidden;
+}
+
 /* ============================================================================
    Quality hooks
    ----------------------------------------------------------------------------

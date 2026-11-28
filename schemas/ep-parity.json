@@ -578,8 +578,14 @@
     "infinite-scroll": { "ep": [] },
     "input": { "ep": ["el-input", "el-select", "el-option", "el-option-group"] },
     "input-number": { "ep": ["el-input-number"] },
-    "input-otp": { "ep": ["el-input-otp"] },
-    "input-tag": { "ep": ["el-input-tag"] },
+    "input-otp": {
+      "ep": ["el-input-otp"],
+      "rename": { "mask": "masked", "type": "variant" }
+    },
+    "input-tag": {
+      "ep": ["el-input-tag"],
+      "rename": { "tag-type": "variant" }
+    },
     "layout": { "ep": ["el-row", "el-col"] },
     "link": { "ep": ["el-link"], "equiv": { "type": "variant" } },
     "loading": {
@@ -622,7 +628,10 @@
     "tree": { "ep": ["el-tree"] },
     "tree-select": { "ep": ["el-select", "el-tree"] },
     "typography": { "ep": [] },
-    "upload": { "ep": ["el-upload"] },
+    "upload": {
+      "ep": ["el-upload"],
+      "rename": { "list-type": "layout" }
+    },
     "virtual-select": { "ep": ["el-virtualized-select"] },
     "virtual-table": { "ep": ["el-table-v2"] },
     "virtual-tree": { "ep": ["el-tree-v2"] },

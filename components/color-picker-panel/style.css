@@ -149,7 +149,7 @@
 .um-color-picker-panel__swatch:has(input:focus-visible),
 .um-color-picker-panel__hue-swatch:has(input:focus-visible),
 .um-color-picker-panel__input:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 

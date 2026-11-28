@@ -43,6 +43,7 @@ const PROBES = {
   validity: { page: "validity.html", title: "the rules the browser kept" },
   state: { page: "state.html", title: "the states the reader sees" },
   rtl: { page: "rtl.html", title: "the reading direction" },
+  keyboard: { page: "keyboard.html", title: "the keyboard" },
   apps: { page: "apps.html", title: "app packs" },
 };
 
@@ -274,6 +275,26 @@ async function sendWithRetry(client, method, params, attempts = 60) {
   throw last;
 }
 
+/**
+ * Put the browser in keyboard mode.
+ *
+ * The browser paints a `:focus-visible` ring only when the reader's last
+ * interaction was a keypress. A probe that focuses things with a script is
+ * asking the browser a question it will answer "no" to, and the library
+ * would be blamed for the browser's mood. So the driver presses a real Tab —
+ * the same thing a reader does — and then tells the page that it has, so the
+ * page can wait for it rather than measuring too early.
+ */
+async function pressTab(client) {
+  const key = { windowsVirtualKeyCode: 9, nativeVirtualKeyCode: 9, key: "Tab", code: "Tab" };
+  await sendWithRetry(client, "Input.dispatchKeyEvent", { type: "rawKeyDown", ...key });
+  await sendWithRetry(client, "Input.dispatchKeyEvent", { type: "keyUp", ...key });
+  await sendWithRetry(client, "Runtime.evaluate", {
+    expression: "window.__UM_KEYBOARD__ = true;",
+    returnByValue: true,
+  });
+}
+
 /** Wait until the page has finished loading and can be asked questions. */
 async function waitUntilReady(client, timeoutMs = 30000) {
   const deadline = Date.now() + timeoutMs;
@@ -380,6 +401,10 @@ try {
   }
 
   await waitUntilReady(client);
+
+  // The keyboard probe can only see a focus ring if the browser is in
+  // keyboard mode, so the driver presses a key before the probe measures.
+  if (which === "keyboard") await pressTab(client);
 
   const budgetMs = Number(valueOf("timeout") ?? 600000);
   const evaluated = await sendWithRetry(client, "Runtime.evaluate", {

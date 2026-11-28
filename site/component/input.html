@@ -156,17 +156,17 @@
         <div class="example__title">The three controls · 三种控件</div>
         <div class="example__desc">One class each: um-input for a single line, um-textarea for several, um-select for a choice. They are not variants of one another — they are three classes that share one stylesheet.</div>
         <div class="example__demo">
-<input class="um-input" type="text" placeholder="Your name" />
-<textarea class="um-textarea" rows="3" placeholder="Description"></textarea>
-<select class="um-select">
+<input class="um-input" type="text" placeholder="Your name" aria-label="Your name" />
+<textarea class="um-textarea" rows="3" placeholder="Description" aria-label="Description"></textarea>
+<select class="um-select" aria-label="Selection">
   <option>Choose an option</option>
   <option>Second</option>
   <option>Third</option>
 </select>
         </div>
-        <pre class="example__code">&lt;input class=&quot;um-input&quot; type=&quot;text&quot; placeholder=&quot;Your name&quot; /&gt;
-&lt;textarea class=&quot;um-textarea&quot; rows=&quot;3&quot; placeholder=&quot;Description&quot;&gt;&lt;/textarea&gt;
-&lt;select class=&quot;um-select&quot;&gt;
+        <pre class="example__code">&lt;input class=&quot;um-input&quot; type=&quot;text&quot; placeholder=&quot;Your name&quot; aria-label=&quot;Your name&quot; /&gt;
+&lt;textarea class=&quot;um-textarea&quot; rows=&quot;3&quot; placeholder=&quot;Description&quot; aria-label=&quot;Description&quot;&gt;&lt;/textarea&gt;
+&lt;select class=&quot;um-select&quot; aria-label=&quot;Selection&quot;&gt;
   &lt;option&gt;Choose an option&lt;/option&gt;
   &lt;option&gt;Second&lt;/option&gt;
   &lt;option&gt;Third&lt;/option&gt;
@@ -198,6 +198,9 @@
       <tr><td><code>um-input--lg</code></td><td>Size: lg</td></tr>
       <tr><td><code>:focus</code></td><td>Focus</td></tr>
       <tr><td><code>:disabled</code></td><td>Disabled</td></tr>
+      <tr><td><code>.um-input--autosize</code></td><td>Autosize</td></tr>
+      <tr><td><code>.um-input--filled</code></td><td>Filled</td></tr>
+      <tr><td><code>.um-input--no-arrow</code></td><td>No arrow</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -210,9 +213,20 @@
       <tr><td><span class="api__name"><code>readonly</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Keeps the value visible but stops it being edited. The library does not repaint a readonly control — it is not a state it measures.</td></tr>
       <tr><td><span class="api__name"><code>model-value</code></span></td><td><code>string</code></td><td>—</td><td>The control's value, bound with v-model in Vue. Leave it out and the control holds whatever the reader typed; bind it and the control answers to the binding.</td></tr>
       <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The size of the control. The same modifier class reaches all three members of the family. The medium size is the base class on its own.</td></tr>
+      <tr><td><span class="api__name"><code>autosize</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Lets the textarea grow with the text in it. It is the browser's own field-sizing, so no line of script measures the text; the field follows what the reader typed. The run is written on the textarea — um-textarea um-input--autosize — because a single-line field has no text to grow with.</td></tr>
+      <tr><td><span class="api__name"><code>effect</code></span></td><td><code>enum = light | filled</code></td><td><code>light</code></td><td>The surface of the control. The light run is the base class on its own; the filled run adds um-input--filled, and the control sits on a recessed surface instead of in a frame.</td></tr>
+      <tr><td><span class="api__name"><code>type</code></span></td><td><code>string</code></td><td><code>text</code></td><td>The kind of field the input is. It is the input's own type attribute, so the browser brings its own keyboard and its own validation with it. The textarea and the select are named by the `control` prop instead.</td></tr>
+      <tr><td><span class="api__name"><code>form</code></span></td><td><code>string</code></td><td>—</td><td>The id of the form the control belongs to. It is the input's own form attribute, so a control may live outside its form and still be submitted with it.</td></tr>
+      <tr><td><span class="api__name"><code>show-arrow</code></span></td><td><code>boolean</code></td><td><code>true</code></td><td>Whether the select draws its arrow. The arrow is part of the control and is drawn by default, because a select without one does not say it opens a list; turning it off adds um-input--no-arrow, which takes the drawn arrow away and gives the text the whole width of the field.</td></tr>
       </tbody>
     </table>
-
+      <h2>Slots</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>The content of the control. For the select it is the options; the input and the textarea hold their own value and take no content.</td></tr>
+      </tbody>
+    </table>
       <h2>Events</h2>
 <table class="api">
       <thead><tr><th>Name</th><th>Description</th></tr></thead>

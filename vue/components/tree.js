@@ -11,6 +11,11 @@
 //
 // The default slot is the label slot under the name Element Plus gives it, and
 // the empty slot says what the level below says when there is nothing in it.
+//
+// The tick box is a real checkbox in front of the branch, so the choice is
+// the browser's and not a class. It sits inside the summary, so the wrapper
+// stops the click there: otherwise ticking the box would open the branch as
+// well.
 
 import { defineComponent, h } from "vue";
 
@@ -23,11 +28,27 @@ export const UMTree = defineComponent({
     size: { type: String, default: "md" },
     label: { type: String, default: "" },
     highlightCurrent: { type: Boolean, default: false },
+    accordion: { type: Boolean, default: false },
+    autoExpandParent: { type: Boolean, default: false },
+    checkStrictly: { type: Boolean, default: false },
+    defaultExpandAll: { type: Boolean, default: false },
+    showCheckbox: { type: Boolean, default: false },
   },
-  emits: ["toggle"],
+  emits: ["toggle", "check"],
   setup(props, { slots, emit }) {
-    return () =>
-      h(
+    return () => {
+      // What the branch says. The named slot says it first, and the default
+      // slot is the same content under the name Element Plus gives it.
+      const row = slots.label
+        ? slots.label({ label: props.label, open: props.open })
+        : slots.default
+          ? slots.default({ label: props.label, open: props.open })
+          : [
+              h("span", { class: "um-tree__arrow", "aria-hidden": "true" }),
+              h("span", { class: "um-tree__text" }, props.label),
+            ];
+
+      return h(
         "div",
         {
           class: [
@@ -43,6 +64,11 @@ export const UMTree = defineComponent({
                 ? "um-tree--lg"
                 : null,
             props.highlightCurrent ? "um-tree--highlight-current" : null,
+            props.accordion ? "um-tree--accordion" : null,
+            props.autoExpandParent ? "um-tree--auto-expand-parent" : null,
+            props.checkStrictly ? "um-tree--check-strictly" : null,
+            props.defaultExpandAll ? "um-tree--default-expand-all" : null,
+            props.showCheckbox ? "um-tree--show-checkbox" : null,
           ],
           role: "group",
         },
@@ -55,21 +81,28 @@ export const UMTree = defineComponent({
               onToggle: (e) => emit("toggle", e),
             },
             [
-              h(
-                "summary",
-                { class: "um-tree__label" },
-                // What the branch says. The named slot says it first, and the
-                // default slot is the same content under the name Element Plus
-                // gives it.
-                slots.label
-                  ? slots.label({ label: props.label, open: props.open })
-                  : slots.default
-                    ? slots.default({ label: props.label, open: props.open })
-                    : [
-                        h("span", { class: "um-tree__arrow", "aria-hidden": "true" }),
-                        h("span", { class: "um-tree__text" }, props.label),
+              h("summary", { class: "um-tree__label" }, [
+                props.showCheckbox
+                  ? h(
+                      "label",
+                      {
+                        class: "um-tree__box",
+                        // The box sits inside the summary, so the click is
+                        // stopped here: ticking the box should not open the
+                        // branch as well.
+                        onClick: (e) => e.stopPropagation(),
+                      },
+                      [
+                        h("input", {
+                          class: "um-tree__checkbox",
+                          type: "checkbox",
+                          onChange: (e) => emit("check", e),
+                        }),
                       ],
-              ),
+                    )
+                  : null,
+                ...(Array.isArray(row) ? row : [row]),
+              ]),
               h(
                 "div",
                 { class: "um-tree__children" },
@@ -83,5 +116,6 @@ export const UMTree = defineComponent({
           ),
         ],
       );
+    };
   },
 });

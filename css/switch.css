@@ -54,6 +54,23 @@
 .um-switch__input:disabled + .um-switch__track { opacity: 0.45; cursor: not-allowed; }
 .um-switch__label { color: var(--um-text-regular); font-size: var(--um-font-size-body); }
 
+/* The action is the mark that sits beside the switch: what the switch will
+   do. It is there in the markup either way, and it shows only when the
+   caller has written something into it.
+
+   It sits on the page rather than on the track, so it takes the body colour
+   — the track's own fill is the on/off signal, and a mark painted on it
+   would have to change colour with the switch to stay readable. */
+.um-switch__action {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  color: var(--um-text-regular);
+  font-size: var(--um-font-size-caption);
+  line-height: 1;
+}
+.um-switch__action:not(:empty) { display: inline-flex; }
+
 /* The inline prompt is the state written inside the track. It stays out of the
    way until the switch asks for it. */
 .um-switch__inner {

@@ -33,15 +33,25 @@ export const UMTimePicker = defineComponent({
     type: { type: String, default: "single" },
     size: { type: String, default: "md" },
     modelValue: { type: String, default: undefined },
+    editable: { type: Boolean, default: true },
+    placeholder: { type: String, default: "" },
+    clearable: { type: Boolean, default: false },
   },
-  emits: ["change", "input", "update:modelValue"],
-  setup(props, { slots, emit }) {
+  emits: ["change", "input", "update:modelValue", "clear"],
+  setup(props, { slots, emit, attrs }) {
     // The field needs an id of its own, so two pickers on one page may not
     // share one.
     const fieldId = `um-time-picker-${useId()}`;
+    // The name of the field is an attribute rather than a prop: it is not a
+    // visual parameter of the control, and a host that needs a Chinese name
+    // should be able to give one.
+    const label = attrs["aria-label"];
 
     return () => {
       const range = props.type === "range";
+      // A field that cannot be edited is a read-only one: both props say the
+      // same thing, and the read-only one wins.
+      const readOnly = props.readonly || !props.editable;
 
       /** A real time field; only the first one of a range carries the value. */
       const time = (id, name, value, ariaLabel) =>
@@ -56,7 +66,8 @@ export const UMTimePicker = defineComponent({
           step: props.step,
           required: props.required,
           disabled: props.disabled,
-          readonly: props.readonly,
+          readonly: readOnly,
+          placeholder: props.placeholder || undefined,
           "aria-label": ariaLabel,
           onChange: (e) => {
             emit("update:modelValue", eventValue(e));
@@ -76,6 +87,7 @@ export const UMTimePicker = defineComponent({
               : props.size === "lg"
                 ? "um-time-picker--lg"
                 : null,
+            props.clearable ? "um-time-picker--clearable" : null,
           ],
         },
         [
@@ -85,8 +97,15 @@ export const UMTimePicker = defineComponent({
             slots.icon ? slots.icon() : [],
           ),
           ...(range
-            ? [time(`${fieldId}-from`, `${fieldId}-from`, modelValue(props, props.value) || undefined)]
-            : [time(fieldId, fieldId, modelValue(props, props.value) || undefined)]),
+            ? [
+                time(
+                  `${fieldId}-from`,
+                  `${fieldId}-from`,
+                  modelValue(props, props.value) || undefined,
+                  label || "Start of the range",
+                ),
+              ]
+            : [time(fieldId, fieldId, modelValue(props, props.value) || undefined, label || "Time")]),
           h("span", {
             class: "um-time-picker__separator",
             "aria-hidden": "true",
@@ -95,6 +114,22 @@ export const UMTimePicker = defineComponent({
           ...(range
             ? [time(undefined, `${fieldId}-to`, undefined, "End of the range")]
             : []),
+          // The clear mark is in the markup either way: the field says
+          // whether it is there.
+          h(
+            "button",
+            {
+              class: "um-time-picker__clear",
+              type: "button",
+              "aria-label": "Clear the time",
+              onClick: () => {
+                // The time is gone, so the field says so: the value that
+                // follows is the empty one.
+                emit("clear");
+                emit("update:modelValue", "");
+              },
+            },
+          ),
         ],
       );
     };

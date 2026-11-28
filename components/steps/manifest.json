@@ -64,6 +64,34 @@
       "nameZh": "最简",
       "selector": ".um-steps--simple",
       "note": "The titles stand in a row and the descriptions and the line are not drawn."
+    },
+    {
+      "id": "finished",
+      "name": "Finished",
+      "nameZh": "已完成",
+      "selector": ".um-steps__item--finished",
+      "note": "The step is behind the reader. It takes the status the finish-status prop names, unless it carries a status of its own."
+    },
+    {
+      "id": "finish-success",
+      "name": "Finished in success",
+      "nameZh": "完成状态为成功",
+      "selector": ".um-steps--finish-success",
+      "note": "The steps that are behind the reader take the success colour."
+    },
+    {
+      "id": "finish-error",
+      "name": "Finished in error",
+      "nameZh": "完成状态为出错",
+      "selector": ".um-steps--finish-error",
+      "note": "The steps that are behind the reader take the danger colour."
+    },
+    {
+      "id": "finish-danger",
+      "name": "Finished in danger",
+      "nameZh": "完成状态为危险",
+      "selector": ".um-steps--finish-danger",
+      "note": "The library's name for the same status as error, so the two paint the same steps."
     }
   ],
   "parts": [
@@ -149,6 +177,15 @@
       "default": "false",
       "description": "Whether the run is the simple one: the titles stand in a row and the descriptions and the line are not drawn. It adds um-steps--simple.",
       "descriptionZh": "是否用最简的形态:只排标题,不画说明和连接线。它加上 um-steps--simple。"
+    },
+    {
+      "name": "finish-status",
+      "type": "enum",
+      "values": ["success", "error", "danger"],
+      "default": "success",
+      "since": "1.1.0",
+      "description": "The status the steps that are behind the reader take. A step that is behind the reader is one that comes before the step being worked on; the wrapper marks it with um-steps__item--finished, and the class it adds here says what colour that mark takes. A step that carries a status of its own keeps it.",
+      "descriptionZh": "已经过去的那些步骤是什么状态。过去的步骤就是排在正在做的那一步之前的那些;包装组件用 um-steps__item--finished 标出来,这里加的类说明这个标记取什么颜色。自己带了状态的步骤保留它自己的状态。"
     }
   ],
   "slots": [

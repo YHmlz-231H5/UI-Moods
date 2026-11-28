@@ -25,7 +25,10 @@
   ],
   "states": [
     { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring is drawn around the field, because the field is what the reader is typing in — the input is inside it, not beside it." },
-    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The field paints the flat control surface and takes the derived disabled colour." }
+    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The field paints the flat control surface and takes the derived disabled colour." },
+    { "id": "clearable", "name": "Clearable", "nameZh": "可清空", "selector": ".um-mention--clearable", "note": "The field carries a button that empties it." },
+    { "id": "loading", "name": "Loading", "nameZh": "加载中", "selector": ".um-mention--loading", "note": "The field says it is busy: the mark appears and the names wait." },
+    { "id": "show-arrow", "name": "Show arrow", "nameZh": "显示箭头", "selector": ".um-mention--show-arrow", "note": "The field carries the arrow that says a list is behind it." }
   ],
   "parts": [
     { "id": "field", "name": "Field", "nameZh": "输入框", "note": "The box the input sits in. It owns the field's fill and border, so the input inside it paints none." },
@@ -33,7 +36,13 @@
     { "id": "list", "name": "List", "nameZh": "列表", "note": "The panel of names. It sits on the overlay surface and carries its own shadow." },
     { "id": "item", "name": "Item", "nameZh": "提及项", "note": "One name in the list. It is a real button, so it is focusable and can be pressed with the keyboard." },
     { "id": "avatar", "name": "Avatar", "nameZh": "头像", "note": "The avatar slot in front of the name. It is a disc the host fills with initials." },
-    { "id": "name", "name": "Name", "nameZh": "名字", "note": "The name itself, written with the @ in front of it, the way the reader will see it in the text." }
+    { "id": "name", "name": "Name", "nameZh": "名字", "note": "The name itself, written with the @ in front of it, the way the reader will see it in the text." },
+    { "id": "prefix", "name": "Prefix", "nameZh": "前缀", "note": "The character that starts a mention. It is written in front of the text, the way the reader will see it in the sentence." },
+    { "id": "header", "name": "Header", "nameZh": "表头", "note": "The line above the list of names." },
+    { "id": "footer", "name": "Footer", "nameZh": "表尾", "note": "The line below the list of names." },
+    { "id": "loading", "name": "Loading", "nameZh": "加载中", "note": "The mark that says the names are on their way. It is drawn, and the caller may write its own instead." },
+    { "id": "clear", "name": "Clear", "nameZh": "清空按钮", "note": "The button that empties the field. It is a real button, and its mark is drawn from two bars." },
+    { "id": "arrow", "name": "Arrow", "nameZh": "箭头", "note": "The chevron that says a list is behind the field. It is drawn from two borders." }
   ],
   "props": [
     { "name": "variant", "type": "enum", "values": ["bordered", "plain", "round"], "default": "bordered", "description": "The shape of the field.", "descriptionZh": "输入框的形态。" },
@@ -43,14 +52,27 @@
     { "name": "label", "type": "string", "default": "", "description": "The accessible name of the field. It becomes the input's aria-label.", "descriptionZh": "输入框的可访问名称,它会变成 input 的 aria-label。" },
     { "name": "model-value", "type": "string", "description": "The text in the field, bound with v-model in Vue. Leave it out and the `value` prop is the text; bind it and the field answers to the binding.", "descriptionZh": "输入框里的文字,在 Vue 里用 v-model 绑定。不传就以 value 属性为准;传了就以绑定为准。" },
     { "name": "disabled", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Makes the field inert. It uses the real disabled attribute on the input, so it leaves the tab order and the field paints the flat control surface.", "descriptionZh": "让输入框不可用。它用的是 input 上的原生 disabled 属性,因此会退出 Tab 顺序,字段也会铺上扁平的控件底色。" },
-    { "name": "readonly", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Keeps the text visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures.", "descriptionZh": "文字仍然可见,但不能编辑。它是原生 readonly 属性,浏览器会拒绝编辑。库不会给只读字段单独配色 —— 这不是它测量过的状态。" }
+    { "name": "readonly", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Keeps the text visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures.", "descriptionZh": "文字仍然可见,但不能编辑。它是原生 readonly 属性,浏览器会拒绝编辑。库不会给只读字段单独配色 —— 这不是它测量过的状态。" },
+    { "name": "clearable", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Puts a button at the end of the field that empties it. The button is a real one, so it is in the tab order.", "descriptionZh": "在输入框末尾放一个按钮,按它就把输入框清空。这个按钮是真的,所以它在 Tab 顺序里。" },
+    { "name": "loading", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Says the names are on their way. The mark appears in the field; the names themselves are the host's to bring.", "descriptionZh": "表示名字正在路上。输入框里会出现那个标记;名单本身归宿主端上来。" },
+    { "name": "prefix", "type": "string", "default": "@", "since": "1.1.0", "description": "The character that starts a mention. It is written in the field, the way the reader will see it in the sentence.", "descriptionZh": "开始一次提及的那个字符。它写在输入框里,就像读者在句子里会看到的那样。" },
+    { "name": "show-arrow", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Puts the chevron at the end of the field, so the field says a list is behind it. The list here is a panel on the page, but it opens and closes with the field, so the arrow says what the reader cannot see.", "descriptionZh": "在输入框末尾放上那个小箭头,让输入框表明背后有一份名单。这里的名单是页面上的一个面板,但它跟着输入框开关,所以这个箭头说的正是读者看不见的那件事。" },
+    { "name": "type", "type": "string", "default": "text", "since": "1.1.0", "description": "The kind of field the input is. It is the input's own type attribute, so the browser brings its own keyboard and its own validation with it.", "descriptionZh": "输入框是哪一种字段。它是 input 自己的 type 属性,所以浏览器会带上它自己的键盘和校验。" },
+    { "name": "form", "type": "string", "since": "1.1.0", "description": "The id of the form the field belongs to. It is the input's own form attribute, so a field may live outside its form and still be submitted with it.", "descriptionZh": "这个输入框属于哪个表单。它是 input 自己的 form 属性,所以输入框可以放在表单外面,仍然跟着那个表单一起提交。" }
   ],
   "slots": [
-    { "name": "default", "description": "The names in the list. Each one is a list item holding a button.", "descriptionZh": "列表里的名字,每个名字是一个列表项,里面放一个按钮。" }
+    { "name": "default", "description": "The names in the list. Each one is a list item holding a button.", "descriptionZh": "列表里的名字,每个名字是一个列表项,里面放一个按钮。" },
+    { "name": "header", "description": "The line above the list of names.", "descriptionZh": "名单上面那一行。" },
+    { "name": "footer", "description": "The line below the list of names.", "descriptionZh": "名单下面那一行。" },
+    { "name": "label", "description": "The name of one mention. The wrapper writes three names of its own when the caller has not written any, and this slot is what fills them; the caller's own names carry their own words.", "descriptionZh": "一个提及的名字。调用方没有自己写名单时,包装组件会写三个,这个插槽就是填它们的;调用方自己写的名字,文字也由调用方自己写。" },
+    { "name": "loading", "description": "The mark that says the names are on their way. It is drawn when the slot is empty and the caller's own when it is not.", "descriptionZh": "表示名字正在路上的那个标记。插槽为空时是画出来的,调用方写了自己的就是调用方的。" }
   ],
   "events": [
     { "name": "input", "description": "Fires when the text in the field changes.", "descriptionZh": "输入框里的文字变了就触发。" },
-    { "name": "update:modelValue", "description": "Fires when the value changes, carrying the new value. This is the event `v-model` listens to.", "descriptionZh": "值变化时触发,携带新的值。v-model 监听的就是这个事件。" }
+    { "name": "update:modelValue", "description": "Fires when the value changes, carrying the new value. This is the event `v-model` listens to.", "descriptionZh": "值变化时触发,携带新的值。v-model 监听的就是这个事件。" },
+    { "name": "search", "description": "Fires on every keystroke in the field, carrying what has been typed. It is the same moment as the input event, under the name the mention gives it: the host is looking for names.", "descriptionZh": "在输入框里每敲一个字就触发,携带打进去的字。它和 input 事件是同一个时刻,只是用了提及给它的名字:宿主正在找人。" },
+    { "name": "select", "description": "Fires when one of the names is chosen, carrying the name. The wrapper reports it for the names it writes itself; a name the caller wrote is the caller's own button, so the caller wires it.", "descriptionZh": "选中一个名字时触发,携带那个名字。包装组件只报告它自己写的那些名字;调用方自己写的名字是调用方自己的按钮,归调用方自己接。" },
+    { "name": "clear", "description": "Fires when the reader presses the clear button. The value goes with it, so the field is empty afterwards.", "descriptionZh": "读者按下清空按钮时触发。值也跟着清掉,所以按下之后输入框是空的。" }
   ],
   "a11y": {
     "keyboard": ["Tab", "Space"],

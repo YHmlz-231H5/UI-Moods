@@ -232,5 +232,8 @@ The component library is new, and the honest limits are these:
   anchors yet.
 - **Accessibility is a contract, not an audit** — the manifests state the
   native element, the role and the keyboard behaviour, and `validate` checks
-  that the states exist in the stylesheet. Nobody has yet run a screen reader
+  that the states exist in the stylesheet. The keyboard is measured now —
+  `node tools/audit-render.mjs keyboard` asks every focusable control in every
+  example whether it is named, whether the keyboard can reach it and whether
+  the reader can see where they are — but nobody has yet run a screen reader
   over the library, and there is no automated axe-style check.

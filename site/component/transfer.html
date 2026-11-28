@@ -372,9 +372,14 @@
       <tr><td><code>um-transfer__move</code></td><td>Move</td></tr>
       <tr><td><code>um-transfer__move-back</code></td><td>Move back</td></tr>
       <tr><td><code>um-transfer__footer</code></td><td>Footer</td></tr>
+      <tr><td><code>um-transfer__filter</code></td><td>Filter</td></tr>
+      <tr><td><code>um-transfer__left-empty</code></td><td>Left empty</td></tr>
+      <tr><td><code>um-transfer__right-empty</code></td><td>Right empty</td></tr>
       <tr><td><code>:checked</code></td><td>Checked</td></tr>
       <tr><td><code>:disabled</code></td><td>Disabled</td></tr>
       <tr><td><code>:focus-visible</code></td><td>Focus visible</td></tr>
+      <tr><td><code>.um-transfer--filterable</code></td><td>Filterable</td></tr>
+      <tr><td><code>.um-transfer--virtual-scroll</code></td><td>Virtual scroll</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -383,10 +388,13 @@
       <tbody>
       <tr><td><span class="api__name"><code>name</code></span></td><td><code>string</code></td><td>—</td><td>The name the ticked options are submitted under. It is the native name attribute, and the source and the target list use different names so the host can tell them apart.</td></tr>
       <tr><td><span class="api__name"><code>value</code></span></td><td><code>string</code></td><td>—</td><td>The value one option submits while it is ticked.</td></tr>
+      <tr><td><span class="api__name"><code>model-value</code></span></td><td><code>string</code></td><td>—</td><td>The bound value. It answers to `v-model` as well as to `value`, and the binding wins when it is there.</td></tr>
       <tr><td><span class="api__name"><code>checked</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Ticks one option. It is the native checked attribute, not a class.</td></tr>
       <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes one option, or one of the move buttons, inert. It uses the real disabled attribute, so it leaves the tab order.</td></tr>
       <tr><td><span class="api__name"><code>direction</code></span></td><td><code>enum = horizontal | vertical</code></td><td><code>horizontal</code></td><td>Which way the two panels are laid out. The horizontal run is the base class on its own; the vertical run adds um-transfer--vertical.</td></tr>
       <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The size of the names and of the move buttons.</td></tr>
+      <tr><td><span class="api__name"><code>filterable</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether each panel carries the field the host filters the list with. The field is a real search input, so the filtering is the host's script and the library only draws it. It adds um-transfer--filterable.</td></tr>
+      <tr><td><span class="api__name"><code>virtual-scroll</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the rows far from the reader are left out of the layout. The browser is told how tall such a row is, so the scrollbar is right without every row being built. It adds um-transfer--virtual-scroll.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>
@@ -395,8 +403,11 @@
       <tbody>
       <tr><td><span class="api__name"><code>source</code></span></td><td>The options of the panel on the left.</td></tr>
       <tr><td><span class="api__name"><code>target</code></span></td><td>The options of the panel on the right.</td></tr>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>The options of the panel on the left. It is the name Element Plus gives the same content the source slot fills.</td></tr>
       <tr><td><span class="api__name"><code>left-footer</code></span></td><td>The row under the list of the panel on the left.</td></tr>
       <tr><td><span class="api__name"><code>right-footer</code></span></td><td>The row under the list of the panel on the right.</td></tr>
+      <tr><td><span class="api__name"><code>left-empty</code></span></td><td>What the panel on the left says when it holds no option at all.</td></tr>
+      <tr><td><span class="api__name"><code>right-empty</code></span></td><td>What the panel on the right says when it holds no option at all.</td></tr>
       </tbody>
     </table>
       <h2>Events</h2>

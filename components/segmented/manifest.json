@@ -37,6 +37,7 @@
   "props": [
     { "name": "name", "type": "string", "description": "The name every radio in the row shares. It is what makes the segments one group: the browser keeps exactly one of them picked.", "descriptionZh": "这一排单选框共用的名字。它正是让这几段成为一组的东西:浏览器保证组里恰好只有一个被选中。" },
     { "name": "value", "type": "string", "description": "The value one segment submits while it is picked.", "descriptionZh": "某一段选中时提交的值。" },
+    { "name": "model-value", "type": "string", "since": "1.1.0", "description": "The bound value. It answers to `v-model` as well as to `value`, and the binding wins when it is there.", "descriptionZh": "绑定的值。它和 `value` 一样能接 `v-model`,而且绑定在的时候以绑定为准。" },
     { "name": "checked", "type": "boolean", "default": "false", "description": "Picks one segment. It is the native checked attribute, not a class.", "descriptionZh": "选中某一段。它是原生 checked 属性,不是某个类。" },
     { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes one segment inert. It uses the real disabled attribute, so it leaves the tab order.", "descriptionZh": "让某一段不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" },
     { "name": "variant", "type": "enum", "values": ["soft", "solid", "ghost"], "default": "soft", "description": "How the picked segment is painted. The soft run is the base class on its own; the other two add um-segmented--solid and um-segmented--ghost.", "descriptionZh": "选中的那一段怎么画。柔和是只写基类;另外两种加上 um-segmented--solid 和 um-segmented--ghost。" },

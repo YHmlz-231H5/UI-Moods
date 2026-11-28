@@ -94,33 +94,32 @@
   color: var(--um-text-regular);
 }
 
-/* The Nth radio drives the Nth tab and the Nth panel. The pairing is by
-   position, so the radios come first in the markup, the header second and
-   the panels last — and the panels are <section>s, so that `nth-of-type`
-   counts them apart from the <div> that holds the header. */
-.um-tabs__radio:nth-of-type(1):checked ~ .um-tabs__header .um-tabs__item:nth-of-type(1),
-.um-tabs__radio:nth-of-type(2):checked ~ .um-tabs__header .um-tabs__item:nth-of-type(2),
-.um-tabs__radio:nth-of-type(3):checked ~ .um-tabs__header .um-tabs__item:nth-of-type(3),
-.um-tabs__radio:nth-of-type(4):checked ~ .um-tabs__header .um-tabs__item:nth-of-type(4) {
+/* The selected tab is the one that holds the checked radio. The radio sits
+   inside its own tab, so the question "which one is picked?" is asked with
+   :has() — the only way CSS can ask. The variant decides what the selected
+   tab looks like; this rule only says that the tab is selected, so the card
+   variant does not need a second copy of it. */
+.um-tabs__item:has(.um-tabs__radio:checked) {
   color: var(--um-tabs-active-color);
   background: var(--um-tabs-active-fill);
   --um-tabs-indicator: var(--um-color-primary);
 }
 
-.um-tabs__radio:nth-of-type(1):checked ~ .um-tabs__panel:nth-of-type(1),
-.um-tabs__radio:nth-of-type(2):checked ~ .um-tabs__panel:nth-of-type(2),
-.um-tabs__radio:nth-of-type(3):checked ~ .um-tabs__panel:nth-of-type(3),
-.um-tabs__radio:nth-of-type(4):checked ~ .um-tabs__panel:nth-of-type(4) {
+/* The Nth radio drives the Nth panel. The radio no longer sits next to the
+   panel, so the pairing cannot be a sibling selector any more: the widget
+   itself is asked which radio is checked, and the panels are <section>s, so
+   that `nth-of-type` counts them apart from the <div> that holds the header. */
+.um-tabs:has(.um-tabs__item:nth-of-type(1) .um-tabs__radio:checked) .um-tabs__panel:nth-of-type(1),
+.um-tabs:has(.um-tabs__item:nth-of-type(2) .um-tabs__radio:checked) .um-tabs__panel:nth-of-type(2),
+.um-tabs:has(.um-tabs__item:nth-of-type(3) .um-tabs__radio:checked) .um-tabs__panel:nth-of-type(3),
+.um-tabs:has(.um-tabs__item:nth-of-type(4) .um-tabs__radio:checked) .um-tabs__panel:nth-of-type(4) {
   display: block;
 }
 
 /* The radio is one pixel wide, so a focus ring drawn on the radio itself
    would never be seen. The ring is moved onto the tab it belongs to. */
-.um-tabs__radio:nth-of-type(1):focus-visible ~ .um-tabs__header .um-tabs__item:nth-of-type(1),
-.um-tabs__radio:nth-of-type(2):focus-visible ~ .um-tabs__header .um-tabs__item:nth-of-type(2),
-.um-tabs__radio:nth-of-type(3):focus-visible ~ .um-tabs__header .um-tabs__item:nth-of-type(3),
-.um-tabs__radio:nth-of-type(4):focus-visible ~ .um-tabs__header .um-tabs__item:nth-of-type(4) {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+.um-tabs__item:has(.um-tabs__radio:focus-visible) {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -167,6 +166,23 @@
 .um-tabs.um-tabs--bottom .um-tabs__indicator {
   bottom: auto;
   top: 0;
+}
+
+/* Tabs that cannot be picked. The radios carry the real disabled attribute,
+   so the browser refuses to select them and takes them out of the tab order;
+   the class is what paints the disabled treatment, the way every other
+   disabled control dims. */
+.um-tabs.um-tabs--disabled .um-tabs__item {
+  color: var(--um-text-disabled);
+  cursor: not-allowed;
+}
+
+/* The panel is a scroll box the reader can move through with the keyboard.
+   The ring goes inside it, because an outside ring would be cut off by the
+   tab bar above it. */
+.um-tabs__panel:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: calc(-1 * var(--um-focus-ring-width));
 }
 
 /* ============================================================================

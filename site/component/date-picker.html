@@ -247,6 +247,8 @@
       <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The height of the field.</td></tr>
       <tr><td><span class="api__name"><code>model-value</code></span></td><td><code>string</code></td><td>—</td><td>The date in the field, bound with v-model in Vue. Leave it out and the `value` prop is the date; bind it and the field answers to the binding.</td></tr>
       <tr><td><span class="api__name"><code>readonly</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Keeps the date visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures.</td></tr>
+      <tr><td><span class="api__name"><code>editable</code></span></td><td><code>boolean</code></td><td><code>true</code></td><td>Whether the date can be typed in. It is the input's own readonly attribute: an editable field carries none, and a field that is not editable carries the attribute and the browser refuses the edit. This is Element Plus's name for the same thing; either one of them says it.</td></tr>
+      <tr><td><span class="api__name"><code>placeholder</code></span></td><td><code>string</code></td><td>—</td><td>The text that stands in for the date. It is the input's own placeholder attribute — the browser decides whether the field shows it, and a date field usually shows its own segments instead.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>
@@ -254,6 +256,7 @@
       <thead><tr><th>Name</th><th>Description</th></tr></thead>
       <tbody>
       <tr><td><span class="api__name"><code>icon</code></span></td><td>The calendar glyph. It is decorative and drawn by the library, so it takes no text of its own.</td></tr>
+      <tr><td><span class="api__name"><code>range-separator</code></span></td><td>The mark between the two dates of a range. The rule steps aside for it, so the host's own mark is what is read between the two dates.</td></tr>
       </tbody>
     </table>
       <h2>Events</h2>

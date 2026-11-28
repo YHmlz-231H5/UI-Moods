@@ -183,6 +183,12 @@ function normaliseSelector(s) {
   return s
     .replace(/\s+/g, " ")
     .replace(/\s*([>+~,])\s*/g, "$1")
+    // A selector written across lines keeps its line breaks inside the
+    // brackets: `:not(\n  .a,\n  .b\n)` is the same selector as `:not(.a,.b)`,
+    // and the browser writes the second one. Whitespace just inside a
+    // bracket never carries meaning, so it goes.
+    .replace(/\(\s+/g, "(")
+    .replace(/\s+\)/g, ")")
     // The browser writes `even` and `odd` as the numbers they stand for.
     .replace(/:nth-(child|last-child|of-type|last-of-type)\(even\)/g, ":nth-$1(2n)")
     .replace(/:nth-(child|last-child|of-type|last-of-type)\(odd\)/g, ":nth-$1(2n+1)")

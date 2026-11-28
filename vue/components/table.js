@@ -19,6 +19,9 @@ const VARIANTS = ["striped", "bordered"];
 /** The sizes that need a modifier class; the middle one is the base class. */
 const SIZES = ["sm", "lg"];
 
+/** The extra columns the stylesheet paints. */
+const TYPES = ["selection", "index", "expand"];
+
 export const UMTable = defineComponent({
   name: "UMTable",
   example: "table",
@@ -31,6 +34,11 @@ export const UMTable = defineComponent({
     showHeader: { type: Boolean, default: true },
     highlightCurrentRow: { type: Boolean, default: false },
     showSummary: { type: Boolean, default: false },
+    align: { type: String, default: "start" },
+    fit: { type: Boolean, default: false },
+    type: { type: String, default: "" },
+    defaultExpandAll: { type: Boolean, default: false },
+    scrollbarAlwaysOn: { type: Boolean, default: false },
   },
   setup(props, { slots }) {
     return () => {
@@ -38,7 +46,11 @@ export const UMTable = defineComponent({
       const rows = slots.default ? slots.default() : [];
       const columns = Math.max(headers.length, 1);
 
-      const body = rows.length ? [...rows] : [emptyRow(props, slots, columns)];
+      // Every record may open up to something. The area under it is in the
+      // markup either way — the table decides whether it is drawn.
+      const body = rows.length
+        ? rows.flatMap((row, index) => [row, expandArea(slots, columns, index)])
+        : [emptyRow(props, slots, columns), expandArea(slots, columns, 0)];
       if (slots.append) body.push(appendRow(slots, columns));
 
       return h("div", { class: "um-table__wrapper" }, [
@@ -78,8 +90,30 @@ function modifiers(props) {
   if (!props.showHeader) classes.push("um-table--no-header");
   if (props.highlightCurrentRow) classes.push("um-table--highlight-current");
   if (!props.showSummary) classes.push("um-table--no-summary");
+  if (props.align === "center") classes.push("um-table--align-center");
+  if (props.align === "end") classes.push("um-table--align-end");
+  if (props.fit) classes.push("um-table--fit");
+  if (TYPES.includes(props.type)) classes.push(`um-table--type-${props.type}`);
+  if (props.defaultExpandAll) classes.push("um-table--default-expand-all");
+  if (props.scrollbarAlwaysOn) classes.push("um-table--scrollbar-always-on");
 
   return classes;
+}
+
+/**
+ * The area under a record that the record opens up to.
+ *
+ * It is not drawn until the record above it is marked as open, or until the
+ * table is told to open them all.
+ */
+function expandArea(slots, columns, index) {
+  return h("tr", { class: "um-table__expand" }, [
+    h(
+      "td",
+      { class: "um-table__cell", colspan: String(columns) },
+      slots.expand ? slots.expand({ row: index }) : [],
+    ),
+  ]);
 }
 
 /** The row that says there is nothing to show. */

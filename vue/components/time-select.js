@@ -46,13 +46,21 @@ export const UMTimeSelect = defineComponent({
     variant: { type: String, default: "bordered" },
     size: { type: String, default: "md" },
     modelValue: { type: String, default: undefined },
+    clearable: { type: Boolean, default: false },
+    effect: { type: String, default: "light" },
+    placeholder: { type: String, default: "" },
   },
-  emits: ["change", "update:modelValue"],
+  emits: ["change", "update:modelValue", "clear"],
   setup(props, { emit }) {
     return () => {
       const variant = props.variant === "filled" ? "filled" : "bordered";
-      const options = timeOptions(props.start, props.end, props.step);
+      const times = timeOptions(props.start, props.end, props.step);
       const chosen = modelValue(props, props.value);
+      // The placeholder is the first entry in the list, so it stands in for a
+      // choice while nothing is chosen. Without one the list starts with the
+      // first time, which is what the platform does on its own.
+      const placeholder = props.placeholder || "";
+      const picked = times.includes(chosen) ? chosen : placeholder ? "" : times[0];
 
       return h(
         "div",
@@ -65,6 +73,9 @@ export const UMTimeSelect = defineComponent({
               : props.size === "lg"
                 ? "um-time-select--lg"
                 : null,
+            props.clearable ? "um-time-select--clearable" : null,
+            props.effect === "dark" ? "um-time-select--effect-dark" : null,
+            props.effect === "plain" ? "um-time-select--effect-plain" : null,
           ],
         },
         [
@@ -79,19 +90,46 @@ export const UMTimeSelect = defineComponent({
                 emit("change", e);
               },
             },
-            options.map((time) =>
+            [
               h(
                 "option",
                 {
-                  class: "um-time-select__option",
-                  value: time,
-                  selected: time === chosen,
+                  class: "um-time-select__placeholder",
+                  value: "",
+                  selected: picked === "",
                 },
-                time,
+                placeholder,
               ),
-            ),
+              ...times.map((time) =>
+                h(
+                  "option",
+                  {
+                    class: "um-time-select__option",
+                    value: time,
+                    selected: time === picked,
+                  },
+                  time,
+                ),
+              ),
+            ],
           ),
           h("span", { class: "um-time-select__arrow", "aria-hidden": "true" }),
+          // The clear mark is in the markup either way: the field says
+          // whether it is there.
+          h(
+            "button",
+            {
+              class: "um-time-select__clear",
+              type: "button",
+              "aria-label": "Clear the time",
+              onClick: () => {
+                // The choice is gone, so the field says so: the value that
+                // follows is the empty one.
+                emit("clear");
+                emit("update:modelValue", "");
+              },
+            },
+          ),
         ],
       );
     };

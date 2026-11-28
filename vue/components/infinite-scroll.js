@@ -83,6 +83,7 @@ export const UMInfiniteScroll = defineComponent({
             "div",
             {
               class: "um-infinite-scroll__scroller",
+      "aria-label": "Scrollable feed",
               tabindex: "0",
               style: { height: props.height },
             },

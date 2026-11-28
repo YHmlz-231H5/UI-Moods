@@ -102,6 +102,6 @@
 /* The ring goes inside the button, the way the ring on a button in a row goes
    inside it: an outside ring would be cut off by the tag. */
 .um-tag__close:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: calc(-1 * var(--um-focus-ring-width));
 }

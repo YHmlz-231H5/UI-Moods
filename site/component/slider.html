@@ -156,9 +156,9 @@
         <div class="example__title">A range · 取值范围</div>
         <div class="example__desc">The bounds and the step are plain attributes. Whatever the browser shows for the value — the tooltip on some platforms — is not painted by the library, because that popup belongs to the platform.</div>
         <div class="example__demo">
-<input class="um-slider" type="range" min="0" max="100" step="5" value="60" />
+<input class="um-slider" type="range" aria-label="Value" min="0" max="100" step="5" value="60" />
         </div>
-        <pre class="example__code">&lt;input class=&quot;um-slider&quot; type=&quot;range&quot; min=&quot;0&quot; max=&quot;100&quot; step=&quot;5&quot; value=&quot;60&quot; /&gt;</pre>
+        <pre class="example__code">&lt;input class=&quot;um-slider&quot; type=&quot;range&quot; aria-label=&quot;Value&quot; min=&quot;0&quot; max=&quot;100&quot; step=&quot;5&quot; value=&quot;60&quot; /&gt;</pre>
       </div>
 <div class="example">
         <div class="example__title">Disabled · 禁用</div>
@@ -173,8 +173,12 @@
       <thead><tr><th>Class</th><th>Meaning</th></tr></thead>
       <tbody>
       <tr><td><code>um-slider</code></td><td>The base class. Every instance carries it.</td></tr>
+      <tr><td><code>um-slider--sm</code></td><td>Size: sm</td></tr>
+      <tr><td><code>um-slider--md</code></td><td>Size: md</td></tr>
+      <tr><td><code>um-slider--lg</code></td><td>Size: lg</td></tr>
       <tr><td><code>:disabled</code></td><td>Disabled</td></tr>
       <tr><td><code>.um-slider--vertical</code></td><td>Vertical</td></tr>
+      <tr><td><code>.um-slider--show-stops</code></td><td>Show stops</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -187,6 +191,8 @@
       <tr><td><span class="api__name"><code>value</code></span></td><td><code>number</code></td><td>—</td><td>The current value. It is written to the value attribute, so it round-trips through a form.</td></tr>
       <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes the slider inert. It uses the real disabled attribute, so it leaves the tab order.</td></tr>
       <tr><td><span class="api__name"><code>vertical</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Stands the slider on its end, so the value runs from the bottom up.</td></tr>
+      <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>How big the thumb is and how thick the track is. The middle size is the base class on its own; the small size adds um-slider--sm and the large size adds um-slider--lg.</td></tr>
+      <tr><td><span class="api__name"><code>show-stops</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the track carries the tick marks that say there is a scale along it. They are evenly spaced, so they say that there is a scale rather than where it breaks. It adds um-slider--show-stops.</td></tr>
       <tr><td><span class="api__name"><code>model-value</code></span></td><td><code>number</code></td><td>—</td><td>The slider's own value, bound with v-model in Vue. Leave it out and the `value` prop is the value; bind it and the slider answers to the binding.</td></tr>
       </tbody>
     </table>

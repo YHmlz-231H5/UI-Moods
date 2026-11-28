@@ -84,9 +84,16 @@ export const UMUpload = defineComponent({
               ? rows
               : [
                   h("li", { class: ["um-upload__item", state ? state.class : null] }, [
-                    h("span", { class: "um-upload__name" }),
-                    h("span", { class: "um-upload__size" }),
-                    h("span", { class: "um-upload__status" }, state ? state.text : ""),
+                    // The content of the row is the caller's: the default row
+                    // says the name, the size and the status, and the file
+                    // slot says whatever the caller wants instead.
+                    slots.file
+                      ? slots.file({ status: state ? state.text : "" })
+                      : [
+                          h("span", { class: "um-upload__name" }),
+                          h("span", { class: "um-upload__size" }),
+                          h("span", { class: "um-upload__status" }, state ? state.text : ""),
+                        ],
                   ]),
                 ],
           ),

@@ -28,7 +28,9 @@
     { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The checkbox is the focused control, so the ring is drawn around the trigger it belongs to." },
     { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ".um-popconfirm--disabled", "note": "The bubble is not asked for, so it never opens." },
     { "id": "not-enterable", "name": "Not enterable", "nameZh": "不可进入", "selector": ".um-popconfirm--not-enterable", "note": "The pointer cannot enter the bubble: the words in it cannot be selected and the pointer passes straight through it." },
-    { "id": "no-arrow", "name": "No arrow", "nameZh": "无箭头", "selector": ".um-popconfirm--no-arrow", "note": "The point that says which way the bubble is facing is not drawn." }
+    { "id": "no-arrow", "name": "No arrow", "nameZh": "无箭头", "selector": ".um-popconfirm--no-arrow", "note": "The point that says which way the bubble is facing is not drawn." },
+    { "id": "effect-dark", "name": "Dark effect", "nameZh": "深色", "selector": ".um-popconfirm--dark", "note": "The bubble is filled with the mood's strong text colour and the words on it take the plain surface, the way a dark tag is filled." },
+    { "id": "hide-icon", "name": "No icon", "nameZh": "无图标", "selector": ".um-popconfirm--hide-icon", "note": "The mark beside the question is taken away. The library draws no question mark of its own, so the mark is the host's — and the class takes it away again." }
   ],
   "parts": [
     { "id": "toggle", "name": "Toggle", "nameZh": "开关", "note": "The checkbox that holds the open state. It is invisible and one pixel wide; the trigger label is what the reader sees." },
@@ -36,6 +38,7 @@
     { "id": "panel", "name": "Bubble", "nameZh": "气泡", "note": "The floating bubble. It sits on the overlay surface and carries its own shadow, because it is above the page rather than on it." },
     { "id": "arrow", "name": "Arrow", "nameZh": "箭头", "note": "The pointer that ties the bubble to its trigger. It is a square turned on its corner, drawn from two borders." },
     { "id": "message", "name": "Question", "nameZh": "问题", "note": "The sentence the reader is being asked." },
+    { "id": "icon", "name": "Mark", "nameZh": "标记", "note": "The mark beside the question. The library draws no question mark of its own, so the slot is empty until the host fills it." },
     { "id": "actions", "name": "Actions", "nameZh": "操作", "note": "The row the two buttons sit in. It is right-aligned, so the answer the reader is pushed towards is last." },
     { "id": "confirm", "name": "Confirm", "nameZh": "确认", "note": "The button that goes ahead. It is a real button, filled with the brand colour." },
     { "id": "cancel", "name": "Cancel", "nameZh": "取消", "note": "The button that backs out. It is a real button, in the neutral outline." }
@@ -50,6 +53,8 @@
     { "name": "enterable", "type": "boolean", "default": "true", "description": "Whether the pointer can enter the bubble. A bubble that cannot be entered lets the pointer through it, so the words in it cannot be selected. It adds um-popconfirm--not-enterable.", "descriptionZh": "指针能否进入气泡。不可进入的气泡会让指针穿过去,里面的字也就选不中。它加上 um-popconfirm--not-enterable。" },
     { "name": "visible", "type": "boolean", "default": "false", "description": "Whether the bubble is open. It is the checked attribute on the trigger's own checkbox.", "descriptionZh": "气泡是否展开。就是触发器那个复选框上的 checked 属性。" },
     { "name": "show-arrow", "type": "boolean", "default": "true", "description": "Whether the bubble carries the point that says which way it faces. A bubble without one adds um-popconfirm--no-arrow.", "descriptionZh": "气泡是否带着那个指方向的尖角。没有尖角的气泡加上 um-popconfirm--no-arrow。" },
+    { "name": "effect", "type": "enum", "values": ["light", "dark"], "default": "light", "description": "How the bubble is filled. The light run is the base class on its own — the bubble sits on the overlay surface; the dark run fills it with the mood's strong text colour, puts the words on it in the plain surface and adds um-popconfirm--dark.", "descriptionZh": "气泡是怎么填的。浅色是只写基类 —— 气泡压在浮层底色上;深色用这套 mood 的强文字色填满它,字用平面的底色,并加上 um-popconfirm--dark。" },
+    { "name": "hide-icon", "type": "boolean", "default": "false", "description": "Whether the mark beside the question is taken away. It adds um-popconfirm--hide-icon. The library draws no question mark of its own, so the mark is the host's and this class is what says it is not wanted.", "descriptionZh": "问题旁边的标记是否被拿掉。它加上 um-popconfirm--hide-icon。库自己不画问号,所以那个标记是宿主的,这个类就是说不想要它。" },
     { "name": "confirm-button-type", "type": "enum", "values": ["default", "primary", "success", "warning", "danger", "info"], "default": "default", "description": "The type of the answer that goes ahead. The default type is the brand colour; the other five are a fill of their own.", "descriptionZh": "那个表示继续的回答的类型。default 是品牌色;另外五个各有自己的填充色。" },
     { "name": "cancel-button-type", "type": "enum", "values": ["default", "primary", "success", "warning", "danger", "info"], "default": "default", "description": "The type of the answer that backs out. The default type is the neutral shape, so the eye goes to the answer that is being asked for; the other five are a fill of their own.", "descriptionZh": "那个表示不的回答的类型。default 是中性的形状,好让眼睛落在被问到的那个回答上;另外五个各有自己的填充色。" }
   ],
@@ -57,7 +62,8 @@
     { "name": "default", "description": "The label of the trigger.", "descriptionZh": "触发器上的文字。" },
     { "name": "message", "description": "The question the bubble asks.", "descriptionZh": "气泡问的那句话。" },
     { "name": "reference", "description": "The element that opens the bubble. This is Element Plus's name for the trigger; either one of them fills it.", "descriptionZh": "打开气泡的元素。这是 Element Plus 对触发器的叫法,两个都能填满它。" },
-    { "name": "actions", "description": "The answers at the bottom of the bubble. It replaces the two buttons with the host's own.", "descriptionZh": "气泡底部的回答。它会用宿主自己的内容取代那两个按钮。" }
+    { "name": "actions", "description": "The answers at the bottom of the bubble. It replaces the two buttons with the host's own.", "descriptionZh": "气泡底部的回答。它会用宿主自己的内容取代那两个按钮。" },
+    { "name": "icon", "description": "The mark beside the question. The library draws no question mark of its own, so the slot is empty until the host fills it.", "descriptionZh": "问题旁边的标记。库自己不画问号,所以插槽在宿主放东西进来之前是空的。" }
   ],
   "events": [],
   "a11y": {

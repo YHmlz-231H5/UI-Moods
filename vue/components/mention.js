@@ -9,8 +9,8 @@
 // anybody has fed it anything.
 //
 // It answers to `v-model` as well as to `value`: a host that binds the field
-// gets its own text back, and a host that writes `:value` gets exactly what it
-// got before.
+// gets its own text back, and a host that writes `:value` gets exactly what
+// it got before.
 
 import { defineComponent, h } from "vue";
 import { modelValue, eventValue } from "../lib/model.mjs";
@@ -30,8 +30,14 @@ export const UMMention = defineComponent({
     modelValue: { type: String, default: undefined },
     disabled: { type: Boolean, default: false },
     readonly: { type: Boolean, default: false },
+    clearable: { type: Boolean, default: false },
+    loading: { type: Boolean, default: false },
+    prefix: { type: String, default: "@" },
+    showArrow: { type: Boolean, default: false },
+    type: { type: String, default: "text" },
+    form: { type: String, default: "" },
   },
-  emits: ["input", "update:modelValue"],
+  emits: ["input", "update:modelValue", "search", "select", "clear"],
   setup(props, { slots, emit }) {
     return () =>
       h(
@@ -41,25 +47,51 @@ export const UMMention = defineComponent({
             "um-mention",
             VARIANTS.includes(props.variant) ? `um-mention--${props.variant}` : "um-mention--bordered",
             sizeClass(props.size),
+            props.clearable ? "um-mention--clearable" : null,
+            props.loading ? "um-mention--loading" : null,
+            props.showArrow ? "um-mention--show-arrow" : null,
           ],
         },
         [
           h("div", { class: "um-mention__field" }, [
+            h("span", { class: "um-mention__prefix" }, props.prefix),
             h("input", {
               class: "um-mention__input",
-              type: "text",
+              type: props.type || "text",
               value: modelValue(props, props.value) || undefined,
               placeholder: props.placeholder || undefined,
               disabled: props.disabled,
               readonly: props.readonly,
+              form: props.form || undefined,
               "aria-label": props.label || undefined,
               onInput: (e) => {
-                emit("update:modelValue", eventValue(e));
+                const next = eventValue(e);
+                emit("update:modelValue", next);
                 emit("input", e);
+                // The host is looking for names: the mention gives that
+                // moment its own name.
+                emit("search", next);
               },
             }),
+            h(
+              "span",
+              { class: "um-mention__loading" },
+              slots.loading ? slots.loading() : [],
+            ),
+            h("button", {
+              class: "um-mention__clear",
+              type: "button",
+              "aria-label": "Clear",
+              onClick: () => {
+                emit("update:modelValue", "");
+                emit("clear");
+              },
+            }),
+            h("span", { class: "um-mention__arrow" }),
           ]),
-          h("ul", { class: "um-mention__list" }, slots.default ? slots.default() : fallbackMentions()),
+          h("div", { class: "um-mention__header" }, slots.header ? slots.header() : []),
+          h("ul", { class: "um-mention__list" }, slots.default ? slots.default() : fallbackMentions(slots.label, emit)),
+          h("div", { class: "um-mention__footer" }, slots.footer ? slots.footer() : []),
         ],
       );
   },
@@ -73,17 +105,25 @@ function sizeClass(size) {
 }
 
 /** The names in the list, when the caller has not written any. */
-function fallbackMentions() {
-  return [mention("ZM", "@Zhao Ming"), mention("LW", "@Li Wei"), mention("CY", "@Chen Yu")];
+function fallbackMentions(labelSlot, emit) {
+  return [mention("ZM", "@Zhao Ming", labelSlot, emit), mention("LW", "@Li Wei", labelSlot, emit), mention("CY", "@Chen Yu", labelSlot, emit)];
 }
 
 /** One name in the list. */
-function mention(initials, name) {
+function mention(initials, name, labelSlot, emit) {
   return h("li", [
-    h("button", { class: "um-mention__item", type: "button" }, [
-      // The initials repeat the name, so the disc is hidden from the reader.
-      h("span", { class: "um-mention__avatar", "aria-hidden": "true" }, initials),
-      h("span", { class: "um-mention__name" }, name),
-    ]),
+    h(
+      "button",
+      {
+        class: "um-mention__item",
+        type: "button",
+        onClick: () => emit("select", name),
+      },
+      [
+        // The initials repeat the name, so the disc is hidden from the reader.
+        h("span", { class: "um-mention__avatar", "aria-hidden": "true" }, initials),
+        h("span", { class: "um-mention__name" }, labelSlot ? labelSlot({ name }) : name),
+      ],
+    ),
   ]);
 }

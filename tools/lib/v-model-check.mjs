@@ -199,7 +199,14 @@ export async function checkVModel(root) {
       "onUpdate:modelValue": (v) => emitted.push(["update:modelValue", v]),
       onChange: (e) => emitted.push(["change", e]),
     });
-    const input = find(root, (el) => el.type === "input");
+    // The first input is not always the control that carries the value: a
+    // list that filters itself puts a search field above its options, and
+    // that field is not the one the binding follows. So the control the test
+    // presses is the first input that publishes a change.
+    const input = find(
+      root,
+      (el) => el.type === "input" && typeof el.props?.onChange === "function",
+    );
     if (!input) {
       emitted.push(["no-input"]);
       return emitted;
@@ -293,7 +300,12 @@ export async function checkVModel(root) {
       onInput: (e) => emitted.push(["input", e]),
       onChange: (e) => emitted.push(["change", e]),
     });
-    const input = find(root, (el) => el.type === "input");
+    // The same rule as `press`: the field that carries the value is the one
+    // that publishes, not simply the first field in the tree.
+    const input = find(
+      root,
+      (el) => el.type === "input" && typeof el.props?.onInput === "function",
+    );
     if (!input) {
       emitted.push(["no-input"]);
       return emitted;

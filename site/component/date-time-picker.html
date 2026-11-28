@@ -157,11 +157,11 @@
         <div class="example__desc">One date and one time in one field. The browser's own indicator is the only affordance: a field that holds both halves has no single drawn mark to stand for it.</div>
         <div class="example__demo">
 <div class="um-date-time-picker um-date-time-picker--single">
-  <input class="um-date-time-picker__input" type="datetime-local" id="um-date-time-picker-start" name="um-date-time-picker-start" value="2026-03-14T09:30" step="60" />
+  <input class="um-date-time-picker__input" type="datetime-local" id="um-date-time-picker-start" aria-label="Date and time" name="um-date-time-picker-start" value="2026-03-14T09:30" step="60" />
 </div>
         </div>
         <pre class="example__code">&lt;div class=&quot;um-date-time-picker um-date-time-picker--single&quot;&gt;
-  &lt;input class=&quot;um-date-time-picker__input&quot; type=&quot;datetime-local&quot; id=&quot;um-date-time-picker-start&quot; name=&quot;um-date-time-picker-start&quot; value=&quot;2026-03-14T09:30&quot; step=&quot;60&quot; /&gt;
+  &lt;input class=&quot;um-date-time-picker__input&quot; type=&quot;datetime-local&quot; id=&quot;um-date-time-picker-start&quot; aria-label=&quot;Date and time&quot; name=&quot;um-date-time-picker-start&quot; value=&quot;2026-03-14T09:30&quot; step=&quot;60&quot; /&gt;
 &lt;/div&gt;</pre>
       </div>
 <div class="example">
@@ -169,13 +169,13 @@
         <div class="example__desc">Two date-times in one box, with a rule between them. The markup carries a second input and the separator.</div>
         <div class="example__demo">
 <div class="um-date-time-picker um-date-time-picker--range">
-  <input class="um-date-time-picker__input" type="datetime-local" id="um-date-time-picker-from" name="um-date-time-picker-from" value="2026-03-01T09:00" step="60" />
+  <input class="um-date-time-picker__input" type="datetime-local" id="um-date-time-picker-from" aria-label="Start of the window" name="um-date-time-picker-from" value="2026-03-01T09:00" step="60" />
   <span class="um-date-time-picker__separator" aria-hidden="true"></span>
   <input class="um-date-time-picker__input" type="datetime-local" name="um-date-time-picker-to" value="2026-03-31T17:30" step="60" aria-label="End of the window" />
 </div>
         </div>
         <pre class="example__code">&lt;div class=&quot;um-date-time-picker um-date-time-picker--range&quot;&gt;
-  &lt;input class=&quot;um-date-time-picker__input&quot; type=&quot;datetime-local&quot; id=&quot;um-date-time-picker-from&quot; name=&quot;um-date-time-picker-from&quot; value=&quot;2026-03-01T09:00&quot; step=&quot;60&quot; /&gt;
+  &lt;input class=&quot;um-date-time-picker__input&quot; type=&quot;datetime-local&quot; id=&quot;um-date-time-picker-from&quot; aria-label=&quot;Start of the window&quot; name=&quot;um-date-time-picker-from&quot; value=&quot;2026-03-01T09:00&quot; step=&quot;60&quot; /&gt;
   &lt;span class=&quot;um-date-time-picker__separator&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
   &lt;input class=&quot;um-date-time-picker__input&quot; type=&quot;datetime-local&quot; name=&quot;um-date-time-picker-to&quot; value=&quot;2026-03-31T17:30&quot; step=&quot;60&quot; aria-label=&quot;End of the window&quot; /&gt;
 &lt;/div&gt;</pre>
@@ -185,11 +185,11 @@
         <div class="example__desc">A field with a window the browser enforces. A moment outside the window turns the border to the danger colour — but only after the reader has been there, so an empty field is not red on arrival.</div>
         <div class="example__demo">
 <div class="um-date-time-picker">
-  <input class="um-date-time-picker__input" type="datetime-local" id="um-date-time-picker-window" name="um-date-time-picker-window" value="2026-04-01T18:30" min="2026-03-01T09:00" max="2026-03-31T17:00" step="60" required />
+  <input class="um-date-time-picker__input" type="datetime-local" id="um-date-time-picker-window" aria-label="Date and time" name="um-date-time-picker-window" value="2026-04-01T18:30" min="2026-03-01T09:00" max="2026-03-31T17:00" step="60" required />
 </div>
         </div>
         <pre class="example__code">&lt;div class=&quot;um-date-time-picker&quot;&gt;
-  &lt;input class=&quot;um-date-time-picker__input&quot; type=&quot;datetime-local&quot; id=&quot;um-date-time-picker-window&quot; name=&quot;um-date-time-picker-window&quot; value=&quot;2026-04-01T18:30&quot; min=&quot;2026-03-01T09:00&quot; max=&quot;2026-03-31T17:00&quot; step=&quot;60&quot; required /&gt;
+  &lt;input class=&quot;um-date-time-picker__input&quot; type=&quot;datetime-local&quot; id=&quot;um-date-time-picker-window&quot; aria-label=&quot;Date and time&quot; name=&quot;um-date-time-picker-window&quot; value=&quot;2026-04-01T18:30&quot; min=&quot;2026-03-01T09:00&quot; max=&quot;2026-03-31T17:00&quot; step=&quot;60&quot; required /&gt;
 &lt;/div&gt;</pre>
       </div>
       <h2>Classes</h2>
@@ -223,9 +223,17 @@
       <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The height of the field.</td></tr>
       <tr><td><span class="api__name"><code>model-value</code></span></td><td><code>string</code></td><td>—</td><td>The date and time in the field, bound with v-model in Vue. Leave it out and the `value` prop is the value; bind it and the field answers to the binding.</td></tr>
       <tr><td><span class="api__name"><code>readonly</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Keeps the value visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures.</td></tr>
+      <tr><td><span class="api__name"><code>editable</code></span></td><td><code>boolean</code></td><td><code>true</code></td><td>Whether the value can be typed in. It is the input's own readonly attribute: an editable field carries none, and a field that is not editable carries the attribute and the browser refuses the edit. This is Element Plus's name for the same thing; either one of them says it.</td></tr>
+      <tr><td><span class="api__name"><code>placeholder</code></span></td><td><code>string</code></td><td>—</td><td>The text that stands in for the value. It is the input's own placeholder attribute — the browser decides whether the field shows it, and a date-time field usually shows its own segments instead.</td></tr>
       </tbody>
     </table>
-
+      <h2>Slots</h2>
+<table class="api">
+      <thead><tr><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td><span class="api__name"><code>range-separator</code></span></td><td>The mark between the two date-times of a range. The rule steps aside for it, so the host's own mark is what is read between the two moments.</td></tr>
+      </tbody>
+    </table>
       <h2>Events</h2>
 <table class="api">
       <thead><tr><th>Name</th><th>Description</th></tr></thead>

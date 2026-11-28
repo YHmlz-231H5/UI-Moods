@@ -9,9 +9,14 @@
    The fill is the brand colour and the label is the on-colour derived for
    it, so the two are a contracted pair in every mood. */
 .um-backtop {
+  /* The corner the button sits in is a place on the screen, not a side of
+     the text: a back-to-top button stays in the physical right-hand corner
+     whatever the reader's direction is, so the offset is written physically.
+     The `inset` shorthand is the physical one — top, right, bottom, left. */
+  --um-backtop-right: var(--um-space-lg);
+
   position: fixed;
-  inset-inline-end: var(--um-space-lg);
-  bottom: var(--um-space-lg);
+  inset: auto var(--um-backtop-right) var(--um-space-lg) auto;
   z-index: 2;
   display: inline-flex;
   align-items: center;
@@ -36,7 +41,7 @@
 /* The ring goes on the link, because the link is what the reader sees of
    the control. */
 .um-backtop:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 

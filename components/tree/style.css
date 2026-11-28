@@ -38,7 +38,7 @@
 /* The ring goes inside the label, the way the ring on a button in a row goes
    inside it: an outside ring would be cut off by the next branch. */
 .um-tree__label:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: calc(-1 * var(--um-focus-ring-width));
 }
 
@@ -91,4 +91,96 @@
    the tree says whether that counts. */
 .um-tree--highlight-current .um-tree__node--current > .um-tree__label {
   background: var(--um-fill-light);
+}
+
+/* The box in front of a branch. The tick box is a real input and is hidden by
+   size rather than removed, so it keeps its place in the tab order; the drawn
+   square is its label, so clicking the square ticks the box. */
+.um-tree__checkbox {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.um-tree__box {
+  position: relative;
+  flex: none;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--um-height-sm);
+  height: var(--um-height-sm);
+  border: var(--um-border-width) var(--um-border-style) var(--um-shape-muted);
+  border-radius: var(--um-radius-small);
+  background: var(--um-fill-blank);
+  cursor: pointer;
+}
+
+.um-tree--show-checkbox .um-tree__box {
+  display: inline-flex;
+}
+
+/* The tick mark is drawn with two borders — a shape, not a glyph. */
+.um-tree__box::after {
+  content: "";
+  width: 4px;
+  height: 8px;
+  margin-top: -2px;
+  border: solid var(--um-color-primary-on);
+  border-width: 0;
+  border-inline-end-width: 2px;
+  border-bottom-width: 2px;
+  transform: rotate(calc(45deg * var(--um-mirror))) scale(0);
+  transition: transform var(--um-motion);
+}
+
+.um-tree__box:has(.um-tree__checkbox:checked) {
+  background: var(--um-color-primary);
+  border-color: var(--um-color-primary);
+}
+
+.um-tree__box:has(.um-tree__checkbox:checked)::after {
+  transform: rotate(calc(45deg * var(--um-mirror))) scale(1);
+}
+
+.um-tree__box:has(.um-tree__checkbox:focus-visible) {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+/* The link between a branch and the branch under it: a branch whose child is
+   ticked takes the brand colour on its own box, so the tree shows that the
+   two belong together. With the strict rule each box stands on its own and
+   the link is not drawn. */
+.um-tree__node:has(> .um-tree__children .um-tree__checkbox:checked) > .um-tree__label .um-tree__box {
+  border-color: var(--um-color-primary);
+}
+
+.um-tree--check-strictly .um-tree__node:has(> .um-tree__children .um-tree__checkbox:checked) > .um-tree__label .um-tree__box {
+  border-color: var(--um-shape-muted);
+}
+
+/* The accordion: only the first open branch of a level shows what it holds,
+   so the level reads as one branch at a time. The mark of the branches that
+   are pushed out turns back, so the branch reads as closed as well. */
+.um-tree--accordion .um-tree__node[open] ~ .um-tree__node[open] > .um-tree__children {
+  display: none;
+}
+
+.um-tree--accordion .um-tree__node[open] ~ .um-tree__node[open] > .um-tree__label .um-tree__arrow {
+  transform: rotate(calc(45deg * var(--um-mirror)));
+}
+
+/* The parent of the branch the reader is on shows what it holds, whether it
+   is open or not: the branch knows it holds the current one because the
+   current one is inside it, and :has() is the only way CSS can ask. */
+.um-tree--auto-expand-parent .um-tree__node:has(> .um-tree__children .um-tree__node--current) > .um-tree__children {
+  display: block;
+}
+
+/* Every level is open: the level below a branch is drawn whether the branch
+   says it is open or not. */
+.um-tree--default-expand-all .um-tree__children {
+  display: block;
 }

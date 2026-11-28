@@ -26,7 +26,7 @@
   font-family: var(--um-font-family);
   font-size: var(--um-font-size-body);
   line-height: 1.5;
-  transition: border-color var(--um-motion), box-shadow var(--um-motion);
+  transition: border-color var(--um-motion), box-shadow: var(--um-motion);
 }
 
 .um-input::placeholder,
@@ -41,7 +41,7 @@
 .um-select:focus {
   border-color: var(--um-color-primary);
   outline: none;
-  box-shadow: 0 0 0 var(--um-focus-ring-width) var(--um-color-primary-soft-4);
+  box-shadow: 0 0 0 var(--um-focus-ring-width) var(--um-focus-ring);
 }
 
 .um-textarea { min-height: calc(var(--um-height-md) * 3); padding: var(--um-space-xs); resize: vertical; }
@@ -58,6 +58,14 @@
 }
 .um-select option { background: var(--um-bg-overlay); color: var(--um-text-primary); }
 
+/* The arrow is part of the control and is drawn by default, because a select
+   without one does not say it opens a list. The run that takes it away gives
+   the text the room the arrow was in. */
+.um-select.um-input--no-arrow {
+  background-image: none;
+  padding-inline-end: var(--um-space-xs);
+}
+
 /* The size modifier reaches all three controls: the class is the same one
    whichever member of the family it is written on. The medium size is the
    base class on its own, so it needs no rule. */
@@ -72,6 +80,28 @@
 /* The textarea keeps its three rows, so it is sized by its own rule. */
 .um-textarea.um-input--sm { min-height: calc(var(--um-height-sm) * 3); }
 .um-textarea.um-input--lg { min-height: calc(var(--um-height-lg) * 3); }
+
+/* The filled run puts the control on a recessed surface and drops its frame,
+   so it reads as a well rather than as a box. The light run is the base class
+   on its own, so it needs no rule.
+
+   The hover rule above is written for a control in a frame, so the filled run
+   says again that it has no frame to light up. */
+.um-input--filled {
+  border-color: transparent;
+  background: var(--um-fill-light);
+}
+.um-input--filled:hover:not(:disabled) { border-color: transparent; }
+
+/* The autosize run lets the textarea grow with the text in it. It is the
+   browser's own field-sizing: the browser measures the text and the field
+   follows, so nothing in the library has to. The field keeps its three rows
+   as a floor, and the reader cannot drag it taller than its own text. */
+.um-textarea.um-input--autosize {
+  field-sizing: content;
+  height: auto;
+  resize: none;
+}
 
 /* ============================================================================
    Quality hooks

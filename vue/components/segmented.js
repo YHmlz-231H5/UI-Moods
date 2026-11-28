@@ -11,6 +11,7 @@
 // option the wrapper's own props describe.
 
 import { defineComponent, h } from "vue";
+import { modelValue } from "../lib/model.mjs";
 
 export const UMSegmented = defineComponent({
   name: "UMSegmented",
@@ -18,6 +19,7 @@ export const UMSegmented = defineComponent({
   props: {
     name: { type: String, default: "" },
     value: { type: String, default: "" },
+    modelValue: { type: String, default: undefined },
     checked: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
     variant: { type: String, default: "soft" },
@@ -98,10 +100,10 @@ function fallbackOption(props) {
       class: "um-segmented__input",
       type: "radio",
       name: props.name || undefined,
-      value: props.value || undefined,
+      value: modelValue(props, props.value) || undefined,
       checked: props.checked,
       disabled: props.disabled,
     }),
-    h("span", { class: "um-segmented__label" }, props.value),
+    h("span", { class: "um-segmented__label" }, modelValue(props, props.value)),
   ]);
 }

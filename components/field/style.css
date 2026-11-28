@@ -43,3 +43,16 @@
    element that can actually be switched off. */
 .um-field--disabled .um-field__label,
 .um-field--disabled .um-field__message { color: var(--um-text-disabled); }
+
+/* A control that says it is required gets an asterisk after its label. The
+   field reads the requirement off the control itself, so the marker follows
+   the control rather than a second prop of its own — and a field with no
+   required control in it has no asterisk. */
+.um-field:has(:required) .um-field__label::after {
+  content: "*";
+  margin-inline-start: var(--um-space-xs);
+  color: var(--um-color-danger-text);
+}
+
+/* The asterisk can be taken away, for the forms where it is noise. */
+.um-field--hide-required-asterisk:has(:required) .um-field__label::after { content: none; }

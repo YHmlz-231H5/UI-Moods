@@ -25,6 +25,8 @@ export const UMPopconfirm = defineComponent({
     showArrow: { type: Boolean, default: true },
     confirmButtonType: { type: String, default: "default" },
     cancelButtonType: { type: String, default: "default" },
+    effect: { type: String, default: "light" },
+    hideIcon: { type: Boolean, default: false },
   },
   setup(props, { slots }) {
     // The label and the checkbox have to name each other, so the pair needs an
@@ -42,6 +44,9 @@ export const UMPopconfirm = defineComponent({
             props.disabled ? "um-popconfirm--disabled" : null,
             props.enterable ? null : "um-popconfirm--not-enterable",
             props.showArrow ? null : "um-popconfirm--no-arrow",
+            // The light bubble is the base class on its own.
+            props.effect === "dark" ? "um-popconfirm--dark" : null,
+            props.hideIcon ? "um-popconfirm--hide-icon" : null,
           ],
         },
         [
@@ -69,11 +74,22 @@ export const UMPopconfirm = defineComponent({
             },
             [
               h("span", { class: "um-popconfirm__arrow", "aria-hidden": "true" }),
-              h(
-                "div",
-                { class: "um-popconfirm__message" },
+              h("div", { class: "um-popconfirm__message" }, [
+                // The mark beside the question. The library draws no question
+                // mark of its own, so the slot is empty until the host fills
+                // it — and the stylesheet draws the space as a box of its own,
+                // so the hidden attribute would not take it out of the flow.
+                h(
+                  "span",
+                  {
+                    class: "um-popconfirm__icon",
+                    "aria-hidden": "true",
+                    style: slots.icon ? null : { display: "none" },
+                  },
+                  slots.icon ? slots.icon() : [],
+                ),
                 slots.message ? slots.message({ title: props.title }) : props.title,
-              ),
+              ]),
               h("div", { class: "um-popconfirm__actions" }, [
                 slots.actions
                   ? slots.actions()

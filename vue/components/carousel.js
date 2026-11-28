@@ -23,6 +23,7 @@ export const UMCarousel = defineComponent({
     arrow: { type: String, default: "always" },
     loop: { type: Boolean, default: true },
     type: { type: String, default: "default" },
+    indicatorPosition: { type: String, default: "outside" },
   },
   setup(props, { slots }) {
     return () => {
@@ -55,6 +56,9 @@ export const UMCarousel = defineComponent({
                 ? "um-carousel--arrow-hover"
                 : null,
             props.loop ? null : "um-carousel--no-loop",
+            // The caption is the indicator, and the outside run is the base
+            // class on its own.
+            props.indicatorPosition === "none" ? "um-carousel--indicator-none" : null,
           ],
         },
         [

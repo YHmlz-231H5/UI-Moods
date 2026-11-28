@@ -43,6 +43,18 @@
   flex: 1 0 100%;
 }
 
+/* A panel that draws no frame of its own: the host draws the frame, or the
+   panel sits inside one. The surface and the padding stay, because the
+   content still needs them. */
+.um-date-picker-panel.um-date-picker-panel--borderless {
+  border: 0;
+}
+
+/* A range picked one month at a time: the second month is not drawn. */
+.um-date-picker-panel.um-date-picker-panel--single-panel .um-date-picker-panel__panel + .um-date-picker-panel__panel {
+  display: none;
+}
+
 /* One month of the panel. It does not shrink: the days are laid out in
    seven columns, and a squeezed month would squeeze the days. */
 .um-date-picker-panel__panel {
@@ -106,7 +118,7 @@
 .um-date-picker-panel__next:focus-visible,
 .um-date-picker-panel__today:focus-visible,
 .um-date-picker-panel__confirm:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -134,6 +146,23 @@
   text-align: center;
 }
 
+/* The week numbers: a column of their own on the start side of the grid, so
+   each week says which week of the year it is. The column takes the width of
+   the numbers in it and the seven day columns take the rest, so the days do
+   not get squeezed. */
+.um-date-picker-panel.um-date-picker-panel--week-number .um-date-picker-panel__week {
+  grid-template-columns: auto repeat(7, minmax(0, 1fr));
+}
+
+.um-date-picker-panel__week-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--um-space-xs) 0;
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+
 .um-date-picker-panel__cell {
   display: flex;
   align-items: center;
@@ -142,6 +171,18 @@
   border-radius: var(--um-radius-small);
   color: var(--um-text-regular);
   font-size: var(--um-font-size-body);
+}
+
+/* What the host puts in a day of its own. It sits beside the number, so the
+   day's own marks — today, selected — are still on the number. An empty one
+   takes no room at all. */
+.um-date-picker-panel__content {
+  margin-inline-start: var(--um-space-xs);
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+.um-date-picker-panel__content:empty {
+  display: none;
 }
 
 /* The number is a circle of its own, so the today marker can fill it without
@@ -245,6 +286,45 @@
   border-color: var(--um-color-primary);
   color: var(--um-color-primary-on);
   font-weight: var(--um-font-weight-medium);
+}
+
+/* The clear action. It is only wanted when the panel is asked to be
+   clearable, so the class is what shows it: the action sits in the footer
+   either way, and the class decides whether the reader sees it.
+
+   It carries no fill, the way the shortcut does, and its words take the
+   muted text colour: emptying the date is not the destructive thing the
+   danger colour is for. */
+.um-date-picker-panel__clear {
+  display: none;
+  height: var(--um-height-sm);
+  padding: 0 var(--um-space-sm);
+  border: var(--um-border-width) var(--um-border-style) transparent;
+  border-radius: var(--um-radius-small);
+  background: transparent;
+  color: var(--um-text-secondary);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-caption);
+  cursor: pointer;
+}
+.um-date-picker-panel.um-date-picker-panel--clearable .um-date-picker-panel__clear {
+  display: inline-flex;
+}
+.um-date-picker-panel.um-date-picker-panel--clearable .um-date-picker-panel__clear:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+/* A host that brings its own mark for the two buttons takes the drawn one
+   away, and the button takes the width of the mark instead of the width of a
+   square. */
+.um-date-picker-panel__prev:has(> *),
+.um-date-picker-panel__next:has(> *) {
+  width: auto;
+}
+.um-date-picker-panel__prev:has(> *)::after,
+.um-date-picker-panel__next:has(> *)::after {
+  display: none;
 }
 
 .um-date-picker-panel--sm .um-date-picker-panel__cell {

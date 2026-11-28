@@ -21,11 +21,16 @@ export const UMField = defineComponent({
     disabled: { type: Boolean, default: false },
     inline: { type: Boolean, default: false },
     size: { type: String, default: "md" },
+    hideRequiredAsterisk: { type: Boolean, default: false },
   },
   setup(props, { slots }) {
     return () => {
       const control = slots.default ? slots.default() : [];
       const status = props.validateStatus || (props.error ? "error" : "");
+      // The error text replaces the helper text while the field is in its
+      // error state; outside it, the helper text is what the field shows.
+      const message =
+        status === "error" && slots.error ? slots.error() : slots.message ? slots.message() : [];
       return h(
         "div",
         {
@@ -40,6 +45,7 @@ export const UMField = defineComponent({
             // The medium size is the base class itself, so it needs no
             // modifier — a class the stylesheet does not have paints nothing.
             props.size !== "md" ? `um-field--${props.size}` : null,
+            props.hideRequiredAsterisk ? "um-field--hide-required-asterisk" : null,
           ],
           // The field is a container rather than a control, so it cannot
           // carry the disabled attribute itself.
@@ -52,7 +58,7 @@ export const UMField = defineComponent({
             slots.label ? slots.label() : [],
           ),
           control,
-          h("span", { class: "um-field__message" }, slots.message ? slots.message() : []),
+          h("span", { class: "um-field__message" }, message),
         ],
       );
     };

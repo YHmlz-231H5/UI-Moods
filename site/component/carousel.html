@@ -321,6 +321,7 @@
       <tr><td><code>.um-carousel--arrow-never</code></td><td>No arrows</td></tr>
       <tr><td><code>.um-carousel--arrow-hover</code></td><td>Arrows on hover</td></tr>
       <tr><td><code>.um-carousel--no-loop</code></td><td>No loop</td></tr>
+      <tr><td><code>.um-carousel--indicator-none</code></td><td>No indicator</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -334,6 +335,7 @@
       <tr><td><span class="api__name"><code>arrow</code></span></td><td><code>enum = always | hover | never</code></td><td><code>always</code></td><td>When the buttons that move between the slides are shown. The always run is the base class on its own.</td></tr>
       <tr><td><span class="api__name"><code>loop</code></span></td><td><code>boolean</code></td><td><code>true</code></td><td>Whether the slides wrap around: the first slide's previous button points at the last one, and the last slide's next button points at the first. Turn it off and the ends stop.</td></tr>
       <tr><td><span class="api__name"><code>type</code></span></td><td><code>enum = default | card</code></td><td><code>default</code></td><td>How the slides sit next to each other. The card run is the spaced one: the neighbouring slides show at the edges of the track, so the reader can tell there is more than one.</td></tr>
+      <tr><td><span class="api__name"><code>indicator-position</code></span></td><td><code>enum = outside | none</code></td><td><code>outside</code></td><td>Where the indicator is. There are no dots here: the caption under the slide is the indicator, because it is the thing that says which slide the reader is on. The outside run is the base class on its own — the caption sits under the slide, outside it; the none run takes the mark off the caption and adds um-carousel--indicator-none.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>

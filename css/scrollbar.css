@@ -91,7 +91,7 @@
 /* The ring goes on the scrolling box and inside the frame: an outside ring
    would be cut off by the frame that holds it. */
 .um-scrollbar__wrap:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: calc(-1 * var(--um-focus-ring-width));
 }
 

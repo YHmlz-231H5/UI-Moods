@@ -228,6 +228,7 @@
       <tr><td><code>.um-tooltip--not-enterable</code></td><td>Not enterable</td></tr>
       <tr><td><code>.um-tooltip--visible</code></td><td>Visible</td></tr>
       <tr><td><code>.um-tooltip--no-arrow</code></td><td>No arrow</td></tr>
+      <tr><td><code>.um-tooltip--dark</code></td><td>Dark effect</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -240,6 +241,7 @@
       <tr><td><span class="api__name"><code>enterable</code></span></td><td><code>boolean</code></td><td><code>true</code></td><td>Whether the pointer can enter the bubble. A bubble that cannot be entered lets the pointer through it, so the words in it cannot be selected. It adds um-tooltip--not-enterable.</td></tr>
       <tr><td><span class="api__name"><code>show-arrow</code></span></td><td><code>boolean</code></td><td><code>true</code></td><td>Whether the bubble carries the point that says which way it faces. A bubble without one adds um-tooltip--no-arrow.</td></tr>
       <tr><td><span class="api__name"><code>visible</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the bubble is held open. It adds um-tooltip--visible.</td></tr>
+      <tr><td><span class="api__name"><code>effect</code></span></td><td><code>enum = light | dark</code></td><td><code>light</code></td><td>How the bubble is filled. The light run is the base class on its own — the bubble sits on the overlay surface; the dark run fills it with the mood's strong text colour, puts the words on it in the plain surface and adds um-tooltip--dark.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>

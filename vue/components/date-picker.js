@@ -32,15 +32,24 @@ export const UMDatePicker = defineComponent({
     type: { type: String, default: "single" },
     size: { type: String, default: "md" },
     modelValue: { type: String, default: undefined },
+    editable: { type: Boolean, default: true },
+    placeholder: { type: String, default: "" },
   },
   emits: ["change", "input", "update:modelValue"],
-  setup(props, { slots, emit }) {
+  setup(props, { slots, emit, attrs }) {
     // The field needs an id of its own, so two pickers on one page may not
     // share one.
     const fieldId = `um-date-picker-${useId()}`;
+    // The name of the field is an attribute rather than a prop: it is not a
+    // visual parameter of the control, and a host that needs a Chinese name
+    // should be able to give one.
+    const label = attrs["aria-label"];
 
     return () => {
       const range = props.type === "range";
+      // The mark between the two dates of a range. The host's own mark, when
+      // it brings one; the rule the stylesheet draws, when it does not.
+      const separator = slots["range-separator"] ? slots["range-separator"]() : [];
 
       /** A real date field; only the first one of a range carries the value. */
       const date = (id, name, value, ariaLabel) =>
@@ -54,7 +63,10 @@ export const UMDatePicker = defineComponent({
           max: props.max || undefined,
           required: props.required,
           disabled: props.disabled,
-          readonly: props.readonly,
+          // `editable` is Element Plus's name for the same thing and
+          // `readonly` is this library's: either one of them says it.
+          readonly: props.readonly || !props.editable,
+          placeholder: props.placeholder || undefined,
           "aria-label": ariaLabel,
           onChange: (e) => {
             emit("update:modelValue", eventValue(e));
@@ -83,13 +95,21 @@ export const UMDatePicker = defineComponent({
             slots.icon ? slots.icon() : [],
           ),
           ...(range
-            ? [date(`${fieldId}-from`, `${fieldId}-from`, modelValue(props, props.value) || undefined)]
-            : [date(fieldId, fieldId, modelValue(props, props.value) || undefined)]),
+            ? [
+                date(
+                  `${fieldId}-from`,
+                  `${fieldId}-from`,
+                  modelValue(props, props.value) || undefined,
+                  label || "Start of the range",
+                ),
+              ]
+            : [date(fieldId, fieldId, modelValue(props, props.value) || undefined, label || "Date")]),
           h("span", {
             class: "um-date-picker__separator",
-            "aria-hidden": "true",
+            // The rule is decoration; a mark the host brought is not.
+            "aria-hidden": separator.length ? undefined : "true",
             hidden: !range,
-          }),
+          }, separator),
           ...(range ? [date(undefined, `${fieldId}-to`, undefined, "End of the range")] : []),
         ],
       );

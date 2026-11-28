@@ -30,6 +30,7 @@ export const UMScrollbar = defineComponent({
           "div",
           {
             class: "um-scrollbar__wrap",
+      "aria-label": "Scrollable region",
             tabindex: "0",
             style: props.height ? { height: props.height } : undefined,
           },

@@ -38,6 +38,20 @@
       "nameZh": "隐藏",
       "selector": ".um-pagination--hidden",
       "note": "A pager with a single page has nothing to page through, so it is not on the page at all."
+    },
+    {
+      "id": "layout-pager",
+      "name": "Pager only",
+      "nameZh": "只有页码",
+      "selector": ".um-pagination--layout-pager",
+      "note": "The pager is the row of numbers and nothing else: the total line and the jumper are not drawn at all."
+    },
+    {
+      "id": "layout-total",
+      "name": "Total and pager",
+      "nameZh": "总数和页码",
+      "selector": ".um-pagination--layout-total",
+      "note": "The total leads the row and the pager follows it. The jumper is not drawn at all."
     }
   ],
   "parts": [
@@ -139,9 +153,24 @@
       "default": "false",
       "description": "Whether the pager disappears when there is only one page to be on. It adds um-pagination--hidden.",
       "descriptionZh": "只有一页时是否把分页器藏起来。它加上 um-pagination--hidden。"
+    },
+    {
+      "name": "layout",
+      "type": "enum",
+      "values": ["full", "pager", "total"],
+      "default": "full",
+      "since": "1.1.0",
+      "description": "Which parts of the pager are drawn and in what order. The full layout is the base class on its own; the pager-only layout adds um-pagination--layout-pager and the total layout adds um-pagination--layout-total.",
+      "descriptionZh": "分页器画出哪几部分、按什么顺序。完整布局是只写基础类;只有页码再加上 um-pagination--layout-pager,带总数再加上 um-pagination--layout-total。"
     }
   ],
-  "slots": [],
+  "slots": [
+    {
+      "name": "default",
+      "description": "What the page the reader is on says. Without it the page says its number.",
+      "descriptionZh": "当前这一页写什么。不给就写它的页码。"
+    }
+  ],
   "events": [],
   "a11y": {
     "role": "navigation",

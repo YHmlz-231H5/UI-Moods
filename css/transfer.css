@@ -74,6 +74,56 @@
 
 .um-transfer__item { list-style: none; }
 
+/* The filter is the field the host filters a panel's list with. It is a real
+   search field, so the browser's own clear mark and its own keyboard are
+   there; the filtering is the host's script and the library only draws the
+   field. It is in the markup either way, and the transfer says whether it is
+   there. */
+.um-transfer__filter {
+  display: none;
+  width: 100%;
+  padding: var(--um-space-xs) var(--um-space-sm);
+  border: 0;
+  border-bottom: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+  background: transparent;
+  color: var(--um-text-regular);
+  font: inherit;
+}
+
+.um-transfer__filter::placeholder {
+  color: var(--um-text-placeholder);
+}
+
+.um-transfer--filterable .um-transfer__filter {
+  display: block;
+}
+
+/* The rows far from the reader are not laid out: the browser is told how
+   big such a row is and gives it a placeholder size until it comes near. The
+   placeholder size is one line of the row's own type, so the scrollbar is
+   right before the row has ever been looked at. */
+.um-transfer--virtual-scroll .um-transfer__item {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1.2em;
+}
+
+/* What a panel says when it holds no option at all. It takes no room while
+   the list has something in it: the panel knows that because the list is
+   inside it, and :has() is the only way CSS can ask. */
+.um-transfer__left-empty,
+.um-transfer__right-empty {
+  display: none;
+  padding: var(--um-space-sm);
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+  text-align: center;
+}
+
+.um-transfer__panel:has(.um-transfer__list:empty) .um-transfer__left-empty,
+.um-transfer__panel:has(.um-transfer__list:empty) .um-transfer__right-empty {
+  display: block;
+}
+
 /* The footer is the row under a panel's list, where a host puts whatever that
    panel needs: a "select all" link, a count, a note. */
 .um-transfer__footer {
@@ -157,7 +207,7 @@
    the wrong thing about what is focused. */
 .um-transfer__move:focus-visible,
 .um-transfer__move-back:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 

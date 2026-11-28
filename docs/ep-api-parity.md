@@ -34,96 +34,96 @@
 
 | | 覆盖 | 改名 | 等价 | 跳过 | 差口 | 合计 |
 | --- | --- | --- | --- | --- | --- | --- |
-| 属性 | 298 | 1 | 12 | 996 | 229 | 1536 |
-| 插槽 | 114 | 0 | 0 | 14 | 78 | 206 |
-| 事件 | 31 | 0 | 0 | 81 | 16 | 128 |
+| 属性 | 413 | 5 | 12 | 996 | 110 | 1536 |
+| 插槽 | 162 | 0 | 0 | 14 | 30 | 206 |
+| 事件 | 42 | 0 | 0 | 81 | 5 | 128 |
 
 ## 逐组件
 
 | 本库清单 | Element Plus | 来源 | 属性 | 覆盖 | 改名 | 等价 | 跳过 | 差口 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | `affix` | el-affix | web-types | 6 | 1 | 0 | 0 | 5 | 0 |
-| `alert` | el-alert | web-types | 8 | 0 | 0 | 1 | 3 | 4 |
+| `alert` | el-alert | web-types | 8 | 3 | 0 | 1 | 3 | 1 |
 | `anchor` | el-anchor, el-anchor-link | web-types | 0 | 0 | 0 | 0 | 0 | 0 |
-| `autocomplete` | el-autocomplete | web-types | 52 | 6 | 0 | 0 | 36 | 10 |
-| `avatar` | el-avatar, el-avatar-group | web-types | 16 | 4 | 0 | 1 | 10 | 1 |
-| `backtop` | el-backtop | web-types | 4 | 1 | 0 | 0 | 2 | 1 |
+| `autocomplete` | el-autocomplete | web-types | 52 | 11 | 0 | 0 | 36 | 5 |
+| `avatar` | el-avatar, el-avatar-group | web-types | 16 | 5 | 0 | 1 | 10 | 0 |
+| `backtop` | el-backtop | web-types | 4 | 2 | 0 | 0 | 2 | 0 |
 | `badge` | el-badge | web-types | 10 | 3 | 0 | 1 | 6 | 0 |
 | `border` | — | none | 0 | 0 | 0 | 0 | 0 | 0 |
 | `breadcrumb` | el-breadcrumb, el-breadcrumb-item | web-types | 4 | 1 | 0 | 0 | 3 | 0 |
 | `button` | el-button, el-button-group | web-types | 20 | 7 | 1 | 2 | 8 | 2 |
-| `calendar` | el-calendar | web-types | 4 | 0 | 0 | 0 | 2 | 2 |
+| `calendar` | el-calendar | web-types | 4 | 1 | 0 | 0 | 2 | 1 |
 | `card` | el-card | web-types | 7 | 3 | 0 | 0 | 4 | 0 |
-| `carousel` | el-carousel, el-carousel-item | web-types | 15 | 5 | 0 | 0 | 9 | 1 |
-| `cascader` | el-cascader | web-types | 35 | 2 | 0 | 0 | 22 | 11 |
+| `carousel` | el-carousel, el-carousel-item | web-types | 15 | 6 | 0 | 0 | 9 | 0 |
+| `cascader` | el-cascader | web-types | 35 | 11 | 0 | 0 | 22 | 2 |
 | `checkbox` | el-checkbox, el-checkbox-button | web-types | 19 | 8 | 0 | 0 | 11 | 0 |
 | `checkbox-group` | el-checkbox-group | web-types | 14 | 5 | 0 | 0 | 8 | 1 |
 | `collapse` | el-collapse, el-collapse-item | web-types | 8 | 4 | 0 | 0 | 3 | 1 |
 | `color` | — | none | 0 | 0 | 0 | 0 | 0 | 0 |
 | `color-picker` | el-color-picker | web-types | 19 | 4 | 0 | 0 | 13 | 2 |
-| `color-picker-panel` | el-color-picker-panel | web-types | 9 | 2 | 0 | 0 | 4 | 3 |
+| `color-picker-panel` | el-color-picker-panel | web-types | 9 | 3 | 0 | 0 | 4 | 2 |
 | `config-provider` | el-config-provider | web-types | 12 | 1 | 0 | 0 | 8 | 3 |
 | `container` | el-container, el-header, el-aside, el-main, el-footer | web-types | 3 | 0 | 0 | 0 | 3 | 0 |
-| `date-picker` | el-date-picker | web-types | 37 | 5 | 0 | 0 | 23 | 9 |
-| `date-picker-panel` | el-date-picker-panel | web-types | 19 | 3 | 0 | 0 | 8 | 8 |
-| `date-time-picker` | el-date-picker | web-types | 37 | 5 | 0 | 0 | 23 | 9 |
+| `date-picker` | el-date-picker | web-types | 37 | 7 | 0 | 0 | 23 | 7 |
+| `date-picker-panel` | el-date-picker-panel | web-types | 19 | 9 | 0 | 0 | 8 | 2 |
+| `date-time-picker` | el-date-picker | web-types | 37 | 7 | 0 | 0 | 23 | 7 |
 | `descriptions` | el-descriptions, el-descriptions-item | web-types | 16 | 3 | 0 | 0 | 13 | 0 |
 | `dialog` | el-dialog | web-types | 30 | 7 | 0 | 0 | 23 | 0 |
 | `divider` | el-divider | web-types | 3 | 2 | 0 | 1 | 0 | 0 |
 | `drawer` | el-drawer | web-types | 24 | 6 | 0 | 0 | 17 | 1 |
 | `dropdown` | el-dropdown, el-dropdown-menu, el-dropdown-item | web-types | 27 | 4 | 0 | 0 | 19 | 4 |
 | `empty` | el-empty | web-types | 3 | 0 | 0 | 0 | 3 | 0 |
-| `field` | el-form, el-form-item | web-types | 22 | 5 | 0 | 0 | 16 | 1 |
+| `field` | el-form, el-form-item | web-types | 22 | 6 | 0 | 0 | 16 | 0 |
 | `icon` | el-icon | web-types | 2 | 1 | 0 | 0 | 1 | 0 |
 | `image` | el-image, el-image-viewer | web-types | 22 | 4 | 0 | 0 | 17 | 1 |
 | `infinite-scroll` | — | none | 0 | 0 | 0 | 0 | 0 | 0 |
-| `input` | el-input, el-select, el-option, el-option-group | web-types | 75 | 5 | 0 | 0 | 54 | 16 |
-| `input-number` | el-input-number | web-types | 24 | 7 | 0 | 0 | 13 | 4 |
-| `input-otp` | el-input-otp | web-types | 13 | 5 | 0 | 0 | 6 | 2 |
-| `input-tag` | el-input-tag | web-types | 26 | 5 | 0 | 0 | 16 | 5 |
-| `layout` | el-row, el-col | web-types | 13 | 1 | 0 | 0 | 10 | 2 |
+| `input` | el-input, el-select, el-option, el-option-group | web-types | 75 | 10 | 0 | 0 | 54 | 11 |
+| `input-number` | el-input-number | web-types | 24 | 10 | 0 | 0 | 13 | 1 |
+| `input-otp` | el-input-otp | web-types | 13 | 5 | 2 | 0 | 6 | 0 |
+| `input-tag` | el-input-tag | web-types | 26 | 8 | 1 | 0 | 16 | 1 |
+| `layout` | el-row, el-col | web-types | 13 | 3 | 0 | 0 | 10 | 0 |
 | `link` | el-link | web-types | 6 | 3 | 0 | 1 | 2 | 0 |
-| `loading` | loading | declarations | 8 | 3 | 0 | 0 | 4 | 1 |
-| `mention` | el-mention | web-types | 49 | 6 | 0 | 0 | 30 | 13 |
-| `menu` | el-menu, el-sub-menu, el-menu-item, el-menu-item-group | web-types | 30 | 1 | 0 | 0 | 23 | 6 |
+| `loading` | loading | declarations | 8 | 4 | 0 | 0 | 4 | 0 |
+| `mention` | el-mention | web-types | 49 | 12 | 0 | 0 | 30 | 7 |
+| `menu` | el-menu, el-sub-menu, el-menu-item, el-menu-item-group | web-types | 30 | 5 | 0 | 0 | 23 | 2 |
 | `message` | message | declarations | 15 | 3 | 0 | 1 | 11 | 0 |
 | `message-box` | message-box | declarations | 43 | 13 | 0 | 0 | 16 | 14 |
 | `notification` | notification | declarations | 17 | 2 | 0 | 1 | 14 | 0 |
 | `page-header` | el-page-header | web-types | 3 | 1 | 0 | 0 | 2 | 0 |
-| `pagination` | el-pagination | web-types | 22 | 4 | 0 | 0 | 17 | 1 |
-| `popconfirm` | el-popconfirm | web-types | 36 | 8 | 0 | 0 | 26 | 2 |
-| `popover` | el-popover | web-types | 30 | 6 | 0 | 0 | 22 | 2 |
+| `pagination` | el-pagination | web-types | 22 | 5 | 0 | 0 | 17 | 0 |
+| `popconfirm` | el-popconfirm | web-types | 36 | 10 | 0 | 0 | 26 | 0 |
+| `popover` | el-popover | web-types | 30 | 8 | 0 | 0 | 22 | 0 |
 | `progress` | el-progress | web-types | 14 | 5 | 0 | 1 | 7 | 1 |
 | `radio` | el-radio, el-radio-button | web-types | 7 | 6 | 0 | 0 | 1 | 0 |
 | `radio-group` | el-radio-group | web-types | 13 | 6 | 0 | 0 | 6 | 1 |
-| `rate` | el-rate | web-types | 22 | 5 | 0 | 0 | 14 | 3 |
+| `rate` | el-rate | web-types | 22 | 6 | 0 | 0 | 14 | 2 |
 | `result` | el-result | web-types | 3 | 1 | 0 | 0 | 2 | 0 |
 | `scrollbar` | el-scrollbar | web-types | 18 | 1 | 0 | 0 | 14 | 3 |
-| `segmented` | el-segmented | web-types | 10 | 4 | 0 | 0 | 5 | 1 |
+| `segmented` | el-segmented | web-types | 10 | 5 | 0 | 0 | 5 | 0 |
 | `skeleton` | el-skeleton, el-skeleton-item | web-types | 6 | 3 | 0 | 0 | 3 | 0 |
-| `slider` | el-slider | web-types | 25 | 6 | 0 | 0 | 13 | 6 |
+| `slider` | el-slider | web-types | 25 | 8 | 0 | 0 | 13 | 4 |
 | `space` | el-space | web-types | 10 | 4 | 0 | 0 | 6 | 0 |
-| `splitter` | el-splitter, el-splitter-panel | web-types | 7 | 2 | 0 | 0 | 4 | 1 |
+| `splitter` | el-splitter, el-splitter-panel | web-types | 7 | 3 | 0 | 0 | 4 | 0 |
 | `statistic` | el-statistic, el-countdown | web-types | 0 | 0 | 0 | 0 | 0 | 0 |
-| `steps` | el-steps, el-step | web-types | 11 | 6 | 0 | 0 | 4 | 1 |
+| `steps` | el-steps, el-step | web-types | 11 | 7 | 0 | 0 | 4 | 0 |
 | `switch` | el-switch | web-types | 24 | 6 | 0 | 0 | 18 | 0 |
-| `table` | el-table, el-table-column | web-types | 72 | 6 | 0 | 0 | 53 | 13 |
-| `tabs` | el-tabs, el-tab-pane | web-types | 14 | 5 | 0 | 0 | 5 | 4 |
+| `table` | el-table, el-table-column | web-types | 72 | 11 | 0 | 0 | 53 | 8 |
+| `tabs` | el-tabs, el-tab-pane | web-types | 14 | 6 | 0 | 0 | 5 | 3 |
 | `tag` | el-tag, el-check-tag | web-types | 10 | 6 | 0 | 1 | 3 | 0 |
 | `text` | el-text | web-types | 5 | 5 | 0 | 0 | 0 | 0 |
-| `time-picker` | el-time-picker | web-types | 34 | 4 | 0 | 0 | 25 | 5 |
-| `time-select` | el-time-select | web-types | 21 | 6 | 0 | 0 | 11 | 4 |
+| `time-picker` | el-time-picker | web-types | 34 | 7 | 0 | 0 | 25 | 2 |
+| `time-select` | el-time-select | web-types | 21 | 9 | 0 | 0 | 11 | 1 |
 | `timeline` | el-timeline, el-timeline-item | web-types | 11 | 7 | 0 | 1 | 3 | 0 |
-| `tooltip` | el-tooltip | web-types | 27 | 5 | 0 | 0 | 21 | 1 |
+| `tooltip` | el-tooltip | web-types | 27 | 6 | 0 | 0 | 21 | 0 |
 | `tour` | el-tour, el-tour-step | web-types | 0 | 0 | 0 | 0 | 0 | 0 |
-| `transfer` | el-transfer | web-types | 15 | 0 | 0 | 0 | 12 | 3 |
-| `tree` | el-tree | web-types | 25 | 1 | 0 | 0 | 18 | 6 |
-| `tree-select` | el-select, el-tree | web-types | 76 | 5 | 0 | 0 | 53 | 18 |
+| `transfer` | el-transfer | web-types | 15 | 3 | 0 | 0 | 12 | 0 |
+| `tree` | el-tree | web-types | 25 | 6 | 0 | 0 | 18 | 1 |
+| `tree-select` | el-select, el-tree | web-types | 76 | 20 | 0 | 0 | 53 | 3 |
 | `typography` | — | none | 0 | 0 | 0 | 0 | 0 | 0 |
-| `upload` | el-upload | web-types | 27 | 5 | 0 | 0 | 21 | 1 |
-| `virtual-select` | el-virtualized-select | web-types | 55 | 7 | 0 | 0 | 37 | 11 |
-| `virtual-table` | el-table-v2 | web-types | 31 | 3 | 0 | 0 | 27 | 1 |
-| `virtual-tree` | el-tree-v2 | web-types | 17 | 3 | 0 | 0 | 12 | 2 |
+| `upload` | el-upload | web-types | 27 | 5 | 1 | 0 | 21 | 0 |
+| `virtual-select` | el-virtualized-select | web-types | 55 | 15 | 0 | 0 | 37 | 3 |
+| `virtual-table` | el-table-v2 | web-types | 31 | 4 | 0 | 0 | 27 | 0 |
+| `virtual-tree` | el-tree-v2 | web-types | 17 | 5 | 0 | 0 | 12 | 0 |
 | `watermark` | el-watermark | web-types | 9 | 0 | 0 | 0 | 9 | 0 |
 
 ## 差口清单
@@ -132,42 +132,17 @@
 
 ### `alert`
 
-- prop · `center` —— whether content is placed in the center.
-- prop · `closable` —— whether alert can be dismissed.
 - prop · `effect` —— theme style.
-- prop · `show-icon` —— whether a type icon is displayed.
-- slot · `default`
-- slot · `title`
-- event · `close`
 
 ### `autocomplete`
 
 - prop · `autosize` —— whether textarea has an adaptive height, only works when `type` is 'textarea'. Can accept an object, e.g. `{ minRows: 2, maxRows: 6 }`
-- prop · `clearable` —— whether to show clear button
 - prop · `fit-input-width` —— whether the width of the dropdown is the same as the input
-- prop · `form` —— same as `form` in native input
-- prop · `hide-loading` —— whether to hide the loading icon in remote search
-- prop · `show-arrow` —— whether the dropdown has an arrow
 - prop · `show-password` —— whether to show toggleable password input
 - prop · `show-word-limit` —— whether show word count, only works when `type` is 'text' or 'textarea'
 - prop · `trigger-on-focus` —— whether show suggestions when input focus
-- prop · `type` —— type of input, see more in [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types)
-- slot · `append`
-- slot · `default`
 - slot · `footer`
 - slot · `header`
-- slot · `loading`
-- slot · `prepend`
-- event · `clear`
-- event · `select`
-
-### `avatar`
-
-- prop · `effect` —— tooltip theme, built-in theme: `dark` / `light`
-
-### `backtop`
-
-- prop · `right` —— right distance.
 
 ### `button`
 
@@ -177,35 +152,13 @@
 
 ### `calendar`
 
-- prop · `model-value` —— binding value
 - prop · `range` —— time range, including start time and end time. Start time must be start day of week, end time must be end day of week, the time span cannot exceed two months.
-- slot · `header`
-
-### `carousel`
-
-- prop · `indicator-position` —— position of the indicators
 
 ### `cascader`
 
-- prop · `clearable` —— whether selected value can be cleared
-- prop · `collapse-tags` —— whether to collapse tags in multiple selection mode
-- prop · `effect` —— tooltip theme, built-in theme: `dark` / `light`
-- prop · `filterable` —— whether the options can be searched
-- prop · `fit-input-width` —— whether the width of the suggestion panel is the same as the input, if the value is `number`, then the width is fixed
 - prop · `model-value` —— binding value
-- prop · `placeholder` —— placeholder of input
 - prop · `show-all-levels` —— whether to display all levels of the selected value in the input
-- prop · `tag-effect` —— tag effect
-- prop · `tag-type` —— tag type
-- prop · `virtual-scroll` —— whether to enable virtual scrolling for large data
-- slot · `default`
-- slot · `empty`
-- slot · `footer`
-- slot · `header`
-- slot · `prefix`
 - slot · `suggestion-item`
-- slot · `tag`
-- event · `clear`
 
 ### `checkbox-group`
 
@@ -225,7 +178,6 @@
 ### `color-picker-panel`
 
 - prop · `border` —— whether the color picker panel is bordered
-- prop · `model-value` —— binding value
 - prop · `show-alpha` —— whether to display the alpha slider
 
 ### `config-provider`
@@ -238,8 +190,6 @@
 
 - prop · `automatic-dropdown` —— this prop decides if the date picker panel pops up when the input is focused. (The default value will be set to false in version 3.0)
 - prop · `clearable` —— whether to show clear button
-- prop · `editable` —— whether the input is editable
-- prop · `placeholder` —— placeholder in non-range mode
 - prop · `show-confirm` —— whether to show the confirm button
 - prop · `show-footer` —— whether to show footer where the date picker is one ^[enum]`'dates' | 'months' | 'years' | 'quarters'`
 - prop · `show-week-number` —— show the week number besides the week
@@ -250,30 +200,18 @@
 - slot · `next-year`
 - slot · `prev-month`
 - slot · `prev-year`
-- slot · `range-separator`
 
 ### `date-picker-panel`
 
-- prop · `border` —— whether the date picker is bordered
-- prop · `clearable` —— whether to show clear button
 - prop · `editable` —— whether the input is editable
-- prop · `model-value` —— binding value, if it is an `range` picker, the length of the array should be 2
-- prop · `show-week-number` —— show the week number besides the week
-- prop · `single-panel` —— show only one panel in range-picker
-- prop · `type` —— type of the picker. `quarter`, `quarters`, and `quarterrange` are supported since
 - prop · `unlink-panels` —— unlink two date-panels in range-picker
-- slot · `default`
-- slot · `next-month`
 - slot · `next-year`
-- slot · `prev-month`
 - slot · `prev-year`
 
 ### `date-time-picker`
 
 - prop · `automatic-dropdown` —— this prop decides if the date picker panel pops up when the input is focused. (The default value will be set to false in version 3.0)
 - prop · `clearable` —— whether to show clear button
-- prop · `editable` —— whether the input is editable
-- prop · `placeholder` —— placeholder in non-range mode
 - prop · `show-confirm` —— whether to show the confirm button
 - prop · `show-footer` —— whether to show footer where the date picker is one ^[enum]`'dates' | 'months' | 'years' | 'quarters'`
 - prop · `show-week-number` —— show the week number besides the week
@@ -284,7 +222,6 @@
 - slot · `next-year`
 - slot · `prev-month`
 - slot · `prev-year`
-- slot · `range-separator`
 
 ### `drawer`
 
@@ -298,12 +235,6 @@
 - prop · `split-button` —— whether a button group is displayed
 - prop · `type` —— menu button type, refer to `Button` Component, only works when `split-button` is true
 
-### `field`
-
-- prop · `hide-required-asterisk` —— Whether to hide required fields should have a red asterisk (star) beside their labels.
-- slot · `default`
-- slot · `error`
-
 ### `image`
 
 - prop · `show-progress` —— whether to display the preview image progress content.
@@ -314,23 +245,17 @@
 ### `input`
 
 - prop · `automatic-dropdown` —— for non-filterable Select, this prop decides if the option menu pops up when the input is focused
-- prop · `autosize` —— whether textarea has an adaptive height, only works when `type` is 'textarea'. Can accept an object, e.g. `{ minRows: 2, maxRows: 6 }`
 - prop · `clearable` —— whether to show clear button, only works when `type` is not 'textarea'
 - prop · `collapse-tags` —— whether to collapse tags to a text when multiple selecting
 - prop · `default-first-option` —— select first matching option on enter key. Use with `filterable` or `remote`
-- prop · `effect` —— tooltip theme, built-in theme: `dark` / `light`
 - prop · `filterable` —— whether Select is filterable
 - prop · `fit-input-width` —— whether the width of the dropdown is the same as the input
-- prop · `form` —— same as `form` in native input
 - prop · `loading` —— whether Select is loading data from server
-- prop · `show-arrow` —— whether the dropdown has an arrow
 - prop · `show-password` —— whether to show toggleable password input
 - prop · `show-word-limit` —— whether show word count, only works when `type` is 'text' or 'textarea'
 - prop · `tag-effect` —— tag effect
 - prop · `tag-type` —— tag type
-- prop · `type` —— type of input, see more in [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types)
 - slot · `append`
-- slot · `default`
 - slot · `empty`
 - slot · `footer`
 - slot · `header`
@@ -344,64 +269,25 @@
 
 ### `input-number`
 
-- prop · `align` —— alignment for the inner input text
-- prop · `placeholder` —— same as `placeholder` in native input
-- prop · `size` —— size of the component
 - prop · `step-strictly` —— whether input value can only be multiple of step
-
-### `input-otp`
-
-- prop · `mask` —— Whether to enable password mode
-- prop · `type` —— The type of the OTP fields
 
 ### `input-tag`
 
-- prop · `clearable` —— whether to show clear button
 - prop · `collapse-tags` —— whether to collapse tags to a text when multiple selecting
-- prop · `effect` —— tooltip theme, built-in theme: `dark` / `light`
-- prop · `tag-effect` —— tag effect
-- prop · `tag-type` —— tag type
-- slot · `tag`
-- event · `clear`
-
-### `layout`
-
-- prop · `pull` —— number of columns that grid moves to the left
-- prop · `push` —— number of columns that grid moves to the right
-
-### `loading`
-
-- prop · `lock` —— same as the `lock` modifier of `v-loading`
 
 ### `mention`
 
 - prop · `autosize` —— whether textarea has an adaptive height, only works when `type` is 'textarea'. Can accept an object, e.g. `{ minRows: 2, maxRows: 6 }`
 - prop · `check-is-whole` —— when backspace is pressed to delete, check if the mention is a whole
-- prop · `clearable` —— whether to show clear button, only works when `type` is not 'textarea'
 - prop · `filter-option` —— customize filter option logic
-- prop · `form` —— same as `form` in native input
-- prop · `loading` —— whether the dropdown panel of mentions is in a loading state
-- prop · `prefix` —— prefix character to trigger mentions. The string length must be exactly 1
-- prop · `show-arrow` —— whether the dropdown panel has an arrow
 - prop · `show-password` —— whether to show toggleable password input
 - prop · `show-word-limit` —— whether show word count, only works when `type` is 'text' or 'textarea'
 - prop · `split` —— character to split mentions. The string length must be exactly 1
-- prop · `type` —— type of input, see more in [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types)
 - prop · `whole` —— when backspace is pressed to delete, whether the mention content is deleted as a whole
-- slot · `footer`
-- slot · `header`
-- slot · `label`
-- slot · `loading`
-- event · `search`
-- event · `select`
 
 ### `menu`
 
-- prop · `collapse` —— whether the menu is collapsed (available only in vertical mode)
-- prop · `disabled` —— whether the sub-menu is disabled
-- prop · `ellipsis` —— whether the menu is ellipsis (available only in horizontal mode)
 - prop · `menu-trigger` —— how sub-menus are triggered, only works when `mode` is 'horizontal'
-- prop · `popper-effect` —— Tooltip theme, built-in theme: `dark` / `light` when menu is collapsed
 - prop · `unique-opened` —— whether only one sub-menu can be active
 
 ### `message-box`
@@ -421,21 +307,6 @@
 - prop · `input-validator`
 - prop · `input-value`
 
-### `pagination`
-
-- prop · `layout` —— layout of Pagination, elements separated with a comma
-- slot · `default`
-
-### `popconfirm`
-
-- prop · `effect` —— Tooltip theme, built-in theme: `dark` / `light`
-- prop · `hide-icon` —— is hide Icon
-
-### `popover`
-
-- prop · `effect` —— Tooltip theme, built-in theme: `dark` / `light`
-- prop · `show-arrow` —— whether a tooltip arrow is displayed or not. For more info, please refer to [ElPopper](https://github.com/element-plus/element-plus/tree/dev/packages/components/popper)
-
 ### `progress`
 
 - prop · `text-inside` —— whether to place the percentage inside progress bar, only works when `type` is 'line'
@@ -449,7 +320,6 @@
 
 - prop · `allow-half` —— whether picking half start is allowed
 - prop · `clearable` —— whether value can be reset to `0`
-- prop · `show-text` —— whether to display texts
 
 ### `scrollbar`
 
@@ -457,163 +327,58 @@
 - prop · `native` —— whether to use the native scrollbar style
 - prop · `noresize` —— do not respond to container size changes, if the container size does not change, it is better to set it to optimize performance
 
-### `segmented`
-
-- prop · `model-value` —— binding value
-
 ### `slider`
 
 - prop · `range` —— whether to select a range
 - prop · `show-input` —— whether to display an input box, works when `range` is false and `step` is not `'mark'`
 - prop · `show-input-controls` —— whether to display control buttons when `show-input` is true
-- prop · `show-stops` —— whether to display breakpoints
 - prop · `show-tooltip` —— whether to display tooltip value
-- prop · `size` —— size of the slider wrapper, will not work in vertical mode
-
-### `splitter`
-
-- prop · `collapsible` —— Whether the panel can be collapsed
-- slot · `default`
-- slot · `end-collapsible`
-- slot · `start-collapsible`
-
-### `steps`
-
-- prop · `finish-status` —— status of end step
-
-### `switch`
-
-- slot · `active-action`
-- slot · `inactive-action`
 
 ### `table`
 
-- prop · `align` —— alignment
 - prop · `allow-drag-last-column` —— whether to allow drag the last column
-- prop · `default-expand-all` —— whether expand all rows by default, works when the table has a column type="expand" or contains tree structure data
-- prop · `fit` —— whether width of column automatically fits its container
 - prop · `fixed` —— whether column is fixed at left / right. Will be fixed at left if `true`
 - prop · `flexible` —— ensure main axis minimum-size doesn't follow the content
 - prop · `native-scrollbar` —— whether to use native scrollbars
-- prop · `scrollbar-always-on` —— always show scrollbar
 - prop · `select-on-indeterminate` —— controls the behavior of master checkbox in multi-select tables when only some rows are selected (but not all). If true, all rows will be selected, else deselected
 - prop · `selectable` —— function that determines if a certain row can be selected, works when `type` is 'selection'
 - prop · `sortable` —— whether column can be sorted. Remote sorting can be done by setting this attribute to 'custom' and listening to the `sort-change` event of Table
 - prop · `tooltip-effect` —— the `effect` of the overflow tooltip
-- prop · `type` —— type of the column. If set to `selection`, the column will display checkbox. If set to `index`, the column will display index of the row (staring from 1). If set to `expand`, the column will display expand icon
-- slot · `expand`
 
 ### `tabs`
 
 - prop · `addable` —— whether Tab is addable
 - prop · `closable` —— whether Tab is closable
-- prop · `disabled` —— whether Tab is disabled
 - prop · `editable` —— whether Tab is addable and closable
 
 ### `time-picker`
 
 - prop · `arrow-control` —— whether to pick time using arrow buttons
-- prop · `clearable` —— whether to show clear button
-- prop · `editable` —— whether the input is editable
 - prop · `is-range` —— whether to pick a time range
-- prop · `placeholder` —— placeholder in non-range mode
 
 ### `time-select`
 
-- prop · `clearable` —— whether to show clear button
 - prop · `editable` —— whether the input is editable
-- prop · `effect` —— Tooltip theme, built-in theme: `dark` / `light`
-- prop · `placeholder` —— placeholder in non-range mode
-
-### `tooltip`
-
-- prop · `effect` —— Tooltip theme, built-in theme: `dark` / `light`
 
 ### `tour`
 
 - event · `close`
 
-### `transfer`
-
-- prop · `filterable` —— whether Transfer is filterable
-- prop · `model-value` —— binding value
-- prop · `virtual-scroll` —— whether to enable virtual scrolling
-- slot · `default`
-- slot · `left-empty`
-- slot · `right-empty`
-
 ### `tree`
 
-- prop · `accordion` —— whether only one node among the same level can be expanded at one time
-- prop · `auto-expand-parent` —— whether to expand father node when a child node is expanded
-- prop · `check-strictly` —— whether checked state of a node not affects its father and child nodes when `show-checkbox` is `true`
-- prop · `default-expand-all` —— whether to expand all nodes by default
 - prop · `render-after-expand` —— whether to render child nodes only after a parent node is expanded for the first time
-- prop · `show-checkbox` —— whether node is selectable
-- event · `check`
 
 ### `tree-select`
 
-- prop · `accordion` —— whether only one node among the same level can be expanded at one time
-- prop · `auto-expand-parent` —— whether to expand father node when a child node is expanded
 - prop · `automatic-dropdown` —— for non-filterable Select, this prop decides if the option menu pops up when the input is focused
-- prop · `check-strictly` —— whether checked state of a node not affects its father and child nodes when `show-checkbox` is `true`
-- prop · `clearable` —— whether select can be cleared
-- prop · `collapse-tags` —— whether to collapse tags to a text when multiple selecting
-- prop · `default-expand-all` —— whether to expand all nodes by default
 - prop · `default-first-option` —— select first matching option on enter key. Use with `filterable` or `remote`
-- prop · `effect` —— tooltip theme, built-in theme: `dark` / `light`
-- prop · `filterable` —— whether Select is filterable
-- prop · `fit-input-width` —— whether the width of the dropdown is the same as the input
-- prop · `highlight-current` —— whether current node is highlighted
-- prop · `loading` —— whether Select is loading data from server
-- prop · `placeholder` —— placeholder, default is 'Select'
 - prop · `render-after-expand` —— whether to render child nodes only after a parent node is expanded for the first time
-- prop · `show-arrow` —— whether the dropdown has an arrow
-- prop · `tag-effect` —— tag effect
-- prop · `tag-type` —— tag type
-- slot · `default`
-- slot · `empty`
-- slot · `footer`
-- slot · `header`
-- slot · `label`
-- slot · `loading`
-- slot · `prefix`
-- slot · `tag`
-- event · `check`
-- event · `clear`
-
-### `upload`
-
-- prop · `list-type` —— type of file list.
-- slot · `file`
 
 ### `virtual-select`
 
 - prop · `automatic-dropdown` —— for non-filterable Select, this prop decides if the option menu pops up when the input is focused
-- prop · `clearable` —— whether select can be cleared
-- prop · `collapse-tags` —— whether to collapse tags to a text when multiple selecting
 - prop · `default-first-option` —— select first matching option on enter key. Use with `filterable` or `remote`
-- prop · `effect` —— tooltip theme, built-in theme: `dark` / `light`
-- prop · `filterable` —— whether Select is filterable
-- prop · `fit-input-width` —— whether the width of the dropdown is the same as the input, if the value is `number`, then the width is fixed
-- prop · `loading` —— whether Select is loading data from server
 - prop · `show-arrow` —— whether the dropdown has an arrow
-- prop · `tag-effect` —— tag effect
-- prop · `tag-type` —— tag type
-- slot · `loading`
-- slot · `prefix`
-- slot · `tag`
-
-### `virtual-table`
-
-- prop · `fixed` —— Flag indicates the table column's width to be fixed or flexible.
-
-### `virtual-tree`
-
-- prop · `check-strictly` —— whether checked state of a node not affects its father and child nodes when `show-checkbox` is `true`
-- prop · `show-checkbox` —— whether node is selectable
-- event · `check`
 
 ## 没有对应组件的地方
 

@@ -53,7 +53,7 @@
 /* The ring goes on the field, because the field is what the reader is typing
    in — the input is inside it, not beside it. */
 .um-date-time-picker:has(.um-date-time-picker__input:focus-visible) {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -83,6 +83,24 @@
   align-self: stretch;
   width: var(--um-border-width);
   background: var(--um-border-lighter);
+}
+
+/* A host that fills the range-separator slot puts its own mark between the
+   two date-times, and the rule steps aside for it: an empty separator is the
+   rule, a separator with something in it is that something. */
+.um-date-time-picker__separator:not(:empty) {
+  display: inline-flex;
+  align-items: center;
+  width: auto;
+  background: none;
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+
+/* A separator that is hidden stays hidden, whatever is in it — the mark only
+   belongs between the two moments of a range. */
+.um-date-time-picker__separator[hidden] {
+  display: none;
 }
 
 .um-date-time-picker--sm {

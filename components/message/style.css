@@ -102,7 +102,7 @@
 .um-message__close::after { transform: translate(-50%, -50%) rotate(-45deg); }
 .um-message__close:hover { color: var(--um-text-primary); }
 .um-message__close:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 

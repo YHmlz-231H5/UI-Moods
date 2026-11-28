@@ -22,13 +22,22 @@
 .um-cascader,
 .um-cascader--inline {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  flex-direction: column;
   min-width: 12em;
   border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
   border-radius: var(--um-radius-base);
   background: var(--um-bg-overlay);
   font-family: var(--um-font-family);
   font-size: var(--um-font-size-body);
+
+  /* The colour of the chips that show the choice. The type says which colour
+     they take and the effect says whether they are a tint, a solid fill or
+     an outline, so both are held in variables and one rule paints them. */
+  --um-cascader-tag: var(--um-color-primary);
+  --um-cascader-tag-on: var(--um-color-primary-on);
+  --um-cascader-tag-soft: var(--um-color-primary-soft-8);
+  --um-cascader-tag-soft-on: var(--um-color-primary-on-soft);
 }
 
 .um-cascader__panel {
@@ -54,7 +63,7 @@
    in a row goes inside it: an outside ring would be cut off by the next
    row. */
 .um-cascader__option:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: calc(-1 * var(--um-focus-ring-width));
 }
 
@@ -141,6 +150,227 @@
 .um-cascader--disabled .um-cascader__option {
   color: var(--um-text-disabled);
   cursor: not-allowed;
+}
+
+/* The field is the row above the levels: it holds what stands in front of the
+   control, the chips that show the choice, the field the host filters with
+   and the mark that clears the choice. It takes no room at all when the host
+   has asked for none of them: each of the things it holds is not drawn
+   unless its own class is on, so the row that holds them is not drawn
+   either — which is why the row carries no padding of its own. */
+.um-cascader__field {
+  display: flex;
+  align-items: center;
+  gap: var(--um-space-xs);
+  padding: var(--um-space-xs);
+}
+
+/* The prefix stands in front of the control. It is the host's own mark, so
+   the library draws no glyph of its own. */
+.um-cascader__prefix {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  color: var(--um-text-secondary);
+}
+
+.um-cascader__prefix:empty {
+  display: none;
+}
+
+/* The chips that show the choice. They are the host's own values, so the
+   library paints them and the host fills them. */
+.um-cascader__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--um-space-xs);
+}
+
+.um-cascader__tags:not(:has(.um-cascader__tag:not(:empty))) {
+  display: none;
+}
+
+.um-cascader__tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 var(--um-space-xs);
+  border: var(--um-border-width) var(--um-border-style) var(--um-shape-muted);
+  border-radius: var(--um-radius-round);
+  background: var(--um-cascader-tag-soft);
+  color: var(--um-cascader-tag-soft-on);
+  font-size: var(--um-font-size-caption);
+}
+
+.um-cascader__tag:empty {
+  display: none;
+}
+
+/* The type of the chip says which colour it takes. */
+.um-cascader--tag-success {
+  --um-cascader-tag: var(--um-color-success);
+  --um-cascader-tag-on: var(--um-color-success-on);
+  --um-cascader-tag-soft: var(--um-color-success-soft-8);
+  --um-cascader-tag-soft-on: var(--um-color-success-on-soft);
+}
+.um-cascader--tag-warning {
+  --um-cascader-tag: var(--um-color-warning);
+  --um-cascader-tag-on: var(--um-color-warning-on);
+  --um-cascader-tag-soft: var(--um-color-warning-soft-8);
+  --um-cascader-tag-soft-on: var(--um-color-warning-on-soft);
+}
+.um-cascader--tag-danger {
+  --um-cascader-tag: var(--um-color-danger);
+  --um-cascader-tag-on: var(--um-color-danger-on);
+  --um-cascader-tag-soft: var(--um-color-danger-soft-8);
+  --um-cascader-tag-soft-on: var(--um-color-danger-on-soft);
+}
+.um-cascader--tag-info {
+  --um-cascader-tag: var(--um-color-info);
+  --um-cascader-tag-on: var(--um-color-info-on);
+  --um-cascader-tag-soft: var(--um-color-info-soft-8);
+  --um-cascader-tag-soft-on: var(--um-color-info-on-soft);
+}
+
+/* The effect of the chip says how it is painted: a tint, a solid fill or an
+   outline with no fill at all. */
+.um-cascader--tag-effect-dark .um-cascader__tag {
+  border-color: var(--um-cascader-tag);
+  background: var(--um-cascader-tag);
+  color: var(--um-cascader-tag-on);
+}
+
+.um-cascader--tag-effect-plain .um-cascader__tag {
+  border-color: var(--um-cascader-tag);
+  background: transparent;
+  color: var(--um-cascader-tag);
+}
+
+/* The chips are folded away: only the first of them is shown, so the field
+   keeps one line. How many were folded is the host's to say. */
+.um-cascader--collapse-tags .um-cascader__tag ~ .um-cascader__tag {
+  display: none;
+}
+
+/* The filter is the field the host filters the levels with. It is a real
+   search field, so the filtering is the host's script and the library only
+   draws it. */
+.um-cascader__filter {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: none;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--um-text-regular);
+  font: inherit;
+}
+
+.um-cascader__filter::placeholder {
+  color: var(--um-text-placeholder);
+}
+
+.um-cascader--filterable .um-cascader__filter {
+  display: block;
+}
+
+/* The clear mark is a cross drawn from two bars, so it carries no text of its
+   own. It is a real button, so the keyboard can reach it. */
+.um-cascader__clear {
+  position: relative;
+  flex: none;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--um-space-sm);
+  height: var(--um-space-sm);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--um-text-secondary);
+  cursor: pointer;
+}
+
+.um-cascader--clearable .um-cascader__clear {
+  display: inline-flex;
+}
+
+.um-cascader__clear::before,
+.um-cascader__clear::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  width: var(--um-space-xs);
+  height: var(--um-border-width);
+  background: currentColor;
+}
+.um-cascader__clear::before { transform: translate(-50%, -50%) rotate(45deg); }
+.um-cascader__clear::after { transform: translate(-50%, -50%) rotate(-45deg); }
+
+.um-cascader__clear:hover {
+  color: var(--um-color-primary-text);
+}
+
+.um-cascader__clear:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+/* The header and the footer stand above and below the levels. They take no
+   room at all when the host has nothing to put in them, so an empty one is
+   not a strip of nothing. */
+.um-cascader__header,
+.um-cascader__footer {
+  padding: var(--um-space-xs) var(--um-space-sm);
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+
+.um-cascader__header:empty,
+.um-cascader__footer:empty {
+  display: none;
+}
+
+/* What a level says when it holds no option at all. */
+.um-cascader__empty {
+  padding: var(--um-space-sm);
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+
+.um-cascader__empty:empty {
+  display: none;
+}
+
+/* The effect says how the component's own surface is painted. The dark
+   effect fills it with the brand colour; the plain effect drops the fill. */
+.um-cascader--effect-dark {
+  border-color: var(--um-color-primary);
+  background: var(--um-color-primary);
+  color: var(--um-color-primary-on);
+}
+
+.um-cascader--effect-dark .um-cascader__option {
+  color: var(--um-color-primary-on);
+}
+
+.um-cascader--effect-plain {
+  background: transparent;
+}
+
+/* The panel that opens beside the option takes the width of the field rather
+   than the width of its own options, so the two agree. */
+.um-cascader--fit-input-width .um-cascader--flyout .um-cascader__children {
+  width: 100%;
+}
+
+/* The levels far from the reader are not laid out: the browser is told how
+   tall such a level is and gives it a placeholder size until it comes near.
+   The placeholder size is one line of the level's own type, so the scrollbar
+   is right before the level has ever been looked at. */
+.um-cascader--virtual-scroll .um-cascader__children > .um-cascader__panel {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1.2em;
 }
 
 /* ============================================================================

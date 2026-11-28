@@ -68,7 +68,7 @@
 /* The ring goes on the field, because the field is what the reader is typing
    in — the input is inside it, not beside it. */
 .um-mention:has(.um-mention__input:focus-visible) .um-mention__field {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -111,7 +111,7 @@
 }
 .um-mention__item:hover { background: var(--um-fill-light); }
 .um-mention__item:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -137,6 +137,105 @@
 }
 
 .um-mention__name { color: var(--um-text-primary); }
+
+/* The prefix is the character that starts a mention. It is written in the
+   field, the way the reader will see it in the sentence, and it is text, so
+   it takes the muted role. */
+.um-mention__prefix {
+  display: inline-flex;
+  align-items: center;
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+
+/* The header and the footer sit around the list of names. They are text
+   about the list, so they take the muted role. */
+.um-mention__header,
+.um-mention__footer {
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+
+/* The loading mark is the ring the loading button turns, drawn here rather
+   than borrowed: a component may not lean on another's class. A filled part
+   is the caller's own mark, an empty one is the library's. */
+.um-mention__loading {
+  display: none;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: var(--um-space-sm);
+  height: var(--um-space-sm);
+  color: var(--um-text-secondary);
+}
+.um-mention--loading .um-mention__loading { display: inline-flex; }
+.um-mention__loading::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: var(--um-radius-circle);
+}
+.um-mention__loading:not(:empty)::before { display: none; }
+
+/* The ring turns only when the reader has not asked for less motion — the
+   library never overrides that preference. The keyframe is the one the
+   loading button already uses, because it is the same ring turning the same
+   way. */
+@media (prefers-reduced-motion: no-preference) {
+  .um-mention__loading::before { animation: um-spin 0.7s linear infinite; }
+}
+
+/* The clear button is a real button, so it is in the tab order, and its mark
+   is two bars crossed: the library ships no glyph for it to use. */
+.um-mention__clear {
+  display: none;
+  position: relative;
+  flex: 0 0 auto;
+  width: var(--um-space-md);
+  height: var(--um-space-md);
+  padding: 0;
+  border: 0;
+  border-radius: var(--um-radius-circle);
+  background: none;
+  color: var(--um-text-secondary);
+  cursor: pointer;
+}
+.um-mention--clearable .um-mention__clear { display: inline-flex; }
+.um-mention__clear::before,
+.um-mention__clear::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--um-space-xs);
+  height: 0;
+  border-top: var(--um-border-width) solid currentColor;
+}
+.um-mention__clear::before { transform: translate(-50%, -50%) rotate(45deg); }
+.um-mention__clear::after { transform: translate(-50%, -50%) rotate(-45deg); }
+.um-mention__clear:hover { color: var(--um-text-primary); }
+.um-mention__clear:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+/* The arrow is the chevron that says a list is behind the field. It is drawn
+   from two borders and turned, the way the icon set draws a chevron. */
+.um-mention__arrow {
+  display: none;
+  flex: 0 0 auto;
+  width: var(--um-space-sm);
+  height: var(--um-space-sm);
+  border: solid currentColor;
+  border-width: 0;
+  border-inline-end-width: var(--um-border-width);
+  border-bottom-width: var(--um-border-width);
+  transform: rotate(calc(45deg * var(--um-mirror)));
+  color: var(--um-text-secondary);
+}
+.um-mention--show-arrow .um-mention__arrow { display: inline-flex; }
 
 .um-mention--sm { font-size: var(--um-font-size-caption); }
 .um-mention--sm .um-mention__field { min-height: var(--um-height-sm); }

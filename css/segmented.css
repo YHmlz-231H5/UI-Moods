@@ -83,8 +83,17 @@
 /* The ring goes on the segment rather than on the radio, because the radio is
    a pixel wide and the segment is what the reader actually sees. */
 .um-segmented__option:has(input:focus-visible) {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: calc(-1 * var(--um-focus-ring-width));
+}
+
+/* The solid run fills the picked segment with the brand colour, and a ring in
+   the ring colour would vanish into that fill: on twenty-nine of the moods
+   the two are the same colour, which is a ring of 1:1. On the filled segment
+   the ring takes the foreground the brand puts on the fill instead — the one
+   colour that is measured to read on it, at 4.6:1 or better in every mood. */
+.um-segmented--solid .um-segmented__option:has(input:checked):has(input:focus-visible) {
+  outline-color: var(--um-color-primary-on);
 }
 
 /* A disabled segment is dimmed the way the library dims every other disabled

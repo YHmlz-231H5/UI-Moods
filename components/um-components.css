@@ -47,6 +47,14 @@
 
 /* --- shared ---------------------------------------------------------------
    One focus treatment for every focusable component.
+
+   The ring is painted in the focus-ring role rather than in the brand colour.
+   A ring is a shape, so it is held to the 3:1 WCAG asks of a graphic — and it
+   lands on more surfaces than any other shape in the library: the page, a
+   container, a floating overlay, the inside of a text field. The brand colour
+   is a fill, and a fill is not readable as a ring: the brutal mood's accent
+   is a bright yellow on a light page, and a ring painted in it is a ring
+   nobody can see.
    ------------------------------------------------------------------------ */
 .um-focusable:focus-visible,
 .um-button:focus-visible,
@@ -57,7 +65,7 @@
 .um-checkbox__input:focus-visible + .um-checkbox__box,
 .um-radio__input:focus-visible + .um-radio__dot,
 .um-slider:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -408,7 +416,7 @@
 /* The frame takes the focus ring when something inside it has the keyboard,
    so the reader can see which box they are in. */
 .um-border:focus-within {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -685,6 +693,12 @@
    are separated with rules instead, so the skeleton reads as a skeleton and
    no translucent layer is ever stacked on another. */
 .um-layout {
+  /* The offsets the host asks for. They are declared here so that the
+     stylesheet reads a variable it owns, and a host that asks for no offset
+     gets none. */
+  --um-layout-pull: 0;
+  --um-layout-push: 0;
+
   display: flex;
   flex-direction: column;
   min-height: 100%;
@@ -746,6 +760,13 @@
   border-bottom: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
 }
 
+/* The layout is pulled back from the end of its row, or pushed along it. The
+   distance is a number of the mood's spacing steps, and a class cannot carry
+   a number — so the class carries the mechanism and the number travels as the
+   custom property the host writes. */
+.um-layout--pull { margin-inline-end: var(--um-layout-pull); }
+.um-layout--push { margin-inline-start: var(--um-layout-push); }
+
 /* ============================================================================
    Link
    ========================================================================== */
@@ -779,7 +800,7 @@
 /* The focus ring. The shared layer paints one for the controls it knows, and
    a link is not among them, so the link paints its own. */
 .um-link:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -882,6 +903,15 @@
   border-bottom: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
 }
 
+/* The actions area gives a button that arrives without a class of its own a
+   shape, so the block reads as one row of actions. The same button gets the
+   library's focus ring, for the same reason: the block is the library's, so
+   the focus treatment is too. */
+:where(.um-page-header__actions button):focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
 /* ============================================================================
    Scrollbar
    ========================================================================== */
@@ -963,7 +993,7 @@
 /* The ring goes on the scrolling box and inside the frame: an outside ring
    would be cut off by the frame that holds it. */
 .um-scrollbar__wrap:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: calc(-1 * var(--um-focus-ring-width));
 }
 
@@ -1128,7 +1158,7 @@
 /* The ring goes on the bar: it is the element a reader can reach, and the
    strip is wide enough to show the ring. */
 .um-splitter__bar:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -1143,6 +1173,23 @@
 
 .um-splitter--lg {
   --um-splitter-grip: var(--um-height-lg);
+}
+
+/* A splitter whose panes can be folded away says so on the divider: the grip
+   takes the brand colour, because it is the control that moves. The library
+   cannot fold a pane — there is no script here — so the control that does it
+   is the host's, and the class says that the divider is one. */
+.um-splitter.um-splitter--collapsible .um-splitter__handle {
+  background: var(--um-color-primary-graphic);
+}
+
+/* The space the host's own fold control sits in. The control is the host's,
+   so the library only holds the space and puts it at the inline end of the
+   pane it belongs to. */
+.um-splitter__collapse {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--um-space-xs);
 }
 
 /* ============================================================================
@@ -1275,6 +1322,14 @@
   color: var(--um-text-secondary);
 }
 
+/* A link in a paragraph is a link, and the ring goes on the link itself:
+   a ring around the whole paragraph would say the wrong thing about what is
+   focused. */
+.um-typography__link:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
 /* ============================================================================
    Autocomplete
    ========================================================================== */
@@ -1354,7 +1409,7 @@
 /* The ring goes on the field, because the field is what the reader is typing
    in — the input is inside it, not beside it. */
 .um-autocomplete:has(.um-autocomplete__input:focus-visible) {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -1381,6 +1436,104 @@
 .um-autocomplete--lg {
   height: var(--um-height-lg);
 }
+
+/* The prepended and appended content sit at the two edges of the field, away
+   from the text — the boxes Element Plus puts outside an input. They are
+   text, so they take the muted role. */
+.um-autocomplete__prepend,
+.um-autocomplete__append {
+  display: inline-flex;
+  align-items: center;
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+
+/* The clear button is a real button, so it is in the tab order and the
+   keyboard reaches it. Its mark is two bars crossed: the library ships no
+   glyph for it to use. */
+.um-autocomplete__clear {
+  display: none;
+  position: relative;
+  flex: 0 0 auto;
+  width: var(--um-space-md);
+  height: var(--um-space-md);
+  padding: 0;
+  border: 0;
+  border-radius: var(--um-radius-circle);
+  background: none;
+  color: var(--um-text-secondary);
+  cursor: pointer;
+}
+.um-autocomplete--clearable .um-autocomplete__clear { display: inline-flex; }
+.um-autocomplete__clear::before,
+.um-autocomplete__clear::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--um-space-xs);
+  height: 0;
+  border-top: var(--um-border-width) solid currentColor;
+}
+.um-autocomplete__clear::before { transform: translate(-50%, -50%) rotate(45deg); }
+.um-autocomplete__clear::after { transform: translate(-50%, -50%) rotate(-45deg); }
+.um-autocomplete__clear:hover { color: var(--um-text-primary); }
+.um-autocomplete__clear:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+/* The loading mark is the ring the loading button turns, drawn here rather
+   than borrowed: a component may not lean on another's class. It shows while
+   the field is loading; a filled part is the caller's own mark, an empty one
+   is the library's. */
+.um-autocomplete__loading {
+  display: none;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: var(--um-space-sm);
+  height: var(--um-space-sm);
+  color: var(--um-text-secondary);
+}
+.um-autocomplete--loading .um-autocomplete__loading { display: inline-flex; }
+.um-autocomplete__loading::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: var(--um-radius-circle);
+}
+.um-autocomplete__loading:not(:empty)::before { display: none; }
+/* The loading mark can be taken away, even when the caller has written one. */
+.um-autocomplete--hide-loading .um-autocomplete__loading { display: none; }
+
+/* The ring turns only when the reader has not asked for less motion — the
+   library never overrides that preference. The keyframe is the one the
+   loading button already uses, because it is the same ring turning the same
+   way. */
+@media (prefers-reduced-motion: no-preference) {
+  .um-autocomplete__loading::before { animation: um-spin 0.7s linear infinite; }
+}
+
+/* The arrow is the chevron that says a list is behind the field. It is drawn
+   from two borders and turned, the way the icon set draws a chevron: a shape
+   that points along the reading direction cannot be written logically, so it
+   turns by its own angle times the mirror. */
+.um-autocomplete__arrow {
+  display: none;
+  flex: 0 0 auto;
+  width: var(--um-space-sm);
+  height: var(--um-space-sm);
+  border: solid currentColor;
+  border-width: 0;
+  border-inline-end-width: var(--um-border-width);
+  border-bottom-width: var(--um-border-width);
+  transform: rotate(calc(45deg * var(--um-mirror)));
+  color: var(--um-text-secondary);
+}
+.um-autocomplete--show-arrow .um-autocomplete__arrow { display: inline-flex; }
 
 /* ============================================================================
    Button
@@ -1412,7 +1565,7 @@
   white-space: nowrap;
   cursor: pointer;
   transition: background-color var(--um-motion), border-color var(--um-motion),
-    color var(--um-motion), box-shadow var(--um-motion);
+    color var(--um-motion), box-shadow: var(--um-motion);
 }
 
 .um-button--sm { height: var(--um-height-sm); padding: 0 var(--um-space-xs); font-size: var(--um-font-size-caption); }
@@ -1749,7 +1902,7 @@
 }
 
 .um-color-picker__swatch:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -1802,7 +1955,7 @@
    out than the ring that marks the picked chip, so the two never read as
    one mark. */
 .um-color-picker__radio:focus-visible + .um-color-picker__chip {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -1833,7 +1986,7 @@
 .um-color-picker__hex::placeholder { color: var(--um-text-placeholder); }
 
 .um-color-picker__hex:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -2012,7 +2165,7 @@
 .um-color-picker-panel__swatch:has(input:focus-visible),
 .um-color-picker-panel__hue-swatch:has(input:focus-visible),
 .um-color-picker-panel__input:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -2177,7 +2330,7 @@
 /* The ring goes on the field, because the field is what the reader is
    typing in — the input is inside it, not beside it. */
 .um-date-picker:has(.um-date-picker__input:focus-visible) {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -2206,6 +2359,24 @@
   align-self: stretch;
   width: var(--um-border-width);
   background: var(--um-border-lighter);
+}
+
+/* A host that fills the range-separator slot puts its own mark between the
+   two dates, and the rule steps aside for it: an empty separator is the
+   rule, a separator with something in it is that something. */
+.um-date-picker__separator:not(:empty) {
+  display: inline-flex;
+  align-items: center;
+  width: auto;
+  background: none;
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+
+/* A separator that is hidden stays hidden, whatever is in it — the mark only
+   belongs between the two dates of a range. */
+.um-date-picker__separator[hidden] {
+  display: none;
 }
 
 .um-date-picker--sm {
@@ -2248,6 +2419,18 @@
 
 .um-date-picker-panel--range .um-date-picker-panel__footer {
   flex: 1 0 100%;
+}
+
+/* A panel that draws no frame of its own: the host draws the frame, or the
+   panel sits inside one. The surface and the padding stay, because the
+   content still needs them. */
+.um-date-picker-panel.um-date-picker-panel--borderless {
+  border: 0;
+}
+
+/* A range picked one month at a time: the second month is not drawn. */
+.um-date-picker-panel.um-date-picker-panel--single-panel .um-date-picker-panel__panel + .um-date-picker-panel__panel {
+  display: none;
 }
 
 /* One month of the panel. It does not shrink: the days are laid out in
@@ -2313,7 +2496,7 @@
 .um-date-picker-panel__next:focus-visible,
 .um-date-picker-panel__today:focus-visible,
 .um-date-picker-panel__confirm:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -2341,6 +2524,23 @@
   text-align: center;
 }
 
+/* The week numbers: a column of their own on the start side of the grid, so
+   each week says which week of the year it is. The column takes the width of
+   the numbers in it and the seven day columns take the rest, so the days do
+   not get squeezed. */
+.um-date-picker-panel.um-date-picker-panel--week-number .um-date-picker-panel__week {
+  grid-template-columns: auto repeat(7, minmax(0, 1fr));
+}
+
+.um-date-picker-panel__week-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--um-space-xs) 0;
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+
 .um-date-picker-panel__cell {
   display: flex;
   align-items: center;
@@ -2349,6 +2549,18 @@
   border-radius: var(--um-radius-small);
   color: var(--um-text-regular);
   font-size: var(--um-font-size-body);
+}
+
+/* What the host puts in a day of its own. It sits beside the number, so the
+   day's own marks — today, selected — are still on the number. An empty one
+   takes no room at all. */
+.um-date-picker-panel__content {
+  margin-inline-start: var(--um-space-xs);
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+.um-date-picker-panel__content:empty {
+  display: none;
 }
 
 /* The number is a circle of its own, so the today marker can fill it without
@@ -2454,6 +2666,45 @@
   font-weight: var(--um-font-weight-medium);
 }
 
+/* The clear action. It is only wanted when the panel is asked to be
+   clearable, so the class is what shows it: the action sits in the footer
+   either way, and the class decides whether the reader sees it.
+
+   It carries no fill, the way the shortcut does, and its words take the
+   muted text colour: emptying the date is not the destructive thing the
+   danger colour is for. */
+.um-date-picker-panel__clear {
+  display: none;
+  height: var(--um-height-sm);
+  padding: 0 var(--um-space-sm);
+  border: var(--um-border-width) var(--um-border-style) transparent;
+  border-radius: var(--um-radius-small);
+  background: transparent;
+  color: var(--um-text-secondary);
+  font-family: var(--um-font-family);
+  font-size: var(--um-font-size-caption);
+  cursor: pointer;
+}
+.um-date-picker-panel.um-date-picker-panel--clearable .um-date-picker-panel__clear {
+  display: inline-flex;
+}
+.um-date-picker-panel.um-date-picker-panel--clearable .um-date-picker-panel__clear:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+/* A host that brings its own mark for the two buttons takes the drawn one
+   away, and the button takes the width of the mark instead of the width of a
+   square. */
+.um-date-picker-panel__prev:has(> *),
+.um-date-picker-panel__next:has(> *) {
+  width: auto;
+}
+.um-date-picker-panel__prev:has(> *)::after,
+.um-date-picker-panel__next:has(> *)::after {
+  display: none;
+}
+
 .um-date-picker-panel--sm .um-date-picker-panel__cell {
   min-height: var(--um-height-sm);
   font-size: var(--um-font-size-caption);
@@ -2521,7 +2772,7 @@
 /* The ring goes on the field, because the field is what the reader is typing
    in — the input is inside it, not beside it. */
 .um-date-time-picker:has(.um-date-time-picker__input:focus-visible) {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -2551,6 +2802,24 @@
   align-self: stretch;
   width: var(--um-border-width);
   background: var(--um-border-lighter);
+}
+
+/* A host that fills the range-separator slot puts its own mark between the
+   two date-times, and the rule steps aside for it: an empty separator is the
+   rule, a separator with something in it is that something. */
+.um-date-time-picker__separator:not(:empty) {
+  display: inline-flex;
+  align-items: center;
+  width: auto;
+  background: none;
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+
+/* A separator that is hidden stays hidden, whatever is in it — the mark only
+   belongs between the two moments of a range. */
+.um-date-time-picker__separator[hidden] {
+  display: none;
 }
 
 .um-date-time-picker--sm {
@@ -2608,6 +2877,19 @@
 .um-field--disabled .um-field__label,
 .um-field--disabled .um-field__message { color: var(--um-text-disabled); }
 
+/* A control that says it is required gets an asterisk after its label. The
+   field reads the requirement off the control itself, so the marker follows
+   the control rather than a second prop of its own — and a field with no
+   required control in it has no asterisk. */
+.um-field:has(:required) .um-field__label::after {
+  content: "*";
+  margin-inline-start: var(--um-space-xs);
+  color: var(--um-color-danger-text);
+}
+
+/* The asterisk can be taken away, for the forms where it is noise. */
+.um-field--hide-required-asterisk:has(:required) .um-field__label::after { content: none; }
+
 /* ============================================================================
    Input / Textarea / Select
    ========================================================================== */
@@ -2624,7 +2906,7 @@
   font-family: var(--um-font-family);
   font-size: var(--um-font-size-body);
   line-height: 1.5;
-  transition: border-color var(--um-motion), box-shadow var(--um-motion);
+  transition: border-color var(--um-motion), box-shadow: var(--um-motion);
 }
 
 .um-input::placeholder,
@@ -2639,7 +2921,7 @@
 .um-select:focus {
   border-color: var(--um-color-primary);
   outline: none;
-  box-shadow: 0 0 0 var(--um-focus-ring-width) var(--um-color-primary-soft-4);
+  box-shadow: 0 0 0 var(--um-focus-ring-width) var(--um-focus-ring);
 }
 
 .um-textarea { min-height: calc(var(--um-height-md) * 3); padding: var(--um-space-xs); resize: vertical; }
@@ -2656,6 +2938,14 @@
 }
 .um-select option { background: var(--um-bg-overlay); color: var(--um-text-primary); }
 
+/* The arrow is part of the control and is drawn by default, because a select
+   without one does not say it opens a list. The run that takes it away gives
+   the text the room the arrow was in. */
+.um-select.um-input--no-arrow {
+  background-image: none;
+  padding-inline-end: var(--um-space-xs);
+}
+
 /* The size modifier reaches all three controls: the class is the same one
    whichever member of the family it is written on. The medium size is the
    base class on its own, so it needs no rule. */
@@ -2670,6 +2960,28 @@
 /* The textarea keeps its three rows, so it is sized by its own rule. */
 .um-textarea.um-input--sm { min-height: calc(var(--um-height-sm) * 3); }
 .um-textarea.um-input--lg { min-height: calc(var(--um-height-lg) * 3); }
+
+/* The filled run puts the control on a recessed surface and drops its frame,
+   so it reads as a well rather than as a box. The light run is the base class
+   on its own, so it needs no rule.
+
+   The hover rule above is written for a control in a frame, so the filled run
+   says again that it has no frame to light up. */
+.um-input--filled {
+  border-color: transparent;
+  background: var(--um-fill-light);
+}
+.um-input--filled:hover:not(:disabled) { border-color: transparent; }
+
+/* The autosize run lets the textarea grow with the text in it. It is the
+   browser's own field-sizing: the browser measures the text and the field
+   follows, so nothing in the library has to. The field keeps its three rows
+   as a floor, and the reader cannot drag it taller than its own text. */
+.um-textarea.um-input--autosize {
+  field-sizing: content;
+  height: auto;
+  resize: none;
+}
 
 /* ============================================================================
    Input Number
@@ -2781,14 +3093,14 @@
    and a clipped ring is no ring at all. */
 .um-input-number__increase:focus-visible,
 .um-input-number__decrease:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: calc(-1 * var(--um-focus-ring-width));
 }
 
 /* The ring around the whole field, because the field is what the reader is
    typing in — the buttons are separate controls with their own rings. */
 .um-input-number__wrapper:has(.um-input-number__input:focus-visible) {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -2810,6 +3122,13 @@
 
 .um-input-number--small .um-input-number__wrapper { height: var(--um-height-sm); }
 .um-input-number--large .um-input-number__wrapper { height: var(--um-height-lg); }
+
+/* The number can sit at either end of the field instead of in the middle of
+   it. The sides are written logically, so a right-to-left reader gets the
+   other side. The centred run is the base class on its own, so it needs no
+   rule. */
+.um-input-number--align-start .um-input-number__input { text-align: start; }
+.um-input-number--align-end .um-input-number__input { text-align: end; }
 
 /* ============================================================================
    Input OTP
@@ -2842,7 +3161,7 @@
 /* The ring goes on the one box the reader is in. A ring around the whole row
    would say the wrong thing about what is focused. */
 .um-input-otp__field:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -2893,6 +3212,22 @@
      both have to shrink together when the field does. */
   --um-input-tag-chip: var(--um-height-sm);
 
+  /* The tag's surface and its ink, in two sets: the light one and the solid
+     one. The variant says which colour the tag carries and the effect says
+     which surface it sits on, and the two compose because they are two sets
+     of variables rather than two sets of rules.
+
+     The light set is the plain tag — a plain surface, a hairline and the body
+     colour, the pair the contract measures. The solid set is the tag on the
+     brand colour with the brand's own foreground on it, which is the other
+     pair the contract measures. */
+  --um-input-tag-fill: var(--um-fill-blank);
+  --um-input-tag-edge: var(--um-border-base);
+  --um-input-tag-ink: var(--um-text-regular);
+  --um-input-tag-solid-fill: var(--um-fill-base);
+  --um-input-tag-solid-edge: var(--um-border-base);
+  --um-input-tag-solid-ink: var(--um-text-regular);
+
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -2906,6 +3241,14 @@
   font-size: var(--um-font-size-body);
 }
 
+/* The filled run puts the field on a recessed surface and drops its frame,
+   so it reads as a well rather than as a box. The light run is the base
+   class on its own, so it needs no rule. */
+.um-input-tag--filled {
+  border-color: transparent;
+  background: var(--um-fill-light);
+}
+
 /* The tag is the outlined member of the soft-chip family, the same shape the
    tag component uses: a tint for the fill and the derived colour for the
    outline, because a tint of the fill would sit at about 1.2:1 against it and
@@ -2917,10 +3260,10 @@
   max-width: 100%;
   height: var(--um-input-tag-chip);
   padding: 0 var(--um-space-xs);
-  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border: var(--um-border-width) var(--um-border-style) var(--um-input-tag-edge);
   border-radius: var(--um-radius-small);
-  background: var(--um-fill-blank);
-  color: var(--um-text-regular);
+  background: var(--um-input-tag-fill);
+  color: var(--um-input-tag-ink);
   font-size: var(--um-font-size-caption);
   line-height: 1;
 }
@@ -2962,7 +3305,7 @@
 .um-input-tag__remove::after { transform: translate(-50%, -50%) rotate(-45deg); }
 .um-input-tag__remove:hover { color: var(--um-text-primary); }
 .um-input-tag__remove:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -2991,7 +3334,7 @@
 /* The ring goes on the field, because the field is what the reader is typing
    in — the input is inside it, not beside it. */
 .um-input-tag:has(.um-input-tag__input:focus-visible) {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -3002,25 +3345,86 @@
 }
 .um-input-tag:has(.um-input-tag__input:disabled) .um-input-tag__input { color: var(--um-text-disabled); }
 
-.um-input-tag--primary .um-input-tag__tag {
-  background: var(--um-color-primary-soft-8);
-  border-color: var(--um-color-primary-text);
-  color: var(--um-color-primary-on-soft);
+/* The variant says which colour the tags carry. It sets the variables the
+   tag reads, so the surface effect can come on top of it without a second
+   set of rules. */
+.um-input-tag--primary {
+  --um-input-tag-fill: var(--um-color-primary-soft-8);
+  --um-input-tag-edge: var(--um-color-primary-text);
+  --um-input-tag-ink: var(--um-color-primary-on-soft);
+  --um-input-tag-solid-fill: var(--um-color-primary);
+  --um-input-tag-solid-edge: var(--um-color-primary);
+  --um-input-tag-solid-ink: var(--um-color-primary-on);
 }
-.um-input-tag--success .um-input-tag__tag {
-  background: var(--um-color-success-soft-8);
-  border-color: var(--um-color-success-text);
-  color: var(--um-color-success-on-soft);
+.um-input-tag--success {
+  --um-input-tag-fill: var(--um-color-success-soft-8);
+  --um-input-tag-edge: var(--um-color-success-text);
+  --um-input-tag-ink: var(--um-color-success-on-soft);
+  --um-input-tag-solid-fill: var(--um-color-success);
+  --um-input-tag-solid-edge: var(--um-color-success);
+  --um-input-tag-solid-ink: var(--um-color-success-on);
 }
-.um-input-tag--warning .um-input-tag__tag {
-  background: var(--um-color-warning-soft-8);
-  border-color: var(--um-color-warning-text);
-  color: var(--um-color-warning-on-soft);
+.um-input-tag--warning {
+  --um-input-tag-fill: var(--um-color-warning-soft-8);
+  --um-input-tag-edge: var(--um-color-warning-text);
+  --um-input-tag-ink: var(--um-color-warning-on-soft);
+  --um-input-tag-solid-fill: var(--um-color-warning);
+  --um-input-tag-solid-edge: var(--um-color-warning);
+  --um-input-tag-solid-ink: var(--um-color-warning-on);
 }
-.um-input-tag--danger .um-input-tag__tag {
-  background: var(--um-color-danger-soft-8);
-  border-color: var(--um-color-danger-text);
-  color: var(--um-color-danger-on-soft);
+.um-input-tag--danger {
+  --um-input-tag-fill: var(--um-color-danger-soft-8);
+  --um-input-tag-edge: var(--um-color-danger-text);
+  --um-input-tag-ink: var(--um-color-danger-on-soft);
+  --um-input-tag-solid-fill: var(--um-color-danger);
+  --um-input-tag-solid-edge: var(--um-color-danger);
+  --um-input-tag-solid-ink: var(--um-color-danger-on);
+}
+
+/* The tag effect says which surface the tag sits on. The dark one puts it on
+   the solid colour, the plain one takes the fill away and leaves the
+   outline, and the light one is the base class on its own. */
+.um-input-tag--tag-effect-dark {
+  --um-input-tag-fill: var(--um-input-tag-solid-fill);
+  --um-input-tag-edge: var(--um-input-tag-solid-edge);
+  --um-input-tag-ink: var(--um-input-tag-solid-ink);
+}
+.um-input-tag--tag-effect-plain {
+  --um-input-tag-fill: transparent;
+}
+
+/* The clear button is a real button, so it is in the tab order, and its mark
+   is two bars crossed: the library ships no glyph for it to use. */
+.um-input-tag__clear {
+  display: none;
+  position: relative;
+  flex: 0 0 auto;
+  width: var(--um-space-md);
+  height: var(--um-space-md);
+  padding: 0;
+  border: 0;
+  border-radius: var(--um-radius-circle);
+  background: none;
+  color: var(--um-text-secondary);
+  cursor: pointer;
+}
+.um-input-tag--clearable .um-input-tag__clear { display: inline-flex; }
+.um-input-tag__clear::before,
+.um-input-tag__clear::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--um-space-xs);
+  height: 0;
+  border-top: var(--um-border-width) solid currentColor;
+}
+.um-input-tag__clear::before { transform: translate(-50%, -50%) rotate(45deg); }
+.um-input-tag__clear::after { transform: translate(-50%, -50%) rotate(-45deg); }
+.um-input-tag__clear:hover { color: var(--um-text-primary); }
+.um-input-tag__clear:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
 }
 
 .um-input-tag--sm {
@@ -3090,7 +3494,7 @@
 /* The ring goes on the field, because the field is what the reader is typing
    in — the input is inside it, not beside it. */
 .um-mention:has(.um-mention__input:focus-visible) .um-mention__field {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -3133,7 +3537,7 @@
 }
 .um-mention__item:hover { background: var(--um-fill-light); }
 .um-mention__item:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -3159,6 +3563,105 @@
 }
 
 .um-mention__name { color: var(--um-text-primary); }
+
+/* The prefix is the character that starts a mention. It is written in the
+   field, the way the reader will see it in the sentence, and it is text, so
+   it takes the muted role. */
+.um-mention__prefix {
+  display: inline-flex;
+  align-items: center;
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+
+/* The header and the footer sit around the list of names. They are text
+   about the list, so they take the muted role. */
+.um-mention__header,
+.um-mention__footer {
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+
+/* The loading mark is the ring the loading button turns, drawn here rather
+   than borrowed: a component may not lean on another's class. A filled part
+   is the caller's own mark, an empty one is the library's. */
+.um-mention__loading {
+  display: none;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: var(--um-space-sm);
+  height: var(--um-space-sm);
+  color: var(--um-text-secondary);
+}
+.um-mention--loading .um-mention__loading { display: inline-flex; }
+.um-mention__loading::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: var(--um-radius-circle);
+}
+.um-mention__loading:not(:empty)::before { display: none; }
+
+/* The ring turns only when the reader has not asked for less motion — the
+   library never overrides that preference. The keyframe is the one the
+   loading button already uses, because it is the same ring turning the same
+   way. */
+@media (prefers-reduced-motion: no-preference) {
+  .um-mention__loading::before { animation: um-spin 0.7s linear infinite; }
+}
+
+/* The clear button is a real button, so it is in the tab order, and its mark
+   is two bars crossed: the library ships no glyph for it to use. */
+.um-mention__clear {
+  display: none;
+  position: relative;
+  flex: 0 0 auto;
+  width: var(--um-space-md);
+  height: var(--um-space-md);
+  padding: 0;
+  border: 0;
+  border-radius: var(--um-radius-circle);
+  background: none;
+  color: var(--um-text-secondary);
+  cursor: pointer;
+}
+.um-mention--clearable .um-mention__clear { display: inline-flex; }
+.um-mention__clear::before,
+.um-mention__clear::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--um-space-xs);
+  height: 0;
+  border-top: var(--um-border-width) solid currentColor;
+}
+.um-mention__clear::before { transform: translate(-50%, -50%) rotate(45deg); }
+.um-mention__clear::after { transform: translate(-50%, -50%) rotate(-45deg); }
+.um-mention__clear:hover { color: var(--um-text-primary); }
+.um-mention__clear:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+/* The arrow is the chevron that says a list is behind the field. It is drawn
+   from two borders and turned, the way the icon set draws a chevron. */
+.um-mention__arrow {
+  display: none;
+  flex: 0 0 auto;
+  width: var(--um-space-sm);
+  height: var(--um-space-sm);
+  border: solid currentColor;
+  border-width: 0;
+  border-inline-end-width: var(--um-border-width);
+  border-bottom-width: var(--um-border-width);
+  transform: rotate(calc(45deg * var(--um-mirror)));
+  color: var(--um-text-secondary);
+}
+.um-mention--show-arrow .um-mention__arrow { display: inline-flex; }
 
 .um-mention--sm { font-size: var(--um-font-size-caption); }
 .um-mention--sm .um-mention__field { min-height: var(--um-height-sm); }
@@ -3422,7 +3925,7 @@
 /* The ring goes on the item rather than on the star: the star is cut out of
    a polygon, and a clipped element cannot show an outline. */
 .um-rate__input:focus-visible + .um-rate__item {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -3441,10 +3944,25 @@
 }
 .um-rate--show-score .um-rate__score { display: inline-flex; }
 
+/* The text is the words beside the stars. It is in the markup either way, so
+   it only takes up room when the stars ask for it. */
+.um-rate__text {
+  display: none;
+  color: var(--um-text-regular);
+  font-size: var(--um-font-size-body);
+}
+.um-rate--show-text .um-rate__text { display: inline-flex; }
+
 /* ============================================================================
    Slider
    ========================================================================== */
 .um-slider {
+  /* The thumb and the track are the slider's own measures, so the size
+     modifiers only have to name a different pair of them. The thumb is a
+     round handle the reader drags, and the track is the line it runs on. */
+  --um-slider-thumb: var(--um-height-sm);
+  --um-slider-track: var(--um-space-xs);
+
   width: 100%;
   /* The browser gives a range input a margin of its own, and that margin
      would push the track a couple of pixels past the width the host gave
@@ -3456,28 +3974,30 @@
   cursor: pointer;
 }
 .um-slider::-webkit-slider-runnable-track {
-  height: var(--um-space-xs);
+  height: var(--um-slider-track);
   border-radius: var(--um-radius-round);
   background: var(--um-fill-light);
 }
 .um-slider::-moz-range-track {
-  height: var(--um-space-xs);
+  height: var(--um-slider-track);
   border-radius: var(--um-radius-round);
   background: var(--um-fill-light);
 }
 .um-slider::-webkit-slider-thumb {
   appearance: none;
-  width: var(--um-height-sm);
-  height: var(--um-height-sm);
-  margin-top: calc(var(--um-space-xs) * -0.5 - var(--um-space-xs) * 0.5);
+  width: var(--um-slider-thumb);
+  height: var(--um-slider-thumb);
+  /* The thumb sits on the track's axis, so it is raised by half of what the
+     track and the thumb differ by. */
+  margin-top: calc((var(--um-slider-track) - var(--um-slider-thumb)) / 2);
   border: 2px solid var(--um-color-primary);
   border-radius: var(--um-radius-circle);
   background: var(--um-bg-overlay);
   box-shadow: var(--um-shadow-light);
 }
 .um-slider::-moz-range-thumb {
-  width: var(--um-height-sm);
-  height: var(--um-height-sm);
+  width: var(--um-slider-thumb);
+  height: var(--um-slider-thumb);
   border: 2px solid var(--um-color-primary);
   border-radius: var(--um-radius-circle);
   background: var(--um-bg-overlay);
@@ -3493,6 +4013,46 @@
   direction: rtl;
   width: var(--um-height-md);
   height: var(--um-height-md);
+}
+
+/* The size sets how big the thumb is and how thick the track is. The middle
+   size is the base class on its own, so only the two ends need a rule. */
+.um-slider--sm {
+  --um-slider-thumb: var(--um-space-md);
+}
+
+.um-slider--lg {
+  --um-slider-thumb: var(--um-height-md);
+  --um-slider-track: var(--um-space-sm);
+}
+
+/* The stops are the tick marks that say there is a scale along the track.
+   They are painted as a repeating gradient, so they are evenly spaced: a
+   stylesheet cannot count the steps, and the marks say that there is a scale
+   rather than where it breaks. The gradient is the track's own background
+   image, so the flat colour of the track is still the colour under it. */
+.um-slider--show-stops {
+  --um-slider-stops: repeating-linear-gradient(
+    to right,
+    var(--um-shape-muted) 0 var(--um-space-xs),
+    transparent var(--um-space-xs) var(--um-space-sm)
+  );
+}
+
+/* The vertical run runs its track up the page, so its marks run with it. */
+.um-slider--show-stops.um-slider--vertical {
+  --um-slider-stops: repeating-linear-gradient(
+    to bottom,
+    var(--um-shape-muted) 0 var(--um-space-xs),
+    transparent var(--um-space-xs) var(--um-space-sm)
+  );
+}
+
+.um-slider--show-stops::-webkit-slider-runnable-track {
+  background-image: var(--um-slider-stops);
+}
+.um-slider--show-stops::-moz-range-track {
+  background-image: var(--um-slider-stops);
 }
 
 /* ============================================================================
@@ -3538,6 +4098,23 @@
 .um-switch__input:checked + .um-switch__track .um-switch__thumb { transform: translateX(calc(var(--um-switch-travel) * var(--um-mirror))); }
 .um-switch__input:disabled + .um-switch__track { opacity: 0.45; cursor: not-allowed; }
 .um-switch__label { color: var(--um-text-regular); font-size: var(--um-font-size-body); }
+
+/* The action is the mark that sits beside the switch: what the switch will
+   do. It is there in the markup either way, and it shows only when the
+   caller has written something into it.
+
+   It sits on the page rather than on the track, so it takes the body colour
+   — the track's own fill is the on/off signal, and a mark painted on it
+   would have to change colour with the switch to stay readable. */
+.um-switch__action {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  color: var(--um-text-regular);
+  font-size: var(--um-font-size-caption);
+  line-height: 1;
+}
+.um-switch__action:not(:empty) { display: inline-flex; }
 
 /* The inline prompt is the state written inside the track. It stays out of the
    way until the switch asks for it. */
@@ -3653,7 +4230,7 @@
 /* The ring goes on the field, because the field is what the reader is typing
    in — the input is inside it, not beside it. */
 .um-time-picker:has(.um-time-picker__input:focus-visible) {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -3683,6 +4260,51 @@
   align-self: stretch;
   width: var(--um-border-width);
   background: var(--um-border-lighter);
+}
+
+/* The clear mark is a cross drawn from two bars, so it carries no text of its
+   own. It stands at the end of the field, after the browser's own clock
+   button, and it is a real button so the keyboard can reach it. The field
+   decides whether it is there at all. */
+.um-time-picker__clear {
+  position: relative;
+  flex: none;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--um-space-sm);
+  height: var(--um-space-sm);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--um-text-secondary);
+  cursor: pointer;
+}
+
+.um-time-picker--clearable .um-time-picker__clear {
+  display: inline-flex;
+}
+
+.um-time-picker__clear::before,
+.um-time-picker__clear::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  width: var(--um-space-xs);
+  height: var(--um-border-width);
+  background: currentColor;
+}
+.um-time-picker__clear::before { transform: translate(-50%, -50%) rotate(45deg); }
+.um-time-picker__clear::after { transform: translate(-50%, -50%) rotate(-45deg); }
+
+.um-time-picker__clear:hover {
+  color: var(--um-color-primary-text);
+}
+
+.um-time-picker__clear:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
 }
 
 .um-time-picker--sm {
@@ -3765,7 +4387,7 @@
 /* The ring goes on the field, because the field is what the reader is on —
    the select is inside it, not beside it. */
 .um-time-select:has(.um-time-select__select:focus-visible) {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -3790,6 +4412,96 @@
   height: var(--um-height-lg);
 }
 
+/* The clear mark is a cross drawn from two bars, so it carries no text of its
+   own. It is a real button, so the keyboard can reach it and the reader hears
+   what it does. The field decides whether it is there at all. */
+.um-time-select__clear {
+  position: absolute;
+  inset-inline-end: var(--um-space-sm);
+  top: 50%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--um-space-sm);
+  height: var(--um-space-sm);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--um-text-secondary);
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.um-time-select--clearable .um-time-select__clear {
+  display: inline-flex;
+}
+
+.um-time-select__clear::before,
+.um-time-select__clear::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  width: var(--um-space-xs);
+  height: var(--um-border-width);
+  background: currentColor;
+}
+.um-time-select__clear::before { transform: translate(-50%, -50%) rotate(45deg); }
+.um-time-select__clear::after { transform: translate(-50%, -50%) rotate(-45deg); }
+
+.um-time-select__clear:hover {
+  color: var(--um-color-primary-text);
+}
+
+.um-time-select__clear:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+/* The clear mark stands at the end of the field, so the arrow steps away from
+   it and the text steps away from both of them. */
+.um-time-select--clearable .um-time-select__select {
+  padding-inline-end: calc(var(--um-space-lg) + var(--um-space-sm));
+}
+
+.um-time-select--clearable .um-time-select__arrow {
+  inset-inline-end: calc(var(--um-space-sm) + var(--um-space-sm));
+}
+
+/* The effect says how the field's own surface is painted. The dark effect
+   fills the field with the brand colour and puts the foreground derived for
+   that fill on it; the plain effect drops the fill and keeps the frame. */
+.um-time-select--effect-dark {
+  border-color: var(--um-color-primary);
+  background: var(--um-color-primary);
+  color: var(--um-color-primary-on);
+}
+
+.um-time-select--effect-dark .um-time-select__arrow,
+.um-time-select--effect-dark .um-time-select__clear {
+  color: var(--um-color-primary-on);
+}
+
+.um-time-select--effect-plain {
+  background: transparent;
+}
+
+/* The placeholder is the option that stands in for a choice. It takes the
+   muted placeholder role, and the field takes it too while that option is
+   the chosen one: the field knows which option is chosen because the option
+   is inside it, and :has() is the only way CSS can ask. */
+.um-time-select__placeholder {
+  color: var(--um-text-placeholder);
+}
+
+.um-time-select__placeholder:empty {
+  display: none;
+}
+
+.um-time-select:has(.um-time-select__placeholder:checked) .um-time-select__select {
+  color: var(--um-text-placeholder);
+}
+
 /* ============================================================================
    Tree Select
    ========================================================================== */
@@ -3800,6 +4512,14 @@
    rule, so the class list can name it. */
 .um-tree-select,
 .um-tree-select--plain {
+  /* The colour of the chips that show the choice. The type says which colour
+     they take and the effect says whether they are a tint, a solid fill or
+     an outline, so both are held in variables and one rule paints them. */
+  --um-tree-select-tag: var(--um-color-primary);
+  --um-tree-select-tag-on: var(--um-color-primary-on);
+  --um-tree-select-tag-soft: var(--um-color-primary-soft-8);
+  --um-tree-select-tag-soft-on: var(--um-color-primary-on-soft);
+
   padding: var(--um-space-xs);
   border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
   border-radius: var(--um-radius-base);
@@ -3840,7 +4560,7 @@
 }
 
 .um-tree-select__input:focus-visible + .um-tree-select__dot {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -3976,6 +4696,283 @@
   border-radius: var(--um-radius-small);
 }
 
+/* The arrow is not drawn when the tree says it is not there, so a branch
+   name stands at the same place as a leaf name. */
+.um-tree-select--no-arrow .um-tree-select__arrow {
+  display: none;
+}
+
+/* The current leaf — the one the reader is on — takes the highlight fill,
+   and only when the tree is told to mark it. */
+.um-tree-select--highlight-current .um-tree-select__option:has(input:focus) {
+  background: var(--um-fill-light);
+}
+
+/* The link between a branch and the leaf under it: a branch whose leaf is
+   picked takes the brand colour on its own mark, so the tree shows that the
+   two belong together. With the strict rule each mark stands on its own and
+   the link is not drawn. */
+.um-tree-select__node:has(> .um-tree-select__children input:checked) > .um-tree-select__option .um-tree-select__dot {
+  border-color: var(--um-color-primary);
+}
+
+.um-tree-select--check-strictly .um-tree-select__node:has(> .um-tree-select__children input:checked) > .um-tree-select__option .um-tree-select__dot {
+  border-color: var(--um-shape-muted);
+}
+
+/* The accordion: only the first open branch of a level shows what it holds,
+   so the level reads as one branch at a time. */
+.um-tree-select--accordion .um-tree-select__node[open] ~ .um-tree-select__node[open] > .um-tree-select__children {
+  display: none;
+}
+
+.um-tree-select--accordion .um-tree-select__node[open] ~ .um-tree-select__node[open] > .um-tree-select__option .um-tree-select__arrow::after {
+  transform: rotate(calc(45deg * var(--um-mirror)));
+}
+
+/* Every level is open: the level below a branch is drawn whether the branch
+   says it is open or not. */
+.um-tree-select--default-expand-all .um-tree-select__children {
+  display: block;
+}
+
+/* The parent of the branch the reader is on shows what it holds, whether it
+   is open or not: the branch knows it holds the current one because the
+   current one is inside it, and :has() is the only way CSS can ask. */
+.um-tree-select--auto-expand-parent .um-tree-select__node:has(> .um-tree-select__children .um-tree-select__node--current) > .um-tree-select__children {
+  display: block;
+}
+
+/* The field is the row above the tree: it holds what stands in front of the
+   control, the chips that show the choice, the field the host filters with
+   and the mark that clears the choice. It takes no room at all when the host
+   has asked for none of them: each of the things it holds is not drawn
+   unless its own class is on, so the row that holds them is not drawn
+   either — which is why the row carries no padding of its own. */
+.um-tree-select__field {
+  display: flex;
+  align-items: center;
+  gap: var(--um-space-xs);
+  padding-block-end: var(--um-space-xs);
+}
+
+/* The prefix stands in front of the control. It is the host's own mark, so
+   the library draws no glyph of its own. */
+.um-tree-select__prefix {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  color: var(--um-text-secondary);
+}
+
+.um-tree-select__prefix:empty {
+  display: none;
+}
+
+/* The chips that show the choice. They are the host's own values, so the
+   library paints them and the host fills them. */
+.um-tree-select__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--um-space-xs);
+}
+
+.um-tree-select__tags:not(:has(.um-tree-select__tag:not(:empty))) {
+  display: none;
+}
+
+.um-tree-select__tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 var(--um-space-xs);
+  border: var(--um-border-width) var(--um-border-style) var(--um-shape-muted);
+  border-radius: var(--um-radius-round);
+  background: var(--um-tree-select-tag-soft);
+  color: var(--um-tree-select-tag-soft-on);
+  font-size: var(--um-font-size-caption);
+}
+
+.um-tree-select__tag:empty {
+  display: none;
+}
+
+/* The type of the chip says which colour it takes. */
+.um-tree-select--tag-success {
+  --um-tree-select-tag: var(--um-color-success);
+  --um-tree-select-tag-on: var(--um-color-success-on);
+  --um-tree-select-tag-soft: var(--um-color-success-soft-8);
+  --um-tree-select-tag-soft-on: var(--um-color-success-on-soft);
+}
+.um-tree-select--tag-warning {
+  --um-tree-select-tag: var(--um-color-warning);
+  --um-tree-select-tag-on: var(--um-color-warning-on);
+  --um-tree-select-tag-soft: var(--um-color-warning-soft-8);
+  --um-tree-select-tag-soft-on: var(--um-color-warning-on-soft);
+}
+.um-tree-select--tag-danger {
+  --um-tree-select-tag: var(--um-color-danger);
+  --um-tree-select-tag-on: var(--um-color-danger-on);
+  --um-tree-select-tag-soft: var(--um-color-danger-soft-8);
+  --um-tree-select-tag-soft-on: var(--um-color-danger-on-soft);
+}
+.um-tree-select--tag-info {
+  --um-tree-select-tag: var(--um-color-info);
+  --um-tree-select-tag-on: var(--um-color-info-on);
+  --um-tree-select-tag-soft: var(--um-color-info-soft-8);
+  --um-tree-select-tag-soft-on: var(--um-color-info-on-soft);
+}
+
+/* The effect of the chip says how it is painted: a tint, a solid fill or an
+   outline with no fill at all. */
+.um-tree-select--tag-effect-dark .um-tree-select__tag {
+  border-color: var(--um-tree-select-tag);
+  background: var(--um-tree-select-tag);
+  color: var(--um-tree-select-tag-on);
+}
+
+.um-tree-select--tag-effect-plain .um-tree-select__tag {
+  border-color: var(--um-tree-select-tag);
+  background: transparent;
+  color: var(--um-tree-select-tag);
+}
+
+/* The chips are folded away: only the first of them is shown, so the field
+   keeps one line. How many were folded is the host's to say. */
+.um-tree-select--collapse-tags .um-tree-select__tag ~ .um-tree-select__tag {
+  display: none;
+}
+
+/* The filter is the field the host filters the tree with. It is a real search
+   field, so the filtering is the host's script and the library only draws
+   it. */
+.um-tree-select__filter {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: none;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--um-text-regular);
+  font: inherit;
+}
+
+.um-tree-select__filter::placeholder {
+  color: var(--um-text-placeholder);
+}
+
+.um-tree-select--filterable .um-tree-select__filter {
+  display: block;
+}
+
+/* The clear mark is a cross drawn from two bars, so it carries no text of its
+   own. It is a real button, so the keyboard can reach it. */
+.um-tree-select__clear {
+  position: relative;
+  flex: none;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--um-space-sm);
+  height: var(--um-space-sm);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--um-text-secondary);
+  cursor: pointer;
+}
+
+.um-tree-select--clearable .um-tree-select__clear {
+  display: inline-flex;
+}
+
+.um-tree-select__clear::before,
+.um-tree-select__clear::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  width: var(--um-space-xs);
+  height: var(--um-border-width);
+  background: currentColor;
+}
+.um-tree-select__clear::before { transform: translate(-50%, -50%) rotate(45deg); }
+.um-tree-select__clear::after { transform: translate(-50%, -50%) rotate(-45deg); }
+
+.um-tree-select__clear:hover {
+  color: var(--um-color-primary-text);
+}
+
+.um-tree-select__clear:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+/* The header and the footer stand above and below the tree. They take no
+   room at all when the host has nothing to put in them, so an empty one is
+   not a strip of nothing. */
+.um-tree-select__header,
+.um-tree-select__footer {
+  padding: var(--um-space-xs) 0;
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+
+.um-tree-select__header:empty,
+.um-tree-select__footer:empty {
+  display: none;
+}
+
+/* What the level below says when it holds nothing at all. */
+.um-tree-select__empty {
+  padding: var(--um-space-sm) 0;
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+
+.um-tree-select__empty:empty {
+  display: none;
+}
+
+/* The loading message takes the place of the tree while the data is on its
+   way. */
+.um-tree-select__loading {
+  display: none;
+  padding: var(--um-space-sm) 0;
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+
+.um-tree-select--loading .um-tree-select__loading {
+  display: block;
+}
+
+/* The effect says how the component's own surface is painted. The dark
+   effect fills it with the brand colour; the plain effect drops the frame
+   and the fill. */
+.um-tree-select--effect-dark {
+  border-color: var(--um-color-primary);
+  background: var(--um-color-primary);
+  color: var(--um-color-primary-on);
+}
+
+.um-tree-select--effect-plain {
+  border-color: transparent;
+  background: transparent;
+}
+
+/* The tree takes the width of the component it stands in rather than the
+   width its own names ask for. */
+.um-tree-select--fit-input-width .um-tree-select__node {
+  width: 100%;
+}
+
+/* The ring goes inside the option, the way the ring on a tree row goes
+   inside it: an outside ring would be cut off by the next branch. */
+.um-tree-select__option:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: calc(-1 * var(--um-focus-ring-width));
+}
+
 /* ============================================================================
    Upload
    ========================================================================== */
@@ -4028,7 +5025,7 @@
 /* The ring goes on the button, because the button is what the user sees of
    the control; the input underneath is one pixel wide. */
 .um-upload__input:focus-visible + .um-upload__button {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -4086,6 +5083,16 @@
   flex: none;
   color: var(--um-text-secondary);
   font-size: var(--um-font-size-caption);
+}
+
+/* The content of one file row is the caller's: the name, the size and the
+   status, or whatever else the row should say. It is cut rather than allowed
+   to push the row wider than the page. */
+.um-upload__item > * {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* The status is text about a file, so it takes the derived text colour of
@@ -4151,7 +5158,17 @@
 .um-virtual-select {
   --um-virtual-select-row-size: var(--um-height-md);
   --um-virtual-select-height: 12em;
-  display: inline-block;
+
+  /* The colour of the chips that show the choice. The type says which colour
+     they take and the effect says whether they are a tint, a solid fill or
+     an outline, so both are held in variables and one rule paints them. */
+  --um-virtual-select-tag: var(--um-color-primary);
+  --um-virtual-select-tag-on: var(--um-color-primary-on);
+  --um-virtual-select-tag-soft: var(--um-color-primary-soft-8);
+  --um-virtual-select-tag-soft-on: var(--um-color-primary-on-soft);
+
+  display: inline-flex;
+  flex-direction: column;
   /* The list has a width of its own, because a row that the browser has not
      laid out yet has no width to be measured with: the list would shrink to
      the placeholder and the words would spill out of it. */
@@ -4177,12 +5194,17 @@
 }
 
 /* The bordered run frames the list. The plain run lets it sit straight on
-   the page. */
-.um-virtual-select .um-virtual-select__scroller,
-.um-virtual-select--bordered .um-virtual-select__scroller {
+   the page. The frame is the whole component's, so the field above the list
+   is inside it as well. */
+.um-virtual-select--bordered {
   border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
   border-radius: var(--um-radius-base);
   background: var(--um-bg-overlay);
+  overflow: hidden;
+}
+
+.um-virtual-select--bordered .um-virtual-select__scroller {
+  background: transparent;
 }
 
 .um-virtual-select--plain .um-virtual-select__scroller {
@@ -4254,7 +5276,7 @@
 /* The ring goes inside the row, the way the ring on a button in a row goes
    inside it: an outside ring would be cut off by the scroller. */
 .um-virtual-select__option:has(input:focus-visible) .um-virtual-select__label {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: calc(-1 * var(--um-focus-ring-width));
 }
 
@@ -4308,6 +5330,207 @@
   padding: var(--um-space-lg) var(--um-space-sm);
   color: var(--um-text-secondary);
   text-align: center;
+}
+
+/* The field is the row above the list: it holds what stands in front of the
+   control, the chips that show the choice, the field the host filters with
+   and the mark that clears the choice. It takes no room at all when the host
+   has asked for none of them: each of the things it holds is not drawn
+   unless its own class is on, so the row that holds them is not drawn
+   either — which is why the row carries no padding of its own. */
+.um-virtual-select__field {
+  display: flex;
+  align-items: center;
+  gap: var(--um-space-xs);
+  padding: 0 var(--um-space-sm);
+}
+
+/* The prefix stands in front of the control. It is the host's own mark, so
+   the library draws no glyph of its own. */
+.um-virtual-select__prefix {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  padding: var(--um-space-xs) 0;
+  color: var(--um-text-secondary);
+}
+
+.um-virtual-select__prefix:empty {
+  display: none;
+}
+
+/* The chips that show the choice. They are the host's own values, so the
+   library paints them and the host fills them. */
+.um-virtual-select__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--um-space-xs);
+  padding: var(--um-space-xs) 0;
+}
+
+.um-virtual-select__tags:not(:has(.um-virtual-select__tag:not(:empty))) {
+  display: none;
+}
+
+.um-virtual-select__tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 var(--um-space-xs);
+  border: var(--um-border-width) var(--um-border-style) var(--um-shape-muted);
+  border-radius: var(--um-radius-round);
+  background: var(--um-virtual-select-tag-soft);
+  color: var(--um-virtual-select-tag-soft-on);
+  font-size: var(--um-font-size-caption);
+}
+
+.um-virtual-select__tag:empty {
+  display: none;
+}
+
+/* The type of the chip says which colour it takes. */
+.um-virtual-select--tag-success {
+  --um-virtual-select-tag: var(--um-color-success);
+  --um-virtual-select-tag-on: var(--um-color-success-on);
+  --um-virtual-select-tag-soft: var(--um-color-success-soft-8);
+  --um-virtual-select-tag-soft-on: var(--um-color-success-on-soft);
+}
+.um-virtual-select--tag-warning {
+  --um-virtual-select-tag: var(--um-color-warning);
+  --um-virtual-select-tag-on: var(--um-color-warning-on);
+  --um-virtual-select-tag-soft: var(--um-color-warning-soft-8);
+  --um-virtual-select-tag-soft-on: var(--um-color-warning-on-soft);
+}
+.um-virtual-select--tag-danger {
+  --um-virtual-select-tag: var(--um-color-danger);
+  --um-virtual-select-tag-on: var(--um-color-danger-on);
+  --um-virtual-select-tag-soft: var(--um-color-danger-soft-8);
+  --um-virtual-select-tag-soft-on: var(--um-color-danger-on-soft);
+}
+.um-virtual-select--tag-info {
+  --um-virtual-select-tag: var(--um-color-info);
+  --um-virtual-select-tag-on: var(--um-color-info-on);
+  --um-virtual-select-tag-soft: var(--um-color-info-soft-8);
+  --um-virtual-select-tag-soft-on: var(--um-color-info-on-soft);
+}
+
+/* The effect of the chip says how it is painted: a tint, a solid fill or an
+   outline with no fill at all. */
+.um-virtual-select--tag-effect-dark .um-virtual-select__tag {
+  border-color: var(--um-virtual-select-tag);
+  background: var(--um-virtual-select-tag);
+  color: var(--um-virtual-select-tag-on);
+}
+
+.um-virtual-select--tag-effect-plain .um-virtual-select__tag {
+  border-color: var(--um-virtual-select-tag);
+  background: transparent;
+  color: var(--um-virtual-select-tag);
+}
+
+/* The chips are folded away: only the first of them is shown, so the field
+   keeps one line. How many were folded is the host's to say. */
+.um-virtual-select--collapse-tags .um-virtual-select__tag ~ .um-virtual-select__tag {
+  display: none;
+}
+
+/* The filter is the field the host filters the list with. It is a real
+   search field, so the filtering is the host's script and the library only
+   draws it. */
+.um-virtual-select__filter {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: none;
+  padding: var(--um-space-xs) 0;
+  border: 0;
+  background: transparent;
+  color: var(--um-text-regular);
+  font: inherit;
+}
+
+.um-virtual-select__filter::placeholder {
+  color: var(--um-text-placeholder);
+}
+
+.um-virtual-select--filterable .um-virtual-select__filter {
+  display: block;
+}
+
+/* The clear mark is a cross drawn from two bars, so it carries no text of its
+   own. It is a real button, so the keyboard can reach it. */
+.um-virtual-select__clear {
+  position: relative;
+  flex: none;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--um-space-sm);
+  height: var(--um-space-sm);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--um-text-secondary);
+  cursor: pointer;
+}
+
+.um-virtual-select--clearable .um-virtual-select__clear {
+  display: inline-flex;
+}
+
+.um-virtual-select__clear::before,
+.um-virtual-select__clear::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  width: var(--um-space-xs);
+  height: var(--um-border-width);
+  background: currentColor;
+}
+.um-virtual-select__clear::before { transform: translate(-50%, -50%) rotate(45deg); }
+.um-virtual-select__clear::after { transform: translate(-50%, -50%) rotate(-45deg); }
+
+.um-virtual-select__clear:hover {
+  color: var(--um-color-primary-text);
+}
+
+.um-virtual-select__clear:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+/* The loading message takes the place of the list while the data is on its
+   way. It is not drawn at all when nothing is loading, so it is never a
+   strip of nothing under the list. */
+.um-virtual-select__loading {
+  display: none;
+  padding: var(--um-space-lg) var(--um-space-sm);
+  color: var(--um-text-secondary);
+  text-align: center;
+}
+
+.um-virtual-select--loading .um-virtual-select__loading {
+  display: block;
+}
+
+/* The effect says how the component's own surface is painted. The dark
+   effect fills it with the brand colour; the plain effect drops the frame
+   and the fill. */
+.um-virtual-select--effect-dark {
+  border-color: var(--um-color-primary);
+  background: var(--um-color-primary);
+  color: var(--um-color-primary-on);
+}
+
+.um-virtual-select--effect-plain {
+  border-color: transparent;
+  background: transparent;
+}
+
+/* The list takes the width of the component it stands in rather than the
+   width its own words ask for, so a list of long names is not wider than the
+   field above it. */
+.um-virtual-select--fit-input-width .um-virtual-select__scroller {
+  width: 100%;
 }
 
 /* ============================================================================
@@ -4373,6 +5596,14 @@
   background: var(--um-fill-base);
   color: var(--um-text-secondary);
   font-size: var(--um-font-size-caption);
+}
+
+/* The dark run fills the avatar with the mood's strong text colour and puts
+   the initials on it in the plain surface — the same pair a dark tag is
+   filled with, so the two read as one fill and not as two systems. */
+.um-avatar--dark {
+  background: var(--um-text-primary);
+  color: var(--um-fill-blank);
 }
 
 /* ============================================================================
@@ -4462,6 +5693,16 @@
   border: 0;
   background: transparent;
 }
+
+/* The caption is the heading of the panel, above the weekday names. It is
+   empty unless the caller writes one, and an empty element would still open
+   a gap in the panel, so it takes no room when it says nothing. */
+.um-calendar__caption {
+  color: var(--um-text-primary);
+  font-size: var(--um-font-size-title);
+  font-weight: var(--um-font-weight-bold);
+}
+.um-calendar__caption:empty { display: none; }
 
 /* The weekday names and the days are two grids of the same shape, so a day is
    always under its name. The gap is small on purpose: it separates the days
@@ -4705,6 +5946,13 @@
   color: var(--um-color-primary-text);
 }
 
+/* The caption is this library's indicator, so a carousel that is asked for no
+   indicator is a carousel whose slides look the same whichever one is open:
+   the mark comes off the caption and nothing else moves. */
+.um-carousel.um-carousel--indicator-none .um-carousel__slide:target .um-carousel__caption {
+  color: var(--um-text-primary);
+}
+
 .um-carousel__nav {
   display: flex;
   align-items: center;
@@ -4784,6 +6032,20 @@
 .um-carousel--no-loop .um-carousel__slide:first-child .um-carousel__prev,
 .um-carousel--no-loop .um-carousel__slide:last-child .um-carousel__next { display: none; }
 
+/* The arrows are links and the track is a scroll box. The arrows wear the
+   ring outside; the track wears it inside, because an outside ring on a
+   scrolling box is cut off by the frame that holds it. */
+.um-carousel__prev:focus-visible,
+.um-carousel__next:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+.um-carousel__track:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: calc(-1 * var(--um-focus-ring-width));
+}
+
 /* ============================================================================
    Cascader
    ========================================================================== */
@@ -4796,13 +6058,22 @@
 .um-cascader,
 .um-cascader--inline {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  flex-direction: column;
   min-width: 12em;
   border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
   border-radius: var(--um-radius-base);
   background: var(--um-bg-overlay);
   font-family: var(--um-font-family);
   font-size: var(--um-font-size-body);
+
+  /* The colour of the chips that show the choice. The type says which colour
+     they take and the effect says whether they are a tint, a solid fill or
+     an outline, so both are held in variables and one rule paints them. */
+  --um-cascader-tag: var(--um-color-primary);
+  --um-cascader-tag-on: var(--um-color-primary-on);
+  --um-cascader-tag-soft: var(--um-color-primary-soft-8);
+  --um-cascader-tag-soft-on: var(--um-color-primary-on-soft);
 }
 
 .um-cascader__panel {
@@ -4828,7 +6099,7 @@
    in a row goes inside it: an outside ring would be cut off by the next
    row. */
 .um-cascader__option:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: calc(-1 * var(--um-focus-ring-width));
 }
 
@@ -4917,6 +6188,227 @@
   cursor: not-allowed;
 }
 
+/* The field is the row above the levels: it holds what stands in front of the
+   control, the chips that show the choice, the field the host filters with
+   and the mark that clears the choice. It takes no room at all when the host
+   has asked for none of them: each of the things it holds is not drawn
+   unless its own class is on, so the row that holds them is not drawn
+   either — which is why the row carries no padding of its own. */
+.um-cascader__field {
+  display: flex;
+  align-items: center;
+  gap: var(--um-space-xs);
+  padding: var(--um-space-xs);
+}
+
+/* The prefix stands in front of the control. It is the host's own mark, so
+   the library draws no glyph of its own. */
+.um-cascader__prefix {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  color: var(--um-text-secondary);
+}
+
+.um-cascader__prefix:empty {
+  display: none;
+}
+
+/* The chips that show the choice. They are the host's own values, so the
+   library paints them and the host fills them. */
+.um-cascader__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--um-space-xs);
+}
+
+.um-cascader__tags:not(:has(.um-cascader__tag:not(:empty))) {
+  display: none;
+}
+
+.um-cascader__tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 var(--um-space-xs);
+  border: var(--um-border-width) var(--um-border-style) var(--um-shape-muted);
+  border-radius: var(--um-radius-round);
+  background: var(--um-cascader-tag-soft);
+  color: var(--um-cascader-tag-soft-on);
+  font-size: var(--um-font-size-caption);
+}
+
+.um-cascader__tag:empty {
+  display: none;
+}
+
+/* The type of the chip says which colour it takes. */
+.um-cascader--tag-success {
+  --um-cascader-tag: var(--um-color-success);
+  --um-cascader-tag-on: var(--um-color-success-on);
+  --um-cascader-tag-soft: var(--um-color-success-soft-8);
+  --um-cascader-tag-soft-on: var(--um-color-success-on-soft);
+}
+.um-cascader--tag-warning {
+  --um-cascader-tag: var(--um-color-warning);
+  --um-cascader-tag-on: var(--um-color-warning-on);
+  --um-cascader-tag-soft: var(--um-color-warning-soft-8);
+  --um-cascader-tag-soft-on: var(--um-color-warning-on-soft);
+}
+.um-cascader--tag-danger {
+  --um-cascader-tag: var(--um-color-danger);
+  --um-cascader-tag-on: var(--um-color-danger-on);
+  --um-cascader-tag-soft: var(--um-color-danger-soft-8);
+  --um-cascader-tag-soft-on: var(--um-color-danger-on-soft);
+}
+.um-cascader--tag-info {
+  --um-cascader-tag: var(--um-color-info);
+  --um-cascader-tag-on: var(--um-color-info-on);
+  --um-cascader-tag-soft: var(--um-color-info-soft-8);
+  --um-cascader-tag-soft-on: var(--um-color-info-on-soft);
+}
+
+/* The effect of the chip says how it is painted: a tint, a solid fill or an
+   outline with no fill at all. */
+.um-cascader--tag-effect-dark .um-cascader__tag {
+  border-color: var(--um-cascader-tag);
+  background: var(--um-cascader-tag);
+  color: var(--um-cascader-tag-on);
+}
+
+.um-cascader--tag-effect-plain .um-cascader__tag {
+  border-color: var(--um-cascader-tag);
+  background: transparent;
+  color: var(--um-cascader-tag);
+}
+
+/* The chips are folded away: only the first of them is shown, so the field
+   keeps one line. How many were folded is the host's to say. */
+.um-cascader--collapse-tags .um-cascader__tag ~ .um-cascader__tag {
+  display: none;
+}
+
+/* The filter is the field the host filters the levels with. It is a real
+   search field, so the filtering is the host's script and the library only
+   draws it. */
+.um-cascader__filter {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: none;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--um-text-regular);
+  font: inherit;
+}
+
+.um-cascader__filter::placeholder {
+  color: var(--um-text-placeholder);
+}
+
+.um-cascader--filterable .um-cascader__filter {
+  display: block;
+}
+
+/* The clear mark is a cross drawn from two bars, so it carries no text of its
+   own. It is a real button, so the keyboard can reach it. */
+.um-cascader__clear {
+  position: relative;
+  flex: none;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--um-space-sm);
+  height: var(--um-space-sm);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--um-text-secondary);
+  cursor: pointer;
+}
+
+.um-cascader--clearable .um-cascader__clear {
+  display: inline-flex;
+}
+
+.um-cascader__clear::before,
+.um-cascader__clear::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  width: var(--um-space-xs);
+  height: var(--um-border-width);
+  background: currentColor;
+}
+.um-cascader__clear::before { transform: translate(-50%, -50%) rotate(45deg); }
+.um-cascader__clear::after { transform: translate(-50%, -50%) rotate(-45deg); }
+
+.um-cascader__clear:hover {
+  color: var(--um-color-primary-text);
+}
+
+.um-cascader__clear:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+/* The header and the footer stand above and below the levels. They take no
+   room at all when the host has nothing to put in them, so an empty one is
+   not a strip of nothing. */
+.um-cascader__header,
+.um-cascader__footer {
+  padding: var(--um-space-xs) var(--um-space-sm);
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+
+.um-cascader__header:empty,
+.um-cascader__footer:empty {
+  display: none;
+}
+
+/* What a level says when it holds no option at all. */
+.um-cascader__empty {
+  padding: var(--um-space-sm);
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+
+.um-cascader__empty:empty {
+  display: none;
+}
+
+/* The effect says how the component's own surface is painted. The dark
+   effect fills it with the brand colour; the plain effect drops the fill. */
+.um-cascader--effect-dark {
+  border-color: var(--um-color-primary);
+  background: var(--um-color-primary);
+  color: var(--um-color-primary-on);
+}
+
+.um-cascader--effect-dark .um-cascader__option {
+  color: var(--um-color-primary-on);
+}
+
+.um-cascader--effect-plain {
+  background: transparent;
+}
+
+/* The panel that opens beside the option takes the width of the field rather
+   than the width of its own options, so the two agree. */
+.um-cascader--fit-input-width .um-cascader--flyout .um-cascader__children {
+  width: 100%;
+}
+
+/* The levels far from the reader are not laid out: the browser is told how
+   tall such a level is and gives it a placeholder size until it comes near.
+   The placeholder size is one line of the level's own type, so the scrollbar
+   is right before the level has ever been looked at. */
+.um-cascader--virtual-scroll .um-cascader__children > .um-cascader__panel {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1.2em;
+}
+
 /* ============================================================================
    Collapse
    ========================================================================== */
@@ -4961,7 +6453,7 @@
 /* The ring goes inside the header, the way the ring on a button in a row goes
    inside it: an outside ring would be cut off by the next panel. */
 .um-collapse__header:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: calc(-1 * var(--um-focus-ring-width));
 }
 
@@ -5306,7 +6798,7 @@
 /* The ring goes on the scrolling box and inside the frame: an outside ring
    would be cut off by the frame that holds it. */
 .um-infinite-scroll__scroller:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: calc(-1 * var(--um-focus-ring-width));
 }
 
@@ -5553,6 +7045,14 @@
 .um-result--danger  .um-result__icon { background: var(--um-color-danger-soft-8);  color: var(--um-color-danger-on-soft); }
 .um-result--info    .um-result__icon { background: var(--um-color-info-soft-8);    color: var(--um-color-info-on-soft); }
 
+/* The actions area gives the buttons inside it a shape, so the block reads
+   as one row of actions. The ring is the one thing the library always
+   paints, so it paints it here too. */
+:where(.um-result__extra button):focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
 /* ============================================================================
    Segmented
    ========================================================================== */
@@ -5626,8 +7126,17 @@
 /* The ring goes on the segment rather than on the radio, because the radio is
    a pixel wide and the segment is what the reader actually sees. */
 .um-segmented__option:has(input:focus-visible) {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: calc(-1 * var(--um-focus-ring-width));
+}
+
+/* The solid run fills the picked segment with the brand colour, and a ring in
+   the ring colour would vanish into that fill: on twenty-nine of the moods
+   the two are the same colour, which is a ring of 1:1. On the filled segment
+   the ring takes the foreground the brand puts on the fill instead — the one
+   colour that is measured to read on it, at 4.6:1 or better in every mood. */
+.um-segmented--solid .um-segmented__option:has(input:checked):has(input:focus-visible) {
+  outline-color: var(--um-color-primary-on);
 }
 
 /* A disabled segment is dimmed the way the library dims every other disabled
@@ -5846,6 +7355,62 @@
   text-align: center;
 }
 
+/* Where the cells stand in their column. The base cell is aligned to the
+   start, so the two ends are the ones that need a rule. */
+.um-table--align-center .um-table__cell {
+  text-align: center;
+}
+
+.um-table--align-end .um-table__cell {
+  text-align: end;
+}
+
+/* The fit: the columns share the width of the frame instead of taking the
+   width their own contents ask for, so a table with many columns is squeezed
+   rather than pushed out of the frame. */
+.um-table--fit {
+  table-layout: fixed;
+}
+
+/* The extra column a table may carry. The selection column holds the tick and
+   the expand column holds the marker, so both of them stand in the middle;
+   the index column holds the row's number, so it stands at the end and takes
+   the muted colour, the way a number that is only a label should. */
+.um-table--type-selection .um-table__cell:first-child,
+.um-table--type-expand .um-table__cell:first-child {
+  text-align: center;
+}
+
+.um-table--type-index .um-table__cell:first-child {
+  text-align: end;
+  color: var(--um-text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* The scrollbar is always there: the frame keeps it whether the table needs
+   one or not, so the rows do not move sideways as the table grows past the
+   frame. The frame is the wrapper, and the wrapper is the table's parent
+   rather than its child, so the frame has to ask about the table: :has() is
+   the only way CSS can ask. */
+.um-table__wrapper:has(.um-table--scrollbar-always-on) {
+  overflow-x: scroll;
+  scrollbar-gutter: stable;
+}
+
+/* The expanded area of a record. It is not drawn until the record above it
+   is opened, or until the table is told to open them all. */
+.um-table__expand {
+  display: none;
+}
+
+.um-table__row--expanded + .um-table__expand {
+  display: table-row;
+}
+
+.um-table--default-expand-all .um-table__expand {
+  display: table-row;
+}
+
 /* ============================================================================
    Tag
    ========================================================================== */
@@ -5950,7 +7515,7 @@
 /* The ring goes inside the button, the way the ring on a button in a row goes
    inside it: an outside ring would be cut off by the tag. */
 .um-tag__close:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: calc(-1 * var(--um-focus-ring-width));
 }
 
@@ -6270,7 +7835,7 @@
 }
 
 .um-tour__action:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -6355,6 +7920,56 @@
 
 .um-transfer__item { list-style: none; }
 
+/* The filter is the field the host filters a panel's list with. It is a real
+   search field, so the browser's own clear mark and its own keyboard are
+   there; the filtering is the host's script and the library only draws the
+   field. It is in the markup either way, and the transfer says whether it is
+   there. */
+.um-transfer__filter {
+  display: none;
+  width: 100%;
+  padding: var(--um-space-xs) var(--um-space-sm);
+  border: 0;
+  border-bottom: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
+  background: transparent;
+  color: var(--um-text-regular);
+  font: inherit;
+}
+
+.um-transfer__filter::placeholder {
+  color: var(--um-text-placeholder);
+}
+
+.um-transfer--filterable .um-transfer__filter {
+  display: block;
+}
+
+/* The rows far from the reader are not laid out: the browser is told how
+   big such a row is and gives it a placeholder size until it comes near. The
+   placeholder size is one line of the row's own type, so the scrollbar is
+   right before the row has ever been looked at. */
+.um-transfer--virtual-scroll .um-transfer__item {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1.2em;
+}
+
+/* What a panel says when it holds no option at all. It takes no room while
+   the list has something in it: the panel knows that because the list is
+   inside it, and :has() is the only way CSS can ask. */
+.um-transfer__left-empty,
+.um-transfer__right-empty {
+  display: none;
+  padding: var(--um-space-sm);
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+  text-align: center;
+}
+
+.um-transfer__panel:has(.um-transfer__list:empty) .um-transfer__left-empty,
+.um-transfer__panel:has(.um-transfer__list:empty) .um-transfer__right-empty {
+  display: block;
+}
+
 /* The footer is the row under a panel's list, where a host puts whatever that
    panel needs: a "select all" link, a count, a note. */
 .um-transfer__footer {
@@ -6438,7 +8053,7 @@
    the wrong thing about what is focused. */
 .um-transfer__move:focus-visible,
 .um-transfer__move-back:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -6526,7 +8141,7 @@
 /* The ring goes inside the label, the way the ring on a button in a row goes
    inside it: an outside ring would be cut off by the next branch. */
 .um-tree__label:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: calc(-1 * var(--um-focus-ring-width));
 }
 
@@ -6581,6 +8196,98 @@
   background: var(--um-fill-light);
 }
 
+/* The box in front of a branch. The tick box is a real input and is hidden by
+   size rather than removed, so it keeps its place in the tab order; the drawn
+   square is its label, so clicking the square ticks the box. */
+.um-tree__checkbox {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.um-tree__box {
+  position: relative;
+  flex: none;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--um-height-sm);
+  height: var(--um-height-sm);
+  border: var(--um-border-width) var(--um-border-style) var(--um-shape-muted);
+  border-radius: var(--um-radius-small);
+  background: var(--um-fill-blank);
+  cursor: pointer;
+}
+
+.um-tree--show-checkbox .um-tree__box {
+  display: inline-flex;
+}
+
+/* The tick mark is drawn with two borders — a shape, not a glyph. */
+.um-tree__box::after {
+  content: "";
+  width: 4px;
+  height: 8px;
+  margin-top: -2px;
+  border: solid var(--um-color-primary-on);
+  border-width: 0;
+  border-inline-end-width: 2px;
+  border-bottom-width: 2px;
+  transform: rotate(calc(45deg * var(--um-mirror))) scale(0);
+  transition: transform var(--um-motion);
+}
+
+.um-tree__box:has(.um-tree__checkbox:checked) {
+  background: var(--um-color-primary);
+  border-color: var(--um-color-primary);
+}
+
+.um-tree__box:has(.um-tree__checkbox:checked)::after {
+  transform: rotate(calc(45deg * var(--um-mirror))) scale(1);
+}
+
+.um-tree__box:has(.um-tree__checkbox:focus-visible) {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+/* The link between a branch and the branch under it: a branch whose child is
+   ticked takes the brand colour on its own box, so the tree shows that the
+   two belong together. With the strict rule each box stands on its own and
+   the link is not drawn. */
+.um-tree__node:has(> .um-tree__children .um-tree__checkbox:checked) > .um-tree__label .um-tree__box {
+  border-color: var(--um-color-primary);
+}
+
+.um-tree--check-strictly .um-tree__node:has(> .um-tree__children .um-tree__checkbox:checked) > .um-tree__label .um-tree__box {
+  border-color: var(--um-shape-muted);
+}
+
+/* The accordion: only the first open branch of a level shows what it holds,
+   so the level reads as one branch at a time. The mark of the branches that
+   are pushed out turns back, so the branch reads as closed as well. */
+.um-tree--accordion .um-tree__node[open] ~ .um-tree__node[open] > .um-tree__children {
+  display: none;
+}
+
+.um-tree--accordion .um-tree__node[open] ~ .um-tree__node[open] > .um-tree__label .um-tree__arrow {
+  transform: rotate(calc(45deg * var(--um-mirror)));
+}
+
+/* The parent of the branch the reader is on shows what it holds, whether it
+   is open or not: the branch knows it holds the current one because the
+   current one is inside it, and :has() is the only way CSS can ask. */
+.um-tree--auto-expand-parent .um-tree__node:has(> .um-tree__children .um-tree__node--current) > .um-tree__children {
+  display: block;
+}
+
+/* Every level is open: the level below a branch is drawn whether the branch
+   says it is open or not. */
+.um-tree--default-expand-all .um-tree__children {
+  display: block;
+}
+
 /* ============================================================================
    Virtual Table
    ========================================================================== */
@@ -6632,7 +8339,7 @@
 /* The ring goes on the scrolling box and inside the frame: an outside ring
    would be cut off by the frame that holds it. */
 .um-virtual-table__scroller:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: calc(-1 * var(--um-focus-ring-width));
 }
 
@@ -6756,6 +8463,27 @@
   scrollbar-gutter: stable;
 }
 
+/* The first column is fixed: it stays where it is while the rest of the row
+   scrolls sideways. The cell brings its own surface, because a cell that lets
+   the row's fill through would let the cells that scroll under it show
+   through it as well. */
+.um-virtual-table--fixed .um-virtual-table__row .um-virtual-table__cell:first-child {
+  position: sticky;
+  inset-inline-start: 0;
+  z-index: 1;
+  background: var(--um-fill-blank);
+}
+
+/* The head cell of the fixed column keeps the header's own surface, and it
+   sits above the fixed cells of the rows: the header is itself sticky, so it
+   is the one that has to be on top. */
+.um-virtual-table--fixed .um-virtual-table__header .um-virtual-table__head-cell:first-child {
+  position: sticky;
+  inset-inline-start: 0;
+  z-index: 2;
+  background: var(--um-surface-table-header);
+}
+
 /* The footer is what stands under the table: the totals, a note. It takes no
    room at all when the host has nothing to put in it, so an empty footer is
    not a strip of nothing under every table. */
@@ -6812,7 +8540,7 @@
 /* The ring goes on the scrolling box and inside the frame: an outside ring
    would be cut off by the frame that holds it. */
 .um-virtual-tree__scroller:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: calc(-1 * var(--um-focus-ring-width));
 }
 
@@ -6846,7 +8574,7 @@
 /* The ring goes inside the label, the way the ring on a button in a row goes
    inside it: an outside ring would be cut off by the next branch. */
 .um-virtual-tree__label:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: calc(-1 * var(--um-focus-ring-width));
 }
 
@@ -6931,6 +8659,74 @@
   text-align: center;
 }
 
+/* The box in front of a branch. The tick box is a real input and is hidden by
+   size rather than removed, so it keeps its place in the tab order; the drawn
+   square is its label, so clicking the square ticks the box. */
+.um-virtual-tree__checkbox {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.um-virtual-tree__box {
+  position: relative;
+  flex: none;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--um-height-sm);
+  height: var(--um-height-sm);
+  border: var(--um-border-width) var(--um-border-style) var(--um-shape-muted);
+  border-radius: var(--um-radius-small);
+  background: var(--um-fill-blank);
+  cursor: pointer;
+}
+
+.um-virtual-tree--show-checkbox .um-virtual-tree__box {
+  display: inline-flex;
+}
+
+/* The tick mark is drawn with two borders — a shape, not a glyph. */
+.um-virtual-tree__box::after {
+  content: "";
+  width: 4px;
+  height: 8px;
+  margin-top: -2px;
+  border: solid var(--um-color-primary-on);
+  border-width: 0;
+  border-inline-end-width: 2px;
+  border-bottom-width: 2px;
+  transform: rotate(calc(45deg * var(--um-mirror))) scale(0);
+  transition: transform var(--um-motion);
+}
+
+.um-virtual-tree__box:has(.um-virtual-tree__checkbox:checked) {
+  background: var(--um-color-primary);
+  border-color: var(--um-color-primary);
+}
+
+.um-virtual-tree__box:has(.um-virtual-tree__checkbox:checked)::after {
+  transform: rotate(calc(45deg * var(--um-mirror))) scale(1);
+}
+
+.um-virtual-tree__box:has(.um-virtual-tree__checkbox:focus-visible) {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+/* The link between a branch and the branch under it: a branch whose child is
+   ticked takes the brand colour on its own box, so the tree shows that the
+   two belong together. With the strict rule each box stands on its own and
+   the link is not drawn. */
+.um-virtual-tree__node:has(> .um-virtual-tree__children .um-virtual-tree__checkbox:checked) > .um-virtual-tree__label .um-virtual-tree__box {
+  border-color: var(--um-color-primary);
+}
+
+.um-virtual-tree--check-strictly .um-virtual-tree__node:has(> .um-virtual-tree__children .um-virtual-tree__checkbox:checked) > .um-virtual-tree__label .um-virtual-tree__box {
+  border-color: var(--um-shape-muted);
+}
+
 /* ============================================================================
    Anchor
    ========================================================================== */
@@ -6984,7 +8780,7 @@
 /* The ring goes on the link, because the link is what the reader sees of
    the entry. */
 .um-anchor__link:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -7007,9 +8803,14 @@
    The fill is the brand colour and the label is the on-colour derived for
    it, so the two are a contracted pair in every mood. */
 .um-backtop {
+  /* The corner the button sits in is a place on the screen, not a side of
+     the text: a back-to-top button stays in the physical right-hand corner
+     whatever the reader's direction is, so the offset is written physically.
+     The `inset` shorthand is the physical one — top, right, bottom, left. */
+  --um-backtop-right: var(--um-space-lg);
+
   position: fixed;
-  inset-inline-end: var(--um-space-lg);
-  bottom: var(--um-space-lg);
+  inset: auto var(--um-backtop-right) var(--um-space-lg) auto;
   z-index: 2;
   display: inline-flex;
   align-items: center;
@@ -7034,7 +8835,7 @@
 /* The ring goes on the link, because the link is what the reader sees of
    the control. */
 .um-backtop:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -7142,6 +8943,14 @@
   border: 0;
   background: var(--um-border-base);
   transform: rotate(15deg);
+}
+
+/* The trail is a row of links, and the ring goes on the link itself: a
+   ring around the whole trail would say the wrong thing about what is
+   focused. */
+.um-breadcrumb__link:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
 }
 
 /* ============================================================================
@@ -7279,6 +9088,13 @@
   font-size: var(--um-font-size-title);
 }
 
+/* The trigger is a disclosure button. The ring goes around it: the menu
+   opens beside it, and nothing clips it there. */
+.um-dropdown__trigger:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
 /* ============================================================================
    Menu
    ========================================================================== */
@@ -7396,6 +9212,61 @@
   border-radius: var(--um-radius-base);
   background: var(--um-bg-overlay);
   box-shadow: var(--um-shadow-base);
+}
+
+/* A collapsed menu is a column of glyphs. The label is bare text, so there is
+   no element of its own to hide it with: the entry is narrowed to the icon
+   column instead, and the label is pushed out of the box and clipped away.
+   The library draws no icons, so a collapsed menu wants a glyph in every
+   entry. */
+.um-menu--collapse .um-menu__link,
+.um-menu--collapse .um-menu__title {
+  width: var(--um-height-md);
+  padding-inline: 0;
+  overflow: hidden;
+}
+
+/* A disabled menu is inert: the pointer does not reach it, and its entries
+   take the derived disabled colour the way every other disabled control
+   dims. A <ul> has no disabled attribute of its own, so the class is what
+   says so. */
+.um-menu.um-menu--disabled {
+  pointer-events: none;
+}
+.um-menu.um-menu--disabled .um-menu__link,
+.um-menu.um-menu--disabled .um-menu__title {
+  color: var(--um-text-disabled);
+}
+
+/* A group title that is longer than the menu is cut with an ellipsis instead
+   of wrapping. The title is a row of its own, and a row cannot cut a line of
+   text that is not in an element of its own — so for this run the title is a
+   block, and the marker follows the text rather than sitting at the end of
+   the row. */
+.um-menu.um-menu--ellipsis .um-menu__title {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* The popper effect: the floating submenu is filled with the mood's strong
+   text colour and the entries on it take the plain surface, the way a dark
+   tag is filled. The selected entry keeps its own tint, so it is still the
+   one thing the eye goes to first. */
+.um-menu.um-menu--popper-dark .um-menu__submenu {
+  background: var(--um-text-primary);
+}
+.um-menu.um-menu--popper-dark .um-menu__link {
+  color: var(--um-fill-blank);
+}
+
+/* The links are the items of the menu and the title is the disclosure
+   that opens a submenu. Both wear the ring around themselves. */
+.um-menu__link:focus-visible,
+.um-menu__title:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
 }
 
 /* ============================================================================
@@ -7527,6 +9398,38 @@
   display: none;
 }
 
+/* The layout names the parts the pager draws and the order they stand in. A
+   part the layout does not name is not drawn at all, so a pager that is only a
+   row of numbers carries neither a total line nor a jumper. */
+.um-pagination--layout-pager .um-pagination__total,
+.um-pagination--layout-pager .um-pagination__jumper {
+  display: none;
+}
+
+.um-pagination--layout-total .um-pagination__jumper {
+  display: none;
+}
+
+/* The total leads the row in the layout that shows it. The row is a flex box,
+   so the order is a property of the layout rather than of the markup. */
+.um-pagination--layout-total .um-pagination__total {
+  order: -1;
+}
+
+/* The links and the number field are the controls a reader moves through
+   the pages with. The link wears the ring outside; the field wears it
+   inside, the way every field in the library does, because the field is what
+   the reader is typing in. */
+.um-pagination__link:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+.um-pagination__input:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: calc(-1 * var(--um-focus-ring-width));
+}
+
 /* ============================================================================
    Steps
    ========================================================================== */
@@ -7595,6 +9498,50 @@
 }
 
 .um-steps__item:last-child .um-steps__line { display: none; }
+
+/* The status the steps behind the reader take. The colour is held in a
+   variable so the three statuses share one rule: the class names the status,
+   and the rule paints whatever colour that status is. `error` is Element
+   Plus's name for the state and `danger` is this library's; the vocabulary
+   has one colour for it, so the two paint the same steps. */
+.um-steps--finish-success {
+  --um-steps-finish: var(--um-color-success);
+  --um-steps-finish-on: var(--um-color-success-on);
+  --um-steps-finish-text: var(--um-color-success-text);
+}
+.um-steps--finish-error,
+.um-steps--finish-danger {
+  --um-steps-finish: var(--um-color-danger);
+  --um-steps-finish-on: var(--um-color-danger-on);
+  --um-steps-finish-text: var(--um-color-danger-text);
+}
+
+/* A step behind the reader takes the status the run names. A step that
+   carries a status of its own keeps it, so the rule only fills in the steps
+   that were left without one. */
+:is(.um-steps--finish-success, .um-steps--finish-error, .um-steps--finish-danger)
+  .um-steps__item--finished:not(
+    .um-steps__item--active,
+    .um-steps__item--success,
+    .um-steps__item--error,
+    .um-steps__item--danger
+  )
+  .um-steps__icon {
+  border-color: var(--um-steps-finish);
+  background: var(--um-steps-finish);
+  color: var(--um-steps-finish-on);
+}
+
+:is(.um-steps--finish-success, .um-steps--finish-error, .um-steps--finish-danger)
+  .um-steps__item--finished:not(
+    .um-steps__item--active,
+    .um-steps__item--success,
+    .um-steps__item--error,
+    .um-steps__item--danger
+  )
+  .um-steps__title {
+  color: var(--um-steps-finish-text);
+}
 
 /* The status is a class on the item, so one step can be finished while the
    next one is still running. A step with no status class is the waiting
@@ -7750,33 +9697,32 @@
   color: var(--um-text-regular);
 }
 
-/* The Nth radio drives the Nth tab and the Nth panel. The pairing is by
-   position, so the radios come first in the markup, the header second and
-   the panels last — and the panels are <section>s, so that `nth-of-type`
-   counts them apart from the <div> that holds the header. */
-.um-tabs__radio:nth-of-type(1):checked ~ .um-tabs__header .um-tabs__item:nth-of-type(1),
-.um-tabs__radio:nth-of-type(2):checked ~ .um-tabs__header .um-tabs__item:nth-of-type(2),
-.um-tabs__radio:nth-of-type(3):checked ~ .um-tabs__header .um-tabs__item:nth-of-type(3),
-.um-tabs__radio:nth-of-type(4):checked ~ .um-tabs__header .um-tabs__item:nth-of-type(4) {
+/* The selected tab is the one that holds the checked radio. The radio sits
+   inside its own tab, so the question "which one is picked?" is asked with
+   :has() — the only way CSS can ask. The variant decides what the selected
+   tab looks like; this rule only says that the tab is selected, so the card
+   variant does not need a second copy of it. */
+.um-tabs__item:has(.um-tabs__radio:checked) {
   color: var(--um-tabs-active-color);
   background: var(--um-tabs-active-fill);
   --um-tabs-indicator: var(--um-color-primary);
 }
 
-.um-tabs__radio:nth-of-type(1):checked ~ .um-tabs__panel:nth-of-type(1),
-.um-tabs__radio:nth-of-type(2):checked ~ .um-tabs__panel:nth-of-type(2),
-.um-tabs__radio:nth-of-type(3):checked ~ .um-tabs__panel:nth-of-type(3),
-.um-tabs__radio:nth-of-type(4):checked ~ .um-tabs__panel:nth-of-type(4) {
+/* The Nth radio drives the Nth panel. The radio no longer sits next to the
+   panel, so the pairing cannot be a sibling selector any more: the widget
+   itself is asked which radio is checked, and the panels are <section>s, so
+   that `nth-of-type` counts them apart from the <div> that holds the header. */
+.um-tabs:has(.um-tabs__item:nth-of-type(1) .um-tabs__radio:checked) .um-tabs__panel:nth-of-type(1),
+.um-tabs:has(.um-tabs__item:nth-of-type(2) .um-tabs__radio:checked) .um-tabs__panel:nth-of-type(2),
+.um-tabs:has(.um-tabs__item:nth-of-type(3) .um-tabs__radio:checked) .um-tabs__panel:nth-of-type(3),
+.um-tabs:has(.um-tabs__item:nth-of-type(4) .um-tabs__radio:checked) .um-tabs__panel:nth-of-type(4) {
   display: block;
 }
 
 /* The radio is one pixel wide, so a focus ring drawn on the radio itself
    would never be seen. The ring is moved onto the tab it belongs to. */
-.um-tabs__radio:nth-of-type(1):focus-visible ~ .um-tabs__header .um-tabs__item:nth-of-type(1),
-.um-tabs__radio:nth-of-type(2):focus-visible ~ .um-tabs__header .um-tabs__item:nth-of-type(2),
-.um-tabs__radio:nth-of-type(3):focus-visible ~ .um-tabs__header .um-tabs__item:nth-of-type(3),
-.um-tabs__radio:nth-of-type(4):focus-visible ~ .um-tabs__header .um-tabs__item:nth-of-type(4) {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+.um-tabs__item:has(.um-tabs__radio:focus-visible) {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -7825,6 +9771,23 @@
   top: 0;
 }
 
+/* Tabs that cannot be picked. The radios carry the real disabled attribute,
+   so the browser refuses to select them and takes them out of the tab order;
+   the class is what paints the disabled treatment, the way every other
+   disabled control dims. */
+.um-tabs.um-tabs--disabled .um-tabs__item {
+  color: var(--um-text-disabled);
+  cursor: not-allowed;
+}
+
+/* The panel is a scroll box the reader can move through with the keyboard.
+   The ring goes inside it, because an outside ring would be cut off by the
+   tab bar above it. */
+.um-tabs__panel:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: calc(-1 * var(--um-focus-ring-width));
+}
+
 /* ============================================================================
    Alert
    ========================================================================== */
@@ -7866,6 +9829,76 @@
 .um-alert--danger .um-alert__mark { background: var(--um-color-danger); color: var(--um-color-danger-on); }
 .um-alert--info { border-color: var(--um-color-info-text); }
 .um-alert--info .um-alert__mark { background: var(--um-color-info); color: var(--um-color-info-on); }
+
+/* The centred run puts the body in the middle of the panel. The mark stays
+   with it, so the two read as one block rather than as a label beside a
+   paragraph. */
+.um-alert--center {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* The icon is the mark in front of the body. It is drawn here rather than
+   borrowed: a component may not lean on another's class, and the library
+   ships no icon font.
+
+   It is a disc in the variant's *graphic* colour, because it is a shape that
+   carries its meaning on its own — the graphic form is the one contracted to
+   3:1, where the fill form is contracted to nothing as a picture. */
+.um-alert__icon {
+  display: none;
+  flex: 0 0 auto;
+  align-self: flex-start;
+  width: var(--um-space-sm);
+  height: var(--um-space-sm);
+  border-radius: var(--um-radius-circle);
+  background: currentColor;
+}
+.um-alert--show-icon .um-alert__icon { display: inline-flex; }
+.um-alert--center .um-alert__icon { align-self: center; }
+.um-alert--primary .um-alert__icon { color: var(--um-color-primary-graphic); }
+.um-alert--success .um-alert__icon { color: var(--um-color-success-graphic); }
+.um-alert--warning .um-alert__icon { color: var(--um-color-warning-graphic); }
+.um-alert--danger .um-alert__icon { color: var(--um-color-danger-graphic); }
+.um-alert--info .um-alert__icon { color: var(--um-color-info-graphic); }
+
+/* The close button is a real button, so it is in the tab order and the
+   keyboard reaches it. Its mark is two bars crossed, the way the icon set
+   draws a cross — the library ships no glyph for it to use. */
+.um-alert__close {
+  display: none;
+  position: relative;
+  flex: 0 0 auto;
+  align-self: flex-start;
+  width: var(--um-space-md);
+  height: var(--um-space-md);
+  padding: 0;
+  border: 0;
+  border-radius: var(--um-radius-circle);
+  background: none;
+  color: var(--um-text-secondary);
+  cursor: pointer;
+}
+.um-alert--closable .um-alert__close { display: inline-flex; }
+.um-alert--center .um-alert__close { align-self: center; }
+.um-alert__close::before,
+.um-alert__close::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--um-space-xs);
+  height: 0;
+  border-top: var(--um-border-width) solid currentColor;
+}
+.um-alert__close::before { transform: translate(-50%, -50%) rotate(45deg); }
+.um-alert__close::after { transform: translate(-50%, -50%) rotate(-45deg); }
+.um-alert__close:hover { color: var(--um-text-primary); }
+.um-alert__close:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
+}
 
 /* ============================================================================
    Dialog
@@ -8016,7 +10049,7 @@
 }
 
 .um-dialog__close:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -8062,6 +10095,16 @@
   max-height: 100%;
   margin: 0;
   border-radius: var(--um-radius-none);
+}
+
+/* The footer gives a button that arrives without a class of its own a shape,
+   it carries no weight: a host that brings its own button class keeps it.
+   The one action the panel asks for is the filled button, and it wears the
+   ring too. */
+:where(.um-dialog__footer button):focus-visible,
+.um-dialog__action:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
 }
 
 /* ============================================================================
@@ -8230,7 +10273,16 @@
 }
 
 .um-drawer__close:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+/* The footer gives a button that arrives without a class of its own a shape,
+   it carries no weight: a host that brings its own button class keeps it.
+   The ring is the one thing the library always paints, so it paints it here
+   too. */
+:where(.um-drawer__footer button):focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -8341,6 +10393,14 @@
   justify-content: center;
 }
 
+/* A locked loading holds the page still: the reader cannot scroll the page
+   behind the indicator while it is there. A stylesheet cannot put a class on
+   the body from the markup, but it can ask the page whether it holds a locked
+   loading — and a page that is told not to scroll does not scroll. */
+body:has(.um-loading--lock) {
+  overflow: hidden;
+}
+
 /* ============================================================================
    Message
    ========================================================================== */
@@ -8445,7 +10505,7 @@
 .um-message__close::after { transform: translate(-50%, -50%) rotate(-45deg); }
 .um-message__close:hover { color: var(--um-text-primary); }
 .um-message__close:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -8784,7 +10844,7 @@
 
 .um-message-box__confirm:focus-visible,
 .um-message-box__cancel:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -8822,7 +10882,7 @@
 
 .um-message-box__close:hover { color: var(--um-color-primary-text); }
 .um-message-box__close:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -8912,7 +10972,7 @@
 }
 
 .um-message-box__input:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -9036,7 +11096,7 @@
 .um-notification__close::after { transform: translate(-50%, -50%) rotate(-45deg); }
 .um-notification__close:hover { color: var(--um-text-primary); }
 .um-notification__close:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -9134,7 +11194,7 @@
 /* The ring goes on the trigger, because the checkbox is the control that took
    the focus and the trigger is the thing the reader believes they are on. */
 .um-popconfirm__toggle:focus-visible ~ .um-popconfirm__trigger {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -9180,6 +11240,26 @@
   max-width: 18em;
   color: var(--um-text-regular);
   font-size: var(--um-font-size-caption);
+}
+
+/* The mark beside the question. The library draws no question mark of its own
+   — it ships no icon font and no image — so the slot is empty until the host
+   fills it, and it holds the space either way, so the question does not move
+   when a mark arrives. */
+.um-popconfirm__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 1em;
+  height: 1em;
+  margin-inline-end: var(--um-space-xs);
+  color: var(--um-color-primary-text);
+  vertical-align: -0.125em;
+}
+.um-popconfirm__icon svg {
+  width: 100%;
+  height: 100%;
 }
 
 /* The answer the reader is pushed towards is last, so the row is aligned to
@@ -9271,7 +11351,7 @@
 
 .um-popconfirm__confirm:focus-visible,
 .um-popconfirm__cancel:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -9332,6 +11412,30 @@
   pointer-events: none;
 }
 
+/* A bubble with no mark: the mark beside the question is taken away. */
+.um-popconfirm.um-popconfirm--hide-icon .um-popconfirm__icon {
+  display: none;
+}
+
+/* The dark run: the bubble is filled with the mood's strong text colour and
+   the words on it take the plain surface, the way a dark tag is filled. The
+   border stays the mood's own, so the frame of the bubble does not change —
+   and the point takes the bubble's new surface, so the two still read as one
+   shape. */
+.um-popconfirm.um-popconfirm--dark .um-popconfirm__panel {
+  background: var(--um-text-primary);
+  color: var(--um-fill-blank);
+}
+.um-popconfirm.um-popconfirm--dark .um-popconfirm__message {
+  color: var(--um-fill-blank);
+}
+.um-popconfirm.um-popconfirm--dark .um-popconfirm__arrow {
+  background: var(--um-text-primary);
+}
+.um-popconfirm.um-popconfirm--dark .um-popconfirm__icon {
+  color: var(--um-fill-blank);
+}
+
 /* ============================================================================
    Popover
    ========================================================================== */
@@ -9339,6 +11443,9 @@
 /* The panel is a floating card: it sits on the overlay surface and carries
    its own shadow, because it is above the page rather than on it. */
 .um-popover {
+  /* The size of the point that ties the card to its trigger. */
+  --um-popover-arrow: 8px;
+
   position: relative;
   display: inline-block;
   font-family: var(--um-font-family);
@@ -9397,10 +11504,33 @@
 }
 .um-popover[open] > .um-popover__content { display: block; }
 
+/* The point that ties the card to its trigger: a square turned on its corner,
+   half of it inside the card and half of it out of it. It is filled with the
+   card's own surface, so the card's rule stops where the point begins and
+   the two read as one shape rather than as a shape stuck on the card.
+
+   The point sits at the start of the card, because the card opens at the
+   start of its trigger — that is the edge the trigger is on. A square on its
+   corner is the same whichever way it is turned, so the point needs no
+   mirror of its own. */
+.um-popover__arrow {
+  position: absolute;
+  top: calc(var(--um-popover-arrow) * -0.5);
+  inset-inline-start: var(--um-space-sm);
+  width: var(--um-popover-arrow);
+  height: var(--um-popover-arrow);
+  background: var(--um-bg-overlay);
+  transform: rotate(45deg);
+}
+
 /* Above the trigger, or beside it: the panel moves, the rest of it does not. */
 .um-popover--top .um-popover__content {
   top: auto;
   bottom: calc(100% + var(--um-space-xs));
+}
+.um-popover--top .um-popover__arrow {
+  top: auto;
+  bottom: calc(var(--um-popover-arrow) * -0.5);
 }
 .um-popover--left .um-popover__content {
   top: 50%;
@@ -9408,11 +11538,23 @@
   left: auto;
   transform: translateY(-50%);
 }
+.um-popover--left .um-popover__arrow {
+  top: 50%;
+  right: calc(var(--um-popover-arrow) * -0.5);
+  left: auto;
+  transform: translateY(-50%) rotate(45deg);
+}
 .um-popover--right .um-popover__content {
   top: 50%;
   right: auto;
   left: calc(100% + var(--um-space-xs));
   transform: translateY(-50%);
+}
+.um-popover--right .um-popover__arrow {
+  top: 50%;
+  right: auto;
+  left: calc(var(--um-popover-arrow) * -0.5);
+  transform: translateY(-50%) rotate(45deg);
 }
 
 .um-popover--small .um-popover__content { max-width: 18em; }
@@ -9452,6 +11594,38 @@
   pointer-events: none;
 }
 
+/* A card with no point: the shape that says which way the card is facing is
+   not drawn. */
+.um-popover.um-popover--no-arrow .um-popover__arrow {
+  display: none;
+}
+
+/* The dark run: the card is filled with the mood's strong text colour and
+   the words on it take the plain surface, the way a dark tag is filled. The
+   border stays the mood's own, so the frame of the card does not change —
+   and the point takes the card's new surface, so the two still read as one
+   shape. */
+.um-popover.um-popover--dark > .um-popover__content {
+  background: var(--um-text-primary);
+  color: var(--um-fill-blank);
+}
+.um-popover.um-popover--dark .um-popover__header,
+.um-popover.um-popover--dark .um-popover__body,
+.um-popover.um-popover--dark .um-popover__footer {
+  color: var(--um-fill-blank);
+}
+.um-popover.um-popover--dark .um-popover__arrow {
+  background: var(--um-text-primary);
+}
+
+/* The trigger is a disclosure, and the browser's own ring is a hairline in
+   whatever colour the browser feels like. The card opens beside it, so the
+   ring goes around the trigger and not inside it. */
+.um-popover__trigger:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
 /* ============================================================================
    Tooltip
    ========================================================================== */
@@ -9481,7 +11655,7 @@
   cursor: pointer;
 }
 .um-tooltip__trigger:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -9600,6 +11774,19 @@
    facing is not drawn. */
 .um-tooltip.um-tooltip--no-arrow .um-tooltip__arrow {
   display: none;
+}
+
+/* The dark run: the bubble is filled with the mood's strong text colour and
+   the words on it take the plain surface, the way a dark tag is filled. The
+   border stays the mood's own, so the frame of the bubble does not change —
+   and the arrow takes the bubble's new surface, so the two still read as one
+   shape. */
+.um-tooltip.um-tooltip--dark .um-tooltip__content {
+  background: var(--um-text-primary);
+  color: var(--um-fill-blank);
+}
+.um-tooltip.um-tooltip--dark .um-tooltip__arrow {
+  background: var(--um-text-primary);
 }
 
 /* ============================================================================

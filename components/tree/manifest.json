@@ -26,21 +26,33 @@
     { "id": "open", "name": "Open", "nameZh": "展开", "selector": "[open]", "native": true, "note": "The branch is open. The browser announces it, and the arrow turns over." },
     { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the label, because the label is what the reader is on." },
     { "id": "highlight-current", "name": "Highlight current", "nameZh": "高亮当前", "selector": ".um-tree--highlight-current", "note": "The tree is told to mark the branch the reader is on." },
-    { "id": "current-node", "name": "Current node", "nameZh": "当前节点", "selector": ".um-tree__node--current", "note": "The branch the reader is on. It takes the highlight fill when the tree highlights the current branch." }
+    { "id": "current-node", "name": "Current node", "nameZh": "当前节点", "selector": ".um-tree__node--current", "note": "The branch the reader is on. It takes the highlight fill when the tree highlights the current branch." },
+    { "id": "accordion", "name": "Accordion", "nameZh": "手风琴", "selector": ".um-tree--accordion", "note": "Only the first open branch of a level shows what it holds, so the level reads as one branch at a time." },
+    { "id": "auto-expand-parent", "name": "Auto expand parent", "nameZh": "自动展开父节点", "selector": ".um-tree--auto-expand-parent", "note": "The branch the current one sits under shows what it holds, whether it is open or not." },
+    { "id": "check-strictly", "name": "Check strictly", "nameZh": "父子不关联", "selector": ".um-tree--check-strictly", "note": "Each box stands on its own: a branch whose child is ticked does not take the brand colour on its own box." },
+    { "id": "default-expand-all", "name": "Expand all", "nameZh": "默认展开全部", "selector": ".um-tree--default-expand-all", "note": "Every level of the tree is open, whether the branch says so or not." },
+    { "id": "show-checkbox", "name": "Show checkbox", "nameZh": "显示复选框", "selector": ".um-tree--show-checkbox", "note": "Every branch carries the box the reader ticks." }
   ],
   "parts": [
     { "id": "node", "name": "Node", "nameZh": "节点", "note": "One branch. It is a <details>, so it is the element that knows whether it is open." },
     { "id": "label", "name": "Label", "nameZh": "标签", "note": "The summary. It is the element the browser turns into a disclosure button, so it carries the focus and the keyboard." },
     { "id": "text", "name": "Text", "nameZh": "文字", "note": "The name of the thing the branch holds." },
     { "id": "arrow", "name": "Arrow", "nameZh": "箭头", "note": "The mark that says the branch holds something. It is drawn from two borders, so it carries no text of its own." },
-    { "id": "children", "name": "Children", "nameZh": "子节点", "note": "The level below. It holds the branches inside this one, each of which is a node of its own." }
+    { "id": "children", "name": "Children", "nameZh": "子节点", "note": "The level below. It holds the branches inside this one, each of which is a node of its own." },
+    { "id": "checkbox", "name": "Checkbox", "nameZh": "复选框", "note": "The real tick box in front of a branch. It is hidden by size rather than removed, so it keeps its place in the tab order." },
+    { "id": "box", "name": "Box", "nameZh": "方框", "note": "The drawn square in front of a branch. It is the label of the tick box, so clicking it ticks the box." }
   ],
   "props": [
     { "name": "open", "type": "boolean", "default": "false", "description": "Opens the branch. It is the native open attribute on the details, so the browser keeps the state.", "descriptionZh": "展开这一支。它是 details 上的原生 open 属性,所以状态由浏览器记着。" },
     { "name": "variant", "type": "enum", "values": ["plain", "lines"], "default": "plain", "description": "How the levels are held apart. The plain run is the base class on its own; the guided run adds um-tree--lines.", "descriptionZh": "各层之间怎么区分。无辅助线是只写基类;带辅助线再加上 um-tree--lines。" },
     { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The size of the label text.", "descriptionZh": "标签文字的尺寸。" },
     { "name": "label", "type": "string", "description": "The name of the thing the branch holds. A branch with no text needs an accessible name of its own.", "descriptionZh": "这一支里那个东西的名字。没有文字的分支也得有自己的可访问名称。" },
-    { "name": "highlight-current", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Whether the branch the reader is on takes the highlight fill. That branch is marked with um-tree__node--current.", "descriptionZh": "读者所在的那一支是否带上高亮底色。那一支自己用 um-tree__node--current 标记。" }
+    { "name": "highlight-current", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Whether the branch the reader is on takes the highlight fill. That branch is marked with um-tree__node--current.", "descriptionZh": "读者所在的那一支是否带上高亮底色。那一支自己用 um-tree__node--current 标记。" },
+    { "name": "accordion", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Whether only the first open branch of a level shows what it holds, so the level reads as one branch at a time. It adds um-tree--accordion.", "descriptionZh": "同一层里是不是只有第一个展开的分支露出它的内容,于是这一层一次只像是一个分支。它加上 um-tree--accordion。" },
+    { "name": "auto-expand-parent", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Whether the branch the current one sits under shows what it holds, whether it is open or not. It adds um-tree--auto-expand-parent.", "descriptionZh": "当前那一支的上一级是否露出它的内容,不管它自己是不是开着。它加上 um-tree--auto-expand-parent。" },
+    { "name": "check-strictly", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Whether each tick box stands on its own, with no link drawn between a branch and the branch under it. It adds um-tree--check-strictly.", "descriptionZh": "每一个勾选框是不是各自独立,分支和它下面那一支之间不画关联。它加上 um-tree--check-strictly。" },
+    { "name": "default-expand-all", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Whether every level of the tree is open, whether the branch says so or not. It adds um-tree--default-expand-all.", "descriptionZh": "树上的每一层是否都是展开的,不管那一支自己怎么说。它加上 um-tree--default-expand-all。" },
+    { "name": "show-checkbox", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Whether every branch carries the box the reader ticks. It adds um-tree--show-checkbox.", "descriptionZh": "每一支前面是否带上那个供读者勾选的方框。它加上 um-tree--show-checkbox。" }
   ],
   "slots": [
     { "name": "children", "description": "The level below: one node per branch inside this one.", "descriptionZh": "下面那一层:这一支里的每个分支放一个节点。" },
@@ -48,7 +60,8 @@
     { "name": "empty", "description": "What the level below says when there is nothing in it. Without it the level below is empty.", "descriptionZh": "下面那一层空着时说什么。不给就空着。" }
   ],
   "events": [
-    { "name": "toggle", "description": "Fires when a branch opens or closes. It is the browser's own event on the details — the library installs no listener.", "descriptionZh": "某一支展开或收起时触发。这是 details 上的浏览器原生事件 —— 库没有安装任何监听器。" }
+    { "name": "toggle", "description": "Fires when a branch opens or closes. It is the browser's own event on the details — the library installs no listener.", "descriptionZh": "某一支展开或收起时触发。这是 details 上的浏览器原生事件 —— 库没有安装任何监听器。" },
+    { "name": "check", "description": "Fires when a tick box is ticked or unticked. It is the browser's own event on the input — the library installs no listener.", "descriptionZh": "某个勾选框被勾上或取消勾选时触发。这是 input 上的浏览器原生事件 —— 库没有安装任何监听器。" }
   ],
   "a11y": {
     "role": "group",

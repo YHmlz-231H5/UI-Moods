@@ -354,6 +354,7 @@
       <tr><td><code>um-popconfirm__panel</code></td><td>Bubble</td></tr>
       <tr><td><code>um-popconfirm__arrow</code></td><td>Arrow</td></tr>
       <tr><td><code>um-popconfirm__message</code></td><td>Question</td></tr>
+      <tr><td><code>um-popconfirm__icon</code></td><td>Mark</td></tr>
       <tr><td><code>um-popconfirm__actions</code></td><td>Actions</td></tr>
       <tr><td><code>um-popconfirm__confirm</code></td><td>Confirm</td></tr>
       <tr><td><code>um-popconfirm__cancel</code></td><td>Cancel</td></tr>
@@ -362,6 +363,8 @@
       <tr><td><code>.um-popconfirm--disabled</code></td><td>Disabled</td></tr>
       <tr><td><code>.um-popconfirm--not-enterable</code></td><td>Not enterable</td></tr>
       <tr><td><code>.um-popconfirm--no-arrow</code></td><td>No arrow</td></tr>
+      <tr><td><code>.um-popconfirm--dark</code></td><td>Dark effect</td></tr>
+      <tr><td><code>.um-popconfirm--hide-icon</code></td><td>No icon</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -377,6 +380,8 @@
       <tr><td><span class="api__name"><code>enterable</code></span></td><td><code>boolean</code></td><td><code>true</code></td><td>Whether the pointer can enter the bubble. A bubble that cannot be entered lets the pointer through it, so the words in it cannot be selected. It adds um-popconfirm--not-enterable.</td></tr>
       <tr><td><span class="api__name"><code>visible</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the bubble is open. It is the checked attribute on the trigger's own checkbox.</td></tr>
       <tr><td><span class="api__name"><code>show-arrow</code></span></td><td><code>boolean</code></td><td><code>true</code></td><td>Whether the bubble carries the point that says which way it faces. A bubble without one adds um-popconfirm--no-arrow.</td></tr>
+      <tr><td><span class="api__name"><code>effect</code></span></td><td><code>enum = light | dark</code></td><td><code>light</code></td><td>How the bubble is filled. The light run is the base class on its own — the bubble sits on the overlay surface; the dark run fills it with the mood's strong text colour, puts the words on it in the plain surface and adds um-popconfirm--dark.</td></tr>
+      <tr><td><span class="api__name"><code>hide-icon</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the mark beside the question is taken away. It adds um-popconfirm--hide-icon. The library draws no question mark of its own, so the mark is the host's and this class is what says it is not wanted.</td></tr>
       <tr><td><span class="api__name"><code>confirm-button-type</code></span></td><td><code>enum = default | primary | success | warning | danger | info</code></td><td><code>default</code></td><td>The type of the answer that goes ahead. The default type is the brand colour; the other five are a fill of their own.</td></tr>
       <tr><td><span class="api__name"><code>cancel-button-type</code></span></td><td><code>enum = default | primary | success | warning | danger | info</code></td><td><code>default</code></td><td>The type of the answer that backs out. The default type is the neutral shape, so the eye goes to the answer that is being asked for; the other five are a fill of their own.</td></tr>
       </tbody>
@@ -389,6 +394,7 @@
       <tr><td><span class="api__name"><code>message</code></span></td><td>The question the bubble asks.</td></tr>
       <tr><td><span class="api__name"><code>reference</code></span></td><td>The element that opens the bubble. This is Element Plus's name for the trigger; either one of them fills it.</td></tr>
       <tr><td><span class="api__name"><code>actions</code></span></td><td>The answers at the bottom of the bubble. It replaces the two buttons with the host's own.</td></tr>
+      <tr><td><span class="api__name"><code>icon</code></span></td><td>The mark beside the question. The library draws no question mark of its own, so the slot is empty until the host fills it.</td></tr>
       </tbody>
     </table>
 

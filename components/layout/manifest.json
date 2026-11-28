@@ -24,7 +24,9 @@
   "states": [
     { "id": "align-start", "name": "Aligned to the start", "nameZh": "顶部对齐", "selector": ".um-layout--align-start", "note": "The column and the content stand at the top of the row." },
     { "id": "align-center", "name": "Aligned to the centre", "nameZh": "居中对齐", "selector": ".um-layout--align-center", "note": "The column and the content stand in the middle of the row." },
-    { "id": "align-end", "name": "Aligned to the end", "nameZh": "底部对齐", "selector": ".um-layout--align-end", "note": "The column and the content stand at the bottom of the row." }
+    { "id": "align-end", "name": "Aligned to the end", "nameZh": "底部对齐", "selector": ".um-layout--align-end", "note": "The column and the content stand at the bottom of the row." },
+    { "id": "pull", "name": "Pulled back", "nameZh": "回拉", "selector": ".um-layout--pull", "note": "The layout is pulled back from the end of the row it is in. The distance is the custom property the class reads, so the measure is the mood's own spacing step and not a number of pixels." },
+    { "id": "push", "name": "Pushed along", "nameZh": "前推", "selector": ".um-layout--push", "note": "The layout is pushed along the row it is in, away from the start. The distance is the custom property the class reads, so the measure is the mood's own spacing step and not a number of pixels." }
   ],
   "parts": [
     { "id": "header", "name": "Header", "nameZh": "页头", "note": "The band across the top. It is a <header>, so it is a landmark." },
@@ -36,7 +38,9 @@
   "props": [
     { "name": "direction", "type": "enum", "values": ["horizontal", "stacked"], "default": "horizontal", "description": "Whether the side column stands beside the content or above it. The horizontal form is the base class on its own; the stacked form adds um-layout--stacked.", "descriptionZh": "侧栏是站在内容旁边还是排在内容上面。横向就是只写基类;上下堆叠再加上 um-layout--stacked。" },
     { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The width of the side column.", "descriptionZh": "侧栏的宽度。" },
-    { "name": "align", "type": "enum", "values": ["start", "center", "end", "stretch"], "default": "stretch", "description": "How the side column and the content stand against each other across the row. The stretched row needs no modifier class.", "descriptionZh": "侧栏和内容在整行里怎么对齐。拉伸的那一档不需要修饰类。" }
+    { "name": "align", "type": "enum", "values": ["start", "center", "end", "stretch"], "default": "stretch", "description": "How the side column and the content stand against each other across the row. The stretched row needs no modifier class.", "descriptionZh": "侧栏和内容在整行里怎么对齐。拉伸的那一档不需要修饰类。" },
+    { "name": "pull", "type": "number", "default": "0", "description": "How far the layout is pulled back from the end of its row, counted in steps of the mood's own spacing. A number cannot be a class, so it travels as the custom property the stylesheet reads; the class says that the layout is pulled at all.", "descriptionZh": "布局从自己那一行的末尾被拉回多少,以这套 mood 自己的间距为一步。数字没法写进类里,所以它跟着样式表读的那个自定义属性走;类只说明这个布局确实被拉了。" },
+    { "name": "push", "type": "number", "default": "0", "description": "How far the layout is pushed along its row, away from the start, counted in steps of the mood's own spacing. A number cannot be a class, so it travels as the custom property the stylesheet reads; the class says that the layout is pushed at all.", "descriptionZh": "布局在自己那一行里被往前推多少,以这套 mood 自己的间距为一步。数字没法写进类里,所以它跟着样式表读的那个自定义属性走;类只说明这个布局确实被推了。" }
   ],
   "slots": [
     { "name": "header", "description": "The band at the top.", "descriptionZh": "顶部的那一条。" },

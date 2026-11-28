@@ -7,6 +7,12 @@
    are separated with rules instead, so the skeleton reads as a skeleton and
    no translucent layer is ever stacked on another. */
 .um-layout {
+  /* The offsets the host asks for. They are declared here so that the
+     stylesheet reads a variable it owns, and a host that asks for no offset
+     gets none. */
+  --um-layout-pull: 0;
+  --um-layout-push: 0;
+
   display: flex;
   flex-direction: column;
   min-height: 100%;
@@ -67,3 +73,10 @@
   border-inline-end: none;
   border-bottom: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
 }
+
+/* The layout is pulled back from the end of its row, or pushed along it. The
+   distance is a number of the mood's spacing steps, and a class cannot carry
+   a number — so the class carries the mechanism and the number travels as the
+   custom property the host writes. */
+.um-layout--pull { margin-inline-end: var(--um-layout-pull); }
+.um-layout--push { margin-inline-start: var(--um-layout-push); }

@@ -67,3 +67,11 @@
   border-inline-start: calc(var(--um-border-width) * 2) solid var(--um-border-base);
   color: var(--um-text-secondary);
 }
+
+/* A link in a paragraph is a link, and the ring goes on the link itself:
+   a ring around the whole paragraph would say the wrong thing about what is
+   focused. */
+.um-typography__link:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
+}

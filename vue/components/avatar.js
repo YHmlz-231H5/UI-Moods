@@ -17,6 +17,7 @@ export const UMAvatar = defineComponent({
     alt: { type: String, default: "" },
     fit: { type: String, default: "cover" },
     collapseAvatars: { type: Boolean, default: false },
+    effect: { type: String, default: "light" },
   },
   setup(props, { slots }) {
     return () => {
@@ -40,6 +41,8 @@ export const UMAvatar = defineComponent({
                   ? "um-avatar--cover"
                   : null,
             props.collapseAvatars ? "um-avatar--collapsed" : null,
+            // The light run is the base class on its own.
+            props.effect === "dark" ? "um-avatar--dark" : null,
           ],
         },
         [

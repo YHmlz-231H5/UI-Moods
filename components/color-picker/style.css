@@ -42,7 +42,7 @@
 }
 
 .um-color-picker__swatch:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -95,7 +95,7 @@
    out than the ring that marks the picked chip, so the two never read as
    one mark. */
 .um-color-picker__radio:focus-visible + .um-color-picker__chip {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -126,7 +126,7 @@
 .um-color-picker__hex::placeholder { color: var(--um-text-placeholder); }
 
 .um-color-picker__hex:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 

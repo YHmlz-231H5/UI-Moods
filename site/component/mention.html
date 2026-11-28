@@ -297,8 +297,17 @@
       <tr><td><code>um-mention__item</code></td><td>Item</td></tr>
       <tr><td><code>um-mention__avatar</code></td><td>Avatar</td></tr>
       <tr><td><code>um-mention__name</code></td><td>Name</td></tr>
+      <tr><td><code>um-mention__prefix</code></td><td>Prefix</td></tr>
+      <tr><td><code>um-mention__header</code></td><td>Header</td></tr>
+      <tr><td><code>um-mention__footer</code></td><td>Footer</td></tr>
+      <tr><td><code>um-mention__loading</code></td><td>Loading</td></tr>
+      <tr><td><code>um-mention__clear</code></td><td>Clear</td></tr>
+      <tr><td><code>um-mention__arrow</code></td><td>Arrow</td></tr>
       <tr><td><code>:focus-visible</code></td><td>Focus visible</td></tr>
       <tr><td><code>:disabled</code></td><td>Disabled</td></tr>
+      <tr><td><code>.um-mention--clearable</code></td><td>Clearable</td></tr>
+      <tr><td><code>.um-mention--loading</code></td><td>Loading</td></tr>
+      <tr><td><code>.um-mention--show-arrow</code></td><td>Show arrow</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -313,6 +322,12 @@
       <tr><td><span class="api__name"><code>model-value</code></span></td><td><code>string</code></td><td>—</td><td>The text in the field, bound with v-model in Vue. Leave it out and the `value` prop is the text; bind it and the field answers to the binding.</td></tr>
       <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes the field inert. It uses the real disabled attribute on the input, so it leaves the tab order and the field paints the flat control surface.</td></tr>
       <tr><td><span class="api__name"><code>readonly</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Keeps the text visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures.</td></tr>
+      <tr><td><span class="api__name"><code>clearable</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Puts a button at the end of the field that empties it. The button is a real one, so it is in the tab order.</td></tr>
+      <tr><td><span class="api__name"><code>loading</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Says the names are on their way. The mark appears in the field; the names themselves are the host's to bring.</td></tr>
+      <tr><td><span class="api__name"><code>prefix</code></span></td><td><code>string</code></td><td><code>@</code></td><td>The character that starts a mention. It is written in the field, the way the reader will see it in the sentence.</td></tr>
+      <tr><td><span class="api__name"><code>show-arrow</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Puts the chevron at the end of the field, so the field says a list is behind it. The list here is a panel on the page, but it opens and closes with the field, so the arrow says what the reader cannot see.</td></tr>
+      <tr><td><span class="api__name"><code>type</code></span></td><td><code>string</code></td><td><code>text</code></td><td>The kind of field the input is. It is the input's own type attribute, so the browser brings its own keyboard and its own validation with it.</td></tr>
+      <tr><td><span class="api__name"><code>form</code></span></td><td><code>string</code></td><td>—</td><td>The id of the form the field belongs to. It is the input's own form attribute, so a field may live outside its form and still be submitted with it.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>
@@ -320,6 +335,10 @@
       <thead><tr><th>Name</th><th>Description</th></tr></thead>
       <tbody>
       <tr><td><span class="api__name"><code>default</code></span></td><td>The names in the list. Each one is a list item holding a button.</td></tr>
+      <tr><td><span class="api__name"><code>header</code></span></td><td>The line above the list of names.</td></tr>
+      <tr><td><span class="api__name"><code>footer</code></span></td><td>The line below the list of names.</td></tr>
+      <tr><td><span class="api__name"><code>label</code></span></td><td>The name of one mention. The wrapper writes three names of its own when the caller has not written any, and this slot is what fills them; the caller's own names carry their own words.</td></tr>
+      <tr><td><span class="api__name"><code>loading</code></span></td><td>The mark that says the names are on their way. It is drawn when the slot is empty and the caller's own when it is not.</td></tr>
       </tbody>
     </table>
       <h2>Events</h2>
@@ -328,6 +347,9 @@
       <tbody>
       <tr><td><span class="api__name"><code>input</code></span></td><td>Fires when the text in the field changes.</td></tr>
       <tr><td><span class="api__name"><code>update:modelValue</code></span></td><td>Fires when the value changes, carrying the new value. This is the event `v-model` listens to.</td></tr>
+      <tr><td><span class="api__name"><code>search</code></span></td><td>Fires on every keystroke in the field, carrying what has been typed. It is the same moment as the input event, under the name the mention gives it: the host is looking for names.</td></tr>
+      <tr><td><span class="api__name"><code>select</code></span></td><td>Fires when one of the names is chosen, carrying the name. The wrapper reports it for the names it writes itself; a name the caller wrote is the caller's own button, so the caller wires it.</td></tr>
+      <tr><td><span class="api__name"><code>clear</code></span></td><td>Fires when the reader presses the clear button. The value goes with it, so the field is empty afterwards.</td></tr>
       </tbody>
     </table>
       <h2>Accessibility</h2>

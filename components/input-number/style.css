@@ -108,14 +108,14 @@
    and a clipped ring is no ring at all. */
 .um-input-number__increase:focus-visible,
 .um-input-number__decrease:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: calc(-1 * var(--um-focus-ring-width));
 }
 
 /* The ring around the whole field, because the field is what the reader is
    typing in — the buttons are separate controls with their own rings. */
 .um-input-number__wrapper:has(.um-input-number__input:focus-visible) {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -137,3 +137,10 @@
 
 .um-input-number--small .um-input-number__wrapper { height: var(--um-height-sm); }
 .um-input-number--large .um-input-number__wrapper { height: var(--um-height-lg); }
+
+/* The number can sit at either end of the field instead of in the middle of
+   it. The sides are written logically, so a right-to-left reader gets the
+   other side. The centred run is the base class on its own, so it needs no
+   rule. */
+.um-input-number--align-start .um-input-number__input { text-align: start; }
+.um-input-number--align-end .um-input-number__input { text-align: end; }

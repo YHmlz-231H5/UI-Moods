@@ -74,7 +74,7 @@
 /* The ring goes on the field, because the field is what the reader is typing
    in — the input is inside it, not beside it. */
 .um-time-picker:has(.um-time-picker__input:focus-visible) {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -104,6 +104,51 @@
   align-self: stretch;
   width: var(--um-border-width);
   background: var(--um-border-lighter);
+}
+
+/* The clear mark is a cross drawn from two bars, so it carries no text of its
+   own. It stands at the end of the field, after the browser's own clock
+   button, and it is a real button so the keyboard can reach it. The field
+   decides whether it is there at all. */
+.um-time-picker__clear {
+  position: relative;
+  flex: none;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--um-space-sm);
+  height: var(--um-space-sm);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--um-text-secondary);
+  cursor: pointer;
+}
+
+.um-time-picker--clearable .um-time-picker__clear {
+  display: inline-flex;
+}
+
+.um-time-picker__clear::before,
+.um-time-picker__clear::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  width: var(--um-space-xs);
+  height: var(--um-border-width);
+  background: currentColor;
+}
+.um-time-picker__clear::before { transform: translate(-50%, -50%) rotate(45deg); }
+.um-time-picker__clear::after { transform: translate(-50%, -50%) rotate(-45deg); }
+
+.um-time-picker__clear:hover {
+  color: var(--um-color-primary-text);
+}
+
+.um-time-picker__clear:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
 }
 
 .um-time-picker--sm {

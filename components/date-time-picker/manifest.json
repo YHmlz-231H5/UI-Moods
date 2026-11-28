@@ -41,9 +41,13 @@
     { "name": "type", "type": "enum", "values": ["single", "range"], "default": "single", "description": "Whether the field holds one date-time or two. The single field is the base class on its own; the range field adds um-date-time-picker--range.", "descriptionZh": "字段里是一个日期时间还是两个。一个是只写基础类;时间区间再加上 um-date-time-picker--range。" },
     { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The height of the field.", "descriptionZh": "字段的高度。" },
     { "name": "model-value", "type": "string", "description": "The date and time in the field, bound with v-model in Vue. Leave it out and the `value` prop is the value; bind it and the field answers to the binding.", "descriptionZh": "字段里的日期和时刻,在 Vue 里用 v-model 绑定。不传就以 value 属性为准;传了就以绑定为准。" },
-    { "name": "readonly", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Keeps the value visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures.", "descriptionZh": "值仍然可见,但不能编辑。它是原生 readonly 属性,浏览器会拒绝编辑。库不会给只读字段单独配色 —— 这不是它测量过的状态。" }
+    { "name": "readonly", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Keeps the value visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures.", "descriptionZh": "值仍然可见,但不能编辑。它是原生 readonly 属性,浏览器会拒绝编辑。库不会给只读字段单独配色 —— 这不是它测量过的状态。" },
+    { "name": "editable", "type": "boolean", "default": "true", "description": "Whether the value can be typed in. It is the input's own readonly attribute: an editable field carries none, and a field that is not editable carries the attribute and the browser refuses the edit. This is Element Plus's name for the same thing; either one of them says it.", "descriptionZh": "值能不能直接敲进去。它是 input 自己的 readonly 属性:可以编辑的字段不带这个属性,不能编辑的字段带着它,浏览器就会拒绝编辑。这是 Element Plus 对同一件事的叫法,两个都能决定。" },
+    { "name": "placeholder", "type": "string", "description": "The text that stands in for the value. It is the input's own placeholder attribute — the browser decides whether the field shows it, and a date-time field usually shows its own segments instead.", "descriptionZh": "代替那段值的那行字。它是 input 自己的 placeholder 属性 —— 显不显示由浏览器决定,日期时间字段通常显示的是它自己那几段。" }
   ],
-  "slots": [],
+  "slots": [
+    { "name": "range-separator", "description": "The mark between the two date-times of a range. The rule steps aside for it, so the host's own mark is what is read between the two moments.", "descriptionZh": "区间里两个日期时间之间的标记。那条线会让开,所以宿主自己的标记才是两个时刻之间被读到的东西。" }
+  ],
   "events": [
     { "name": "change", "description": "Fires when the value changes. It is the browser's own event on the input — the library installs no listener.", "descriptionZh": "值变了的时候触发。这是 input 上的浏览器原生事件 —— 库没有安装任何监听器。" },
     { "name": "input", "description": "Fires on every keystroke in the field. It is the browser's own event on the input.", "descriptionZh": "在字段里每敲一个字就触发。这是 input 上的浏览器原生事件。" },
@@ -62,7 +66,7 @@
       "titleZh": "单个日期时间",
       "description": "One date and one time in one field. The browser's own indicator is the only affordance: a field that holds both halves has no single drawn mark to stand for it.",
       "descriptionZh": "一个日期和一个时刻放在一个字段里。浏览器自己的那个图标是唯一的提示:一个装着两半的字段,没有哪一个画出来的记号能代表它。",
-      "markup": "<div class=\"um-date-time-picker um-date-time-picker--single\">\n  <input class=\"um-date-time-picker__input\" type=\"datetime-local\" id=\"um-date-time-picker-start\" name=\"um-date-time-picker-start\" value=\"2026-03-14T09:30\" step=\"60\" />\n</div>"
+      "markup": "<div class=\"um-date-time-picker um-date-time-picker--single\">\n  <input class=\"um-date-time-picker__input\" type=\"datetime-local\" id=\"um-date-time-picker-start\" aria-label=\"Date and time\" name=\"um-date-time-picker-start\" value=\"2026-03-14T09:30\" step=\"60\" />\n</div>"
     },
     {
       "id": "range",
@@ -70,7 +74,7 @@
       "titleZh": "时间区间",
       "description": "Two date-times in one box, with a rule between them. The markup carries a second input and the separator.",
       "descriptionZh": "一个盒子里两个日期时间,中间一条线。标记里多了一个 input 和那条分隔线。",
-      "markup": "<div class=\"um-date-time-picker um-date-time-picker--range\">\n  <input class=\"um-date-time-picker__input\" type=\"datetime-local\" id=\"um-date-time-picker-from\" name=\"um-date-time-picker-from\" value=\"2026-03-01T09:00\" step=\"60\" />\n  <span class=\"um-date-time-picker__separator\" aria-hidden=\"true\"></span>\n  <input class=\"um-date-time-picker__input\" type=\"datetime-local\" name=\"um-date-time-picker-to\" value=\"2026-03-31T17:30\" step=\"60\" aria-label=\"End of the window\" />\n</div>"
+      "markup": "<div class=\"um-date-time-picker um-date-time-picker--range\">\n  <input class=\"um-date-time-picker__input\" type=\"datetime-local\" id=\"um-date-time-picker-from\" aria-label=\"Start of the window\" name=\"um-date-time-picker-from\" value=\"2026-03-01T09:00\" step=\"60\" />\n  <span class=\"um-date-time-picker__separator\" aria-hidden=\"true\"></span>\n  <input class=\"um-date-time-picker__input\" type=\"datetime-local\" name=\"um-date-time-picker-to\" value=\"2026-03-31T17:30\" step=\"60\" aria-label=\"End of the window\" />\n</div>"
     },
     {
       "id": "out-of-range",
@@ -78,7 +82,7 @@
       "titleZh": "超出范围",
       "description": "A field with a window the browser enforces. A moment outside the window turns the border to the danger colour — but only after the reader has been there, so an empty field is not red on arrival.",
       "descriptionZh": "带一个由浏览器来管的窗口。落在窗口之外的时间点会把描边变成危险色 —— 但只在读者动过之后,所以刚打开的空字段不会是红的。",
-      "markup": "<div class=\"um-date-time-picker\">\n  <input class=\"um-date-time-picker__input\" type=\"datetime-local\" id=\"um-date-time-picker-window\" name=\"um-date-time-picker-window\" value=\"2026-04-01T18:30\" min=\"2026-03-01T09:00\" max=\"2026-03-31T17:00\" step=\"60\" required />\n</div>"
+      "markup": "<div class=\"um-date-time-picker\">\n  <input class=\"um-date-time-picker__input\" type=\"datetime-local\" id=\"um-date-time-picker-window\" aria-label=\"Date and time\" name=\"um-date-time-picker-window\" value=\"2026-04-01T18:30\" min=\"2026-03-01T09:00\" max=\"2026-03-31T17:00\" step=\"60\" required />\n</div>"
     }
   ],
   "notes": "The picker is the browser's own, and the library does not take it away: hiding the native indicator would remove the only way to open the calendar without JavaScript. Unlike the date picker, this field draws no glyph beside itself — the browser's indicator already says \"calendar\", and a drawn clock would contradict the date in front of it.",

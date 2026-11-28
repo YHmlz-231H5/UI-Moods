@@ -42,6 +42,20 @@
       "selector": ":focus-visible",
       "native": true,
       "note": "The field takes a ring around the whole box, and each button takes its own — a ring that wrapped both would say the wrong thing about what is focused."
+    },
+    {
+      "id": "align-start",
+      "name": "Align start",
+      "nameZh": "起始对齐",
+      "selector": ".um-input-number--align-start",
+      "note": "The number sits at the start of the field instead of in the middle of it. The sides are written logically, so a right-to-left reader gets the other side."
+    },
+    {
+      "id": "align-end",
+      "name": "Align end",
+      "nameZh": "末端对齐",
+      "selector": ".um-input-number--align-end",
+      "note": "The number sits at the end of the field instead of in the middle of it. The sides are written logically, so a right-to-left reader gets the other side."
     }
   ],
   "parts": [
@@ -142,6 +156,31 @@
       "since": "1.1.0",
       "description": "Keeps the number visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures.",
       "descriptionZh": "数字仍然可见,但不能编辑。它是原生 readonly 属性,浏览器会拒绝编辑。库不会给只读字段单独配色 —— 这不是它测量过的状态。"
+    },
+    {
+      "name": "align",
+      "type": "enum",
+      "values": ["start", "center", "end"],
+      "default": "center",
+      "since": "1.1.0",
+      "description": "Where the number sits in the field. The centred run is the base class on its own; the other two add um-input-number--align-start and um-input-number--align-end. The sides are written logically, so a right-to-left reader gets the other side.",
+      "descriptionZh": "数字坐在字段的哪一头。居中这一跑就是只写基础类;另外两个分别加上 um-input-number--align-start 和 um-input-number--align-end。两侧是按阅读方向写的,所以从右往左读的读者拿到的是另一头。"
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "since": "1.1.0",
+      "description": "The hint in the empty field. It is the input's own placeholder, so it takes the muted placeholder role, not the body colour.",
+      "descriptionZh": "空字段里的提示。它是 input 自己的 placeholder,所以用的是弱化的占位文字色,不是正文色。"
+    },
+    {
+      "name": "size",
+      "type": "enum",
+      "values": ["small", "medium", "large"],
+      "default": "medium",
+      "since": "1.1.0",
+      "description": "The height of the field. The medium size is the base class on its own, so it needs no modifier class.",
+      "descriptionZh": "字段的高度。中号是基础类本身,所以不需要修饰类。"
     }
   ],
   "slots": [

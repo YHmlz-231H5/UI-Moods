@@ -4,6 +4,9 @@
 // wrapper can paint the current page itself. The total line and the jumper
 // are declared parts, so they are always rendered, and their wording follows
 // the documented example — the library has nowhere to put a translation.
+//
+// The layout says which parts are drawn: the parts are always in the markup,
+// and the layout class is what takes one off the page.
 
 import { defineComponent, h, useId } from "vue";
 
@@ -17,8 +20,9 @@ export const UMPagination = defineComponent({
     size: { type: String, default: "md" },
     disabled: { type: Boolean, default: false },
     hideOnSinglePage: { type: Boolean, default: false },
+    layout: { type: String, default: "full" },
   },
-  setup(props) {
+  setup(props, { slots }) {
     // The jumper's field needs a label of its own, so it needs an id that
     // no other pager on the page shares.
     const jumpId = `um-pagination-jump-${useId()}`;
@@ -43,7 +47,9 @@ export const UMPagination = defineComponent({
                 // so instead.
                 "aria-disabled": props.disabled ? "true" : undefined,
               },
-              String(i),
+              // What the page the reader is on says. The default slot is the
+              // name Element Plus gives that content.
+              active && slots.default ? slots.default({ page: i }) : String(i),
             ),
           ]),
         );
@@ -56,6 +62,8 @@ export const UMPagination = defineComponent({
             "um-pagination",
             props.size === "sm" ? "um-pagination--sm" : null,
             props.hideOnSinglePage && pages <= 1 ? "um-pagination--hidden" : null,
+            props.layout === "pager" ? "um-pagination--layout-pager" : null,
+            props.layout === "total" ? "um-pagination--layout-total" : null,
           ],
           "aria-label": "Pagination",
         },

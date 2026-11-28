@@ -81,7 +81,7 @@
 /* The ring goes on the field, because the field is what the reader is on —
    the select is inside it, not beside it. */
 .um-time-select:has(.um-time-select__select:focus-visible) {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -104,6 +104,96 @@
 
 .um-time-select--lg {
   height: var(--um-height-lg);
+}
+
+/* The clear mark is a cross drawn from two bars, so it carries no text of its
+   own. It is a real button, so the keyboard can reach it and the reader hears
+   what it does. The field decides whether it is there at all. */
+.um-time-select__clear {
+  position: absolute;
+  inset-inline-end: var(--um-space-sm);
+  top: 50%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--um-space-sm);
+  height: var(--um-space-sm);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--um-text-secondary);
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.um-time-select--clearable .um-time-select__clear {
+  display: inline-flex;
+}
+
+.um-time-select__clear::before,
+.um-time-select__clear::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  width: var(--um-space-xs);
+  height: var(--um-border-width);
+  background: currentColor;
+}
+.um-time-select__clear::before { transform: translate(-50%, -50%) rotate(45deg); }
+.um-time-select__clear::after { transform: translate(-50%, -50%) rotate(-45deg); }
+
+.um-time-select__clear:hover {
+  color: var(--um-color-primary-text);
+}
+
+.um-time-select__clear:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+/* The clear mark stands at the end of the field, so the arrow steps away from
+   it and the text steps away from both of them. */
+.um-time-select--clearable .um-time-select__select {
+  padding-inline-end: calc(var(--um-space-lg) + var(--um-space-sm));
+}
+
+.um-time-select--clearable .um-time-select__arrow {
+  inset-inline-end: calc(var(--um-space-sm) + var(--um-space-sm));
+}
+
+/* The effect says how the field's own surface is painted. The dark effect
+   fills the field with the brand colour and puts the foreground derived for
+   that fill on it; the plain effect drops the fill and keeps the frame. */
+.um-time-select--effect-dark {
+  border-color: var(--um-color-primary);
+  background: var(--um-color-primary);
+  color: var(--um-color-primary-on);
+}
+
+.um-time-select--effect-dark .um-time-select__arrow,
+.um-time-select--effect-dark .um-time-select__clear {
+  color: var(--um-color-primary-on);
+}
+
+.um-time-select--effect-plain {
+  background: transparent;
+}
+
+/* The placeholder is the option that stands in for a choice. It takes the
+   muted placeholder role, and the field takes it too while that option is
+   the chosen one: the field knows which option is chosen because the option
+   is inside it, and :has() is the only way CSS can ask. */
+.um-time-select__placeholder {
+  color: var(--um-text-placeholder);
+}
+
+.um-time-select__placeholder:empty {
+  display: none;
+}
+
+.um-time-select:has(.um-time-select__placeholder:checked) .um-time-select__select {
+  color: var(--um-text-placeholder);
 }
 
 /* ============================================================================

@@ -654,6 +654,146 @@ Two things watch for it:
 - `node tools/audit-render.mjs rtl` renders both directions and reports every
   box whose asymmetry did not travel with the direction.
 
+### The eighth instrument: the keyboard
+
+Every instrument above looks at the picture. The picture can be perfect while
+the keyboard is useless.
+
+- The contrast probe says the colours are right, and they are — on the text
+  and on the shapes. It does not look at the **focus ring**, which is a shape
+  like any other and has the same bar to clear.
+- The geometry probe says the boxes are where the markup asked for them. It
+  does not ask whether the Tab key can get to them.
+- The state probe says a selected thing looks different from an unselected
+  one. It does not say whether the reader with a keyboard can hear the
+  difference, because a `<div role="option">` is announced as an option and
+  is not in the tab order at all.
+
+A reader who never touches a mouse would call that library unusable, and
+every other instrument would say it was fine. So the library has an
+instrument for the keyboard as well, and it asks three questions of every
+focusable control in every component's live examples:
+
+1. **Is it named?** A screen reader has to be able to say what it is: an
+   `aria-label`, a `<label>`, a title, or its own text.
+2. **Is it reachable?** The control has to be in the tab order, and a control
+   that *claims* an interactive role has to be in it to keep that claim.
+3. **Is it visible?** When it has the focus, something the reader can see has
+   to change — and the ring has to read against whatever it sits on at 3:1,
+   which is what WCAG 2.2 asks of a non-text indicator.
+
+```
+audit-render · the keyboard · keyboard
+  measurements: 40992
+  failures: 7475
+```
+
+There is one thing the probe cannot do by itself, and it is worth saying
+plainly: **the browser only paints a `:focus-visible` ring when the reader's
+last interaction was a keypress.** A probe that focuses things with a script
+is asking the browser a question it will answer "no" to, and then blaming the
+library for the answer. So the driver presses a real Tab key before the page
+measures anything, and the page waits for that to have happened. When the
+page is opened by hand and nobody pressed a key, the probe does not report a
+library as broken: it falls back to the stylesheet, because a control that
+no `:focus-visible` rule can reach has no ring of its own whatever the
+browser feels like doing.
+
+The first run found **7 475 failures** in four classes:
+
+| What the probe found | How many | What it was |
+| --- | --- | --- |
+| `focus-contrast` | 1 331 | the ring was painted in the raw brand colour, which in fourteen moods did not read against the surface it sat on — in the brutal mood it sat at **1.28:1** |
+| `focus-ua-only` | 2 144 | the library painted no ring at all, and only the browser's default showed |
+| `role-unreachable` | 3 392 | two components put an interactive role on a *wrapper* while the control the reader focuses was a radio inside it |
+| `no-accessible-name` | 608 | fields and scroll boxes that nothing named |
+
+The first of those is a token-contract problem, and it is the reason the
+contract has a new role.
+
+A focus ring is a shape, so WCAG asks 3:1 of it rather than the 4.5:1 it
+asks of text. But a ring lands on **more surfaces than any other shape in the
+library**: the page, a container, a floating overlay, the inside of a text
+field, the fill of a control. The brand colour alone is not enough — the
+brutal mood's accent is a bright yellow on a light page, and a ring painted
+in it is a ring nobody can see. The graphic role is not enough either: it is
+contracted against the page and the container alone, which leaves it at
+2.86:1 on the pastel mood's overlay.
+
+So the ring gets a role of its own:
+
+```json
+"focus-ring": {
+  "op": "contrast", "base": "color-primary", "toward": "text-primary",
+  "against": ["bg-page", "bg-container", "bg-overlay", "surface-input", "surface-control",
+              "fill-blank", "surface-control-blank", "surface-input-blank",
+              "color-primary-soft-8", "color-success-soft-8", "color-warning-soft-8",
+              "color-danger-soft-8", "color-info-soft-8"],
+  "target": 3, "margin": 0.05, "mode": "atleast"
+}
+```
+
+One formula, thirty-two moods, and the ring clears 3:1 on every surface it
+can land on in every one of them. Two details earn their place:
+
+- **`surface-control-blank` and `surface-input-blank`** are the *stacks*, not the
+  sheets: the fill of a control over the fill of a control, and the fill of a
+  field over the surface of a field. A translucent theme paints those two
+  layers on top of each other, and the colour they make together is a colour
+  neither token names. Without them the contract measures a surface the ring
+  never actually lands on, and the glass mood's chip measured 2.99:1 against a
+  ring derived to sit on 3:1.
+- **`margin: 0.05`** is headroom above the bar. The browser paints a
+  translucent stack with fractional channels and measures the composite that
+  way, while the theme measures a rounded one — so a colour derived to sit
+  exactly on the line lands a hundredth under it once the browser has done the
+  compositing itself. The margin keeps the derived colour clear of the line on
+  both sides.
+
+One ring lands on a surface of its own: the segmented control's solid run
+fills the picked segment with the brand colour, and a ring painted in the ring
+colour would vanish into that fill — on twenty-nine of the moods the two are
+the same colour, which is a ring of 1:1. On the filled segment the ring takes
+the foreground the brand puts on the fill instead, and that pair is measured
+at 4.6:1 or better in every one of the thirty-two moods.
+
+The ring changes colour in the nine moods whose accent could not be seen on
+every surface it lands on; in the other twenty-three it is the brand colour
+the mood already had, because the brand already read.
+
+The other three classes were defects in the library, and each one is now
+measured rather than asserted:
+
+- **The ring had to exist.** Thirteen components had no `:focus-visible` rule of
+  their own — the pagination links, the carousel arrows, the menu items, the
+  breadcrumb, the tab panels, the popover and dropdown triggers, the tree
+  select options, and the buttons a dialog, a drawer, a page header and a
+  result put in their own footers. The shared rule in `_base.css` now paints
+  the ring with `--um-focus-ring`, and 59 rules across 42 stylesheets that
+  still painted it in the raw brand colour were switched to the new role.
+- **The role had to sit on the real control.** The virtual select's rows said
+  `role="option"` while the control the reader reaches was a radio inside the
+  row: the list is a radio group, and the rows are its radios. The tabs said
+  `role="tab"` on a `<label>`, and a label is not in the tab order — worse,
+  a tab has to say `aria-selected`, and that value cannot be written without
+  JavaScript, so it would be stale the moment the reader picked another tab.
+  The tabs' radios now sit inside their own labels, the bar of tabs is the
+  radio group the browser actually reads, and the panels are groups.
+- **Everything focusable had to be named.** The scroll boxes, the splitter
+  bar, the slider, the text fields and the two time fields were nothing but a
+  box to a screen reader. They carry names now, and the Vue wrappers take the
+  name from an `aria-label` attribute so a host can write one in its own
+  language.
+
+The probe runs again after every one of those changes:
+
+```
+audit-render · the keyboard · keyboard
+  measurements: 39744
+  failures: 0
+```
+
+
 ### The other half of the library: the app packs
 
 The app packs are the other thing this repository renders: 14 product screen

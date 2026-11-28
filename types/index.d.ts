@@ -151,6 +151,10 @@ export interface LayoutProps {
   direction?: "horizontal" | "stacked";
   /** How the side column and the content stand against each other across the row. The stretched row needs no modifier class. */
   align?: "start" | "center" | "end" | "stretch";
+  /** How far the layout is pulled back from the end of its row, counted in steps of the mood's own spacing. A number cannot be a class, so it travels as the custom property the stylesheet reads; the class says that the layout is pulled at all. */
+  pull?: number;
+  /** How far the layout is pushed along its row, away from the start, counted in steps of the mood's own spacing. A number cannot be a class, so it travels as the custom property the stylesheet reads; the class says that the layout is pushed at all. */
+  push?: number;
 }
 
 /** Link · 链接 — A link, in one of the semantic colours. It is text, so it takes the text form of the colour and reads at 4.5:1 on the page, on an overlay and inside a container. */
@@ -225,6 +229,8 @@ export interface SplitterProps {
   size?: SplitterSize;
   /** How the two panes are laid out. The horizontal run is the base class on its own; the vertical run adds um-splitter--vertical. */
   layout?: "horizontal" | "vertical";
+  /** Whether the panes can be folded away. It adds um-splitter--collapsible, which says so on the divider: the grip takes the brand colour, because it is the control that moves. The library has no script, so the control that folds a pane is the host's, and the two fold controls go into the start-collapsible and end-collapsible slots. */
+  collapsible?: boolean;
 }
 
 /** Text · 文本 — A run of inline text in one of the library's colours. It is the smallest atom of the type system: no box, no border, only the words and the colour they are written in. The blocks a page is written in are the typography component; this is the coloured run inside one of them. */
@@ -286,6 +292,18 @@ export interface AutocompleteProps {
   modelValue?: string;
   /** Keeps the text visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures. */
   readonly?: boolean;
+  /** Puts a button at the end of the field that empties it. The button is a real one, so it is in the tab order. */
+  clearable?: boolean;
+  /** Says the suggestions are on their way. The library fetches nothing, so the mark is the caller's to ask for — and the caller's own mark replaces the drawn one. */
+  loading?: boolean;
+  /** Takes the loading mark away, even when the caller has written one. The mark is the caller's to put there: the library has no fetching of its own. */
+  hideLoading?: boolean;
+  /** Puts the chevron at the end of the field, so the field says a list is behind it. The suggestion list here is the browser's own, so the arrow says what the reader cannot see. */
+  showArrow?: boolean;
+  /** The kind of field the input is. It is the input's own type attribute, so the browser brings its own keyboard and its own validation with it. */
+  type?: string;
+  /** The id of the form the field belongs to. It is the input's own form attribute, so a field may live outside its form and still be submitted with it. */
+  form?: string;
 }
 
 /** Button · 按钮 — An action the user takes. The one component every interface needs, and the one that has to look right in thirty-two different moods. */
@@ -402,6 +420,8 @@ export interface ColorPickerPanelProps {
   hue?: "primary" | "success" | "warning" | "danger" | "info";
   /** The colour in the panel, written as a hexadecimal value. It is the text in the value field and the value of the checked swatch. */
   value?: string;
+  /** The bound colour. It answers to `v-model` as well as to `value`, and the binding wins when it is there. */
+  modelValue?: string;
   /** Whether the preview chip is shown. Without it the panel has no chip in the value row. */
   showPreview?: boolean;
   /** Makes the panel inert. It uses the real disabled attribute on the radios and on the field, so they leave the tab order and the swatches dim, the way every other disabled control in the library dims. */
@@ -433,6 +453,10 @@ export interface DatePickerProps {
   modelValue?: string;
   /** Keeps the date visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures. */
   readonly?: boolean;
+  /** Whether the date can be typed in. It is the input's own readonly attribute: an editable field carries none, and a field that is not editable carries the attribute and the browser refuses the edit. This is Element Plus's name for the same thing; either one of them says it. */
+  editable?: boolean;
+  /** The text that stands in for the date. It is the input's own placeholder attribute — the browser decides whether the field shows it, and a date field usually shows its own segments instead. */
+  placeholder?: string;
 }
 
 /** Date Picker Panel · 日期选择面板 — The month panel a date picker drops: the month and its navigation, the week grid, and the two actions in the footer. The panel does not keep a month, so the host owns the month and the buttons that change it. */
@@ -452,6 +476,8 @@ export interface DatePickerPanelProps {
   today?: string;
   /** The date the reader has picked, written as YYYY-MM-DD. The day it names takes the selected marker. */
   selected?: string;
+  /** The bound date. It answers to `v-model` as well as to `selected`, and the binding wins when it is there. */
+  modelValue?: string;
   /** The dates that cannot be picked, written as YYYY-MM-DD and separated by commas. The days they name are marked with aria-disabled, so the reader is told they cannot be picked. */
   disabled?: string;
   /** Whether the footer is shown. Without it the panel has no footer, and the host keeps the two actions somewhere else. */
@@ -460,6 +486,16 @@ export interface DatePickerPanelProps {
   footerText?: string;
   /** Whether the confirm button is shown. Without it the footer keeps only the shortcut, and the host keeps the action somewhere else. */
   showConfirm?: boolean;
+  /** Whether the panel holds one month or two. The single panel is the base class on its own; the range panel puts two months side by side and adds um-date-picker-panel--range. */
+  type?: "single" | "range";
+  /** Whether the panel draws a frame of its own. Turn it off and the border goes and the host draws the frame, or the panel sits inside one. It adds um-date-picker-panel--borderless. */
+  border?: boolean;
+  /** Whether a range is picked one month at a time. It adds um-date-picker-panel--single-panel, and the second month is not drawn. */
+  singlePanel?: boolean;
+  /** Whether the footer carries a clear action. It adds um-date-picker-panel--clearable. The panel keeps no value, so what a press on it means is the host's business, the way it is for the other two actions. */
+  clearable?: boolean;
+  /** Whether each week says which week of the year it is. It adds um-date-picker-panel--week-number, and the numbers are a column of their own on the start side of the grid. */
+  showWeekNumber?: boolean;
 }
 
 /** Date Time Picker · 日期时间选择器 — A field for a date and a time together. It is a real <input type="datetime-local"> inside a box the library draws, so the browser validates both halves, the arrow keys walk the segments and the reader's own calendar opens it. */
@@ -489,6 +525,10 @@ export interface DateTimePickerProps {
   modelValue?: string;
   /** Keeps the value visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures. */
   readonly?: boolean;
+  /** Whether the value can be typed in. It is the input's own readonly attribute: an editable field carries none, and a field that is not editable carries the attribute and the browser refuses the edit. This is Element Plus's name for the same thing; either one of them says it. */
+  editable?: boolean;
+  /** The text that stands in for the value. It is the input's own placeholder attribute — the browser decides whether the field shows it, and a date-time field usually shows its own segments instead. */
+  placeholder?: string;
 }
 
 /** Field — the sizes it can be rendered at. */
@@ -505,6 +545,8 @@ export interface FieldProps {
   disabled?: boolean;
   /** Puts the label beside the control instead of above it. */
   inline?: boolean;
+  /** Takes the asterisk after the label away. The asterisk follows the control — a control that says it is required gets one — so this is the way to say that the form does not want it. */
+  hideRequiredAsterisk?: boolean;
 }
 
 /** Input / Textarea / Select — the sizes it can be rendered at. */
@@ -523,6 +565,16 @@ export interface InputProps {
   readonly?: boolean;
   /** The control's value, bound with v-model in Vue. Leave it out and the control holds whatever the reader typed; bind it and the control answers to the binding. */
   modelValue?: string;
+  /** Lets the textarea grow with the text in it. It is the browser's own field-sizing, so no line of script measures the text; the field follows what the reader typed. The run is written on the textarea — um-textarea um-input--autosize — because a single-line field has no text to grow with. */
+  autosize?: boolean;
+  /** The surface of the control. The light run is the base class on its own; the filled run adds um-input--filled, and the control sits on a recessed surface instead of in a frame. */
+  effect?: "light" | "filled";
+  /** The kind of field the input is. It is the input's own type attribute, so the browser brings its own keyboard and its own validation with it. The textarea and the select are named by the `control` prop instead. */
+  type?: string;
+  /** The id of the form the control belongs to. It is the input's own form attribute, so a control may live outside its form and still be submitted with it. */
+  form?: string;
+  /** Whether the select draws its arrow. The arrow is part of the control and is drawn by default, because a select without one does not say it opens a list; turning it off adds um-input--no-arrow, which takes the drawn arrow away and gives the text the whole width of the field. */
+  showArrow?: boolean;
 }
 
 /** Input Number · 数字输入框 — A field for a number, with a pair of buttons that step it up and down. The buttons are real buttons, so they are in the tab order and the browser announces them; the browser's own spin buttons are taken away so there is only one pair. */
@@ -550,6 +602,10 @@ export interface InputNumberProps {
   modelValue?: number;
   /** Keeps the number visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures. */
   readonly?: boolean;
+  /** Where the number sits in the field. The centred run is the base class on its own; the other two add um-input-number--align-start and um-input-number--align-end. The sides are written logically, so a right-to-left reader gets the other side. */
+  align?: "start" | "center" | "end";
+  /** The hint in the empty field. It is the input's own placeholder, so it takes the muted placeholder role, not the body colour. */
+  placeholder?: string;
 }
 
 /** Input OTP · 验证码输入 — A row of one-character fields for a code the reader has been sent. Each box is a real input that holds one character, so the browser's own keyboard, autofill and password manager all still apply to it. */
@@ -598,6 +654,12 @@ export interface InputTagProps {
   readonly?: boolean;
   /** The bound value. It answers to `v-model` as well as to `value`, and the binding wins when it is there. */
   modelValue?: string;
+  /** Puts a button at the end of the field that empties it. The text in the field goes with it; the tags are the host's to take away. */
+  clearable?: boolean;
+  /** The surface of the field. The light run is the base class on its own; the filled run adds um-input-tag--filled, and the field sits on a recessed surface instead of in a frame. */
+  effect?: "light" | "filled";
+  /** The surface the tags sit on. The light run is the base class on its own; the dark run puts the tags on the solid colour, and the plain run takes their fill away and leaves the outline. */
+  tagEffect?: "light" | "dark" | "plain";
 }
 
 /** Mention · 提及 — A field with a list of people under it. The reader types, the host decides which names to offer, and each name is a button that carries an avatar slot and an @name. */
@@ -621,6 +683,18 @@ export interface MentionProps {
   disabled?: boolean;
   /** Keeps the text visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures. */
   readonly?: boolean;
+  /** Puts a button at the end of the field that empties it. The button is a real one, so it is in the tab order. */
+  clearable?: boolean;
+  /** Says the names are on their way. The mark appears in the field; the names themselves are the host's to bring. */
+  loading?: boolean;
+  /** The character that starts a mention. It is written in the field, the way the reader will see it in the sentence. */
+  prefix?: string;
+  /** Puts the chevron at the end of the field, so the field says a list is behind it. The list here is a panel on the page, but it opens and closes with the field, so the arrow says what the reader cannot see. */
+  showArrow?: boolean;
+  /** The kind of field the input is. It is the input's own type attribute, so the browser brings its own keyboard and its own validation with it. */
+  type?: string;
+  /** The id of the form the field belongs to. It is the input's own form attribute, so a field may live outside its form and still be submitted with it. */
+  form?: string;
 }
 
 /** Radio — the sizes it can be rendered at. */
@@ -691,11 +765,16 @@ export interface RateProps {
   modelValue?: number;
   /** Writes the score beside the stars, so the number is written down and not only counted. */
   showScore?: boolean;
+  /** Writes the score beside the stars as words rather than as a bare number. The library has no list of its own, so the wrapper writes the score as a plain phrase; a caller who writes the markup writes the words they want. */
+  showText?: boolean;
 }
 
+/** Slider — the sizes it can be rendered at. */
+export type SliderSize = "sm" | "md" | "lg";
 export interface SliderProps {
   /** The component's own id, so a registry can be keyed by it. */
   id: "slider";
+  size?: SliderSize;
   /** The lowest value the slider accepts. */
   min?: number;
   /** The highest value the slider accepts. */
@@ -708,6 +787,8 @@ export interface SliderProps {
   disabled?: boolean;
   /** Stands the slider on its end, so the value runs from the bottom up. */
   vertical?: boolean;
+  /** Whether the track carries the tick marks that say there is a scale along it. They are evenly spaced, so they say that there is a scale rather than where it breaks. It adds um-slider--show-stops. */
+  showStops?: boolean;
   /** The slider's own value, bound with v-model in Vue. Leave it out and the `value` prop is the value; bind it and the slider answers to the binding. */
   modelValue?: number;
 }
@@ -761,6 +842,12 @@ export interface TimePickerProps {
   modelValue?: string;
   /** Keeps the time visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures. */
   readonly?: boolean;
+  /** Whether the time can be edited. Turning it off is the native readonly attribute on the input, so the browser refuses the edit; the readonly prop says the same thing and wins over it. */
+  editable?: boolean;
+  /** The hint in the field. It is the native placeholder attribute on the input, so the browser paints it in the muted placeholder role. */
+  placeholder?: string;
+  /** Whether the field carries the mark that clears the time. It adds um-time-picker--clearable. */
+  clearable?: boolean;
 }
 
 /** Time Select · 时间选择器 — A choice of time of day, as a native <select>. The option list is the platform's own, so the reader gets the system's own picker and its keyboard behaviour; the library draws the field and the arrow around it. */
@@ -786,6 +873,12 @@ export interface TimeSelectProps {
   disabled?: boolean;
   /** The chosen time, bound with v-model in Vue. Leave it out and the `value` prop is the chosen time; bind it and the field answers to the binding. */
   modelValue?: string;
+  /** Whether the field carries the mark that clears the choice. It adds um-time-select--clearable. */
+  clearable?: boolean;
+  /** How the field's own surface is painted. The light effect is the field the library draws, so it needs no modifier; the dark effect adds um-time-select--effect-dark and the plain effect adds um-time-select--effect-plain. */
+  effect?: "light" | "dark" | "plain";
+  /** The text that stands in for a choice. It is the first entry in the list and it carries no value, so the field says it has nothing chosen; without it the list starts with the first time. */
+  placeholder?: string;
 }
 
 /** Tree Select · 树选择器 — A tree you pick a leaf from. The branches are disclosures, so the browser opens and closes them, and the leaf that is picked is a real radio, so the browser keeps exactly one of them picked. */
@@ -811,6 +904,36 @@ export interface TreeSelectProps {
   modelValue?: string;
   /** Draws a box in front of every leaf instead of a circle, so a leaf reads as something that can be ticked rather than something that can be picked. */
   showCheckbox?: boolean;
+  /** Whether only the first open branch of a level shows what it holds, so the level reads as one branch at a time. It adds um-tree-select--accordion. */
+  accordion?: boolean;
+  /** Whether the branch the current one sits under shows what it holds, whether it is open or not. It adds um-tree-select--auto-expand-parent. */
+  autoExpandParent?: boolean;
+  /** Whether each mark stands on its own, with no link drawn between a branch and the leaf under it. It adds um-tree-select--check-strictly. */
+  checkStrictly?: boolean;
+  /** Whether every level of the tree is open, whether the branch says so or not. It adds um-tree-select--default-expand-all. */
+  defaultExpandAll?: boolean;
+  /** Whether the leaf the reader is on takes the highlight fill. It adds um-tree-select--highlight-current. */
+  highlightCurrent?: boolean;
+  /** Whether the mark that says a branch holds something is drawn. Turning it off adds um-tree-select--no-arrow, the other way round from the other states, so the class always says what it does to the tree. */
+  showArrow?: boolean;
+  /** Whether the field carries the mark that clears the choice. It adds um-tree-select--clearable. */
+  clearable?: boolean;
+  /** Whether only the first chip is shown, so the field keeps one line. How many were folded is the host's to say. It adds um-tree-select--collapse-tags. */
+  collapseTags?: boolean;
+  /** Whether the field carries the input the host filters the tree with. The input is a real search field, so the filtering is the host's script and the library only draws it. It adds um-tree-select--filterable. */
+  filterable?: boolean;
+  /** Whether the tree takes the width of the component it stands in rather than the width its own names ask for. It adds um-tree-select--fit-input-width. */
+  fitInputWidth?: boolean;
+  /** How the component's own surface is painted. The light effect is the surface the library draws, so it needs no modifier; the dark effect adds um-tree-select--effect-dark and the plain effect adds um-tree-select--effect-plain. */
+  effect?: "light" | "dark" | "plain";
+  /** Whether the data is on its way, so the tree says so instead of showing branches that are not there yet. It adds um-tree-select--loading. */
+  loading?: boolean;
+  /** The hint in the filter field. It is the native placeholder attribute on the input, so the browser paints it in the muted placeholder role. */
+  placeholder?: string;
+  /** Which colour the chips take. The primary colour is the one the library draws, so it needs no modifier; the other four add um-tree-select--tag-success, um-tree-select--tag-warning, um-tree-select--tag-danger and um-tree-select--tag-info. */
+  tagType?: "primary" | "success" | "warning" | "danger" | "info";
+  /** How the chips are painted: a tint, a solid fill or an outline with no fill. The tint is the one the library draws, so it needs no modifier; the solid fill adds um-tree-select--tag-effect-dark and the outline adds um-tree-select--tag-effect-plain. */
+  tagEffect?: "light" | "dark" | "plain";
 }
 
 /** Upload · 上传 — A file input and the list of the files that were chosen. The input is a real one, so the browser's own dialog opens and the files are chosen with the browser's own picker. */
@@ -861,6 +984,22 @@ export interface VirtualSelectProps {
   disabled?: boolean;
   /** Whether the scrolling box keeps its scrollbar whether the list needs one or not, so the rows do not move sideways as the list grows. It adds um-virtual-select--scrollbar-always-on. */
   scrollbarAlwaysOn?: boolean;
+  /** Whether the field carries the mark that clears the choice. It adds um-virtual-select--clearable. */
+  clearable?: boolean;
+  /** Whether only the first chip is shown, so the field keeps one line. How many were folded is the host's to say. It adds um-virtual-select--collapse-tags. */
+  collapseTags?: boolean;
+  /** Whether the field carries the input the host filters the list with. The input is a real search field, so the filtering is the host's script and the library only draws it. It adds um-virtual-select--filterable. */
+  filterable?: boolean;
+  /** Whether the list takes the width of the component it stands in rather than the width its own words ask for. It adds um-virtual-select--fit-input-width. */
+  fitInputWidth?: boolean;
+  /** How the component's own surface is painted. The light effect is the surface the library draws, so it needs no modifier; the dark effect adds um-virtual-select--effect-dark and the plain effect adds um-virtual-select--effect-plain. */
+  effect?: "light" | "dark" | "plain";
+  /** Whether the data is on its way, so the list says so instead of showing rows that are not there yet. It adds um-virtual-select--loading. */
+  loading?: boolean;
+  /** Which colour the chips take. The primary colour is the one the library draws, so it needs no modifier; the other four add um-virtual-select--tag-success, um-virtual-select--tag-warning, um-virtual-select--tag-danger and um-virtual-select--tag-info. */
+  tagType?: "primary" | "success" | "warning" | "danger" | "info";
+  /** How the chips are painted: a tint, a solid fill or an outline with no fill. The tint is the one the library draws, so it needs no modifier; the solid fill adds um-virtual-select--tag-effect-dark and the outline adds um-virtual-select--tag-effect-plain. */
+  tagEffect?: "light" | "dark" | "plain";
 }
 
 /** Avatar · 头像 — A small picture of a person. It takes a photo, a pair of initials or an icon, and it keeps the shape of whichever mood it is in. */
@@ -878,6 +1017,8 @@ export interface AvatarProps {
   fit?: "cover" | "contain" | "fill";
   /** Makes this avatar the one that stands in for the avatars that did not fit, so it carries their count instead of a face. */
   collapseAvatars?: boolean;
+  /** How the avatar is filled when there is no photo in it. The light run is the base class on its own; the dark run fills the avatar with the mood's strong text colour and puts the initials on it in the plain surface. */
+  effect?: "light" | "dark";
 }
 
 /** Badge · 徽标 — A small marker that counts or names a state, attached to something else. It comes in a solid fill and a soft tint, so a page can let what matters come forward and the rest recede. */
@@ -913,6 +1054,8 @@ export interface CalendarProps {
   today?: string;
   /** The date the reader has picked, written as YYYY-MM-DD. The day it names takes the selected marker. */
   selected?: string;
+  /** The bound date. It answers to `v-model` as well as to `selected`, and the binding wins when it is there. */
+  modelValue?: string;
   /** The dates that cannot be picked, written as YYYY-MM-DD and separated by commas. The days they name are marked with aria-disabled, so the reader is told they cannot be picked. */
   disabled?: string;
 }
@@ -950,6 +1093,8 @@ export interface CarouselProps {
   loop?: boolean;
   /** How the slides sit next to each other. The card run is the spaced one: the neighbouring slides show at the edges of the track, so the reader can tell there is more than one. */
   type?: "default" | "card";
+  /** Where the indicator is. There are no dots here: the caption under the slide is the indicator, because it is the thing that says which slide the reader is on. The outside run is the base class on its own — the caption sits under the slide, outside it; the none run takes the mark off the caption and adds um-carousel--indicator-none. */
+  indicatorPosition?: "outside" | "none";
 }
 
 /** Cascader · 级联选择器 — Options in levels, opened one level at a time. Every level is a disclosure, so the browser does the opening and the closing and the state survives a reload. */
@@ -969,6 +1114,24 @@ export interface CascaderProps {
   label?: string;
   /** Makes the cascader inert. A level is a disclosure rather than a form control, so it cannot carry the disabled attribute: the whole tree refuses the pointer instead. */
   disabled?: boolean;
+  /** Whether the field carries the mark that clears the choice. It adds um-cascader--clearable. */
+  clearable?: boolean;
+  /** Whether only the first chip is shown, so the field keeps one line. How many were folded is the host's to say. It adds um-cascader--collapse-tags. */
+  collapseTags?: boolean;
+  /** How the component's own surface is painted. The light effect is the surface the library draws, so it needs no modifier; the dark effect adds um-cascader--effect-dark and the plain effect adds um-cascader--effect-plain. */
+  effect?: "light" | "dark" | "plain";
+  /** Whether the field carries the input the host filters the levels with. The input is a real search field, so the filtering is the host's script and the library only draws it. It adds um-cascader--filterable. */
+  filterable?: boolean;
+  /** Whether the panel that opens beside an option takes the width of the field rather than the width of its own options. It adds um-cascader--fit-input-width. */
+  fitInputWidth?: boolean;
+  /** The hint in the filter field. It is the native placeholder attribute on the input, so the browser paints it in the muted placeholder role. */
+  placeholder?: string;
+  /** Which colour the chips take. The primary colour is the one the library draws, so it needs no modifier; the other four add um-cascader--tag-success, um-cascader--tag-warning, um-cascader--tag-danger and um-cascader--tag-info. */
+  tagType?: "primary" | "success" | "warning" | "danger" | "info";
+  /** How the chips are painted: a tint, a solid fill or an outline with no fill. The tint is the one the library draws, so it needs no modifier; the solid fill adds um-cascader--tag-effect-dark and the outline adds um-cascader--tag-effect-plain. */
+  tagEffect?: "light" | "dark" | "plain";
+  /** Whether the levels far from the reader are left out of the layout. The browser is told how tall such a level is, so the scrollbar is right without every level being built. It adds um-cascader--virtual-scroll. */
+  virtualScroll?: boolean;
 }
 
 /** Collapse · 折叠面板 — A panel that opens and closes. It is a real disclosure, so the browser does the opening and the closing and the state survives a reload. */
@@ -1109,6 +1272,8 @@ export interface SegmentedProps {
   name?: string;
   /** The value one segment submits while it is picked. */
   value?: string;
+  /** The bound value. It answers to `v-model` as well as to `value`, and the binding wins when it is there. */
+  modelValue?: string;
   /** Picks one segment. It is the native checked attribute, not a class. */
   checked?: boolean;
   /** Makes one segment inert. It uses the real disabled attribute, so it leaves the tab order. */
@@ -1168,6 +1333,16 @@ export interface TableProps {
   highlightCurrentRow?: boolean;
   /** Whether the summary row at the foot of the table is drawn. Turning it off adds um-table--no-summary. */
   showSummary?: boolean;
+  /** Where the cells stand in their column. The start is the base class on its own; the centre adds um-table--align-center and the end adds um-table--align-end. */
+  align?: "start" | "center" | "end";
+  /** Whether the columns share the width of the frame rather than taking the width their contents ask for. It adds um-table--fit. */
+  fit?: boolean;
+  /** The extra column the table carries: the tick, the row's number, or the marker that opens a record. The cell is the host's own, and the class says how that column is painted. */
+  type?: "" | "selection" | "index" | "expand";
+  /** Whether every record's expanded area is drawn, whether the record is marked as open or not. It adds um-table--default-expand-all. */
+  defaultExpandAll?: boolean;
+  /** Whether the frame keeps its scrollbar whether the table needs one or not, so the rows do not move sideways as the table grows. It adds um-table--scrollbar-always-on. */
+  scrollbarAlwaysOn?: boolean;
 }
 
 /** Tag · 标签 — A label for one piece of data — a category, a state, a filter. The outlined member of the chip family, so it can sit beside a filled badge without either of them winning. */
@@ -1248,12 +1423,18 @@ export interface TransferProps {
   name?: string;
   /** The value one option submits while it is ticked. */
   value?: string;
+  /** The bound value. It answers to `v-model` as well as to `value`, and the binding wins when it is there. */
+  modelValue?: string;
   /** Ticks one option. It is the native checked attribute, not a class. */
   checked?: boolean;
   /** Makes one option, or one of the move buttons, inert. It uses the real disabled attribute, so it leaves the tab order. */
   disabled?: boolean;
   /** Which way the two panels are laid out. The horizontal run is the base class on its own; the vertical run adds um-transfer--vertical. */
   direction?: "horizontal" | "vertical";
+  /** Whether each panel carries the field the host filters the list with. The field is a real search input, so the filtering is the host's script and the library only draws it. It adds um-transfer--filterable. */
+  filterable?: boolean;
+  /** Whether the rows far from the reader are left out of the layout. The browser is told how tall such a row is, so the scrollbar is right without every row being built. It adds um-transfer--virtual-scroll. */
+  virtualScroll?: boolean;
 }
 
 /** Tree · 树 — Things inside things. Every branch is a disclosure, so the browser opens and closes it and the state survives a reload. */
@@ -1271,6 +1452,16 @@ export interface TreeProps {
   label?: string;
   /** Whether the branch the reader is on takes the highlight fill. That branch is marked with um-tree__node--current. */
   highlightCurrent?: boolean;
+  /** Whether only the first open branch of a level shows what it holds, so the level reads as one branch at a time. It adds um-tree--accordion. */
+  accordion?: boolean;
+  /** Whether the branch the current one sits under shows what it holds, whether it is open or not. It adds um-tree--auto-expand-parent. */
+  autoExpandParent?: boolean;
+  /** Whether each tick box stands on its own, with no link drawn between a branch and the branch under it. It adds um-tree--check-strictly. */
+  checkStrictly?: boolean;
+  /** Whether every level of the tree is open, whether the branch says so or not. It adds um-tree--default-expand-all. */
+  defaultExpandAll?: boolean;
+  /** Whether every branch carries the box the reader ticks. It adds um-tree--show-checkbox. */
+  showCheckbox?: boolean;
 }
 
 /** Virtualized Table · 虚拟表格 — A long table the browser is not asked to lay out in full. The rows far from the viewport are skipped and given a placeholder size, so the cost of the list is what is near it. */
@@ -1292,6 +1483,8 @@ export interface VirtualTableProps {
   empty?: boolean;
   /** Whether the scrolling box keeps its scrollbar whether the list needs one or not, so the rows do not move sideways as the list grows. It adds um-virtual-table--scrollbar-always-on. */
   scrollbarAlwaysOn?: boolean;
+  /** Whether the first column stays where it is while the rest of the row scrolls sideways. The cell brings its own surface, so the cells that scroll under it do not show through it. It adds um-virtual-table--fixed. */
+  fixed?: boolean;
 }
 
 /** Virtualized Tree · 虚拟树 — A tree so large that the browser is asked to lay out only the branches near the reader. Every branch is still a disclosure, so the browser opens and closes it and the state survives a reload. */
@@ -1313,6 +1506,10 @@ export interface VirtualTreeProps {
   highlightCurrent?: boolean;
   /** Whether the scrolling box keeps its scrollbar whether the tree needs one or not, so the branches do not move sideways as the tree grows. It adds um-virtual-tree--scrollbar-always-on. */
   scrollbarAlwaysOn?: boolean;
+  /** Whether each tick box stands on its own, with no link drawn between a branch and the branch under it. It adds um-virtual-tree--check-strictly. */
+  checkStrictly?: boolean;
+  /** Whether every branch carries the box the reader ticks. It adds um-virtual-tree--show-checkbox. */
+  showCheckbox?: boolean;
 }
 
 /** Anchor · 锚点 — A column of links to the sections of the page, with a rule down the side so the reader can see that they are a list of places rather than a list of links. The section being read is marked with aria-current, because CSS cannot work out what is on screen. */
@@ -1340,6 +1537,8 @@ export interface BacktopProps {
   target?: string;
   /** The accessible name of the link. The arrow is a shape and says nothing, so the name has to come from somewhere. */
   label?: string;
+  /** How far the button sits from the right edge of the viewport. It is a physical offset and not the inline end: the button lives in a corner of the screen, and a corner does not move when the reader's direction does. It is a length and not a number of pixels, so the offset can be a measure of the mood's own spacing. */
+  right?: string;
 }
 
 /** Breadcrumb · 面包屑 — The path to the page you are on, as a list of links. The separators between the steps are drawn by the stylesheet, not written into the markup as characters. */
@@ -1385,6 +1584,14 @@ export interface MenuProps {
   active?: string;
   /** Which way the entries run. This is Element Plus's name for the `direction` prop; either one of them lays the menu out. */
   mode?: "vertical" | "horizontal";
+  /** Whether the menu is a column of glyphs. It adds um-menu--collapse: every entry is narrowed to the icon column and its label is clipped out of it. The library draws no icons of its own, so the glyph in a collapsed entry is the host's. */
+  collapse?: boolean;
+  /** Whether the menu is inert. It adds um-menu--disabled: the pointer does not reach the entries and they take the derived disabled colour. */
+  disabled?: boolean;
+  /** Whether a group title that is too long is cut with an ellipsis instead of wrapping. It adds um-menu--ellipsis. */
+  ellipsis?: boolean;
+  /** How the floating submenu is filled. The light run is the base class on its own; the dark run fills the panel with the mood's strong text colour and adds um-menu--popper-dark. */
+  popperEffect?: "light" | "dark";
 }
 
 /** Pagination — the sizes it can be rendered at. */
@@ -1403,6 +1610,8 @@ export interface PaginationProps {
   disabled?: boolean;
   /** Whether the pager disappears when there is only one page to be on. It adds um-pagination--hidden. */
   hideOnSinglePage?: boolean;
+  /** Which parts of the pager are drawn and in what order. The full layout is the base class on its own; the pager-only layout adds um-pagination--layout-pager and the total layout adds um-pagination--layout-total. */
+  layout?: "full" | "pager" | "total";
 }
 
 /** Steps · 步骤条 — The order of a job, one step per entry, with the step you are on picked out and the steps already done marked as finished. */
@@ -1423,6 +1632,8 @@ export interface StepsProps {
   alignCenter?: boolean;
   /** Whether the run is the simple one: the titles stand in a row and the descriptions and the line are not drawn. It adds um-steps--simple. */
   simple?: boolean;
+  /** The status the steps that are behind the reader take. A step that is behind the reader is one that comes before the step being worked on; the wrapper marks it with um-steps__item--finished, and the class it adds here says what colour that mark takes. A step that carries a status of its own keeps it. */
+  finishStatus?: "success" | "error" | "danger";
 }
 
 /** Tabs · 标签页 — One row of tabs over several panels of content. The tabs are radio inputs, so the browser keeps the selection, the focus and the arrow keys without a line of script. */
@@ -1443,6 +1654,8 @@ export interface TabsProps {
   stretch?: boolean;
   /** Where the bar of tabs sits. The bar on top is the base class on its own; the bar under the panel adds um-tabs--bottom. */
   tabPosition?: "top" | "bottom";
+  /** Whether the tabs can be picked. The radios carry the real disabled attribute, so the browser refuses to select them and the tab leaves the tab order; the class paints the disabled treatment. A single tab is disabled by putting the same attribute on its own radio in the markup. */
+  disabled?: boolean;
 }
 
 /** Alert · 警告 — A message that stays in the page and says what the reader has to know: the run failed, the quota is nearly gone, the sync is through. The variant colours the border and the mark, not the text. */
@@ -1451,6 +1664,12 @@ export interface AlertProps {
   /** The component's own id, so a registry can be keyed by it. */
   id: "alert";
   variant?: AlertVariant;
+  /** Puts the body in the middle of the panel, so the alert reads as a line rather than as a paragraph against the edge. */
+  center?: boolean;
+  /** Puts a close button at the end of the panel. The button is a real one, so it is in the tab order and it is pressed with the keyboard. */
+  closable?: boolean;
+  /** Puts the drawn mark in front of the body, so the kind of message is readable before the words are. */
+  showIcon?: boolean;
 }
 
 /** Dialog · 对话框 — A panel that asks the reader something, written as a <dialog>. It is shown the way a dialog is shown without JavaScript — open in the markup — and it is closed the way the browser closes one: the close button submits the form around it, and the form's method is dialog. */
@@ -1518,6 +1737,8 @@ export interface LoadingProps {
   closed?: boolean;
   /** Whether the loading covers the whole viewport, whatever shape it is. */
   fullscreen?: boolean;
+  /** Whether the page is held still while the loading is there. It adds um-loading--lock, and the page that holds a locked loading does not scroll. There is no script here, so this is the whole of what a lock can do. */
+  lock?: boolean;
 }
 
 /** Message · 消息 — A short bar that tells the reader what just happened. Element Plus's message is a function that paints the bar and takes it away again; here the bar is a container, and the host decides whether it is on the page. */
@@ -1624,6 +1845,10 @@ export interface PopconfirmProps {
   visible?: boolean;
   /** Whether the bubble carries the point that says which way it faces. A bubble without one adds um-popconfirm--no-arrow. */
   showArrow?: boolean;
+  /** How the bubble is filled. The light run is the base class on its own — the bubble sits on the overlay surface; the dark run fills it with the mood's strong text colour, puts the words on it in the plain surface and adds um-popconfirm--dark. */
+  effect?: "light" | "dark";
+  /** Whether the mark beside the question is taken away. It adds um-popconfirm--hide-icon. The library draws no question mark of its own, so the mark is the host's and this class is what says it is not wanted. */
+  hideIcon?: boolean;
   /** The type of the answer that goes ahead. The default type is the brand colour; the other five are a fill of their own. */
   confirmButtonType?: "default" | "primary" | "success" | "warning" | "danger" | "info";
   /** The type of the answer that backs out. The default type is the neutral shape, so the eye goes to the answer that is being asked for; the other five are a fill of their own. */
@@ -1651,6 +1876,10 @@ export interface PopoverProps {
   enterable?: boolean;
   /** Whether the card is open. It is the open attribute on the trigger's own <details>. */
   visible?: boolean;
+  /** How the card is filled. The light run is the base class on its own — the card sits on the overlay surface; the dark run fills it with the mood's strong text colour, puts the words on it in the plain surface and adds um-popover--dark. */
+  effect?: "light" | "dark";
+  /** Whether the card carries the point that ties it to its trigger. A card without one adds um-popover--no-arrow. */
+  showArrow?: boolean;
 }
 
 /** Tooltip · 文字提示 — A short note that appears when the reader points at a word or tabs to it. The bubble is drawn by the stylesheet and placed with absolute positioning; the trigger is a real button, so the keyboard opens it as well as the pointer. */
@@ -1671,6 +1900,8 @@ export interface TooltipProps {
   showArrow?: boolean;
   /** Whether the bubble is held open. It adds um-tooltip--visible. */
   visible?: boolean;
+  /** How the bubble is filled. The light run is the base class on its own — the bubble sits on the overlay surface; the dark run fills it with the mood's strong text colour, puts the words on it in the plain surface and adds um-tooltip--dark. */
+  effect?: "light" | "dark";
 }
 
 /** Divider · 分割线 — A rule between two things. It can carry a label in the middle, drop the rules and keep the label, or stand up as a vertical rule. */

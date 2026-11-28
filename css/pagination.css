@@ -139,6 +139,38 @@
   display: none;
 }
 
+/* The layout names the parts the pager draws and the order they stand in. A
+   part the layout does not name is not drawn at all, so a pager that is only a
+   row of numbers carries neither a total line nor a jumper. */
+.um-pagination--layout-pager .um-pagination__total,
+.um-pagination--layout-pager .um-pagination__jumper {
+  display: none;
+}
+
+.um-pagination--layout-total .um-pagination__jumper {
+  display: none;
+}
+
+/* The total leads the row in the layout that shows it. The row is a flex box,
+   so the order is a property of the layout rather than of the markup. */
+.um-pagination--layout-total .um-pagination__total {
+  order: -1;
+}
+
+/* The links and the number field are the controls a reader moves through
+   the pages with. The link wears the ring outside; the field wears it
+   inside, the way every field in the library does, because the field is what
+   the reader is typing in. */
+.um-pagination__link:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+.um-pagination__input:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: calc(-1 * var(--um-focus-ring-width));
+}
+
 /* ============================================================================
    Quality hooks
    ----------------------------------------------------------------------------

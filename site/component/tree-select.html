@@ -261,11 +261,40 @@
       <tr><td><code>um-tree-select__children</code></td><td>Children</td></tr>
       <tr><td><code>um-tree-select__input</code></td><td>Input</td></tr>
       <tr><td><code>um-tree-select__dot</code></td><td>Dot</td></tr>
+      <tr><td><code>um-tree-select__field</code></td><td>Field</td></tr>
+      <tr><td><code>um-tree-select__prefix</code></td><td>Prefix</td></tr>
+      <tr><td><code>um-tree-select__tags</code></td><td>Tags</td></tr>
+      <tr><td><code>um-tree-select__tag</code></td><td>Tag</td></tr>
+      <tr><td><code>um-tree-select__filter</code></td><td>Filter</td></tr>
+      <tr><td><code>um-tree-select__clear</code></td><td>Clear</td></tr>
+      <tr><td><code>um-tree-select__header</code></td><td>Header</td></tr>
+      <tr><td><code>um-tree-select__footer</code></td><td>Footer</td></tr>
+      <tr><td><code>um-tree-select__empty</code></td><td>Empty</td></tr>
+      <tr><td><code>um-tree-select__loading</code></td><td>Loading</td></tr>
       <tr><td><code>[open]</code></td><td>Open</td></tr>
       <tr><td><code>:checked</code></td><td>Checked</td></tr>
       <tr><td><code>:disabled</code></td><td>Disabled</td></tr>
       <tr><td><code>:focus-visible</code></td><td>Focus visible</td></tr>
       <tr><td><code>.um-tree-select--show-checkbox</code></td><td>Show checkbox</td></tr>
+      <tr><td><code>.um-tree-select--no-arrow</code></td><td>No arrow</td></tr>
+      <tr><td><code>.um-tree-select--highlight-current</code></td><td>Highlight current</td></tr>
+      <tr><td><code>.um-tree-select--accordion</code></td><td>Accordion</td></tr>
+      <tr><td><code>.um-tree-select--auto-expand-parent</code></td><td>Auto expand parent</td></tr>
+      <tr><td><code>.um-tree-select--check-strictly</code></td><td>Check strictly</td></tr>
+      <tr><td><code>.um-tree-select--default-expand-all</code></td><td>Expand all</td></tr>
+      <tr><td><code>.um-tree-select--clearable</code></td><td>Clearable</td></tr>
+      <tr><td><code>.um-tree-select--collapse-tags</code></td><td>Collapse tags</td></tr>
+      <tr><td><code>.um-tree-select--filterable</code></td><td>Filterable</td></tr>
+      <tr><td><code>.um-tree-select--fit-input-width</code></td><td>Fit input width</td></tr>
+      <tr><td><code>.um-tree-select--effect-dark</code></td><td>Dark effect</td></tr>
+      <tr><td><code>.um-tree-select--effect-plain</code></td><td>Plain effect</td></tr>
+      <tr><td><code>.um-tree-select--loading</code></td><td>Loading</td></tr>
+      <tr><td><code>.um-tree-select--tag-success</code></td><td>Tag in success</td></tr>
+      <tr><td><code>.um-tree-select--tag-warning</code></td><td>Tag in warning</td></tr>
+      <tr><td><code>.um-tree-select--tag-danger</code></td><td>Tag in danger</td></tr>
+      <tr><td><code>.um-tree-select--tag-info</code></td><td>Tag in info</td></tr>
+      <tr><td><code>.um-tree-select--tag-effect-dark</code></td><td>Tag effect dark</td></tr>
+      <tr><td><code>.um-tree-select--tag-effect-plain</code></td><td>Tag effect plain</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -281,6 +310,21 @@
       <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes the leaf inert. It uses the real disabled attribute, so it leaves the tab order.</td></tr>
       <tr><td><span class="api__name"><code>model-value</code></span></td><td><code>string</code></td><td>—</td><td>The value the picked leaf submits, bound with v-model in Vue. Leave it out and the `value` prop is that value; bind it and the tree answers to the binding.</td></tr>
       <tr><td><span class="api__name"><code>show-checkbox</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Draws a box in front of every leaf instead of a circle, so a leaf reads as something that can be ticked rather than something that can be picked.</td></tr>
+      <tr><td><span class="api__name"><code>accordion</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether only the first open branch of a level shows what it holds, so the level reads as one branch at a time. It adds um-tree-select--accordion.</td></tr>
+      <tr><td><span class="api__name"><code>auto-expand-parent</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the branch the current one sits under shows what it holds, whether it is open or not. It adds um-tree-select--auto-expand-parent.</td></tr>
+      <tr><td><span class="api__name"><code>check-strictly</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether each mark stands on its own, with no link drawn between a branch and the leaf under it. It adds um-tree-select--check-strictly.</td></tr>
+      <tr><td><span class="api__name"><code>default-expand-all</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether every level of the tree is open, whether the branch says so or not. It adds um-tree-select--default-expand-all.</td></tr>
+      <tr><td><span class="api__name"><code>highlight-current</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the leaf the reader is on takes the highlight fill. It adds um-tree-select--highlight-current.</td></tr>
+      <tr><td><span class="api__name"><code>show-arrow</code></span></td><td><code>boolean</code></td><td><code>true</code></td><td>Whether the mark that says a branch holds something is drawn. Turning it off adds um-tree-select--no-arrow, the other way round from the other states, so the class always says what it does to the tree.</td></tr>
+      <tr><td><span class="api__name"><code>clearable</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the field carries the mark that clears the choice. It adds um-tree-select--clearable.</td></tr>
+      <tr><td><span class="api__name"><code>collapse-tags</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether only the first chip is shown, so the field keeps one line. How many were folded is the host's to say. It adds um-tree-select--collapse-tags.</td></tr>
+      <tr><td><span class="api__name"><code>filterable</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the field carries the input the host filters the tree with. The input is a real search field, so the filtering is the host's script and the library only draws it. It adds um-tree-select--filterable.</td></tr>
+      <tr><td><span class="api__name"><code>fit-input-width</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the tree takes the width of the component it stands in rather than the width its own names ask for. It adds um-tree-select--fit-input-width.</td></tr>
+      <tr><td><span class="api__name"><code>effect</code></span></td><td><code>enum = light | dark | plain</code></td><td><code>light</code></td><td>How the component's own surface is painted. The light effect is the surface the library draws, so it needs no modifier; the dark effect adds um-tree-select--effect-dark and the plain effect adds um-tree-select--effect-plain.</td></tr>
+      <tr><td><span class="api__name"><code>loading</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the data is on its way, so the tree says so instead of showing branches that are not there yet. It adds um-tree-select--loading.</td></tr>
+      <tr><td><span class="api__name"><code>placeholder</code></span></td><td><code>string</code></td><td>—</td><td>The hint in the filter field. It is the native placeholder attribute on the input, so the browser paints it in the muted placeholder role.</td></tr>
+      <tr><td><span class="api__name"><code>tag-type</code></span></td><td><code>enum = primary | success | warning | danger | info</code></td><td><code>primary</code></td><td>Which colour the chips take. The primary colour is the one the library draws, so it needs no modifier; the other four add um-tree-select--tag-success, um-tree-select--tag-warning, um-tree-select--tag-danger and um-tree-select--tag-info.</td></tr>
+      <tr><td><span class="api__name"><code>tag-effect</code></span></td><td><code>enum = light | dark | plain</code></td><td><code>light</code></td><td>How the chips are painted: a tint, a solid fill or an outline with no fill. The tint is the one the library draws, so it needs no modifier; the solid fill adds um-tree-select--tag-effect-dark and the outline adds um-tree-select--tag-effect-plain.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>
@@ -289,6 +333,14 @@
       <tbody>
       <tr><td><span class="api__name"><code>branch</code></span></td><td>The name of the thing the branch holds.</td></tr>
       <tr><td><span class="api__name"><code>children</code></span></td><td>The level below: one row per leaf inside this branch.</td></tr>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>The name of the thing the branch holds. It is the name Element Plus gives the same content the label slot fills.</td></tr>
+      <tr><td><span class="api__name"><code>label</code></span></td><td>The name of the thing the branch holds. It is the name Element Plus gives the same content the branch slot fills.</td></tr>
+      <tr><td><span class="api__name"><code>prefix</code></span></td><td>The mark that stands in front of the control. It is the host's own, so the library draws no glyph of its own.</td></tr>
+      <tr><td><span class="api__name"><code>tag</code></span></td><td>What one chip says. It is given the chosen value and the chip's number. Without it the chip is empty, and an empty chip is not drawn.</td></tr>
+      <tr><td><span class="api__name"><code>header</code></span></td><td>What stands above the tree: a note, a heading.</td></tr>
+      <tr><td><span class="api__name"><code>footer</code></span></td><td>What stands below the tree: a note, a count.</td></tr>
+      <tr><td><span class="api__name"><code>empty</code></span></td><td>What the level below says when it holds nothing at all.</td></tr>
+      <tr><td><span class="api__name"><code>loading</code></span></td><td>What the tree says while the data is on its way.</td></tr>
       </tbody>
     </table>
       <h2>Events</h2>
@@ -297,6 +349,8 @@
       <tbody>
       <tr><td><span class="api__name"><code>change</code></span></td><td>Fires when the picked leaf changes. It is the browser's own event on the input — the library installs no listener.</td></tr>
       <tr><td><span class="api__name"><code>toggle</code></span></td><td>Fires when a branch opens or closes. It is the browser's own event on the details — the library installs no listener.</td></tr>
+      <tr><td><span class="api__name"><code>check</code></span></td><td>Fires when the picked leaf changes, under the name Element Plus gives the same event.</td></tr>
+      <tr><td><span class="api__name"><code>clear</code></span></td><td>Fires when the clear mark is pressed. The value that follows is the empty one, and the update:modelValue event carries it.</td></tr>
       <tr><td><span class="api__name"><code>update:modelValue</code></span></td><td>Fires when the value changes, carrying the new value. This is the event `v-model` listens to.</td></tr>
       </tbody>
     </table>

@@ -286,6 +286,10 @@
       <tr><td><code>.um-steps__item--danger</code></td><td>Danger</td></tr>
       <tr><td><code>.um-steps--align-center</code></td><td>Aligned to the centre</td></tr>
       <tr><td><code>.um-steps--simple</code></td><td>Simple</td></tr>
+      <tr><td><code>.um-steps__item--finished</code></td><td>Finished</td></tr>
+      <tr><td><code>.um-steps--finish-success</code></td><td>Finished in success</td></tr>
+      <tr><td><code>.um-steps--finish-error</code></td><td>Finished in error</td></tr>
+      <tr><td><code>.um-steps--finish-danger</code></td><td>Finished in danger</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -298,6 +302,7 @@
       <tr><td><span class="api__name"><code>active</code></span></td><td><code>number</code></td><td><code>0</code></td><td>Which step is being worked on, counted from one. That step carries the running state; zero leaves the states where the markup put them.</td></tr>
       <tr><td><span class="api__name"><code>align-center</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the title and the description stand in the middle of the step rather than at its start. It adds um-steps--align-center.</td></tr>
       <tr><td><span class="api__name"><code>simple</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the run is the simple one: the titles stand in a row and the descriptions and the line are not drawn. It adds um-steps--simple.</td></tr>
+      <tr><td><span class="api__name"><code>finish-status</code></span></td><td><code>enum = success | error | danger</code></td><td><code>success</code></td><td>The status the steps that are behind the reader take. A step that is behind the reader is one that comes before the step being worked on; the wrapper marks it with um-steps__item--finished, and the class it adds here says what colour that mark takes. A step that carries a status of its own keeps it.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>

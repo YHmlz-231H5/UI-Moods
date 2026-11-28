@@ -233,8 +233,13 @@
       <tr><td><code>um-time-select__select</code></td><td>Select</td></tr>
       <tr><td><code>um-time-select__option</code></td><td>Option</td></tr>
       <tr><td><code>um-time-select__arrow</code></td><td>Arrow</td></tr>
+      <tr><td><code>um-time-select__clear</code></td><td>Clear</td></tr>
+      <tr><td><code>um-time-select__placeholder</code></td><td>Placeholder</td></tr>
       <tr><td><code>:focus-visible</code></td><td>Focus visible</td></tr>
       <tr><td><code>:disabled</code></td><td>Disabled</td></tr>
+      <tr><td><code>.um-time-select--clearable</code></td><td>Clearable</td></tr>
+      <tr><td><code>.um-time-select--effect-dark</code></td><td>Dark effect</td></tr>
+      <tr><td><code>.um-time-select--effect-plain</code></td><td>Plain effect</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -250,6 +255,9 @@
       <tr><td><span class="api__name"><code>variant</code></span></td><td><code>enum = bordered | filled</code></td><td><code>bordered</code></td><td>The surface of the field. The bordered run is the base class on its own; the filled run adds um-time-select--filled.</td></tr>
       <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The height of the field.</td></tr>
       <tr><td><span class="api__name"><code>model-value</code></span></td><td><code>string</code></td><td>—</td><td>The chosen time, bound with v-model in Vue. Leave it out and the `value` prop is the chosen time; bind it and the field answers to the binding.</td></tr>
+      <tr><td><span class="api__name"><code>clearable</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the field carries the mark that clears the choice. It adds um-time-select--clearable.</td></tr>
+      <tr><td><span class="api__name"><code>effect</code></span></td><td><code>enum = light | dark | plain</code></td><td><code>light</code></td><td>How the field's own surface is painted. The light effect is the field the library draws, so it needs no modifier; the dark effect adds um-time-select--effect-dark and the plain effect adds um-time-select--effect-plain.</td></tr>
+      <tr><td><span class="api__name"><code>placeholder</code></span></td><td><code>string</code></td><td>—</td><td>The text that stands in for a choice. It is the first entry in the list and it carries no value, so the field says it has nothing chosen; without it the list starts with the first time.</td></tr>
       </tbody>
     </table>
 
@@ -258,6 +266,7 @@
       <thead><tr><th>Name</th><th>Description</th></tr></thead>
       <tbody>
       <tr><td><span class="api__name"><code>change</code></span></td><td>Fires when a time is chosen. It is the browser's own event on the select — the library installs no listener.</td></tr>
+      <tr><td><span class="api__name"><code>clear</code></span></td><td>Fires when the clear mark is pressed. The value that follows is the empty one, and the update:modelValue event carries it.</td></tr>
       <tr><td><span class="api__name"><code>update:modelValue</code></span></td><td>Fires when the value changes, carrying the new value. This is the event `v-model` listens to.</td></tr>
       </tbody>
     </table>

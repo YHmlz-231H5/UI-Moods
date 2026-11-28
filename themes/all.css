@@ -94,6 +94,8 @@
   --um-text-placeholder: #a792a1;
   --um-surface-control: #ffe9f2;
   --um-text-disabled: #bda3b3;
+  --um-surface-control-blank: #ffffff;
+  --um-surface-input-blank: #ffffff;
   --um-surface-panel: #ffffff;
   --um-surface-table-header: #ffe9f2;
   --um-border-light: #ffd8e7;
@@ -107,6 +109,7 @@
   --um-color-danger-text: #b74657;
   --um-color-info-text: #816378;
   --um-color-primary-graphic: #f73c96;
+  --um-focus-ring: #dd3889;
   --um-color-success-graphic: #319a63;
   --um-color-warning-graphic: #b77c28;
   --um-color-danger-graphic: #eb5665;
@@ -199,6 +202,8 @@
   --um-text-placeholder: #988c7e;
   --um-surface-control: #f4eee4;
   --um-text-disabled: #a99e90;
+  --um-surface-control-blank: #fffaf3;
+  --um-surface-input-blank: #fffaf3;
   --um-surface-panel: #fffaf3;
   --um-surface-table-header: #f4eee4;
   --um-border-light: #ded2c1;
@@ -212,6 +217,7 @@
   --um-color-danger-text: #8a4038;
   --um-color-info-text: #706150;
   --um-color-primary-graphic: #305070;
+  --um-focus-ring: #305070;
   --um-color-success-graphic: #4a6a38;
   --um-color-warning-graphic: #9a6a30;
   --um-color-danger-graphic: #8a4038;
@@ -305,6 +311,8 @@
   --um-text-placeholder: #546e7d;
   --um-surface-control: #1e2832;
   --um-text-disabled: #4a5e6b;
+  --um-surface-control-blank: #273a47;
+  --um-surface-input-blank: #264150;
   --um-surface-panel: #112533;
   --um-surface-table-header: #283a47;
   --um-border-light: #1d2731;
@@ -318,6 +326,7 @@
   --um-color-danger-text: #fb7185;
   --um-color-info-text: #7f9fb0;
   --um-color-primary-graphic: #5eead4;
+  --um-focus-ring: #5eead4;
   --um-color-success-graphic: #4ade80;
   --um-color-warning-graphic: #fcd34d;
   --um-color-danger-graphic: #fb7185;
@@ -410,6 +419,8 @@
   --um-text-placeholder: #979797;
   --um-surface-control: #ffffff;
   --um-text-disabled: #a9a9a9;
+  --um-surface-control-blank: #ffffff;
+  --um-surface-input-blank: #ffffff;
   --um-surface-panel: #ffffff;
   --um-surface-table-header: #ffffff;
   --um-border-light: #676562;
@@ -423,6 +434,7 @@
   --um-color-danger-text: #22223b;
   --um-color-info-text: #6b6b6b;
   --um-color-primary-graphic: #d7263d;
+  --um-focus-ring: #ce243b;
   --um-color-success-graphic: #1b998b;
   --um-color-warning-graphic: #b47f21;
   --um-color-danger-graphic: #22223b;
@@ -514,6 +526,8 @@
   --um-text-placeholder: #5b84ab;
   --um-surface-control: #0a3560;
   --um-text-disabled: #4f7497;
+  --um-surface-control-blank: #0c447a;
+  --um-surface-input-blank: #0c447a;
   --um-surface-panel: #0c447a;
   --um-surface-table-header: #0a3560;
   --um-border-light: #2d5d8f;
@@ -527,6 +541,7 @@
   --um-color-danger-text: #fe9091;
   --um-color-info-text: #94b3ce;
   --um-color-primary-graphic: #ffffff;
+  --um-focus-ring: #ffffff;
   --um-color-success-graphic: #7dffb0;
   --um-color-warning-graphic: #ffd56a;
   --um-color-danger-graphic: #ff8a8a;
@@ -620,6 +635,8 @@
   --um-text-placeholder: #9a9a9a;
   --um-surface-control: #ffffff;
   --um-text-disabled: #adadad;
+  --um-surface-control-blank: #ffffff;
+  --um-surface-input-blank: #ffffff;
   --um-surface-panel: #ffffff;
   --um-surface-table-header: #ffffff;
   --um-border-light: #555555;
@@ -633,6 +650,7 @@
   --um-color-danger-text: #d9143a;
   --um-color-info-text: #5f5f5f;
   --um-color-primary-graphic: #a38800;
+  --um-focus-ring: #8a7200;
   --um-color-success-graphic: #00a243;
   --um-color-warning-graphic: #cf7500;
   --um-color-danger-graphic: #ff1744;
@@ -724,6 +742,8 @@
   --um-text-placeholder: #8a8075;
   --um-surface-control: #e6ddd2;
   --um-text-disabled: #9b9186;
+  --um-surface-control-blank: #efe7dc;
+  --um-surface-input-blank: #efe7dc;
   --um-surface-panel: #efe7dc;
   --um-surface-table-header: #e6ddd2;
   --um-border-light: transparent;
@@ -737,6 +757,7 @@
   --um-color-danger-text: #88473f;
   --um-color-info-text: #63584d;
   --um-color-primary-graphic: #6b4f3a;
+  --um-focus-ring: #6b4f3a;
   --um-color-success-graphic: #5a6e4a;
   --um-color-warning-graphic: #9a6a30;
   --um-color-danger-graphic: #8a4840;
@@ -830,6 +851,8 @@
   --um-text-placeholder: #959cab;
   --um-surface-control: #ffffff;
   --um-text-disabled: #abb0bc;
+  --um-surface-control-blank: #ffffff;
+  --um-surface-input-blank: #ffffff;
   --um-surface-panel: #ffffff;
   --um-surface-table-header: #ffffff;
   --um-border-light: #eaecf1;
@@ -843,6 +866,7 @@
   --um-color-danger-text: #d72d20;
   --um-color-info-text: #667085;
   --um-color-primary-graphic: #175cd3;
+  --um-focus-ring: #175cd3;
   --um-color-success-graphic: #039855;
   --um-color-warning-graphic: #dc6803;
   --um-color-danger-graphic: #d92d20;
@@ -935,6 +959,8 @@
   --um-text-placeholder: #535c66;
   --um-surface-control: #12161c;
   --um-text-disabled: #464e57;
+  --um-surface-control-blank: #171c24;
+  --um-surface-input-blank: #171c24;
   --um-surface-panel: #171c24;
   --um-surface-table-header: #12161c;
   --um-border-light: #1a1f27;
@@ -948,6 +974,7 @@
   --um-color-danger-text: #f04438;
   --um-color-info-text: #7a8591;
   --um-color-primary-graphic: #b6f000;
+  --um-focus-ring: #b6f000;
   --um-color-success-graphic: #26d0a0;
   --um-color-warning-graphic: #f0b400;
   --um-color-danger-graphic: #f04438;
@@ -1040,6 +1067,8 @@
   --um-text-placeholder: #95a099;
   --um-surface-control: #ffffff;
   --um-text-disabled: #a9b2ac;
+  --um-surface-control-blank: #ffffff;
+  --um-surface-input-blank: #ffffff;
   --um-surface-panel: #ffffff;
   --um-surface-table-header: #ffffff;
   --um-border-light: #e4eee4;
@@ -1053,6 +1082,7 @@
   --um-color-danger-text: #b75247;
   --um-color-info-text: #66756b;
   --um-color-primary-graphic: #2f7d4f;
+  --um-focus-ring: #2f7d4f;
   --um-color-success-graphic: #4c9a6a;
   --um-color-warning-graphic: #b88628;
   --um-color-danger-graphic: #c1554a;
@@ -1145,6 +1175,8 @@
   --um-text-placeholder: #9d9d9d;
   --um-surface-control: #ffffff;
   --um-text-disabled: #afafaf;
+  --um-surface-control-blank: #f6f6f6;
+  --um-surface-input-blank: #f6f6f6;
   --um-surface-panel: #f6f6f6;
   --um-surface-table-header: #ffffff;
   --um-border-light: #eeeeee;
@@ -1158,6 +1190,7 @@
   --um-color-danger-text: #9b2c2c;
   --um-color-info-text: #717171;
   --um-color-primary-graphic: #1a1a1a;
+  --um-focus-ring: #1a1a1a;
   --um-color-success-graphic: #4f7942;
   --um-color-warning-graphic: #b3874a;
   --um-color-danger-graphic: #9b2c2c;
@@ -1250,6 +1283,8 @@
   --um-text-placeholder: #545f72;
   --um-surface-control: #141920;
   --um-text-disabled: #46505f;
+  --um-surface-control-blank: #1a2029;
+  --um-surface-input-blank: #1a2029;
   --um-surface-panel: #1a2029;
   --um-surface-table-header: #141920;
   --um-border-light: #1e2025;
@@ -1263,6 +1298,7 @@
   --um-color-danger-text: #f04b4b;
   --um-color-info-text: #7e8da6;
   --um-color-primary-graphic: #d4af37;
+  --um-focus-ring: #d4af37;
   --um-color-success-graphic: #22c55e;
   --um-color-warning-graphic: #f59e0b;
   --um-color-danger-graphic: #ef4444;
@@ -1355,6 +1391,8 @@
   --um-text-placeholder: #ab9c93;
   --um-surface-control: #ffffff;
   --um-text-disabled: #bbafa8;
+  --um-surface-control-blank: #ffffff;
+  --um-surface-input-blank: #ffffff;
   --um-surface-panel: #ffffff;
   --um-surface-table-header: #ffffff;
   --um-border-light: #f5e8da;
@@ -1368,6 +1406,7 @@
   --um-color-danger-text: #d93030;
   --um-color-info-text: #846e60;
   --um-color-primary-graphic: #e8590c;
+  --um-focus-ring: #d0510d;
   --um-color-success-graphic: #2f9e44;
   --um-color-warning-graphic: #d37b03;
   --um-color-danger-graphic: #e03131;
@@ -1459,6 +1498,8 @@
   --um-text-placeholder: #8b9583;
   --um-surface-control: #e3ead7;
   --um-text-disabled: #9fa894;
+  --um-surface-control-blank: #fbfdf5;
+  --um-surface-input-blank: #fbfdf5;
   --um-surface-panel: #fbfdf5;
   --um-surface-table-header: #e3ead7;
   --um-border-light: #d9e2c9;
@@ -1472,6 +1513,7 @@
   --um-color-danger-text: #975740;
   --um-color-info-text: #606c57;
   --um-color-primary-graphic: #3f6b34;
+  --um-focus-ring: #3f6b34;
   --um-color-success-graphic: #5f8f4e;
   --um-color-warning-graphic: #a37e39;
   --um-color-danger-graphic: #b05f47;
@@ -1565,6 +1607,8 @@
   --um-text-placeholder: #5a5a71;
   --um-surface-control: #15151f;
   --um-text-disabled: #4c4c5f;
+  --um-surface-control-blank: #1c1c2a;
+  --um-surface-input-blank: #1c1c2a;
   --um-surface-panel: #1c1c2a;
   --um-surface-table-header: #15151f;
   --um-border-light: #20202f;
@@ -1578,6 +1622,7 @@
   --um-color-danger-text: #ff3b6b;
   --um-color-info-text: #82829e;
   --um-color-primary-graphic: #00e5ff;
+  --um-focus-ring: #00e5ff;
   --um-color-success-graphic: #39ff14;
   --um-color-warning-graphic: #ffb020;
   --um-color-danger-graphic: #ff3b6b;
@@ -1670,6 +1715,8 @@
   --um-text-placeholder: #7b7f9e;
   --um-surface-control: #343545;
   --um-text-disabled: #6b6f8c;
+  --um-surface-control-blank: #50515f;
+  --um-surface-input-blank: #5c5c69;
   --um-surface-panel: #313142;
   --um-surface-table-header: #50515f;
   --um-border-light: #2b2c3d;
@@ -1683,6 +1730,7 @@
   --um-color-danger-text: #fb7185;
   --um-color-info-text: #9aa0c8;
   --um-color-primary-graphic: #8b7bff;
+  --um-focus-ring: #b1a7ff;
   --um-color-success-graphic: #4ade80;
   --um-color-warning-graphic: #fbbf24;
   --um-color-danger-graphic: #fb7185;
@@ -1774,6 +1822,8 @@
   --um-text-placeholder: #4e5963;
   --um-surface-control: #12161a;
   --um-text-disabled: #414a53;
+  --um-surface-control-blank: #0f1317;
+  --um-surface-input-blank: #0f1317;
   --um-surface-panel: #0f1317;
   --um-surface-table-header: #12161a;
   --um-border-light: #1c252b;
@@ -1787,6 +1837,7 @@
   --um-color-danger-text: #e07080;
   --um-color-info-text: #71818e;
   --um-color-primary-graphic: #7eb8ff;
+  --um-focus-ring: #7eb8ff;
   --um-color-success-graphic: #6ecf8e;
   --um-color-warning-graphic: #e0b060;
   --um-color-danger-graphic: #e07080;
@@ -1879,6 +1930,8 @@
   --um-text-placeholder: #929295;
   --um-surface-control: #e9e9ee;
   --um-text-disabled: #a6a6aa;
+  --um-surface-control-blank: #f9f9fa;
+  --um-surface-input-blank: #fdfdfe;
   --um-surface-panel: #fbfbfd;
   --um-surface-table-header: #e9e9ee;
   --um-border-light: #e4e4e9;
@@ -1892,6 +1945,7 @@
   --um-color-danger-text: #c4332b;
   --um-color-info-text: #68686c;
   --um-color-primary-graphic: #007aff;
+  --um-focus-ring: #0273ef;
   --um-color-success-graphic: #2e9949;
   --um-color-warning-graphic: #bf7308;
   --um-color-danger-graphic: #fa3a30;
@@ -1984,6 +2038,8 @@
   --um-text-placeholder: #9c9c9a;
   --um-surface-control: #faf9f6;
   --um-text-disabled: #afafad;
+  --um-surface-control-blank: #faf9f6;
+  --um-surface-input-blank: #faf9f6;
   --um-surface-panel: #f6f4f0;
   --um-surface-table-header: #faf9f6;
   --um-border-light: #e6e2da;
@@ -1997,6 +2053,7 @@
   --um-color-danger-text: #a04040;
   --um-color-info-text: #70706f;
   --um-color-primary-graphic: #1a1a18;
+  --um-focus-ring: #1a1a18;
   --um-color-success-graphic: #3a5a40;
   --um-color-warning-graphic: #8a6a30;
   --um-color-danger-graphic: #a04040;
@@ -2090,6 +2147,8 @@
   --um-text-placeholder: #8ca0a4;
   --um-surface-control: #ffffff;
   --um-text-disabled: #a1b2b5;
+  --um-surface-control-blank: #ffffff;
+  --um-surface-input-blank: #ffffff;
   --um-surface-panel: #ffffff;
   --um-surface-table-header: #ffffff;
   --um-border-light: #ddebed;
@@ -2103,6 +2162,7 @@
   --um-color-danger-text: #d43132;
   --um-color-info-text: #58767b;
   --um-color-primary-graphic: #0e7c86;
+  --um-focus-ring: #0e7c86;
   --um-color-success-graphic: #2f9e44;
   --um-color-warning-graphic: #c87c0a;
   --um-color-danger-graphic: #e03131;
@@ -2195,6 +2255,8 @@
   --um-text-placeholder: #9c9c9c;
   --um-surface-control: #fafafa;
   --um-text-disabled: #afafaf;
+  --um-surface-control-blank: #f5f5f5;
+  --um-surface-input-blank: #f5f5f5;
   --um-surface-panel: #f5f5f5;
   --um-surface-table-header: #fafafa;
   --um-border-light: #ededed;
@@ -2208,6 +2270,7 @@
   --um-color-danger-text: #000000;
   --um-color-info-text: #707070;
   --um-color-primary-graphic: #000000;
+  --um-focus-ring: #000000;
   --um-color-success-graphic: #3d3d3d;
   --um-color-warning-graphic: #6b6b6b;
   --um-color-danger-graphic: #000000;
@@ -2300,6 +2363,8 @@
   --um-text-placeholder: #606073;
   --um-surface-control: #1d1d25;
   --um-text-disabled: #525263;
+  --um-surface-control-blank: #2d2d34;
+  --um-surface-input-blank: #33333a;
   --um-surface-panel: #1b1b23;
   --um-surface-table-header: #2d2d34;
   --um-border-light: #23232b;
@@ -2313,6 +2378,7 @@
   --um-color-danger-text: #ff0d6e;
   --um-color-info-text: #8b8ba7;
   --um-color-primary-graphic: #ff2d95;
+  --um-focus-ring: #ff2d95;
   --um-color-success-graphic: #00f5d4;
   --um-color-warning-graphic: #ffb800;
   --um-color-danger-graphic: #ff0066;
@@ -2405,6 +2471,8 @@
   --um-text-placeholder: #46576b;
   --um-surface-control: #0a101c;
   --um-text-disabled: #3b495b;
+  --um-surface-control-blank: #0b1322;
+  --um-surface-input-blank: #0c1423;
   --um-surface-panel: #0a101d;
   --um-surface-table-header: #0a101c;
   --um-border-light: #121d2d;
@@ -2418,6 +2486,7 @@
   --um-color-danger-text: #ff8a9a;
   --um-color-info-text: #6a8098;
   --um-color-primary-graphic: #5ec8ff;
+  --um-focus-ring: #5ec8ff;
   --um-color-success-graphic: #5ef0c8;
   --um-color-warning-graphic: #f0c060;
   --um-color-danger-graphic: #ff8a9a;
@@ -2510,6 +2579,8 @@
   --um-text-placeholder: #999996;
   --um-surface-control: #ffffff;
   --um-text-disabled: #acacab;
+  --um-surface-control-blank: #f1f1ee;
+  --um-surface-input-blank: #f1f1ee;
   --um-surface-panel: #f1f1ee;
   --um-surface-table-header: #ffffff;
   --um-border-light: #e9e9e5;
@@ -2523,6 +2594,7 @@
   --um-color-danger-text: #a4503f;
   --um-color-info-text: #6e6e6b;
   --um-color-primary-graphic: #2f5d50;
+  --um-focus-ring: #2f5d50;
   --um-color-success-graphic: #4f7a52;
   --um-color-warning-graphic: #b4874a;
   --um-color-danger-graphic: #a4503f;
@@ -2615,6 +2687,8 @@
   --um-text-placeholder: #9d96a5;
   --um-surface-control: #ffffff;
   --um-text-disabled: #ada9b4;
+  --um-surface-control-blank: #f7eef5;
+  --um-surface-input-blank: #f7eef5;
   --um-surface-panel: #f7eef5;
   --um-surface-table-header: #ffffff;
   --um-border-light: #efe7ec;
@@ -2628,6 +2702,7 @@
   --um-color-danger-text: #8b626c;
   --um-color-info-text: #716b7e;
   --um-color-primary-graphic: #9886bd;
+  --um-focus-ring: #8878a9;
   --um-color-success-graphic: #7a948b;
   --um-color-warning-graphic: #a08c7d;
   --um-color-danger-graphic: #bb8085;
@@ -2720,6 +2795,8 @@
   --um-text-placeholder: #998f85;
   --um-surface-control: #fbf3e2;
   --um-text-disabled: #ada192;
+  --um-surface-control-blank: #ffffff;
+  --um-surface-input-blank: #ffffff;
   --um-surface-panel: #ffffff;
   --um-surface-table-header: #fbf3e2;
   --um-border-light: #cab593;
@@ -2733,6 +2810,7 @@
   --um-color-danger-text: #9e512d;
   --um-color-info-text: #726456;
   --um-color-primary-graphic: #cd671e;
+  --um-focus-ring: #ad591d;
   --um-color-success-graphic: #6b8e23;
   --um-color-warning-graphic: #a47c1e;
   --um-color-danger-graphic: #a0522d;
@@ -2825,6 +2903,8 @@
   --um-text-placeholder: #a79198;
   --um-surface-control: #ffffff;
   --um-text-disabled: #b4a6ab;
+  --um-surface-control-blank: #fbe9ee;
+  --um-surface-input-blank: #fbe9ee;
   --um-surface-panel: #fbe9ee;
   --um-surface-table-header: #ffffff;
   --um-border-light: #f5e2e8;
@@ -2838,6 +2918,7 @@
   --um-color-danger-text: #c0392b;
   --um-color-info-text: #7e656e;
   --um-color-primary-graphic: #e0607e;
+  --um-focus-ring: #c0556f;
   --um-color-success-graphic: #769875;
   --um-color-warning-graphic: #b4873d;
   --um-color-danger-graphic: #c0392b;
@@ -2930,6 +3011,8 @@
   --um-text-placeholder: #9a9a9a;
   --um-surface-control: #ffffff;
   --um-text-disabled: #adadad;
+  --um-surface-control-blank: #f4f4f4;
+  --um-surface-input-blank: #f4f4f4;
   --um-surface-panel: #f4f4f4;
   --um-surface-table-header: #ffffff;
   --um-border-light: #e6e6e6;
@@ -2943,6 +3026,7 @@
   --um-color-danger-text: #a30014;
   --um-color-info-text: #707070;
   --um-color-primary-graphic: #e30613;
+  --um-focus-ring: #e30613;
   --um-color-success-graphic: #0a7d33;
   --um-color-warning-graphic: #c28900;
   --um-color-danger-graphic: #a30014;
@@ -3035,6 +3119,8 @@
   --um-text-placeholder: #8b9eae;
   --um-surface-control: #ffffff;
   --um-text-disabled: #a1b1bd;
+  --um-surface-control-blank: #ffffff;
+  --um-surface-input-blank: #ffffff;
   --um-surface-panel: #ffffff;
   --um-surface-table-header: #ffffff;
   --um-border-light: #deecf5;
@@ -3048,6 +3134,7 @@
   --um-color-danger-text: #b94c4c;
   --um-color-info-text: #57738a;
   --um-color-primary-graphic: #0b7fab;
+  --um-focus-ring: #0b7fab;
   --um-color-success-graphic: #1ea076;
   --um-color-warning-graphic: #b4843d;
   --um-color-danger-graphic: #d9534f;
@@ -3140,6 +3227,8 @@
   --um-text-placeholder: #8271a4;
   --um-surface-control: #44365c;
   --um-text-disabled: #6f638f;
+  --um-surface-control-blank: #573d69;
+  --um-surface-input-blank: #5e386c;
   --um-surface-panel: #402456;
   --um-surface-table-header: #563d69;
   --um-border-light: #44365d;
@@ -3153,6 +3242,7 @@
   --um-color-danger-text: #ff6088;
   --um-color-info-text: #9c91c5;
   --um-color-primary-graphic: #ff71ce;
+  --um-focus-ring: #ff71ce;
   --um-color-success-graphic: #05d9e8;
   --um-color-warning-graphic: #fff95a;
   --um-color-danger-graphic: #ff2e63;
@@ -3245,6 +3335,8 @@
   --um-text-placeholder: #3c5c43;
   --um-surface-control: #080c09;
   --um-text-disabled: #324d38;
+  --um-surface-control-blank: #0b120e;
+  --um-surface-input-blank: #0b120e;
   --um-surface-panel: #0b120e;
   --um-surface-table-header: #080c09;
   --um-border-light: #132f1b;
@@ -3258,6 +3350,7 @@
   --um-color-danger-text: #ff6b6b;
   --um-color-info-text: #578661;
   --um-color-primary-graphic: #39ff8a;
+  --um-focus-ring: #39ff8a;
   --um-color-success-graphic: #39ff8a;
   --um-color-warning-graphic: #c8ff5a;
   --um-color-danger-graphic: #ff6b6b;
@@ -3350,6 +3443,8 @@
   --um-text-placeholder: #9898ae;
   --um-surface-control: #ffffff;
   --um-text-disabled: #aaaabc;
+  --um-surface-control-blank: #ffffff;
+  --um-surface-input-blank: #ffffff;
   --um-surface-panel: #ffffff;
   --um-surface-table-header: #ffffff;
   --um-border-light: #c9d5ff;
@@ -3363,6 +3458,7 @@
   --um-color-danger-text: #c23d58;
   --um-color-info-text: #6a6a8a;
   --um-color-primary-graphic: #7b2ff7;
+  --um-focus-ring: #7b2ff7;
   --um-color-success-graphic: #02a047;
   --um-color-warning-graphic: #a28648;
   --um-color-danger-graphic: #f54a6a;
@@ -3455,6 +3551,8 @@
   --um-text-placeholder: #546e7d;
   --um-surface-control: #1e2832;
   --um-text-disabled: #4a5e6b;
+  --um-surface-control-blank: #273a47;
+  --um-surface-input-blank: #264150;
   --um-surface-panel: #112533;
   --um-surface-table-header: #283a47;
   --um-border-light: #1d2731;
@@ -3468,6 +3566,7 @@
   --um-color-danger-text: #fb7185;
   --um-color-info-text: #7f9fb0;
   --um-color-primary-graphic: #5eead4;
+  --um-focus-ring: #5eead4;
   --um-color-success-graphic: #4ade80;
   --um-color-warning-graphic: #fcd34d;
   --um-color-danger-graphic: #fb7185;

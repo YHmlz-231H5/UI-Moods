@@ -8,6 +8,14 @@
    rule, so the class list can name it. */
 .um-tree-select,
 .um-tree-select--plain {
+  /* The colour of the chips that show the choice. The type says which colour
+     they take and the effect says whether they are a tint, a solid fill or
+     an outline, so both are held in variables and one rule paints them. */
+  --um-tree-select-tag: var(--um-color-primary);
+  --um-tree-select-tag-on: var(--um-color-primary-on);
+  --um-tree-select-tag-soft: var(--um-color-primary-soft-8);
+  --um-tree-select-tag-soft-on: var(--um-color-primary-on-soft);
+
   padding: var(--um-space-xs);
   border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
   border-radius: var(--um-radius-base);
@@ -48,7 +56,7 @@
 }
 
 .um-tree-select__input:focus-visible + .um-tree-select__dot {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -182,4 +190,281 @@
 }
 .um-tree-select--show-checkbox .um-tree-select__dot::after {
   border-radius: var(--um-radius-small);
+}
+
+/* The arrow is not drawn when the tree says it is not there, so a branch
+   name stands at the same place as a leaf name. */
+.um-tree-select--no-arrow .um-tree-select__arrow {
+  display: none;
+}
+
+/* The current leaf — the one the reader is on — takes the highlight fill,
+   and only when the tree is told to mark it. */
+.um-tree-select--highlight-current .um-tree-select__option:has(input:focus) {
+  background: var(--um-fill-light);
+}
+
+/* The link between a branch and the leaf under it: a branch whose leaf is
+   picked takes the brand colour on its own mark, so the tree shows that the
+   two belong together. With the strict rule each mark stands on its own and
+   the link is not drawn. */
+.um-tree-select__node:has(> .um-tree-select__children input:checked) > .um-tree-select__option .um-tree-select__dot {
+  border-color: var(--um-color-primary);
+}
+
+.um-tree-select--check-strictly .um-tree-select__node:has(> .um-tree-select__children input:checked) > .um-tree-select__option .um-tree-select__dot {
+  border-color: var(--um-shape-muted);
+}
+
+/* The accordion: only the first open branch of a level shows what it holds,
+   so the level reads as one branch at a time. */
+.um-tree-select--accordion .um-tree-select__node[open] ~ .um-tree-select__node[open] > .um-tree-select__children {
+  display: none;
+}
+
+.um-tree-select--accordion .um-tree-select__node[open] ~ .um-tree-select__node[open] > .um-tree-select__option .um-tree-select__arrow::after {
+  transform: rotate(calc(45deg * var(--um-mirror)));
+}
+
+/* Every level is open: the level below a branch is drawn whether the branch
+   says it is open or not. */
+.um-tree-select--default-expand-all .um-tree-select__children {
+  display: block;
+}
+
+/* The parent of the branch the reader is on shows what it holds, whether it
+   is open or not: the branch knows it holds the current one because the
+   current one is inside it, and :has() is the only way CSS can ask. */
+.um-tree-select--auto-expand-parent .um-tree-select__node:has(> .um-tree-select__children .um-tree-select__node--current) > .um-tree-select__children {
+  display: block;
+}
+
+/* The field is the row above the tree: it holds what stands in front of the
+   control, the chips that show the choice, the field the host filters with
+   and the mark that clears the choice. It takes no room at all when the host
+   has asked for none of them: each of the things it holds is not drawn
+   unless its own class is on, so the row that holds them is not drawn
+   either — which is why the row carries no padding of its own. */
+.um-tree-select__field {
+  display: flex;
+  align-items: center;
+  gap: var(--um-space-xs);
+  padding-block-end: var(--um-space-xs);
+}
+
+/* The prefix stands in front of the control. It is the host's own mark, so
+   the library draws no glyph of its own. */
+.um-tree-select__prefix {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  color: var(--um-text-secondary);
+}
+
+.um-tree-select__prefix:empty {
+  display: none;
+}
+
+/* The chips that show the choice. They are the host's own values, so the
+   library paints them and the host fills them. */
+.um-tree-select__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--um-space-xs);
+}
+
+.um-tree-select__tags:not(:has(.um-tree-select__tag:not(:empty))) {
+  display: none;
+}
+
+.um-tree-select__tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 var(--um-space-xs);
+  border: var(--um-border-width) var(--um-border-style) var(--um-shape-muted);
+  border-radius: var(--um-radius-round);
+  background: var(--um-tree-select-tag-soft);
+  color: var(--um-tree-select-tag-soft-on);
+  font-size: var(--um-font-size-caption);
+}
+
+.um-tree-select__tag:empty {
+  display: none;
+}
+
+/* The type of the chip says which colour it takes. */
+.um-tree-select--tag-success {
+  --um-tree-select-tag: var(--um-color-success);
+  --um-tree-select-tag-on: var(--um-color-success-on);
+  --um-tree-select-tag-soft: var(--um-color-success-soft-8);
+  --um-tree-select-tag-soft-on: var(--um-color-success-on-soft);
+}
+.um-tree-select--tag-warning {
+  --um-tree-select-tag: var(--um-color-warning);
+  --um-tree-select-tag-on: var(--um-color-warning-on);
+  --um-tree-select-tag-soft: var(--um-color-warning-soft-8);
+  --um-tree-select-tag-soft-on: var(--um-color-warning-on-soft);
+}
+.um-tree-select--tag-danger {
+  --um-tree-select-tag: var(--um-color-danger);
+  --um-tree-select-tag-on: var(--um-color-danger-on);
+  --um-tree-select-tag-soft: var(--um-color-danger-soft-8);
+  --um-tree-select-tag-soft-on: var(--um-color-danger-on-soft);
+}
+.um-tree-select--tag-info {
+  --um-tree-select-tag: var(--um-color-info);
+  --um-tree-select-tag-on: var(--um-color-info-on);
+  --um-tree-select-tag-soft: var(--um-color-info-soft-8);
+  --um-tree-select-tag-soft-on: var(--um-color-info-on-soft);
+}
+
+/* The effect of the chip says how it is painted: a tint, a solid fill or an
+   outline with no fill at all. */
+.um-tree-select--tag-effect-dark .um-tree-select__tag {
+  border-color: var(--um-tree-select-tag);
+  background: var(--um-tree-select-tag);
+  color: var(--um-tree-select-tag-on);
+}
+
+.um-tree-select--tag-effect-plain .um-tree-select__tag {
+  border-color: var(--um-tree-select-tag);
+  background: transparent;
+  color: var(--um-tree-select-tag);
+}
+
+/* The chips are folded away: only the first of them is shown, so the field
+   keeps one line. How many were folded is the host's to say. */
+.um-tree-select--collapse-tags .um-tree-select__tag ~ .um-tree-select__tag {
+  display: none;
+}
+
+/* The filter is the field the host filters the tree with. It is a real search
+   field, so the filtering is the host's script and the library only draws
+   it. */
+.um-tree-select__filter {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: none;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--um-text-regular);
+  font: inherit;
+}
+
+.um-tree-select__filter::placeholder {
+  color: var(--um-text-placeholder);
+}
+
+.um-tree-select--filterable .um-tree-select__filter {
+  display: block;
+}
+
+/* The clear mark is a cross drawn from two bars, so it carries no text of its
+   own. It is a real button, so the keyboard can reach it. */
+.um-tree-select__clear {
+  position: relative;
+  flex: none;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--um-space-sm);
+  height: var(--um-space-sm);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--um-text-secondary);
+  cursor: pointer;
+}
+
+.um-tree-select--clearable .um-tree-select__clear {
+  display: inline-flex;
+}
+
+.um-tree-select__clear::before,
+.um-tree-select__clear::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  width: var(--um-space-xs);
+  height: var(--um-border-width);
+  background: currentColor;
+}
+.um-tree-select__clear::before { transform: translate(-50%, -50%) rotate(45deg); }
+.um-tree-select__clear::after { transform: translate(-50%, -50%) rotate(-45deg); }
+
+.um-tree-select__clear:hover {
+  color: var(--um-color-primary-text);
+}
+
+.um-tree-select__clear:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+/* The header and the footer stand above and below the tree. They take no
+   room at all when the host has nothing to put in them, so an empty one is
+   not a strip of nothing. */
+.um-tree-select__header,
+.um-tree-select__footer {
+  padding: var(--um-space-xs) 0;
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+
+.um-tree-select__header:empty,
+.um-tree-select__footer:empty {
+  display: none;
+}
+
+/* What the level below says when it holds nothing at all. */
+.um-tree-select__empty {
+  padding: var(--um-space-sm) 0;
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+
+.um-tree-select__empty:empty {
+  display: none;
+}
+
+/* The loading message takes the place of the tree while the data is on its
+   way. */
+.um-tree-select__loading {
+  display: none;
+  padding: var(--um-space-sm) 0;
+  color: var(--um-text-secondary);
+  font-size: var(--um-font-size-caption);
+}
+
+.um-tree-select--loading .um-tree-select__loading {
+  display: block;
+}
+
+/* The effect says how the component's own surface is painted. The dark
+   effect fills it with the brand colour; the plain effect drops the frame
+   and the fill. */
+.um-tree-select--effect-dark {
+  border-color: var(--um-color-primary);
+  background: var(--um-color-primary);
+  color: var(--um-color-primary-on);
+}
+
+.um-tree-select--effect-plain {
+  border-color: transparent;
+  background: transparent;
+}
+
+/* The tree takes the width of the component it stands in rather than the
+   width its own names ask for. */
+.um-tree-select--fit-input-width .um-tree-select__node {
+  width: 100%;
+}
+
+/* The ring goes inside the option, the way the ring on a tree row goes
+   inside it: an outside ring would be cut off by the next branch. */
+.um-tree-select__option:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: calc(-1 * var(--um-focus-ring-width));
 }

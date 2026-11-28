@@ -28,6 +28,7 @@
     { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": "[aria-disabled=\"true\"]", "note": "A day that cannot be picked. Its number takes the derived disabled colour, the way every other disabled control in the library dims. The state is aria-disabled rather than a class of its own: a grid cell has no disabled attribute, so the reader is told the day cannot be picked the way um-link is told, and the way the WAI-ARIA date picker grid marks a date that is not available." }
   ],
   "parts": [
+    { "id": "caption", "name": "Caption", "nameZh": "标题", "note": "The heading of the panel, above the weekday names. It is empty unless the caller writes one, and an empty element would still open a gap in the panel, so it takes no room when it says nothing." },
     { "id": "header", "name": "Header", "nameZh": "星期栏", "note": "The row of weekday names. It is a grid row, so it lines up with the days under it." },
     { "id": "weekday", "name": "Weekday", "nameZh": "星期", "note": "One weekday name. It is a column header, so the browser says which column a day belongs to." },
     { "id": "grid", "name": "Grid", "nameZh": "日期区", "note": "The days. It is a grid of seven columns, one column per weekday." },
@@ -42,10 +43,12 @@
     { "name": "weekdays", "type": "string", "default": "Mon,Tue,Wed,Thu,Fri,Sat,Sun", "description": "The seven column names, separated by commas. They are written out rather than derived, so a month can start on Monday or on Sunday, and so a host can name the columns in its own language.", "descriptionZh": "七列的名字,用逗号分开。它们是写下来的而不是算出来的,所以一周可以从星期一开始,也可以从星期日开始,宿主也能用自己的语言写这七个名字。" },
     { "name": "today", "type": "string", "default": "2026-11-28", "description": "The date that is today, written as YYYY-MM-DD. The day it names takes the today marker.", "descriptionZh": "今天是哪一天,写成 YYYY-MM-DD。被指到的那一天会带上今天的标记。" },
     { "name": "selected", "type": "string", "default": "2026-11-20", "description": "The date the reader has picked, written as YYYY-MM-DD. The day it names takes the selected marker.", "descriptionZh": "读者选中的那一天,写成 YYYY-MM-DD。被指到的那一天会带上选中的标记。" },
+    { "name": "model-value", "type": "string", "since": "1.1.0", "description": "The bound date. It answers to `v-model` as well as to `selected`, and the binding wins when it is there.", "descriptionZh": "绑定的日期。它和 `selected` 一样能接 `v-model`,而且绑定在的时候以绑定为准。" },
     { "name": "disabled", "type": "string", "default": "2026-11-05,2026-11-06", "description": "The dates that cannot be picked, written as YYYY-MM-DD and separated by commas. The days they name are marked with aria-disabled, so the reader is told they cannot be picked.", "descriptionZh": "不能选的几天,写成 YYYY-MM-DD,中间用逗号分开。被指到的那些天会带上 aria-disabled,所以读屏会知道它们选不了。" }
   ],
   "slots": [
-    { "name": "date-cell", "description": "The content of one day of the grid. It is written instead of the day number, and it is given the date it belongs to.", "descriptionZh": "网格里某一天的内容。它写在日号的位置上,并且会拿到它属于的那一天。" }
+    { "name": "date-cell", "description": "The content of one day of the grid. It is written instead of the day number, and it is given the date it belongs to.", "descriptionZh": "网格里某一天的内容。它写在日号的位置上,并且会拿到它属于的那一天。" },
+    { "name": "header", "description": "The heading of the panel, above the weekday names. It is the caller's, because the month and the way it is named are the caller's too — the grid only draws the days.", "descriptionZh": "面板的标题,写在星期名上面。它归调用方所有,因为显示哪个月、怎么称呼它也归调用方 —— 网格只负责画日子。" }
   ],
   "events": [],
   "a11y": {

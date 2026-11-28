@@ -33,6 +33,9 @@ export const UMInputNumber = defineComponent({
     disabled: { type: Boolean, default: false },
     modelValue: { type: Number, default: undefined },
     readonly: { type: Boolean, default: false },
+    align: { type: String, default: "center" },
+    placeholder: { type: String, default: "" },
+    size: { type: String, default: "medium" },
   },
 
   emits: ["change", "update:modelValue"],
@@ -52,6 +55,12 @@ export const UMInputNumber = defineComponent({
           class: [
             "um-input-number",
             props.controlsPosition !== "right" ? `um-input-number--${props.controlsPosition}` : "",
+            // The medium size is the base class itself, so it needs no
+            // modifier — a class the stylesheet does not have paints nothing.
+            props.size !== "medium" ? `um-input-number--${props.size}` : null,
+            // The centred number is the base class on its own; the other two
+            // ends are the runs that move it.
+            props.align !== "center" ? `um-input-number--align-${props.align}` : null,
           ],
         },
         [
@@ -68,6 +77,7 @@ export const UMInputNumber = defineComponent({
               min: props.min,
               max: props.max,
               step: props.step,
+              placeholder: props.placeholder || undefined,
               disabled: props.disabled || undefined,
               readonly: props.readonly || undefined,
               "aria-label": label.value,

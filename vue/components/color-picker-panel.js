@@ -10,6 +10,7 @@
 // carries no colour literal of its own.
 
 import { defineComponent, h, useId } from "vue";
+import { modelValue } from "../lib/model.mjs";
 
 /** The theme's named colours, in the order the panel offers them. */
 const HUES = ["primary", "success", "warning", "danger", "info"];
@@ -45,6 +46,7 @@ export const UMColorPickerPanel = defineComponent({
     },
     hue: { type: String, default: "primary" },
     value: { type: String, default: "#2f6feb" },
+    modelValue: { type: String, default: undefined },
     showPreview: { type: Boolean, default: true },
     disabled: { type: Boolean, default: false },
   },
@@ -82,7 +84,7 @@ export const UMColorPickerPanel = defineComponent({
                       type: "radio",
                       name: predefineName,
                       value: entry.colour,
-                      checked: entry.colour === props.value,
+                      checked: entry.colour === modelValue(props, props.value),
                       disabled: props.disabled,
                       "aria-label": entry.name,
                       onChange: (e) => emit("change", e),
@@ -116,7 +118,7 @@ export const UMColorPickerPanel = defineComponent({
               h("input", {
                 class: "um-color-picker-panel__input",
                 type: "text",
-                value: props.value || undefined,
+                value: modelValue(props, props.value) || undefined,
                 maxlength: 7,
                 spellcheck: false,
                 disabled: props.disabled,
@@ -126,7 +128,7 @@ export const UMColorPickerPanel = defineComponent({
               props.showPreview
                 ? h("span", {
                     class: "um-color-picker-panel__preview",
-                    style: { "--um-color-picker-panel-swatch": props.value },
+                    style: { "--um-color-picker-panel-swatch": modelValue(props, props.value) },
                   })
                 : null,
             ]),

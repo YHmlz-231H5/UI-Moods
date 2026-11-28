@@ -291,6 +291,8 @@
       <tr><td><code>.um-layout--align-start</code></td><td>Aligned to the start</td></tr>
       <tr><td><code>.um-layout--align-center</code></td><td>Aligned to the centre</td></tr>
       <tr><td><code>.um-layout--align-end</code></td><td>Aligned to the end</td></tr>
+      <tr><td><code>.um-layout--pull</code></td><td>Pulled back</td></tr>
+      <tr><td><code>.um-layout--push</code></td><td>Pushed along</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -300,6 +302,8 @@
       <tr><td><span class="api__name"><code>direction</code></span></td><td><code>enum = horizontal | stacked</code></td><td><code>horizontal</code></td><td>Whether the side column stands beside the content or above it. The horizontal form is the base class on its own; the stacked form adds um-layout--stacked.</td></tr>
       <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The width of the side column.</td></tr>
       <tr><td><span class="api__name"><code>align</code></span></td><td><code>enum = start | center | end | stretch</code></td><td><code>stretch</code></td><td>How the side column and the content stand against each other across the row. The stretched row needs no modifier class.</td></tr>
+      <tr><td><span class="api__name"><code>pull</code></span></td><td><code>number</code></td><td><code>0</code></td><td>How far the layout is pulled back from the end of its row, counted in steps of the mood's own spacing. A number cannot be a class, so it travels as the custom property the stylesheet reads; the class says that the layout is pulled at all.</td></tr>
+      <tr><td><span class="api__name"><code>push</code></span></td><td><code>number</code></td><td><code>0</code></td><td>How far the layout is pushed along its row, away from the start, counted in steps of the mood's own spacing. A number cannot be a class, so it travels as the custom property the stylesheet reads; the class says that the layout is pushed at all.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>

@@ -27,7 +27,8 @@
     { "id": "fit-cover", "name": "Fit cover", "nameZh": "裁剪填满", "selector": ".um-avatar--cover", "note": "The photo fills the box and the edges that do not fit are cut off." },
     { "id": "fit-contain", "name": "Fit contain", "nameZh": "完整显示", "selector": ".um-avatar--contain", "note": "The whole photo fits inside the box, and the box keeps whatever is left over." },
     { "id": "fit-fill", "name": "Fit fill", "nameZh": "拉伸填满", "selector": ".um-avatar--fill", "note": "The photo is stretched to the box, so it takes the box's shape and loses its own." },
-    { "id": "collapsed", "name": "Collapsed", "nameZh": "收起", "selector": ".um-avatar--collapsed", "note": "The avatar stands in for the ones that did not fit, so it carries a count rather than a face." }
+    { "id": "collapsed", "name": "Collapsed", "nameZh": "收起", "selector": ".um-avatar--collapsed", "note": "The avatar stands in for the ones that did not fit, so it carries a count rather than a face." },
+    { "id": "effect-dark", "name": "Dark effect", "nameZh": "深色", "selector": ".um-avatar--dark", "note": "The avatar is filled with the mood's strong text colour and the initials on it take the plain surface, the way a dark tag is filled." }
   ],
   "parts": [
     { "id": "image", "name": "Image", "nameZh": "图片", "note": "The photo. It is an img element, and it is cropped to the shape of the avatar." },
@@ -38,7 +39,8 @@
     { "name": "size", "type": "enum", "values": ["sm", "md", "lg", "xl"], "default": "md", "description": "The width and height of the box, and the size of the initials in it.", "descriptionZh": "盒子的宽和高,以及里面首字母缩写的大小。" },
     { "name": "alt", "type": "string", "description": "The alternative text of the photo. Leave it empty when the name is already written next to the avatar.", "descriptionZh": "照片的替代文字。如果名字已经写在头像旁边,就留空。" },
     { "name": "fit", "type": "enum", "values": ["cover", "contain", "fill"], "default": "cover", "since": "1.1.0", "description": "How the photo fills the avatar. The cover run is the base class on its own.", "descriptionZh": "照片怎么填满头像。裁剪填满就是只写基类。" },
-    { "name": "collapse-avatars", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Makes this avatar the one that stands in for the avatars that did not fit, so it carries their count instead of a face.", "descriptionZh": "让这个头像替那些没放下的头像占位,它带的是它们的计数,不是一张脸。" }
+    { "name": "collapse-avatars", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Makes this avatar the one that stands in for the avatars that did not fit, so it carries their count instead of a face.", "descriptionZh": "让这个头像替那些没放下的头像占位,它带的是它们的计数,不是一张脸。" },
+    { "name": "effect", "type": "enum", "values": ["light", "dark"], "default": "light", "since": "1.1.0", "description": "How the avatar is filled when there is no photo in it. The light run is the base class on its own; the dark run fills the avatar with the mood's strong text colour and puts the initials on it in the plain surface.", "descriptionZh": "头像里没有照片时它是怎么填的。浅色是只写基类;深色用这套 mood 的强文字色填满头像,首字母缩写则用平面的底色写上去。" }
   ],
   "slots": [
     { "name": "default", "description": "The initials of the person. They stand in for the photo when there is none.", "descriptionZh": "这个人的首字母缩写。没有照片时是它顶上。" },

@@ -20,7 +20,8 @@
   ],
   "states": [
     {"id":"focus-visible","name":"Focus visible","nameZh":"键盘聚焦","selector":":focus-visible","native":true,"note":"The ring goes on the scrolling box, inside the frame: an outside ring would be cut off by the frame that holds it."},
-    {"id":"scrollbar-always-on","name":"Scrollbar always on","nameZh":"常驻滚动条","selector":".um-virtual-table--scrollbar-always-on","note":"The scrolling box keeps its scrollbar whether the list needs one or not, so the rows do not move sideways as the list grows."}
+    {"id":"scrollbar-always-on","name":"Scrollbar always on","nameZh":"常驻滚动条","selector":".um-virtual-table--scrollbar-always-on","note":"The scrolling box keeps its scrollbar whether the list needs one or not, so the rows do not move sideways as the list grows."},
+    {"id":"fixed","name":"Fixed first column","nameZh":"固定首列","selector":".um-virtual-table--fixed","note":"The first column stays where it is while the rest of the row scrolls sideways. It brings its own surface, so the cells that scroll under it do not show through it."}
   ],
   "parts": [
     {"id":"scroller","name":"Scroller","nameZh":"滚动区","note":"The box that scrolls. It carries the overflow and the surface, and the host gives it a height, because a box that is not given one never scrolls."},
@@ -40,7 +41,8 @@
     {"name":"columns","type":"string","default":"Node, Build, State","description":"The column names, separated by commas.","descriptionZh":"列名,用逗号分开。"},
     {"name":"height","type":"string","default":"16em","description":"How tall the scrolling box is. The library cannot guess it: a box that is not given a height never scrolls, because its content is what gives it one.","descriptionZh":"滚动区有多高。库猜不出来:没给高度的盒子不会滚,因为给它高度的是它自己的内容。"},
     {"name":"empty","type":"boolean","default":"false","description":"That there is nothing to show. The body says so instead of writing the rows.","descriptionZh":"表示没有内容可显示。表体就说这件事,而不是把那些行写出来。"},
-    {"name":"scrollbar-always-on","type":"boolean","default":"false","since":"1.1.0","description":"Whether the scrolling box keeps its scrollbar whether the list needs one or not, so the rows do not move sideways as the list grows. It adds um-virtual-table--scrollbar-always-on.","descriptionZh":"滚动区是否一直留着滚动条,不管这份清单用不用得上,这样清单变长时行不会横向挪动。它加上 um-virtual-table--scrollbar-always-on。"}
+    {"name":"scrollbar-always-on","type":"boolean","default":"false","since":"1.1.0","description":"Whether the scrolling box keeps its scrollbar whether the list needs one or not, so the rows do not move sideways as the list grows. It adds um-virtual-table--scrollbar-always-on.","descriptionZh":"滚动区是否一直留着滚动条,不管这份清单用不用得上,这样清单变长时行不会横向挪动。它加上 um-virtual-table--scrollbar-always-on。"},
+    {"name":"fixed","type":"boolean","default":"false","since":"1.1.0","description":"Whether the first column stays where it is while the rest of the row scrolls sideways. The cell brings its own surface, so the cells that scroll under it do not show through it. It adds um-virtual-table--fixed.","descriptionZh":"第一列是否固定在原处,其余的列横向滚动。这一格带着自己的底色,所以从它下面滚过去的格子不会透出来。它加上 um-virtual-table--fixed。"}
   ],
   "slots": [
     {"name":"header","description":"What stands in the row of column names. It is given the column names.","descriptionZh":"列名那一行里放什么。它拿到的是列名本身。"},

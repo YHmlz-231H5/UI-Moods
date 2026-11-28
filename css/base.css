@@ -46,6 +46,14 @@
 
 /* --- shared ---------------------------------------------------------------
    One focus treatment for every focusable component.
+
+   The ring is painted in the focus-ring role rather than in the brand colour.
+   A ring is a shape, so it is held to the 3:1 WCAG asks of a graphic — and it
+   lands on more surfaces than any other shape in the library: the page, a
+   container, a floating overlay, the inside of a text field. The brand colour
+   is a fill, and a fill is not readable as a ring: the brutal mood's accent
+   is a bright yellow on a light page, and a ring painted in it is a ring
+   nobody can see.
    ------------------------------------------------------------------------ */
 .um-focusable:focus-visible,
 .um-button:focus-visible,
@@ -56,7 +64,7 @@
 .um-checkbox__input:focus-visible + .um-checkbox__box,
 .um-radio__input:focus-visible + .um-radio__dot,
 .um-slider:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 

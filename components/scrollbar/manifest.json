@@ -51,7 +51,7 @@
       "titleZh": "实底轨道",
       "description": "A list in a box that is shorter than the list. The track is painted, so the bar sits in a channel of its own. The box is given a height, because a box that is not given one never scrolls.",
       "descriptionZh": "一列东西放在一个比它矮的盒子里。轨道画了底色,所以滚动条待在自己的一道槽里。盒子给了高度,因为没给高度的盒子是不会滚的。",
-      "markup": "<div class=\"um-scrollbar um-scrollbar--solid\">\n  <div class=\"um-scrollbar__wrap\" tabindex=\"0\" style=\"height: 10em;\">\n    <div class=\"um-scrollbar__view\">\n      <p>Inbox</p>\n      <p>Drafts</p>\n      <p>Sent</p>\n      <p>Archive</p>\n      <p>Spam</p>\n      <p>Trash</p>\n      <p>Scheduled</p>\n      <p>Outbox</p>\n    </div>\n  </div>\n</div>"
+      "markup": "<div class=\"um-scrollbar um-scrollbar--solid\">\n  <div class=\"um-scrollbar__wrap\" tabindex=\"0\" style=\"height: 10em;\" aria-label=\"Scrollable region\">\n    <div class=\"um-scrollbar__view\">\n      <p>Inbox</p>\n      <p>Drafts</p>\n      <p>Sent</p>\n      <p>Archive</p>\n      <p>Spam</p>\n      <p>Trash</p>\n      <p>Scheduled</p>\n      <p>Outbox</p>\n    </div>\n  </div>\n</div>"
     },
     {
       "id": "ghost",
@@ -59,7 +59,7 @@
       "titleZh": "透明轨道",
       "description": "The same box with the track left unpainted: only the thumb is drawn, so the content is not framed by a box. The thumb comes forward on hover.",
       "descriptionZh": "同一个盒子,轨道不画底色:只画滑块,所以内容没有被一个框框住。鼠标移上去的时候滑块会亮一点。",
-      "markup": "<div class=\"um-scrollbar um-scrollbar--ghost\">\n  <div class=\"um-scrollbar__wrap\" tabindex=\"0\" style=\"height: 8em;\">\n    <div class=\"um-scrollbar__view\">\n      <p>Drafts</p>\n      <p>Sent</p>\n      <p>Archive</p>\n      <p>Spam</p>\n      <p>Trash</p>\n      <p>Scheduled</p>\n    </div>\n  </div>\n</div>"
+      "markup": "<div class=\"um-scrollbar um-scrollbar--ghost\">\n  <div class=\"um-scrollbar__wrap\" tabindex=\"0\" style=\"height: 8em;\" aria-label=\"Scrollable region\">\n    <div class=\"um-scrollbar__view\">\n      <p>Drafts</p>\n      <p>Sent</p>\n      <p>Archive</p>\n      <p>Spam</p>\n      <p>Trash</p>\n      <p>Scheduled</p>\n    </div>\n  </div>\n</div>"
     }
   ],
   "notes": "The frame paints the line and clips the corners; it paints no surface, because a fill here would put the scrollbar's own track on top of a second layer of the same translucent colour, and the colour under the bar would then be one that no role names. The scrollbar is drawn twice over, once for the WebKit engines with ::-webkit-scrollbar and once for Firefox with scrollbar-color, because the two engines do not share a way of painting it. The thickness is a component constant rather than a mood's spacing step: a scrollbar that is 28 pixels wide because the theme's section gap is 28 pixels is not a scrollbar.",

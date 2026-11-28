@@ -442,6 +442,7 @@
       <tr><td><code>um-calendar--sm</code></td><td>Size: sm</td></tr>
       <tr><td><code>um-calendar--md</code></td><td>Size: md</td></tr>
       <tr><td><code>um-calendar--lg</code></td><td>Size: lg</td></tr>
+      <tr><td><code>um-calendar__caption</code></td><td>Caption</td></tr>
       <tr><td><code>um-calendar__header</code></td><td>Header</td></tr>
       <tr><td><code>um-calendar__weekday</code></td><td>Weekday</td></tr>
       <tr><td><code>um-calendar__grid</code></td><td>Grid</td></tr>
@@ -463,6 +464,7 @@
       <tr><td><span class="api__name"><code>weekdays</code></span></td><td><code>string</code></td><td><code>Mon,Tue,Wed,Thu,Fri,Sat,Sun</code></td><td>The seven column names, separated by commas. They are written out rather than derived, so a month can start on Monday or on Sunday, and so a host can name the columns in its own language.</td></tr>
       <tr><td><span class="api__name"><code>today</code></span></td><td><code>string</code></td><td><code>2026-11-28</code></td><td>The date that is today, written as YYYY-MM-DD. The day it names takes the today marker.</td></tr>
       <tr><td><span class="api__name"><code>selected</code></span></td><td><code>string</code></td><td><code>2026-11-20</code></td><td>The date the reader has picked, written as YYYY-MM-DD. The day it names takes the selected marker.</td></tr>
+      <tr><td><span class="api__name"><code>model-value</code></span></td><td><code>string</code></td><td>—</td><td>The bound date. It answers to `v-model` as well as to `selected`, and the binding wins when it is there.</td></tr>
       <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>string</code></td><td><code>2026-11-05,2026-11-06</code></td><td>The dates that cannot be picked, written as YYYY-MM-DD and separated by commas. The days they name are marked with aria-disabled, so the reader is told they cannot be picked.</td></tr>
       </tbody>
     </table>
@@ -471,6 +473,7 @@
       <thead><tr><th>Name</th><th>Description</th></tr></thead>
       <tbody>
       <tr><td><span class="api__name"><code>date-cell</code></span></td><td>The content of one day of the grid. It is written instead of the day number, and it is given the date it belongs to.</td></tr>
+      <tr><td><span class="api__name"><code>header</code></span></td><td>The heading of the panel, above the weekday names. It is the caller's, because the month and the way it is named are the caller's too — the grid only draws the days.</td></tr>
       </tbody>
     </table>
 

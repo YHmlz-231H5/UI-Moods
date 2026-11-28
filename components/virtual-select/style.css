@@ -17,7 +17,17 @@
 .um-virtual-select {
   --um-virtual-select-row-size: var(--um-height-md);
   --um-virtual-select-height: 12em;
-  display: inline-block;
+
+  /* The colour of the chips that show the choice. The type says which colour
+     they take and the effect says whether they are a tint, a solid fill or
+     an outline, so both are held in variables and one rule paints them. */
+  --um-virtual-select-tag: var(--um-color-primary);
+  --um-virtual-select-tag-on: var(--um-color-primary-on);
+  --um-virtual-select-tag-soft: var(--um-color-primary-soft-8);
+  --um-virtual-select-tag-soft-on: var(--um-color-primary-on-soft);
+
+  display: inline-flex;
+  flex-direction: column;
   /* The list has a width of its own, because a row that the browser has not
      laid out yet has no width to be measured with: the list would shrink to
      the placeholder and the words would spill out of it. */
@@ -43,12 +53,17 @@
 }
 
 /* The bordered run frames the list. The plain run lets it sit straight on
-   the page. */
-.um-virtual-select .um-virtual-select__scroller,
-.um-virtual-select--bordered .um-virtual-select__scroller {
+   the page. The frame is the whole component's, so the field above the list
+   is inside it as well. */
+.um-virtual-select--bordered {
   border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
   border-radius: var(--um-radius-base);
   background: var(--um-bg-overlay);
+  overflow: hidden;
+}
+
+.um-virtual-select--bordered .um-virtual-select__scroller {
+  background: transparent;
 }
 
 .um-virtual-select--plain .um-virtual-select__scroller {
@@ -120,7 +135,7 @@
 /* The ring goes inside the row, the way the ring on a button in a row goes
    inside it: an outside ring would be cut off by the scroller. */
 .um-virtual-select__option:has(input:focus-visible) .um-virtual-select__label {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: calc(-1 * var(--um-focus-ring-width));
 }
 
@@ -174,4 +189,205 @@
   padding: var(--um-space-lg) var(--um-space-sm);
   color: var(--um-text-secondary);
   text-align: center;
+}
+
+/* The field is the row above the list: it holds what stands in front of the
+   control, the chips that show the choice, the field the host filters with
+   and the mark that clears the choice. It takes no room at all when the host
+   has asked for none of them: each of the things it holds is not drawn
+   unless its own class is on, so the row that holds them is not drawn
+   either — which is why the row carries no padding of its own. */
+.um-virtual-select__field {
+  display: flex;
+  align-items: center;
+  gap: var(--um-space-xs);
+  padding: 0 var(--um-space-sm);
+}
+
+/* The prefix stands in front of the control. It is the host's own mark, so
+   the library draws no glyph of its own. */
+.um-virtual-select__prefix {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  padding: var(--um-space-xs) 0;
+  color: var(--um-text-secondary);
+}
+
+.um-virtual-select__prefix:empty {
+  display: none;
+}
+
+/* The chips that show the choice. They are the host's own values, so the
+   library paints them and the host fills them. */
+.um-virtual-select__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--um-space-xs);
+  padding: var(--um-space-xs) 0;
+}
+
+.um-virtual-select__tags:not(:has(.um-virtual-select__tag:not(:empty))) {
+  display: none;
+}
+
+.um-virtual-select__tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 var(--um-space-xs);
+  border: var(--um-border-width) var(--um-border-style) var(--um-shape-muted);
+  border-radius: var(--um-radius-round);
+  background: var(--um-virtual-select-tag-soft);
+  color: var(--um-virtual-select-tag-soft-on);
+  font-size: var(--um-font-size-caption);
+}
+
+.um-virtual-select__tag:empty {
+  display: none;
+}
+
+/* The type of the chip says which colour it takes. */
+.um-virtual-select--tag-success {
+  --um-virtual-select-tag: var(--um-color-success);
+  --um-virtual-select-tag-on: var(--um-color-success-on);
+  --um-virtual-select-tag-soft: var(--um-color-success-soft-8);
+  --um-virtual-select-tag-soft-on: var(--um-color-success-on-soft);
+}
+.um-virtual-select--tag-warning {
+  --um-virtual-select-tag: var(--um-color-warning);
+  --um-virtual-select-tag-on: var(--um-color-warning-on);
+  --um-virtual-select-tag-soft: var(--um-color-warning-soft-8);
+  --um-virtual-select-tag-soft-on: var(--um-color-warning-on-soft);
+}
+.um-virtual-select--tag-danger {
+  --um-virtual-select-tag: var(--um-color-danger);
+  --um-virtual-select-tag-on: var(--um-color-danger-on);
+  --um-virtual-select-tag-soft: var(--um-color-danger-soft-8);
+  --um-virtual-select-tag-soft-on: var(--um-color-danger-on-soft);
+}
+.um-virtual-select--tag-info {
+  --um-virtual-select-tag: var(--um-color-info);
+  --um-virtual-select-tag-on: var(--um-color-info-on);
+  --um-virtual-select-tag-soft: var(--um-color-info-soft-8);
+  --um-virtual-select-tag-soft-on: var(--um-color-info-on-soft);
+}
+
+/* The effect of the chip says how it is painted: a tint, a solid fill or an
+   outline with no fill at all. */
+.um-virtual-select--tag-effect-dark .um-virtual-select__tag {
+  border-color: var(--um-virtual-select-tag);
+  background: var(--um-virtual-select-tag);
+  color: var(--um-virtual-select-tag-on);
+}
+
+.um-virtual-select--tag-effect-plain .um-virtual-select__tag {
+  border-color: var(--um-virtual-select-tag);
+  background: transparent;
+  color: var(--um-virtual-select-tag);
+}
+
+/* The chips are folded away: only the first of them is shown, so the field
+   keeps one line. How many were folded is the host's to say. */
+.um-virtual-select--collapse-tags .um-virtual-select__tag ~ .um-virtual-select__tag {
+  display: none;
+}
+
+/* The filter is the field the host filters the list with. It is a real
+   search field, so the filtering is the host's script and the library only
+   draws it. */
+.um-virtual-select__filter {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: none;
+  padding: var(--um-space-xs) 0;
+  border: 0;
+  background: transparent;
+  color: var(--um-text-regular);
+  font: inherit;
+}
+
+.um-virtual-select__filter::placeholder {
+  color: var(--um-text-placeholder);
+}
+
+.um-virtual-select--filterable .um-virtual-select__filter {
+  display: block;
+}
+
+/* The clear mark is a cross drawn from two bars, so it carries no text of its
+   own. It is a real button, so the keyboard can reach it. */
+.um-virtual-select__clear {
+  position: relative;
+  flex: none;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--um-space-sm);
+  height: var(--um-space-sm);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--um-text-secondary);
+  cursor: pointer;
+}
+
+.um-virtual-select--clearable .um-virtual-select__clear {
+  display: inline-flex;
+}
+
+.um-virtual-select__clear::before,
+.um-virtual-select__clear::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  width: var(--um-space-xs);
+  height: var(--um-border-width);
+  background: currentColor;
+}
+.um-virtual-select__clear::before { transform: translate(-50%, -50%) rotate(45deg); }
+.um-virtual-select__clear::after { transform: translate(-50%, -50%) rotate(-45deg); }
+
+.um-virtual-select__clear:hover {
+  color: var(--um-color-primary-text);
+}
+
+.um-virtual-select__clear:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
+/* The loading message takes the place of the list while the data is on its
+   way. It is not drawn at all when nothing is loading, so it is never a
+   strip of nothing under the list. */
+.um-virtual-select__loading {
+  display: none;
+  padding: var(--um-space-lg) var(--um-space-sm);
+  color: var(--um-text-secondary);
+  text-align: center;
+}
+
+.um-virtual-select--loading .um-virtual-select__loading {
+  display: block;
+}
+
+/* The effect says how the component's own surface is painted. The dark
+   effect fills it with the brand colour; the plain effect drops the frame
+   and the fill. */
+.um-virtual-select--effect-dark {
+  border-color: var(--um-color-primary);
+  background: var(--um-color-primary);
+  color: var(--um-color-primary-on);
+}
+
+.um-virtual-select--effect-plain {
+  border-color: transparent;
+  background: transparent;
+}
+
+/* The list takes the width of the component it stands in rather than the
+   width its own words ask for, so a list of long names is not wider than the
+   field above it. */
+.um-virtual-select--fit-input-width .um-virtual-select__scroller {
+  width: 100%;
 }

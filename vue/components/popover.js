@@ -23,6 +23,8 @@ export const UMPopover = defineComponent({
     disabled: { type: Boolean, default: false },
     enterable: { type: Boolean, default: true },
     visible: { type: Boolean, default: false },
+    effect: { type: String, default: "light" },
+    showArrow: { type: Boolean, default: true },
   },
   emits: ["toggle"],
   setup(props, { slots, emit }) {
@@ -40,6 +42,9 @@ export const UMPopover = defineComponent({
             WIDTHS.includes(props.width) ? `um-popover--${props.width}` : null,
             props.disabled ? "um-popover--disabled" : null,
             props.enterable ? null : "um-popover--not-enterable",
+            // The light card is the base class on its own.
+            props.effect === "dark" ? "um-popover--dark" : null,
+            props.showArrow ? null : "um-popover--no-arrow",
           ],
           // The open attribute is the browser's own: the card is open when
           // the host asks for it to be.
@@ -53,6 +58,9 @@ export const UMPopover = defineComponent({
             slots.reference ? slots.reference() : slots.default ? slots.default() : [],
           ),
           h("div", { class: "um-popover__content" }, [
+            // The point that ties the card to its trigger. It is a shape the
+            // stylesheet paints, not a glyph the host has to supply.
+            h("span", { class: "um-popover__arrow", "aria-hidden": "true" }),
             h("div", { class: "um-popover__header", hidden: !hasContent(header) }, header),
             h("div", { class: "um-popover__body", hidden: !hasContent(body) }, body),
             h("div", { class: "um-popover__footer", hidden: !hasContent(footer) }, footer),

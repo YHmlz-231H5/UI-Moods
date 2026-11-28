@@ -89,6 +89,8 @@
   --um-text-placeholder: #9c9c9a;
   --um-surface-control: #faf9f6;
   --um-text-disabled: #afafad;
+  --um-surface-control-blank: #faf9f6;
+  --um-surface-input-blank: #faf9f6;
   --um-surface-panel: #f6f4f0;
   --um-surface-table-header: #faf9f6;
   --um-border-light: #e6e2da;
@@ -102,6 +104,7 @@
   --um-color-danger-text: #a04040;
   --um-color-info-text: #70706f;
   --um-color-primary-graphic: #1a1a18;
+  --um-focus-ring: #1a1a18;
   --um-color-success-graphic: #3a5a40;
   --um-color-warning-graphic: #8a6a30;
   --um-color-danger-graphic: #a04040;

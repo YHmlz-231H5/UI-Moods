@@ -79,3 +79,12 @@
   padding-bottom: var(--um-space-md);
   border-bottom: var(--um-border-width) var(--um-border-style) var(--um-border-lighter);
 }
+
+/* The actions area gives a button that arrives without a class of its own a
+   shape, so the block reads as one row of actions. The same button gets the
+   library's focus ring, for the same reason: the block is the library's, so
+   the focus treatment is too. */
+:where(.um-page-header__actions button):focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
+}

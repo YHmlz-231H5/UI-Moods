@@ -72,6 +72,13 @@
       "nameZh": "显示分值",
       "selector": ".um-rate--show-score",
       "note": "The number of the score is written beside the stars."
+    },
+    {
+      "id": "show-text",
+      "name": "Show text",
+      "nameZh": "显示文字",
+      "selector": ".um-rate--show-text",
+      "note": "The words beside the stars. The number of the score is written beside them; the text says the same thing in a phrase."
     }
   ],
   "parts": [
@@ -104,6 +111,12 @@
       "name": "Score",
       "nameZh": "分值",
       "note": "The number beside the stars. It is in the markup either way, and it only shows in the show-score state."
+    },
+    {
+      "id": "text",
+      "name": "Text",
+      "nameZh": "文字",
+      "note": "The words beside the stars. It is in the markup either way, and it only shows in the show-text state."
     }
   ],
   "props": [
@@ -157,6 +170,14 @@
       "since": "1.1.0",
       "description": "Writes the score beside the stars, so the number is written down and not only counted.",
       "descriptionZh": "把分值写在星星旁边,让这个数字被写出来,而不只是被数出来。"
+    },
+    {
+      "name": "show-text",
+      "type": "boolean",
+      "default": "false",
+      "since": "1.1.0",
+      "description": "Writes the score beside the stars as words rather than as a bare number. The library has no list of its own, so the wrapper writes the score as a plain phrase; a caller who writes the markup writes the words they want.",
+      "descriptionZh": "把分值以文字而不是光秃秃的数字写在星星旁边。库里没有自己的词表,所以包装组件写的是一句朴素的话;自己写标记的人,写的是自己想要的词。"
     }
   ],
   "slots": [],

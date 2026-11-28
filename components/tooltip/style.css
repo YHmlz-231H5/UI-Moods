@@ -27,7 +27,7 @@
   cursor: pointer;
 }
 .um-tooltip__trigger:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -146,4 +146,17 @@
    facing is not drawn. */
 .um-tooltip.um-tooltip--no-arrow .um-tooltip__arrow {
   display: none;
+}
+
+/* The dark run: the bubble is filled with the mood's strong text colour and
+   the words on it take the plain surface, the way a dark tag is filled. The
+   border stays the mood's own, so the frame of the bubble does not change —
+   and the arrow takes the bubble's new surface, so the two still read as one
+   shape. */
+.um-tooltip.um-tooltip--dark .um-tooltip__content {
+  background: var(--um-text-primary);
+  color: var(--um-fill-blank);
+}
+.um-tooltip.um-tooltip--dark .um-tooltip__arrow {
+  background: var(--um-text-primary);
 }

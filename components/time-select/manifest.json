@@ -24,12 +24,17 @@
   ],
   "states": [
     { "id": "focus-visible", "name": "Focus visible", "nameZh": "键盘聚焦", "selector": ":focus-visible", "native": true, "note": "The ring goes on the field, because the field is what the reader is on." },
-    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The field paints a flat surface and takes the derived disabled colour, so the chosen time stays readable." }
+    { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The field paints a flat surface and takes the derived disabled colour, so the chosen time stays readable." },
+    { "id": "clearable", "name": "Clearable", "nameZh": "可清空", "selector": ".um-time-select--clearable", "note": "The field carries the mark that clears the choice. The arrow moves away from it, so the two never sit on top of each other." },
+    { "id": "effect-dark", "name": "Dark effect", "nameZh": "深色效果", "selector": ".um-time-select--effect-dark", "note": "The field is filled with the brand colour, so the time on it is the foreground derived for that fill." },
+    { "id": "effect-plain", "name": "Plain effect", "nameZh": "朴素效果", "selector": ".um-time-select--effect-plain", "note": "The field drops its fill and keeps only its frame." }
   ],
   "parts": [
     { "id": "select", "name": "Select", "nameZh": "选择器", "note": "The real <select>, borderless inside the field. It drops the platform's arrow, because that arrow does not follow the theme; the option list is still the platform's." },
     { "id": "option", "name": "Option", "nameZh": "选项", "note": "One time in the list. It is the platform's own option, so the popup it belongs to is the reader's." },
-    { "id": "arrow", "name": "Arrow", "nameZh": "箭头", "note": "The chevron that says the field opens a list. It is drawn from two borders, so it carries no text of its own." }
+    { "id": "arrow", "name": "Arrow", "nameZh": "箭头", "note": "The chevron that says the field opens a list. It is drawn from two borders, so it carries no text of its own." },
+    { "id": "clear", "name": "Clear", "nameZh": "清空", "note": "The mark that clears the choice. It is drawn from two bars, so it carries no text of its own, and it is a real button so the keyboard can reach it." },
+    { "id": "placeholder", "name": "Placeholder", "nameZh": "占位", "note": "The option that stands in for a choice. It is the first entry in the list and it carries no value, so the field says it has nothing chosen." }
   ],
   "props": [
     { "name": "value", "type": "string", "description": "The chosen time. It is the select's own value — a class cannot carry a time.", "descriptionZh": "选中的时刻。它是 select 自己的值 —— 类带不了时刻。" },
@@ -40,11 +45,15 @@
     { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes the field inert. It uses the real disabled attribute, so it leaves the tab order.", "descriptionZh": "让字段不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" },
     { "name": "variant", "type": "enum", "values": ["bordered", "filled"], "default": "bordered", "description": "The surface of the field. The bordered run is the base class on its own; the filled run adds um-time-select--filled.", "descriptionZh": "字段的底面。描边这一跑就是只写基础类;填充这一跑再加上 um-time-select--filled。" },
     { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "The height of the field.", "descriptionZh": "字段的高度。" },
-    { "name": "model-value", "type": "string", "description": "The chosen time, bound with v-model in Vue. Leave it out and the `value` prop is the chosen time; bind it and the field answers to the binding.", "descriptionZh": "选中的时刻,在 Vue 里用 v-model 绑定。不传就以 value 属性为准;传了就以绑定为准。" }
+    { "name": "model-value", "type": "string", "description": "The chosen time, bound with v-model in Vue. Leave it out and the `value` prop is the chosen time; bind it and the field answers to the binding.", "descriptionZh": "选中的时刻,在 Vue 里用 v-model 绑定。不传就以 value 属性为准;传了就以绑定为准。" },
+    { "name": "clearable", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Whether the field carries the mark that clears the choice. It adds um-time-select--clearable.", "descriptionZh": "字段上是否带那个清空选择的记号。它加上 um-time-select--clearable。" },
+    { "name": "effect", "type": "enum", "values": ["light", "dark", "plain"], "default": "light", "since": "1.1.0", "description": "How the field's own surface is painted. The light effect is the field the library draws, so it needs no modifier; the dark effect adds um-time-select--effect-dark and the plain effect adds um-time-select--effect-plain.", "descriptionZh": "字段自己的底面怎么画。浅色效果就是库画的这个字段,不需要修饰类;深色效果加上 um-time-select--effect-dark,朴素效果加上 um-time-select--effect-plain。" },
+    { "name": "placeholder", "type": "string", "default": "", "since": "1.1.0", "description": "The text that stands in for a choice. It is the first entry in the list and it carries no value, so the field says it has nothing chosen; without it the list starts with the first time.", "descriptionZh": "代替一次选择的那段文字。它是列表里的第一项,而且不带值,所以字段表示自己还没有选;不给就以第一个时刻开头。" }
   ],
   "slots": [],
   "events": [
     { "name": "change", "description": "Fires when a time is chosen. It is the browser's own event on the select — the library installs no listener.", "descriptionZh": "选定一个时刻时触发。这是 select 上的浏览器原生事件 —— 库没有安装任何监听器。" },
+    { "name": "clear", "description": "Fires when the clear mark is pressed. The value that follows is the empty one, and the update:modelValue event carries it.", "descriptionZh": "按下清空记号时触发。接下来的值是空值,update:modelValue 事件会带着它。" },
     { "name": "update:modelValue", "description": "Fires when the value changes, carrying the new value. This is the event `v-model` listens to.", "descriptionZh": "值变化时触发,携带新的值。v-model 监听的就是这个事件。" }
   ],
   "a11y": {

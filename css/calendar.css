@@ -41,6 +41,16 @@
   background: transparent;
 }
 
+/* The caption is the heading of the panel, above the weekday names. It is
+   empty unless the caller writes one, and an empty element would still open
+   a gap in the panel, so it takes no room when it says nothing. */
+.um-calendar__caption {
+  color: var(--um-text-primary);
+  font-size: var(--um-font-size-title);
+  font-weight: var(--um-font-weight-bold);
+}
+.um-calendar__caption:empty { display: none; }
+
 /* The weekday names and the days are two grids of the same shape, so a day is
    always under its name. The gap is small on purpose: it separates the days
    without opening a hole between the columns. */

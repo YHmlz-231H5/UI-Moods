@@ -22,6 +22,22 @@
      both have to shrink together when the field does. */
   --um-input-tag-chip: var(--um-height-sm);
 
+  /* The tag's surface and its ink, in two sets: the light one and the solid
+     one. The variant says which colour the tag carries and the effect says
+     which surface it sits on, and the two compose because they are two sets
+     of variables rather than two sets of rules.
+
+     The light set is the plain tag — a plain surface, a hairline and the body
+     colour, the pair the contract measures. The solid set is the tag on the
+     brand colour with the brand's own foreground on it, which is the other
+     pair the contract measures. */
+  --um-input-tag-fill: var(--um-fill-blank);
+  --um-input-tag-edge: var(--um-border-base);
+  --um-input-tag-ink: var(--um-text-regular);
+  --um-input-tag-solid-fill: var(--um-fill-base);
+  --um-input-tag-solid-edge: var(--um-border-base);
+  --um-input-tag-solid-ink: var(--um-text-regular);
+
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -35,6 +51,14 @@
   font-size: var(--um-font-size-body);
 }
 
+/* The filled run puts the field on a recessed surface and drops its frame,
+   so it reads as a well rather than as a box. The light run is the base
+   class on its own, so it needs no rule. */
+.um-input-tag--filled {
+  border-color: transparent;
+  background: var(--um-fill-light);
+}
+
 /* The tag is the outlined member of the soft-chip family, the same shape the
    tag component uses: a tint for the fill and the derived colour for the
    outline, because a tint of the fill would sit at about 1.2:1 against it and
@@ -46,10 +70,10 @@
   max-width: 100%;
   height: var(--um-input-tag-chip);
   padding: 0 var(--um-space-xs);
-  border: var(--um-border-width) var(--um-border-style) var(--um-border-base);
+  border: var(--um-border-width) var(--um-border-style) var(--um-input-tag-edge);
   border-radius: var(--um-radius-small);
-  background: var(--um-fill-blank);
-  color: var(--um-text-regular);
+  background: var(--um-input-tag-fill);
+  color: var(--um-input-tag-ink);
   font-size: var(--um-font-size-caption);
   line-height: 1;
 }
@@ -91,7 +115,7 @@
 .um-input-tag__remove::after { transform: translate(-50%, -50%) rotate(-45deg); }
 .um-input-tag__remove:hover { color: var(--um-text-primary); }
 .um-input-tag__remove:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -120,7 +144,7 @@
 /* The ring goes on the field, because the field is what the reader is typing
    in — the input is inside it, not beside it. */
 .um-input-tag:has(.um-input-tag__input:focus-visible) {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 
@@ -131,25 +155,86 @@
 }
 .um-input-tag:has(.um-input-tag__input:disabled) .um-input-tag__input { color: var(--um-text-disabled); }
 
-.um-input-tag--primary .um-input-tag__tag {
-  background: var(--um-color-primary-soft-8);
-  border-color: var(--um-color-primary-text);
-  color: var(--um-color-primary-on-soft);
+/* The variant says which colour the tags carry. It sets the variables the
+   tag reads, so the surface effect can come on top of it without a second
+   set of rules. */
+.um-input-tag--primary {
+  --um-input-tag-fill: var(--um-color-primary-soft-8);
+  --um-input-tag-edge: var(--um-color-primary-text);
+  --um-input-tag-ink: var(--um-color-primary-on-soft);
+  --um-input-tag-solid-fill: var(--um-color-primary);
+  --um-input-tag-solid-edge: var(--um-color-primary);
+  --um-input-tag-solid-ink: var(--um-color-primary-on);
 }
-.um-input-tag--success .um-input-tag__tag {
-  background: var(--um-color-success-soft-8);
-  border-color: var(--um-color-success-text);
-  color: var(--um-color-success-on-soft);
+.um-input-tag--success {
+  --um-input-tag-fill: var(--um-color-success-soft-8);
+  --um-input-tag-edge: var(--um-color-success-text);
+  --um-input-tag-ink: var(--um-color-success-on-soft);
+  --um-input-tag-solid-fill: var(--um-color-success);
+  --um-input-tag-solid-edge: var(--um-color-success);
+  --um-input-tag-solid-ink: var(--um-color-success-on);
 }
-.um-input-tag--warning .um-input-tag__tag {
-  background: var(--um-color-warning-soft-8);
-  border-color: var(--um-color-warning-text);
-  color: var(--um-color-warning-on-soft);
+.um-input-tag--warning {
+  --um-input-tag-fill: var(--um-color-warning-soft-8);
+  --um-input-tag-edge: var(--um-color-warning-text);
+  --um-input-tag-ink: var(--um-color-warning-on-soft);
+  --um-input-tag-solid-fill: var(--um-color-warning);
+  --um-input-tag-solid-edge: var(--um-color-warning);
+  --um-input-tag-solid-ink: var(--um-color-warning-on);
 }
-.um-input-tag--danger .um-input-tag__tag {
-  background: var(--um-color-danger-soft-8);
-  border-color: var(--um-color-danger-text);
-  color: var(--um-color-danger-on-soft);
+.um-input-tag--danger {
+  --um-input-tag-fill: var(--um-color-danger-soft-8);
+  --um-input-tag-edge: var(--um-color-danger-text);
+  --um-input-tag-ink: var(--um-color-danger-on-soft);
+  --um-input-tag-solid-fill: var(--um-color-danger);
+  --um-input-tag-solid-edge: var(--um-color-danger);
+  --um-input-tag-solid-ink: var(--um-color-danger-on);
+}
+
+/* The tag effect says which surface the tag sits on. The dark one puts it on
+   the solid colour, the plain one takes the fill away and leaves the
+   outline, and the light one is the base class on its own. */
+.um-input-tag--tag-effect-dark {
+  --um-input-tag-fill: var(--um-input-tag-solid-fill);
+  --um-input-tag-edge: var(--um-input-tag-solid-edge);
+  --um-input-tag-ink: var(--um-input-tag-solid-ink);
+}
+.um-input-tag--tag-effect-plain {
+  --um-input-tag-fill: transparent;
+}
+
+/* The clear button is a real button, so it is in the tab order, and its mark
+   is two bars crossed: the library ships no glyph for it to use. */
+.um-input-tag__clear {
+  display: none;
+  position: relative;
+  flex: 0 0 auto;
+  width: var(--um-space-md);
+  height: var(--um-space-md);
+  padding: 0;
+  border: 0;
+  border-radius: var(--um-radius-circle);
+  background: none;
+  color: var(--um-text-secondary);
+  cursor: pointer;
+}
+.um-input-tag--clearable .um-input-tag__clear { display: inline-flex; }
+.um-input-tag__clear::before,
+.um-input-tag__clear::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--um-space-xs);
+  height: 0;
+  border-top: var(--um-border-width) solid currentColor;
+}
+.um-input-tag__clear::before { transform: translate(-50%, -50%) rotate(45deg); }
+.um-input-tag__clear::after { transform: translate(-50%, -50%) rotate(-45deg); }
+.um-input-tag__clear:hover { color: var(--um-text-primary); }
+.um-input-tag__clear:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
 }
 
 .um-input-tag--sm {

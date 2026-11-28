@@ -49,7 +49,7 @@
 /* The ring goes on the scrolling box and inside the frame: an outside ring
    would be cut off by the frame that holds it. */
 .um-virtual-table__scroller:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: calc(-1 * var(--um-focus-ring-width));
 }
 
@@ -171,6 +171,27 @@
 .um-virtual-table--scrollbar-always-on .um-virtual-table__scroller {
   overflow-y: scroll;
   scrollbar-gutter: stable;
+}
+
+/* The first column is fixed: it stays where it is while the rest of the row
+   scrolls sideways. The cell brings its own surface, because a cell that lets
+   the row's fill through would let the cells that scroll under it show
+   through it as well. */
+.um-virtual-table--fixed .um-virtual-table__row .um-virtual-table__cell:first-child {
+  position: sticky;
+  inset-inline-start: 0;
+  z-index: 1;
+  background: var(--um-fill-blank);
+}
+
+/* The head cell of the fixed column keeps the header's own surface, and it
+   sits above the fixed cells of the rows: the header is itself sticky, so it
+   is the one that has to be on top. */
+.um-virtual-table--fixed .um-virtual-table__header .um-virtual-table__head-cell:first-child {
+  position: sticky;
+  inset-inline-start: 0;
+  z-index: 2;
+  background: var(--um-surface-table-header);
 }
 
 /* The footer is what stands under the table: the totals, a note. It takes no

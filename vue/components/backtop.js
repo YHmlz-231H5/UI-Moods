@@ -16,6 +16,7 @@ export const UMBacktop = defineComponent({
     inline: { type: Boolean, default: false },
     target: { type: String, default: "#top" },
     label: { type: String, default: "Back to top" },
+    right: { type: String, default: "var(--um-space-lg)" },
   },
   setup(props, { slots }) {
     return () =>
@@ -30,6 +31,9 @@ export const UMBacktop = defineComponent({
           ],
           href: props.target,
           "aria-label": props.label,
+          // The corner is the physical right-hand one, so the offset travels
+          // as the custom property the stylesheet reads.
+          style: { "--um-backtop-right": props.right },
         },
         // The arrow is a shape the stylesheet paints. A host that brings its
         // own mark puts it in the button instead.

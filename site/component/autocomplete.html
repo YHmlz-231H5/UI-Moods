@@ -249,9 +249,18 @@
       <tr><td><code>um-autocomplete__option</code></td><td>Suggestion</td></tr>
       <tr><td><code>um-autocomplete__prefix</code></td><td>Prefix</td></tr>
       <tr><td><code>um-autocomplete__suffix</code></td><td>Suffix</td></tr>
+      <tr><td><code>um-autocomplete__prepend</code></td><td>Prepend</td></tr>
+      <tr><td><code>um-autocomplete__append</code></td><td>Append</td></tr>
+      <tr><td><code>um-autocomplete__clear</code></td><td>Clear</td></tr>
+      <tr><td><code>um-autocomplete__loading</code></td><td>Loading</td></tr>
+      <tr><td><code>um-autocomplete__arrow</code></td><td>Arrow</td></tr>
       <tr><td><code>:focus-visible</code></td><td>Focus visible</td></tr>
       <tr><td><code>:disabled</code></td><td>Disabled</td></tr>
       <tr><td><code>:user-invalid</code></td><td>Invalid</td></tr>
+      <tr><td><code>.um-autocomplete--clearable</code></td><td>Clearable</td></tr>
+      <tr><td><code>.um-autocomplete--loading</code></td><td>Loading</td></tr>
+      <tr><td><code>.um-autocomplete--hide-loading</code></td><td>Hide loading</td></tr>
+      <tr><td><code>.um-autocomplete--show-arrow</code></td><td>Show arrow</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -268,6 +277,12 @@
       <tr><td><span class="api__name"><code>size</code></span></td><td><code>enum = sm | md | lg</code></td><td><code>md</code></td><td>The height of the field.</td></tr>
       <tr><td><span class="api__name"><code>model-value</code></span></td><td><code>string</code></td><td>—</td><td>The text in the field, bound with v-model in Vue. Leave it out and the `value` prop is the text; bind it and the field answers to the binding.</td></tr>
       <tr><td><span class="api__name"><code>readonly</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Keeps the text visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures.</td></tr>
+      <tr><td><span class="api__name"><code>clearable</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Puts a button at the end of the field that empties it. The button is a real one, so it is in the tab order.</td></tr>
+      <tr><td><span class="api__name"><code>loading</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Says the suggestions are on their way. The library fetches nothing, so the mark is the caller's to ask for — and the caller's own mark replaces the drawn one.</td></tr>
+      <tr><td><span class="api__name"><code>hide-loading</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Takes the loading mark away, even when the caller has written one. The mark is the caller's to put there: the library has no fetching of its own.</td></tr>
+      <tr><td><span class="api__name"><code>show-arrow</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Puts the chevron at the end of the field, so the field says a list is behind it. The suggestion list here is the browser's own, so the arrow says what the reader cannot see.</td></tr>
+      <tr><td><span class="api__name"><code>type</code></span></td><td><code>string</code></td><td><code>text</code></td><td>The kind of field the input is. It is the input's own type attribute, so the browser brings its own keyboard and its own validation with it.</td></tr>
+      <tr><td><span class="api__name"><code>form</code></span></td><td><code>string</code></td><td>—</td><td>The id of the form the field belongs to. It is the input's own form attribute, so a field may live outside its form and still be submitted with it.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>
@@ -276,6 +291,10 @@
       <tbody>
       <tr><td><span class="api__name"><code>prefix</code></span></td><td>The mark in front of the text.</td></tr>
       <tr><td><span class="api__name"><code>suffix</code></span></td><td>The mark behind the text.</td></tr>
+      <tr><td><span class="api__name"><code>prepend</code></span></td><td>The content at the near edge of the field, away from the text.</td></tr>
+      <tr><td><span class="api__name"><code>append</code></span></td><td>The content at the far edge of the field, away from the text.</td></tr>
+      <tr><td><span class="api__name"><code>default</code></span></td><td>The text of one suggestion. A native &lt;option&gt; holds text and nothing else, so this slot carries the words rather than a whole item.</td></tr>
+      <tr><td><span class="api__name"><code>loading</code></span></td><td>The mark that says the suggestions are on their way. It is drawn when the slot is empty and the caller's own when it is not.</td></tr>
       </tbody>
     </table>
       <h2>Events</h2>
@@ -287,6 +306,8 @@
       <tr><td><span class="api__name"><code>focus</code></span></td><td>Fires when the field takes focus.</td></tr>
       <tr><td><span class="api__name"><code>blur</code></span></td><td>Fires when the field loses focus.</td></tr>
       <tr><td><span class="api__name"><code>update:modelValue</code></span></td><td>Fires when the value changes, carrying the new value. This is the event `v-model` listens to.</td></tr>
+      <tr><td><span class="api__name"><code>clear</code></span></td><td>Fires when the reader presses the clear button. The value goes with it, so the field is empty afterwards.</td></tr>
+      <tr><td><span class="api__name"><code>select</code></span></td><td>Fires when the committed value is one of the suggestions — that is, when the reader has picked a suggestion rather than typed something else.</td></tr>
       </tbody>
     </table>
       <h2>Accessibility</h2>

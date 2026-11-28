@@ -236,6 +236,7 @@
       <tr><td><code>um-loading__panel</code></td><td>Panel</td></tr>
       <tr><td><code>.um-loading--closed</code></td><td>Closed</td></tr>
       <tr><td><code>.um-loading--fullscreen</code></td><td>Fullscreen</td></tr>
+      <tr><td><code>.um-loading--lock</code></td><td>Locked</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -247,6 +248,7 @@
       <tr><td><span class="api__name"><code>text</code></span></td><td><code>string</code></td><td>—</td><td>The caption beside the ring. It is the message, so it is written as text in the page and not as an attribute.</td></tr>
       <tr><td><span class="api__name"><code>closed</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the loading is over. A closed loading is not on the page.</td></tr>
       <tr><td><span class="api__name"><code>fullscreen</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the loading covers the whole viewport, whatever shape it is.</td></tr>
+      <tr><td><span class="api__name"><code>lock</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Whether the page is held still while the loading is there. It adds um-loading--lock, and the page that holds a locked loading does not scroll. There is no script here, so this is the whole of what a lock can do.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>

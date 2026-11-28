@@ -45,6 +45,13 @@
       "nameZh": "在下方",
       "selector": ".um-tabs--bottom",
       "note": "The bar of tabs sits under the panel instead of above it."
+    },
+    {
+      "id": "disabled",
+      "name": "Disabled",
+      "nameZh": "禁用",
+      "selector": ".um-tabs--disabled",
+      "note": "The tabs cannot be picked. The radios carry the real disabled attribute, so the browser refuses to select them, and the tabs take the derived disabled colour."
     }
   ],
   "parts": [
@@ -52,19 +59,19 @@
       "id": "radio",
       "name": "Radio",
       "nameZh": "输入框",
-      "note": "The real control. It is hidden by size and opacity, so it keeps its place in the tab order."
+      "note": "The real control. It is hidden by size and opacity, so it keeps its place in the tab order, and it sits inside the label of its own tab so that the browser reads one group of radios."
     },
     {
       "id": "header",
       "name": "Header",
       "nameZh": "标签栏",
-      "note": "The row of tabs. It carries role=\"tablist\"."
+      "note": "The row of tabs. It carries role=\"radiogroup\", because the control under each tab is a radio and the group of radios is the group the browser reads."
     },
     {
       "id": "item",
       "name": "Item",
       "nameZh": "标签项",
-      "note": "One tab. It is a <label>, so clicking it ticks the radio it points at."
+      "note": "One tab. It is a <label>, so clicking it ticks the radio it holds, and it holds the radio that the keyboard reaches."
     },
     {
       "id": "label",
@@ -82,7 +89,7 @@
       "id": "panel",
       "name": "Panel",
       "nameZh": "面板",
-      "note": "The content of one tab. Only the panel whose radio is checked is shown."
+      "note": "The content of one tab. Only the panel whose radio is checked is shown, and it carries role=\"group\" because there is no tab to own a tab panel."
     }
   ],
   "props": [
@@ -127,6 +134,13 @@
       "default": "top",
       "description": "Where the bar of tabs sits. The bar on top is the base class on its own; the bar under the panel adds um-tabs--bottom.",
       "descriptionZh": "标签栏放在哪儿。在上面就是只写基类;放在面板下面再加上 um-tabs--bottom。"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the tabs can be picked. The radios carry the real disabled attribute, so the browser refuses to select them and the tab leaves the tab order; the class paints the disabled treatment. A single tab is disabled by putting the same attribute on its own radio in the markup.",
+      "descriptionZh": "标签页还能不能选。radio 上带着原生 disabled 属性,所以浏览器拒绝选中它,那个标签页也退出 Tab 顺序;类负责画出禁用态。单独一个标签页要禁用,就在标记里给它的 radio 加上同一个属性。"
     }
   ],
   "slots": [
@@ -154,19 +168,19 @@
     }
   ],
   "a11y": {
-    "role": "tablist",
+    "role": "radiogroup",
     "keyboard": ["Tab", "Arrow keys", "Space"],
-    "notes": "The header is a tablist, the items are tabs and the panels are tabpanels, but the control under each tab is a radio input. What the markup cannot say is aria-selected: that value follows the selection, and writing it without JavaScript would leave it stale. The selection is therefore announced by the radio itself, which is the focused element, the checked one, and named after the tab it belongs to. Arrow keys move between the radios, because the browser treats a group of same-named radios as one control.",
-    "notesZh": "标签栏是 tablist,标签项是 tab,面板是 tabpanel,但每个标签项底下的控件是一个 radio 输入框。标记里写不了 `aria-selected`:它跟着选中状态走,不用 JavaScript 写就会变成过期的。所以选中状态由 radio 自己播报 —— 它就是那个获得焦点的、勾上的控件,名字则来自它所属的标签项。方向键可以在这些 radio 之间移动,因为浏览器把同名的 radio 组当成一个控件。"
+    "notes": "The header is a radio group and the control under each tab is a radio input. The radio is the only thing in the markup that can carry the selection, and it carries it natively: the browser announces the picked tab as checked and the reader knows which one is open. That is also why the header says radiogroup and not tablist — a tablist promises tabs, and a tab has to say aria-selected, which cannot be written without JavaScript and would be stale the moment the reader picked another tab. The panels say group for the same reason: there is no tab to own a tab panel. What the reader gets is a group of radios with one of them checked, which is exactly what the widget is.",
+    "notesZh": "标签栏是一个 radio 组,每个标签页底下的控件是 radio 输入框。标记里只有 radio 能带着选中状态,而且它天生就带着:浏览器会把勾上的那一个播报为已选中,读者因此知道哪一块是展开的。这也是标签栏写 radiogroup 而不是 tablist 的原因 —— tablist 承诺的是 tab,而 tab 必须说 aria-selected,那件事没有 JavaScript 写不出来,读者一换标签它就过期了。面板写 group 也是同一个原因:已经没有 tab 可以拥有 tab panel。读者拿到的是一组 radio,其中一个勾上了,而这正是这个控件本身。"
   },
   "examples": [
     {
       "id": "basic",
       "title": "Basic",
       "titleZh": "基础用法",
-      "description": "Three tabs over three panels. The radios come first, the header second and the panels last: the stylesheet pairs the Nth radio with the Nth tab and the Nth panel by position.",
-      "descriptionZh": "三个标签页配三块面板。radio 在最前面,其次是标签栏,最后是面板 —— 样式表按位置把第 N 个 radio 和第 N 个标签项、第 N 个面板配对。",
-      "markup": "<div class=\"um-tabs\">\n  <input class=\"um-tabs__radio\" type=\"radio\" name=\"um-tabs-account\" id=\"um-tabs-account-1\" aria-controls=\"um-tabs-account-panel-1\" checked />\n  <input class=\"um-tabs__radio\" type=\"radio\" name=\"um-tabs-account\" id=\"um-tabs-account-2\" aria-controls=\"um-tabs-account-panel-2\" />\n  <input class=\"um-tabs__radio\" type=\"radio\" name=\"um-tabs-account\" id=\"um-tabs-account-3\" aria-controls=\"um-tabs-account-panel-3\" />\n\n  <div class=\"um-tabs__header\" role=\"tablist\" aria-label=\"Account\">\n    <label class=\"um-tabs__item\" id=\"um-tabs-account-tab-1\" role=\"tab\" for=\"um-tabs-account-1\">\n      <span class=\"um-tabs__label\">Profile</span>\n      <span class=\"um-tabs__indicator\" aria-hidden=\"true\"></span>\n    </label>\n    <label class=\"um-tabs__item\" id=\"um-tabs-account-tab-2\" role=\"tab\" for=\"um-tabs-account-2\">\n      <span class=\"um-tabs__label\">Billing</span>\n      <span class=\"um-tabs__indicator\" aria-hidden=\"true\"></span>\n    </label>\n    <label class=\"um-tabs__item\" id=\"um-tabs-account-tab-3\" role=\"tab\" for=\"um-tabs-account-3\">\n      <span class=\"um-tabs__label\">Settings</span>\n      <span class=\"um-tabs__indicator\" aria-hidden=\"true\"></span>\n    </label>\n  </div>\n\n  <section class=\"um-tabs__panel\" id=\"um-tabs-account-panel-1\" role=\"tabpanel\" aria-labelledby=\"um-tabs-account-tab-1\" tabindex=\"0\">\n    The name, the avatar and the short bio other people see.\n  </section>\n  <section class=\"um-tabs__panel\" id=\"um-tabs-account-panel-2\" role=\"tabpanel\" aria-labelledby=\"um-tabs-account-tab-2\" tabindex=\"0\">\n    The card on file, the invoices and the next payment date.\n  </section>\n  <section class=\"um-tabs__panel\" id=\"um-tabs-account-panel-3\" role=\"tabpanel\" aria-labelledby=\"um-tabs-account-tab-3\" tabindex=\"0\">\n    Notification addresses, connected accounts and the password.\n  </section>\n</div>"
+      "description": "Three tabs over three panels. Each radio sits inside the label of its own tab, so the bar of tabs is one group of radios and the browser keeps exactly one of them picked. The stylesheet pairs the Nth radio with the Nth panel by position.",
+      "descriptionZh": "三个标签页配三块面板。每个 radio 待在自己那个标签项的里面,所以标签栏就是一组 radio,浏览器保证只有一个是勾上的。样式表按位置把第 N 个 radio 和第 N 块面板配对。",
+      "markup": "<div class=\"um-tabs\">\n\n  <div class=\"um-tabs__header\" role=\"radiogroup\" aria-label=\"Account\">\n    <label class=\"um-tabs__item\" id=\"um-tabs-account-tab-1\" for=\"um-tabs-account-1\">\n      <input class=\"um-tabs__radio\" type=\"radio\" name=\"um-tabs-account\" id=\"um-tabs-account-1\" aria-controls=\"um-tabs-account-panel-1\" checked />\n      <span class=\"um-tabs__label\">Profile</span>\n      <span class=\"um-tabs__indicator\" aria-hidden=\"true\"></span>\n    </label>\n    <label class=\"um-tabs__item\" id=\"um-tabs-account-tab-2\" for=\"um-tabs-account-2\">\n      <input class=\"um-tabs__radio\" type=\"radio\" name=\"um-tabs-account\" id=\"um-tabs-account-2\" aria-controls=\"um-tabs-account-panel-2\" />\n      <span class=\"um-tabs__label\">Billing</span>\n      <span class=\"um-tabs__indicator\" aria-hidden=\"true\"></span>\n    </label>\n    <label class=\"um-tabs__item\" id=\"um-tabs-account-tab-3\" for=\"um-tabs-account-3\">\n      <input class=\"um-tabs__radio\" type=\"radio\" name=\"um-tabs-account\" id=\"um-tabs-account-3\" aria-controls=\"um-tabs-account-panel-3\" />\n      <span class=\"um-tabs__label\">Settings</span>\n      <span class=\"um-tabs__indicator\" aria-hidden=\"true\"></span>\n    </label>\n  </div>\n\n  <section class=\"um-tabs__panel\" id=\"um-tabs-account-panel-1\" role=\"group\" aria-labelledby=\"um-tabs-account-tab-1\" tabindex=\"0\">\n    The name, the avatar and the short bio other people see.\n  </section>\n  <section class=\"um-tabs__panel\" id=\"um-tabs-account-panel-2\" role=\"group\" aria-labelledby=\"um-tabs-account-tab-2\" tabindex=\"0\">\n    The card on file, the invoices and the next payment date.\n  </section>\n  <section class=\"um-tabs__panel\" id=\"um-tabs-account-panel-3\" role=\"group\" aria-labelledby=\"um-tabs-account-tab-3\" tabindex=\"0\">\n    Notification addresses, connected accounts and the password.\n  </section>\n</div>"
     },
     {
       "id": "card",
@@ -174,17 +188,17 @@
       "titleZh": "卡片式",
       "description": "The card variant puts the tabs in a bordered strip and fills the selected one. The fill and the label colour are chosen by the variant, so the rule that matches the checked radio stays the same.",
       "descriptionZh": "卡片式把标签页放进一条带边框的栏里,选中的那一个填上底色。底色和文字颜色由变体决定,所以匹配 checked 的那条规则不用改。",
-      "markup": "<div class=\"um-tabs um-tabs--card\">\n  <input class=\"um-tabs__radio\" type=\"radio\" name=\"um-tabs-card\" id=\"um-tabs-card-1\" aria-controls=\"um-tabs-card-panel-1\" checked />\n  <input class=\"um-tabs__radio\" type=\"radio\" name=\"um-tabs-card\" id=\"um-tabs-card-2\" aria-controls=\"um-tabs-card-panel-2\" />\n  <input class=\"um-tabs__radio\" type=\"radio\" name=\"um-tabs-card\" id=\"um-tabs-card-3\" aria-controls=\"um-tabs-card-panel-3\" />\n\n  <div class=\"um-tabs__header\" role=\"tablist\" aria-label=\"Project\">\n    <label class=\"um-tabs__item\" id=\"um-tabs-card-tab-1\" role=\"tab\" for=\"um-tabs-card-1\">\n      <span class=\"um-tabs__label\">Overview</span>\n      <span class=\"um-tabs__indicator\" aria-hidden=\"true\"></span>\n    </label>\n    <label class=\"um-tabs__item\" id=\"um-tabs-card-tab-2\" role=\"tab\" for=\"um-tabs-card-2\">\n      <span class=\"um-tabs__label\">Files</span>\n      <span class=\"um-tabs__indicator\" aria-hidden=\"true\"></span>\n    </label>\n    <label class=\"um-tabs__item\" id=\"um-tabs-card-tab-3\" role=\"tab\" for=\"um-tabs-card-3\">\n      <span class=\"um-tabs__label\">Activity</span>\n      <span class=\"um-tabs__indicator\" aria-hidden=\"true\"></span>\n    </label>\n  </div>\n\n  <section class=\"um-tabs__panel\" id=\"um-tabs-card-panel-1\" role=\"tabpanel\" aria-labelledby=\"um-tabs-card-tab-1\" tabindex=\"0\">\n    Three files changed in the last week.\n  </section>\n  <section class=\"um-tabs__panel\" id=\"um-tabs-card-panel-2\" role=\"tabpanel\" aria-labelledby=\"um-tabs-card-tab-2\" tabindex=\"0\">\n    Everything in the project, newest first.\n  </section>\n  <section class=\"um-tabs__panel\" id=\"um-tabs-card-panel-3\" role=\"tabpanel\" aria-labelledby=\"um-tabs-card-tab-3\" tabindex=\"0\">\n    Who touched what, and when.\n  </section>\n</div>"
+      "markup": "<div class=\"um-tabs um-tabs--card\">\n\n  <div class=\"um-tabs__header\" role=\"radiogroup\" aria-label=\"Project\">\n    <label class=\"um-tabs__item\" id=\"um-tabs-card-tab-1\" for=\"um-tabs-card-1\">\n      <input class=\"um-tabs__radio\" type=\"radio\" name=\"um-tabs-card\" id=\"um-tabs-card-1\" aria-controls=\"um-tabs-card-panel-1\" checked />\n      <span class=\"um-tabs__label\">Overview</span>\n      <span class=\"um-tabs__indicator\" aria-hidden=\"true\"></span>\n    </label>\n    <label class=\"um-tabs__item\" id=\"um-tabs-card-tab-2\" for=\"um-tabs-card-2\">\n      <input class=\"um-tabs__radio\" type=\"radio\" name=\"um-tabs-card\" id=\"um-tabs-card-2\" aria-controls=\"um-tabs-card-panel-2\" />\n      <span class=\"um-tabs__label\">Files</span>\n      <span class=\"um-tabs__indicator\" aria-hidden=\"true\"></span>\n    </label>\n    <label class=\"um-tabs__item\" id=\"um-tabs-card-tab-3\" for=\"um-tabs-card-3\">\n      <input class=\"um-tabs__radio\" type=\"radio\" name=\"um-tabs-card\" id=\"um-tabs-card-3\" aria-controls=\"um-tabs-card-panel-3\" />\n      <span class=\"um-tabs__label\">Activity</span>\n      <span class=\"um-tabs__indicator\" aria-hidden=\"true\"></span>\n    </label>\n  </div>\n\n  <section class=\"um-tabs__panel\" id=\"um-tabs-card-panel-1\" role=\"group\" aria-labelledby=\"um-tabs-card-tab-1\" tabindex=\"0\">\n    Three files changed in the last week.\n  </section>\n  <section class=\"um-tabs__panel\" id=\"um-tabs-card-panel-2\" role=\"group\" aria-labelledby=\"um-tabs-card-tab-2\" tabindex=\"0\">\n    Everything in the project, newest first.\n  </section>\n  <section class=\"um-tabs__panel\" id=\"um-tabs-card-panel-3\" role=\"group\" aria-labelledby=\"um-tabs-card-tab-3\" tabindex=\"0\">\n    Who touched what, and when.\n  </section>\n</div>"
     },
     {
       "id": "four-tabs",
       "title": "Four tabs",
       "titleZh": "四个标签页",
-      "description": "Four tabs is the extent of the wiring in the stylesheet. A fifth tab needs one more selector in style.css — still no JavaScript.",
-      "descriptionZh": "样式表里接好了四个标签页。要加第五个,只需要在 style.css 里再加一条选择器 —— 还是不需要 JavaScript。",
-      "markup": "<div class=\"um-tabs\">\n  <input class=\"um-tabs__radio\" type=\"radio\" name=\"um-tabs-four\" id=\"um-tabs-four-1\" aria-controls=\"um-tabs-four-panel-1\" checked />\n  <input class=\"um-tabs__radio\" type=\"radio\" name=\"um-tabs-four\" id=\"um-tabs-four-2\" aria-controls=\"um-tabs-four-panel-2\" />\n  <input class=\"um-tabs__radio\" type=\"radio\" name=\"um-tabs-four\" id=\"um-tabs-four-3\" aria-controls=\"um-tabs-four-panel-3\" />\n  <input class=\"um-tabs__radio\" type=\"radio\" name=\"um-tabs-four\" id=\"um-tabs-four-4\" aria-controls=\"um-tabs-four-panel-4\" />\n\n  <div class=\"um-tabs__header\" role=\"tablist\" aria-label=\"Report\">\n    <label class=\"um-tabs__item\" id=\"um-tabs-four-tab-1\" role=\"tab\" for=\"um-tabs-four-1\">\n      <span class=\"um-tabs__label\">Summary</span>\n      <span class=\"um-tabs__indicator\" aria-hidden=\"true\"></span>\n    </label>\n    <label class=\"um-tabs__item\" id=\"um-tabs-four-tab-2\" role=\"tab\" for=\"um-tabs-four-2\">\n      <span class=\"um-tabs__label\">Sources</span>\n      <span class=\"um-tabs__indicator\" aria-hidden=\"true\"></span>\n    </label>\n    <label class=\"um-tabs__item\" id=\"um-tabs-four-tab-3\" role=\"tab\" for=\"um-tabs-four-3\">\n      <span class=\"um-tabs__label\">Notes</span>\n      <span class=\"um-tabs__indicator\" aria-hidden=\"true\"></span>\n    </label>\n    <label class=\"um-tabs__item\" id=\"um-tabs-four-tab-4\" role=\"tab\" for=\"um-tabs-four-4\">\n      <span class=\"um-tabs__label\">History</span>\n      <span class=\"um-tabs__indicator\" aria-hidden=\"true\"></span>\n    </label>\n  </div>\n\n  <section class=\"um-tabs__panel\" id=\"um-tabs-four-panel-1\" role=\"tabpanel\" aria-labelledby=\"um-tabs-four-tab-1\" tabindex=\"0\">\n    The numbers the report is about.\n  </section>\n  <section class=\"um-tabs__panel\" id=\"um-tabs-four-panel-2\" role=\"tabpanel\" aria-labelledby=\"um-tabs-four-tab-2\" tabindex=\"0\">\n    Where the numbers came from.\n  </section>\n  <section class=\"um-tabs__panel\" id=\"um-tabs-four-panel-3\" role=\"tabpanel\" aria-labelledby=\"um-tabs-four-tab-3\" tabindex=\"0\">\n    What the numbers do not say.\n  </section>\n  <section class=\"um-tabs__panel\" id=\"um-tabs-four-panel-4\" role=\"tabpanel\" aria-labelledby=\"um-tabs-four-tab-4\" tabindex=\"0\">\n    What the numbers said last time.\n  </section>\n</div>"
+      "description": "Four tabs is the extent of the wiring in the stylesheet: a fifth tab needs one more selector in style.css to pair its panel — still no JavaScript.",
+      "descriptionZh": "样式表里接好了四个标签页:要加第五个,只需要在 style.css 里再加一条选择器来配对它的那块面板 —— 还是不需要 JavaScript。",
+      "markup": "<div class=\"um-tabs\">\n\n  <div class=\"um-tabs__header\" role=\"radiogroup\" aria-label=\"Report\">\n    <label class=\"um-tabs__item\" id=\"um-tabs-four-tab-1\" for=\"um-tabs-four-1\">\n      <input class=\"um-tabs__radio\" type=\"radio\" name=\"um-tabs-four\" id=\"um-tabs-four-1\" aria-controls=\"um-tabs-four-panel-1\" checked />\n      <span class=\"um-tabs__label\">Summary</span>\n      <span class=\"um-tabs__indicator\" aria-hidden=\"true\"></span>\n    </label>\n    <label class=\"um-tabs__item\" id=\"um-tabs-four-tab-2\" for=\"um-tabs-four-2\">\n      <input class=\"um-tabs__radio\" type=\"radio\" name=\"um-tabs-four\" id=\"um-tabs-four-2\" aria-controls=\"um-tabs-four-panel-2\" />\n      <span class=\"um-tabs__label\">Sources</span>\n      <span class=\"um-tabs__indicator\" aria-hidden=\"true\"></span>\n    </label>\n    <label class=\"um-tabs__item\" id=\"um-tabs-four-tab-3\" for=\"um-tabs-four-3\">\n      <input class=\"um-tabs__radio\" type=\"radio\" name=\"um-tabs-four\" id=\"um-tabs-four-3\" aria-controls=\"um-tabs-four-panel-3\" />\n      <span class=\"um-tabs__label\">Notes</span>\n      <span class=\"um-tabs__indicator\" aria-hidden=\"true\"></span>\n    </label>\n    <label class=\"um-tabs__item\" id=\"um-tabs-four-tab-4\" for=\"um-tabs-four-4\">\n      <input class=\"um-tabs__radio\" type=\"radio\" name=\"um-tabs-four\" id=\"um-tabs-four-4\" aria-controls=\"um-tabs-four-panel-4\" />\n      <span class=\"um-tabs__label\">History</span>\n      <span class=\"um-tabs__indicator\" aria-hidden=\"true\"></span>\n    </label>\n  </div>\n\n  <section class=\"um-tabs__panel\" id=\"um-tabs-four-panel-1\" role=\"group\" aria-labelledby=\"um-tabs-four-tab-1\" tabindex=\"0\">\n    The numbers the report is about.\n  </section>\n  <section class=\"um-tabs__panel\" id=\"um-tabs-four-panel-2\" role=\"group\" aria-labelledby=\"um-tabs-four-tab-2\" tabindex=\"0\">\n    Where the numbers came from.\n  </section>\n  <section class=\"um-tabs__panel\" id=\"um-tabs-four-panel-3\" role=\"group\" aria-labelledby=\"um-tabs-four-tab-3\" tabindex=\"0\">\n    What the numbers do not say.\n  </section>\n  <section class=\"um-tabs__panel\" id=\"um-tabs-four-panel-4\" role=\"group\" aria-labelledby=\"um-tabs-four-tab-4\" tabindex=\"0\">\n    What the numbers said last time.\n  </section>\n</div>"
     }
   ],
-  "notes": "The tabs are radio inputs, and the stylesheet pairs the Nth radio with the Nth tab and the Nth panel by position. That is why the radios come first in the markup, the header second and the panels last, and why the panels are <section>s: `nth-of-type` has to count them apart from the <div> that holds the header. Four tabs are wired out of the box; a fifth needs one more selector in this file, not a line of JavaScript.",
-  "notesZh": "标签页是 radio 输入框,样式表按位置把第 N 个 radio 和第 N 个标签项、第 N 个面板配对。所以标记里 radio 在最前面,其次是标签栏,最后是面板;面板用 `<section>`,是因为 `nth-of-type` 得把它和装标签栏的那个 `<div>` 分开数。库里接好了四个标签页;要加第五个,只需要在这个文件里再加一条选择器,不用加一行 JavaScript。"
+  "notes": "The tabs are radio inputs, and each radio sits inside the label of its own tab, so the browser sees one group of radios and holds it as a single stop in the tab order: Tab lands on the group, the arrow keys move along it, and the browser keeps exactly one radio picked. The stylesheet pairs the Nth radio with the Nth panel by position, so the panels are <section>s after the bar of tabs — `nth-of-type` has to count them apart from the <div> that holds the header. Four panels are wired out of the box; a fifth needs one more selector in this file, not a line of JavaScript. There is no add mark, no close mark and no rename field: adding a tab means writing a new radio and a new panel, closing one means taking it out of the document, and renaming one means editing a word, and none of those is something a stylesheet can do. A host that wants them brings its own controls.",
+  "notesZh": "标签页是 radio 输入框,每个 radio 待在自己那个标签项的里面,所以浏览器看到的是一组 radio,在 Tab 顺序里只占一个停靠点:Tab 落进这一组,方向键在里面移动,浏览器保证只有一个 radio 是勾上的。样式表按位置把第 N 个 radio 和第 N 块面板配对,所以面板是标签栏后面的 `<section>` —— `nth-of-type` 得把它和装标签栏的那个 `<div>` 分开数。库里接好了四块面板;要加第五块,只需要在这个文件里再加一条选择器,不用加一行 JavaScript。这里没有添加的记号、没有关闭的记号,也没有改名的输入框:加一个标签页意味着写一个新的 radio 和一块新的面板,关掉一个意味着把它从文档里拿走,改一个名字意味着编辑一个词,这些都不是样式表能做到的事。想要这些的宿主自己带控件来。"
 }

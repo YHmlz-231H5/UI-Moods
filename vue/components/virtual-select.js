@@ -16,9 +16,17 @@
 // The slots fill the parts the stylesheet already declares: what one option
 // says, what the list says when it holds nothing, and what stands above and
 // below the options.
+//
+// The field above the list holds what the Element Plus API calls the input:
+// the prefix, the chips that show the choice, the filter and the clear mark.
+// Each of them is drawn only when its own class is on, so an empty field
+// takes no room at all.
 
 import { defineComponent, h, useId } from "vue";
 import { modelValue } from "../lib/model.mjs";
+
+/** The chip colours the stylesheet paints. */
+const TAG_TYPES = ["success", "warning", "danger", "info"];
 
 export const UMVirtualSelect = defineComponent({
   name: "UMVirtualSelect",
@@ -36,8 +44,16 @@ export const UMVirtualSelect = defineComponent({
     size: { type: String, default: "md" },
     disabled: { type: Boolean, default: false },
     scrollbarAlwaysOn: { type: Boolean, default: false },
+    clearable: { type: Boolean, default: false },
+    collapseTags: { type: Boolean, default: false },
+    filterable: { type: Boolean, default: false },
+    fitInputWidth: { type: Boolean, default: false },
+    effect: { type: String, default: "light" },
+    loading: { type: Boolean, default: false },
+    tagType: { type: String, default: "primary" },
+    tagEffect: { type: String, default: "light" },
   },
-  emits: ["change", "update:modelValue"],
+  emits: ["change", "update:modelValue", "clear"],
   setup(props, { slots, emit }) {
     // The radios share a name, so it has to be this instance's own — two
     // lists on one page may not steal each other's choice.
@@ -55,7 +71,7 @@ export const UMVirtualSelect = defineComponent({
 
       const list = labels.length
         ? labels.map((label, index) =>
-            h("div", { class: "um-virtual-select__option", role: "option" }, [
+            h("div", { class: "um-virtual-select__option" }, [
               h("label", { class: "um-virtual-select__label" }, [
                 h("input", {
                   type: "radio",
@@ -103,23 +119,72 @@ export const UMVirtualSelect = defineComponent({
             "um-virtual-select--bordered",
             sizeClass(props.size),
             props.scrollbarAlwaysOn ? "um-virtual-select--scrollbar-always-on" : null,
+            props.clearable ? "um-virtual-select--clearable" : null,
+            props.collapseTags ? "um-virtual-select--collapse-tags" : null,
+            props.filterable ? "um-virtual-select--filterable" : null,
+            props.fitInputWidth ? "um-virtual-select--fit-input-width" : null,
+            props.effect === "dark" ? "um-virtual-select--effect-dark" : null,
+            props.effect === "plain" ? "um-virtual-select--effect-plain" : null,
+            props.loading ? "um-virtual-select--loading" : null,
+            props.tagType !== "primary" && TAG_TYPES.includes(props.tagType)
+              ? `um-virtual-select--tag-${props.tagType}`
+              : null,
+            props.tagEffect === "dark" ? "um-virtual-select--tag-effect-dark" : null,
+            props.tagEffect === "plain" ? "um-virtual-select--tag-effect-plain" : null,
           ],
           style: { "--um-virtual-select-height": props.height },
         },
         [
+          h("div", { class: "um-virtual-select__field" }, [
+            // The prefix is in the markup either way: an empty one is not
+            // drawn.
+            h(
+              "span",
+              { class: "um-virtual-select__prefix", "aria-hidden": "true" },
+              slots.prefix ? slots.prefix() : [],
+            ),
+            h("div", { class: "um-virtual-select__tags" }, [
+              h(
+                "span",
+                { class: "um-virtual-select__tag" },
+                slots.tag ? slots.tag({ label: chosen, index: 0 }) : [],
+              ),
+            ]),
+            h("input", {
+              class: "um-virtual-select__filter",
+              type: "search",
+              "aria-label": "Filter the list",
+            }),
+            h("button", {
+              class: "um-virtual-select__clear",
+              type: "button",
+              "aria-label": "Clear the choice",
+              onClick: () => {
+                // The choice is gone, so the field says so: the value that
+                // follows is the empty one.
+                emit("clear");
+                emit("update:modelValue", "");
+              },
+            }),
+          ]),
           h("div", { class: "um-virtual-select__scroller" }, [
             h("div", { class: "um-virtual-select__header" }, slots.header ? slots.header() : []),
             h(
               "div",
               {
                 class: "um-virtual-select__list",
-                role: "listbox",
+                role: "radiogroup",
                 "aria-label": props.placeholder || undefined,
               },
               list,
             ),
             h("div", { class: "um-virtual-select__footer" }, slots.footer ? slots.footer() : []),
           ]),
+          h(
+            "div",
+            { class: "um-virtual-select__loading" },
+            slots.loading ? slots.loading() : "Loading…",
+          ),
         ],
       );
     };

@@ -73,6 +73,14 @@
   transform: rotate(15deg);
 }
 
+/* The trail is a row of links, and the ring goes on the link itself: a
+   ring around the whole trail would say the wrong thing about what is
+   focused. */
+.um-breadcrumb__link:focus-visible {
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
+  outline-offset: var(--um-focus-ring-offset);
+}
+
 /* ============================================================================
    Quality hooks
    ----------------------------------------------------------------------------

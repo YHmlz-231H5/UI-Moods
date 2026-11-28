@@ -12,10 +12,15 @@
     "base": "um-slider"
   },
   "variants": [],
-  "sizes": [],
+  "sizes": [
+    { "id": "sm", "name": "Small", "nameZh": "小", "note": "The thumb is smaller and the track is the thin one." },
+    { "id": "md", "name": "Medium", "nameZh": "中", "default": true, "note": "The default size. The base class is already this size, so it needs no modifier." },
+    { "id": "lg", "name": "Large", "nameZh": "大", "note": "The thumb is bigger and the track is the thick one." }
+  ],
   "states": [
     { "id": "disabled", "name": "Disabled", "nameZh": "禁用", "selector": ":disabled", "native": true, "note": "The cursor becomes not-allowed and the control leaves the tab order." },
-    { "id": "vertical", "name": "Vertical", "nameZh": "竖向", "selector": ".um-slider--vertical", "note": "The slider stands on its end. The browser lays a range input out along the writing mode, so the vertical writing mode is the whole of it." }
+    { "id": "vertical", "name": "Vertical", "nameZh": "竖向", "selector": ".um-slider--vertical", "note": "The slider stands on its end. The browser lays a range input out along the writing mode, so the vertical writing mode is the whole of it." },
+    { "id": "show-stops", "name": "Show stops", "nameZh": "显示刻度", "selector": ".um-slider--show-stops", "note": "The track carries the tick marks that say there is a scale along it. They are evenly spaced, because a stylesheet cannot count the steps." }
   ],
   "parts": [],
   "props": [
@@ -25,6 +30,8 @@
     { "name": "value", "type": "number", "description": "The current value. It is written to the value attribute, so it round-trips through a form.", "descriptionZh": "当前值。它写在 value 属性上,所以能随表单提交再回来。" },
     { "name": "disabled", "type": "boolean", "default": "false", "description": "Makes the slider inert. It uses the real disabled attribute, so it leaves the tab order.", "descriptionZh": "让滑块不可用。它用的是原生 disabled 属性,因此会退出 Tab 顺序。" },
     { "name": "vertical", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Stands the slider on its end, so the value runs from the bottom up.", "descriptionZh": "把滑块立起来,数值从下往上走。" },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "since": "1.1.0", "description": "How big the thumb is and how thick the track is. The middle size is the base class on its own; the small size adds um-slider--sm and the large size adds um-slider--lg.", "descriptionZh": "滑块多大、轨道多粗。中间那一档是只写基类;小号加上 um-slider--sm,大号加上 um-slider--lg。" },
+    { "name": "show-stops", "type": "boolean", "default": "false", "since": "1.1.0", "description": "Whether the track carries the tick marks that say there is a scale along it. They are evenly spaced, so they say that there is a scale rather than where it breaks. It adds um-slider--show-stops.", "descriptionZh": "轨道上是否画出那些说明这里有刻度的记号。这些记号是等距的,所以它们说明这里有刻度,而不是刻度在哪里断开。它加上 um-slider--show-stops。" },
     { "name": "model-value", "type": "number", "description": "The slider's own value, bound with v-model in Vue. Leave it out and the `value` prop is the value; bind it and the slider answers to the binding.", "descriptionZh": "滑块自身的数值,在 Vue 里用 v-model 绑定。不传就以 value 属性为准;传了就以绑定为准。" }
   ],
   "slots": [],
@@ -46,7 +53,7 @@
       "titleZh": "取值范围",
       "description": "The bounds and the step are plain attributes. Whatever the browser shows for the value — the tooltip on some platforms — is not painted by the library, because that popup belongs to the platform.",
       "descriptionZh": "上下限和步进都是普通属性。至于浏览器怎么显示当前值 —— 有些平台会弹一个小窗 —— 库不去画它,那个浮层属于平台。",
-      "markup": "<input class=\"um-slider\" type=\"range\" min=\"0\" max=\"100\" step=\"5\" value=\"60\" />"
+      "markup": "<input class=\"um-slider\" type=\"range\" aria-label=\"Value\" min=\"0\" max=\"100\" step=\"5\" value=\"60\" />"
     },
     {
       "id": "disabled",

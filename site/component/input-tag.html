@@ -149,7 +149,7 @@
         <span class="tag">form</span>
         <span class="tag">since 1.1.0</span>
       </p>
-      <div class="note">Adding a tag and taking one away both need a script, so this component is only the two shapes: the tag and its remove button. The field paints the surface and the input inside it paints none — two translucent layers would be a colour no role names. The variant tints the tags of the whole field rather than of one tag, because in CSS the modifier class sits on the root; a per-tag tone needs the host to write the tag's own class.</div>
+      <div class="note">Adding a tag and taking one away both need a script, so this component is mostly the two shapes: the tag and its remove button. The field paints the surface and the input inside it paints none — two translucent layers would be a colour no role names. The variant tints the tags of the whole field rather than of one tag, because in CSS the modifier class sits on the root; a per-tag tone needs the host to write the tag's own class. The tag effect is a second modifier on the same root, so the two compose: one says which colour the tag carries, the other says which surface it sits on.</div>
 
       <h2>Examples</h2>
 <div class="example">
@@ -320,8 +320,13 @@
       <tr><td><code>um-input-tag__input</code></td><td>Input</td></tr>
       <tr><td><code>um-input-tag__prefix</code></td><td>Prefix</td></tr>
       <tr><td><code>um-input-tag__suffix</code></td><td>Suffix</td></tr>
+      <tr><td><code>um-input-tag__clear</code></td><td>Clear</td></tr>
       <tr><td><code>:focus-visible</code></td><td>Focus visible</td></tr>
       <tr><td><code>:disabled</code></td><td>Disabled</td></tr>
+      <tr><td><code>.um-input-tag--clearable</code></td><td>Clearable</td></tr>
+      <tr><td><code>.um-input-tag--filled</code></td><td>Filled</td></tr>
+      <tr><td><code>.um-input-tag--tag-effect-dark</code></td><td>Tag effect dark</td></tr>
+      <tr><td><code>.um-input-tag--tag-effect-plain</code></td><td>Tag effect plain</td></tr>
       </tbody>
     </table>
       <h2>Props</h2>
@@ -336,6 +341,9 @@
       <tr><td><span class="api__name"><code>disabled</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Makes the field inert. It uses the real disabled attribute on the input, so it leaves the tab order and the field paints the flat control surface.</td></tr>
       <tr><td><span class="api__name"><code>readonly</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Keeps the text visible but stops it being edited. It is the native readonly attribute, so the browser refuses the edit. The library does not repaint a read-only field — it is not a state it measures.</td></tr>
       <tr><td><span class="api__name"><code>model-value</code></span></td><td><code>string</code></td><td>—</td><td>The bound value. It answers to `v-model` as well as to `value`, and the binding wins when it is there.</td></tr>
+      <tr><td><span class="api__name"><code>clearable</code></span></td><td><code>boolean</code></td><td><code>false</code></td><td>Puts a button at the end of the field that empties it. The text in the field goes with it; the tags are the host's to take away.</td></tr>
+      <tr><td><span class="api__name"><code>effect</code></span></td><td><code>enum = light | filled</code></td><td><code>light</code></td><td>The surface of the field. The light run is the base class on its own; the filled run adds um-input-tag--filled, and the field sits on a recessed surface instead of in a frame.</td></tr>
+      <tr><td><span class="api__name"><code>tag-effect</code></span></td><td><code>enum = light | dark | plain</code></td><td><code>light</code></td><td>The surface the tags sit on. The light run is the base class on its own; the dark run puts the tags on the solid colour, and the plain run takes their fill away and leaves the outline.</td></tr>
       </tbody>
     </table>
       <h2>Slots</h2>
@@ -345,6 +353,7 @@
       <tr><td><span class="api__name"><code>default</code></span></td><td>The tags already chosen. Each one is a tag holding its text and its remove button.</td></tr>
       <tr><td><span class="api__name"><code>prefix</code></span></td><td>The mark in front of the tags.</td></tr>
       <tr><td><span class="api__name"><code>suffix</code></span></td><td>The mark behind the field.</td></tr>
+      <tr><td><span class="api__name"><code>tag</code></span></td><td>The words of one tag. The wrapper writes three tags of its own when the caller has not written any, and this slot is what fills them; the caller's own tags carry their own words.</td></tr>
       </tbody>
     </table>
       <h2>Events</h2>
@@ -352,6 +361,7 @@
       <thead><tr><th>Name</th><th>Description</th></tr></thead>
       <tbody>
       <tr><td><span class="api__name"><code>input</code></span></td><td>Fires when the text in the field changes.</td></tr>
+      <tr><td><span class="api__name"><code>clear</code></span></td><td>Fires when the reader presses the clear button. The text in the field goes with it; the tags are the host's to take away.</td></tr>
       </tbody>
     </table>
       <h2>Accessibility</h2>

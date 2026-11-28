@@ -63,7 +63,7 @@
 /* The ring goes on the link, because the link is what the reader sees of
    the entry. */
 .um-anchor__link:focus-visible {
-  outline: var(--um-focus-ring-width) solid var(--um-color-primary);
+  outline: var(--um-focus-ring-width) solid var(--um-focus-ring);
   outline-offset: var(--um-focus-ring-offset);
 }
 

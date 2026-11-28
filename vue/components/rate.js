@@ -29,6 +29,7 @@ export const UMRate = defineComponent({
     size: { type: String, default: "medium" },
     modelValue: { type: Number, default: undefined },
     showScore: { type: Boolean, default: false },
+    showText: { type: Boolean, default: false },
   },
   emits: ["change", "update:modelValue"],
   setup(props, { emit }) {
@@ -71,6 +72,7 @@ export const UMRate = defineComponent({
             COLORS.includes(props.color) ? `um-rate--${props.color}` : null,
             props.size !== "medium" ? `um-rate--${props.size}` : null,
             props.showScore ? "um-rate--show-score" : null,
+            props.showText ? "um-rate--show-text" : null,
           ],
           role: "radiogroup",
         },
@@ -79,6 +81,9 @@ export const UMRate = defineComponent({
           // The score is in the markup either way: the stylesheet decides
           // whether it is shown, so the number is always there to be read.
           h("span", { class: "um-rate__score" }, String(score)),
+          // The words beside the stars. The library has no list of its own,
+          // so this is the score said out rather than a word for each level.
+          h("span", { class: "um-rate__text" }, `${score} of ${props.max}`),
         ],
       );
     };

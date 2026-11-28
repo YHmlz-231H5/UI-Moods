@@ -14,6 +14,7 @@
 // the columns in its own language.
 
 import { defineComponent, h } from "vue";
+import { modelValue } from "../lib/model.mjs";
 
 /** Seven days to a week, and the first of them is Monday. */
 const WEEK = 7;
@@ -28,6 +29,7 @@ export const UMCalendar = defineComponent({
     weekdays: { type: String, default: "Mon,Tue,Wed,Thu,Fri,Sat,Sun" },
     today: { type: String, default: "2026-11-28" },
     selected: { type: String, default: "2026-11-20" },
+    modelValue: { type: String, default: undefined },
     disabled: { type: String, default: "2026-11-05,2026-11-06" },
   },
   setup(props, { slots }) {
@@ -62,6 +64,9 @@ export const UMCalendar = defineComponent({
           role: "grid",
         },
         [
+          // The heading of the panel. The month and the way it is named are
+          // the host's, so the heading is the host's too.
+          h("div", { class: "um-calendar__caption" }, slots.header ? slots.header() : []),
           h(
             "div",
             { class: "um-calendar__header", role: "row" },
@@ -125,7 +130,7 @@ function cell(date, props, blocked, dateCell) {
 
   const classes = ["um-calendar__cell"];
   if (date === props.today) classes.push("um-calendar__cell--today");
-  else if (date === props.selected) classes.push("um-calendar__cell--selected");
+  else if (date === modelValue(props, props.selected)) classes.push("um-calendar__cell--selected");
 
   // A day that cannot be picked is marked with `aria-disabled` rather than
   // with a class: a grid cell has no `disabled` attribute, and the reader has

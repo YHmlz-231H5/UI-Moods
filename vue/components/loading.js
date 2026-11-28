@@ -22,6 +22,7 @@ export const UMLoading = defineComponent({
     text: { type: String, default: "" },
     closed: { type: Boolean, default: false },
     fullscreen: { type: Boolean, default: false },
+    lock: { type: Boolean, default: false },
   },
   setup(props, { slots }) {
     return () => {
@@ -39,6 +40,7 @@ export const UMLoading = defineComponent({
             SIZES.includes(props.size) ? `um-loading--${props.size}` : null,
             props.closed ? "um-loading--closed" : null,
             props.fullscreen ? "um-loading--fullscreen" : null,
+            props.lock ? "um-loading--lock" : null,
           ],
           // The caption is the message, so the wrapper announces it where
           // the caption is there to be announced.

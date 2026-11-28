@@ -369,6 +369,22 @@
       ],
       "doc": "The effective surface of a text field inside a container, flattened to one opaque colour. See surface-control."
     },
+    "surface-control-blank": {
+      "op": "flatten",
+      "stack": [
+        "fill-blank",
+        "surface-control"
+      ],
+      "doc": "The effective surface of a control that paints the blank fill over the control surface — the stepper buttons of a number field. The blank fill is translucent, so the colour the reader sees is that fill over the surface underneath it, and neither of the two roles names that colour on its own."
+    },
+    "surface-input-blank": {
+      "op": "flatten",
+      "stack": [
+        "fill-blank",
+        "surface-input"
+      ],
+      "doc": "The effective surface of a chip that paints the blank fill over the field it sits in — a tag inside an input. Same argument as surface-control-blank, one surface down."
+    },
     "surface-panel": {
       "op": "flatten",
       "stack": [
@@ -631,6 +647,30 @@
       "target": 3,
       "mode": "atleast",
       "doc": "The brand colour used as a shape rather than as a fill — a timeline node, a checked box, a rating star. WCAG asks 3:1 of a graphic that has to be seen to be understood, not the 4.5:1 it asks of text, so the brand colour is moved just far enough to read as a shape. The raw colour is not enough: the brutal accent on a light container sits at 1.43:1, which is a checked checkbox nobody can see."
+    },
+    "focus-ring": {
+      "op": "contrast",
+      "base": "color-primary",
+      "toward": "text-primary",
+      "against": [
+        "bg-page",
+        "bg-container",
+        "bg-overlay",
+        "surface-input",
+        "surface-control",
+        "fill-blank",
+        "surface-control-blank",
+        "surface-input-blank",
+        "color-primary-soft-8",
+        "color-success-soft-8",
+        "color-warning-soft-8",
+        "color-danger-soft-8",
+        "color-info-soft-8"
+      ],
+      "target": 3,
+      "margin": 0.05,
+      "mode": "atleast",
+      "doc": "The colour of the focus ring — the one shape in the library that has to be seen on every surface it can land on. A ring is a graphic, so WCAG's 3:1 is the bar rather than the 4.5:1 of text, but a ring lands on more surfaces than any other shape: the page, a container, a floating overlay, the inside of a text field, the fill of a control, and the barely-there brand tint a selected row wears. It gets its own role because none of the others covers that list: the raw brand colour is a bright yellow on the brutal mood's light page, which is a ring nobody can see, and the graphic role is derived against the page and the container alone, which leaves it at 2.86:1 on the pastel mood's overlay. The margin is headroom above the bar: the browser paints a translucent chip with fractional channels, so a ring derived to sit exactly on 3:1 measures a hundredth under it once the browser has composited the stack itself."
     },
     "color-success-graphic": {
       "op": "contrast",
@@ -1074,6 +1114,27 @@
       "bg": "bg-container",
       "min": 3,
       "doc": "A brand-coloured shape inside a card."
+    },
+    {
+      "name": "focus ring on page",
+      "fg": "focus-ring",
+      "bg": "bg-page",
+      "min": 3,
+      "doc": "The focus ring of a control that sits on the page. 3:1 is what WCAG 2.2 asks of a focus indicator; a ring the reader cannot see is a control they are lost in."
+    },
+    {
+      "name": "focus ring on container",
+      "fg": "focus-ring",
+      "bg": "bg-container",
+      "min": 3,
+      "doc": "The focus ring of a control that sits inside a card."
+    },
+    {
+      "name": "focus ring on overlay",
+      "fg": "focus-ring",
+      "bg": "bg-overlay",
+      "min": 3,
+      "doc": "The focus ring of a control on a floating layer — a dialog, a drawer, a dropdown."
     },
     {
       "name": "success graphic on page",
