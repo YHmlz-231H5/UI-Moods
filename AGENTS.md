@@ -314,7 +314,31 @@ switcher over all 32 themes.
 - A muted role (`text-secondary`, `text-placeholder`, `text-disabled`) is
   already derived to be readable. Do not re-derive it, and do not replace it
   with the mood's raw `colors.muted`, which sits below 4.5:1 as text in 20 of
-  the 32 moods.
+  the 32 moods. In the **mood layer** the same rule holds under another name:
+  the specimens and the app packs draw their secondary text with
+  `--mood-colors-text-secondary`, which is the mood's own muted colour moved
+  toward its text colour until it reads. `colors.muted` itself stays exactly
+  as the mood wrote it — it is a design value, and the library does not change
+  a mood to make a role legible.
+- In the **mood layer**, the same discipline holds for the state colours and
+  for the fills:
+  - A state colour used as text takes its `-text` companion —
+    `--mood-colors-accent-text`, `--mood-colors-danger-text` and the rest.
+  - Text painted on a **solid** state fill takes that fill's own on-colour —
+    `--mood-colors-on-accent-solid`, `--mood-colors-on-danger-solid`,
+    `--mood-colors-on-ok-solid`, `--mood-colors-on-warn-solid`.
+    `--mood-colors-on-accent` is the foreground for a *soft* accent tint and
+    is not a substitute for the solid one.
+  - A **border** that belongs to an element with that same solid fill is the
+    fill's edge, so it takes the raw fill colour. A border that stands on its
+    own, on a surface, keeps the readable state colour — it is a graphic, and
+    a graphic needs to be seen.
+  - A container that holds a card paints `--mood-colors-surface-flat`, the
+    surface flattened over the page: the same colour the reader sees, in one
+    layer. Two translucent layers under a card are what put a text colour in
+    a range no single colour can serve.
+  - `audit-render moods` and `audit-render apps` measure all of this. Run them
+    after touching a template.
 - Paint a status chip from the state layer, never from a derived tint: use
   `components.badge.<state>` / `components.alert.<state>` (or the
   `--mood-components-*` variables, or the `.badge.<state>` / `.notice.<state>`

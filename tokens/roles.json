@@ -317,8 +317,9 @@
         "bg-container"
       ],
       "target": 4.5,
+      "margin": 0.05,
       "mode": "atleast",
-      "doc": "Supporting text. The mood owns a muted colour chosen for looks, and it is often below 4.5:1 as text. The library does not change the mood; it moves this role toward the text colour just far enough to read. It is measured against all three surfaces it can land on — the page, a floating overlay, and a container — because a caption that reads on the page can still vanish inside a card."
+      "doc": "Supporting text. The mood owns a muted colour chosen for looks, and it is often below 4.5:1 as text. The library does not change the mood; it moves this role toward the text colour just far enough to read. It is measured against all three surfaces it can land on — the page, a floating overlay, and a container — because a caption that reads on the page can still vanish inside a card. The margin is headroom above the bar: a role derived to sit exactly on 4.5:1 lands a hundredth under it once the browser has composited a translucent panel with its own rounding."
     },
     "text-placeholder": {
       "op": "fade",

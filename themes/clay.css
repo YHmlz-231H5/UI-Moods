@@ -82,11 +82,11 @@
   --um-color-info-soft-8: #c9beb3;
   --um-color-info-on-soft: #564d43;
   --um-color-info-strong: #8a7c6e;
-  --um-text-secondary: #63584d;
+  --um-text-secondary: #62574c;
   --um-surface-input: #efe7dc;
   --um-fill-light: #e1d7cc;
   --um-fill-lighter: #ddd3c8;
-  --um-text-placeholder: #8a8075;
+  --um-text-placeholder: #897f74;
   --um-surface-control: #e6ddd2;
   --um-text-disabled: #9b9186;
   --um-surface-control-blank: #efe7dc;
@@ -109,6 +109,6 @@
   --um-color-warning-graphic: #9a6a30;
   --um-color-danger-graphic: #8a4840;
   --um-color-info-graphic: #7f7265;
-  --um-shape-muted: #7e7368;
+  --um-shape-muted: #7d7368;
   --um-glow: none;
 }

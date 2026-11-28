@@ -41,6 +41,89 @@ camelCase fields are converted to kebab-case (one `-` per uppercase letter).
 `components.*` is **no longer** an exception: since v1.1 the semantic layer is
 injected as `--mood-components-*` (see §3.1).
 
+## 3.0 Derived variables — declared by nobody
+
+Some variables are not in `tokens.json` at all, because they are **derived**
+rather than declared. There are six today:
+
+| variable | what it is |
+| --- | --- |
+| `--mood-colors-text-secondary` | the mood's own muted colour, moved toward its text colour until it reads as text |
+| `--mood-colors-accent-text` | the accent, moved toward the text colour until it reads as text |
+| `--mood-colors-ok-text` | the ok colour, as text |
+| `--mood-colors-warn-text` | the warn colour, as text |
+| `--mood-colors-danger-text` | the danger colour, as text |
+| `--mood-colors-surface-flat` | the surface, flattened over the page — the same colour, in one layer |
+
+A mood owns a muted colour chosen for looks, and in twenty of the thirty-two
+moods that colour is below 4.5:1 as text — it is a tint, not a reading
+colour. The component layer already solved this in its own role
+(`text-secondary`): it moves the muted colour toward the text colour just far
+enough to read, and it leaves the mood alone. The app packs and the specimens
+draw the mood's own tokens, so they need the same move under the same rule,
+and they get it at build time.
+
+The status colours are the same case: a brand colour is a **fill**. The accent
+of the brutal mood is a bright yellow — readable as a badge, unreadable as a
+price — and the accent of the sakura mood is a soft rose that disappears
+entirely as text on the social app's cards. The component layer has
+`color-*-text` roles for this; the mood layer has the same four, derived by
+the same rule.
+
+### What the colour is measured against
+
+The rule is the one the component layer uses, down to the margin: the colour
+clears 4.5:1 on every surface it can land on, with 0.05 of headroom, because a
+colour derived to sit exactly on the line lands a hundredth under it once the
+browser has composited the stack itself.
+
+"The surfaces it can land on" is the part that is easy to get wrong. A
+translucent fill over the page is a colour no token names; a second
+translucent fill over *that* is another one. The frosted moods — glass, neon,
+vaporwave, aurora — are the only ones where this shows, and there the stack
+under a card was three layers deep, in a lightness range so wide that no
+single colour can serve it: a caption that clears 4.5:1 on both the page and
+the third layer is white, and a caption brighter than the body text is not a
+caption.
+
+So the templates keep the stack at **two** layers, and the derived colour is
+measured against every stack of one and two layers over the page — the page,
+the panel, the surface, and the three composites of a panel and a surface over
+each other. Two layers is what the templates produce once the section
+container paints a *flattened* surface: `--mood-colors-surface-flat` is the
+surface the reader sees, in one layer, and the stack stops there. It is the
+component layer's `surface-panel` role, brought to the mood layer — the
+library paints the flattened colour for the same reason.
+
+The four moods whose surfaces are translucent pay for this: their secondary
+text moves a few steps lighter than the mood's own muted colour, because the
+card it lands on is lighter than the page. That is the price of reading, and
+it is smaller than the alternative: the alternative was a caption brighter
+than the body text.
+
+### A fill takes its own on-colour; a border is not text
+
+Two rules govern how the templates use these variables, and they are the same
+two the component layer follows:
+
+- **Text painted on a solid fill** reads with that fill's own on-colour:
+  `on-accent-solid`, `on-ok-solid`, `on-warn-solid`, `on-danger-solid`. These
+  are declared by every mood and measured to clear 4.5:1 on the fill they
+  belong to. `on-accent` is the foreground for a *soft* accent tint and is not
+  a substitute.
+- **A border that belongs to an element with that same solid fill** is the
+  fill's edge, not a separate graphic, so it takes the raw fill colour. A
+  border that stands on its own, on a surface, is a graphic and keeps the
+  readable state colour.
+
+Nothing is declared twice: `colors.muted` and the status colours stay exactly
+as the mood wrote them, and the derived variables are what the specimens and
+the app packs draw their text with. A **fill** still takes the raw colour —
+the background of a badge is the accent, not the accent-as-text.
+
+Both layers are measured by the probes: `audit-render moods` for the
+specimens, `audit-render apps` for the app packs.
+
 ## 3.1 Component semantic layer (v1.1)
 
 `tokens.components` is the agent-facing layer: it names the *states* a product
@@ -802,29 +885,60 @@ component layer's roles. They were never measured; the documentation used to
 say an app pack "inherits its mood's contrast guarantees" and stop there.
 
 `tools/probe/apps.html` loads every screen into an iframe and measures what
-the browser painted: **3 364 measurements, 1 106 below the bar**. The failures
-are not spread out — they are two habits, and both are the *mood's* habit
-rather than the generator's:
+the browser painted. The first run reported **1 106 measurements below the
+bar**, and the failures were not spread out — they were two habits, and both
+were the *mood's* habit rather than the generator's:
 
 | What the screen does | Failures | Worst |
 | --- | --- | --- |
 | A mood colour painted as text — `colors.muted`, `colors.accent`, `colors.ok`, `colors.danger` | 961 | 1.44 |
 | A solid fill with the mood's own on-colour (`onAccent`, `onDangerSolid`, …) | 145 | 2.02 |
 
-823 of the 961 are one token: `colors.muted`. It is below 4.5:1 as text in 20
+823 of the 961 were one token: `colors.muted`. It is below 4.5:1 as text in 20
 of the 32 moods, and the app packs show it as often as the screens allow.
 
-This is the same debt the component layer does *not* have, and the difference
+This was the same debt the component layer does *not* have, and the difference
 is exactly what the derived roles are for: the component layer derives
 `text-secondary` from the mood's muted colour and moves it toward the text
 colour until it reads, and it derives `color-*-on` so that a solid fill has a
-foreground that reads on it. The app layer paints with the mood's tokens as
-they are, on purpose — it is the faithful picture of a mood, and a faithful
+foreground that reads on it. The app layer painted with the mood's tokens as
+they were, on purpose — it was the faithful picture of a mood, and a faithful
 picture of a mood shows the mood's contrast.
 
-So the number above is not a defect in the app generator. It is the size of
-the mood palette's own contrast debt, measured. Repairing it is a decision
-about the moods themselves, and it belongs to whoever owns the moods.
+The mood layer now draws the same picture *legibly*: the derived variables of
+§3.0 carry the text, and a solid fill carries its own on-colour. The app
+packs measure **3 364 measurements, 0 failures**, and the specimen pages
+**45 179 measurements, 0 failures**.
+
+### The ninth instrument: the specimens
+
+The specimens are the third thing this repository renders, and the one thing
+nothing was measuring: the thirty-two mood pages, the artefact every mood is
+actually published as. They are built from the same section templates as the
+app packs, so a defect in a section shows up in both — but the specimens are
+the page a visitor lands on first, and for eighteen of the thirty-two moods
+there is no app pack at all, so their text was never measured anywhere.
+
+`tools/probe/moods.html` measures them, and it measures them with the same
+module the app probe uses (`tools/probe/mood-measure.js`), so a defect that
+shows up in one and not the other is a difference in the page, not in the
+measuring. Its first run reported **4 402 failures**. They fell into three
+shapes:
+
+| What the page does | Failures | Worst |
+| --- | --- | --- |
+| Secondary text on a surface the derivation did not know about | 3 851 | 3.11 |
+| A solid fill with the soft-tint on-colour instead of the solid one | 416 | 2.02 |
+| A state colour painted as text on a composite | 108 | 3.03 |
+
+All three are the mood layer's habits, and all three are now repaired: the
+derivation measures every surface the templates can produce, a solid fill
+carries `on-*-solid`, and a state colour carries its `-text` companion.
+
+The probe reports the **stack** a failure was measured on — the background
+colours between the text and the page, and the elements that painted them —
+because a colour on its own cannot be traced back to the rule that produced
+it. That is how the three-deep stacks in the frosted moods were found at all.
 
 ### Text has a bar, and a shape has a different one
 

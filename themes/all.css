@@ -519,13 +519,13 @@
   --um-color-info-soft-8: #21517e;
   --um-color-info-on-soft: #aac3da;
   --um-color-info-strong: #eef6ff;
-  --um-text-secondary: #94b3ce;
+  --um-text-secondary: #95b4ce;
   --um-surface-input: #0c447a;
   --um-fill-light: #0a3866;
   --um-fill-lighter: #0b3b6a;
-  --um-text-placeholder: #5b84ab;
+  --um-text-placeholder: #5a84aa;
   --um-surface-control: #0a3560;
-  --um-text-disabled: #4f7497;
+  --um-text-disabled: #507597;
   --um-surface-control-blank: #0c447a;
   --um-surface-input-blank: #0c447a;
   --um-surface-panel: #0c447a;
@@ -546,7 +546,7 @@
   --um-color-warning-graphic: #ffd56a;
   --um-color-danger-graphic: #ff8a8a;
   --um-color-info-graphic: #7aa0c0;
-  --um-shape-muted: #648aac;
+  --um-shape-muted: #658aac;
   --um-glow: none;
 }
 
@@ -735,11 +735,11 @@
   --um-color-info-soft-8: #c9beb3;
   --um-color-info-on-soft: #564d43;
   --um-color-info-strong: #8a7c6e;
-  --um-text-secondary: #63584d;
+  --um-text-secondary: #62574c;
   --um-surface-input: #efe7dc;
   --um-fill-light: #e1d7cc;
   --um-fill-lighter: #ddd3c8;
-  --um-text-placeholder: #8a8075;
+  --um-text-placeholder: #897f74;
   --um-surface-control: #e6ddd2;
   --um-text-disabled: #9b9186;
   --um-surface-control-blank: #efe7dc;
@@ -762,7 +762,7 @@
   --um-color-warning-graphic: #9a6a30;
   --um-color-danger-graphic: #8a4840;
   --um-color-info-graphic: #7f7265;
-  --um-shape-muted: #7e7368;
+  --um-shape-muted: #7d7368;
   --um-glow: none;
 }
 
@@ -1060,13 +1060,13 @@
   --um-color-info-soft-8: #dbe2db;
   --um-color-info-on-soft: #58675d;
   --um-color-info-strong: #7b8b80;
-  --um-text-secondary: #66756b;
+  --um-text-secondary: #65746a;
   --um-surface-input: #ffffff;
   --um-fill-light: #fafcfa;
   --um-fill-lighter: #f7faf6;
-  --um-text-placeholder: #95a099;
+  --um-text-placeholder: #96a09a;
   --um-surface-control: #ffffff;
-  --um-text-disabled: #a9b2ac;
+  --um-text-disabled: #a9b1ac;
   --um-surface-control-blank: #ffffff;
   --um-surface-input-blank: #ffffff;
   --um-surface-panel: #ffffff;
@@ -1087,7 +1087,7 @@
   --um-color-warning-graphic: #b88628;
   --um-color-danger-graphic: #c1554a;
   --um-color-info-graphic: #7b8b80;
-  --um-shape-muted: #859289;
+  --um-shape-muted: #869289;
 }
 
 /* ui-moods theme · fashion · Fashion (时装)
@@ -1168,13 +1168,13 @@
   --um-color-info-soft-8: #e4e4e4;
   --um-color-info-on-soft: #656565;
   --um-color-info-strong: #757575;
-  --um-text-secondary: #717171;
+  --um-text-secondary: #707070;
   --um-surface-input: #f6f6f6;
   --um-fill-light: #ffffff;
   --um-fill-lighter: #ffffff;
-  --um-text-placeholder: #9d9d9d;
+  --um-text-placeholder: #9c9c9c;
   --um-surface-control: #ffffff;
-  --um-text-disabled: #afafaf;
+  --um-text-disabled: #b0b0b0;
   --um-surface-control-blank: #f6f6f6;
   --um-surface-input-blank: #f6f6f6;
   --um-surface-panel: #f6f6f6;
@@ -1195,7 +1195,7 @@
   --um-color-warning-graphic: #b3874a;
   --um-color-danger-graphic: #9b2c2c;
   --um-color-info-graphic: #767676;
-  --um-shape-muted: #939393;
+  --um-shape-muted: #949494;
 }
 
 /* ui-moods theme · finance · Finance (金融)
@@ -1491,13 +1491,13 @@
   --um-color-info-soft-8: #d7ddce;
   --um-color-info-on-soft: #58644f;
   --um-color-info-strong: #7d8a72;
-  --um-text-secondary: #606c57;
+  --um-text-secondary: #5f6b56;
   --um-surface-input: #fbfdf5;
   --um-fill-light: #e7eddd;
   --um-fill-lighter: #ebf0e1;
-  --um-text-placeholder: #8b9583;
+  --um-text-placeholder: #8c9584;
   --um-surface-control: #e3ead7;
-  --um-text-disabled: #9fa894;
+  --um-text-disabled: #9ea894;
   --um-surface-control-blank: #fbfdf5;
   --um-surface-input-blank: #fbfdf5;
   --um-surface-panel: #fbfdf5;
@@ -1518,7 +1518,7 @@
   --um-color-warning-graphic: #a37e39;
   --um-color-danger-graphic: #b05f47;
   --um-color-info-graphic: #7b8870;
-  --um-shape-muted: #7e8875;
+  --um-shape-muted: #7d8774;
   --um-glow: none;
 }
 
@@ -1600,11 +1600,11 @@
   --um-color-info-soft-8: #21212b;
   --um-color-info-on-soft: #8686a1;
   --um-color-info-strong: #737392;
-  --um-text-secondary: #82829e;
+  --um-text-secondary: #83839f;
   --um-surface-input: #1c1c2a;
   --um-fill-light: #12121a;
   --um-fill-lighter: #0f0f16;
-  --um-text-placeholder: #5a5a71;
+  --um-text-placeholder: #5a5a70;
   --um-surface-control: #15151f;
   --um-text-disabled: #4c4c5f;
   --um-surface-control-blank: #1c1c2a;
@@ -1627,7 +1627,7 @@
   --um-color-warning-graphic: #ffb020;
   --um-color-danger-graphic: #ff3b6b;
   --um-color-info-graphic: #6f6f8f;
-  --um-shape-muted: #616177;
+  --um-shape-muted: #616176;
 }
 
 /* ui-moods theme · glass · Glass (毛玻璃)
@@ -1815,7 +1815,7 @@
   --um-color-info-soft-8: #20262b;
   --um-color-info-on-soft: #7f8e9a;
   --um-color-info-strong: #e6eef4;
-  --um-text-secondary: #71818e;
+  --um-text-secondary: #738290;
   --um-surface-input: #0f1317;
   --um-fill-light: #101418;
   --um-fill-lighter: #0f1316;
@@ -1842,7 +1842,7 @@
   --um-color-warning-graphic: #e0b060;
   --um-color-danger-graphic: #e07080;
   --um-color-info-graphic: #6a7a88;
-  --um-shape-muted: #586570;
+  --um-shape-muted: #596570;
   --um-glow: none;
 }
 
@@ -2031,13 +2031,13 @@
   --um-color-info-soft-8: #e0dedb;
   --um-color-info-on-soft: #626261;
   --um-color-info-strong: #838382;
-  --um-text-secondary: #70706f;
+  --um-text-secondary: #6f6f6e;
   --um-surface-input: #faf9f6;
   --um-fill-light: #f8f7f4;
   --um-fill-lighter: #f7f6f2;
-  --um-text-placeholder: #9c9c9a;
+  --um-text-placeholder: #9b9b9a;
   --um-surface-control: #faf9f6;
-  --um-text-disabled: #afafad;
+  --um-text-disabled: #afaead;
   --um-surface-control-blank: #faf9f6;
   --um-surface-input-blank: #faf9f6;
   --um-surface-panel: #f6f4f0;
@@ -2058,7 +2058,7 @@
   --um-color-warning-graphic: #8a6a30;
   --um-color-danger-graphic: #a04040;
   --um-color-info-graphic: #888888;
-  --um-shape-muted: #8d8d8b;
+  --um-shape-muted: #8d8c8b;
   --um-glow: none;
 }
 
@@ -2140,13 +2140,13 @@
   --um-color-info-soft-8: #d6e1e3;
   --um-color-info-on-soft: #49686e;
   --um-color-info-strong: #6d8b90;
-  --um-text-secondary: #58767b;
+  --um-text-secondary: #57757b;
   --um-surface-input: #ffffff;
   --um-fill-light: #f9fcfc;
   --um-fill-lighter: #f5f9fa;
-  --um-text-placeholder: #8ca0a4;
+  --um-text-placeholder: #8ba0a4;
   --um-surface-control: #ffffff;
-  --um-text-disabled: #a1b2b5;
+  --um-text-disabled: #a3b3b6;
   --um-surface-control-blank: #ffffff;
   --um-surface-input-blank: #ffffff;
   --um-surface-panel: #ffffff;
@@ -2167,7 +2167,7 @@
   --um-color-warning-graphic: #c87c0a;
   --um-color-danger-graphic: #e03131;
   --um-color-info-graphic: #6d8b90;
-  --um-shape-muted: #799297;
+  --um-shape-muted: #7a9398;
 }
 
 /* ui-moods theme · monochrome · Monochrome (素白)
@@ -2248,11 +2248,11 @@
   --um-color-info-soft-8: #e8e8e8;
   --um-color-info-on-soft: #686868;
   --um-color-info-strong: #767676;
-  --um-text-secondary: #707070;
+  --um-text-secondary: #6f6f6f;
   --um-surface-input: #f5f5f5;
   --um-fill-light: #fcfcfc;
   --um-fill-lighter: #fefefe;
-  --um-text-placeholder: #9c9c9c;
+  --um-text-placeholder: #9b9b9b;
   --um-surface-control: #fafafa;
   --um-text-disabled: #afafaf;
   --um-surface-control-blank: #f5f5f5;
@@ -2275,7 +2275,7 @@
   --um-color-warning-graphic: #6b6b6b;
   --um-color-danger-graphic: #000000;
   --um-color-info-graphic: #8c8c8c;
-  --um-shape-muted: #919191;
+  --um-shape-muted: #909090;
 }
 
 /* ui-moods theme · neon · Neon (霓虹)
@@ -2572,13 +2572,13 @@
   --um-color-info-soft-8: #e1e1df;
   --um-color-info-on-soft: #646460;
   --um-color-info-strong: #80807c;
-  --um-text-secondary: #6e6e6b;
+  --um-text-secondary: #6d6d6a;
   --um-surface-input: #f1f1ee;
   --um-fill-light: #fcfcfb;
   --um-fill-lighter: #f9f9f8;
   --um-text-placeholder: #999996;
   --um-surface-control: #ffffff;
-  --um-text-disabled: #acacab;
+  --um-text-disabled: #acacaa;
   --um-surface-control-blank: #f1f1ee;
   --um-surface-input-blank: #f1f1ee;
   --um-surface-panel: #f1f1ee;
@@ -2599,7 +2599,7 @@
   --um-color-warning-graphic: #b4874a;
   --um-color-danger-graphic: #a4503f;
   --um-color-info-graphic: #8a8a86;
-  --um-shape-muted: #8f8f8c;
+  --um-shape-muted: #8e8e8b;
 }
 
 /* ui-moods theme · pastel · Pastel (粉彩)
@@ -2680,13 +2680,13 @@
   --um-color-info-soft-8: #e7e1e6;
   --um-color-info-on-soft: #676274;
   --um-color-info-strong: #918b9e;
-  --um-text-secondary: #716b7e;
+  --um-text-secondary: #706a7d;
   --um-surface-input: #f7eef5;
   --um-fill-light: #fefbfc;
   --um-fill-lighter: #fef9fa;
   --um-text-placeholder: #9d96a5;
   --um-surface-control: #ffffff;
-  --um-text-disabled: #ada9b4;
+  --um-text-disabled: #adaab5;
   --um-surface-control-blank: #f7eef5;
   --um-surface-input-blank: #f7eef5;
   --um-surface-panel: #f7eef5;
@@ -2707,7 +2707,7 @@
   --um-color-warning-graphic: #a08c7d;
   --um-color-danger-graphic: #bb8085;
   --um-color-info-graphic: #918b9e;
-  --um-shape-muted: #938c9b;
+  --um-shape-muted: #938d9c;
 }
 
 /* ui-moods theme · retro · Retro (复古)
@@ -2896,13 +2896,13 @@
   --um-color-info-soft-8: #ebdfe2;
   --um-color-info-on-soft: #775e67;
   --um-color-info-strong: #a2858f;
-  --um-text-secondary: #7e656e;
+  --um-text-secondary: #7d646d;
   --um-surface-input: #fbe9ee;
   --um-fill-light: #fefbfc;
   --um-fill-lighter: #fef8f9;
-  --um-text-placeholder: #a79198;
+  --um-text-placeholder: #a89199;
   --um-surface-control: #ffffff;
-  --um-text-disabled: #b4a6ab;
+  --um-text-disabled: #b4a5aa;
   --um-surface-control-blank: #fbe9ee;
   --um-surface-input-blank: #fbe9ee;
   --um-surface-panel: #fbe9ee;
@@ -2923,7 +2923,7 @@
   --um-color-warning-graphic: #b4873d;
   --um-color-danger-graphic: #c0392b;
   --um-color-info-graphic: #a2858f;
-  --um-shape-muted: #9f8a92;
+  --um-shape-muted: #9e8a91;
 }
 
 /* ui-moods theme · swiss · Swiss (瑞士)
@@ -3004,13 +3004,13 @@
   --um-color-info-soft-8: #e4e4e4;
   --um-color-info-on-soft: #656565;
   --um-color-info-strong: #757575;
-  --um-text-secondary: #707070;
+  --um-text-secondary: #6f6f6f;
   --um-surface-input: #f4f4f4;
   --um-fill-light: #ffffff;
   --um-fill-lighter: #ffffff;
-  --um-text-placeholder: #9a9a9a;
+  --um-text-placeholder: #9b9b9b;
   --um-surface-control: #ffffff;
-  --um-text-disabled: #adadad;
+  --um-text-disabled: #aeaeae;
   --um-surface-control-blank: #f4f4f4;
   --um-surface-input-blank: #f4f4f4;
   --um-surface-panel: #f4f4f4;
@@ -3112,13 +3112,13 @@
   --um-color-info-soft-8: #d7e4ed;
   --um-color-info-on-soft: #4c687f;
   --um-color-info-strong: #7492aa;
-  --um-text-secondary: #57738a;
+  --um-text-secondary: #567289;
   --um-surface-input: #ffffff;
   --um-fill-light: #f8fbfd;
   --um-fill-lighter: #f3f9fc;
-  --um-text-placeholder: #8b9eae;
+  --um-text-placeholder: #8a9eae;
   --um-surface-control: #ffffff;
-  --um-text-disabled: #a1b1bd;
+  --um-text-disabled: #a2b1be;
   --um-surface-control-blank: #ffffff;
   --um-surface-input-blank: #ffffff;
   --um-surface-panel: #ffffff;
@@ -3139,7 +3139,7 @@
   --um-color-warning-graphic: #b4843d;
   --um-color-danger-graphic: #d9534f;
   --um-color-info-graphic: #7391a9;
-  --um-shape-muted: #7890a3;
+  --um-shape-muted: #7990a3;
 }
 
 /* ui-moods theme · vaporwave · Vaporwave (蒸汽波)
@@ -3220,13 +3220,13 @@
   --um-color-info-soft-8: #413260;
   --um-color-info-on-soft: #a79ecc;
   --um-color-info-strong: #ffffff;
-  --um-text-secondary: #9c91c5;
+  --um-text-secondary: #9d92c6;
   --um-surface-input: #4c3160;
   --um-fill-light: #33234e;
   --um-fill-lighter: #2f1f4a;
-  --um-text-placeholder: #8271a4;
+  --um-text-placeholder: #8171a3;
   --um-surface-control: #44365c;
-  --um-text-disabled: #6f638f;
+  --um-text-disabled: #706390;
   --um-surface-control-blank: #573d69;
   --um-surface-input-blank: #5e386c;
   --um-surface-panel: #402456;
@@ -3247,7 +3247,7 @@
   --um-color-warning-graphic: #fff95a;
   --um-color-danger-graphic: #ff2e63;
   --um-color-info-graphic: #9a8fc4;
-  --um-shape-muted: #7f72a4;
+  --um-shape-muted: #7e72a4;
 }
 
 /* ui-moods theme · verdant · Verdant (磷光)
@@ -3328,13 +3328,13 @@
   --um-color-info-soft-8: #131f16;
   --um-color-info-on-soft: #5f8e6a;
   --um-color-info-strong: #4a7a55;
-  --um-text-secondary: #578661;
+  --um-text-secondary: #588763;
   --um-surface-input: #0b120e;
   --um-fill-light: #070a08;
   --um-fill-lighter: #060907;
-  --um-text-placeholder: #3c5c43;
+  --um-text-placeholder: #3c5c44;
   --um-surface-control: #080c09;
-  --um-text-disabled: #324d38;
+  --um-text-disabled: #324c38;
   --um-surface-control-blank: #0b120e;
   --um-surface-input-blank: #0b120e;
   --um-surface-panel: #0b120e;
@@ -3355,7 +3355,7 @@
   --um-color-warning-graphic: #c8ff5a;
   --um-color-danger-graphic: #ff6b6b;
   --um-color-info-graphic: #4a7a55;
-  --um-shape-muted: #43674a;
+  --um-shape-muted: #42664b;
 }
 
 /* ui-moods theme · y2k · Y2K (千禧)

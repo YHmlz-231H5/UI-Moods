@@ -82,7 +82,7 @@
   --um-color-info-soft-8: #20262b;
   --um-color-info-on-soft: #7f8e9a;
   --um-color-info-strong: #e6eef4;
-  --um-text-secondary: #71818e;
+  --um-text-secondary: #738290;
   --um-surface-input: #0f1317;
   --um-fill-light: #101418;
   --um-fill-lighter: #0f1316;
@@ -109,6 +109,6 @@
   --um-color-warning-graphic: #e0b060;
   --um-color-danger-graphic: #e07080;
   --um-color-info-graphic: #6a7a88;
-  --um-shape-muted: #586570;
+  --um-shape-muted: #596570;
   --um-glow: none;
 }

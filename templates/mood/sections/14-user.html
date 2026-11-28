@@ -5,22 +5,22 @@
     width: 56px; height: 56px; border-radius: 50%; flex-shrink: 0;
     display: flex; align-items: center; justify-content: center;
     background: var(--mood-colors-accent);
-    color: var(--mood-colors-on-accent, var(--mood-colors-surface));
+    color: var(--mood-colors-on-accent-solid);
     font-size: var(--mood-typography-title-size); font-weight: 700;
   }
   .s-profile-name { font-size: var(--mood-typography-title-size); font-weight: 600; color: var(--mood-colors-text-strong); }
-  .s-profile-role { font-size: 12px; color: var(--mood-colors-muted); }
+  .s-profile-role { font-size: 12px; color: var(--mood-colors-text-secondary); }
   .s-tags { display: flex; flex-wrap: wrap; gap: 6px; }
   .s-tag {
     padding: 3px 10px; border-radius: var(--mood-radii-badge);
-    background: var(--mood-colors-bg); color: var(--mood-colors-muted); font-size: 11px;
+    background: var(--mood-colors-bg); color: var(--mood-colors-text-secondary); font-size: 11px;
     border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
   }
-  .s-tag.s-accent { background: var(--mood-colors-accent); border-color: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); }
+  .s-tag.s-accent { background: var(--mood-colors-accent); border-color: var(--mood-colors-accent); color: var(--mood-colors-on-accent-solid); }
   .s-profile-stats { display: flex; gap: 22px; padding-top: 14px; border-top: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
   .s-profile-stats div { display: flex; flex-direction: column; }
   .s-profile-stats b { font-size: var(--mood-typography-title-size); font-weight: 700; color: var(--mood-colors-text-strong); }
-  .s-profile-stats span { font-size: 11px; color: var(--mood-colors-muted); }
+  .s-profile-stats span { font-size: 11px; color: var(--mood-colors-text-secondary); }
   .s-team-row {
     display: flex; align-items: center; gap: 12px;
     padding: 11px 0;
@@ -34,23 +34,23 @@
     border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
     font-size: 12px; font-weight: 600;
   }
-  .s-team-avatar.s-accent { background: var(--mood-colors-accent); border-color: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); }
+  .s-team-avatar.s-accent { background: var(--mood-colors-accent); border-color: var(--mood-colors-accent); color: var(--mood-colors-on-accent-solid); }
   .s-team-name { flex: 1; min-width: 0; }
   .s-team-name b { display: block; font-size: 13px; font-weight: 600; color: var(--mood-colors-text-strong); }
-  .s-team-name span { font-size: 11px; color: var(--mood-colors-muted); }
+  .s-team-name span { font-size: 11px; color: var(--mood-colors-text-secondary); }
   .s-feed { display: flex; flex-direction: column; }
   .s-feed-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
   .s-feed-item:last-child { border-bottom: 0; }
   .s-feed-body { flex: 1; min-width: 0; }
   .s-feed-body b { font-size: 13px; font-weight: 600; color: var(--mood-colors-text-strong); }
   .s-feed-body p { margin: 3px 0 0; font-size: 12px; color: var(--mood-colors-text); }
-  .s-feed-body time { font-size: 11px; color: var(--mood-colors-muted); }
+  .s-feed-body time { font-size: 11px; color: var(--mood-colors-text-secondary); }
   .s-rating { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-  .s-stars { display: inline-flex; gap: 3px; font-size: var(--mood-typography-title-size); color: var(--mood-colors-warn); letter-spacing: 0.06em; }
+  .s-stars { display: inline-flex; gap: 3px; font-size: var(--mood-typography-title-size); color: var(--mood-colors-warn-text); letter-spacing: 0.06em; }
   .s-stars .is-empty { color: var(--mood-colors-border); }
   .s-rating-value { font-size: var(--mood-typography-title-size); font-weight: 700; color: var(--mood-colors-text-strong); }
   .s-rating-bars { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 200px; }
-  .s-rating-bar { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--mood-colors-muted); }
+  .s-rating-bar { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--mood-colors-text-secondary); }
   .s-rating-bar .bar { flex: 1; }
 </style>
 
@@ -172,9 +172,9 @@
       <div class="s-rating">
         <span class="s-stars">★★★★★</span>
         <span class="s-rating-value">4.6</span>
-        <span style="font-size:12px;color:var(--mood-colors-muted)">from 218 workspace ratings</span>
+        <span style="font-size:12px;color:var(--mood-colors-text-secondary)">from 218 workspace ratings</span>
       </div>
-      <p style="margin:10px 0 0;font-size:12px;color:var(--mood-colors-muted)">
+      <p style="margin:10px 0 0;font-size:12px;color:var(--mood-colors-text-secondary)">
         “Set up a semantic layer in an afternoon, and the finance team stopped asking for
         CSV exports in the first week.”
       </p>

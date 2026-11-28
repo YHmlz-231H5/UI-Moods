@@ -3,15 +3,15 @@
   .s-form { padding: 22px; display: flex; flex-direction: column; gap: 18px; }
   .s-form-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
   .s-form-head h3 { margin: 0; font-size: var(--mood-typography-title-size); color: var(--mood-colors-text-strong); font-weight: 600; }
-  .s-form-head p { margin: 4px 0 0; font-size: 12px; color: var(--mood-colors-muted); }
+  .s-form-head p { margin: 4px 0 0; font-size: 12px; color: var(--mood-colors-text-secondary); }
   .s-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .s-field .field label { color: var(--mood-colors-muted); }
-  .s-hint { font-size: 11px; color: var(--mood-colors-muted); }
+  .s-field .field label { color: var(--mood-colors-text-secondary); }
+  .s-hint { font-size: 11px; color: var(--mood-colors-text-secondary); }
   .s-msg { font-size: 11px; display: flex; align-items: center; gap: 6px; }
-  .s-msg.s-error { color: var(--mood-colors-danger); }
-  .s-msg.s-ok { color: var(--mood-colors-ok); }
-  .s-field.s-error input, .s-field.s-error select, .s-field.s-error textarea { border-color: var(--mood-colors-danger); }
-  .s-field.s-ok input, .s-field.s-ok select { border-color: var(--mood-colors-ok); }
+  .s-msg.s-error { color: var(--mood-colors-danger-text); }
+  .s-msg.s-ok { color: var(--mood-colors-ok-text); }
+  .s-field.s-error input, .s-field.s-error select, .s-field.s-error textarea { border-color: var(--mood-colors-danger-text); }
+  .s-field.s-ok input, .s-field.s-ok select { border-color: var(--mood-colors-ok-text); }
   .s-check-row { display: flex; flex-direction: column; gap: 10px; }
   .s-check { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--mood-colors-text); }
   .s-box {
@@ -20,10 +20,10 @@
     border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
     background: var(--mood-colors-bg);
     display: flex; align-items: center; justify-content: center;
-    font-size: 11px; color: var(--mood-colors-on-accent, var(--mood-colors-surface));
+    font-size: 11px; color: var(--mood-colors-on-accent-solid);
   }
-  .s-box.s-on { background: var(--mood-colors-accent); border-color: var(--mood-colors-accent); }
-  .s-check small { display: block; font-size: 11px; color: var(--mood-colors-muted); }
+  .s-box.s-on { background: var(--mood-colors-accent); border-color: var(--mood-colors-accent); color: var(--mood-colors-on-accent-solid); }
+  .s-check small { display: block; font-size: 11px; color: var(--mood-colors-text-secondary); }
   .s-radio-row { display: flex; flex-wrap: wrap; gap: 18px; }
   .s-radio-item { display: flex; align-items: center; gap: 8px; font-size: 13px; }
   .s-radio {
@@ -32,7 +32,7 @@
     background: var(--mood-colors-bg);
     display: flex; align-items: center; justify-content: center;
   }
-  .s-radio.s-on { border-color: var(--mood-colors-accent); }
+  .s-radio.s-on { border-color: var(--mood-colors-accent-text); }
   .s-radio.s-on::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--mood-colors-accent); }
   .s-drop {
     display: flex; flex-direction: column; align-items: center; gap: 8px;
@@ -40,19 +40,19 @@
     border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
     border-radius: var(--mood-radii-block);
     background: var(--mood-colors-bg);
-    color: var(--mood-colors-muted);
+    color: var(--mood-colors-text-secondary);
   }
   .s-drop b { color: var(--mood-colors-text-strong); font-size: 13px; font-weight: 600; }
   .s-drop small { font-size: 11px; }
   .s-form-foot { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 16px; border-top: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
-  .s-form-foot span { font-size: 11px; color: var(--mood-colors-muted); }
+  .s-form-foot span { font-size: 11px; color: var(--mood-colors-text-secondary); }
   .s-anatomy { padding: 18px; display: flex; flex-direction: column; gap: 12px; }
   .s-anatomy-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 10px; border-bottom: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
   .s-anatomy-row b { font-size: 12px; font-weight: 600; color: var(--mood-colors-text-strong); }
-  .s-anatomy-row small { display: block; font-size: 11px; color: var(--mood-colors-muted); }
+  .s-anatomy-row small { display: block; font-size: 11px; color: var(--mood-colors-text-secondary); }
   .s-anatomy-row .s-swatch { width: 26px; height: 26px; border-radius: var(--mood-radii-input); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); background: var(--mood-colors-bg); flex-shrink: 0; }
-  .s-anatomy-row .s-swatch.s-error { border-color: var(--mood-colors-danger); }
-  .s-anatomy-row .s-swatch.s-ok { border-color: var(--mood-colors-ok); }
+  .s-anatomy-row .s-swatch.s-error { border-color: var(--mood-colors-danger-text); }
+  .s-anatomy-row .s-swatch.s-ok { border-color: var(--mood-colors-ok-text); }
 </style>
 
 <div class="section-label">Form Patterns</div>

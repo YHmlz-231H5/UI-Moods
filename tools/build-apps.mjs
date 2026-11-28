@@ -184,8 +184,8 @@ function buildApp(appId, opts = {}) {
     }
     .cover .gen-svg { display: block; width: 100%; height: 100%; }
     h1 { font-size: var(--mood-typography-display-size); color: var(--mood-colors-text-strong); margin: 0 0 6px; }
-    p.lead { color: var(--mood-colors-muted); margin: 0 0 8px; max-width: 640px; }
-    p.meta { color: var(--mood-colors-muted); font-size: var(--mood-typography-label-size); margin: 0 0 28px; }
+    p.lead { color: var(--mood-colors-text-secondary); margin: 0 0 8px; max-width: 640px; }
+    p.meta { color: var(--mood-colors-text-secondary); font-size: var(--mood-typography-label-size); margin: 0 0 28px; }
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -215,7 +215,7 @@ function buildApp(appId, opts = {}) {
       font-size: var(--mood-typography-label-size);
       font-weight: 500;
     }
-    .note { display: block; font-size: var(--mood-typography-label-size); color: var(--mood-colors-muted); margin-top: 6px; }
+    .note { display: block; font-size: var(--mood-typography-label-size); color: var(--mood-colors-text-secondary); margin-top: 6px; }
     .card:hover { border-color: var(--mood-colors-accent); }
   </style>
   <style id="mood-tokens">

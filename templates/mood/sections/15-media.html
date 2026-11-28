@@ -20,7 +20,7 @@
   .s-art-6 { background: linear-gradient(135deg, var(--mood-colors-muted), var(--mood-colors-panel)); }
   .s-gallery-body { padding: 12px; display: flex; flex-direction: column; gap: 5px; }
   .s-gallery-body b { font-size: 13px; font-weight: 600; color: var(--mood-colors-text-strong); }
-  .s-gallery-body span { font-size: 11px; color: var(--mood-colors-muted); }
+  .s-gallery-body span { font-size: 11px; color: var(--mood-colors-text-secondary); }
   .s-article { overflow: hidden; }
   .s-article-art { height: 200px; position: relative; }
   .s-article-art::after {
@@ -31,7 +31,7 @@
   .s-article-body { padding: 18px; display: flex; flex-direction: column; gap: 10px; }
   .s-article-body h3 { margin: 0; font-size: var(--mood-typography-title-size); font-weight: 600; color: var(--mood-colors-text-strong); }
   .s-article-body p { margin: 0; font-size: 13px; color: var(--mood-colors-text); }
-  .s-article-by { display: flex; align-items: center; gap: 10px; font-size: 11px; color: var(--mood-colors-muted); }
+  .s-article-by { display: flex; align-items: center; gap: 10px; font-size: 11px; color: var(--mood-colors-text-secondary); }
   .s-article-tags { display: flex; flex-wrap: wrap; gap: 6px; }
   .s-code {
     margin: 0; padding: 16px; overflow-x: auto;
@@ -41,14 +41,14 @@
     font-family: var(--mood-typography-family);
     font-size: 12px; line-height: 1.7; color: var(--mood-colors-text);
   }
-  .s-code .s-kw { color: var(--mood-colors-accent); }
-  .s-code .s-str { color: var(--mood-colors-ok); }
-  .s-code .s-com { color: var(--mood-colors-muted); font-style: italic; }
-  .s-code .s-fn { color: var(--mood-colors-warn); }
+  .s-code .s-kw { color: var(--mood-colors-accent-text); }
+  .s-code .s-str { color: var(--mood-colors-ok-text); }
+  .s-code .s-com { color: var(--mood-colors-text-secondary); font-style: italic; }
+  .s-code .s-fn { color: var(--mood-colors-warn-text); }
   .s-code .n { color: var(--mood-colors-text-strong); }
   .s-code-head {
     display: flex; align-items: center; justify-content: space-between; gap: 12px;
-    padding: 10px 14px; font-size: 11px; color: var(--mood-colors-muted);
+    padding: 10px 14px; font-size: 11px; color: var(--mood-colors-text-secondary);
     background: var(--mood-colors-panel);
     border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
     border-bottom: 0;
@@ -68,7 +68,7 @@
     width: 58px; height: 58px;
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    background: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface));
+    background: var(--mood-colors-accent); color: var(--mood-colors-on-accent-solid);
     font-size: var(--mood-typography-title-size);
   }
   .s-player-bar {
@@ -78,10 +78,10 @@
     background: var(--mood-colors-panel);
     border-top: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
   }
-  .s-player-time { font-size: 11px; color: var(--mood-colors-muted); font-variant-numeric: tabular-nums; }
+  .s-player-time { font-size: 11px; color: var(--mood-colors-text-secondary); font-variant-numeric: tabular-nums; }
   .s-player-scrub { flex: 1; height: 4px; border-radius: 999px; background: var(--mood-colors-border); position: relative; }
   .s-player-scrub i { position: absolute; left: 0; top: 0; bottom: 0; width: 38%; background: var(--mood-colors-accent); border-radius: 999px; }
-  .s-player-ctrl { font-size: 12px; color: var(--mood-colors-muted); }
+  .s-player-ctrl { font-size: 12px; color: var(--mood-colors-text-secondary); }
   .s-team-avatar {
     width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
     display: flex; align-items: center; justify-content: center;
@@ -89,7 +89,7 @@
     border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
     font-size: 12px; font-weight: 600;
   }
-  .s-team-avatar.s-accent { background: var(--mood-colors-accent); border-color: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); }
+  .s-team-avatar.s-accent { background: var(--mood-colors-accent); border-color: var(--mood-colors-accent); color: var(--mood-colors-on-accent-solid); }
 </style>
 
 <div class="section-label">Media &amp; Content</div>
@@ -183,6 +183,6 @@
   </div>
   <div style="margin-top:14px">
     <b style="font-size:var(--mood-typography-title-size);color:var(--mood-colors-text-strong);display:block">Onboarding walkthrough — 11 minutes</b>
-    <p style="margin:4px 0 0;font-size:12px;color:var(--mood-colors-muted)">Recorded 04 Mar 2026 · 1080p · captions available in English and Dutch.</p>
+    <p style="margin:4px 0 0;font-size:12px;color:var(--mood-colors-text-secondary)">Recorded 04 Mar 2026 · 1080p · captions available in English and Dutch.</p>
   </div>
 </div>

@@ -45,6 +45,7 @@ const PROBES = {
   rtl: { page: "rtl.html", title: "the reading direction" },
   keyboard: { page: "keyboard.html", title: "the keyboard" },
   apps: { page: "apps.html", title: "app packs" },
+  moods: { page: "moods.html", title: "the specimens" },
 };
 
 const args = process.argv.slice(2);
@@ -221,7 +222,7 @@ function describe(row) {
   // report a pair of colours and a ratio.
   if (row.detail) return `${row.theme ?? ""}  ${row.element} — ${row.detail}`;
   const parts = [
-    row.theme ?? row.screen ?? "",
+    row.theme ?? row.screen ?? row.group ?? "",
     row.element ?? "",
     `${row.ratio}<${row.need}`,
     `${row.fg} on ${row.bg}`,
@@ -431,6 +432,7 @@ try {
   console.log(`  failures: ${failures}`);
   if (report.unmeasurable !== undefined) console.log(`  unmeasurable: ${report.unmeasurable}`);
   if (report.screens !== undefined) console.log(`  screens: ${report.screens}`);
+  if (report.pages !== undefined) console.log(`  pages: ${report.pages}`);
   // The motion probe reports what the reader asked for and how much the
   // library would have moved without being asked — the baseline is what makes
   // the reduced-motion number mean something.
@@ -445,7 +447,7 @@ try {
     // screen), and one component's failure is one thing to go and look at.
     const groups = new Map();
     for (const r of rows) {
-      const key = r.component ?? r.app ?? "?";
+      const key = r.component ?? r.app ?? r.group ?? "?";
       if (!groups.has(key)) groups.set(key, []);
       groups.get(key).push(r);
     }

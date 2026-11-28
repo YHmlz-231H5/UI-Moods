@@ -1,25 +1,25 @@
 <style>
   .s-tabs { display: flex; gap: 2px; border-bottom: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
   .s-tab {
-    padding: 10px 14px; font-size: 13px; color: var(--mood-colors-muted);
+    padding: 10px 14px; font-size: 13px; color: var(--mood-colors-text-secondary);
     border-bottom: 2px solid transparent;
   }
   .s-tab.s-active {
     color: var(--mood-colors-text-strong); font-weight: 600;
-    border-bottom-color: var(--mood-colors-accent);
+    border-bottom-color: var(--mood-colors-accent-text);
   }
   .s-tab-count {
     margin-left: 8px; padding: 1px 8px; border-radius: var(--mood-radii-badge);
-    background: var(--mood-colors-bg); color: var(--mood-colors-muted); font-size: 11px;
+    background: var(--mood-colors-bg); color: var(--mood-colors-text-secondary); font-size: 11px;
   }
-  .s-tab.s-active .s-tab-count { background: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); }
+  .s-tab.s-active .s-tab-count { background: var(--mood-colors-accent); color: var(--mood-colors-on-accent-solid); }
   .s-tabs-pill {
     display: inline-flex; gap: 4px; padding: 4px;
     background: var(--mood-colors-bg);
     border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
     border-radius: var(--mood-radii-button);
   }
-  .s-tab-pill { padding: 6px 14px; border-radius: var(--mood-radii-input); font-size: 12px; color: var(--mood-colors-muted); }
+  .s-tab-pill { padding: 6px 14px; border-radius: var(--mood-radii-input); font-size: 12px; color: var(--mood-colors-text-secondary); }
   .s-tab-pill.s-active {
     background: var(--mood-colors-surface); color: var(--mood-colors-text-strong);
     font-weight: 600; box-shadow: var(--mood-shadows-button);
@@ -29,14 +29,14 @@
   .s-acc-item:last-child { border-bottom: 0; }
   .s-acc-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 14px 2px; }
   .s-acc-head b { font-size: 13px; font-weight: 600; color: var(--mood-colors-text-strong); }
-  .s-acc-head small { display: block; font-size: 11px; color: var(--mood-colors-muted); font-weight: 400; }
+  .s-acc-head small { display: block; font-size: 11px; color: var(--mood-colors-text-secondary); font-weight: 400; }
   .s-acc-mark {
     width: 20px; height: 20px; flex-shrink: 0; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    background: var(--mood-colors-bg); color: var(--mood-colors-muted); font-size: 13px;
+    background: var(--mood-colors-bg); color: var(--mood-colors-text-secondary); font-size: 13px;
   }
-  .s-acc-item.s-open .s-acc-mark { background: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); }
-  .s-acc-body { padding: 0 2px 16px; font-size: 12px; color: var(--mood-colors-muted); }
+  .s-acc-item.s-open .s-acc-mark { background: var(--mood-colors-accent); color: var(--mood-colors-on-accent-solid); }
+  .s-acc-body { padding: 0 2px 16px; font-size: 12px; color: var(--mood-colors-text-secondary); }
   .s-acc-body p { margin: 0 0 8px; }
   .s-segment {
     display: inline-flex; padding: 3px; gap: 2px;
@@ -44,13 +44,13 @@
     border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
     border-radius: var(--mood-radii-button);
   }
-  .s-seg-item { padding: 6px 16px; border-radius: var(--mood-radii-input); font-size: 12px; color: var(--mood-colors-muted); }
+  .s-seg-item { padding: 6px 16px; border-radius: var(--mood-radii-input); font-size: 12px; color: var(--mood-colors-text-secondary); }
   .s-seg-item.s-active {
-    background: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface));
+    background: var(--mood-colors-accent); color: var(--mood-colors-on-accent-solid);
     font-weight: 600;
   }
   .s-seg-item.s-disabled { opacity: 0.4; }
-  .s-chart-sub { font-size: 11px; color: var(--mood-colors-muted); }
+  .s-chart-sub { font-size: 11px; color: var(--mood-colors-text-secondary); }
   .s-meta-row { display: flex; align-items: center; gap: 10px; }
 </style>
 
@@ -77,7 +77,7 @@
         <span class="s-seg-item">Revenue</span>
         <span class="s-seg-item s-disabled">Forecast</span>
       </div>
-      <div class="s-meta-row" style="font-size:12px;color:var(--mood-colors-muted)">
+      <div class="s-meta-row" style="font-size:12px;color:var(--mood-colors-text-secondary)">
         Segmented controls and secondary tabs share the same 12 px label size.
       </div>
     </div>

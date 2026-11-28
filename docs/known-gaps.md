@@ -86,6 +86,15 @@ changes what the old "single matrix template" caveat means:
 - **Sections are composed, not interactive** — controls are non-functional
   by contract (no `<script>`, no `onclick`). The specimen shows states, it
   does not run them.
+- **The specimens are measured now** — `tools/probe/moods.html` loads all 32
+  specimen pages and measures what the browser painted, with the same module
+  the app probe uses: **45 179 measurements, 0 failures**. The first run
+  reported 4 402, which is how the three-deep translucent stacks in the frosted
+  moods were found — a caption that read on the page and vanished inside a
+  card. What is outside the measurement: the same one that is outside the app
+  probe's, a meaningful *shape* in the mood layer is not held to the 3:1 bar,
+  and the specimens' gradients are reported as unmeasurable rather than
+  guessed at.
 
 ---
 
@@ -108,19 +117,17 @@ from the specimen's:
   demonstrate layout and hierarchy, not real backend contracts.
 - **390 × 844 frame only** — one device size is rendered. The frame is fluid
   in width but the layout does not reflow for tablets or foldables.
-- **Contrast is inherited, not re-checked** — an app pack inherits its mood's
-  contrast guarantees. The *state* fills are re-checked, because the semantic
-  layer ships its own foregrounds (a badge on an accent fill is now measured,
-  not assumed), but a block that composes two surfaces in some other new way is
-  still not automatically re-validated.
-- **The screens have been measured, and the mood's palette has not passed**
-  — `tools/probe/apps.html` loads all 60 screens and measures what the browser
-  painted: 3 364 measurements, 1 106 below the bar. 961 of them are a mood
-  colour painted as text (`colors.muted` accounts for 823 of those) and 145
-  are a solid fill with the mood's own on-colour. The app packs show the mood
-  as it is, on purpose, so this is the size of the *mood palette's* debt
-  rather than a defect in the generator — but it is a number now, and it was
-  a promise before.
+- **Contrast is measured, not inherited** — `tools/probe/apps.html` loads all 60
+  screens and measures what the browser painted. The first run reported 1 106
+  spots below the bar: 961 of them a mood colour painted as text
+  (`colors.muted` accounted for 823) and 145 a solid fill with the mood's own
+  on-colour. The mood layer now draws its text with the derived `-text`
+  companions and a solid fill with `on-*-solid`, so the screens measure
+  **3 364 measurements, 0 failures**. What is still outside it: a block that
+  composes two surfaces in some new way is measured only the next time the
+  probe runs, and the probe measures *text* — a shape that carries meaning on
+  its own in the mood layer is not held to the 3:1 bar, because there is no
+  list of the mood layer's meaningful shapes to hold it to.
 - **No photography — generated covers instead** — the library ships no image
   assets, so product shots, dish photos and album covers are replaced by
   abstract compositions drawn from the mood's tokens

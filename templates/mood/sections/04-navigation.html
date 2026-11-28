@@ -10,16 +10,16 @@
     width: 34px; height: 34px; display: flex; align-items: center; justify-content: center;
     border-radius: var(--mood-radii-button);
     background: var(--mood-colors-accent);
-    color: var(--mood-colors-on-accent, var(--mood-colors-surface));
+    color: var(--mood-colors-on-accent-solid);
     font-weight: 700;
   }
   .s-brand-text { display: flex; flex-direction: column; line-height: 1.25; }
   .s-brand-text strong { color: var(--mood-colors-text-strong); font-weight: 600; }
-  .s-brand-text small { font-size: 11px; color: var(--mood-colors-muted); }
+  .s-brand-text small { font-size: 11px; color: var(--mood-colors-text-secondary); }
   .s-nav-links { display: flex; align-items: center; gap: 4px; }
   .s-nav-link {
     padding: 8px 12px; border-radius: var(--mood-radii-button);
-    color: var(--mood-colors-muted); text-decoration: none; font-size: 13px;
+    color: var(--mood-colors-text-secondary); text-decoration: none; font-size: 13px;
   }
   .s-nav-link.s-active {
     background: var(--mood-colors-surface);
@@ -32,7 +32,7 @@
     background: var(--mood-colors-bg);
     border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
     border-radius: var(--mood-radii-input);
-    color: var(--mood-colors-muted);
+    color: var(--mood-colors-text-secondary);
   }
   .s-search svg { flex-shrink: 0; }
   .s-search input {
@@ -52,26 +52,26 @@
   .s-side-group { display: flex; flex-direction: column; gap: 2px; }
   .s-side-title {
     font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--mood-colors-muted); padding: 0 10px; margin-bottom: 4px;
+    color: var(--mood-colors-text-secondary); padding: 0 10px; margin-bottom: 4px;
   }
   .s-side-item {
     display: flex; align-items: center; gap: 10px;
     padding: 8px 10px; border-radius: var(--mood-radii-button);
-    color: var(--mood-colors-muted); text-decoration: none; font-size: 13px;
+    color: var(--mood-colors-text-secondary); text-decoration: none; font-size: 13px;
   }
   .s-side-item.s-active {
     background: var(--mood-colors-accent);
-    color: var(--mood-colors-on-accent, var(--mood-colors-surface)); font-weight: 600;
+    color: var(--mood-colors-on-accent-solid); font-weight: 600;
   }
   .s-side-icon { width: 16px; text-align: center; opacity: 0.75; }
   .s-side-count { margin-left: auto; font-size: 11px; opacity: 0.7; }
   .s-side-foot { margin-top: auto; padding-top: 12px; border-top: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
-  .s-side-meta { font-size: 11px; color: var(--mood-colors-muted); }
+  .s-side-meta { font-size: 11px; color: var(--mood-colors-text-secondary); }
   .s-page { padding: 20px; display: flex; flex-direction: column; gap: 16px; background: var(--mood-colors-surface); }
-  .s-crumbs { font-size: 10px; letter-spacing: 0.1em; color: var(--mood-colors-muted); }
+  .s-crumbs { font-size: 10px; letter-spacing: 0.1em; color: var(--mood-colors-text-secondary); }
   .s-page-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; }
   .s-page-head h3 { margin: 0; font-size: var(--mood-typography-title-size); color: var(--mood-colors-text-strong); font-weight: 600; }
-  .s-page-head p { margin: 2px 0 0; font-size: 12px; color: var(--mood-colors-muted); }
+  .s-page-head p { margin: 2px 0 0; font-size: 12px; color: var(--mood-colors-text-secondary); }
 </style>
 
 <div class="section-label">Navigation</div>

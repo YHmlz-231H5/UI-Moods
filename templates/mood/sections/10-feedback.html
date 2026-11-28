@@ -9,30 +9,30 @@
     border-radius: var(--mood-radii-block);
     box-shadow: var(--mood-shadows-card);
   }
-  .s-toast.s-ok { border-left-color: var(--mood-colors-ok); }
-  .s-toast.s-warn { border-left-color: var(--mood-colors-warn); }
-  .s-toast.s-danger { border-left-color: var(--mood-colors-danger); }
-  .s-toast.s-info { border-left-color: var(--mood-colors-accent); }
+  .s-toast.s-ok { border-left-color: var(--mood-colors-ok-text); }
+  .s-toast.s-warn { border-left-color: var(--mood-colors-warn-text); }
+  .s-toast.s-danger { border-left-color: var(--mood-colors-danger-text); }
+  .s-toast.s-info { border-left-color: var(--mood-colors-accent-text); }
   .s-toast-icon {
     width: 20px; height: 20px; flex-shrink: 0; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
     font-size: 11px; font-weight: 700;
     background: var(--mood-colors-bg); color: var(--mood-colors-text);
   }
-  .s-toast.s-ok .s-toast-icon { color: var(--mood-colors-ok); }
-  .s-toast.s-warn .s-toast-icon { color: var(--mood-colors-warn); }
-  .s-toast.s-danger .s-toast-icon { color: var(--mood-colors-danger); }
-  .s-toast.s-info .s-toast-icon { color: var(--mood-colors-accent); }
+  .s-toast.s-ok .s-toast-icon { color: var(--mood-colors-ok-text); }
+  .s-toast.s-warn .s-toast-icon { color: var(--mood-colors-warn-text); }
+  .s-toast.s-danger .s-toast-icon { color: var(--mood-colors-danger-text); }
+  .s-toast.s-info .s-toast-icon { color: var(--mood-colors-accent-text); }
   .s-toast-body { flex: 1; min-width: 0; }
   .s-toast-body b { display: block; font-size: 13px; font-weight: 600; color: var(--mood-colors-text-strong); }
-  .s-toast-body span { font-size: 12px; color: var(--mood-colors-muted); }
+  .s-toast-body span { font-size: 12px; color: var(--mood-colors-text-secondary); }
   .s-toast-close {
     background: none; border: 0; padding: 0 4px; font-size: 13px;
-    color: var(--mood-colors-muted); line-height: 1;
+    color: var(--mood-colors-text-secondary); line-height: 1;
   }
   .s-modal-wrap { padding: 20px; background: var(--mood-colors-bg); border-radius: var(--mood-radii-block); }
   .s-modal {
-    background: var(--mood-colors-surface);
+    background: var(--mood-colors-surface-flat);
     border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
     border-radius: var(--mood-radii-card);
     box-shadow: var(--mood-shadows-card);
@@ -40,12 +40,11 @@
   }
   .s-modal-head { padding: 16px 18px 12px; border-bottom: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
   .s-modal-head h3 { margin: 0; font-size: var(--mood-typography-title-size); font-weight: 600; color: var(--mood-colors-text-strong); }
-  .s-modal-head p { margin: 4px 0 0; font-size: 12px; color: var(--mood-colors-muted); }
+  .s-modal-head p { margin: 4px 0 0; font-size: 12px; color: var(--mood-colors-text-secondary); }
   .s-modal-body { padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; }
   .s-modal-body p { margin: 0; font-size: 13px; color: var(--mood-colors-text); }
   .s-modal-foot {
     padding: 12px 18px; display: flex; align-items: center; justify-content: flex-end; gap: 8px;
-    background: var(--mood-colors-panel);
     border-top: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
   }
   .s-banner {
@@ -57,7 +56,7 @@
   }
   .s-banner-body { flex: 1; }
   .s-banner-body b { display: block; font-size: 13px; font-weight: 600; color: var(--mood-colors-text-strong); }
-  .s-banner-body span { font-size: 12px; color: var(--mood-colors-muted); }
+  .s-banner-body span { font-size: 12px; color: var(--mood-colors-text-secondary); }
   .s-indeterminate {
     position: relative; height: 6px; border-radius: 999px;
     background: var(--mood-colors-border); overflow: hidden;
@@ -78,12 +77,12 @@
   .s-empty-icon {
     width: 52px; height: 52px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    background: var(--mood-colors-surface); color: var(--mood-colors-accent); font-size: var(--mood-typography-title-size);
+    background: var(--mood-colors-surface); color: var(--mood-colors-accent-text); font-size: var(--mood-typography-title-size);
   }
   .s-empty h3 { margin: 0; font-size: var(--mood-typography-title-size); font-weight: 600; color: var(--mood-colors-text-strong); }
-  .s-empty p { margin: 0; font-size: 12px; color: var(--mood-colors-muted); max-width: 320px; }
-  .s-kpi-label { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mood-colors-muted); }
-  .s-chart-sub { font-size: 11px; color: var(--mood-colors-muted); }
+  .s-empty p { margin: 0; font-size: 12px; color: var(--mood-colors-text-secondary); max-width: 320px; }
+  .s-kpi-label { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mood-colors-text-secondary); }
+  .s-chart-sub { font-size: 11px; color: var(--mood-colors-text-secondary); }
 </style>
 
 <div class="section-label">Feedback</div>

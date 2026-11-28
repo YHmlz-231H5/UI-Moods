@@ -668,10 +668,19 @@ The rendered library is measured in a headless browser by
 | `state` | does a selected thing look different from an unselected one? | 37 states, 0 failures |
 | `rtl` | does the library still read from the right? | 3 693 boxes, 0 failures |
 | `keyboard` | can a reader who never touches a mouse find it, name it, and see where they are? | 39 744 measurements, 0 failures |
+| `moods` | do the thirty-two specimen pages read? | 45 179 measurements, 0 failures |
+| `apps` | do the sixty app screens read? | 3 364 measurements, 0 failures |
 
 Every probe exits 0 when it found nothing, 1 when it found something, and 2
 when the run itself went wrong — so it can be a step in a pipeline rather
 than a ritual.
+
+The last two measure the **mood layer** — the specimens and the app packs,
+which are painted with a mood's own tokens rather than with the library's
+roles. `moods` found 4 402 unreadable spots on its first run and `apps`
+1 106; both are at zero now. See
+[docs/css-var-mapping.md §3.0](docs/css-var-mapping.md) for what the mood
+layer derives and why.
 
 ### The keyboard is measured too
 

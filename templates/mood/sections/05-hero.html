@@ -9,17 +9,17 @@
   .s-m-eyebrow {
     display: inline-flex; align-items: center; gap: 8px;
     font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--mood-colors-accent);
+    color: var(--mood-colors-accent-text);
   }
   .s-m-eyebrow::before { content: ""; width: 26px; height: 2px; background: var(--mood-colors-accent); }
   .s-m-title {
     margin: 12px 0 0; font-size: var(--mood-typography-display-size); line-height: 1.15;
     color: var(--mood-colors-text-strong); font-weight: 700;
   }
-  .s-m-sub { margin: 14px 0 0; font-size: var(--mood-typography-body-size); color: var(--mood-colors-muted); }
+  .s-m-sub { margin: 14px 0 0; font-size: var(--mood-typography-body-size); color: var(--mood-colors-text-secondary); }
   .s-m-cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
-  .s-m-outline { background: transparent; border-color: var(--mood-colors-accent); color: var(--mood-colors-accent); }
-  .s-m-note { margin: 14px 0 0; font-size: 11px; color: var(--mood-colors-muted); opacity: 0.75; }
+  .s-m-outline { background: transparent; border-color: var(--mood-colors-accent-text); color: var(--mood-colors-accent-text); }
+  .s-m-note { margin: 14px 0 0; font-size: 11px; color: var(--mood-colors-text-secondary); opacity: 0.75; }
   .s-m-visual {
     position: relative; min-height: 300px; overflow: hidden;
     border-radius: var(--mood-radii-card);
@@ -44,26 +44,26 @@
     box-shadow: var(--mood-shadows-card);
   }
   .s-m-glass-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-  .s-m-glass-title { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mood-colors-muted); }
+  .s-m-glass-title { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mood-colors-text-secondary); }
   .s-m-glass-value { font-size: var(--mood-typography-title-size); font-weight: 600; color: var(--mood-colors-text-strong); }
   .s-m-chip-row { position: absolute; left: 22px; right: 22px; bottom: 22px; display: flex; gap: 8px; }
   .s-m-chip {
     flex: 1; padding: 8px 10px; border-radius: var(--mood-radii-input);
     background: var(--mood-colors-panel);
     border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
-    font-size: 11px; color: var(--mood-colors-muted);
+    font-size: 11px; color: var(--mood-colors-text-secondary);
   }
   .s-m-chip b { display: block; color: var(--mood-colors-text-strong); font-weight: 600; font-size: 13px; }
   .s-trust { margin-top: 18px; }
   .s-trust-label {
     display: block; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--mood-colors-muted); margin-bottom: 10px;
+    color: var(--mood-colors-text-secondary); margin-bottom: 10px;
   }
   .s-trust-row { display: flex; flex-wrap: wrap; gap: 26px; align-items: center; }
   .s-trust-item {
     display: inline-flex; align-items: center; gap: 7px;
     font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--mood-colors-muted); opacity: 0.75;
+    color: var(--mood-colors-text-secondary); opacity: 0.75;
   }
   .s-trust-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--mood-colors-border); }
 </style>

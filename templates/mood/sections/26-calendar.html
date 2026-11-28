@@ -6,47 +6,47 @@
 .s-cal-nav button { width: 30px; height: 30px; padding: 0; display: flex; align-items: center; justify-content: center; }
 .s-cal-nav svg { width: 15px; height: 15px; }
 .s-cal-views { display: inline-flex; gap: 2px; padding: 3px; background: var(--mood-colors-bg); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); border-radius: var(--mood-radii-input); }
-.s-cal-views span { padding: 5px 10px; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mood-colors-muted); border-radius: var(--mood-radii-badge); }
-.s-cal-views span.on { background: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); }
+.s-cal-views span { padding: 5px 10px; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mood-colors-text-secondary); border-radius: var(--mood-radii-badge); }
+.s-cal-views span.on { background: var(--mood-colors-accent); color: var(--mood-colors-on-accent-solid); }
 .s-cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); border-top: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); border-left: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); border-radius: var(--mood-radii-input); overflow: hidden; }
-.s-cal-dow { padding: 8px 10px; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mood-colors-muted); background: var(--mood-colors-panel); border-right: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); border-bottom: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
+.s-cal-dow { padding: 8px 10px; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mood-colors-text-secondary); background: var(--mood-colors-panel); border-right: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); border-bottom: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
 .s-cal-cell { min-height: 88px; padding: 6px; border-right: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); border-bottom: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); background: var(--mood-colors-surface); }
 .s-cal-cell.out { background: var(--mood-colors-panel); }
 .s-cal-num { display: flex; align-items: center; justify-content: space-between; font-size: 11px; color: var(--mood-colors-text); margin-bottom: 4px; }
-.s-cal-cell.out .s-cal-num { color: var(--mood-colors-muted); opacity: 0.6; }
-.s-cal-today { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; background: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); font-weight: 700; }
+.s-cal-cell.out .s-cal-num { color: var(--mood-colors-text-secondary); opacity: 0.6; }
+.s-cal-today { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; background: var(--mood-colors-accent); color: var(--mood-colors-on-accent-solid); font-weight: 700; }
 .s-cal-ev { display: block; font-size: 10px; padding: 3px 6px; margin-bottom: 3px; border-radius: var(--mood-radii-badge); border-left: 2px solid var(--mood-colors-accent); background: var(--mood-colors-panel); color: var(--mood-colors-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.s-cal-ev.ok { border-left-color: var(--mood-colors-ok); }
-.s-cal-ev.warn { border-left-color: var(--mood-colors-warn); }
-.s-cal-ev.danger { border-left-color: var(--mood-colors-danger); }
-.s-cal-more { font-size: 10px; color: var(--mood-colors-muted); }
+.s-cal-ev.ok { border-left-color: var(--mood-colors-ok-text); }
+.s-cal-ev.warn { border-left-color: var(--mood-colors-warn-text); }
+.s-cal-ev.danger { border-left-color: var(--mood-colors-danger-text); }
+.s-cal-more { font-size: 10px; color: var(--mood-colors-text-secondary); }
 .s-cal-pop { padding: 14px; border-radius: var(--mood-radii-card); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); background: var(--mood-colors-surface); box-shadow: var(--mood-shadows-card); }
 .s-cal-pop-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
 .s-cal-pop-head b { font-size: var(--mood-typography-title-size); font-weight: 600; color: var(--mood-colors-text-strong); }
 .s-cal-pop-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
-.s-cal-pop-grid span { font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mood-colors-muted); text-align: center; padding-bottom: 4px; }
+.s-cal-pop-grid span { font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mood-colors-text-secondary); text-align: center; padding-bottom: 4px; }
 .s-cal-pd { display: flex; align-items: center; justify-content: center; height: 30px; font-size: 12px; border-radius: var(--mood-radii-button); color: var(--mood-colors-text); }
-.s-cal-pd.out { color: var(--mood-colors-muted); opacity: 0.6; }
-.s-cal-pd.today { border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-accent); color: var(--mood-colors-accent); }
-.s-cal-pd.on { background: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); }
-.s-cal-pop-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; padding-top: 10px; border-top: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); font-size: 11px; color: var(--mood-colors-muted); }
+.s-cal-pd.out { color: var(--mood-colors-text-secondary); opacity: 0.6; }
+.s-cal-pd.today { border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-accent); color: var(--mood-colors-accent-text); }
+.s-cal-pd.on { background: var(--mood-colors-accent); color: var(--mood-colors-on-accent-solid); }
+.s-cal-pop-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; padding-top: 10px; border-top: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); font-size: 11px; color: var(--mood-colors-text-secondary); }
 .s-cal-week { margin-top: var(--mood-spacing-gap); }
 .s-cal-week-head { display: grid; grid-template-columns: 56px repeat(7, 1fr); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); border-bottom: 0; border-radius: var(--mood-radii-input) var(--mood-radii-input) 0 0; overflow: hidden; }
 .s-cal-dayhead { padding: 8px; text-align: center; border-left: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); background: var(--mood-colors-panel); }
 .s-cal-dayhead b { display: block; font-size: 11px; font-weight: 600; color: var(--mood-colors-text-strong); }
-.s-cal-dayhead span { font-size: 10px; color: var(--mood-colors-muted); }
+.s-cal-dayhead span { font-size: 10px; color: var(--mood-colors-text-secondary); }
 .s-cal-week-body { display: grid; grid-template-columns: 56px repeat(7, 1fr); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); border-radius: 0 0 var(--mood-radii-input) var(--mood-radii-input); overflow: hidden; }
 .s-cal-hours { border-right: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); background: var(--mood-colors-panel); }
-.s-cal-hours span { display: block; height: 40px; padding: 2px 8px 0 0; text-align: right; font-size: 10px; color: var(--mood-colors-muted); border-bottom: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
+.s-cal-hours span { display: block; height: 40px; padding: 2px 8px 0 0; text-align: right; font-size: 10px; color: var(--mood-colors-text-secondary); border-bottom: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
 .s-cal-hours span:last-child { border-bottom: 0; }
 .s-cal-col { position: relative; height: 280px; border-left: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
 .s-cal-wev { position: absolute; left: 4px; right: 4px; height: 36px; padding: 4px 6px; border-radius: var(--mood-radii-badge); background: var(--mood-colors-panel); border-left: 2px solid var(--mood-colors-accent); }
 .s-cal-wev b { display: block; font-size: 11px; font-weight: 600; color: var(--mood-colors-text-strong); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.s-cal-wev span { font-size: 10px; color: var(--mood-colors-muted); }
-.s-cal-wev.ok { border-left-color: var(--mood-colors-ok); }
-.s-cal-wev.warn { border-left-color: var(--mood-colors-warn); }
+.s-cal-wev span { font-size: 10px; color: var(--mood-colors-text-secondary); }
+.s-cal-wev.ok { border-left-color: var(--mood-colors-ok-text); }
+.s-cal-wev.warn { border-left-color: var(--mood-colors-warn-text); }
 .s-cal-wev.now { background: var(--mood-colors-accent); border-left-color: var(--mood-colors-accent); }
-.s-cal-wev.now b, .s-cal-wev.now span { color: var(--mood-colors-on-accent, var(--mood-colors-surface)); }
+.s-cal-wev.now b, .s-cal-wev.now span { color: var(--mood-colors-on-accent-solid); }
 @media (max-width: 860px) { .s-cal-top { grid-template-columns: 1fr; } }
 </style>
 
@@ -141,7 +141,7 @@
   <div class="block s-cal-week">
     <div class="s-cal-head">
       <h3>Week of 9 to 15 November</h3>
-      <span style="font-size:11px;color:var(--mood-colors-muted)">All times in Europe/Amsterdam &middot; 23 events</span>
+      <span style="font-size:11px;color:var(--mood-colors-text-secondary)">All times in Europe/Amsterdam &middot; 23 events</span>
     </div>
     <div class="s-cal-week-head">
       <div class="s-cal-dayhead"></div>

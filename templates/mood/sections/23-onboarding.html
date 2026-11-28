@@ -2,11 +2,11 @@
 .s-on-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: var(--mood-spacing-gap); align-items: start; }
 .s-on-steps { display: flex; align-items: flex-start; margin-bottom: 18px; }
 .s-on-step { display: flex; flex-direction: column; align-items: center; gap: 8px; flex: 1; position: relative; }
-.s-on-step .s-on-dot { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; background: var(--mood-colors-bg); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); color: var(--mood-colors-muted); }
+.s-on-step .s-on-dot { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; background: var(--mood-colors-bg); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); color: var(--mood-colors-text-secondary); }
 .s-on-step .s-on-dot svg { width: 15px; height: 15px; }
-.s-on-step.done .s-on-dot { background: var(--mood-colors-ok); border-color: var(--mood-colors-ok); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); }
-.s-on-step.now .s-on-dot { background: var(--mood-colors-accent); border-color: var(--mood-colors-accent); color: var(--mood-colors-on-accent, var(--mood-colors-surface)); }
-.s-on-step .s-on-label { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mood-colors-muted); text-align: center; }
+.s-on-step.done .s-on-dot { background: var(--mood-colors-ok); border-color: var(--mood-colors-ok); color: var(--mood-colors-on-ok-solid); }
+.s-on-step.now .s-on-dot { background: var(--mood-colors-accent); border-color: var(--mood-colors-accent); color: var(--mood-colors-on-accent-solid); }
+.s-on-step .s-on-label { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mood-colors-text-secondary); text-align: center; }
 .s-on-step.now .s-on-label { color: var(--mood-colors-text-strong); font-weight: 600; }
 .s-on-step::after { content: ""; position: absolute; top: 16px; left: 50%; width: 100%; height: 1px; background: var(--mood-colors-border); }
 .s-on-step:last-child::after { display: none; }
@@ -16,19 +16,19 @@
 .s-on-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
 .s-on-fields .s-on-full { grid-column: 1 / -1; }
 .s-on-sample { border-radius: var(--mood-radii-input); background: var(--mood-colors-bg); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); padding: 12px; margin-bottom: 16px; }
-.s-on-sample-head { display: flex; align-items: center; justify-content: space-between; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mood-colors-muted); margin-bottom: 8px; }
+.s-on-sample-head { display: flex; align-items: center; justify-content: space-between; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mood-colors-text-secondary); margin-bottom: 8px; }
 .s-on-sample pre { margin: 0; font-family: var(--mood-typography-family); font-size: 12px; line-height: 1.6; color: var(--mood-colors-text); white-space: pre-wrap; }
 .s-on-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 14px; border-top: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); }
-.s-on-foot span { font-size: 11px; color: var(--mood-colors-muted); }
+.s-on-foot span { font-size: 11px; color: var(--mood-colors-text-secondary); }
 .s-on-signin { display: flex; flex-direction: column; gap: 14px; }
 .s-on-signin h3 { margin: 0; font-size: var(--mood-typography-title-size); font-weight: 600; color: var(--mood-colors-text-strong); }
-.s-on-signin p { margin: 0; font-size: 12px; color: var(--mood-colors-muted); }
+.s-on-signin p { margin: 0; font-size: 12px; color: var(--mood-colors-text-secondary); }
 .s-on-signin .s-on-fields { grid-template-columns: 1fr; margin-bottom: 0; }
 .s-on-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-.s-on-row a { font-size: 12px; color: var(--mood-colors-accent); text-decoration: none; }
+.s-on-row a { font-size: 12px; color: var(--mood-colors-accent-text); text-decoration: none; }
 .s-on-check { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--mood-colors-text); }
-.s-on-check svg { width: 14px; height: 14px; color: var(--mood-colors-ok); flex: none; }
-.s-on-divider { display: flex; align-items: center; gap: 12px; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mood-colors-muted); }
+.s-on-check svg { width: 14px; height: 14px; color: var(--mood-colors-ok-text); flex: none; }
+.s-on-divider { display: flex; align-items: center; gap: 12px; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mood-colors-text-secondary); }
 .s-on-divider::before, .s-on-divider::after { content: ""; flex: 1; height: 1px; background: var(--mood-colors-border); }
 .s-on-socials { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 .s-on-social { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 9px 8px; border-radius: var(--mood-radii-button); border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border); background: var(--mood-colors-surface); color: var(--mood-colors-text); font-size: 12px; }

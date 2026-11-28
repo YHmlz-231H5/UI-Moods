@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>ui-moods · specimen contrast probe</title>
+
+<!-- The specimens are the third thing this repository renders, and the one
+     thing nothing was measuring: the thirty-two mood pages, the artefact
+     every mood is actually published as.
+
+     The component probe holds the library to the role contract, and the app
+     probe holds the app packs to theirs. The specimens are built from the
+     same section templates as the app packs, so a defect in a section shows
+     up in both — but the specimens are the page a visitor lands on first, and
+     for eighteen of the thirty-two moods there is no app pack at all, so their
+     text was never measured anywhere.
+
+     This probe measures them. It loads every specimen into an iframe, walks
+     the document, and reports the colours the browser actually painted. The
+     measurement itself is shared with the app probe, so a defect that shows
+     up in one and not the other is a difference in the page, not in the
+     measuring. -->
+
+<style>
+  body { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; margin: 0; padding: 16px; background: var(--um-bg-page); color: var(--um-text-regular); }
+  h1 { font-size: 15px; margin: 0 0 8px; color: var(--um-text-primary); }
+  #summary { font-size: 13px; margin: 0 0 12px; white-space: pre-wrap; color: var(--um-text-regular); }
+  #report { font-size: 11px; border-collapse: collapse; width: 100%; }
+  #report th, #report td { border: 1px solid var(--um-border-base); padding: 3px 6px; text-align: left; vertical-align: top; }
+  #report th { background: var(--um-fill-light); color: var(--um-text-primary); position: sticky; top: 0; }
+  .fail { background: var(--um-color-danger-soft-4); }
+  #frames { position: absolute; left: -99999px; top: 0; }
+  iframe { width: 420px; height: 900px; border: 0; }
+</style>
+
+<link rel="stylesheet" href="/themes/all.css" />
+</head>
+<body>
+
+<h1>ui-moods · specimen contrast probe</h1>
+<div id="summary">running…</div>
+<table id="report"><thead><tr><th>mood</th><th>element</th><th>fg</th><th>bg</th><th>ratio</th><th>need</th><th>token</th><th>text</th></tr></thead><tbody></tbody></table>
+
+<div id="frames"></div>
+
+<script type="module">
+import { measureMoodPages, renderReport, summarise } from "./mood-measure.js";
+
+const registry = await fetch("/moods.json").then((r) => r.json());
+
+const pages = [];
+for (const mood of registry.moods ?? []) {
+  const html = await fetch(`/moods/${mood.id}/specimen.html`).then((r) => r.text());
+  pages.push({ group: mood.id, page: mood.id, html });
+}
+
+const result = await measureMoodPages(pages);
+
+renderReport(result.rows, ["group", "page", "element", "fg", "bg", "ratio", "need", "token", "text"]);
+
+document.getElementById("summary").textContent = summarise(result, [
+  `moods: ${(registry.moods ?? []).length}`,
+]);
+
+window.__PROBE__ = result;
+document.title = `probe · ${result.measurements} measurements · ${result.failures} failures`;
+</script>
+</body>
+</html>

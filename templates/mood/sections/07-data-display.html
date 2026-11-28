@@ -30,19 +30,19 @@
     border: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
     border-radius: var(--mood-radii-input);
   }
-  .s-range span { color: var(--mood-colors-muted); }
+  .s-range span { color: var(--mood-colors-text-secondary); }
   .s-tool-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
   .s-table-wrap { overflow-x: auto; }
   .s-table { width: 100%; border-collapse: collapse; font-size: 13px; }
   .s-table th { white-space: nowrap; }
   .s-table td { vertical-align: middle; }
   .s-table .s-num { text-align: right; font-variant-numeric: tabular-nums; }
-  .s-sort { display: inline-flex; align-items: center; gap: 6px; color: var(--mood-colors-muted); }
+  .s-sort { display: inline-flex; align-items: center; gap: 6px; color: var(--mood-colors-text-secondary); }
   .s-sort.s-active { color: var(--mood-colors-text-strong); }
   .s-sort-ind { font-size: 10px; opacity: 0.6; }
   .s-run { display: flex; flex-direction: column; gap: 2px; }
   .s-run b { font-weight: 600; color: var(--mood-colors-text-strong); }
-  .s-run small { font-size: 11px; color: var(--mood-colors-muted); }
+  .s-run small { font-size: 11px; color: var(--mood-colors-text-secondary); }
   .s-pill {
     display: inline-flex; align-items: center; gap: 6px;
     padding: 3px 10px; border-radius: var(--mood-radii-badge);
@@ -51,13 +51,13 @@
     color: var(--mood-colors-text);
   }
   .s-pill::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
-  .s-pill.s-ok { color: var(--mood-colors-ok); border-color: var(--mood-colors-ok); }
-  .s-pill.s-warn { color: var(--mood-colors-warn); border-color: var(--mood-colors-warn); }
-  .s-pill.s-danger { color: var(--mood-colors-danger); border-color: var(--mood-colors-danger); }
-  .s-pill.s-muted { color: var(--mood-colors-muted); }
+  .s-pill.s-ok { color: var(--mood-colors-ok-text); border-color: var(--mood-colors-ok-text); }
+  .s-pill.s-warn { color: var(--mood-colors-warn-text); border-color: var(--mood-colors-warn-text); }
+  .s-pill.s-danger { color: var(--mood-colors-danger-text); border-color: var(--mood-colors-danger-text); }
+  .s-pill.s-muted { color: var(--mood-colors-text-secondary); }
   .s-prog { display: flex; align-items: center; gap: 8px; }
   .s-prog .bar { width: 88px; flex-shrink: 0; }
-  .s-prog span { font-size: 12px; color: var(--mood-colors-muted); font-variant-numeric: tabular-nums; }
+  .s-prog span { font-size: 12px; color: var(--mood-colors-text-secondary); font-variant-numeric: tabular-nums; }
   .s-actions { display: flex; align-items: center; gap: 6px; justify-content: flex-end; }
   .s-icon-btn {
     padding: 4px 10px; font-size: 12px;
@@ -71,7 +71,7 @@
   }
   .s-pager {
     display: flex; align-items: center; justify-content: space-between; gap: 16px;
-    padding: 12px 16px; font-size: 12px; color: var(--mood-colors-muted);
+    padding: 12px 16px; font-size: 12px; color: var(--mood-colors-text-secondary);
     border-top: var(--mood-borders-width) var(--mood-borders-style) var(--mood-colors-border);
     background: var(--mood-colors-panel);
   }
@@ -84,7 +84,7 @@
   }
   .s-page-btn.s-active {
     background: var(--mood-colors-accent); border-color: var(--mood-colors-accent);
-    color: var(--mood-colors-on-accent, var(--mood-colors-surface)); font-weight: 600;
+    color: var(--mood-colors-on-accent-solid); font-weight: 600;
   }
 </style>
 

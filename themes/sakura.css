@@ -83,13 +83,13 @@
   --um-color-info-soft-8: #ebdfe2;
   --um-color-info-on-soft: #775e67;
   --um-color-info-strong: #a2858f;
-  --um-text-secondary: #7e656e;
+  --um-text-secondary: #7d646d;
   --um-surface-input: #fbe9ee;
   --um-fill-light: #fefbfc;
   --um-fill-lighter: #fef8f9;
-  --um-text-placeholder: #a79198;
+  --um-text-placeholder: #a89199;
   --um-surface-control: #ffffff;
-  --um-text-disabled: #b4a6ab;
+  --um-text-disabled: #b4a5aa;
   --um-surface-control-blank: #fbe9ee;
   --um-surface-input-blank: #fbe9ee;
   --um-surface-panel: #fbe9ee;
@@ -110,5 +110,5 @@
   --um-color-warning-graphic: #b4873d;
   --um-color-danger-graphic: #c0392b;
   --um-color-info-graphic: #a2858f;
-  --um-shape-muted: #9f8a92;
+  --um-shape-muted: #9e8a91;
 }
